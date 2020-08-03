@@ -34,7 +34,7 @@ if ($conn->connect_error) {
 } 
 
 $sql = "SELECT Stamp, IP FROM ipList ORDER BY Stamp DESC";
-
+ 
 echo '<table cellspacing="5" cellpadding="5">
       <tr> 
         <td>Time Stamp</td> 

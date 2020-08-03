@@ -1,0 +1,846 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"loca",
+				"localPVData"
+			],
+			[
+				"upd",
+				"updatedIPs"
+			],
+			[
+				"local",
+				"localData"
+			],
+			[
+				"ser",
+				"serverURL"
+			],
+			[
+				"DNS",
+				"DNSidentifier"
+			],
+			[
+				"ori",
+				"originName"
+			],
+			[
+				"config",
+				"configDict"
+			],
+			[
+				"pool",
+				"poolID"
+			],
+			[
+				"a",
+				"address"
+			],
+			[
+				"Ex",
+				"exIP"
+			],
+			[
+				"up",
+				"updateOriginIP"
+			],
+			[
+				"writ",
+				"writeConfig"
+			],
+			[
+				"coni",
+				"configDict"
+			],
+			[
+				"conf",
+				"configDict"
+			],
+			[
+				"read",
+				"readConfig"
+			],
+			[
+				"con",
+				"configDict"
+			],
+			[
+				"confi",
+				"configDict"
+			],
+			[
+				"check",
+				"checkExternalIP"
+			],
+			[
+				"configF",
+				"configFileArray"
+			],
+			[
+				"EX",
+				"EXTERNAL_IP"
+			],
+			[
+				"padd",
+				"padding-right\tproperty"
+			],
+			[
+				"marg",
+				"margin\tproperty"
+			],
+			[
+				"bl",
+				"block\tdisplay"
+			],
+			[
+				"in",
+				"inline\tdisplay"
+			],
+			[
+				"foot",
+				"footerInfoParent"
+			],
+			[
+				"bott",
+				"margin-bottom\tproperty"
+			],
+			[
+				"creat",
+				"creatorName"
+			],
+			[
+				"ali",
+				"text-align\tproperty"
+			],
+			[
+				"text",
+				"text-align\tproperty"
+			],
+			[
+				"outline",
+				"outline-width\tproperty"
+			],
+			[
+				"out",
+				"outline-color\tproperty"
+			],
+			[
+				"fill",
+				"fillImagesLeft"
+			],
+			[
+				"projec",
+				"projectNumber"
+			],
+			[
+				"chron",
+				"chronoSort"
+			],
+			[
+				"proj",
+				"projectNumber"
+			],
+			[
+				"proje",
+				"projectNumber"
+			],
+			[
+				"create",
+				"createElement"
+			],
+			[
+				"opt",
+				"optExplanation"
+			],
+			[
+				"this",
+				"thisVar"
+			],
+			[
+				"sort",
+				"sortBy"
+			],
+			[
+				"by",
+				"byColumn"
+			],
+			[
+				"chr",
+				"chronoOrder"
+			],
+			[
+				"spl",
+				"splitMediums"
+			],
+			[
+				"split",
+				"splitMediums"
+			],
+			[
+				"newJu",
+				"newJumpText"
+			],
+			[
+				"back",
+				"background-color\tproperty"
+			],
+			[
+				"how",
+				"howitworks-gif"
+			],
+			[
+				"howit",
+				"howitworks-gif"
+			],
+			[
+				"cle",
+				"cleanedKeys"
+			],
+			[
+				"ad",
+				"advOptionsSel"
+			],
+			[
+				"as",
+				"advOptionsSel"
+			],
+			[
+				"outli",
+				"outline-style\tproperty"
+			],
+			[
+				"left",
+				"leftContent"
+			],
+			[
+				"outl",
+				"outline-style\tproperty"
+			],
+			[
+				"mar",
+				"margin-top\tproperty"
+			],
+			[
+				"ho",
+				"howitworks"
+			],
+			[
+				"desc",
+				"descText"
+			],
+			[
+				"splt",
+				"splitParagraphs"
+			],
+			[
+				"sour",
+				"sourceText"
+			],
+			[
+				"capt",
+				"captionText"
+			],
+			[
+				"creator",
+				"creatorColumnsToSearch"
+			],
+			[
+				"advOp",
+				"advOptionsSel"
+			],
+			[
+				"adv",
+				"advOptionsSel"
+			],
+			[
+				"min",
+				"min-width\tproperty"
+			],
+			[
+				"margin",
+				"margin-bottom\tproperty"
+			],
+			[
+				"video",
+				"videoArray"
+			],
+			[
+				"creato",
+				"creatorName"
+			],
+			[
+				"vid",
+				"vidLink"
+			],
+			[
+				"vim",
+				"vimFrame"
+			],
+			[
+				"other",
+				"otherIDs"
+			],
+			[
+				"ra",
+				"randomText"
+			],
+			[
+				"lef",
+				"leftText"
+			],
+			[
+				"max",
+				"max-height\tproperty"
+			],
+			[
+				"align",
+				"align-content\tproperty"
+			],
+			[
+				"class",
+				"className"
+			],
+			[
+				"outpu",
+				"outputThis"
+			],
+			[
+				"cla",
+				"className"
+			],
+			[
+				"inlin",
+				"inline-block\tdisplay"
+			],
+			[
+				"wid",
+				"width\tproperty"
+			],
+			[
+				"ge",
+				"getRandomLink"
+			],
+			[
+				"rand",
+				"randomLink"
+			],
+			[
+				"id",
+				"ID"
+			],
+			[
+				"enc",
+				"encodedYear"
+			],
+			[
+				"en",
+				"encodeName"
+			],
+			[
+				"form",
+				"formattedYear"
+			],
+			[
+				"c",
+				"cover\tbackground-size"
+			],
+			[
+				"ba",
+				"background-size\tproperty"
+			],
+			[
+				"chrono",
+				"chronoOrder"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"print",
+				"printEntry"
+			],
+			[
+				"result",
+				"resultArray"
+			],
+			[
+				"ap",
+				"append"
+			],
+			[
+				"art",
+				"artistWebsite"
+			],
+			[
+				"bio",
+				"bioText"
+			],
+			[
+				"app",
+				"appendChild"
+			],
+			[
+				"link",
+				"linkArray"
+			],
+			[
+				"temp",
+				"tempArray"
+			],
+			[
+				"im",
+				"imageArray"
+			],
+			[
+				"forma",
+				"formattedName"
+			],
+			[
+				"star",
+				"startDate"
+			],
+			[
+				"cre",
+				"creatorName"
+			],
+			[
+				"colum",
+				"columnsToSearch"
+			],
+			[
+				"searc",
+				"searchTerm"
+			],
+			[
+				"rem",
+				"remPrev"
+			],
+			[
+				"new",
+				"newSpan"
+			],
+			[
+				"slide",
+				"slideIndex"
+			],
+			[
+				"remov",
+				"removeChild"
+			],
+			[
+				"par",
+				"parsedArray"
+			],
+			[
+				"som",
+				"someCreators"
+			],
+			[
+				"lin",
+				"linkText"
+			],
+			[
+				"re",
+				"replace"
+			],
+			[
+				"mediu",
+				"mediums"
+			],
+			[
+				"med",
+				"medium"
+			],
+			[
+				"an",
+				"anArray"
+			],
+			[
+				"price",
+				"priceTable"
+			],
+			[
+				"uniqu",
+				"uniqueStuff"
+			],
+			[
+				"getRo",
+				"getRowCount"
+			],
+			[
+				"tot",
+				"totArtists"
+			],
+			[
+				"axis",
+				"axisMax"
+			],
+			[
+				"lo",
+				"loadTable"
+			],
+			[
+				"va",
+				"valign"
+			],
+			[
+				"na",
+				"navX"
+			],
+			[
+				"h",
+				"h2\tTag"
+			],
+			[
+				"p",
+				"p\tTag"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "<?php\n\n/*\n  Rui Santos\n  Complete project details at https://RandomNerdTutorials.com/esp32-esp8266-mysql-database-php/\n  \n  Permission is hereby granted, free of charge, to any person obtaining a copy\n  of this software and associated documentation files.\n  \n  The above copyright notice and this permission notice shall be included in all\n  copies or substantial portions of the Software.\n*/\n\n/*\nDB name: ipDB\nTable name: ipList\ncolumns: Stamp, IP\n*/\n\n$servername = \"localhost\";\n\n// REPLACE with your Database name\n$dbname = \"ipDB\";\n// REPLACE with Database user\n$username = \"root\";\n// REPLACE with Database user password\n$password = \"sp252vb\";\n\n// Keep this API Key value to be compatible with the ESP32 code provided in the project page. \n// If you change this value, the ESP32 sketch needs to match\n$api_key_value = \"tPmAT5Ab3j7F9\";\n\n$api_key= $time = $ip = \"\";\n\nif ($_SERVER[\"REQUEST_METHOD\"] == \"POST\") {\n    $api_key = test_input($_POST[\"api_key\"]);\n    if($api_key == $api_key_value) {\n        $stamp = test_input($_POST[\"stamp\"]);\n        $ip = test_input($_POST[\"ip\"]);\n        \n        // Create connection\n        $conn = new mysqli($servername, $username, $password, $dbname);\n        // Check connection\n        if ($conn->connect_error) {\n            die(\"Connection failed: \" . $conn->connect_error);\n        } \n        \n        $sql = \"INSERT INTO SensorData (stamp, ip)\n        VALUES ('\" . $stamp . \"', '\" . $ip . \"')\";  \n        \n        if ($conn->query($sql) === TRUE) {\n            echo \"New record created successfully\";\n        } \n        else {\n            echo \"Error: \" . $sql . \"<br>\" . $conn->error;\n        }\n    \n        $conn->close();\n    }\n    else {\n        echo \"Wrong API Key provided.\";\n    }\n\n}\nelse {\n    echo \"No data posted with HTTP POST.\";\n}\n\nfunction test_input($data) {\n    $data = trim($data);\n    $data = stripslashes($data);\n    $data = htmlspecialchars($data);\n    return $data;\n}\n",
+			"settings":
+			{
+				"buffer_size": 1932,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"sftp",
+				"SFTP: Map to Remote…"
+			],
+			[
+				"package control",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 512.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/dynamic-IP-updater/config.txt",
+		"/D/dynamic-IP-updater/cloudFlare-dynamic-IP-updater.py",
+		"/D/dynamic-IP-updater/private.txt",
+		"/D/dynamic-IP-updater/README.md",
+		"/D/dynamic-IP-updater/scriptrunner.sh",
+		"/D/dynamic-IP-updater/.gitignore",
+		"/D/dynamic-IP-updater/setEnvironmentVariables.py",
+		"/D/brightscriptNodeServer/Server/tools/batchCommandTester.js",
+		"/D/websites/solarpowerforartists/about/index.html",
+		"/D/websites/solarpowerforartists/events.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/spfa_store_web_resources/nav.json",
+		"/C/Users/Alex Nathanson/Documents/Websites/spfa_store_web_resources/headerTest.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/.gitignore",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/js/headerTest.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/learn/tutorials.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/json/nav.json",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/services.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/about/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/data/ArchiveProjects_6_4.csv",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/privacy-policy.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/about.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/events.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/spfa.css",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/trends.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/search.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/project.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/creator.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/context.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/collections.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/archive.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/learn/outline.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/learn/learn.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/learn/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/learn/howitworks.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/learn/glossary.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/learn/external.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/contact.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/about/press.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/mailinglist.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/makingmotion.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/makingsound.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/js/archiveFunctions.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/js/project.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/js/creator.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/js/search.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV009/js/archive.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/project.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/search.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/trends.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/archive.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/collections.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/context.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/creator.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/press.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/js/archiveFunctions.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/js/nav.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/js/search.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/howitworks.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/external.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/glossary.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/js/project.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/learn.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/js/creator.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/advancedsearch.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/creator.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/js/archiveFunctions.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/outline.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV008/js/vidEmbed.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/embedTest.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/js/vidEmbed.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/js/archive.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/js/search.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/project.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/resources.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/context.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/archive.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/search.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/howitworks.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/collections.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/trends.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/about.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/js/project.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV007/js/creator.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/howitworks.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/creator.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/context.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/collections.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/archive.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/about.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/trends.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/search.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/project.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/sandbox/spfa.css",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/sandbox/json/nav.json",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/sandbox/js/nav.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/sandbox/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/js/archiveFunctions.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/js/archivenav.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/js/about.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV006/js/loaddata.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/js/archive.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/archive.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/js/archivenav.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/howitworks.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/collections.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/trends.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/about.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/index.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/js/project.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/search.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/project.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/context.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/creator.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/js/random.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/archivenav.json",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/js/archivenav_1pm.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/js/random2.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/data/ArchiveProjects_3_6.csv",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV004/project.html",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/archivenav.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/random.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/archiveFunctions.js",
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/search.js"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 107.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1932,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1787,
+								1787
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 975.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 46.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "distributedIPexchanger.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"/C/Users/Alex Nathanson/Documents/Websites/alexnathanson.com/alexnathanson.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 272.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

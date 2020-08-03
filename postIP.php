@@ -30,7 +30,7 @@ $password = "sp252vb";
 // If you change this value, the ESP32 sketch needs to match
 $api_key_value = "tPmAT5Ab3j7F9";
 
-$api_key= $time = $ip = "";
+$api_key= $stamp = $ip = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $api_key = test_input($_POST["api_key"]);

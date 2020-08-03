@@ -13,7 +13,7 @@ headers = {
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 
 #myobj = {'Stamp': time.time(), 'IP': myIP}
-myString = "api_key=tPmAT5Ab3j7F9&Stamp="+str(time.time())+"&IP="+myIP
+myString = "api_key=tPmAT5Ab3j7F9&stamp="+str(time.time())+"&ip="+myIP
 
 x = requests.post(url, data = myString)
 

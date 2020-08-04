@@ -19,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ip = test_input($_POST["ip"]);
         $mac = test_input($_POST["mac"]);
 
+        /*FIX THIS SECTION FOR POSTING - read contents, update or add accordingly...
+        
         // Read the file contents into a string variable,
         // and parse the string into a data structure
         $str_data = file_get_contents("ipList.json");
@@ -45,12 +47,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               or die("Error opening output file");
         fwrite($fh, json_encode($data,JSON_UNESCAPED_UNICODE));
         fclose($fh);
+        */
     }
     else {
         echo "Wrong API Key provided.";
     }
-
 }
+
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     //read the value of the query string, replce - with spaces

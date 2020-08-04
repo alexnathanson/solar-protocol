@@ -90,9 +90,10 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
       fclose($h);
     
       //return most recent voltage
-        foreach($rawDataArray[0] as $valueName){
-            if($valueName==$qValue){
-                echo $rawDataArray[count($rawDataArray)-1][$recentValue];
+        //foreach($rawDataArray[0] as $valueName){
+        for ($v = 0; $v < sizeof($rawDataArray[0])){
+            if($rawDataArray[0][$v]==$qValue){
+                echo $rawDataArray[count($rawDataArray)-1][$v];
                 break;
             }
 

@@ -62,6 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }
+else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    echo "GET IT!";
+}
 else {
     echo "No data posted with HTTP POST.";
 }

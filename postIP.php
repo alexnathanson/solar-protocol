@@ -22,9 +22,9 @@ $servername = "localhost";
 // REPLACE with your Database name
 $dbname = "ipDB";
 // REPLACE with Database user
-$username = "root";
+$username = "solar";
 // REPLACE with Database user password
-$password = "sp252vb";
+$password = "protocol";
 
 // Keep this API Key value to be compatible with the ESP32 code provided in the project page. 
 // If you change this value, the ESP32 sketch needs to match
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-    
+        
         $conn->close();
     }
     else {

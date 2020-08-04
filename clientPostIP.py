@@ -12,6 +12,7 @@ headers = {
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 print(myIP)
 
+#this only works with linux
 def getmac(interface):
 
 	try:

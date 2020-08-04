@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"value",
+				"valueName"
+			],
+			[
+				"rece",
+				"recentValue"
+			],
+			[
+				"erro",
+				"error_log"
+			],
+			[
 				"loca",
 				"localPVData"
 			],
@@ -504,10 +516,37 @@
 	"buffers":
 	[
 		{
-			"file": "postIP.php",
+			"file": "api.php",
 			"settings":
 			{
-				"buffer_size": 1935,
+				"buffer_size": 3157,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 308,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "solarProtocol.py",
+			"settings":
+			{
+				"buffer_size": 1836,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "clientPostIP.py",
+			"settings":
+			{
+				"buffer_size": 456,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -522,18 +561,10 @@
 			}
 		},
 		{
-			"file": "distributedIPexchanger.sublime-project",
+			"file": "clientGetPV.py",
 			"settings":
 			{
-				"buffer_size": 45,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "clientPostIP.py",
-			"settings":
-			{
-				"buffer_size": 460,
+				"buffer_size": 361,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -591,6 +622,8 @@
 	],
 	"file_history":
 	[
+		"/D/distributed-dynamic-IP-exchanger-API/clientPostIP.py",
+		"/D/distributed-dynamic-IP-exchanger-API/tracerData2020-08-03.csv",
 		"/D/distributed-dynamic-IP-exchanger-API/displayDB.php",
 		"/D/distributed-dynamic-IP-exchanger-API/serverside.php",
 		"/D/dynamic-IP-updater/config.txt",
@@ -716,13 +749,11 @@
 		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/js/archivenav_1pm.js",
 		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/js/random2.js",
 		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/data/ArchiveProjects_3_6.csv",
-		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV004/project.html",
-		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/archivenav.js",
-		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV005/random.js"
+		"/C/Users/Alex Nathanson/Documents/Websites/solarpowerforartists.com/archiveV004/project.html"
 	],
 	"find":
 	{
-		"height": 46.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -736,6 +767,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"voltage"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -753,24 +785,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "postIP.php",
+					"file": "api.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1935,
+						"buffer_size": 3157,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1339,
-								1339
+								2654,
+								2654
 							]
 						],
 						"settings":
@@ -780,14 +812,99 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 450.0,
+						"translation.y": 1800.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 308,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								242,
+								242
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "solarProtocol.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1836,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1022,
+								1022
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "clientPostIP.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 456,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								86,
+								86
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 4,
 					"file": "displayDB.php",
 					"semi_transient": false,
 					"settings":
@@ -810,55 +927,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 525.0,
+						"translation.y": 450.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "distributedIPexchanger.sublime-project",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 45,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "clientPostIP.py",
+					"buffer": 5,
+					"file": "clientGetPV.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 460,
+						"buffer_size": 361,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								28,
-								28
+								6,
+								6
 							]
 						],
 						"settings":
@@ -869,7 +958,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]

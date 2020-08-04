@@ -85,8 +85,9 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       // Close the file
       fclose($h);
-
-    echo $rawDataArray[0]['PV voltage'];
+    
+      //return most recent voltage
+    echo $rawDataArray[count($rawDataArray)-1][3];
     }
 
 }

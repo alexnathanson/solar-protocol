@@ -1,4 +1,5 @@
 <?php
+#comment out these lines for production version
 ini_set('display_errors', 1); 
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL);
@@ -65,9 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    
+
     echo "GET IT!";
 
+    $fileDate = date("Y-m-d");
     $fileName = "/home/pi/EPSolar_Tracer/data/tracerData" . $fileDate . ".csv";
     $rawDataArray = [];
 
@@ -84,7 +86,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
       // Close the file
       fclose($h);
 
-      echo $rawDataArray;
+    echo $rawDataArray[0];
     }
 
 }

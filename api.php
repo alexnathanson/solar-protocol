@@ -68,10 +68,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     //read the value of the query string, replce - with spaces
-    echo $_GET["value"];
-    $qValue = str_replace("-"," ",$_GET["value"];
-        echo $qValue;
-        
+    //echo $_GET["value"];
+    $qValue = str_replace("-"," ",$_GET["value"]);
+    //echo $qValue;
+
     $fileDate = date("Y-m-d");
     $fileName = "/home/pi/EPSolar_Tracer/data/tracerData" . $fileDate . ".csv";
     $rawDataArray = [];
@@ -90,10 +90,9 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
       fclose($h);
     
       //return most recent voltage
-        $mostRecent = $rawDataArray[count($rawDataArray)-1];
-        foreach($mostRecent as $recentValue){
-            if($recentValue==$qValue){
-                echo $mostRecent[$recentValue];
+        foreach($rawDataArray[0] as $valueName){
+            if($valueName==$qValue){
+                echo $rawDataArray[count($rawDataArray)-1][$recentValue];
                 break;
             }
 

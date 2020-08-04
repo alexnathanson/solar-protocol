@@ -66,7 +66,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
     echo "GET IT!";
 
     $fileName = "/home/pi/EPSolar_Tracer/data/tracerData" . $fileDate . ".csv";
-    $rawDataArray = [];
+    $rawDataArray[] = [];
 
     if (($h = fopen("{$fileName}", "r")) !== FALSE) 
     {
@@ -81,7 +81,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
       // Close the file
       fclose($h);
 
-      echo $rawDataArray;
+      echo $rawDataArray[];
     }
 
 }

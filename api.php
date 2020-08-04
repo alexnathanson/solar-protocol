@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL);
 /*
-  Rui Santos
+  portions of this code based off of code by Rui Santos
   Complete project details at https://RandomNerdTutorials.com/esp32-esp8266-mysql-database-php/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -67,8 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    echo "GET IT!";
-
+    //read the value of the query string, replce - with spaces
+    echo $_GET["value"];
+    $qValue = str_replace("-"," ",$_GET["value"];
+        echo $qValue;
+        
     $fileDate = date("Y-m-d");
     $fileName = "/home/pi/EPSolar_Tracer/data/tracerData" . $fileDate . ".csv";
     $rawDataArray = [];
@@ -87,7 +90,16 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
       fclose($h);
     
       //return most recent voltage
-    echo $rawDataArray[count($rawDataArray)-1][3];
+        $mostRecent = $rawDataArray[count($rawDataArray)-1];
+        foreach($mostRecent as $recentValue){
+            if($recentValue==$qValue){
+                echo $mostRecent[$recentValue];
+                break;
+            }
+
+        }
+
+
     }
 
 }

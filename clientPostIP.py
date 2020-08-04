@@ -4,7 +4,6 @@ import time
 dstIP = '192.168.1.180'
 url = 'http://'+dstIP+'/api.php'
 
-
 headers = {
     #'X-Auth-Key': KEY,
     'Content-Type': 'application/x-www-form-urlencoded',

@@ -96,15 +96,8 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 echo $rawDataArray[count($rawDataArray)-1][$v];
                 break;
             }
-
         }
-
-
     }
-
-}
-else {
-    echo "No data posted with HTTP POST.";
 }
 
 function test_input($data) {

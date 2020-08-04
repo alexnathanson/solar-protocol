@@ -2,7 +2,7 @@ import requests
 import time
 
 dstIP = '192.168.1.180'
-url = 'http://'+dstIP+'/postIP.php'
+url = 'http://'+dstIP+'/api.php'
 
 
 headers = {

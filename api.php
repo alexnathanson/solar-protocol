@@ -64,6 +64,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
     echo "GET IT!";
+
+    $fileName = "/home/pi/EPSolar_Tracer/data/tracerData" . $fileDate . ".csv";
+
+    if (($h = fopen("{$fileName}", "r")) !== FALSE) 
+    {
+      // Each line in the file is converted into an individual array that we call $data
+      // The items of the array are comma separated
+      while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
+      {
+        // Each individual array is being pushed into the nested array
+        $rawDataArray[] = $data;        
+      }
+
+      // Close the file
+      fclose($h);
+
+      echo 
+    }
+
 }
 else {
     echo "No data posted with HTTP POST.";

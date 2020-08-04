@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1); 
+ini_set('display_startup_errors', 1); 
+error_reporting(E_ALL);
 /*
   Rui Santos
   Complete project details at https://RandomNerdTutorials.com/esp32-esp8266-mysql-database-php/
@@ -63,7 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    error_log('GET!');
     
     echo "GET IT!";
 

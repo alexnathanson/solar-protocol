@@ -86,7 +86,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
       // Close the file
       fclose($h);
 
-    echo $rawDataArray[0];
+    echo $rawDataArray[0]['PV voltage'];
     }
 
 }

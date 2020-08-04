@@ -22,9 +22,9 @@ $servername = "localhost";
 // REPLACE with your Database name
 $dbname = "ipDB";
 // REPLACE with Database user
-$username = "root";
+$username = "solar";
 // REPLACE with Database user password
-$password = "sp252vb";
+$password = "protocol";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

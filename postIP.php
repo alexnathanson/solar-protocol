@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("Connection failed: " . $conn->connect_error);
         } 
         
-        $sql = "INSERT INTO SensorData (stamp, ip)
+        $sql = "INSERT INTO ipList (stamp, ip)
         VALUES ('" . $stamp . "', '" . $ip . "')";  
         
         if ($conn->query($sql) === TRUE) {

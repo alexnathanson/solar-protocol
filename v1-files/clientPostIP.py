@@ -15,7 +15,8 @@ headers = {
 deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json";
 
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
-print(myIP)
+
+print("MY IP: " + myIP)
 
 myName = 'pi'
 
@@ -39,7 +40,8 @@ def getIPList():
 	#print(data)
 
 	for i in range(len(data)):
-		ipList.append(data[i]['ip'])
+		if data[i]['mac'] !=  myMAC:
+			ipList.append(data[i]['ip'])
 
 	#print(ipList)
 
@@ -52,7 +54,7 @@ def makePosts(ipList):
 
 	for dst in ipList:
 
-		print(dst)
+		print("DST: " + dst)
 		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
 		#if dst != myIP: #does not work when testing only with local network
 		x = requests.post('http://'+dst+'/api.php', headers=headers,data = myString)

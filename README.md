@@ -36,15 +36,15 @@ https://pimylifeup.com/raspberry-pi-mysql/
 GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
 
 ## Testing
-Remember to update data file date for testing purposes...
 
 clientGetPV.py is just for testing purposes. solarProtocol.py handles this functionality in production version.
 
-Sample data is included in the tracerData2020-08-04.csv file
+Sample data is included in the data/tracerData2020-08-04.csv file
+* date on file needs to be updated daily for testing purposes
+* place this in /home/pi/EPSolar_Tracer/data/
 
 
 ## TO DO:
-* fix api post for IP list json
 * have clientPostIP.py access IP list and post to those IPs
 * solarProtocol needs to access IP list and get PV data from those IPs
 * merge with the solar website stuff...

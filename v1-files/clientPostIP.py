@@ -34,12 +34,12 @@ def getIPList():
 	with open(deviceList) as f:
 	  data = json.load(f)
 
-	print(data)
+	#print(data)
 
 	for i in range(len(data)):
 		ipList.append(data[i]['ip'])
 
-	print(ipList)
+	#print(ipList)
 
 	return ipList
 
@@ -50,10 +50,11 @@ def makePosts(ipList):
 
 	for dst in ipList:
 
-		#if statement only necessary if storing local IP...
-		if dst != myIP:
-			x = requests.post('http://'+dst+'/api.php', headers=headers,data = myString)
-			print(x.text)
+		print(dst)
+		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
+		#if dst != myIP: #does not work when testing only with local network
+		x = requests.post('http://'+dst+'/api.php', headers=headers,data = myString)
+		print(x.text)
 
 myMAC = getmac("wlan0")
 dstList = getIPList()

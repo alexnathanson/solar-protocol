@@ -9,33 +9,20 @@ import os
 import fileinput
 import json
 
+#terminal command to update DNS record
 subCall = 'python /home/pi/dynamic-IP-updater/cloudFlare-dynamic-IP-updater.py'
 
-# headers = {
-#     #'X-Auth-Email': EMAIL,
-#     #'X-Auth-Key': KEY,
-#     'Content-Type': 'application/json',
-# }
-
-dstIPs = []
-localPVData = ""
+#localPVData = ""
 
 '''
-possible values (use - instead of space):
+possible values (use "-" instead of spaces):
 PV current,PV power H,PV power L,PV voltage,
 battery percentage,battery voltage,charge current,
 charge power H,charge power L,date,load current,load power,load voltage,time
 '''
 apiValue = 'PV-voltage'
 
-
-#replace with system for retrieving DST IPs
-def getDstIPs():
-
-	updatedIPs = ['192.168.1.206']
-
-	for i in range(len(updatedIPs)):
-		dstIPs.append(updatedIPs[i])
+deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json";
 
 #return data from a particular server
 def getData(dst):
@@ -52,12 +39,13 @@ def remoteData():
 		#print(dst)
 		allData.append(getData(dst))
 
-	determineServer(allData)
+	print("ALL DATA:")
+	print(allData)
+
+	#determineServer(allData)
 
 def determineServer(arrayOfData):
 
-	#add a mechanism for comparing time stamps...
-	#print(arrayOfData)
 	thisServer = True
 
 	#loop through data from all servers and compare voltages
@@ -68,7 +56,7 @@ def determineServer(arrayOfData):
 			thisServer = False
 
 	if thisServer:
-		print('WINNER')
+		print('Point of contact')
 		os.system(subCall)
 
 def localData():
@@ -80,6 +68,23 @@ def localData():
 
 	return json.loads(data)
 
+
+def getIPList():
+
+	ipList = []
+
+	with open(deviceList) as f:
+	  data = json.load(f)
+
+	#print(data)
+
+	for i in range(len(data)):
+		ipList.append(data[i]['ip'])
+
+	#print(ipList)
+
+	return ipList
+
 localPVData = localData()
-getDstIPs()
+dstIPs = getDstIPs()
 remoteData()

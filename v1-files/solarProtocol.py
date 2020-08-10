@@ -10,6 +10,7 @@ import fileinput
 import json
 import datetime
 import csv
+#import pandas
 
 #terminal command to update DNS record
 subCall = 'python /home/pi/dynamic-IP-updater/cloudFlare-dynamic-IP-updater.py'
@@ -65,13 +66,11 @@ def determineServer(arrayOfData):
 
 def localData():
 	#get the local PV data
-	with open(localData, mode='r') as csvfile:
-		localPVData = csv.reader(csvfile)
+	with open(localData, mode='r',newline='') as csvfile:
+		localPVData = csv.reader(csvfile, delimiter=' ', quotechar='|')
 
-		print(localPVData)
-
-		# for row in localPVData:
-		# 	print(', '.join(row))
+		for row in localPVData:
+		 	print(', '.join(row))
 
 		return localPVData.iloc[-1]
 

@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //loop through to check if entry with mac address exists
         $newMac = true;
-        for ($i = 0; $i < sizeof($data['deviceList']);$i++){
-          if($data[0][$i]['mac']==$mac){
-              $data[0][$i]['ip']= $ip;
-              $data[0][$i]['time stamp']= $stamp;
+        for ($i = 0; $i < sizeof($data);$i++){
+          if($data[$i]['mac']==$mac){
+              $data[$i]['ip']= $ip;
+              $data[$i]['time stamp']= $stamp;
               $newMac = false;
               break;
           }
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "ip" => $ip,
             "time stamp" => $stamp
           ];
-          array_push($data['deviceList'], $newEntry);
+          array_push($data, $newEntry);
         }
 
         var_dump($data);
@@ -103,4 +103,11 @@ function test_input($data) {
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
+}
+
+
+function ipValidator($ip){
+  //check for amount of subnets
+  //check that they only contain numbers
+  return $ip
 }

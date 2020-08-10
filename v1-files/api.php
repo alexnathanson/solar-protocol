@@ -9,7 +9,7 @@ $servername = "localhost";
 // If you change this value, the client keys need to match
 $api_key_value = "tPmAT5Ab3j7F9";
 
-$api_key= $stamp = $ip = $mac = "";
+$api_key= $stamp = $ip = $mac = $name = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -24,7 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stamp = test_input($_POST["stamp"]);
       $ip = test_input($_POST["ip"]);
       $mac = test_input($_POST["mac"]);
-      
+      $devName = test_input($_POST["name"]);
+
       // Read the file contents into a string variable,
       // and parse the string into a data structure
       $str_data = file_get_contents($fileName);
@@ -40,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "mac" => $mac,
             "ip" => $ip,
             "time stamp" => $stamp
+            "name" => $devName
           ]];
       } else {
         //loop through to check if entry with mac address exists
@@ -48,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           if($data[$i]['mac']==$mac){
               $data[$i]['ip']= $ip;
               $data[$i]['time stamp']= $stamp;
+              $data[$i]['name']= $devName;
               $newMac = false;
               break;
           }
@@ -57,7 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $newEntry = [
             "mac" => $mac,
             "ip" => $ip,
-            "time stamp" => $stamp
+            "time stamp" => $stamp,
+            "name" => $devName
           ];
           array_push($data, $newEntry);
         }

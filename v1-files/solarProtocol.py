@@ -93,11 +93,23 @@ def getIPList():
 	#print(data)
 
 	for i in range(len(data)):
-		ipList.append(data[i]['ip'])
+		#filter out local device's mac address
+		if data[i]['mac'] !=  getmac("wlan0"):
+			ipList.append(data[i]['ip'])
 
 	#print(ipList)
 
 	return ipList
+
+#this only works with linux
+def getmac(interface):
+
+	try:
+		mac = open('/sys/class/net/'+interface+'/address').readline()
+	except:
+		mac = "00:00:00:00:00:00"
+
+	return mac
 
 localPVData = localData()
 remotePVData = remoteData(getIPList())

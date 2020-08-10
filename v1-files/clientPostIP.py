@@ -17,6 +17,8 @@ deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 print(myIP)
 
+myName = 'pi'
+
 #this only works with linux
 def getmac(interface):
 
@@ -45,7 +47,7 @@ def getIPList():
 
 def makePosts(ipList):
 	
-	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC
+	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
 	print(myString)
 
 	for dst in ipList:
@@ -56,6 +58,7 @@ def makePosts(ipList):
 		x = requests.post('http://'+dst+'/api.php', headers=headers,data = myString)
 		print(x.text)
 
+#wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
 dstList = getIPList()
 makePosts(dstList)

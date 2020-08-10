@@ -17,11 +17,12 @@ This script updates the IPs on the other devices on the network
 This script queries the PV data from the other devices and determines if the local device should be point of contact and updates the DNS if so
 
 ### deviceList.json
-This is where mac, ip and timestamp info from devices on the network is stored.
+This is where mac, ip and timestamp info from devices on the network is stored. The file needs to exist, but it can be blank... It isn't completely necessary to prepopulate it with the IP addresses, but if not you need to manually make Post request or edit the files locally to start everything up.
+* name and timestamp aren't required, but may be helpful in the future for debugging
 
 format:
-[{"mac":"0","ip":"0.0.0.0","time stamp":"0"},
-{"mac":"1","ip":"1.1.1.1","time stamp":"0"}]
+[{"mac":"0","ip":"0.0.0.0","time stamp":"0","name":""},
+{"mac":"1","ip":"1.1.1.1","time stamp":"0","name":""}]
 
 Set file permissions for deviceList.json
 * sudo chmod a+w deviceList.json
@@ -48,3 +49,4 @@ Sample data is included in the data/tracerData2020-08-04.csv file
 * have clientPostIP.py access IP list and post to those IPs
 * solarProtocol needs to access IP list and get PV data from those IPs
 * merge with the solar website stuff...
+* get thier own mac address so they dont compete with themselves...

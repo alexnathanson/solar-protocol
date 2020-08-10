@@ -1,5 +1,5 @@
 '''
-This script retreives data from other servers.
+This script retreives PV data from other servers.
 Compares data between devices and identifies the primary.
 If the local devices is the primary it updates the DNS system.
 '''

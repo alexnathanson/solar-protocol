@@ -22,15 +22,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ip = test_input($_POST["ip"]);
         $mac = test_input($_POST["mac"]);
 
-        /*FIX THIS SECTION FOR POSTING - read contents, update or add accordingly...
+        FIX THIS SECTION FOR POSTING - read contents, update or add accordingly...
         
         // Read the file contents into a string variable,
         // and parse the string into a data structure
-        $str_data = file_get_contents("ipList.json");
+        $str_data = file_get_contents($fileName);
         $data = json_decode($str_data,true);
         
         var_dump($data);
-
+/*
         //loop through to check if entry with mac address exists
         $newMac = true;
         for ($i = 0; $i < sizeof($data[0]);$i++){
@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fh = fopen("ipList.json", 'w')
               or die("Error opening output file");
         fwrite($fh, json_encode($data,JSON_UNESCAPED_UNICODE));
-        fclose($fh);
-        */
+        fclose($fh);*/
+        
     }
     else {
         echo "Wrong API Key provided.";

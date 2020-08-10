@@ -1,3 +1,6 @@
+'''
+This posts IP address to the other devices
+'''
 import requests
 import time
 

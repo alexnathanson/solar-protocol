@@ -1,3 +1,7 @@
+'''
+A script to test get requests
+'''
+
 import requests
 
 dstIP = '192.168.1.180'

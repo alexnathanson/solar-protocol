@@ -23,6 +23,7 @@ PV current,PV power H,PV power L,PV voltage,
 battery percentage,battery voltage,charge current,
 charge power H,charge power L,date,load current,load power,load voltage,time
 '''
+dataValue = 'PV voltage'
 apiValue = 'PV-voltage'
 
 deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json"
@@ -65,14 +66,22 @@ def determineServer(arrayOfData):
 		os.system(subCall)
 
 def localData():
+
+	csvArray = []
+
 	#get the local PV data
-	with open(localDataFile, mode='r',newline='') as csvfile:
-		localPVData = csv.reader(csvfile, delimiter=' ', quotechar='|')
+	with open(localDataFile, mode='r') as csvfile:
+		localPVData = csv.reader(csvfile)
 
 		for row in localPVData:
-		 	print(', '.join(row))
+		 	csvArray.append(row)
 
-		return localPVData.iloc[-1]
+		print(csvArray)
+		
+		#loop through headers to determine position of value needed
+		for v in csvArray[0]:
+			if v == dataValue:
+				return csvArray[1][len(csvArray[1])-1]
 
 def getIPList():
 
@@ -91,5 +100,6 @@ def getIPList():
 	return ipList
 
 localPVData = localData()
+print(localPVData)
 #dstIPs = getDstIPs()
 #remoteData()

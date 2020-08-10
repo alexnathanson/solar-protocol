@@ -31,7 +31,7 @@ def getIPList():
 
 	ipList = []
 
-	with open('path_to_file/person.json') as f:
+	with open(deviceList) as f:
 	  data = json.load(f)
 
 	print(data)

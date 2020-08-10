@@ -37,11 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       //check if any content exists
       if (is_null(sizeof($data))){
-          $newEntry = [
+          $data = [[
             "mac" => $mac,
             "ip" => $ip,
             "time stamp" => $stamp
-          ];
+          ]];
       } else {
         //loop through to check if entry with mac address exists
         $newMac = true;

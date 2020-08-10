@@ -12,6 +12,10 @@ https://pimylifeup.com/raspberry-pi-mysql/
 
 GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
 
+### deviceList.json
+format:
+[{"mac":"0","ip":"0.0.0.0","time stamp":"0"},{"mac":"1","ip":"1.1.1.1","time stamp":"1"}]
+
 ## Testing
 Remember to update data file date for testing purposes...
 

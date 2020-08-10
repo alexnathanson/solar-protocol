@@ -14,7 +14,7 @@ $api_key= $stamp = $ip = $mac = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $fileName = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/ipList.json";
+    $fileName = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json";
 
     $api_key = test_input($_POST["api_key"]);
     if($api_key == $api_key_value) {
@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //loop through to check if entry with mac address exists
         $newMac = true;
-        for ($i = 0; $i < sizeof($data[0]);$i++){
-          if($data[0][$v]['mac']==$mac){
-              $data[0][$v]['ip']= $ip;
-              $data[0][$v]['time stamp']= $stamp;
+        for ($i = 0; $i < sizeof($data['deviceList']);$i++){
+          if($data[0][$i]['mac']==$mac){
+              $data[0][$i]['ip']= $ip;
+              $data[0][$i]['time stamp']= $stamp;
               $newMac = false;
               break;
           }
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "ip" => $ip,
             "time stamp" => $stamp
           ];
-          array_push($data[0], $newEntry);
+          array_push($data['deviceList'], $newEntry);
         }
 
         var_dump($data);

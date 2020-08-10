@@ -8,6 +8,8 @@ import requests
 import os
 import fileinput
 import json
+import datetime
+import csv
 
 #terminal command to update DNS record
 subCall = 'python /home/pi/dynamic-IP-updater/cloudFlare-dynamic-IP-updater.py'
@@ -22,7 +24,9 @@ charge power H,charge power L,date,load current,load power,load voltage,time
 '''
 apiValue = 'PV-voltage'
 
-deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json";
+deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json"
+
+localData = "/home/pi/EPSolar_Tracer/data/tracerDate"+ datetime.date.today() +".csv"
 
 #return data from a particular server
 def getData(dst):
@@ -61,13 +65,15 @@ def determineServer(arrayOfData):
 
 def localData():
 	#get the local PV data
+	with open(localData, newline='') as csvfile:
+		localPVData = csv.reader(csvfile, delimiter=' ', quotechar='|')
 
-	# read file
-	with open('/var/www/html/pvData.json', 'r') as myfile:
-	    data=myfile.read()
+		print(localPVData)
 
-	return json.loads(data)
+		# for row in localPVData:
+		# 	print(', '.join(row))
 
+		return localPVData.iloc[-1]
 
 def getIPList():
 
@@ -86,5 +92,5 @@ def getIPList():
 	return ipList
 
 localPVData = localData()
-dstIPs = getDstIPs()
-remoteData()
+#dstIPs = getDstIPs()
+#remoteData()

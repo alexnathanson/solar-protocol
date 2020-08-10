@@ -64,7 +64,9 @@ def determineServer():
 		print('Point of contact')
 		#comment back in to run
 		#os.system(subCall)
-
+	else:
+		print('Not point of contact')
+		
 def localData():
 
 	csvArray = []
@@ -97,7 +99,7 @@ def getIPList():
 		if data[i]['mac'] !=  getmac("wlan0"):
 			ipList.append(data[i]['ip'])
 
-	#print(ipList)
+	print(ipList)
 
 	return ipList
 
@@ -112,5 +114,8 @@ def getmac(interface):
 	return mac
 
 localPVData = localData()
+print("My Voltage: "+localPVData)
 remotePVData = remoteData(getIPList())
+print("Remote Voltage:")
+print(remotePVData)
 determineServer()

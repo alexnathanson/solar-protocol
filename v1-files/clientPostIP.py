@@ -40,8 +40,7 @@ def getIPList():
 	#print(data)
 
 	for i in range(len(data)):
-		if data[i]['mac'] !=  myMAC:
-			ipList.append(data[i]['ip'])
+		ipList.append(data[i]['ip'])
 
 	#print(ipList)
 
@@ -53,7 +52,6 @@ def makePosts(ipList):
 	print(myString)
 
 	for dst in ipList:
-
 		print("DST: " + dst)
 		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
 		#if dst != myIP: #does not work when testing only with local network

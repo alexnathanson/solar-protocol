@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $newEntry = [];
 
       //check if any content exists
-      if (is_null(sizeof($data))){
+      if (is_null($data)){
           $data = [[
             "mac" => $mac,
             "ip" => $ip,

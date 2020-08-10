@@ -38,32 +38,32 @@ def getData(dst):
 
 	return response.text
 
-def remoteData():
+def remoteData(dstIPs):
 	allData = []
 
 	for dst in dstIPs:
 		#print(dst)
 		allData.append(getData(dst))
 
-	print("ALL DATA:")
-	print(allData)
+	#print("ALL DATA:")
+	#print(allData)
 
+	return allData
 	#determineServer(allData)
 
-def determineServer(arrayOfData):
+def determineServer():
 
 	thisServer = True
 
 	#loop through data from all servers and compare voltages
-	for s in arrayOfData:
-		print(s['pvData']['voltage'])
-		print(localPVData['pvData']['voltage'])
-		if float(s['pvData']['voltage'])>float(localPVData['pvData']['voltage']):
+	for s in remotePVData:
+		if s > localPVData:
 			thisServer = False
 
 	if thisServer:
 		print('Point of contact')
-		os.system(subCall)
+		#comment back in to run
+		#os.system(subCall)
 
 def localData():
 
@@ -76,7 +76,7 @@ def localData():
 		for row in localPVData:
 		 	csvArray.append(row)
 
-		print(csvArray)
+		#print(csvArray)
 
 		#loop through headers to determine position of value needed
 		for v in range(len(csvArray[0])):
@@ -100,6 +100,5 @@ def getIPList():
 	return ipList
 
 localPVData = localData()
-print(localPVData)
-#dstIPs = getDstIPs()
-#remoteData()
+remotePVData = remoteData(getIPList())
+determineServer()

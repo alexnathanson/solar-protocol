@@ -27,7 +27,7 @@ apiValue = 'PV-voltage'
 
 deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json"
 
-localData = "/home/pi/EPSolar_Tracer/data/tracerDate"+ str(datetime.date.today()) +".csv"
+localDataFile = "/home/pi/EPSolar_Tracer/data/tracerData"+ str(datetime.date.today()) +".csv"
 
 #return data from a particular server
 def getData(dst):
@@ -66,7 +66,7 @@ def determineServer(arrayOfData):
 
 def localData():
 	#get the local PV data
-	with open(localData, mode='r',newline='') as csvfile:
+	with open(localDataFile, mode='r',newline='') as csvfile:
 		localPVData = csv.reader(csvfile, delimiter=' ', quotechar='|')
 
 		for row in localPVData:

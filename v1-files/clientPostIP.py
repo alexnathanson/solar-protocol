@@ -1,12 +1,9 @@
 '''
-This posts IP address to the other devices
+Reads list of destination IPs and posts own IP address to those other devices.
 '''
 import requests
 import time
 import json
-
-#dstIP = '192.168.1.180'
-url = 'http://'+dstIP+'/api.php'
 
 apiKey='tPmAT5Ab3j7F9'
 
@@ -15,9 +12,7 @@ headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-dstList = []
 deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json";
-
 
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 print(myIP)
@@ -34,25 +29,33 @@ def getmac(interface):
 
 def getIPList():
 
+	ipList = []
+
 	with open('path_to_file/person.json') as f:
 	  data = json.load(f)
 
 	print(data)
 
 	for i in range(len(data)):
-		dstList.append(data[i]['ip'])
+		ipList.append(data[i]['ip'])
 
-	print(dstList)
+	print(ipList)
 
-getIPList()
+	return ipList
+
+def makePosts(ipList):
+	
+	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC
+	print(myString)
+
+	for dst in ipList:
+
+		#if statement only necessary if storing local IP...
+		if dst != myIP:
+			x = requests.post('http://'+dst+'/api.php', headers=headers,data = myString)
+			print(x.text)
 
 myMAC = getmac("wlan0")
-
-myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC
-print(myString)
-
-x = requests.post(url, headers=headers,data = myString)
-
-print(x.text)
-
+dstList = getIPList()
+makePosts(dstList)
 

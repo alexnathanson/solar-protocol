@@ -13,6 +13,9 @@ $api_key_value = "tPmAT5Ab3j7F9";
 $api_key= $stamp = $ip = $mac = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $fileName = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/ipList.json";
+
     $api_key = test_input($_POST["api_key"]);
     if($api_key == $api_key_value) {
         $stamp = test_input($_POST["stamp"]);

@@ -27,6 +27,16 @@ format:
 Set file permissions for deviceList.json
 * sudo chmod a+w deviceList.json
 
+### Environmental Variables
+The API key should be changed and stored as an environmental variable on each device
+* The environmental variable value is SP_API_KEY
+
+Setting environmental variables on the Pi (source https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/)
+* Variables set in the /etc/profile file are loaded whenever a bash login shell is entered. You may need to reboot after adding the variables to this file.
+* When declaring environment variables in this file you need to use the export command. Do not put a space around the =.
+* Add this line to bottom of /etc/profile 
+	* export SP_API_KEY=api-key
+
 ## v2-mysql
 NOT FUNCTIONING
  
@@ -46,4 +56,5 @@ Sample data is included in the data/tracerData2020-08-04.csv file
 
 
 ## TO DO:
+* test PHP environmental variables
 * merge with the solar website stuff...

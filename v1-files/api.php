@@ -6,8 +6,10 @@ error_reporting(E_ALL);
 
 $servername = "localhost";
 
+//CHANGE KEY AND USE ENVIRONMENTAL VARIABLES FOR LIVE VERSION!!! 
 // If you change this value, the client keys need to match
 $api_key_value = "tPmAT5Ab3j7F9";
+//$api_key_value = getenv('SP_API_KEY'); //THIS LINE HASN'T BEEN TESTED
 
 $api_key= $stamp = $ip = $mac = $name = "";
 

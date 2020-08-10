@@ -5,7 +5,9 @@ import requests
 import time
 import json
 
+#CHANGE KEY AND USE ENVIRONMENTAL VARIABLES FOR LIVE VERSION!!!
 apiKey='tPmAT5Ab3j7F9'
+#apiKey = os.getenv('SP_API_KEY')
 
 headers = {
     #'X-Auth-Key': KEY,

@@ -53,14 +53,54 @@ https://pimylifeup.com/raspberry-pi-mysql/
 
 GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
 
-## Testing
+## API Syntax
 
-clientGetPV.py is just for testing purposes. solarProtocol.py handles this functionality in production version.
+### GET
+clientGetPV.py is just for testing purposes. solarProtocol.py handles get request when they system is operational. You can also use a browser to make a get request.
+
+Possible keys (replace spaces with "-"):
+* PV current
+* PV power H
+* PV power L
+* PV voltage,
+* battery percentage
+* battery voltage
+* charge current
+* charge power H
+* charge power L
+* date
+* load current
+* load power
+* load voltage
+* time
+
+<p>
+GET Syntax: http:// + URL + /api.php?value= + key
+</p>
+<p>
+Browser Example: http://www.mywebsite.xyz/api.php?value=PV-voltage would return the most recent PV voltage
+</p>
+
+### POST
+
+
+Python Example: 
+
+import requests
+
+
+headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+}
+
+myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
+x = requests.post('http://www.mywebsite.xyz/api.php', headers=headers,data = myString)
+
+## Sample Data
 
 Sample data is included in the data/tracerData2020-08-04.csv file
 * date on file needs to be updated daily for testing purposes
 * place this in /home/pi/EPSolar_Tracer/data/
-
 
 ## TO DO:
 * test PHP environmental variables

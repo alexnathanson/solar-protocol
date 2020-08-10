@@ -97,7 +97,8 @@ def getIPList():
 	for i in range(len(data)):
 		#filter out local device's mac address
 		print("MAC from list: "+data[i]['mac'])
-		if data[i]['mac'] !=  myMAC:
+		print("my mac: "+myMAC)
+		if str(data[i]['mac']).strip() !=  myMAC.strip():
 			ipList.append(data[i]['ip'])
 
 	print(ipList)

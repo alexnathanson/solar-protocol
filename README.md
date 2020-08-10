@@ -34,8 +34,8 @@ The API key should be changed and stored as an environmental variable on each de
 Setting environmental variables on the Pi (source https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/)
 * Variables set in the /etc/profile file are loaded whenever a bash login shell is entered. You may need to reboot after adding the variables to this file.
 * When declaring environment variables in this file you need to use the export command. Do not put a space around the =.
-* Add this line to bottom of /etc/profile 
-	* export SP_API_KEY=api-key
+* Add this line to bottom of /etc/profile (replace this temp key with a new one)
+	* export SP_API_KEY=tPmAT5Ab3j7F9
 
 ## v2-mysql
 NOT FUNCTIONING

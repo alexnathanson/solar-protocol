@@ -17,18 +17,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fileName = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json";
 
     $api_key = test_input($_POST["api_key"]);
-    if($api_key == $api_key_value) {
-        $stamp = test_input($_POST["stamp"]);
-        $ip = test_input($_POST["ip"]);
-        $mac = test_input($_POST["mac"]);
-        
-        // Read the file contents into a string variable,
-        // and parse the string into a data structure
-        $str_data = file_get_contents($fileName);
-        $data = json_decode($str_data,true);
-        
-        var_dump($data);
 
+    //check if key is correct
+    if($api_key == $api_key_value) {
+
+      //set variables to POST
+      $stamp = test_input($_POST["stamp"]);
+      $ip = test_input($_POST["ip"]);
+      $mac = test_input($_POST["mac"]);
+      
+      // Read the file contents into a string variable,
+      // and parse the string into a data structure
+      $str_data = file_get_contents($fileName);
+      $data = json_decode($str_data,true);
+      
+      //var_dump($data);
+
+      $newEntry = [];
+
+      //check if any content exists
+      if (is_null(sizeof($data))){
+          $newEntry = [
+            "mac" => $mac,
+            "ip" => $ip,
+            "time stamp" => $stamp
+          ];
+      } else {
         //loop through to check if entry with mac address exists
         $newMac = true;
         for ($i = 0; $i < sizeof($data);$i++){
@@ -39,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               break;
           }
         }
+        //create a new entry if needed
         if ($newMac == true){
           $newEntry = [
             "mac" => $mac,
@@ -49,19 +64,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         var_dump($data);
+      }
 
-         
- /*        
-        $fh = fopen("ipList.json", 'w')
-              or die("Error opening output file");
-        fwrite($fh, json_encode($data,JSON_UNESCAPED_UNICODE));
-        fclose($fh);*/
-
-
-        $fp = fopen($fileName, 'w') or die("Error opening output file");
-        fwrite($fp, json_encode($data));
-        fclose($fp);
-
+      $fp = fopen($fileName, 'w') or die("Error opening output file");
+      fwrite($fp, json_encode($data));
+      fclose($fp);
     }
     else {
         echo "Wrong API Key provided.";

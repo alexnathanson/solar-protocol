@@ -56,7 +56,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               or die("Error opening output file");
         fwrite($fh, json_encode($data,JSON_UNESCAPED_UNICODE));
         fclose($fh);*/
-        
+
+
+        $fp = fopen($fileName, 'w') or die("Error opening output file");
+        fwrite($fp, json_encode($data));
+        fclose($fp);
+
     }
     else {
         echo "Wrong API Key provided.";
@@ -109,5 +114,5 @@ function test_input($data) {
 function ipValidator($ip){
   //check for amount of subnets
   //check that they only contain numbers
-  return $ip
+  return $ip;
 }

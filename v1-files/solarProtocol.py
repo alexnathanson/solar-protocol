@@ -15,8 +15,6 @@ import csv
 #terminal command to update DNS record
 subCall = 'python /home/pi/dynamic-IP-updater/cloudFlare-dynamic-IP-updater.py'
 
-myMAC = getmac("wlan0")
-print("my mac: " + myMAC)
 #localPVData = ""
 
 '''
@@ -115,6 +113,10 @@ def getmac(interface):
 		mac = "00:00:00:00:00:00"
 
 	return mac
+
+
+myMAC = getmac("wlan0")
+print("my mac: " + myMAC)
 
 localPVData = localData()
 print("My Voltage: "+localPVData)

@@ -40,7 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           }
         }
         if ($newMac == true){
-          array_push($data[0],{"mac":$mac,"ip":$ip,"time stamp":$stamp});
+          $newEntry = [
+            "mac" => $mac,
+            "ip" => $ip,
+            "time stamp" => $stamp
+          ];
+          array_push($data[0], $newEntry);
         }
 
         var_dump($data);

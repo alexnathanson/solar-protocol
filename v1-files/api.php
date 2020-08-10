@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $data = [[
             "mac" => $mac,
             "ip" => $ip,
-            "time stamp" => $stamp
+            "time stamp" => $stamp,
             "name" => $name
           ]];
       } else {

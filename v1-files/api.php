@@ -6,8 +6,7 @@ error_reporting(E_ALL);
 
 $servername = "localhost";
 
-// Keep this API Key value to be compatible with the ESP32 code provided in the project page. 
-// If you change this value, the ESP32 sketch needs to match
+// If you change this value, the client keys need to match
 $api_key_value = "tPmAT5Ab3j7F9";
 
 $api_key= $stamp = $ip = $mac = "";
@@ -115,11 +114,4 @@ function test_input($data) {
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
-}
-
-
-function ipValidator($ip){
-  //check for amount of subnets
-  //check that they only contain numbers
-  return $ip;
 }

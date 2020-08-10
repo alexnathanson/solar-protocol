@@ -77,11 +77,11 @@ def localData():
 		 	csvArray.append(row)
 
 		print(csvArray)
-		
+
 		#loop through headers to determine position of value needed
-		for v in csvArray[0]:
-			if v == dataValue:
-				return csvArray[1][len(csvArray[1])-1]
+		for v in range(len(csvArray[0])):
+			if csvArray[0][v] == dataValue:
+				return csvArray[-1][v]
 
 def getIPList():
 

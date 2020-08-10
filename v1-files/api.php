@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stamp = test_input($_POST["stamp"]);
       $ip = test_input($_POST["ip"]);
       $mac = test_input($_POST["mac"]);
-      $devName = test_input($_POST["name"]);
+      $name = test_input($_POST["name"]);
 
       // Read the file contents into a string variable,
       // and parse the string into a data structure
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "mac" => $mac,
             "ip" => $ip,
             "time stamp" => $stamp
-            "name" => $devName
+            "name" => $name
           ]];
       } else {
         //loop through to check if entry with mac address exists
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           if($data[$i]['mac']==$mac){
               $data[$i]['ip']= $ip;
               $data[$i]['time stamp']= $stamp;
-              $data[$i]['name']= $devName;
+              $data[$i]['name']= $name;
               $newMac = false;
               break;
           }
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "mac" => $mac,
             "ip" => $ip,
             "time stamp" => $stamp,
-            "name" => $devName
+            "name" => $name
           ];
           array_push($data, $newEntry);
         }

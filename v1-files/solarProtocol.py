@@ -15,8 +15,6 @@ import csv
 #terminal command to update DNS record
 subCall = 'python /home/pi/dynamic-IP-updater/cloudFlare-dynamic-IP-updater.py'
 
-#localPVData = ""
-
 '''
 possible values (use "-" instead of spaces):
 PV current,PV power H,PV power L,PV voltage,
@@ -63,7 +61,7 @@ def determineServer():
 	if thisServer:
 		print('Point of contact')
 		#comment back in to run
-		#os.system(subCall)
+		os.system(subCall)
 	else:
 		print('Not point of contact')
 
@@ -96,12 +94,10 @@ def getIPList():
 
 	for i in range(len(data)):
 		#filter out local device's mac address
-		print("MAC from list: "+data[i]['mac'])
-		print("my mac: "+myMAC)
 		if str(data[i]['mac']).strip() !=  myMAC.strip():
 			ipList.append(data[i]['ip'])
 
-	print(ipList)
+	#print(ipList)
 
 	return ipList
 
@@ -117,11 +113,10 @@ def getmac(interface):
 
 
 myMAC = getmac("wlan0")
-print("my mac: " + myMAC)
+#print("my mac: " + myMAC)
 
 localPVData = localData()
-print("My Voltage: "+localPVData)
+#print("My Voltage: "+localPVData)
 remotePVData = remoteData(getIPList())
-print("Remote Voltage:")
-print(remotePVData)
+#print("Remote Voltage: " + remotePVData)
 determineServer()

@@ -29,7 +29,7 @@ Set file permissions for deviceList.json
 
 ## v2-mysql
 NOT FUNCTIONING
-
+ 
 Version 2 of the API would potentially use a mysql data base, but this is (at least for the time being) more difficult, because all three servers need to have the same mysql setup i.e. same db, table, and column names as well as the same users with all necessary permissions. This approach possibly consumes less energy that v1.
 
 https://pimylifeup.com/raspberry-pi-mysql/
@@ -46,7 +46,4 @@ Sample data is included in the data/tracerData2020-08-04.csv file
 
 
 ## TO DO:
-* have clientPostIP.py access IP list and post to those IPs
-* solarProtocol needs to access IP list and get PV data from those IPs
 * merge with the solar website stuff...
-* get thier own mac address so they dont compete with themselves...

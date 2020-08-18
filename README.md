@@ -104,4 +104,7 @@ Sample data is included in the data/tracerData2020-08-04.csv file
 
 ## TO DO:
 * test PHP environmental variables
+* test with Python3 (currently tested with python2, might run in to some issues with reading/writing json or csv files)
 * merge with the solar website stuff...
+* add devicelist to GET request
+* add system behaviour diagnostic panel - post DNS updater timestamp 

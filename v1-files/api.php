@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    //read the value of the query string, replce - with spaces
+    //read the value of the query string, replace "-" with " "
     //echo $_GET["value"];
     $qValue = str_replace("-"," ",$_GET["value"]);
     //echo $qValue;

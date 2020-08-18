@@ -1,8 +1,8 @@
-# distributed-dynamic-IP-exchanger-API
+# Solar Protocol
 
 An API for updating dynamic IPs and comparing data between distributed Raspberry Pis.
 
-## v1-files
+## API V1 v1-files
 Version 1 of the API reads and writes CVS and JSON files.
 
 ### api.php

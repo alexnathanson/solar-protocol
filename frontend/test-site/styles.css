@@ -1,0 +1,17 @@
+body {
+	font-size: 5em;
+	background-color: black;
+	color: white;
+	line-height: 1.3;
+	margin: 0;
+	padding: 0;
+}
+
+
+.data {
+    display: block;
+    margin-right:80%;
+    padding: 1%;
+    border: 1px solid yellow;
+    font-size: 0.2em;
+  }

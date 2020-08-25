@@ -2,4 +2,4 @@
 
 ## Installation
 Install pymodbus
-    sudo pip3 install pymodbus
+`sudo pip3 install pymodbus`

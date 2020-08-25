@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>solar protocol</title>
+</head>
+<body>
+    <p>The first algorithm was the sun.</p>
+    <div class="data">
+    <p>Total Solar Voltage: {{solarVoltage}}</p>
+    <p>Battery Level: {{batteryCurrent}}</p>
+
+
+    {% if batteryCurrent < 0.2 %}
+        <p>The battery is very low!!!</p>
+    {% endif %}
+    </div>
+</body>
+</html>

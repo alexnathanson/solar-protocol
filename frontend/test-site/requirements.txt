@@ -1,0 +1,11 @@
+appdirs==1.4.3
+distlib==0.3.0
+filelock==3.0.12
+importlib-metadata==1.6.0
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+pymodbus==2.3.0
+pyserial==3.4
+six==1.14.0
+virtualenv==20.0.17
+zipp==3.1.0

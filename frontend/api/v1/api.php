@@ -82,7 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    echo "GET it!";
     //read the value of the query string, replace "-" with " "
     //echo $_GET["value"];
     $qValue = str_replace("-"," ",$_GET["value"]);

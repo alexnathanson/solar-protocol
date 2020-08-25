@@ -1,5 +1,8 @@
 # Solar Protocol
 
+A repository in development for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.
+
+## API
 An API for updating dynamic IPs and comparing data between distributed Raspberry Pis.
 
 ## API V1 v1-files
@@ -102,9 +105,20 @@ Sample data is included in the data/tracerData2020-08-04.csv file
 * date on file needs to be updated daily for testing purposes
 * place this in /home/pi/EPSolar_Tracer/data/
 
-## TO DO:
+## API TO DO:
 * test PHP environmental variables
 * test with Python3 (currently tested with python2, might run in to some issues with reading/writing json or csv files)
 * merge with the solar website stuff...
 * add devicelist to GET request
 * add system behaviour diagnostic panel - post DNS updater timestamp 
+
+
+## FRONT END
+* Code for an energy responsive front end is in test-site folder
+* To test, set up a virtual environment and install requirements.txt
+
+## FRONT END TO DO
+* Set up with real solar data.
+* Basic energy data collection for different sized pages and traffic. 
+* Energy impact of regenerating page. What's the frequency of this?
+

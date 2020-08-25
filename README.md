@@ -96,12 +96,6 @@ headers = {
 myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
 x = requests.post('http://www.mywebsite.xyz/api.php', headers=headers,data = myString)
 
-## Sample Data
-
-Sample data is included in the data/tracerData2020-08-04.csv file
-* date on file needs to be updated daily for testing purposes
-* place this in /home/pi/EPSolar_Tracer/data/
-
 ## TO DO:
 * test PHP environmental variables
 * test with Python3 (currently tested with python2, might run in to some issues with reading/writing json or csv files)

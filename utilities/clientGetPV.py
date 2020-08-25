@@ -11,7 +11,7 @@ PV current,PV power H,PV power L,PV voltage,
 battery percentage,battery voltage,charge current,
 charge power H,charge power L,date,load current,load power,load voltage,time
 '''
-url = 'http://'+dstIP+'/api.php?value=PV-voltage'
+url = 'http://'+dstIP+'/api/v1/api.php?value=battery-voltage'
 
 PVdata = 	requests.get(url).text
 print(PVdata)

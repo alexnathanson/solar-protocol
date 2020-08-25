@@ -28,11 +28,11 @@ Change Apache default directory to the frontend directory (src: https://julienre
 * `sudo nano 000-default.conf`
 * change `DocumentRoot /var/www/` to `DocumentRoot /home/pi/solar-protocol/frontend`
 * `sudo nano /etc/apache2/apache2.conf`
-* add this to the file
+* add these lines to the file<br>
 `<Directory /home/pi/solar-protocol/frontend/>`<br>
-`       Options Indexes FollowSymLinks`<br>
-`      	AllowOverride None`<br>
-`       Require all granted`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Options Indexes FollowSymLinks`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`AllowOverride None`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
 `</Directory>`
 * `sudo service apache2 restart`
 

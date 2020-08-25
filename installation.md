@@ -1,26 +1,36 @@
+
+
 # Installation
-## Wiring
+
+## Hardware
+
+* Solar Charge Controller: We use EPever Tracer3210AN, but any Epever Tracer-AN Series would work.
+* Raspberry Pi 3B+ or more recent
+
+### Wiring
 This works with a USB to RS485 converter (ch340T chip model).
 * RJ45 blue => b
 * RJ45 green => a
 
-## OS
+## Software
+
+### OS
 Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md <br>
 * change password, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations.<br>
 `sudo apt update`<br>
 `sudo apt full-upgrade`
 
-## Repository
+### Repository
 `sudo apt-get install git`<br>
 `git clone http://www.github.com/alexnathanson/solar-protocol`
 
-## Python 3 Packages
+### Python 3 Packages
 Install pip `sudo apt-get install python3-pip`<br>
 Install pymodbus `sudo pip3 install pymodbus`<br>
 Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)<br>
 Install numpy 'sudo pip3 uninstall numpy' followed by `sudo apt-get install python3-numpy`
 
-## Server
+### Server
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)<br>
 Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)<br>
 Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)
@@ -36,7 +46,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 `</Directory>`
 * `sudo service apache2 restart`
 
-## Automate
+### Automate
 
-## Troubleshooting
+### Troubleshooting
 Run `python 3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller

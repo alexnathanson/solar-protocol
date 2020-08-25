@@ -1,4 +1,4 @@
-# Solar Protocol
+# Solar Protocol API
 
 An API for updating dynamic IPs and comparing data between distributed Raspberry Pis.
 

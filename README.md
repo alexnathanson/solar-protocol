@@ -68,11 +68,10 @@ Possible keys (replace spaces with "-"):
 * charge current
 * charge power H
 * charge power L
-* date
 * load current
 * load power
 * load voltage
-* time
+* datetime
 
 <p>
 GET Syntax: http:// + URL + /api.php?value= + key

@@ -14,10 +14,10 @@ client.connect()
 while True:
     result = client.read_input_registers(0x3100,16,unit=1)
     if not result.isError():
-        solarVoltage = float(result.registers[0] / 100.0)
-        solarCurrent = float(result.registers[1] / 100.0)
-        solarPowerL = float(result.registers[2] / 100.0)
-        solarPowerH = float(result.registers[3] / 100.0)
+        pvVoltage = float(result.registers[0] / 100.0)
+        pvCurrent = float(result.registers[1] / 100.0)
+        pvPowerL = float(result.registers[2] / 100.0)
+        pvPowerH = float(result.registers[3] / 100.0)
         batteryVoltage = float(result.registers[4] / 100.0)
         batteryCurrent = float(result.registers[5] / 100.0)
         batteryPowerL = float(result.registers[6] / 100.0)
@@ -32,18 +32,18 @@ while True:
 
             newDF = pd.DataFrame(data={
                 "datetime" : [datetime.datetime.now()],
-                "solarVoltage": [solarVoltage],
-                "solarCurrent": [solarCurrent],
-                "solarPowerL": [solarPowerL],
-                "solarPowerH": [solarPowerH],
-                "batteryVoltage":[batteryVoltage],
-                "batteryCurrent":[batteryCurrent],
-                "batteryPowerL":[batteryPowerL],
-                "batteryPowerH": [batteryPowerH],
-                "loadVoltage":[loadVoltage],
-                "loadCurrent": [loadCurrent],
-                "loadPower": [loadPower],
-                "batteryPercentage": [batteryPercentage]})
+                "PV voltage": [pvVoltage],
+                "PV current": [pvCurrent],
+                "PV power L": [pvPowerL],
+                "PV power H": [pvPowerH],
+                "battery voltage":[batteryVoltage],
+                "battery current":[batteryCurrent],
+                "battery powerL":[batteryPowerL],
+                "battery powerH": [batteryPowerH],
+                "load voltage":[loadVoltage],
+                "load current": [loadCurrent],
+                "load power": [loadPower],
+                "battery percentage": [batteryPercentage]})
 
             # create a new file daily to save data
             # or append if the file already exists

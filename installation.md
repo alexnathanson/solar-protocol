@@ -39,4 +39,4 @@ Change Apache default directory to the frontend directory (src: https://julienre
 ## Automate
 
 ## Troubleshooting
-Run test.py to test connection between Pi and charge controller
+Run `python 3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller

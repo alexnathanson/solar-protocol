@@ -89,6 +89,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     $fileDate = date("Y-m-d");
     $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
+    
     $rawDataArray = [];
 
     if (($h = fopen("{$fileName}", "r")) !== FALSE) 

@@ -2,19 +2,12 @@
 
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from time import sleep
-import datetime
-import numpy as np
-import pandas as pd
-import csv
-import os
 
 client = ModbusClient(method = 'rtu', port = '/dev/ttyUSB0', baudrate = 115200)
 client.connect()
 
 while True:
-    #doesn't need to happen every time, just at midnight
-    #fileName = '/home/pi/Desktop/EPSolar_Tracer/data/tracerData'+str(datetime.date.today())+'.csv' 
-
+    
     result = client.read_input_registers(0x3100,16,unit=1)
 
     solarVoltage = float(result.registers[0] / 100.0)

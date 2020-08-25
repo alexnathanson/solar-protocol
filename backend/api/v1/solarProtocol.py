@@ -13,7 +13,7 @@ import csv
 #import pandas
 
 #terminal command to update DNS record
-subCall = 'python /home/pi/dynamic-IP-updater/cloudFlare-dynamic-IP-updater.py'
+subCall = 'python /home/pi/solar-protocol/backend/update_ip2.sh'
 
 '''
 possible values (use "-" instead of spaces):

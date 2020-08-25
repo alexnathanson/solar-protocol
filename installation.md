@@ -48,5 +48,20 @@ Change Apache default directory to the frontend directory (src: https://julienre
 
 ### Automate
 
+#### permissions
+* make deviceList.json writable `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`
+* make update_ip2.sh executable `chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`
+
+#### timing
+* run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup#method-3-systemd)
+	* move the chargeController.service file to /lib/systemd/system `sudo mv /home/pi/solar-protocol/charge-controller/chargeController.service /lib/systemd/system/chargeController.service`
+	* `sudo systemctl daemon-reload`
+	* `sudo systemctl enable chargeController.service`
+	* verify it works `sudo reboot`
+`crontab -e`
+* run clientPostIP every 15 minutes `*/15 * * * * python3 /home/pi/solar-protocol/backend/api/clientPostIP.py`
+* run solarProtocol every 5 minutes `*/5 * * * * python3 /home/pi/solar-protocol/backend/api/solarProtocol.py`
+* reboot periodically
+
 ### Troubleshooting
 Run `python 3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller

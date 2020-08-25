@@ -1,0 +1,9 @@
+[Unit]
+Description=Start data logger on boot
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py
+
+[Install]
+WantedBy=multi-user.target

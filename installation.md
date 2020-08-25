@@ -1,4 +1,7 @@
 # Installation
+## OS
+`sudo apt-get update`
+`sudo apt-get dist-upgrade`
 
 ## Server
 Install Apache `sudo apt-get install apache2 -y`<br>

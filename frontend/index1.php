@@ -10,7 +10,7 @@
 <?php 
 // get files in directory
 // https://www.php.net/manual/en/function.scandir.php
-$directory = getcwd() . '/data';
+$directory = getcwd() . '/home/pi/solar-protocol/chargecontroller/data';
 $files = array_diff(scandir($directory), array('..', '.'));
 
 // pass file to javascript (json-graph.js)

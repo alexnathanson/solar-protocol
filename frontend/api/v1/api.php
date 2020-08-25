@@ -15,7 +15,7 @@ $api_key= $stamp = $ip = $mac = $name = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $fileName = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json";
+    $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
     $api_key = test_input($_POST["api_key"]);
 
@@ -88,7 +88,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
     //echo $qValue;
 
     $fileDate = date("Y-m-d");
-    $fileName = "/home/pi/EPSolar_Tracer/data/tracerData" . $fileDate . ".csv";
+    $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
     $rawDataArray = [];
 
     if (($h = fopen("{$fileName}", "r")) !== FALSE) 

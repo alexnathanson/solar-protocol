@@ -25,7 +25,7 @@ if ($date == 'yesterday'){
 }
 
 //variables
-$fileName = "/home/pi/solar-protocol/chargecontroller/data/tracerData" . $fileDate . ".csv";
+$fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
 $rawDataArray = [];
 
 echo "<h3>Today's Date:</h3>" . $fileDate . "<br>";

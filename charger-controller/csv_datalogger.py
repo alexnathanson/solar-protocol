@@ -63,6 +63,6 @@ while True:
         print("error: {}".format(result))
 
     # runs every x-second
-    sleep(60*5)
+    sleep(60)
 
 client.close()

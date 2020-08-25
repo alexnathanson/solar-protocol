@@ -56,10 +56,10 @@ Change Apache default directory to the frontend directory (src: https://julienre
 #### timing
 * run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup#method-3-systemd)
 	* verify it works `sudo reboot`<br>
-`crontab -e`
-* run clientPostIP every 15 minutes `*/15 * * * * python3 /home/pi/solar-protocol/backend/api/clientPostIP.py`
-* run solarProtocol every 5 minutes `*/5 * * * * python3 /home/pi/solar-protocol/backend/api/solarProtocol.py`
-* reboot periodically
+* `crontab -e`
+	* run clientPostIP every 15 minutes `*/15 * * * * python3 /home/pi/solar-protocol/backend/api/clientPostIP.py`
+	* run solarProtocol every 5 minutes `*/5 * * * * python3 /home/pi/solar-protocol/backend/api/solarProtocol.py`
+	* reboot periodically
 
 ### Troubleshooting
 * Run `python 3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller

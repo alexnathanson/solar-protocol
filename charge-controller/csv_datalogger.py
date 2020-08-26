@@ -47,7 +47,7 @@ while True:
 
         # create a new file daily to save data
         # or append if the file already exists
-        fileName = 'data/tracerData'+str(datetime.date.today())+'.csv'
+        fileName = '/home/pi/solar-protocol/charge-controller/data/tracerData'+str(datetime.date.today())+'.csv'
         try:
             with open(fileName) as csvfile:
                 df = pd.read_csv(fileName)

@@ -49,18 +49,19 @@ Change Apache default directory to the frontend directory (src: https://julienre
 ### Automate
 
 #### permissions
-* make deviceList.json writable `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`
-* make update_ip2.sh executable `sudo chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`
+* `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`
+* `sudo chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`
 * `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`
+
 #### timing
-* run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup#method-3-systemd)
+* run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup)
 	* sudo nano /etc/rc.local
 		* sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &
 	* verify it works `sudo reboot`
-* `crontab -e`
-	* run clientPostIP every 15 minutes `*/15 * * * * python3 /home/pi/solar-protocol/backend/api/clientPostIP.py`
-	* run solarProtocol every 5 minutes `*/5 * * * * python3 /home/pi/solar-protocol/backend/api/solarProtocol.py`
-	* reboot periodically
+* `crontab -e` (these cron jobs haven't been tested yet)
+	* run clientPostIP every 15 minutes `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/clientPostIP.py`
+	* run solarProtocol every 5 minutes `*/5 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/solarProtocol.py`
+	* reboot daily `@midnight sudo reboot`
 
 ### Troubleshooting
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller

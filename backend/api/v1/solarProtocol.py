@@ -33,11 +33,10 @@ def getData(dst):
 	try:
 		#returns a single value
 		response = requests.get('http://' + dst + '/api.php?value='+apiValue)
-		response.raise_for_status()
 		#print(response)
 		return response.text
 	except requests.exceptions.HTTPError as err:
-    	raise SystemExit(err)
+		return err
 
 def remoteData(dstIPs):
 	allData = []

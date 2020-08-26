@@ -28,7 +28,7 @@ Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/c
 Install pip `sudo apt-get install python3-pip`<br>
 Install pymodbus `sudo pip3 install pymodbus`<br>
 Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)<br>
-Install numpy 'sudo pip3 uninstall numpy' followed by `sudo apt-get install python3-numpy`
+Install numpy 'sudo pip3 uninstall numpy' followed by `sudo apt-get install python3-numpy`<br>
 
 ### Server
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)<br>

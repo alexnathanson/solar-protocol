@@ -27,37 +27,37 @@ while True:
         loadPower= float(result.registers[10] / 100.0)
 
         result = client.read_input_registers(0x311A,2,unit=1)
-        if not result.isError():
-            batteryPercentage = float(result.registers[0] / 100.0)
+        #if not result.isError():
+        batteryPercentage = float(result.registers[0] / 100.0)
 
-            newDF = pd.DataFrame(data={
-                "datetime" : [datetime.datetime.now()],
-                "PV voltage": [pvVoltage],
-                "PV current": [pvCurrent],
-                "PV power L": [pvPowerL],
-                "PV power H": [pvPowerH],
-                "battery voltage":[batteryVoltage],
-                "battery current":[batteryCurrent],
-                "battery power L":[batteryPowerL],
-                "battery power H": [batteryPowerH],
-                "load voltage":[loadVoltage],
-                "load current": [loadCurrent],
-                "load power": [loadPower],
-                "battery percentage": [batteryPercentage]})
+        newDF = pd.DataFrame(data={
+            "datetime" : [datetime.datetime.now()],
+            "PV voltage": [pvVoltage],
+            "PV current": [pvCurrent],
+            "PV power L": [pvPowerL],
+            "PV power H": [pvPowerH],
+            "battery voltage":[batteryVoltage],
+            "battery current":[batteryCurrent],
+            "battery power L":[batteryPowerL],
+            "battery power H": [batteryPowerH],
+            "load voltage":[loadVoltage],
+            "load current": [loadCurrent],
+            "load power": [loadPower],
+            "battery percentage": [batteryPercentage]})
 
-            # create a new file daily to save data
-            # or append if the file already exists
-            fileName = 'data/tracerData'+str(datetime.date.today())+'.csv'
-            try:
-                with open(fileName) as csvfile:
-                    df = pd.read_csv(fileName)
-                    df = df.append(newDF, ignore_index = True)
-                    df.to_csv(fileName, sep=',',index=False)
-            except:
-                newDF.to_csv(fileName, sep=',',index=False)
+        # create a new file daily to save data
+        # or append if the file already exists
+        fileName = 'data/tracerData'+str(datetime.date.today())+'.csv'
+        try:
+            with open(fileName) as csvfile:
+                df = pd.read_csv(fileName)
+                df = df.append(newDF, ignore_index = True)
+                df.to_csv(fileName, sep=',',index=False)
+        except:
+            newDF.to_csv(fileName, sep=',',index=False)
 
-            #print(newDF)
-            print("csv writing: " + str(datetime.datetime.now()))
+        #print(newDF)
+        print("csv writing: " + str(datetime.datetime.now()))
 
     else:
         print("error: {}".format(result))

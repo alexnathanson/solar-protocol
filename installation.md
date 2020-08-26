@@ -51,7 +51,6 @@ Change Apache default directory to the frontend directory (src: https://julienre
 #### permissions
 * make deviceList.json writable `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`
 * make update_ip2.sh executable `sudo chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`
-* `sudo chmod +x /home/pi/solar-protocol/charge-controller/cc.sh`
 * `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`
 #### timing
 * run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup#method-3-systemd)

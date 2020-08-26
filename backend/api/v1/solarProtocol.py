@@ -13,7 +13,7 @@ import csv
 #import pandas
 
 #terminal command to update DNS record
-subCall = 'python /home/pi/solar-protocol/backend/update_ip2.sh'
+subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh'
 
 '''
 possible values (use "-" instead of spaces):
@@ -24,9 +24,9 @@ charge power H,charge power L,date,load current,load power,load voltage,time
 dataValue = 'PV voltage'
 apiValue = 'PV-voltage'
 
-deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json"
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
-localDataFile = "/home/pi/EPSolar_Tracer/data/tracerData"+ str(datetime.date.today()) +".csv"
+localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
 
 #return data from a particular server
 def getData(dst):

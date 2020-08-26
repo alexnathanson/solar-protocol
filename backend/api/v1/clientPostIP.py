@@ -14,7 +14,7 @@ headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-deviceList = "/home/pi/distributed-dynamic-IP-exchanger-API/v1-files/deviceList.json";
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 

@@ -46,6 +46,18 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	`</Directory>`
 * `sudo service apache2 restart`
 
+### Security
+Careful to set up pi securely.
+* Change password using a password manager.
+* Open ports 80 and 22 on your router. 
+* Secure pi - here is a guide: https://www.raspberrypi.org/documentation/configuration/security.md
+	* Block login to pi from root
+    * Make it so you can only get into pi using ssh
+    * Using key-based authentication.
+    * Installed firewall.
+    * Install fail2ban
+
+
 ### Automate
 
 #### permissions

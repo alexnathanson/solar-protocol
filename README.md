@@ -12,12 +12,16 @@ https://github.com/alexnathanson/solar-protocol/blob/master/installation.md
 
 https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 
+## TO DO
+* make an installer.sh
+* move python templater to server
+
 ## FRONT END
 * Code for an energy responsive front end is in test-site folder
 * To test, set up a virtual environment and install requirements.txt
 
 ## FRONT END TO DO
-* Set up with real solar data.
+* Set up with real solar data from index.php
 * Basic energy data collection for different sized pages and traffic. 
 * Energy impact of regenerating page. What's the frequency of this?
 

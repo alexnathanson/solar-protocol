@@ -97,7 +97,4 @@ x = requests.post('http://www.mywebsite.xyz/api.php', headers=headers,data = myS
 
 ## TO DO:
 * test PHP environmental variables
-* test with Python3 (currently tested with python2, might run in to some issues with reading/writing json or csv files)
-* test try & exceptions
-* add devicelist to GET request
-* add system behaviour diagnostic panel - post DNS updater timestamp 
+* add point of contact posting cababilities to API front end and solarProtocol.py 

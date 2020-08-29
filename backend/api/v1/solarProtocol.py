@@ -38,6 +38,32 @@ def getData(dst):
 	except requests.exceptions.HTTPError as err:
 		return err
 
+#this posts info across the network if it is the Point of Contact (not working yet)
+def postPoint(ipList):
+	
+	#myName should be read from a centralized json...
+	myName = ""
+
+	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&name="+myName
+	print(myString)
+
+	for dst in ipList:
+		print("DST: " + dst)
+		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
+		#if dst != myIP: #does not work when testing only with local network
+		try:
+			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString)
+			print(x.text)
+			#requests.raise_for_status()
+		except requests.exceptions.HTTPError as errh:
+		 	print("An Http Error occurred:" + repr(errh))
+		except requests.exceptions.ConnectionError as errc:
+			print("An Error Connecting to the API occurred:" + repr(errc))
+		except requests.exceptions.Timeout as errt:
+		 	print("A Timeout Error occurred:" + repr(errt))
+		except requests.exceptions.RequestException as err:
+		 	print("An Unknown Error occurred" + repr(err))
+
 def remoteData(dstIPs):
 	allData = []
 

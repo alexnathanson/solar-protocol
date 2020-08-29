@@ -57,18 +57,18 @@ def makePosts(ipList):
 		print("DST: " + dst)
 		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
 		#if dst != myIP: #does not work when testing only with local network
-		try:
-			x = requests.post('http://'+dst+'/api.php', headers=headers,data = myString)
-			print(x.text)
-			x.raise_for_status()
+#		try:
+		x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString)
+		print(x.text)
+"""			x.raise_for_status()
 		except x.exceptions.HTTPError as errh:
-            return "An Http Error occurred:" + repr(errh)
+			return "An Http Error occurred:" + repr(errh)
         except x.exceptions.ConnectionError as errc:
             return "An Error Connecting to the API occurred:" + repr(errc)
         except x.exceptions.Timeout as errt:
             return "A Timeout Error occurred:" + repr(errt)
         except x.exceptions.RequestException as err:
-            return "An Unknown Error occurred" + repr(err)
+            return "An Unknown Error occurred" + repr(err)"""
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")

@@ -32,7 +32,7 @@ localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str
 def getData(dst):
 	try:
 		#returns a single value
-		response = requests.get('http://' + dst + '/api.php?value='+apiValue)
+		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue)
 		#print(response)
 		return response.text
 	except requests.exceptions.HTTPError as err:

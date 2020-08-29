@@ -60,17 +60,15 @@ def makePosts(ipList):
 		try:
 			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString)
 			print(x.text)
-		#	x.raise_for_status()
-		except requests.exceptions.HTTPError as err:
-			return err
-		# except x.exceptions.HTTPError as errh:
-		# 	return "An Http Error occurred:" + repr(errh)
-		# except x.exceptions.ConnectionError as errc:
-		# 	return "An Error Connecting to the API occurred:" + repr(errc)
-		# except x.exceptions.Timeout as errt:
-		# 	return "A Timeout Error occurred:" + repr(errt)
-		# except x.exceptions.RequestException as err:
-		# 	return "An Unknown Error occurred" + repr(err)
+			requests.raise_for_status()
+		except requests.exceptions.HTTPError as errh:
+		 	return "An Http Error occurred:" + repr(errh)
+		except requests.exceptions.ConnectionError as errc:
+			return "An Error Connecting to the API occurred:" + repr(errc)
+		except requests.exceptions.Timeout as errt:
+		 	return "A Timeout Error occurred:" + repr(errt)
+		except requests.exceptions.RequestException as err:
+		 	return "An Unknown Error occurred" + repr(err)
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")

@@ -74,10 +74,10 @@ Possible keys (replace spaces with "-"):
 * datetime
 
 <p>
-GET Syntax: http:// + URL + /api.php?value= + key
+GET Syntax: http:// + URL + /api/v1/api.php?value= + key
 </p>
 <p>
-Browser Example: http://www.mywebsite.xyz/api.php?value=PV-voltage would return the most recent PV voltage
+Browser Example: http://www.solarprotocol.net/api/v1/api.php?value=PV-voltage would return the most recent PV voltage
 </p>
 
 ### POST

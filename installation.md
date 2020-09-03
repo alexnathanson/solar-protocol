@@ -68,7 +68,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	* open rc.local `sudo nano /etc/rc.local`
 		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &`
 	* verify it works `sudo reboot`
-* `crontab -e`
+* open crontab `crontab -e` and add these lines to the bottom:
 	* run clientPostIP every 15 minutes `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/clientPostIP.py > /home/pi/solar-protocol/backend/api/v1/clientPostIP.log 2>&1`
 	* run solarProtocol every 5 minutes `*/5 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/solarProtocol.py > /home/pi/solar-protocol/backend/api/v1/solarProtocol.log 2>&1`
 	* reboot daily `@midnight sudo reboot`	

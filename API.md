@@ -93,7 +93,7 @@ headers = {
 }
 
 myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
-x = requests.post('http://www.mywebsite.xyz/api.php', headers=headers,data = myString)
+x = requests.post('http://www.mywebsite.xyz/api/v1/api.php', headers=headers,data = myString)
 
 ## TO DO:
 * test PHP environmental variables

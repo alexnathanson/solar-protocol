@@ -77,7 +77,7 @@ Possible keys (replace spaces with "-"):
 GET Syntax: http:// + URL + /api/v1/api.php?value= + key
 </p>
 <p>
-Browser Example: http://www.solarprotocol.net/api/v1/api.php?value=PV-voltage would return the most recent PV voltage
+Browser Example: http://solarprotocol.net/api/v1/api.php?value=PV-voltage would return the most recent PV voltage
 </p>
 
 ### POST

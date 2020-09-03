@@ -65,8 +65,8 @@ Change Apache default directory to the frontend directory (src: https://julienre
 
 #### timing
 * run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup)
-	* sudo nano /etc/rc.local
-		* sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &
+	* open rc.local `sudo nano /etc/rc.local`
+		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &`
 	* verify it works `sudo reboot`
 * `crontab -e`
 	* run clientPostIP every 15 minutes `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/clientPostIP.py > /home/pi/solar-protocol/backend/api/v1/clientPostIP.log 2>&1`

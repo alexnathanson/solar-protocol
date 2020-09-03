@@ -14,7 +14,7 @@ headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+deviceList = "/home/pi/solar-protocol/backend/api/v1-2/deviceList.json";
 
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 

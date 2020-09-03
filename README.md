@@ -15,6 +15,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 ## TO DO
 * make an installer.sh
 * move python templater to server
+* check any limits on the DNS api
 
 ## FRONT END
 * Code for an energy responsive front end is in test-site folder

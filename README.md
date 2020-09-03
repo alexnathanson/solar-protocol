@@ -1,6 +1,6 @@
 # Solar Protocol
 
-A system for load balancing based on photovoltaic logic.
+A system for load balancing and serving content based on photovoltaic logic.
 =======
 A repository in development for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.
 

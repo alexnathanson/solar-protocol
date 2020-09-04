@@ -98,3 +98,4 @@ x = requests.post('http://www.mywebsite.xyz/api/v1/api.php', headers=headers,dat
 ## TO DO:
 * test PHP environmental variables
 * add point of contact posting cababilities to API front end and solarProtocol.py 
+* solar protocol needs to check timestamp

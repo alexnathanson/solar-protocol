@@ -7,10 +7,10 @@
 
 <h1>Admin Console</h1>
 
-<div id="server list"></div>
-<!-- 
-<script>
+<div id="server list"><h2>Active Servers:</h2></div>
 
+<script>
+	let tempIPList = ["67.85.62.144","108.29.41.133","74.73.93.241"];
 	//read deviceList
 	let request = new XMLHttpRequest();
 
@@ -23,11 +23,12 @@
 	//add get device list to api
 
 	//for IPs in list
-	for (let i = 0; i < ipList.length; i++){
-		pingServer(ipList[i])
+	for (let i = 0; i < tempIPList.length; i++){
+		pingServer(tempIPList[i])
 	}
 	
 	function pingServer(dst){
+	//get voltage & time stamp
 		let requestURL = "http://" + dst + "/api/v1/api.php?value=PV-voltage"
 
 		request.open('GET', requestURL);
@@ -40,11 +41,13 @@
 	function populate(dataToDisplay) {
 		const sList = document.getElemenetByID('server list');
 	  const serverH3 = document.createElement('h3');
-	  serverH3.textContent = 'my server: voltage' ;
+	  serverH3.textContent = 'server name' ;
+	  serverInfo.textContent = 'Voltage: ' + v + " Timestamp: " + t ;
+		serverH3.appendChild(serverInfo);
 	  sList.appendChild(serverH3);
 	}
 
-</script> -->
+</script>
 
 </body>
 </html> 

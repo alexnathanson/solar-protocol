@@ -16,6 +16,10 @@ https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 * make an installer.sh
 * move python templater to server
 * check any limits on the DNS api
+* find a better way to update IP addresses to add or remove a server
+* do we want to include a blacklist to control enrollments?
+* figure our how to write the point of contact log
+* decide on best security.  eg. could generate an api key and it adds it to each device. 
 
 ## FRONT END
 * Code for an energy responsive front end is in test-site folder
@@ -25,4 +29,5 @@ https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 * Set up with real solar data from index.php
 * Basic energy data collection for different sized pages and traffic. 
 * Energy impact of regenerating page. What's the frequency of this?
+* move python script to backend
 

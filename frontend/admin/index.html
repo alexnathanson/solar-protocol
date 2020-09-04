@@ -42,10 +42,23 @@
 
 	function populate(dataToDisplay, dst, infoName) {
 		const sList = document.getElementById('server list');
+
+		//server header
 		const serverH3 = document.createElement('h3');
-		serverH3.textContent = 'Server: ' + dst;
+		serverH3.textContent = 'Server: ';
+		//make it a link
+		const serverLink = document.createElement('a');
+		serverLink.href = dst;
+
+		const serverLinkContent = document.createTextNode(dst);
+		serverLink.appendChild(serverLinkContent);
+
+		serverH3.appendChild(serverLink);
+		//server info
 		const serverInfo = document.createElement('p');
 		serverInfo.textContent = infoName + ': ' + dataToDisplay;
+
+
 		serverH3.appendChild(serverInfo);
 		sList.appendChild(serverH3);
 	}

@@ -29,23 +29,25 @@
 	
 	function pingServer(dst){
 	//get voltage & time stamp
-		let requestURL = "http://" + dst + "/api/v1/api.php?value=PV-voltage"
+		let infoNeeded = "PV-voltage";
+		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;
 		console.log(requestURL);
 
 		request.open('GET', requestURL);
 		//request.responseType = 'json';
 		request.send();
 
-		populate(request.response, dst);
+		populate(request.response, dst, infoNeeded);
 	}
 
-	function populate(dataToDisplay, dst) {
-		const sList = document.getElemenetById('server list');
-	  const serverH3 = document.createElement('h3');
-	  serverH3.textContent = 'Server: ' + dst;
-	  serverInfo.textContent = 'Voltage: ' + dataToDisplay;
+	function populate(dataToDisplay, dst, infoName) {
+		const sList = document.getElementById('server list');
+		const serverH3 = document.createElement('h3');
+		serverH3.textContent = 'Server: ' + dst;
+		const serverInfo = document.createElement('p');
+		serverInfo.textContent = infoName + ': ' + dataToDisplay;
 		serverH3.appendChild(serverInfo);
-	  sList.appendChild(serverH3);
+		sList.appendChild(serverH3);
 	}
 
 </script>

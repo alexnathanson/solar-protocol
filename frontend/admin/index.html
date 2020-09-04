@@ -1,0 +1,50 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Solar Protocol</title>
+</head>
+<body>
+
+<h1>Admin Console</h1>
+
+<div id="server list"></div>
+
+<script>
+
+	//read deviceList
+	let request = new XMLHttpRequest();
+
+	request.open('GET', requestURL);
+	request.responseType = 'json';
+	request.send();
+
+	let deviceList = request.response;
+
+	//add get device list to api
+
+	//for IPs in list
+	for (let i = 0; i < ipList.length; i++){
+		pingServer(ipList[i])
+	}
+	
+	function pingServer(dst){
+		let requestURL = "http://" + dst + "/api/v1/api.php?value=PV-voltage"
+
+		request.open('GET', requestURL);
+		//request.responseType = 'json';
+		request.send();
+
+		populate(request.response);
+	}
+
+	function populate(dataToDisplay) {
+		const sList = document.getElemenetByID('server list');
+	  const serverH3 = document.createElement('h3');
+	  serverH3.textContent = 'my server: voltage' ;
+	  sList.appendChild(serverH3);
+	}
+
+</script>
+
+</body>
+</html> 

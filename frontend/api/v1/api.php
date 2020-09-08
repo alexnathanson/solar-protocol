@@ -15,84 +15,78 @@ $api_key= $stamp = $ip = $mac = $name = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+  $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
-    $api_key = test_input($_POST["api_key"]);
+  $api_key = test_input($_POST["api_key"]);
 
-    //check if key is correct
-    if($api_key == $api_key_value) {
+  //check if key is correct
+  if($api_key == $api_key_value) {
 
-      //set variables to POST
-      $stamp = test_input($_POST["stamp"]);
-      $ip = test_input($_POST["ip"]);
-      $mac = test_input($_POST["mac"]);
-      $name = test_input($_POST["name"]);
+    //set variables to POST
+    $stamp = test_input($_POST["stamp"]);
+    $ip = test_input($_POST["ip"]);
+    $mac = test_input($_POST["mac"]);
+    $name = test_input($_POST["name"]);
 
-      // Read the file contents into a string variable,
-      // and parse the string into a data structure
-      $str_data = file_get_contents($fileName);
-      $data = json_decode($str_data,true);
-      
-      //var_dump($data);
+    // Read the file contents into a string variable,
+    // and parse the string into a data structure
+    $str_data = file_get_contents($fileName);
+    $data = json_decode($str_data,true);
+    
+    //var_dump($data);
 
-      $newEntry = [];
+    $newEntry = [];
 
-      //check if any content exists
-      if (is_null($data)){
-          $data = [[
-            "mac" => $mac,
-            "ip" => $ip,
-            "time stamp" => $stamp,
-            "name" => $name
-          ]];
-      } else {
-        //loop through to check if entry with mac address exists
-        $newMac = true;
-        for ($i = 0; $i < sizeof($data);$i++){
-          if($data[$i]['mac']==$mac){
-              $data[$i]['ip']= $ip;
-              $data[$i]['time stamp']= $stamp;
-              $data[$i]['name']= $name;
-              $newMac = false;
-              break;
-          }
+    //check if any content exists
+    if (is_null($data)){
+        $data = [[
+          "mac" => $mac,
+          "ip" => $ip,
+          "time stamp" => $stamp,
+          "name" => $name
+        ]];
+    } else {
+      //loop through to check if entry with mac address exists
+      $newMac = true;
+      for ($i = 0; $i < sizeof($data);$i++){
+        if($data[$i]['mac']==$mac){
+            $data[$i]['ip']= $ip;
+            $data[$i]['time stamp']= $stamp;
+            $data[$i]['name']= $name;
+            $newMac = false;
+            break;
         }
-        //create a new entry if needed
-        if ($newMac == true){
-          $newEntry = [
-            "mac" => $mac,
-            "ip" => $ip,
-            "time stamp" => $stamp,
-            "name" => $name
-          ];
-          array_push($data, $newEntry);
-        }
-
-        var_dump($data);
+      }
+      //create a new entry if needed
+      if ($newMac == true){
+        $newEntry = [
+          "mac" => $mac,
+          "ip" => $ip,
+          "time stamp" => $stamp,
+          "name" => $name
+        ];
+        array_push($data, $newEntry);
       }
 
-      $fp = fopen($fileName, 'w') or die("Error opening output file");
-      fwrite($fp, json_encode($data));
-      fclose($fp);
-    }
-    else {
-        echo "Wrong API Key provided.";
-    }
-}
-
-else if ($_SERVER["REQUEST_METHOD"] == "GET") {
-
-    //read the value of the query string, replace "-" with " "
-    var_dump($_GET);
-
-    //most recent PV Data queries
-    if($_GET["line"] != undefined){
-      echo "Line exists";
-    } else {
-      echo "no Line";
+      var_dump($data);
     }
 
-    
+    $fp = fopen($fileName, 'w') or die("Error opening output file");
+    fwrite($fp, json_encode($data));
+    fclose($fp);
+  }
+  else {
+      echo "Wrong API Key provided.";
+  }
+} else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+  //read the value of the query string, replace "-" with " "
+  var_dump($_GET);
+
+  //most recent PV Data queries
+  if(array_key_exists("value", $_GET)){
+    echo "Key = Value";
+  
     $qValue = str_replace("-"," ",$_GET["value"]);
     //echo $qValue;
 
@@ -123,6 +117,11 @@ else if ($_SERVER["REQUEST_METHOD"] == "GET") {
             }
         }
     }
+  } else if (array_key_exists("line", $_GET)) {
+    echo "Key = Line";
+  } else if (array_key_exists("file", $_GET)) {
+    echo "Key = File";
+  }
 }
 
 function test_input($data) {

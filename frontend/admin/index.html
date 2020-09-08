@@ -12,31 +12,37 @@
 <script>
 	let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
 	
+	let valueToGet = "PV-voltage";
+
 	for (let i = 0; i < tempIPList.length; i++){
-		pingServer(tempIPList[i], populate)
+		//pingServer(tempIPList[i], populate);
+		makeGet(tempIPList[i], valueToGet, populate);
 	}
 	
-	//either enable cross cors request or add to API
+	/*//either enable cross cors request or add to API
 	function pingServer(dst, callback){
 	//get voltage & time stamp
 		let infoNeeded = "PV-voltage";
 		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;
-		console.log(requestURL);
+		//console.log(requestURL);
 		
 		makeGet(requestURL,callback);
 	
-	}
+	}*/
 
-	function makeGet(dst, callback) {
+	function makeGet(dst, getValue, callback) {
+		let infoNeeded = getValue;
+		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;
+
 		let xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				callback(this.responseText, dst);
-			} else if (this.readyState == 4 && this.status >= 400) {
+			} else if (this.readyState == 4) {
 				callback(this.statusText, dst);
 			}
 		};
-		xhttp.open("GET", dst, true);
+		xhttp.open("GET", requestURL, true);
 		xhttp.send();
 	}
 

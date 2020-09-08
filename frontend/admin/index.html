@@ -36,8 +36,7 @@
 	}
 
 	function populate(dataToDisplay, dst) {
-		let dataJSON = JSON.parse(dataToDisplay);
-		console.log(dataJSON);
+
 		const sList = document.getElementById('server list');
 
 		//server header
@@ -54,7 +53,14 @@
 		serverH3.appendChild(serverLink);
 		//server info
 		const serverInfo = document.createElement('p');
-		serverInfo.textContent =  dataToDisplay;
+
+		let displayThis = toJSON(dataToDisplay);
+
+		if(displayThis != false){
+			serverInfo.textContent =  dataToDisplay;
+		} else {
+			serverInfo.textContent =  "no response or invalid format";
+		}
 
 
 		serverH3.appendChild(serverInfo);
@@ -65,6 +71,22 @@
 		//ping the servers
 	}
 
+	//check data is formatted correctly
+	function toJSON(aString){
+		//check that it can be converted to JSON
+		let newJSON;
+
+		try{
+			newJSON = JSON.parse(aString);
+			
+			console.log(dataJSON);
+			return newJSON;
+
+		} catch (e){
+			console.log(aString);
+			return false;
+		}
+	}
 </script>
 
 </body>

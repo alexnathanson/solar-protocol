@@ -57,7 +57,7 @@
 		let displayThis = toJSON(dataToDisplay);
 
 		if(displayThis != false){
-			serverInfo.textContent =  displayThis;
+			serverInfo.textContent =  JSON.Stringify(displayThis);//put this into a table in the future
 		} else {
 			serverInfo.textContent =  "no response or invalid format";
 		}
@@ -74,7 +74,6 @@
 	//check data is formatted correctly
 	function toJSON(aString){
 		//check that it can be converted to JSON
-		//let newJSON;
 
 		try{
 			let newJSON = JSON.parse(aString);

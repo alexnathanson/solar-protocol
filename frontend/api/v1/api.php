@@ -117,11 +117,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //returns raw line
 //        var_dump($readData[count($readData)-1-$_GET["line"]]);
 
+        $returnArray = array();
         //package line with headers
         for ($p = 0; $p<count($readData[0]);$p++){
-          $returnDict->$readData[0][$p] = $readData[count($readData)-1-$_GET["line"]][$p];
+          $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
         }  
-          $returnJSON = json_encode($returnDict);
+          $returnJSON = json_encode($returnArray);
           echo $returnJSON;
       }
     }

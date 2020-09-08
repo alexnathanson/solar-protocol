@@ -37,7 +37,7 @@
 		request.open('GET', requestURL);
 		//request.responseType = 'json';
 		request.send();
-		console.log(response.response);
+		console.log(request.response);
 		populate(request.response, dst);
 	}
 

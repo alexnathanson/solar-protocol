@@ -57,7 +57,7 @@
 		let displayThis = toJSON(dataToDisplay);
 
 		if(displayThis != false){
-			serverInfo.textContent =  dataToDisplay;
+			serverInfo.textContent =  displayThis;
 		} else {
 			serverInfo.textContent =  "no response or invalid format";
 		}
@@ -81,7 +81,6 @@
 			
 			console.log(dataJSON);
 			return newJSON;
-
 		} catch (e){
 			console.log(aString);
 			return false;

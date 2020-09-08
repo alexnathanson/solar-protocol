@@ -74,12 +74,12 @@
 	//check data is formatted correctly
 	function toJSON(aString){
 		//check that it can be converted to JSON
-		let newJSON;
+		//let newJSON;
 
 		try{
-			newJSON = JSON.parse(aString);
+			let newJSON = JSON.parse(aString);
 			
-			console.log(dataJSON);
+			console.log(newJSON);
 			return newJSON;
 		} catch (e){
 			console.log(aString);

@@ -92,38 +92,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $readData = chargeControllerData();
 
-    if ($readData != FALSE){
-    /*$fileDate = date("Y-m-d");
-    $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
-    
-    $rawDataArray = [];
-
-    if (($h = fopen("{$fileName}", "r")) !== FALSE) 
-    {
-      // Each line in the file is converted into an individual array that we call $data
-      // The items of the array are comma separated
-      while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
-      {
-        // Each individual array is being pushed into the nested array
-        $rawDataArray[] = $data;        
+    if ($readData != FALSE){    
+      for ($v = 0; $v < sizeof($readData[0]);$v++){
+          if($readData[0][$v]==$qValue){
+              echo $readData[count($readData)-1][$v];
+              break;
+          }
       }
-
-      // Close the file
-      fclose($h);*/
-    
-      //return most recent voltage
-        //foreach($rawDataArray[0] as $valueName){
-        for ($v = 0; $v < sizeof($readData[0]);$v++){
-            if($readData[0][$v]==$qValue){
-                echo $readData[count($readData)-1][$v];
-                break;
-            }
-        }
     }
   } 
   //get a line of current data file. "len" returns length of current file, "0" returns most recent line. Increments up
-   else if (array_key_exists("line", $_GET)) {
+  else if (array_key_exists("line", $_GET)) {
     echo "Key = Line";
+    
+    $readData = chargeControllerData();
+
+    if ($readData != FALSE){    
+      
+      if($_GET["line"] == "len"){
+        echo count($readData);
+      } else {
+        echo $readData[count($readData)-1-$_GET["line"]];
+      }
+    }
   } else if (array_key_exists("file", $_GET)) {
     echo "Key = File";
   }

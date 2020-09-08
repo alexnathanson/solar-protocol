@@ -36,7 +36,8 @@
 	}
 
 	function populate(dataToDisplay, dst) {
-		console.log(dataToDisplay);
+		let dataJSON = JSON.parse(dataToDisplay);
+		console.log(dataJSON);
 		const sList = document.getElementById('server list');
 
 		//server header
@@ -53,7 +54,7 @@
 		serverH3.appendChild(serverLink);
 		//server info
 		const serverInfo = document.createElement('p');
-		serverInfo.textContent =  'Most recent data: ' + dataToDisplay;
+		serverInfo.textContent =  dataToDisplay;
 
 
 		serverH3.appendChild(serverInfo);

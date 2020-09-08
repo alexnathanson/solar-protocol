@@ -28,7 +28,7 @@
 	}
 	
 	//either enable cross cors request or add to API
-	function pingServer(dst){
+	function pingServer(dst, (r,d)=>{populate(r,d)}){
 	//get voltage & time stamp
 		let infoNeeded = "PV-voltage";
 		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;
@@ -38,7 +38,8 @@
 		//request.responseType = 'json';
 		request.send();
 		console.log(request.response);
-		populate(request.response, dst);
+
+		callback(request.response,dst);
 	}
 
 	function populate(dataToDisplay, dst) {

@@ -28,14 +28,16 @@
 	}
 
 	function makeGet(dst, callback) {
-	  let xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	      callback(this.responseText, dst);
-	    }
-	  };
-	  xhttp.open("GET", dst, true);
-	  xhttp.send();
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				callback(this.responseText, dst);
+			} else {
+				callback(this.status, dst);
+			}
+		};
+		xhttp.open("GET", dst, true);
+		xhttp.send();
 	}
 
 	function populate(dataToDisplay, dst) {

@@ -28,7 +28,7 @@ Careful to set up pi securely.
 	* Block login to pi from root
     * Using key-based authentication.
     	* run `install -d -m 700 ~/.ssh`
-    	* move the authorized key file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`
+    	* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`
     	* set permissions
     		* `sudo chmod 644 ~/.ssh/authorized_keys`
 			* `sudo chown pi:pi ~/.ssh/authorized_keys`

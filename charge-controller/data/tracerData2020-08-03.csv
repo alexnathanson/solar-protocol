@@ -1,4 +1,4 @@
-datetime,solarVoltage,solarCurrent,solarPowerL,solarPowerH,batteryVoltage,batteryCurrent,batteryPowerL,batteryPowerH,loadVoltage,loadCurrent,loadPower,batteryPercentage
+datetime,PV voltage,PV current, PV power L, PV power H,battery voltage,battery current,battery power L,battery power H,load voltage,load current,load power,battery percentage
 2020-08-03 16:44:32.760934,14.01,0.1,1.41,0.0,11.8,0.12,1.41,0.0,11.8,0.25,2.95,0.25
 2020-08-03 16:49:32.966983,12.87,0.1,1.41,0.0,11.83,0.12,1.41,0.0,11.83,0.17,2.01,0.26
 2020-08-03 16:54:33.211469,12.87,0.11,1.53,0.0,11.83,0.13,1.53,0.0,11.83,0.15,1.77,0.26

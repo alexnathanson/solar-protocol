@@ -34,13 +34,13 @@
 		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;
 		console.log(requestURL);
 
-		makeGet(dst);
+		let response = makeGet(requestURL);
 		/*request.open('GET', requestURL);
 		//request.responseType = 'json';
 		request.send();
 		console.log(request.response);*/
 
-		callback(request.response,dst);
+		callback(response, dst);
 	}
 
 	function makeGet(dst) {

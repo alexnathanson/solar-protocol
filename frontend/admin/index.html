@@ -10,7 +10,7 @@
 <div id="server list"><h2>Active Servers:</h2></div>
 
 <script>
-	let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
+	let tempIPList = [/*"74.73.93.241","67.85.62.144",*/"108.29.41.133"];
 	//read deviceList
 	//let request = new XMLHttpRequest();
 
@@ -35,11 +35,7 @@
 		console.log(requestURL);
 
 		let response = makeGet(requestURL);
-		/*request.open('GET', requestURL);
-		//request.responseType = 'json';
-		request.send();
-		console.log(request.response);*/
-
+		console.log(response);
 		callback(response, dst);
 	}
 
@@ -48,6 +44,8 @@
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	      //document.getElementById("demo").innerHTML =
+	      console.log("ready state change");
+	      console.log(this.responseText);
 	      return this.responseText;
 	    }
 	  };

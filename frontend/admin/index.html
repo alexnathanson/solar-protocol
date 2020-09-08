@@ -12,16 +12,16 @@
 <script>
 	let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
 	
-	let valueToGet = "PV-voltage";
+	//get the most recent line of charge controller data
+	let toGet = "0";
 
 	for (let i = 0; i < tempIPList.length; i++){
 		//pingServer(tempIPList[i], populate);
 		makeGet(tempIPList[i], valueToGet, populate);
 	}
 
-	function makeGet(dst, getValue, callback) {
-		let infoNeeded = getValue;
-		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;
+	function makeGet(dst, getThis, callback) {
+		let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;
 
 		let xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {

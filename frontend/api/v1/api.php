@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } 
   //get a line of current data file. "len" returns length of current file, "0" returns most recent line. Increments up
   else if (array_key_exists("line", $_GET)) {
-    echo "Key = Line";
+    //echo "Key = Line";
     
     $readData = chargeControllerData();
 
@@ -112,11 +112,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if($_GET["line"] == "len"){
         echo count($readData);
       } else {
-        echo $readData[count($readData)-1-$_GET["line"]];
+        var_dump($readData[count($readData)-1-$_GET["line"]]);
       }
     }
   } else if (array_key_exists("file", $_GET)) {
-    echo "Key = File";
+    //echo "Key = File";
   }
 }
 

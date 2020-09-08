@@ -109,12 +109,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($readData != FALSE){    
       
-      if($_GET["line"] == "len"){
+      if($_GET["line"] == "len"){//return the number of rows in the file
         echo count($readData);
+      } if($_GET["line"] == "head"){//return the CSV data headers
+        var_dump($readData[0]);
       } else {
-        var_dump($readData[count($readData)-1-$_GET["line"]]);
+        //returns raw line
+//        var_dump($readData[count($readData)-1-$_GET["line"]]);
+
+        //package line with headers
+        for ($p = 0; $p<count($readData[0]);$p++){
+          $returnDict->$readData[0][$p] = $readData[count($readData)-1-$_GET["line"]][$p];
+        }  
+          $returnJSON = json_encode($returnDict);
+          echo $returnJSON;
       }
     }
+    //get a full file
   } else if (array_key_exists("file", $_GET)) {
     //echo "Key = File";
   }

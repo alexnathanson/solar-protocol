@@ -33,20 +33,21 @@
 		let infoNeeded = "PV-voltage";
 		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;
 		console.log(requestURL);
-
-		let response = makeGet(requestURL);
+		
+		makeGet(requestURL,callback);
+		/*let response = makeGet(requestURL);
 		console.log(response);
-		callback(response, dst);
+		callback(response, dst);*/
 	}
 
-	function makeGet(dst) {
+	function makeGet(dst, callback) {
 	  let xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	      //document.getElementById("demo").innerHTML =
 	      console.log("ready state change");
 	      console.log(this.responseText);
-	      return this.responseText;
+	      callback(this.responseText, dst);
 	    }
 	  };
 	  xhttp.open("GET", dst, true);

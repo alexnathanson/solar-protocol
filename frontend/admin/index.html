@@ -32,8 +32,8 @@
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				callback(this.responseText, dst);
-			} else {
-				callback(this.status, dst);
+			} else if (this.readyState == 4 && this.status >= 400) {
+				callback(this.statusText, dst);
 			}
 		};
 		xhttp.open("GET", dst, true);

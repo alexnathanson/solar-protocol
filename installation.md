@@ -96,3 +96,8 @@ Change Apache default directory to the frontend directory (src: https://julienre
 * Run `ps -aux` to list running processes
 * All Python scripts use python3
 * if cron logging isn't working use `sudo crontab -e` instead of `crontab -e`
+* PHP error logging (best to only use these during development and revert back for production version)
+	* `sudo /etc/php/7.3/apache2/php.ini` The exact path will differ depending on the version of PHP
+	* Set display_errors and error_reporting as follows:
+		* `display_errors = On`
+		* `error_reporting = E_ALL`

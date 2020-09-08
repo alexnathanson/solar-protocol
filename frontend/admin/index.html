@@ -7,7 +7,7 @@
 
 <h1>Admin Console</h1>
 
-<div id="server list"><h2>Active Servers:</h2></div>
+<div id="server list"><h2>Servers:</h2></div>
 
 <script>
 	let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
@@ -18,17 +18,6 @@
 		//pingServer(tempIPList[i], populate);
 		makeGet(tempIPList[i], valueToGet, populate);
 	}
-	
-	/*//either enable cross cors request or add to API
-	function pingServer(dst, callback){
-	//get voltage & time stamp
-		let infoNeeded = "PV-voltage";
-		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;
-		//console.log(requestURL);
-		
-		makeGet(requestURL,callback);
-	
-	}*/
 
 	function makeGet(dst, getValue, callback) {
 		let infoNeeded = getValue;

@@ -24,11 +24,11 @@
 
 	//for IPs in list
 	for (let i = 0; i < tempIPList.length; i++){
-		pingServer(tempIPList[i])
+		pingServer(tempIPList[i], populate)
 	}
 	
 	//either enable cross cors request or add to API
-	function pingServer(dst, (r,d)=>{populate(r,d)}){
+	function pingServer(dst, callback){
 	//get voltage & time stamp
 		let infoNeeded = "PV-voltage";
 		let requestURL = "http://" + dst + "/api/v1/api.php?value="+infoNeeded;

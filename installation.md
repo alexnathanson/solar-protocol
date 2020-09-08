@@ -27,6 +27,13 @@ Careful to set up pi securely.
 * Secure pi - here is a guide: https://www.raspberrypi.org/documentation/configuration/security.md
 	* Block login to pi from root
     * Using key-based authentication.
+    	* run `install -d -m 700 ~/.ssh`
+    	* move the authorized key file into this new directory `sudo mv /home/pi/utilities/authorized_keys ~/.ssh/authorized_keys`
+    	* set permissions
+    		* `sudo chmod 644 ~/.ssh/authorized_keys`
+			* `sudo chown pi:pi ~/.ssh/authorized_keys`
+		* test that passwordless key-based authentication works
+		* if it works, disable password login
     * Installed firewall and fail2ban
 
 ### Repository

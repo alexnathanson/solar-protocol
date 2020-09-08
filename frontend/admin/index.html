@@ -27,6 +27,7 @@
 		pingServer(tempIPList[i])
 	}
 	
+	//either enable cross cors request or add to API
 	function pingServer(dst){
 	//get voltage & time stamp
 		let infoNeeded = "PV-voltage";
@@ -37,10 +38,10 @@
 		//request.responseType = 'json';
 		request.send();
 
-		populate(request.response, dst, infoNeeded);
+		populate(request.response, dst);
 	}
 
-	function populate(dataToDisplay, dst, infoName) {
+	function populate(dataToDisplay, dst) {
 		const sList = document.getElementById('server list');
 
 		//server header
@@ -57,11 +58,15 @@
 		serverH3.appendChild(serverLink);
 		//server info
 		const serverInfo = document.createElement('p');
-		serverInfo.textContent = infoName + ': ' + dataToDisplay;
+		serverInfo.textContent =  'Most recent data: ' + dataToDisplay;
 
 
 		serverH3.appendChild(serverInfo);
 		sList.appendChild(serverH3);
+	}
+
+	function addActions(){
+		//ping the servers
 	}
 
 </script>

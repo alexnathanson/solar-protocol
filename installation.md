@@ -54,6 +54,7 @@ Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.o
 Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)<br>
 <p>
 Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)
+</p>
 * `cd /etc/apache2/sites-available`
 * `sudo nano 000-default.conf`
 	* change `DocumentRoot /var/www/` to `DocumentRoot /home/pi/solar-protocol/frontend`
@@ -65,15 +66,15 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
 	`</Directory>`
 * `sudo service apache2 restart`
-</p>
 <p>
 Allow CORS for admin console (optional: only needed if using admin console)
+</p>
 * activiate module for changing headers `sudo a2enmod headers`<br>
 	`<Directory /home/pi/solar-protocol/frontend/admin/>`<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`<br>
 	`</Directory>`
 * `sudo service apache2 restart`
-</p>
+
 ### Automate
 
 #### permissions

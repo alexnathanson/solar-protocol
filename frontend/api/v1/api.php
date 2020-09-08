@@ -1,8 +1,8 @@
 <?php
 #comment out these lines for production version
-/*ini_set('display_errors', 1); 
+ini_set('display_errors', 1); 
 ini_set('display_startup_errors', 1); 
-error_reporting(E_ALL);*/
+error_reporting(E_ALL);
 
 $servername = "localhost";
 
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     //read the value of the query string, replace "-" with " "
-    //echo $_GET["value"];
+    echo $_GET;
     $qValue = str_replace("-"," ",$_GET["value"]);
     //echo $qValue;
 

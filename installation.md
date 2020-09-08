@@ -28,12 +28,14 @@ Careful to set up pi securely.
 	* Block login to pi from root
     * Using key-based authentication.
     	* run `install -d -m 700 ~/.ssh`
-    	* move the authorized key file into this new directory `sudo mv /home/pi/utilities/authorized_keys ~/.ssh/authorized_keys`
+    	* move the authorized key file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`
     	* set permissions
     		* `sudo chmod 644 ~/.ssh/authorized_keys`
 			* `sudo chown pi:pi ~/.ssh/authorized_keys`
 		* test that passwordless key-based authentication works
 		* if it works, disable password login
+			* `sudo nano /etc/ssh/sshd_config`
+			* change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)
     * Installed firewall and fail2ban
 
 ### Repository

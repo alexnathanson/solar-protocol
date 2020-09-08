@@ -71,7 +71,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 <p>
 Allow CORS for admin console (optional: only needed if using admin console)
 
-* activiate module for changing headers `sudo a2enmod headers`<br>
+* activate module for changing headers `sudo a2enmod headers`<br>
 * `sudo nano /etc/apache2/apache2.conf`
 	* add these lines to the file<br>
 	`<Directory /home/pi/solar-protocol/frontend/admin/>`<br>

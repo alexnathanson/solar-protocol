@@ -37,11 +37,12 @@
 		request.open('GET', requestURL);
 		//request.responseType = 'json';
 		request.send();
-
+		console.log(response.response);
 		populate(request.response, dst);
 	}
 
 	function populate(dataToDisplay, dst) {
+		console.log(dataToDisplay);
 		const sList = document.getElementById('server list');
 
 		//server header

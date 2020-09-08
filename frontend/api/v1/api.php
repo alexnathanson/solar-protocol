@@ -83,7 +83,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     //read the value of the query string, replace "-" with " "
-    //var_dump $_GET;
+    var_dump($_GET);
+
+    //most recent PV Data queries
+    if($_GET["line"] != undefined){
+      echo "Line exists";
+    } else {
+      echo "no Line";
+    }
+
+    
     $qValue = str_replace("-"," ",$_GET["value"]);
     //echo $qValue;
 

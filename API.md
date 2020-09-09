@@ -93,6 +93,13 @@ Browser Example: http://solarprotocol.net/api/v1/api.php?value=PV-voltage would 
 
 ### POST
 
+Possible keys for Post requests:
+* apiKey
+* stamp - time stamp
+* ip
+* mac
+* name - name of device
+* log - log of "point of contact" events
 
 Python Example: 
 

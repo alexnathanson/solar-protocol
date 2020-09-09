@@ -10,7 +10,6 @@ import fileinput
 import json
 import datetime
 import csv
-import logging
 
 #terminal command to update DNS record
 subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh'
@@ -27,8 +26,6 @@ apiValue = 'PV-voltage'
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
 localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
-
-logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poc.log', level=logging.INFO)
 
 #return data from a particular server
 def getData(dst):
@@ -91,13 +88,10 @@ def determineServer():
 	if thisServer:
 		print('Point of contact')
 
-		logging.info(datetime.datetime.now())
-
 		#comment back in to run
 		os.system(subCall)
 	else:
 		print('Not point of contact')
-		logging.info(datetime.datetime.now())#comment this out after testing
 
 def localData():
 

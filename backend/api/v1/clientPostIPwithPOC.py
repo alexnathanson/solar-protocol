@@ -78,7 +78,7 @@ def getPocLog():
 
 def makePosts(ipList):
 	
-	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+pocData
+	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+str(pocData)
 
 	print(myString)
 

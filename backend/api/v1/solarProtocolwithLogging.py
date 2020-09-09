@@ -97,7 +97,7 @@ def determineServer():
 		os.system(subCall)
 	else:
 		print('Not point of contact')
-		#logging.info(datetime.datetime.now())
+		logging.info(datetime.datetime.now())#comment this out after testing
 
 def localData():
 

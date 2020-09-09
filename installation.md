@@ -101,3 +101,4 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	* Set display_errors and error_reporting as follows:
 		* `display_errors = On`
 		* `error_reporting = E_ALL`
+* point of contact logging only logs when it is TRUE. Uncomment out the logging for FALSE if you need to test out that it is logging these events.

@@ -28,7 +28,7 @@ deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
 localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
 
-logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poc.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poc.log', ,level=logging.INFO)
 
 #return data from a particular server
 def getData(dst):

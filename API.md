@@ -83,7 +83,8 @@ Possible keys for get requests
 		* increment up to move back in time from 0 to retrieve any other row. For example, 1 will return the 2nd most recent row.
 * file - returns the specified file
 	* Possible values:
-		* TBD
+		* poc - returns the point of contact log for that device
+	*  note: retrieve device info will need to be a POST for better security
 
 
 

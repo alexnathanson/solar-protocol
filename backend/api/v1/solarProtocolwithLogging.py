@@ -10,7 +10,7 @@ import fileinput
 import json
 import datetime
 import csv
-#import pandas
+import logging
 
 #terminal command to update DNS record
 subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh'
@@ -24,9 +24,11 @@ charge power H,charge power L,date,load current,load power,load voltage,time
 dataValue = 'PV voltage'
 apiValue = 'PV-voltage'
 
-deviceList = "/home/pi/solar-protocol/backend/api/v1-2/deviceList.json"
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
 localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
+
+logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poc.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
 
 #return data from a particular server
 def getData(dst):
@@ -39,30 +41,30 @@ def getData(dst):
 		return err
 
 #this posts info across the network if it is the Point of Contact (not working yet)
-def postPoint(ipList):
+# def postPoint(ipList):
 	
-	#myName should be read from a centralized json...
-	myName = ""
+# 	#myName should be read from a centralized json...
+# 	myName = ""
 
-	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&name="+myName
-	print(myString)
+# 	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&name="+myName
+# 	print(myString)
 
-	for dst in ipList:
-		print("DST: " + dst)
-		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
-		#if dst != myIP: #does not work when testing only with local network
-		try:
-			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString)
-			print(x.text)
-			#requests.raise_for_status()
-		except requests.exceptions.HTTPError as errh:
-		 	print("An Http Error occurred:" + repr(errh))
-		except requests.exceptions.ConnectionError as errc:
-			print("An Error Connecting to the API occurred:" + repr(errc))
-		except requests.exceptions.Timeout as errt:
-		 	print("A Timeout Error occurred:" + repr(errt))
-		except requests.exceptions.RequestException as err:
-		 	print("An Unknown Error occurred" + repr(err))
+# 	for dst in ipList:
+# 		print("DST: " + dst)
+# 		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
+# 		#if dst != myIP: #does not work when testing only with local network
+# 		try:
+# 			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString)
+# 			print(x.text)
+# 			#requests.raise_for_status()
+# 		except requests.exceptions.HTTPError as errh:
+# 		 	print("An Http Error occurred:" + repr(errh))
+# 		except requests.exceptions.ConnectionError as errc:
+# 			print("An Error Connecting to the API occurred:" + repr(errc))
+# 		except requests.exceptions.Timeout as errt:
+# 		 	print("A Timeout Error occurred:" + repr(errt))
+# 		except requests.exceptions.RequestException as err:
+# 		 	print("An Unknown Error occurred" + repr(err))
 
 def remoteData(dstIPs):
 	allData = []
@@ -88,6 +90,9 @@ def determineServer():
 
 	if thisServer:
 		print('Point of contact')
+
+		logging.info(datetime.datetime.now())
+
 		#comment back in to run
 		os.system(subCall)
 	else:

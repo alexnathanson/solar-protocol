@@ -48,9 +48,13 @@ def getIPList():
 
 	return ipList
 
+def getPocLog():
+
 def makePosts(ipList):
 	
 	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
+
+
 	print(myString)
 
 	for dst in ipList:

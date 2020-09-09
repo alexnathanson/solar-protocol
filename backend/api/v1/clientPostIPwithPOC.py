@@ -61,7 +61,7 @@ def getPocLog():
 		#read the most recent 20 lines
 		for l in range(len(pocFileLines)):
 
-			print(pocFileLines[l])
+			#print(pocFileLines[l])
 
 			#remove "INFO:root:" from the string 
 			pocData.append(pocFileLines[l][10:-1])
@@ -78,8 +78,7 @@ def getPocLog():
 
 def makePosts(ipList):
 	
-	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
-
+	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+pocData
 
 	print(myString)
 

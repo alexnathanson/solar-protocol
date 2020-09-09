@@ -127,9 +127,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
     //get a full file
-  } else if (array_key_exists("file", $_GET)) {
+  } /*else if (array_key_exists("file", $_GET)) {
     //echo "Key = File";
-  }
+  }*/
 }
 
 function test_input($data) {

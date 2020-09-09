@@ -21,7 +21,7 @@ $fileDate = date("Y-m-d");
 if ($date == 'yesterday'){
 	$fileDate = date("Y-m-") . (date(d)-1);
 }elseif( $date == 'before'){
-	$fileDate = date("Y-m-") . (date(d)-2);
+	$fileDate = date("Y-m-") . (date(d)-2);//make a conditional to account for single digit days!!!
 }
 
 //variables

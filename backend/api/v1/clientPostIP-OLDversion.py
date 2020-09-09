@@ -16,9 +16,6 @@ headers = {
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
-pocLog = "/home/pi/solar-protocol/backend/api/v1/poc.log"
-pocData = []
-
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 
 print("MY IP: " + myIP)
@@ -53,32 +50,10 @@ def getIPList():
 
 def getPocLog():
 
-	try:
-		pocFile = open(pocLog)
-
-		pocFileLines = pocFile.readlines()
-
-		#read the most recent 20 lines
-		for l in range(len(pocFileLines)):
-
-			#print(pocFileLines[l])
-
-			#remove "INFO:root:" from the string 
-			pocData.append(pocFileLines[len(pocFileLines)-l-1][10:-1])
-
-			if l > 20:
-				break
-
-		pocFile.close()
-
-	except:
-		pocData.append(0)
-
-	print(pocData)
-
 def makePosts(ipList):
 	
-	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+str(pocData)
+	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
+
 
 	print(myString)
 
@@ -101,7 +76,6 @@ def makePosts(ipList):
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
-getPocLog();
 dstList = getIPList()
 makePosts(dstList)
 

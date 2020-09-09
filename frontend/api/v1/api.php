@@ -11,7 +11,7 @@ $servername = "localhost";
 $api_key_value = "tPmAT5Ab3j7F9";
 //$api_key_value = getenv('SP_API_KEY'); //THIS LINE HASN'T BEEN TESTED
 
-$api_key= $stamp = $ip = $mac = $name = "";
+$api_key= $stamp = $ip = $mac = $name = $log = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ip = test_input($_POST["ip"]);
     $mac = test_input($_POST["mac"]);
     $name = test_input($_POST["name"]);
+    $log = test_input($_POST["log"]);
 
     // Read the file contents into a string variable,
     // and parse the string into a data structure
@@ -43,7 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           "mac" => $mac,
           "ip" => $ip,
           "time stamp" => $stamp,
-          "name" => $name
+          "name" => $name,
+          "log" => $log
         ]];
     } else {
       //loop through to check if entry with mac address exists
@@ -53,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data[$i]['ip']= $ip;
             $data[$i]['time stamp']= $stamp;
             $data[$i]['name']= $name;
+            $data[$i]['log']=$log;
             $newMac = false;
             break;
         }
@@ -63,7 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           "mac" => $mac,
           "ip" => $ip,
           "time stamp" => $stamp,
-          "name" => $name
+          "name" => $name,
+          "log" => $log
         ];
         array_push($data, $newEntry);
       }

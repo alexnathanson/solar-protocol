@@ -58,20 +58,35 @@ GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
 ### GET
 clientGetPV.py is just for testing purposes. solarProtocol.py handles get request when they system is operational. You can also use a browser to make a get request.
 
-Possible keys (replace spaces with "-"):
-* PV current
-* PV power H
-* PV power L
-* PV voltage,
-* battery percentage
-* battery voltage
-* charge current
-* charge power H
-* charge power L
-* load current
-* load power
-* load voltage
-* datetime
+Possible keys for get requests
+
+* value - returns the specified value from the most recently collected line of data
+	* Possible values (replace spaces with "-"):
+		* PV current
+		* PV power H
+		* PV power L
+		* PV voltage,
+		* battery percentage
+		* battery voltage
+		* charge current
+		* charge power H
+		* charge power L
+		* load current
+		* load power
+		* load voltage
+		* datetime
+* line - returns the specified line from the current data logger file with headers in JSON format
+	* Possible values:
+		* len - returns the number of rows in the file
+		* head - returns the column headers
+		* 0 - returns the most recently collected line of data
+		* increment up to move back in time from 0 to retrieve any other row. For example, 1 will return the 2nd most recent row.
+* file - returns the specified file
+	* Possible values:
+		* TBD
+
+
+
 
 <p>
 GET Syntax: http:// + URL + /api/v1/api.php?value= + key

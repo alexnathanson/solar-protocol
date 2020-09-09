@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
   } 
-  //get a line of current data file. "len" returns length of current file, "0" returns most recent line. Increments up
+  //get a line of current data file. "len" returns length of current file, "head" returns the column headers, "0" returns most recent line. Increments up for other lines.
   else if (array_key_exists("line", $_GET)) {
     //echo "Key = Line";
     

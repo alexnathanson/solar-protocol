@@ -188,14 +188,7 @@ echo $buildNow;
 		//return this.slice(0); //shallow copy
 	};
 //PV DATA
-	//var pvData = ;
-/*
-	for (var sp = 0; sp < pvData.length;sp++){
-		pvData[sp].splice(10,3);//remove columns 10-13
-		pvData[sp].splice(4,5);//remove colums 4-8
-	}
-	
-*/
+
 	var pvData = cleanData(phpData.clone(), "date");
 
 	//remember this happens AFTER the columns are shuffled around!
@@ -211,11 +204,10 @@ echo $buildNow;
 
 	var batData = cleanData(phpData.clone(), "date");
 
-	//console.log(batData);
-	//remember this happens AFTER the columns are shuffled around!
+	//remember this happens AFTER the columns are shuffled around! - is this still true?
 	for (var sp = 0; sp < batData.length;sp++){
 		batData[sp].splice(1,4);//remove columns
-		batData[sp].splice(5);//remove colums
+		batData[sp].splice(5,7);//remove colums
 	}
 	
 	//scale bat percentage to 0-100
@@ -232,11 +224,6 @@ echo $buildNow;
 		loadData[sp].splice(1,8);//remove columns
 		loadData[sp].splice(5);//remove colums
 	}
-	//select columns
-      //this only works for taking a contiguous subset
-      //var mapData = phpData.map(function(val){
-	  //  return val.slice(10,(val.length));
-		//});
 
       function cleanData(tempData, stringForX){
 

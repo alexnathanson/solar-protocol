@@ -209,7 +209,7 @@ echo $buildNow;
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < batData.length;sp++){
 		batData[sp].splice(1,4);//remove columns
-		batData[sp].splice(5,3);//remove colums
+		batData[sp].splice(5,1);//remove colums
 	}
 
   let percentPosition = batData[0].length - 1;

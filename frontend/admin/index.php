@@ -209,7 +209,7 @@ echo $buildNow;
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < batData.length;sp++){
 		batData[sp].splice(1,4);//remove columns
-		batData[sp].splice(5,7);//remove colums
+		batData[sp].splice(4,7);//remove colums
 	}
 	console.log(batData);
 

@@ -176,13 +176,6 @@ echo $buildNow;
 	google.charts.setOnLoadCallback(drawChart);
 
 	var phpData = <?php echo json_encode($rawDataArray) ?>;
-
-	//remove the time column from the end
-	/*for (var p =0; p <phpData.length; p++){
-		phpData[p].pop();
-	}*/
-
-  console.log(phpData);
       
 	Array.prototype.clone = function() {
 		return JSON.parse(JSON.stringify(this)); //deep copy
@@ -200,7 +193,7 @@ echo $buildNow;
 		pvData[sp].splice(5);//remove colums
 	}
 	
-	console.log(pvData);
+	//console.log(pvData);
 
 //BAT DATA
 	//var batData = phpData.slice(4,6);
@@ -211,7 +204,7 @@ echo $buildNow;
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < batData.length;sp++){
 		batData[sp].splice(1,4);//remove columns
-		batData[sp].splice(5,1);//remove colums
+		batData[sp].splice(5,3);//remove colums
 	}
 
   let percentPosition = batData[0].length - 1;
@@ -233,7 +226,7 @@ echo $buildNow;
 //moves date column to front to be used as X data on graphs
       function cleanData(tempData, stringForX){
 
-      	console.log(tempData[0]) //print headers
+      	//console.log(tempData[0]) //print headers
 
       	//Set X axis
       	var useAsX = 0;

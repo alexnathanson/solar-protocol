@@ -205,14 +205,13 @@ echo $buildNow;
 
 	var batData = cleanData(phpData.clone(), "date");
 
-  console.log(batData);
+  console.log(batData[0]);
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < batData.length;sp++){
 		batData[sp].splice(1,4);//remove columns
-		batData[sp].splice(4,7);//remove colums
+		batData[sp].splice(5,6);//remove colums
 	}
-	console.log(batData);
-
+=
   let percentPosition = batData[0].length - 1;
 	//scale bat percentage to 0-100
 	for (var bper = 1; bper < batData.length; bper++){

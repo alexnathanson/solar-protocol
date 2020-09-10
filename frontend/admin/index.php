@@ -181,6 +181,8 @@ echo $buildNow;
 	for (var p =0; p <phpData.length; p++){
 		phpData[p].pop();
 	}
+
+  console.log(phpData);
       
 	Array.prototype.clone = function() {
 		return JSON.parse(JSON.stringify(this)); //deep copy

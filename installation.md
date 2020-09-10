@@ -25,7 +25,6 @@ Careful to set up pi securely.
 * Check the password is secure
 * Open ports 80 and 22 on your router. 
 * Secure pi - here is a guide: https://www.raspberrypi.org/documentation/configuration/security.md
-	* Block login to pi from root
     * Using key-based authentication.
     	* run `install -d -m 700 ~/.ssh`
     	* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`
@@ -36,7 +35,6 @@ Careful to set up pi securely.
 		* if it works, disable password login
 			* `sudo nano /etc/ssh/sshd_config`
 			* change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)
-    * Installed firewall and fail2ban
 
 ### Repository
 Download repo into /home/pi

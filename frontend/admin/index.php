@@ -185,10 +185,11 @@ echo $buildNow;
 	Array.prototype.clone = function() {
 		return JSON.parse(JSON.stringify(this)); //deep copy
 
-		//return this.slice(0); //shallow copy
 	};
+
 //PV DATA
 
+//add date column to front
 	var pvData = cleanData(phpData.clone(), "date");
 
 	//remember this happens AFTER the columns are shuffled around!
@@ -204,15 +205,18 @@ echo $buildNow;
 
 	var batData = cleanData(phpData.clone(), "date");
 
-	//remember this happens AFTER the columns are shuffled around! - is this still true?
+  console.log(batData);
+	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < batData.length;sp++){
 		batData[sp].splice(1,4);//remove columns
-		batData[sp].splice(6,8);//remove colums
+		batData[sp].splice(5,7);//remove colums
 	}
-	
+	console.log(batData);
+
+  let percentPosition = batData[0].length - 1;
 	//scale bat percentage to 0-100
 	for (var bper = 1; bper < batData.length; bper++){
-		batData[bper][batData[bper].length - 1] *= 100.0;
+		batData[bper][percentPosition] *= 100.0;
 	}
 
 //LOAD DATA
@@ -225,6 +229,7 @@ echo $buildNow;
 		loadData[sp].splice(5);//remove colums
 	}  
 
+//moves date column to front to be used as X data on graphs
       function cleanData(tempData, stringForX){
 
       	console.log(tempData[0]) //print headers

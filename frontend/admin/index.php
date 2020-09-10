@@ -110,14 +110,14 @@ if ($date == 'yesterday'){
 $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
 $rawDataArray = [];
 
-echo "<p>View: <a href='/?date=today' id='today'>Today</a> | <a href='/?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/?date=before' id='daybefore'>The Day Before</a></p>";
+echo "<h2>PV Data:</h2>";
 
+echo "<p>View: <a href='/?date=today' id='today'>Today</a> | <a href='/?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/?date=before' id='daybefore'>The Day Before</a></p>";
 echo "<h3>File Name:</h3>". $fileName . "<br>";
 
 // current directory
 //echo getcwd() . "\n";
 
-echo "<h3>PV Data:</h3>";
 
 // Open the file for reading (from https://phpenthusiast.com/blog/parse-csv-with-php)
 if (($h = fopen("{$fileName}", "r")) !== FALSE) 
@@ -170,10 +170,6 @@ $buildNow .= '</tr>';
 $buildNow .= '</table>';
 echo $buildNow;
 
-
-echo "<h4>Today:</h4>";
-
-
 ?>
 
 <script type="text/javascript">
@@ -209,7 +205,7 @@ echo "<h4>Today:</h4>";
 		pvData[sp].splice(5);//remove colums
 	}
 	
-	//console.log(pvData);
+	console.log(pvData);
 
 //BAT DATA
 	//var batData = phpData.slice(4,6);

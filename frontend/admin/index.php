@@ -112,12 +112,11 @@ $rawDataArray = [];
 
 echo "<h2>PV Data:</h2>";
 
-echo "<p>View: <a href='/?date=today' id='today'>Today</a> | <a href='/?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/?date=before' id='daybefore'>The Day Before</a></p>";
+echo "<p>View: <a href='/admin/?date=today' id='today'>Today</a> | <a href='/admin/?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/admin/?date=before' id='daybefore'>The Day Before</a></p>";
 echo "<h3>File Name:</h3>". $fileName . "<br>";
 
 // current directory
 //echo getcwd() . "\n";
-
 
 // Open the file for reading (from https://phpenthusiast.com/blog/parse-csv-with-php)
 if (($h = fopen("{$fileName}", "r")) !== FALSE) 
@@ -201,7 +200,7 @@ echo $buildNow;
 
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < pvData.length;sp++){
-		pvData[sp].splice(1,3);//remove columns
+		//pvData[sp].splice(1,3);//remove columns
 		pvData[sp].splice(5);//remove colums
 	}
 	
@@ -215,8 +214,8 @@ echo $buildNow;
 	//console.log(batData);
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < batData.length;sp++){
-		batData[sp].splice(1,7);//remove columns
-		//batData[sp].splice(8);//remove colums
+		batData[sp].splice(1,4);//remove columns
+		batData[sp].splice(5);//remove colums
 	}
 	
 	//scale bat percentage to 0-100
@@ -230,8 +229,8 @@ echo $buildNow;
 
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < loadData.length;sp++){
-		loadData[sp].splice(4);//remove columns
-		//batData[sp].splice(8);//remove colums
+		loadData[sp].splice(1,8);//remove columns
+		loadData[sp].splice(5);//remove colums
 	}
 	//select columns
       //this only works for taking a contiguous subset

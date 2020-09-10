@@ -207,12 +207,12 @@ echo $buildNow;
 	//remember this happens AFTER the columns are shuffled around! - is this still true?
 	for (var sp = 0; sp < batData.length;sp++){
 		batData[sp].splice(1,4);//remove columns
-		batData[sp].splice(5,7);//remove colums
+		batData[sp].splice(6,8);//remove colums
 	}
 	
 	//scale bat percentage to 0-100
 	for (var bper = 1; bper < batData.length; bper++){
-		batData[bper][1] *= 100.0;
+		batData[bper][batData[bper].length - 1] *= 100.0;
 	}
 
 //LOAD DATA
@@ -223,7 +223,7 @@ echo $buildNow;
 	for (var sp = 0; sp < loadData.length;sp++){
 		loadData[sp].splice(1,8);//remove columns
 		loadData[sp].splice(5);//remove colums
-	}
+	}  
 
       function cleanData(tempData, stringForX){
 

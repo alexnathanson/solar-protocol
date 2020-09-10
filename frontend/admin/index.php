@@ -209,7 +209,7 @@ echo $buildNow;
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < batData.length;sp++){
 		batData[sp].splice(1,4);//remove columns
-		batData[sp].splice(5,6);//remove colums
+		batData[sp].splice(5,3);//remove colums
 	}
 
   let percentPosition = batData[0].length - 1;
@@ -225,7 +225,7 @@ echo $buildNow;
 	//remember this happens AFTER the columns are shuffled around!
 	for (var sp = 0; sp < loadData.length;sp++){
 		loadData[sp].splice(1,8);//remove columns
-		loadData[sp].splice(5);//remove colums
+		loadData[sp].splice(4);//remove colums
 	}  
 
 //moves date column to front to be used as X data on graphs

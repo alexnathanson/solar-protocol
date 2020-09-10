@@ -211,7 +211,7 @@ echo $buildNow;
 		batData[sp].splice(1,4);//remove columns
 		batData[sp].splice(5,6);//remove colums
 	}
-=
+
   let percentPosition = batData[0].length - 1;
 	//scale bat percentage to 0-100
 	for (var bper = 1; bper < batData.length; bper++){

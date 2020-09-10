@@ -178,9 +178,9 @@ echo $buildNow;
 	var phpData = <?php echo json_encode($rawDataArray) ?>;
 
 	//remove the time column from the end
-	for (var p =0; p <phpData.length; p++){
+	/*for (var p =0; p <phpData.length; p++){
 		phpData[p].pop();
-	}
+	}*/
 
   console.log(phpData);
       

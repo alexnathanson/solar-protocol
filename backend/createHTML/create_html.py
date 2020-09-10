@@ -43,7 +43,7 @@ def get_data():
         return data
 
 def get_dummy_data():
-    with open('../../charger-controller/data/tracerData2020-05-17.json') as d:
+    with open('/home/pi/solar-protocol/charger-controller/data/tracerData2020-05-17.json') as d:
         result = json.load(d)
         n=0
         if d:
@@ -90,14 +90,14 @@ def check_energy(_data):
         template = Template(template_file)
         rendered_html = template.render(solarVoltage=_data["solarVoltage"], batteryCurrent=_data["batteryCurrent"])
         print(rendered_html)
-        open("output/index.html", "w").write(rendered_html)
+        open("/home/pi/solar-protocol/frontend/index.html", "w").write(rendered_html)
     else: 
         print("Generating large page")
         template_file = open("templates/index-large.html").read()
         template = Template(template_file)
         rendered_html = template.render(solarVoltage=_data["solarVoltage"], batteryCurrent=_data["batteryCurrent"])
         print(rendered_html)
-        open("output/index.html", "w").write(rendered_html)
+        open("/home/pi/solar-protocol/frontend/index.html", "w").write(rendered_html)
     
 
 def main():

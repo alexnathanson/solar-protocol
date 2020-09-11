@@ -38,7 +38,8 @@ def getData(dst):
 		#print(response)
 		return response.text
 	except requests.exceptions.HTTPError as err:
-		return err
+		print(err)
+		return 0
 
 def remoteData(dstIPs):
 	allData = []

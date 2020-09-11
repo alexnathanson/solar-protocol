@@ -36,14 +36,19 @@ def getData(dst):
 		#returns a single value
 		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
 		#print(response.text)
-		response.raise_for_status()
-		return response.text
+		#response.raise_for_status()
+		
+		#check if the response can be converted to a float
+		try: 
+			return float(response.text)
+		except:
+			return -1
 	except requests.exceptions.HTTPError as err:
 		print(err)
-		return "-1"
+		return -1
 	except requests.exceptions.Timeout as err:
 		print(err)
-		return "-1"
+		return -1
 
 def remoteData(dstIPs):
 	allData = []
@@ -63,7 +68,7 @@ def determineServer():
 	thisServer = True
 
 	print(remotePVData)
-	
+
 	#loop through data from all servers and compare voltages
 	for s in remotePVData:
 		if s > localPVData:

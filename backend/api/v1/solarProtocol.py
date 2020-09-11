@@ -35,9 +35,7 @@ def getData(dst):
 	try:
 		#returns a single value
 		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
-		#print(response.text)
-		#response.raise_for_status()
-		
+		#print(response.text)		
 		#check if the response can be converted to a float
 		try: 
 			return float(response.text)
@@ -67,7 +65,7 @@ def determineServer():
 
 	thisServer = True
 
-	print(remotePVData)
+	#print(remotePVData)
 
 	#loop through data from all servers and compare voltages
 	for s in remotePVData:
@@ -135,7 +133,7 @@ def getmac(interface):
 myMAC = getmac("wlan0")
 #print("my mac: " + myMAC)
 
-localPVData = localData()
+localPVData = float(localData())
 #print("My Voltage: "+localPVData)
 remotePVData = remoteData(getIPList())
 #print("Remote Voltage: " + remotePVData)

@@ -35,14 +35,15 @@ def getData(dst):
 	try:
 		#returns a single value
 		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
-		#print(response)
-		return float(response.text)
+		#print(response.text)
+		if response.ok:
+			return response.text
 	except requests.exceptions.HTTPError as err:
 		print(err)
-		return -1
+#		return -1
 	except requests.exceptions.Timeout as err:
 		print(err)
-		return -1
+#		return -1
 
 def remoteData(dstIPs):
 	allData = []

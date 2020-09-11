@@ -34,12 +34,15 @@ logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poc.log', l
 def getData(dst):
 	try:
 		#returns a single value
-		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue)
+		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
 		#print(response)
 		return response.text
 	except requests.exceptions.HTTPError as err:
 		print(err)
-		return 0
+		return -1
+	except requests.exceptions.Timeout as err:
+		print(err)
+		return -1
 
 def remoteData(dstIPs):
 	allData = []

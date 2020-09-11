@@ -36,7 +36,7 @@ def getData(dst):
 		#returns a single value
 		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
 		#print(response)
-		return response.text
+		return float(response.text)
 	except requests.exceptions.HTTPError as err:
 		print(err)
 		return -1

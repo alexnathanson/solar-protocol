@@ -1,13 +1,15 @@
+
 from jinja2 import Template
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 import datetime
-import json 
+import json
 import random
 
+
 def get_data():
-    client = ModbusClient(method = 'rtu', port = '/dev/ttyUSB0', baudrate = 115200)
+    client = ModbusClient(method='rtu', port='/dev/ttyUSB0', baudrate=115200)
     client.connect()
-    result = client.read_input_registers(0x3100,16,unit=1)
+    result = client.read_input_registers(0x3100, 16, unit=1)
     if not result.isError():
         solarVoltage = float(result.registers[0] / 100.0)
         solarCurrent = float(result.registers[1] / 100.0)
@@ -21,31 +23,32 @@ def get_data():
         loadCurrent = float(result.registers[9] / 100.0)
         loadPower = float(result.registers[10] / 100.0)
 
-        result = client.read_input_registers(0x311A,2,unit=1)
+        result = client.read_input_registers(0x311A, 2, unit=1)
         batteryPercentage = float(result.registers[0] / 100.0)
 
-        
         data = {
-            "datetime" : datetime.datetime.now(),
-            "solarVoltage" : solarVoltage,
-            "solarCurrent" : solarCurrent,
-            "solarPowerL" : solarPowerL,
-            "solarPowerH" : solarPowerH,
-            "batteryVoltage" : batteryVoltage,
-            "batteryCurrent" : batteryCurrent,
-            "batteryPowerL" : batteryPowerL,
-            "batteryPowerH" : batteryPowerH,
-            "loadVoltage" : loadVoltage,
-            "loadCurrent" : loadCurrent,
-            "loadPower" : loadPower,
-            "batteryPercentage" :  random.randint(0,100),
+            "datetime": datetime.datetime.now(),
+            "solarVoltage": solarVoltage,
+            "solarCurrent": solarCurrent,
+            "solarPowerL": solarPowerL,
+            "solarPowerH": solarPowerH,
+            "batteryVoltage": batteryVoltage,
+            "batteryCurrent": batteryCurrent,
+            "batteryPowerL": batteryPowerL,
+            "batteryPowerH": batteryPowerH,
+            "loadVoltage": loadVoltage,
+            "loadCurrent": loadCurrent,
+            "loadPower": loadPower,
+            "batteryPercentage":  random.randint(0, 100),
         }
+        print(data)
         return data
+
 
 def get_dummy_data():
     with open('/home/pi/solar-protocol/charger-controller/data/tracerData2020-05-17.json') as d:
         result = json.load(d)
-        n=0
+        n = 0
         if d:
             #print("No data")
             solarVoltage = result[n]["solarVoltage"]
@@ -61,53 +64,54 @@ def get_dummy_data():
             loadPower = result[n]["loadPower"]
             batteryPercentage = result[n]["batteryPercentage"]
 
-        # result = client.read_input_registers(0x311A,2,unit=1)
+        # result = client.råead_input_registers(0x311A,2,unit=1)
         # batteryPercentage = float(result["registers"][0] / 100.0)
 
-        
         data = {
-            "datetime" : datetime.datetime.now(),
-            "solarVoltage" : solarVoltage,
-            "solarCurrent" : solarCurrent,
-            "solarPowerL" : solarPowerL,
-            "solarPowerH" : solarPowerH,
-            "batteryVoltage" : batteryVoltage,
-            "batteryCurrent" : batteryCurrent,
-            "batteryPowerL" : batteryPowerL,
-            "batteryPowerH" : batteryPowerH,
-            "loadVoltage" : loadVoltage,
-            "loadCurrent" : loadCurrent,
-            "loadPower" : loadPower,
-            "batteryPercentage" :  random.randint(0, 100),
+            "datetime": datetime.datetime.now(),
+            "solarVoltagåe": solarVoltage,
+            "solarCurrent": solarCurrent,
+            "solarPowerL": solarPowerL,
+            "solarPowerH": solarPowerH,
+            "batteryVoltage": batteryVoltage,
+            "batteryCurrent": batteryCurrent,
+            "batteryPowerL": batteryPowerL,
+            "batteryPowerH": batteryPowerH,
+            "loadVoltage": loadVoltage,
+            "loadCurrent": loadCurrent,
+            "loadPower": loadPower,
+            "batteryPercentage":  random.randint(0, 100),
         }
         return data
 
 
 def check_energy(_data):
-    if _data["batteryPercentage"] < 50:
+    if _data["batteryPercentage"] < 20:
         print("Generating small page")
         template_file = open("templates/index-small.html").read()
         template = Template(template_file)
-        rendered_html = template.render(solarVoltage=_data["solarVoltage"], batteryCurrent=_data["batteryCurrent"])
+        rendered_html = template.render(
+            solarVoltage=_data["solarVoltage"], batteryCurrent=_data["batteryCurrent"])
         print(rendered_html)
-        open("/home/pi/solar-protocol/frontend/index.html", "w").write(rendered_html)
-    else: 
+        open("/home/pi/solar-protocol/frontend/index.html",
+             "w").write(rendered_html)
+    else:
         print("Generating large page")
         template_file = open("templates/index-large.html").read()
         template = Template(template_file)
-        rendered_html = template.render(solarVoltage=_data["solarVoltage"], batteryCurrent=_data["batteryCurrent"])
+        rendered_html = template.render(
+            solarVoltage=_data["solarVoltage"], batteryCurrent=_data["batteryCurrent"])
         print(rendered_html)
-        open("/home/pi/solar-protocol/frontend/index.html", "w").write(rendered_html)
-    
+        open("/home/pi/solar-protocol/frontend/index.html",
+             "w").write(rendered_html)
+
 
 def main():
-    data = get_dummy_data()
-    print(data["batteryPercentage"])
+    data = get_data()
+    print("Battery: {}".format(data["batteryPercentage"]))
+    print("PV: {}".format(data["SolarVoltage"]))
     check_energy(data)
-    #print(data)
-
-
-    
+    # print(data)
 
 
 if __name__ == "__main__":

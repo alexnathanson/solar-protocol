@@ -50,8 +50,20 @@
   }
 
   function showPocLog(response){
-    console.log(response);
-    console.log(JSON.parse(response));
+    //console.log(JSON.parse(response));
+    let jsonPoc = JSON.parse(response);
+
+    let justPocLog = []
+
+    for (let p = 0; p < jsonPoc.length;p++){
+      justPocLog.append(jsonPoc[p]["log"]);
+    }
+    console.log(justPocLog);
+
+    const poc = document.getElementById('pointOfContact');
+
+    document.createElement('p');
+   // p.innerHTML = jsonPocLog;
   } 
 
   function makeGet(dst, getThis, callback) {

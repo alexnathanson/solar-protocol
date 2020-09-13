@@ -16,6 +16,7 @@
 <div id="server list"><h2>Servers:</h2></div>
 
 <div id="pointOfContact"><h2>Point of Contact History:</h2></div>
+<!-- <div id="poc_chart" style="width: 1500px; height: 500px"></div> -->
 
 <script>
   //make this dynamic at some point
@@ -49,10 +50,57 @@
     xhttp.send();
   }
 
+//not finished yet
   function showPocLog(response){
-    console.log(response);
-    console.log(JSON.parse(response));
+    //console.log(JSON.parse(response));
+    let jsonPoc = JSON.parse(response);
+
+    let justPocLog = []
+
+    //let placeholder = [];
+
+    for (let p = 0; p < jsonPoc.length;p++){
+      justPocLogTemp = [];
+      justPocLogTemp.push(p+1);
+      justPocLogTemp.push(jsonPoc[p]["log"]);
+      justPocLog.push(justPocLogTemp);
+      //initialize placeholders
+      //placeholder.push(0);
+    }
+
+    console.log(justPocLog);
+
+    //drawChart(justPocLog);
   } 
+
+   /*function drawChart(pData) {
+    let POCdataMap = google.visualization.arrayToDataTable(pData);
+
+
+ // Define the chart to be drawn.
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', '1');
+    data.addColumn('number', 'Weight');
+    data.addRows([
+       [ 8,      12],
+       [ 4,      5.5],
+       [ 11,     14],
+       [ 4,      5],
+       [ 3,      3.5],
+       [ 6.5,    7]
+    ]);
+               
+    // Set chart options
+    var POCoptions = {
+       'title':'Point of Contact',
+       'width':1500,
+       'height':400,
+       'legend': 'none'
+    };
+
+    var POCchart = new google.visualization.ScatterChart(document.getElementById('poc_chart'));
+    POCchart.draw(POCdataMap, POCoptions);
+  }*/
 
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;

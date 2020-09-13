@@ -2,6 +2,8 @@
 
 ## Best Practices
 
+### Siting PV Module
+
 ### Batteries
 * Never mix batteries of different types, sizes, manufactures, or ages/ level of pre-existing use in the same circuit.
 * Measure battery voltage with a multimeter prior to connecting it.
@@ -15,6 +17,8 @@ Never have the PV module connected to the charge controller without the battery.
 * To install, connect the battery first, then connect the PV module
 * To deinstall, disconnect the PV module first, then the battery
 * The charge controller should turn on and function with only the battery connected
+
+### Internet Connectivity
 
 ## Problem Identification
 

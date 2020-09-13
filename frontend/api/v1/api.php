@@ -131,9 +131,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
     //get a full file
-  } /*else if (array_key_exists("file", $_GET)) {
+  } else if (array_key_exists("file", $_GET)) {
     //echo "Key = File";
-  }*/
+
+    if($_GET["file"] == "deviceList"){
+      $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+    }
+
+    $readData = getFile($fileName);
+
+    if($readData != FALSE){
+      echo $readData;
+    }
+  }
 }
 
 function test_input($data) {
@@ -165,4 +175,15 @@ function chargeControllerData(){
   } else {
     return FALSE;
   }
+}
+
+function getFile($fileName){
+  //echo $fileName;
+
+    if (($h = fopen("{$fileName}", "r")) !== FALSE) {
+      return $h;
+    } else {
+      return FALSE;
+    }
+
 }

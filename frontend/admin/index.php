@@ -70,8 +70,8 @@
     drawChart(justPocLog);
   } 
 
-   function drawChart(data) {
-    let POCdataMap = google.visualization.arrayToDataTable(data);
+   function drawChart(pData) {
+    let POCdataMap = google.visualization.arrayToDataTable(pData);
 
     var POCoptions = {
           title: 'Point of Contact',

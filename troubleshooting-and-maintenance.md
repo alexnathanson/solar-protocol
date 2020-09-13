@@ -19,12 +19,14 @@ Never have the PV module connected to the charge controller without the battery.
 
 <p>
 No output
+
 * Check charge controller output settings
 * Check OCPD
 * Measure output voltage with multimeter
 </p>
 <p>
 Unstable output
+
 * Check battery health
 </p>
 

@@ -1,4 +1,4 @@
-# Troubleshooting & Maintenance
+# Hardware Troubleshooting & Maintenance
 
 ## Best Practices
 
@@ -26,6 +26,7 @@ No output
 </p>
 <p>
 Unstable output
+
 * Check battery health
 * If battery voltage is below 12V, battery is too small for load and/or not enough sun for an extended period of time
 	* Solution: Disconnect load and wait for a sunny day for it to recharge

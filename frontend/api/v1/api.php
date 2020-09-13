@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo $returnJSON;
       }
     }
-    //get a full file
+    //get a full file - move to post
   } else if (array_key_exists("file", $_GET)) {
     //echo "Key = File";
 
@@ -142,6 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($readData != FALSE){
       echo $readData;
+      var_dump($readData)
     }
   }
 }
@@ -179,12 +180,11 @@ function chargeControllerData(){
 
 function getFile($fileName){
   //echo $fileName;
-
-    if (($h = fopen("{$fileName}", "r")) !== FALSE) {
-      fclose($h);
-      return $h;
-    } else {
-      return FALSE;
-    }
+  try{
+    return file_get_contents($fileName);
+  }
+  catch {
+    return FALSE;
+  }
 
 }

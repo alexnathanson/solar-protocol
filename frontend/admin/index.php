@@ -70,24 +70,37 @@
 
     console.log(justPocLog);
 
-    drawChart(justPocLog);
+    //drawChart(justPocLog);
   } 
 
-   function drawChart(pData) {
+   /*function drawChart(pData) {
     let POCdataMap = google.visualization.arrayToDataTable(pData);
 
+
+ // Define the chart to be drawn.
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', '1');
+    data.addColumn('number', 'Weight');
+    data.addRows([
+       [ 8,      12],
+       [ 4,      5.5],
+       [ 11,     14],
+       [ 4,      5],
+       [ 3,      3.5],
+       [ 6.5,    7]
+    ]);
+               
+    // Set chart options
     var POCoptions = {
-          title: 'Point of Contact',
-          curveType: 'function',
-          legend: { position: 'bottom' },
-          width: 1500,
-          height: 500
-        };
+       'title':'Point of Contact',
+       'width':1500,
+       'height':400,
+       'legend': 'none'
+    };
 
-    var POCchart = new google.visualization.LineChart(document.getElementById('poc_chart'));
-
+    var POCchart = new google.visualization.ScatterChart(document.getElementById('poc_chart'));
     POCchart.draw(POCdataMap, POCoptions);
-  }
+  }*/
 
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;

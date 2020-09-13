@@ -16,6 +16,7 @@
 <div id="server list"><h2>Servers:</h2></div>
 
 <div id="pointOfContact"><h2>Point of Contact History:</h2></div>
+<div id="poc_chart" style="width: 1500px; height: 500px"></div>
 
 <script>
   //make this dynamic at some point
@@ -49,22 +50,41 @@
     xhttp.send();
   }
 
+//not finished yet
   function showPocLog(response){
     //console.log(JSON.parse(response));
     let jsonPoc = JSON.parse(response);
 
     let justPocLog = []
 
+    //let placeholder = [];
+
     for (let p = 0; p < jsonPoc.length;p++){
-      justPocLog.append(jsonPoc[p]["log"]);
+      justPocLog.push(jsonPoc[p]["log"]);
+      //initialize placeholders
+      //placeholder.push(0);
     }
+
     console.log(justPocLog);
 
-    const poc = document.getElementById('pointOfContact');
-
-    document.createElement('p');
-   // p.innerHTML = jsonPocLog;
+    drawChart(justPocLog);
   } 
+
+   function drawChart(data) {
+    let POCdataMap = google.visualization.arrayToDataTable(data);
+
+    var POCoptions = {
+          title: 'Point of Contact',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          width: 1500,
+          height: 500
+        };
+
+    var POCchart = new google.visualization.LineChart(document.getElementById('poc_chart'));
+
+    POCchart.draw(POCdataMap, POCoptions);
+  }
 
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;

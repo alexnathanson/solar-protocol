@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($readData != FALSE){
       echo $readData;
-      var_dump($readData);
+      //var_dump($readData);
     }
   }
 }

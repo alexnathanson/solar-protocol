@@ -181,6 +181,7 @@ function getFile($fileName){
   //echo $fileName;
 
     if (($h = fopen("{$fileName}", "r")) !== FALSE) {
+      fclose($h);
       return $h;
     } else {
       return FALSE;

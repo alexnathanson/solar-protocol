@@ -45,13 +45,14 @@
         callback(this.statusText, dst);
       }
     };
-    xhttp.open("GET", requestURL, true);
+    xhttp.open("GET", dst, true);
     xhttp.send();
   }
 
   function showPocLog(response){
     console.log(response);
-  }
+    console.log(JSON.parse(response));
+  } 
 
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;

@@ -16,7 +16,7 @@
 <div id="server list"><h2>Servers:</h2></div>
 
 <div id="pointOfContact"><h2>Point of Contact History:</h2></div>
-<div id="poc_chart" style="width: 1500px; height: 500px"></div>
+<!-- <div id="poc_chart" style="width: 1500px; height: 500px"></div> -->
 
 <script>
   //make this dynamic at some point

@@ -25,6 +25,14 @@ h2{
   padding-bottom: 1em;
 }
 
+h3{
+  font-size: 1.5em;
+  font-weight: normal;
+  margin: 0;
+
+  font-style: italic;
+}
+
 .server-container {
   background-color: white;
   width: 100%;

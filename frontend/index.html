@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="server-container">
-      <p>ACTIVE SERVER: KOSCIUSZKO ST &nbsp; &nbsp; PV VOLTAGE: 17V</p>
+      <p>ACTIVE SERVER: KOSCIUSZKO ST &nbsp; &nbsp; PV VOLTAGE: {{solarVoltage}} &nbsp; &nbsp; BATTERY LEVEL: {{batteryCurrent}}</p>
     </div>
     <div class="image-container">
       <img src="images/Solar-globe-bw-small.png" class="halfwidth" />
@@ -20,11 +20,10 @@
     <div class="text-title-container"></div>
     <div class="text-container">
       <p>
-        Solar Protocol is an experimental network of solar powered servers,
+        Solar Protocol is an experimental network of solar powered servers
         installed at different locations around the world. As the sun rises and
         sets, each server turns on and off as its solar panel
-        goes into sunlight or darkness. This website is hosted on the Solar
-        Protocol network and traffic is directed to whichever server is enjoying
+        goes into sunlight or darkness. This website is hosted on the network and traffic is directed to whichever server is enjoying
         the most sunlight at the time the request for this page is made. Different parts of this site are distributed across the network and made available at different times of
         the day, depending on which server is active. 
       </p>
@@ -34,12 +33,7 @@
         a server. In short, DNS dictates the path between client and server.
         Typically high volume web services like Google or Facebook will
         configure the DNS to direct network traffic to different servers based
-        on their response times, which is usually determined by the distance
-        between viewer and server. However on the Solar Protocol network,
-        traffic is automatically directed to whichever server has the most solar
-        energy available. Solar Protocol network uses the logic of the DNS is
-        determined by the way sunshine and therefore energy, is distributed
-        across the planet.
+        on their response times which is ususally a proxy for the sending traffic to the server that is geographically closest. However on the Solar Protocol network, traffic is automatically directed to whichever server has the most solar energy available. The network detirmines the path from client to server based on the distribution of sunshine (and therefore energy) across the planet.
       </p>
     </div>
     <div class="image-container">
@@ -47,7 +41,16 @@
 
     </div>
     <div class="text-container">
-      <p class="caption">Diurnal sun positions produce routing logic in the network.</p>
+      <p class="caption">Diurnal sun positions produce the routing logic of the network.</p>
     </div>  
+    <div class="text-container">
+      <h3>Natural intelligences</h3>
+    <p>
+    Solar Protocol reconfigures internet protocols using natural intelligence rather than artificial intelligence. Presently, much attention is focused on automating decisions based on logics derived from massive datasets produced by systems of surveillance capitalism. Web platforms monitor our behavior and use this data to make decisions about what content we will see next. Instead, on the Solar Protocol platform decisions about what content is served, are automated with a logic produced by the sun’s position. The network leverages a natural intelligence that emerges from the intermittent dynamics of our shared environment. </p>
+    <p>
+    Both digital surveillance and machine learning are intelligences only made possible by a society dependent on cheap energy from fossil fuels. Relying on solar energy to power our servers, means the pages served on this network must be kept small in size and have to omit energy-intensive tracking technologies. Solar powered sites are therefore fast, light and private.</p>
+    <p>
+    Solar Protocol is a space to contend with the internet as produced by an interplay between the social, ecological and technological, and to reimagine it anew.
+  </p>
   </body>
 </html>

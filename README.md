@@ -12,7 +12,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/installation.md
 
 https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 
-## Troubleshooting & Maintenance
+## Hardware Troubleshooting & Maintenance
 
 https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-maintenance.md
 

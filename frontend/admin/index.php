@@ -15,6 +15,8 @@
 
 <div id="server list"><h2>Servers:</h2></div>
 
+<div id="pointOfContact"><h2>Point of Contact History:</h2></div>
+
 <script>
   //make this dynamic at some point
   let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
@@ -22,10 +24,35 @@
   //get the most recent line of charge controller data
   let toGet = "0";
 
+//server list
   for (let i = 0; i < tempIPList.length; i++){
     //pingServer(tempIPList[i], populate);
     makeGet(tempIPList[i], toGet, populate);
   }
+
+  //point of contact
+  let pocURL = "http://"+ window.location.hostname +"/api/v1/api.php?file=deviceList";
+  console.log(pocURL);
+
+  getPocLog(pocURL,showPocLog);
+
+  function getPocLog(dst, callback){
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        callback(this.responseText, dst);
+      } else if (this.readyState == 4) {
+        callback(this.statusText, dst);
+      }
+    };
+    xhttp.open("GET", dst, true);
+    xhttp.send();
+  }
+
+  function showPocLog(response){
+    console.log(response);
+    console.log(JSON.parse(response));
+  } 
 
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;

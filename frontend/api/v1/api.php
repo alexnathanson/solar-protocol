@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($readData != FALSE){
       echo $readData;
-      var_dump($readData)
+      //var_dump($readData);
     }
   }
 }
@@ -183,7 +183,7 @@ function getFile($fileName){
   try{
     return file_get_contents($fileName);
   }
-  catch {
+  catch(Exception $e) {
     return FALSE;
   }
 

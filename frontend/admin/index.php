@@ -60,7 +60,10 @@
     //let placeholder = [];
 
     for (let p = 0; p < jsonPoc.length;p++){
-      justPocLog.push(jsonPoc[p]["log"]);
+      justPocLogTemp = [];
+      justPocLogTemp.push(p+1);
+      justPocLogTemp.push(jsonPoc[p]["log"]);
+      justPocLog.push(justPocLogTemp);
       //initialize placeholders
       //placeholder.push(0);
     }

@@ -64,106 +64,24 @@ def read_csv():
     line["load power"] = float(line["load power"])
     line["battery percentage"] = float(line["battery percentage"])
     return line 
-        # for line in csv.DictReader(data):        
-        #     print(line)
-        #     myDict = line.copy()
-        #     #print(myDict)
-        #     # data2 = {
-        #     #     datatime = myDict.get("datetime")
-        #     #     solarVoltage = myDict.get("PV voltage")
-        #     #     solarCurrent = myDict.get("PV current")
-        #     #     solarPowerL = myDict.get("PV power L")
-        #     #     solarPowerH = myDict.get("PV power H")
-        #     #     batteryVoltage = myDict.get("battery voltage")
-        #     #     batteryCurrent = myDict.get("battery current")
-        #     #     batteryPowerL = myDict.get("battery power L")
-        #     #     batteryPowerH = myDict.get("battery power H")
-        #     #     loadVoltage = myDict.get("load voltage")
-        #     #     loadCurrent = myDict.get("load current")
-        #     #     loadPower = myDict.get("load power")
-        #     #     batteryPercentage = myDict.get("battery percentage")
-        #     # }
-        # return line
-            
-
-
-
-def get_dummy_data():
-    with open('/home/pi/solar-protocol/charger-controller/data/tracerData2020-05-17.json') as d:
-        result = json.load(d)
-        n = 0
-        if d:
-            #print("No data")
-            solarVoltage = result[n]["solarVoltage"]
-            solarCurrent = result[n]["solarCurrent"]
-            solarPowerL = result[n]["solarPowerL"]
-            solarPowerH = result[n]["solarPowerH"]
-            batteryVoltage = result[n]["batteryVoltage"]
-            batteryCurrent = result[n]["batteryCurrent"]
-            batteryPowerL = result[n]["batteryPowerL"]
-            batteryPowerH = result[n]["batteryPowerH"]
-            loadVoltage = result[n]["loadVoltage"]
-            loadCurrent = result[n]["loadCurrent"]
-            loadPower = result[n]["loadPower"]
-            batteryPercentage = result[n]["batteryPercentage"]
-
-        # result = client.råead_input_registers(0x311A,2,unit=1)
-        # batteryPercentage = float(result["registers"][0] / 100.0)
-
-        data = {
-            "datetime": datetime.datetime.now(),
-            "solarVoltagåe": solarVoltage,
-            "solarCurrent": solarCurrent,
-            "solarPowerL": solarPowerL,
-            "solarPowerH": solarPowerH,
-            "batteryVoltage": batteryVoltage,
-            "batteryCurrent": batteryCurrent,
-            "batteryPowerL": batteryPowerL,
-            "batteryPowerH": batteryPowerH,
-            "loadVoltage": loadVoltage,
-            "loadCurrent": loadCurrent,
-            "loadPower": loadPower,
-            "batteryPercentage":  random.randint(0, 100),
-        }
-        return data
-
 
 def check_energy(_data):
-    if (_data["battery percentage"]) < 0.2:
+    if (_data["battery percentage"]) < 0.65:
         template_file = open("templates/index-small.html").read()
     else:
         template_file = open("templates/index-large.html").read()
 
     template = Template(template_file)
     rendered_html = template.render(
+        date = _data["datetime"],
         solarVoltage=_data["PV voltage"], 
-        batteryPercentage=_data["battery percentage"]
+        batteryPercentage=_data["battery percentage"],
+        loadVoltage=_data["load voltage"],
+        loadCurrent= _data["load current"]
     )
     print(rendered_html)
     open("../../frontend/index.html", "w").write(rendered_html)
     
-
-    # if (_data["battery percentage"]) < 0.2:
-    #     print("Generating small page")
-    #     template_file = open("templates/index-small.html").read()
-    #     template = Template(template_file)
-    #     rendered_html = template.render(
-    #         solarVoltage=_data["PV voltage"], 
-    #         batteryPercentage=_data["battery percentage"]
-    #     )
-    #     print(rendered_html)
-    #     open("../../frontend/index.html", "w").write(rendered_html)
-    # else:
-    #     print("Generating large page")
-    #     template_file = open("templates/index-large.html").read()
-    #     template = Template(template_file)
-    #     rendered_html = template.render(
-    #         solarVoltage=_data["PV voltage"], 
-    #         batteryPercentage=_data["battery percentage"]
-    #     )
-    #     print(rendered_html)
-    #     open("../../frontend/index.html", "w").write(rendered_html)
-
 
 def main():
     data = read_csv()

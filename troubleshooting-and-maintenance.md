@@ -3,9 +3,9 @@
 ## Best Practices
 
 ### Siting PV Module
-* In the northern hemispher, above 23 degrees latitude, the sun will always be to the south. The ideal orientation for the PV module is facing south and tilted at the angle of latitude. For example, NYC is at 41 degrees north, so an optimal tilt will be at 41 degrees.
+* The ideal module tilt for averaging PV production over the year is generally at the angle of latitude facing the equator. The ideal orientation for the PV module in the northern hemisphere is facing south. For example, NYC is at 41 degrees north so an optimal tilt will be at 41 degrees facing south. The ideal orientation in the southern hemisphere will be northern facing at latitude tilt. Above 23 degrees north the sun will always be to the south and below 23 degrees south the sun will always be to the north. In the tropics, between 23 degrees north and 23 degrees south, the sun will travel on both the north and south sides of the installation, so shading from both directions must be taken into consideration.
 * Avoid obstructions that will shade the module particularly between 9am and 3pm.
-* Vertical mounting, i.e. a 90 degree tilt, or flat mounting, i.e. 0 degree tilt, will work if need be but will cause decreased efficiency.
+* Vertical mounting, i.e. 90 degree tilt, or flat mounting, i.e. 0 degree tilt, is acceptable if need be but may cause decreased efficiency depending on the latitude.
 
 ### Batteries
 * Never mix batteries of different types, sizes, manufactures, or ages/ level of pre-existing use in the same circuit.

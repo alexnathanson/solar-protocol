@@ -1,22 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>solar protocol</title>
-</head>
-<body>
-    <p>This is the small page. The first algorithm was the sun.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar Protocol</title>
+    <style type="text/css">
+        .server-container
+        {
+            font-family: Arial;
+            font-size:0.9em;
+            background-color:#000; 
+            color: #fff;
+            
+        }
 
-    <p>Total Solar Voltage: {{solarVoltage}}</p>
-    <p>Battery Level: {{batteryCurrent}}</p>
+    </style>
+  </head>
+  <body>
+    <div class="server-container"> 
+   
+      <p>
+        &nbsp; ACTIVE SERVER: KOSCIUSZKO ST &nbsp; &nbsp; PV VOLTAGE: 15.35
+        &nbsp; &nbsp; BATTERY LEVEL: 0.72 &nbsp; &nbsp; 
+      </p>
+    </div>
+    <div class="image-container">
 
-    {% if batteryCurrent < 0.2 %}
-        <p>The battery is very low!!!</p>
+      <div class="pagetitle">
+        <h1>Solar Protocol</h1>
+        <h2>The first algorithm was made by the sun</h2>
+      </div>
+    </div>
+    <div class="text-title-container"></div>
+    <div class="text-container">
+      <p>
+        Solar Protocol is an experimental network of solar powered servers
+        installed at different locations around the world. As the sun rises and
+        sets, each server turns on and off as its solar panel goes into sunlight
+        or darkness. Traffic is directed to whichever server is enjoying the
+        most sunlight at the time a request for the Solar Protocol website is
+        made. Different parts of this site are distributed across the network
+        and become available at different times of the day, depending on which
+        server is active.
+      </p>
+      <p>
+        The system directs traffic using the Domain Network Service (DNS)
+        protocol, a decentralized system that resolves a URL to an IP address of
+        a server. In short, DNS dictates the path between client and server.
+        Typically high volume web services like Google or Facebook will
+        configure the DNS to direct network traffic to different servers based
+        on their response times which is ususally a proxy for the sending
+        traffic to the server that is geographically closest. However on the
+        Solar Protocol network, traffic is automatically directed to whichever
+        server has the most solar energy available. The distribution of sunshine
+        (and therefore energy) across the planet detirmines the path from client
+        to server.
+      </p>
+    </div>
+    <div class="image-container">
 
-        
-    {% endif %}
-</div>
-</body>
+    </div>
+    <div class="text-container">
+
+    </div>
+    <div class="text-container">
+      <h3>Natural intelligences</h3>
+      <p>
+        Solar Protocol reconfigures internet protocols using natural rather than
+        artificial intelligence. Presently, much attention is focused on
+        automating decisions based on logics derived from massive datasets,
+        produced by systems of surveillance capitalism. Web platforms monitor
+        our our every click, view and scroll and then use this data to make
+        decisions about what content to show us next. Instead, on the Solar
+        Protocol platform, decisions about what content is served are automated
+        with a logic produced by the sun’s position. The network operates with a
+        natural intelligence that emerges from the intermittent dynamics of our
+        shared environment.
+      </p>
+      <p>
+        Both digital surveillance and machine learning are intelligences only
+        made possible by a society dependent on cheap energy from fossil fuels.
+        Relying on solar energy to power our servers, means the pages served on
+        this network must be kept small in size and have to omit
+        energy-intensive tracking technologies.<sup>1</sup> Solar power
+        therefore encourages a faster, lighter and more private internet than
+        that powered by fossil fuels.
+      </p>
+      <p>
+        Solar Protocol is a space to explore the interplay between the social,
+        ecological and technological, and imagine the internet anew.
+      </p>
+      <div class="notes">
+        <p>
+        1. This approach was used by the Solar Powered Website published by Low Tech Magazine (2019). We have taken much inspiration from this prior work.
+      </p>
+      </div>
+    </div>
+    <div class="text-container">
+      <h2>Research in Progress</h2>
+      <ul>
+        <li>An admin panel for the active server can be viewed <a href="http://solarprotocol.net/admin/">here</a>.</li>
+        <li>Code is still in development. This work is open-source and shared on <a href="https://github.com/alexnathanson/solar-protocol">Github</a>.</li>
+        <li>A project research archive can be found on this <a href="https://www.are.na/tega-brain/solar-powered-media">channel</a>.</li>
+        </ul>
+    </div>
+      <div class="text-container">
+        <h2>Attribution</h2>
+        <p>This is work in progress by Tega Brain, Alex Nathanson and Benedetta Piantella. It is a part of the Eyebeam Rapid Response for a <a href="https://www.eyebeam.org/rapidresponse/">Better Digital Future program</a>. </p>
+      </div>
+
+  </body>
 </html>

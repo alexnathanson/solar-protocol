@@ -3,6 +3,9 @@
 ## Best Practices
 
 ### Siting PV Module
+* In the northern hemispher, above 23 degrees latitude, the sun will always be to the south. The ideal orientation for the PV module is facing south and tilted at the angle of latitude. For example, NYC is at 41 degrees north, so an optimal tilt will be at 41 degrees.
+* Avoid obstructions that will shade the module particularly between 9am and 3pm.
+* Vertical mounting, i.e. a 90 degree tilt, or flat mounting, i.e. 0 degree tilt, will work if need be but will cause decreased efficiency.
 
 ### Batteries
 * Never mix batteries of different types, sizes, manufactures, or ages/ level of pre-existing use in the same circuit.
@@ -35,7 +38,7 @@ Never have the PV module connected to the charge controller without the battery.
 ### Battery doesn't hold charge
 * If battery is older than 3 years old, consider replacing battery
 
-## Troubleshooting by graph
+## Troubleshooting By Graph
 
-### Battery percentage drops off quickly once PV power drops
-Likely old or damaged
+### Battery percentage drops off quickly once PV voltage drops
+* Likely old or damaged battery

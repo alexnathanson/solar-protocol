@@ -18,7 +18,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 
 ## TO DO
 * make an installer.sh
-* move python templater to server
+* X move python templater to server 
 * check any limits on the DNS api
 * find a better way to update IP addresses to add or remove a server
 * do we want to include a blacklist to control enrollments?
@@ -31,8 +31,9 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 * To test, set up a virtual environment and install requirements.txt
 
 ## FRONT END TO DO
-* Set up with real solar data from index.php
+* X Set up with real solar data from index.php
 * Basic energy data collection for different sized pages and traffic. 
 * Energy impact of regenerating page. What's the frequency of this?
-* move python script to backend
+* X move python script to backend
+* add server name to device log file and fix index.html to display name.
 

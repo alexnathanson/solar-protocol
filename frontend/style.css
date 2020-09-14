@@ -92,3 +92,8 @@ img.halfwidth {
   width: 50%;
   margin: auto;
 }
+
+sup {
+  font-size: 0.6em;
+
+}

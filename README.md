@@ -24,6 +24,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 * do we want to include a blacklist to control enrollments?
 * figure our how to write the point of contact log
 * decide on best security.  eg. could generate an api key and it adds it to each device. 
+* make a script for pull updates from the git repo that automates resetting permissions as needed
 
 ## FRONT END
 * Code for an energy responsive front end is in test-site folder

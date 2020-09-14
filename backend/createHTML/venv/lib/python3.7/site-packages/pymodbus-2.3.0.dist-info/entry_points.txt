@@ -1,0 +1,3 @@
+[console_scripts]
+pymodbus.console = pymodbus.repl.main:main
+

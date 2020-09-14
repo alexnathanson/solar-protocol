@@ -1,7 +1,0 @@
-.DS_Store
-*.sublime-workspace
-*.sublime-project
-venv/
-*/venv/*
-charge-controller/data/
-.vscode/

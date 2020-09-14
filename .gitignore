@@ -4,3 +4,4 @@
 venv/
 */venv/*
 charge-controller/data/
+.vscode/

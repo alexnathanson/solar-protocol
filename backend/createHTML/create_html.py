@@ -81,7 +81,7 @@ def check_energy(_data):
         loadCurrent= _data["load current"]
     )
     print(rendered_html)
-    open("../../frontend/index.html", "w").write(rendered_html)
+    open("/home/pi/solar-protocol/frontend/index.html", "w").write(rendered_html)
     
 
 def main():

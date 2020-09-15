@@ -66,12 +66,9 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`<br>
 	`</Directory>`
-* To allow CORS (needed for admin console) activate module for changing headers `sudo a2enmod headers`
+* To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`
 * `sudo service apache2 restart`
 </p>
-
-
-
 
 ### Automate
 

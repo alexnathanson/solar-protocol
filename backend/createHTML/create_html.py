@@ -46,7 +46,8 @@ def get_data():
 
 
 def read_csv():
-    filename = "../../charge-controller/data/tracerData2020-09-13.csv"
+    #filename = "../../charge-controller/data/tracerData2020-09-13.csv"
+    filename = "../../charge-controller/data/tracerData"+str(datetime.date.today())+".csv"
     with open(filename, 'r') as data:
         alllines = [line for line in csv.DictReader(data)]
     

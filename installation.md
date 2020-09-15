@@ -46,6 +46,7 @@ Install pip `sudo apt-get install python3-pip`<br>
 Install pymodbus `sudo pip3 install pymodbus`<br>
 Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)<br>
 Install numpy 'sudo pip3 uninstall numpy' followed by `sudo apt-get install python3-numpy`<br>
+Install jinja 'sudo pip3 install jinja2' <br>
 
 ### Server
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)<br>
@@ -88,7 +89,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 * open crontab `sudo crontab -e` and add these lines to the bottom:
 	* run clientPostIP every 15 minutes `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/clientPostIP.py > /home/pi/solar-protocol/backend/api/v1/clientPostIP.log 2>&1`
 	* run solarProtocol every 5 minutes `*/5 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/solarProtocol.py > /home/pi/solar-protocol/backend/api/v1/solarProtocol.log 2>&1`
-	* run createHTML every 15 minutes to get update the data from the server in index.html `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/createHTML/create_html.py 2>&1`
+	* run createHTML every 15 minutes to get update the data from the server in index.html `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/createHTML/create_html.py > /home/pi/solar-protocol/backend/createHTML/create_html.log 2>&1`
 	* reboot daily `@midnight sudo reboot`	
 
 ### Troubleshooting

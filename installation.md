@@ -72,7 +72,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 
 ### Automate
 
-#### permissions
+#### permissions (you can set all these permissions at once via the utilities/setAllPermissions.sh script if you want)
 * `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`
 * `sudo chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`
 * `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`

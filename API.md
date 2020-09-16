@@ -61,6 +61,7 @@ clientGetPV.py is just for testing purposes. solarProtocol.py handles get reques
 Possible keys for get requests
 
 * value - returns the specified value from the most recently collected line of data
+	* Example: http:// + URL + /api/v1/api.php?value=PV-voltage
 	* Possible values (replace spaces with "-"):
 		* PV current
 		* PV power H
@@ -76,20 +77,18 @@ Possible keys for get requests
 		* load voltage
 		* datetime
 * line - returns the specified line from the current data logger file with headers in JSON format
+	* Example: http:// + URL + /api/v1/api.php?line=0
 	* Possible values:
 		* len - returns the number of rows in the file
 		* head - returns the column headers
 		* 0 - returns the most recently collected line of data
 		* increment up to move back in time from 0 to retrieve any other row. For example, 1 will return the 2nd most recent row.
 * file - returns a specific file (should be changed to a POST not a GET)
+	* Example: http:// + URL + /api/v1/api.php?file=deviceList
 	* Possible values:
 		* deviceList - returns the deviceList.json file contents
 
 
-
-<p>
-GET Syntax: http:// + URL + /api/v1/api.php?value= + key
-</p>
 <p>
 Browser Example: http://solarprotocol.net/api/v1/api.php?value=PV-voltage would return the most recent PV voltage
 </p>

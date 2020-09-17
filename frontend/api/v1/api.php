@@ -11,7 +11,8 @@ $servername = "localhost";
 $api_key_value = "tPmAT5Ab3j7F9";
 //$api_key_value = getenv('SP_API_KEY'); //THIS LINE HASN'T BEEN TESTED
 
-$api_key= $stamp = $ip = $mac = $name = $log = "";
+$api_key= $stamp = $ip = $mac = $name = "";
+$log = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

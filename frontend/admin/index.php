@@ -68,9 +68,9 @@
       //placeholder.push(0);
     }
 
-    console.log(justPocLog);
+    console.log(JSON.stringify(justPocLog));
 
-    console.log(typeof justPocLog);
+    console.log(typeof JSON.stringify(justPocLog));
 
     //drawChart(justPocLog);
   } 

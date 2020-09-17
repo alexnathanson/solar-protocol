@@ -64,7 +64,7 @@ def getPocLog():
 			#print(pocFileLines[l])
 
 			#remove "INFO:root:" from the string 
-			pocData.append(pocFileLines[len(pocFileLines)-l-1][10:-1])
+			pocData.append(pocFileLines[len(pocFileLines)-l-1][10:-1].strip())
 
 			if l > 100:
 				break

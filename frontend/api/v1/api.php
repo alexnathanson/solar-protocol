@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ip = test_input($_POST["ip"]);
     $mac = test_input($_POST["mac"]);
     $name = test_input($_POST["name"]);
-    $log = test_input($_POST["log"]);
+    $log = explode(',',test_input($_POST["log"]));
 
     // Read the file contents into a string variable,
     // and parse the string into a data structure

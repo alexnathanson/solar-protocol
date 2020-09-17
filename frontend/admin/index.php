@@ -52,7 +52,7 @@
 
 //not finished yet
   function showPocLog(response){
-    //console.log(JSON.parse(response));
+    console.log(JSON.parse(response));
     let jsonPoc = JSON.parse(response);
 
     let justPocLog = []
@@ -68,9 +68,9 @@
       //placeholder.push(0);
     }
 
-    console.log(JSON.stringify(justPocLog));
+    console.log(justPocLog);
 
-    console.log(typeof JSON.stringify(justPocLog));
+    console.log(typeof justPocLog);
 
     //drawChart(justPocLog);
   } 

@@ -74,7 +74,7 @@ def getPocLog():
 	except:
 		pocData.append(0)
 
-	print(pocData)
+	#print(pocData)
 
 def makePosts(ipList):
 	

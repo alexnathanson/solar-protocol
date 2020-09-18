@@ -131,10 +131,12 @@
     //server info
     const serverInfo = document.createElement('p');
 
+    
     let displayThis = toJSON(dataToDisplay);
 
     if(displayThis != false){
       serverInfo.textContent =  JSON.stringify(displayThis);//put this into a table in the future
+      serverInfo.appendChild(createTable(displayThis));
     } else {
       serverInfo.textContent =  "no response or invalid format";
     }
@@ -142,6 +144,30 @@
 
     serverH3.appendChild(serverInfo);
     sList.appendChild(serverH3);
+  }
+
+  function createTable(jsonData){
+    let sT = document.createElement("table"); 
+
+    let tbdy = document.createElement('tbody');
+
+    for (let r = 0; r <2;2++) {
+      let tr = document.createElement('tr');
+      for (let c = 0; c < Object.keys(jsonData).length; c++) {
+        if (r == 0) {//headers
+          let td = document.createElement('td');
+          td.appendChild(document.createTextNode(Object.keys(jsonData)[c]))
+          tr.appendChild(td)
+        } else if (r == 1){//content
+          let td = document.createElement('td');
+          td.appendChild(document.createTextNode(jsonData)[c])
+          tr.appendChild(td)
+        }
+      }
+      tbdy.appendChild(tr);
+    }
+    sT.appendChild(tbdy);
+    return sT;
   }
 
   function addActions(){
@@ -180,7 +206,7 @@ if ($date == 'yesterday'){
 $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
 $rawDataArray = [];
 
-echo "<h2>PV Data:</h2>";
+echo "<h2>Local PV Data:</h2>";
 
 echo "<p>View: <a href='/admin/?date=today' id='today'>Today</a> | <a href='/admin/?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/admin/?date=before' id='daybefore'>The Day Before</a></p>";
 echo "<h3>File Name:</h3>". $fileName . "<br>";
@@ -209,7 +235,7 @@ echo "<pre>";
 var_dump($rawDataArray);
 echo "</pre>";
 */
-
+/*
 echo "<h4>Most Recent Data:</h4>";
 $buildNow = '<table border=1px>';
 //foreach($rawDataArray as $row)
@@ -239,7 +265,7 @@ $buildNow .= '</tr>';
 $buildNow .= '</table>';
 echo $buildNow;
 
-?>
+?>*/
 
 <script type="text/javascript">
 	google.charts.load('current', {'packages':['corechart', 'line']});

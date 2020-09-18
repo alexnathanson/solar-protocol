@@ -138,8 +138,8 @@
     } else {
       dataPara.textContent =  "no response or invalid format";
     }
-    serverH3.appendChild(dataPara);
     sList.appendChild(serverH3);
+    sList.appendChild(dataPara);
   }
 
   function createTable(jsonData){

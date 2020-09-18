@@ -13,7 +13,9 @@ client.connect()
 
 while True:
     result = client.read_input_registers(0x3100,16,unit=1)
-    if not result.isError():
+    result2 = client.read_input_registers(0x311A,2,unit=1)
+
+    if not result.isError() and not result2.isError():
         pvVoltage = float(result.registers[0] / 100.0)
         pvCurrent = float(result.registers[1] / 100.0)
         pvPowerL = float(result.registers[2] / 100.0)
@@ -26,9 +28,8 @@ while True:
         loadCurrent= float(result.registers[9] / 100.0)
         loadPower= float(result.registers[10] / 100.0)
 
-        result = client.read_input_registers(0x311A,2,unit=1)
         #if not result.isError():
-        batteryPercentage = float(result.registers[0] / 100.0)
+        batteryPercentage = float(result2.registers[0] / 100.0)
 
         newDF = pd.DataFrame(data={
             "datetime" : [datetime.datetime.now()],

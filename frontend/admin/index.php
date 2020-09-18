@@ -151,7 +151,7 @@
 
     let tbdy = document.createElement('tbody');
 
-    for (let r = 0; r <2;2++) {
+    for (let r = 0; r <2;r++) {
       let tr = document.createElement('tr');
       for (let c = 0; c < Object.keys(jsonData).length; c++) {
         if (r == 0) {//headers

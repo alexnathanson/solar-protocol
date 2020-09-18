@@ -131,11 +131,14 @@
     
     let displayThis = toJSON(dataToDisplay);
 
+    let dataPara = document.createElement('p');
+
     if(displayThis != false){
-      serverH3.appendChild(createTable(displayThis));
+      dataPara.appendChild(createTable(displayThis));
     } else {
-      serverH3.textContent =  "no response or invalid format";
+      dataPara.textContent =  "no response or invalid format";
     }
+    serverH3.appendChild(dataPara);
     sList.appendChild(serverH3);
   }
 

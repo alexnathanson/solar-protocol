@@ -1,5 +1,6 @@
 {
   "name": "Gilagmesh Zone",
   "ip": "67.85.62.144",
-  "content": "../createHTML/local/index.html"
+  "content": "../createHTML/local/index.html",
+  "location": "NYC"
 }

@@ -154,14 +154,13 @@
     for (let r = 0; r <2;r++) {
       let tr = document.createElement('tr');
       for (let c = 0; c < Object.keys(jsonData).length; c++) {
+        let td = document.createElement('td');
         if (r == 0) {//headers
-          let td = document.createElement('td');
-          td.appendChild(document.createTextNode(Object.keys(jsonData)[c]))
-          tr.appendChild(td)
+          td.appendChild(document.createTextNode(Object.keys(jsonData)[c]));
+          tr.appendChild(td);
         } else if (r == 1){//content
-          let td = document.createElement('td');
-          td.appendChild(document.createTextNode(jsonData)[c])
-          tr.appendChild(td)
+          td.appendChild(document.createTextNode(jsonData[c]);
+          tr.appendChild(td);
         }
       }
       tbdy.appendChild(tr);

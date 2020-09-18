@@ -264,8 +264,8 @@ $buildNow .= '</tr>';
 }
 $buildNow .= '</table>';
 echo $buildNow;
-
-?>*/
+*/
+?>
 
 <script type="text/javascript">
 	google.charts.load('current', {'packages':['corechart', 'line']});

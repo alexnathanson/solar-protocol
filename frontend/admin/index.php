@@ -148,6 +148,8 @@
 
   function createTable(jsonData){
     let sT = document.createElement("table"); 
+    sT.style.width = '100%';
+    sT.setAttribute('border', '1');
 
     let tbdy = document.createElement('tbody');
 
@@ -159,7 +161,7 @@
           td.appendChild(document.createTextNode(Object.keys(jsonData)[c]));
           tr.appendChild(td);
         } else if (r == 1){//content
-          td.appendChild(document.createTextNode(jsonData[c]));
+          td.appendChild(document.createTextNode(jsonData[Object.keys(jsonData)[c]]));
           tr.appendChild(td);
         }
       }

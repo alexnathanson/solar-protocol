@@ -128,21 +128,14 @@
     serverLink.appendChild(serverLinkContent);
 
     serverH3.appendChild(serverLink);
-    //server info
-    const serverInfo = document.createElement('p');
-
     
     let displayThis = toJSON(dataToDisplay);
 
     if(displayThis != false){
-      serverInfo.textContent =  JSON.stringify(displayThis);//put this into a table in the future
-      serverInfo.appendChild(createTable(displayThis));
+      serverH3.appendChild(createTable(displayThis));
     } else {
-      serverInfo.textContent =  "no response or invalid format";
+      serverH3.textContent =  "no response or invalid format";
     }
-
-
-    serverH3.appendChild(serverInfo);
     sList.appendChild(serverH3);
   }
 

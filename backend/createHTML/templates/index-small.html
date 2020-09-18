@@ -98,6 +98,17 @@
       </div>
     </div>
     <div class="text-container">
+      <h2>Hosting Log</h2>
+      <p>This log shows every time the network reassigned an active server. The active server is assigned based on whichever is registering the highest photovoltaic voltage (the most sunlight).</p>
+      <div class="hostlog">
+        
+        {% for log in hostingLog %}
+          <p>{{log.time[0:-7]}}: {{ log.name }}</p>
+        {% endfor %}
+      </div>
+
+    </div>
+    <div class="text-container">
       <h2>Research in Progress</h2>
       <ul>
         <li>An admin panel for the active server can be viewed <a href="http://solarprotocol.net/admin/">here</a>.</li>

@@ -6,3 +6,6 @@ venv/
 charge-controller/data/
 
 *.vscode
+
+/backend/createHTML/local-content.json
+/backend/createHTML/local/*

@@ -49,6 +49,7 @@ a {
   font-size: 0.8em;
   padding: 0px 20px 0px 20px;
   color: blue;
+  font-family: Arial;
 
 }
 
@@ -96,4 +97,15 @@ img.halfwidth {
 sup {
   font-size: 0.6em;
 
+}
+
+.hostlog {
+  column-count: 2;
+}
+
+.hostlog p {
+
+  margin: 0;
+  margin-left:50px;
+  font-size: 0.9em;
 }

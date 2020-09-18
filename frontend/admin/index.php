@@ -159,7 +159,7 @@
           td.appendChild(document.createTextNode(Object.keys(jsonData)[c]));
           tr.appendChild(td);
         } else if (r == 1){//content
-          td.appendChild(document.createTextNode(jsonData[c]);
+          td.appendChild(document.createTextNode(jsonData[c]));
           tr.appendChild(td);
         }
       }

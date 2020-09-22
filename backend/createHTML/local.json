@@ -1,6 +1,5 @@
 {
-  "name": "Gilagmesh Zone",
-  "ip": "",
+  "name": "Kosciuszko St",
   "content": "../createHTML/local/index.html",
-  "location": "NYC"
+  "location": "Bedford Stuyvensen"
 }

@@ -28,7 +28,6 @@ while True:
         loadCurrent= float(result.registers[9] / 100.0)
         loadPower= float(result.registers[10] / 100.0)
 
-        #if not result.isError():
         batteryPercentage = float(result2.registers[0] / 100.0)
 
         newDF = pd.DataFrame(data={

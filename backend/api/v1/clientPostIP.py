@@ -16,6 +16,8 @@ headers = {
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
+localConfig = "/home/pi/solar-protocol/backend/createHTML/local.json";
+
 pocLog = "/home/pi/solar-protocol/backend/api/v1/poc.log"
 pocData = []
 
@@ -23,7 +25,7 @@ myIP = 	requests.get('http://whatismyip.akamai.com/').text
 
 print("MY IP: " + myIP)
 
-myName = 'pi'
+myName = getLocalConfig(name)
 
 #this only works with linux
 def getmac(interface):
@@ -75,6 +77,17 @@ def getPocLog():
 		pocData.append(0)
 
 	#print(pocData)
+
+def getLocalConfig(key):
+
+	try:
+		locFile = open(localConfig):
+
+		print(locFile)
+		return locFile[key]
+
+	except:
+		return 'pi'
 
 def makePosts(ipList):
 	

@@ -82,6 +82,7 @@ def getLocalConfig(key):
 		locFile = open(localConfig)
 
 		print(locFile)
+		print(locFile[key])
 		return locFile[key]
 
 	except:

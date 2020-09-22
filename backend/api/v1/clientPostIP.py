@@ -25,8 +25,6 @@ myIP = 	requests.get('http://whatismyip.akamai.com/').text
 
 print("MY IP: " + myIP)
 
-myName = getLocalConfig(name)
-
 #this only works with linux
 def getmac(interface):
 
@@ -81,7 +79,7 @@ def getPocLog():
 def getLocalConfig(key):
 
 	try:
-		locFile = open(localConfig):
+		locFile = open(localConfig)
 
 		print(locFile)
 		return locFile[key]
@@ -114,6 +112,7 @@ def makePosts(ipList):
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
+myName = getLocalConfig(name)
 getPocLog();
 dstList = getIPList()
 makePosts(dstList)

@@ -78,6 +78,7 @@ def getPocLog():
 
 def getLocalConfig(key):
 
+	#load file
 	try:
 		locFile = json.loads(localConfig)
 

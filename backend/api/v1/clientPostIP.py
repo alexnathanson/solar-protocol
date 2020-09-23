@@ -87,6 +87,7 @@ def getLocalConfig(key):
 		return locFile[key]
 
 	except:
+		print('local config file exception')
 		return 'pi'
 
 def makePosts(ipList):

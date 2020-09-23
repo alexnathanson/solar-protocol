@@ -113,7 +113,7 @@ def makePosts(ipList):
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
-myName = getLocalConfig('name')
+myName = getLocalConfig("name")
 getPocLog();
 dstList = getIPList()
 makePosts(dstList)

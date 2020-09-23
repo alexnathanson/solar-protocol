@@ -80,11 +80,12 @@ def getLocalConfig(key):
 
 	#load file
 	try:
-		locFile = json.loads(localConfig)
-
-		print(locFile)
-		print(locFile[key])
-		return locFile[key]
+		#locFile = json.loads(localConfig)
+		with open(localConfig) as locFile:
+			locData = json.load(locFile)
+			print(locData)
+			print(locData[key])
+			return locData[key]
 
 	except:
 		print('local config file exception')

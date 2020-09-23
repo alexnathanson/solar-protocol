@@ -9,10 +9,10 @@
   <body>
     <div class="server-container">
       <p>
-        ACTIVE SERVER: {{serverName}} &nbsp; &nbsp; DATE TIME: {{date[0:-7]}} PV
-        VOLTAGE: {{solarVoltage}} &nbsp; &nbsp; BATTERY LEVEL:
-        {{batteryPercentage}} &nbsp; &nbsp; LOAD VOLTAGE: {{loadVoltage}} &nbsp;
-        &nbsp; LOAD CURRENT: {{loadCurrent}}
+        ACTIVE SERVER: {{serverName}} &nbsp; || &nbsp; DATE: {{date[0:-7]}} &nbsp; || &nbsp; PV
+        VOLTAGE: {{solarVoltage}} &nbsp; || &nbsp; PV
+        CURRENT: {{solarCurrent}} &nbsp; || &nbsp; LOAD VOLTAGE: {{loadVoltage}} &nbsp; ||
+        &nbsp; LOAD CURRENT: {{loadCurrent}} &nbsp; || &nbsp; BATTERY LEVEL: {{batteryPercentage}}
       </p>
     </div>
     <div class="image-container">
@@ -120,11 +120,11 @@
         sunlight).
       </p>
       <div class="hostlog">
-        <ul>
+
           {% for n in hostingLog %}
           <p>{{n.time}} : {{n.ip}}</p>
           {% endfor %}
-        </ul>
+
       </div>
     </div>
     <div class="text-container">

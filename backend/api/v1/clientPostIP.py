@@ -58,7 +58,7 @@ def getPocLog():
 
 		pocFileLines = pocFile.readlines()
 
-		#read the most recent 100 lines
+		#read the most recent 50 lines
 		for l in range(len(pocFileLines)):
 
 			#print(pocFileLines[l])
@@ -66,7 +66,7 @@ def getPocLog():
 			#remove "INFO:root:" from the string and strip spaces
 			pocData.append(pocFileLines[len(pocFileLines)-l-1][10:-1])
 
-			if l > 100:
+			if l > 50:
 				break
 
 		pocFile.close()
@@ -79,7 +79,7 @@ def getPocLog():
 def getLocalConfig(key):
 
 	try:
-		locFile = open(localConfig)
+		locFile = json.loads(localConfig)
 
 		print(locFile)
 		print(locFile[key])

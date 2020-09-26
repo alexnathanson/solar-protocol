@@ -105,7 +105,7 @@
     let p =document.createElement('p');
 
     for (let l = 0;l < pocArray.length;p++){
-      p.textContent = pocArray[l][0] + " " pocArray[l][1];
+      p.textContent = pocArray[l][0] + " " +pocArray[l][1];
       p.appendChild('br');
     }
 

@@ -96,6 +96,7 @@
 
     console.log(outputPocLog);
 
+    displayPOC(outputPocLog);
 
   } 
 

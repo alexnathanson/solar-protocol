@@ -75,16 +75,15 @@
         tempPos[l] = justPocLog[l][storePos[l]];
       }
 
-      console.log(tempPos);
+      //console.log(tempPos);
 
-      let sorted = tempPos.sort(function(a,b){
+      tempPos.sort(function(a,b){
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
             return new Date(b) - new Date(a);
           });
 
-      console.log(sorted);
-      console.log(tempPos);
+      //console.log(tempPos);
 
       //find the item
       let thisItem;

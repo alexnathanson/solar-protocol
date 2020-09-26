@@ -7,5 +7,6 @@ charge-controller/data/
 
 *.vscode
 
+local.json
 /backend/createHTML/local-content.json
 /backend/createHTML/local/*

@@ -37,7 +37,7 @@
   let pocURL = "http://"+ window.location.hostname +"/api/v1/api.php?file=deviceList";
   console.log(pocURL);
 
-  getPocLog(pocURL,showPocLog);
+  getPocLog(pocURL,sortPocLog);
 
   function getPocLog(dst, callback){
     let xhttp = new XMLHttpRequest();
@@ -52,8 +52,7 @@
     xhttp.send();
   }
 
-//not finished yet
-  function showPocLog(response){
+  function sortPocLog(response){
     console.log(JSON.parse(response));
     jsonPoc = JSON.parse(response);
 
@@ -88,9 +87,10 @@
       //compare the sorted value to the unsorted list
       for (let x = 0; x < tempPos.length; x++){
 
+        //add new value to list...should this avoid duplicates?
         if (sorted[0] == tempPos[x]){
-          storePos[x]++;
           outputPocLog[outputPocLog.length] = [justPocLog[x][storePos[x]],x];
+          storePos[x]++;
           break;
         }
       }

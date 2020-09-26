@@ -90,7 +90,6 @@
       }
 
       outputPocLog[outputPocLog.length] = [thisItem,justPocLog[storePos[thisItem]]];
-      }
     }
 
     console.log(outputPocLog);

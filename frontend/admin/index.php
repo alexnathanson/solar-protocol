@@ -103,14 +103,15 @@
   function displayPOC(pocArray){
     let pocID = document.getElementById('pointOfContact');
 
-    let p =document.createElement('p');
-    let linebreak = document.createElement("br");
+    let para = document.createElement('p');
+    let linebreak = document.createElement('br');
+
     for (let l = 0;l < pocArray.length;p++){
-      p.textContent = pocArray[l][0] + " " +pocArray[l][1];
-      p.appendChild(linebreak);
+      para.textContent = pocArray[l][0] + " " + pocArray[l][1];
+      para.appendChild(linebreak);
     }
 
-    pocID.appendChild(p);
+    pocID.appendChild(para);
   }
 
   function makeGet(dst, getThis, callback) {

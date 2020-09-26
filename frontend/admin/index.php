@@ -70,7 +70,8 @@
     for (let p = 0; p < 50;p++){
 
       //get next items from logs
-      let tempPos, sorted = [];
+      let tempPos = [];
+      let sorted = [];
       for (let l = 0; l < storePos.length;l++){
         tempPos[l] = justPocLog[l][storePos[l]];
         sorted[l] = justPocLog[l][storePos[l]];

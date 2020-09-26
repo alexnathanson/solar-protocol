@@ -108,8 +108,8 @@
 
     for (let l = 0; l < pocArray.length;l++){
       let node = document.createTextNode(pocArray[l][0] + " " + pocArray[l][1]);
+      node.appendChild(linebreak);
       para.appendChild(node);
-      para.appendChild(linebreak);
     }
 
     pocID.appendChild(para);

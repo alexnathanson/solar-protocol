@@ -106,13 +106,12 @@
     let pocID = document.getElementById('pointOfContact');
 
     let para = document.createElement('p');
-    let linebreak = document.createElement('BR');
+    let lb = document.createElement('br');
 
     for (let l = 0; l < pocArray.length;l++){
       let node = document.createTextNode(pocArray[l][0] + " " + jsonPoc[pocArray[l][1]]['name']);
       para.appendChild(node);
-      para.appendChild(linebreak);
-      para.appendChild(linebreak);
+      para.appendChild(lb);
     }
 
     pocID.appendChild(para);

@@ -67,7 +67,7 @@
 
     let outputPocLog = [];
 
-    for (let p = 0; p < 20;p++){
+    for (let p = 0; p < 50;p++){
 
       //get next items from logs
       let tempPos = [];
@@ -77,7 +77,7 @@
 
       let sorted = tempPos.sort(function(a, b){return b-a});
 
-      console.log(sorted);
+      //console.log(sorted);
 
       //find the item
       let thisItem;

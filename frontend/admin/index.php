@@ -68,7 +68,7 @@
 
     let outputPocLog = [];
 
-    for (let p = 0; p < 50;p++){
+    for (let p = 0; p < 100;p++){
 
       //get next items from logs
       let tempPos = [];

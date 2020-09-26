@@ -57,11 +57,43 @@
 
     let justPocLog = []
 
+    let storePos = [];//store the position for that particular log
+
+    //get just the logs
     for (let p = 0; p < jsonPoc.length;p++){
-      justPocLog.push(jsonPoc[p]["log"]);    
+      justPocLog.push(jsonPoc[p]["log"]);   
+      storePos[p] = 0; 
     }
 
-    console.log(justPocLog);
+    let outputPocLog = [];
+
+    for (let p = 0; p < 20;p++){
+
+      //get next items from logs
+      let tempPos = [];
+      for (let l = 0; l < storePos.length;l++){
+        tempPos[l] = justPocLog[l][storePos[l]];
+      }
+
+      let sorted = tempPos.sort(function(a, b){return b-a});
+
+      console.log(sorted);
+
+      //find the item
+      let thisItem;
+      for (let x = 0; x < tempPos.length; x++){
+
+        if (sorted[0] == tempPos[x]){
+          thisItem = x;
+          break;
+        }
+      }
+
+      outputPocLog[outputPocLog.length] = [thisItem,justPocLog[storePos[thisItem]]];
+      }
+    }
+
+    console.log(outputPocLog);
 
     console.log(typeof justPocLog);
 

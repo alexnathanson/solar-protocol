@@ -75,7 +75,11 @@
         tempPos[l] = justPocLog[l][storePos[l]];
       }
 
-      let sorted = tempPos.sort(function(a, b){return b-a});
+      let sorted = tempPos.sort(function(a,b){
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return new Date(b.date) - new Date(a.date);
+          });
 
       console.log(sorted);
 

@@ -77,13 +77,13 @@
         sorted[l] = justPocLog[l][storePos[l]];
       }
 
+      //sort in decending order
       sorted.sort(function(a,b){
-            // Turn your strings into dates, and then subtract them
-            // to get a value that is either negative, positive, or zero.
+            // Turn strings into date
             return new Date(b) - new Date(a);
           });
 
-      //find the item
+      //compare the sorted value to the unsorted list
       for (let x = 0; x < tempPos.length; x++){
 
         if (sorted[0] == tempPos[x]){
@@ -94,39 +94,23 @@
       }
     }
 
-    //console.log(outputPocLog);
+    console.log(outputPocLog);
 
-  //drawChartLog(outputPocLog);
+
   } 
 
- /* function drawChartLog(pData) {
-    let POCdataMap = google.visualization.arrayToDataTable(pData);
+  function displayPOC(pocArray){
+    let pocID = document.getElementById('pointOfContact');
 
+    let p =document.createElement('p');
 
- // Define the chart to be drawn.
-    var data = new google.visualization.DataTable();
-    data.addColumn('date', '1');
-    data.addColumn('number', 'Weight');
-    data.addRows([
-       [ 8,      12],
-       [ 4,      5.5],
-       [ 11,     14],
-       [ 4,      5],
-       [ 3,      3.5],
-       [ 6.5,    7]
-    ]);
-               
-    // Set chart options
-    var POCoptions = {
-       'title':'Point of Contact',
-       'width':1500,
-       'height':400,
-       'legend': 'none'
-    };
+    for (let l = 0;l < pocArray.length;p++){
+      p.textContent = pocArray[l][0] + " " pocArray[l][1];
+      p.appendChild('br');
+    }
 
-    var POCchart = new google.visualization.ScatterChart(document.getElementById('poc_chart'));
-    POCchart.draw(POCdataMap, POCoptions);
-  }*/
+    pocID.appendChild(p);
+  }
 
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;

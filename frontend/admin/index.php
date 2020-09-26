@@ -106,12 +106,11 @@
     let pocID = document.getElementById('pointOfContact');
 
     let para = document.createElement('p');
-    let lb = document.createElement('br');
 
     for (let l = 0; l < pocArray.length;l++){
       let node = document.createTextNode(pocArray[l][0] + " " + jsonPoc[pocArray[l][1]]['name']);
       para.appendChild(node);
-      para.appendChild(lb);
+      para.appendChild(document.createElement('br'));//dont use a variable here, because then it will treat it as the same thing and only append it once, pushing it to the end of the p
     }
 
     pocID.appendChild(para);

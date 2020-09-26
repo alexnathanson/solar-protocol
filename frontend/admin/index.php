@@ -93,6 +93,7 @@
 
         if (sorted[0] == tempPos[x]){
           //thisItem = x;
+          storePos[x]++;
           outputPocLog[outputPocLog.length] = [x,justPocLog[x][storePos[x]]];
           break;
         }

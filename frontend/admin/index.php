@@ -86,10 +86,11 @@
 
       //compare the sorted value to the unsorted list
       for (let x = 0; x < tempPos.length; x++){
-
-        //add new value to list...should this avoid duplicates?
         if (sorted[0] == tempPos[x]){
-          outputPocLog[outputPocLog.length] = [justPocLog[x][storePos[x]],x];
+          //add new value to list only if it has changed...
+          if(outputPocLog[outputPocLog.length-1][1] != x){
+            outputPocLog[outputPocLog.length] = [justPocLog[x][storePos[x]],x];
+          }
           storePos[x]++;
           break;
         }

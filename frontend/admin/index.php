@@ -88,7 +88,9 @@
       for (let x = 0; x < tempPos.length; x++){
         if (sorted[0] == tempPos[x]){
           //add new value to list only if it has changed...
-          if(outputPocLog[outputPocLog.length-1][1] != x){
+          if(outputPocLog.length == 0){
+            outputPocLog[outputPocLog.length] = [justPocLog[x][storePos[x]],x];
+          } else if(outputPocLog[outputPocLog.length-1][1] != x){
             outputPocLog[outputPocLog.length] = [justPocLog[x][storePos[x]],x];
           }
           storePos[x]++;

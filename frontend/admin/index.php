@@ -96,10 +96,10 @@
 
     //console.log(outputPocLog);
 
-  drawChartLog(outputPocLog);
+  //drawChartLog(outputPocLog);
   } 
 
-  function drawChartLog(pData) {
+ /* function drawChartLog(pData) {
     let POCdataMap = google.visualization.arrayToDataTable(pData);
 
 
@@ -126,7 +126,7 @@
 
     var POCchart = new google.visualization.ScatterChart(document.getElementById('poc_chart'));
     POCchart.draw(POCdataMap, POCoptions);
-  }
+  }*/
 
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;

@@ -70,14 +70,15 @@
     for (let p = 0; p < 50;p++){
 
       //get next items from logs
-      let tempPos = [];
+      let tempPos, sorted = [];
       for (let l = 0; l < storePos.length;l++){
         tempPos[l] = justPocLog[l][storePos[l]];
+        sorted[l] = justPocLog[l][storePos[l]];
       }
 
       //console.log(tempPos);
 
-      tempPos.sort(function(a,b){
+      sorted.sort(function(a,b){
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
             return new Date(b) - new Date(a);
@@ -86,21 +87,19 @@
       //console.log(tempPos);
 
       //find the item
-      let thisItem;
+      //let thisItem;
       for (let x = 0; x < tempPos.length; x++){
 
         if (sorted[0] == tempPos[x]){
-          thisItem = x;
+          //thisItem = x;
+          outputPocLog[outputPocLog.length] = [x,justPocLog[storePos[x]]];
           break;
         }
       }
 
-      outputPocLog[outputPocLog.length] = [thisItem,justPocLog[storePos[thisItem]]];
     }
 
     console.log(outputPocLog);
-
-    console.log(typeof justPocLog);
 
    // drawChart(outputPocLog);
   } 

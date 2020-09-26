@@ -77,36 +77,29 @@
         sorted[l] = justPocLog[l][storePos[l]];
       }
 
-      //console.log(tempPos);
-
       sorted.sort(function(a,b){
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
             return new Date(b) - new Date(a);
           });
 
-      //console.log(tempPos);
-
       //find the item
-      //let thisItem;
       for (let x = 0; x < tempPos.length; x++){
 
         if (sorted[0] == tempPos[x]){
-          //thisItem = x;
           storePos[x]++;
-          outputPocLog[outputPocLog.length] = [x,justPocLog[x][storePos[x]]];
+          outputPocLog[outputPocLog.length] = [justPocLog[x][storePos[x]],x];
           break;
         }
       }
-
     }
 
-    console.log(outputPocLog);
+    //console.log(outputPocLog);
 
-   // drawChart(outputPocLog);
+  drawChartLog(outputPocLog);
   } 
 
-   /*function drawChart(pData) {
+  function drawChartLog(pData) {
     let POCdataMap = google.visualization.arrayToDataTable(pData);
 
 
@@ -133,7 +126,7 @@
 
     var POCchart = new google.visualization.ScatterChart(document.getElementById('poc_chart'));
     POCchart.draw(POCdataMap, POCoptions);
-  }*/
+  }
 
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;

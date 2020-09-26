@@ -77,7 +77,7 @@
 
       let sorted = tempPos.sort(function(a, b){return b-a});
 
-      //console.log(sorted);
+      console.log(sorted);
 
       //find the item
       let thisItem;
@@ -96,7 +96,7 @@
 
     console.log(typeof justPocLog);
 
-    //drawChart(justPocLog);
+    drawChart(outputPocLog);
   } 
 
    /*function drawChart(pData) {

@@ -106,8 +106,9 @@
     let para = document.createElement('p');
     let linebreak = document.createElement('br');
 
-    for (let l = 0;l < pocArray.length;l++){
-      para.textContent = pocArray[l][0] + " " + pocArray[l][1];
+    for (let l = 0; l < pocArray.length;l++){
+      let node = document.createTextNode(pocArray[l][0] + " " + pocArray[l][1]);
+      para.appendChild(node);
       para.appendChild(linebreak);
     }
 

@@ -106,7 +106,7 @@
     let para = document.createElement('p');
     let linebreak = document.createElement('br');
 
-    for (let l = 0;l < pocArray.length;p++){
+    for (let l = 0;l < pocArray.length;l++){
       para.textContent = pocArray[l][0] + " " + pocArray[l][1];
       para.appendChild(linebreak);
     }

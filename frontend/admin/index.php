@@ -80,12 +80,12 @@
       let sorted = tempPos.sort(function(a,b){
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
-            return new Date(b.date) - new Date(a.date);
+            return new Date(b) - new Date(a);
           });
 
       console.log(sorted);
       console.log(tempPos);
-      
+
       //find the item
       let thisItem;
       for (let x = 0; x < tempPos.length; x++){

@@ -25,6 +25,8 @@
   //get the most recent line of charge controller data
   let toGet = "0";
 
+  let jsonPoc;
+
 //server list
   for (let i = 0; i < tempIPList.length; i++){
     //pingServer(tempIPList[i], populate);
@@ -53,7 +55,7 @@
 //not finished yet
   function showPocLog(response){
     console.log(JSON.parse(response));
-    let jsonPoc = JSON.parse(response);
+    jsonPoc = JSON.parse(response);
 
     let justPocLog = []
 
@@ -104,10 +106,10 @@
     let pocID = document.getElementById('pointOfContact');
 
     let para = document.createElement('p');
-    let linebreak = document.createElement('br');
+    let linebreak = document.createElement('BR');
 
     for (let l = 0; l < pocArray.length;l++){
-      let node = document.createTextNode(pocArray[l][0] + " " + pocArray[l][1]);
+      let node = document.createTextNode(pocArray[l][0] + " " + jsonPoc[pocArray[l][1]]);
       para.appendChild(node);
       para.appendChild(linebreak);
       para.appendChild(linebreak);

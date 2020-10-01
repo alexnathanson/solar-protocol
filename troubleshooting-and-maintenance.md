@@ -38,6 +38,9 @@ Never have the PV module connected to the charge controller without the battery.
 ### Battery doesn't hold charge
 * If battery is older than 3 years old, consider replacing battery
 
+### Depleted battery
+* If the current from the PV module is lower than the current draw of the server, the battery will never full charge.
+
 ## Troubleshooting By Graph
 
 ### Battery percentage drops off quickly once PV voltage drops

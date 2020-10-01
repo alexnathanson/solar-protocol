@@ -4,11 +4,14 @@ An living document outlining the values and collaborative structure of the Solar
 
 ## Guiding Questions
 
+* Are their changes we want to make to the way we have been working as we enter a new phase of the project?
+* How do we set expectations for each other, servers hosts, content developers, and users?
 * How do we work together?
 * How do we collaborate and is that different from working together?
 * How do we express when we don't have availability to work on this project?
 * How do we track project progress?
 * What does making space for self-care look like in the context of solar-protocol?
+* How is labor divided?
 * What are some guiding principles for content related to issues like safer-spaces, inclusivity, etc.?
 
 ## Project Background

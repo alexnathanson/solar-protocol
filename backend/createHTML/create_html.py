@@ -78,13 +78,19 @@ def make_index(_local_data, _data, _hosting_data):
     rendered_html = template.render(
         date=_data["datetime"],
         solarVoltage=_data["PV voltage"],
+        solarCurrent=_data["PV current"],
+        solarpowerL=_data["PV power L"],
+        solarpowerH=_data["PV power H"],
+        batteryVoltage=_data["battery voltage"],
         batteryPercentage=_data["battery percentage"],
+        batterCurrent= _data["battery current"],
         loadVoltage=_data["load voltage"],
         loadCurrent=_data["load current"],
+        loadPower=_data["load power"],
         hostingLog=_hosting_data,
         serverName=_local_data["name"]
     )
-    # print(rendered_html)
+    #print(rendered_html)
     open("../../frontend/index.html", "w").write(rendered_html)
 
 

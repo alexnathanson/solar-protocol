@@ -34,8 +34,15 @@ h3{
 }
 
 a {
-  text-decoration: underline;
+  text-decoration: none;
   color: #000;
+  background-color: greenyellow;
+
+}
+
+a:hover {
+  color: greenyellow;
+  background-color: black;
 }
 
 ul {
@@ -66,8 +73,7 @@ ul {
   font-size: 0.8em;
   padding: 0px 20px 0px 20px;
   color: blue;
-  font-family: Arial;
- 
+  font-family: Arial; 
 }
 
   

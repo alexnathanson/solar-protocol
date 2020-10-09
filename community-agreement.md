@@ -4,7 +4,7 @@ An living document outlining the values and collaborative structure of the Solar
 
 ## Guiding Questions
 
-* Are their changes we want to make to the way we have been working as we enter a new phase of the project?
+* Are there changes we want to make to the way we have been working as we enter a new phase of the project?
 * How do we set expectations for each other, servers hosts, content developers, and users?
 * How do we work together?
 * How do we collaborate and is that different from working together?

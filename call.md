@@ -16,6 +16,7 @@ We call for projects that explore:
 * natural logics
 * delights of intermittent technology
 * minimal low data VR
+* sun-responsive computing
 
 
 Inspirational Work

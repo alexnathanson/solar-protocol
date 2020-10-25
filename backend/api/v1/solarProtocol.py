@@ -130,7 +130,7 @@ def getmac(interface):
 	return mac
 
 
-#this should be wlan0 even if using ethernet...
+#this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = getmac("wlan0")
 #print("my mac: " + myMAC)
 

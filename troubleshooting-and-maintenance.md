@@ -23,6 +23,12 @@ Never have the PV module connected to the charge controller without the battery.
 
 ### Internet Connectivity
 
+Speed Test (https://www.speedtest.net/apps/cli)
+* To install run this commmand:
+	* `sudo pip3 install speedtest-cli`
+* Can also be installed with `sudo apt install speedtest-cli` if preferred, but if installed via pip it can also be run from python.
+* To run: `speedtest`
+
 ## Problem Identification
 
 ### No output

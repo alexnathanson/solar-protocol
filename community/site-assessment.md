@@ -21,10 +21,21 @@ What physical infrastructure is needed to host a Solar Protocol server?
 * does your site have an ethernet cable to a router?
 * static vs dynamic public IP
 * port forwarding
-* minimum speed?
+	* http - port 80
+	* ssh - port 20	
+* minimum speed
+	* 25mb/s up
+	* 25mb/s down
 
 ## Time Commitment
 
-* Initial installation
-* Commitment to troubles shooting
+* Installation
+	* Hardware installation
+		* Enclosure + Electronics
+		* Battery
+		* Solar module
+	* Software installation
+		* network details
+* Commitment to trouble shooting
+	* Checking system operation
 * See the community agreement for a detailed breakdown of responsibilities

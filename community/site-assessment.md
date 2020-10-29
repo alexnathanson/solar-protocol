@@ -5,7 +5,9 @@ What physical infrastructure is needed to host a Solar Protocol server?
 <p>
 Assessing how appropriate your location is for a solar powered server is crucial to the success of the project. This primarily involves identifying obstructions that may block sunlight during the hours of 9am-3pm.
 </p>
+
 <p>
+
 * In some regions, there are digital tools that may help identify obsctructions based on satelite data.
 	* US
 		* Google Sunroof

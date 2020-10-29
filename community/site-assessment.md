@@ -7,6 +7,7 @@ Assessing how appropriate your location is for a solar powered server is crucial
 </p>
 <p>
 In some regions, there are digital tools that can help identify obsctructions based on satelite data.
+
 * US
 	* Google Sunroof
 	* PV Watts

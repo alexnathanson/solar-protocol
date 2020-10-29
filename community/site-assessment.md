@@ -2,28 +2,39 @@
 What physical infrastructure is needed to host a Solar Protocol server?
 
 ## Solar Insolation
+<p>
+Assessing how appropriate your location is for a solar powered server is crucial to the success of the project. This primarily involves identifying obstructions that may block sunlight during the hours of 9am-3pm.
+</p>
+<p>
+In some regions, there are digital tools that can help identify obsctructions based on satelite data.
+* US
+	* Google Sunroof
+	* PV Watts
+* Germany
+	* https://www.eon.de/de/pk/solar.html
+</p>
 
-* what is your site's longitude and latitude?
-* obstructions
-	* if above 23 degress latitude north, the south side needs to be clear of obstructions
-	* if below 23 degress latitude south, the north side needs to be clear of obstructions
+* What is your site's longitude and latitude?
+* What are the potential obstructions?
+	* If above 23 degress latitude north, the south side needs to be clear of obstructions
+	* If below 23 degress latitude south, the north side needs to be clear of obstructions
 
 ## Physical Access
 
-* are you able to site the hardware in place?
-* is it a safe location?
-* can it stay in place for at least a year?
-* can you run the appropriate cables?
+* Are you able to site the hardware in place?
+* Is it a safe location?
+* Can it stay in place for at least a year?
+* Can you run the appropriate cables?
 
 ## Internet Connectivity
 
-* does your site have wifi?
-* does your site have an ethernet cable to a router?
-* static vs dynamic public IP
-* port forwarding
+* Does your site have wifi?
+* Does your site have an ethernet cable to a router?
+* Static vs dynamic public IP
+* Port forwarding
 	* http - port 80
 	* ssh - port 20	
-* minimum speed
+* Minimum speed
 	* 25mb/s up
 	* 25mb/s down
 

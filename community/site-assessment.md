@@ -3,7 +3,7 @@ What physical infrastructure is needed to host a Solar Protocol server?
 
 ## Solar Insolation
 <p>
-Assessing how appropriate your location is for a solar powered server is crucial to the success of the project. This primarily involves identifying obstructions that may block sunlight during the hours of 9am-3pm.
+Assessing how much sunlight your solar module will receive is crucial to the success of the project. This primarily involves identifying obstructions that may block sunlight during the hours of 9am-3pm.
 </p>
 
 <p>

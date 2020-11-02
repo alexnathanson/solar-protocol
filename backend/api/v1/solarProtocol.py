@@ -34,10 +34,11 @@ logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poc.log', l
 def getData(dst):
 	try:
 		#returns a single value
-		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
+		#response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
 		#print(response.text)		
 		#check if the response can be converted to a float
-		try: 
+		try:
+			response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5) 
 			return float(response.text)
 		except:
 			return -1

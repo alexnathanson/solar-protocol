@@ -34,19 +34,22 @@ logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poc.log', l
 def getData(dst):
 	try:
 		#returns a single value
-		#response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
+		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
 		#print(response.text)		
 		#check if the response can be converted to a float
-		try:
-			response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5) 
-			return float(response.text)
-		except:
-			return -1
+		# try:
+		# 	response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5) 
+		#this was in the try
+		return float(response.text)
+		# except:
+		# 	return -1
 	except requests.exceptions.HTTPError as err:
 		print(err)
 		return -1
 	except requests.exceptions.Timeout as err:
 		print(err)
+		return -1
+	except:
 		return -1
 
 def remoteData(dstIPs):

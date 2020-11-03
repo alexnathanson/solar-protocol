@@ -15,6 +15,7 @@ The hardware consists of a solar module and module mount, which you will need to
 </p>
 <p>
 Tools required for installation:
+
 * wrench
 * pliers
 * screw driver

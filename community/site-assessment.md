@@ -19,7 +19,7 @@ Tools required for installation:
 * wrench
 * pliers
 * screw driver
-* drill for wall attachments (or hammer drill for masonry) 
+* drill for wall mounting (or hammer drill if wall is brick/concrete/stone/etc) 
 </p>
 
 ## Solar Insolation
@@ -39,7 +39,7 @@ Assessing how much sunlight your solar module will receive is crucial to the suc
 * Please describe the physical location. How is the space generally used and who has access to it?
 * Will you be able to safely install the equipment in the location? This entails:
 	* bringing equipment to site (the equipment is heavy and will be difficult for 1 person if a ladder is required)
-	* assembling mount (requires wrench and/or pliers, and if wall mounted a drill or hammer drill)
+	* assembling and installing mount (requires wrench and/or pliers, and if wall mounted a drill or hammer drill)
 	* connect battery to charge controller (requires wrench and/or pliers)
 * Will the equipment be safe from tampering for the duration of the project?
 * Can you run an ethernet cable to the location?
@@ -47,16 +47,13 @@ Assessing how much sunlight your solar module will receive is crucial to the suc
 ## Internet Connectivity
 
 * Does your site have wifi?
-* Does your site have an ethernet cable to a router?
+* Does your site have an accessible ethernet port or can an ethernet cable be run from the site to an active ethernet port?
 * Are you able to establish a publically accessible IP address?
 	* is it a static or dynamic public IP?
-* Are you able to establish a statip IP on your LAN?
-* Port forwarding
-	* http - port 80
-	* ssh - port 20	
-* Minimum network speed
-	* 25mb/s up
-	* 25mb/s down
+* Are you able to establish a static IP on your LAN?
+* Are you able to set up port forwarding for both http (port 80) and ssh (port 20)?
+* What is your network speed?
+	* Minimum network speed: 25mb/s up & 25mb/s down
 
 ## Time Commitment
 

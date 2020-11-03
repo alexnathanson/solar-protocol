@@ -29,6 +29,10 @@ Assessing how much sunlight your solar module will receive is crucial to the suc
 * What is your site's longitude and latitude?
 * What are the potential obstructions? 
 	* The area needs to be clear of objects that may cast a shadow on the module from the direction of the equator and to the left and right at least 45 degrees in both direction.
+* Please provide 3 photos from the proposed locations
+	* directly facing the equator (south facing in the northern hemisphere, north facing in the southern hemisphere)
+	* 45 degrees east
+	* 45 degrees west
 * What is the best way to mount the module in this location?
 	* Ground mounted: Is the surface flat and does it have proper drainage?
 	* Wall mounted: Is there a wall facing the proper direction that you can screw in to?

@@ -37,9 +37,10 @@
   let pocURL = "http://"+ window.location.hostname +"/api/v1/api.php?file=deviceList";
   console.log(pocURL);
 
-  getPocLog(pocURL,sortPocLog);
+  //getRequest(pocURL,sortPocLog);
+  getRequest(pocURL,getDevIp);
 
-  function getPocLog(dst, callback){
+  function getRequest(dst, callback){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -50,6 +51,33 @@
     };
     xhttp.open("GET", dst, true);
     xhttp.send();
+  }
+
+  
+  function makeGet(dst, getThis, callback) {
+    let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        callback(this.responseText, dst);
+      } else if (this.readyState == 4) {
+        callback(this.statusText, dst);
+      }
+    };
+    xhttp.open("GET", requestURL, true);
+    xhttp.send();
+  }
+
+  function getDevIp(response){
+    console.log(JSON.parse(response));
+    //jsonPoc = JSON.parse(response);
+
+    for (let p = 0; p < jsonPoc.length;p++){
+      justPocLog.push(jsonPoc[p]["ip"]);   
+      storeIP[p] = 0; 
+    }
+
   }
 
   function sortPocLog(response){
@@ -119,20 +147,6 @@
     pocID.appendChild(para);
   }
 
-  function makeGet(dst, getThis, callback) {
-    let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;
-
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        callback(this.responseText, dst);
-      } else if (this.readyState == 4) {
-        callback(this.statusText, dst);
-      }
-    };
-    xhttp.open("GET", requestURL, true);
-    xhttp.send();
-  }
 
   function populate(dataToDisplay, dst) {
 

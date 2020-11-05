@@ -154,7 +154,7 @@
     serverLink.href = /*"http://"+*/dstIP;
     serverLink.target = "_blank"; //open in new tab
 
-    const serverLinkContent = document.createTextNode(dst.replace('http://',''));
+    const serverLinkContent = document.createTextNode(dstIP.replace('http://',''));
     serverLink.appendChild(serverLinkContent);
 
     serverH3.appendChild(serverLink);

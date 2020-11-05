@@ -31,7 +31,7 @@
   let devListURL = "http://"+ window.location.hostname +"/api/v1/api.php?file=deviceList";
   console.log(devListURL);
 
-  getRequest(devListURL,getDevIp);
+  getRequest(devListURL,parseDevList);
 
   //point of contact
   //getRequest(pocURL,sortPocLog);

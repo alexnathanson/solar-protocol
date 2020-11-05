@@ -50,23 +50,6 @@
     xhttp.send();
   }
 
-  /*
-  function makeGet(dst, getThis, callback) {
-    let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;
-
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        callback(this.responseText, dst);
-      } else if (this.readyState == 4) {
-        callback(this.statusText, dst);
-      }
-    };
-    xhttp.open("GET", requestURL, true);
-    xhttp.send();
-  }
-*/
-
   function parseDevList(response){
 
     console.log(JSON.parse(response));
@@ -158,6 +141,9 @@
 
   function populate(dataToDisplay, dst) {
 
+    let dstIP = dst.replace('/api/v1/api.php?line=0','');
+    //dstIP = dst.replace('http://','');
+
     const sList = document.getElementById('server list');
 
     //server header
@@ -165,10 +151,10 @@
     serverH3.textContent = 'Server: ';
     //make it a link
     const serverLink = document.createElement('a');
-    serverLink.href = "http://"+dst;
+    serverLink.href = "http://"+dstIP;
     serverLink.target = "_blank"; //open in new tab
 
-    const serverLinkContent = document.createTextNode(dst);
+    const serverLinkContent = document.createTextNode(dstIP);
     serverLink.appendChild(serverLinkContent);
 
     serverH3.appendChild(serverLink);

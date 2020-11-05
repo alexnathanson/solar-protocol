@@ -47,6 +47,9 @@ Speed Test (https://www.speedtest.net/apps/cli)
 ### Depleted battery
 * If the current from the PV module is lower than the current draw of the server, the battery will never full charge.
 
+### Battery doesn't charge / PV current is very low 
+* Check solar panel function with a multimeter. Run these two tests: https://www.renogy.com/blog/how-to-troubleshoot-your-solar-panels/
+
 ## Troubleshooting By Graph
 
 ### Battery percentage drops off quickly once PV voltage drops

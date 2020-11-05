@@ -20,25 +20,28 @@
 
 <script>
   //make this dynamic at some point
-  let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
-  
+  //let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
+  let ipList = [];
   //get the most recent line of charge controller data
   let toGet = "0";
 
   let jsonPoc;
 
-//server list
-  for (let i = 0; i < tempIPList.length; i++){
-    //pingServer(tempIPList[i], populate);
-    makeGet(tempIPList[i], toGet, populate);
-  }
+
+  let devListURL = "http://"+ window.location.hostname +"/api/v1/api.php?file=deviceList";
+  console.log(devListURL);
+
+  getRequest(devListURL,getDevIp);
 
   //point of contact
-  let pocURL = "http://"+ window.location.hostname +"/api/v1/api.php?file=deviceList";
-  console.log(pocURL);
-
   //getRequest(pocURL,sortPocLog);
-  getRequest(pocURL,getDevIp);
+
+//server list
+  for (let i = 0; i < ipList.length; i++){
+    //pingServer(tempIPList[i], populate);
+    let requestURL = "http://" + ipList[i] + "/api/v1/api.php?line="+toGet;
+    getRequest(requestURL, populate);
+  }
 
   function getRequest(dst, callback){
     let xhttp = new XMLHttpRequest();
@@ -53,7 +56,7 @@
     xhttp.send();
   }
 
-  
+  /*
   function makeGet(dst, getThis, callback) {
     let requestURL = "http://" + dst + "/api/v1/api.php?line="+getThis;
 
@@ -68,14 +71,15 @@
     xhttp.open("GET", requestURL, true);
     xhttp.send();
   }
+*/
 
-  function getDevIp(response){
+  function parseDevList(response){
+
     console.log(JSON.parse(response));
-    //jsonPoc = JSON.parse(response);
+    jsonDevList = JSON.parse(response);
 
-    for (let p = 0; p < jsonPoc.length;p++){
-      justPocLog.push(jsonPoc[p]["ip"]);   
-      storeIP[p] = 0; 
+    for (let p = 0; p < jsonDevList.length;p++){
+      ipList.push(jsonPoc[p]["ip"]);   
     }
 
   }

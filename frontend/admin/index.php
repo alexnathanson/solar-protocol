@@ -151,10 +151,10 @@
     serverH3.textContent = 'Server: ';
     //make it a link
     const serverLink = document.createElement('a');
-    serverLink.href = "http://"+dstIP;
+    serverLink.href = /*"http://"+*/dstIP;
     serverLink.target = "_blank"; //open in new tab
 
-    const serverLinkContent = document.createTextNode(dstIP);
+    const serverLinkContent = document.createTextNode(dst.replace('http://',''));
     serverLink.appendChild(serverLinkContent);
 
     serverH3.appendChild(serverLink);

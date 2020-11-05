@@ -36,12 +36,6 @@
   //point of contact
   //getRequest(pocURL,sortPocLog);
 
-//server list
-  for (let i = 0; i < ipList.length; i++){
-    //pingServer(tempIPList[i], populate);
-    let requestURL = "http://" + ipList[i] + "/api/v1/api.php?line="+toGet;
-    getRequest(requestURL, populate);
-  }
 
   function getRequest(dst, callback){
     let xhttp = new XMLHttpRequest();
@@ -79,9 +73,19 @@
     jsonDevList = JSON.parse(response);
 
     for (let p = 0; p < jsonDevList.length;p++){
-      ipList.push(jsonPoc[p]["ip"]);   
+      ipList.push(jsonDevList[p]["ip"]);   
     }
 
+
+  //individual server data
+    for (let i = 0; i < ipList.length; i++){
+      //pingServer(tempIPList[i], populate);
+      let requestURL = "http://" + ipList[i] + "/api/v1/api.php?line="+toGet;
+      getRequest(requestURL, populate);
+    }
+
+  //point of contact
+  sortPocLog(response);
   }
 
   function sortPocLog(response){

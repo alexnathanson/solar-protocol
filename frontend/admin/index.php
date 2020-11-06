@@ -118,7 +118,7 @@
       }
     }
 
-    console.log(outputPocLog);
+    //console.log(outputPocLog);
 
     displayPOC(outputPocLog);
 

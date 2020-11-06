@@ -170,7 +170,7 @@ def update_hosting_log():
 
 
 def get_local():
-    filename = "local.json"
+    filename = "/home/pi/local/local.json"
     with open(filename) as infile:
         local_data = json.load(infile)
     return local_data  # dictionary

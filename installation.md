@@ -39,7 +39,8 @@ Careful to set up pi securely.
 ### Repository
 Download repo into /home/pi
 `sudo apt-get install git`<br>
-`git clone http://www.github.com/alexnathanson/solar-protocol`
+`git clone http://www.github.com/alexnathanson/solar-protocol`<br>
+* move local directory outside of solar-protocol directory to pi directory
 
 ### Python 3 Packages
 Install pip `sudo apt-get install python3-pip`<br>

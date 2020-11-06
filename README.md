@@ -44,7 +44,6 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 * refactor admin console (not time sensitive)
 * add password/ login requirements to admin console
 * system for adding/ removing network nodes
-* move location of local.json
 
 ### CONTENT
 

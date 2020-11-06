@@ -24,27 +24,33 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 ## TO DO
 
 ### General
-* make an installer.sh
-* X move python templater to server  - what is this?
-* check any limits on the DNS api
-* make sure the point of contact log starts rewriting data after 100 entries and doesn't keep adding data forever
-* make a script for pull updates from the git repo that automates resetting permissions as needed
-* create a system for updating devices remoting (maybe every evening at midnight?)
+* make an installer.sh (not time sensitive)
+* add link to documention somewhere (https://www.namecheap.com/support/knowledgebase/article.aspx/29/11/how-do-i-use-a-browser-to-dynamically-update-the-hosts-ip)
+* make a script for pull updates from the git repo that automates resetting permissions as needed (not time sensitive)
+	* create a system for updating devices remoting (maybe every evening at midnight?)
+	* make 2 branches - 1 live version and 1 development version
 
-### FRONT END TO DO
-* X Set up with real solar data from index.php
-* Basic energy data collection for different sized pages and traffic. 
-* Energy impact of regenerating page. What's the frequency of this?
-* X move python script to backend
-* add server name to device log file and fix index.html to display name.
-* update data on low-res version
+### FRONTEND
+* Basic energy data collection for different sized pages and traffic. (not time sensitive)
 * add poc log to front-end page
+* network visualizations
+* how do we add content from hosts?
+	* make our own personal sites for the servers
 
-## BACKEND TO DO
+### BACKEND
 
+* make sure the point of contact log starts rewriting data after 100 entries and doesn't keep adding data forever
 * develop API for security best practices - API keys, environmental variables, etc.
-* refactor admin console
+* refactor admin console (not time sensitive)
 * add password/ login requirements to admin console
 * system for adding/ removing network nodes
+* move location of local.json
 
+### CONTENT
 
+* Documentation of our work
+* Public programming around this
+	* Slow/low video streaming + audio?
+* Personalization from hosts
+	* Eg. Aesthetic personalization such as name, banner, welcome note. And an html page, which could include a pdf.
+* Directory of solar powered sites

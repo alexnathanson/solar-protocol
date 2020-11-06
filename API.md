@@ -114,8 +114,3 @@ headers = {
 
 myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
 x = requests.post('http://www.mywebsite.xyz/api/v1/api.php', headers=headers,data = myString)
-
-## TO DO:
-* test PHP environmental variables
-* add point of contact posting cababilities to API front end and solarProtocol.py 
-* solar protocol needs to check timestamp

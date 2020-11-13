@@ -31,6 +31,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 	* make 2 branches - 1 live version and 1 development version
 
 ### FRONTEND
+
 * Basic energy data collection for different sized pages and traffic. (not time sensitive)
 * add poc log to front-end page
 * network visualizations

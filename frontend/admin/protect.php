@@ -17,7 +17,7 @@ function with($form, $password, $scope=null) {
   session_start();
 
   # Check the POST for access
-  if( $_POST['password'] == $password ) {
+  if( $_POST['password'] && $_POST['password'] == $password ) {
     $_SESSION[$session_key] = true;
     redirect(current_url());
   }

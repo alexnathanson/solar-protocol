@@ -224,15 +224,20 @@
 
 <?php
 
-//get the query string
-$date = htmlspecialchars($_GET["date"]);
 
 $fileDate = date("Y-m-d");
-if ($date == 'yesterday'){
-	$fileDate = date("Y-m-") . (date(d)-1);
-}elseif( $date == 'before'){
-	$fileDate = date("Y-m-") . (date(d)-2);//make a conditional to account for single digit days!!!
+
+if(isset($_GET["date"])){
+  //get the query string
+  $date = htmlspecialchars($_GET["date"]);
+
+  if ($date == 'yesterday'){
+    $fileDate = date("Y-m-") . (date(d)-1);
+  }elseif( $date == 'before'){
+    $fileDate = date("Y-m-") . (date(d)-2);//make a conditional to account for single digit days!!!
+  }
 }
+
 
 //variables
 $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";

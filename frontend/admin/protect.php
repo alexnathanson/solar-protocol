@@ -17,7 +17,7 @@ function with($form, $password, $scope=null) {
   session_start();
 
   # Check the POST for access
-  if( $_POST['password'] && $_POST['password'] == $password ) {
+  if( isset($_POST['password']) && $_POST['password'] == $password ) {
     $_SESSION[$session_key] = true;
     redirect(current_url());
   }
@@ -35,7 +35,7 @@ function with($form, $password, $scope=null) {
 function current_url($script_only=false) {
   $protocol = 'http';
   $port = ':'.$_SERVER["SERVER_PORT"];
-  if($_SERVER["HTTPS"] == 'on') $protocol .= 's';
+  if(isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on') $protocol .= 's';
   if($protocol == 'http' && $port == ':80') $port = '';
   if($protocol == 'https' && $port == ':443') $port = '';
   $path = $script_only ? $_SERVER['SCRIPT_NAME'] : $_SERVER['REQUEST_URI'];

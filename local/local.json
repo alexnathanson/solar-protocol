@@ -1,5 +1,6 @@
 {
   "name": "Kosciuszko St",
   "content": "home/pi/solar-protocol/backend/createHTML/local/index.html",
-  "location": "Bedford Stuyvensen"
+  "location": "Bedford Stuyvensen",
+  "apiKey" : ""
 }

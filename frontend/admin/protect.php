@@ -13,7 +13,6 @@ function with($form, $password, $scope=null) {
   if( !$scope ) $scope = current_url();
   $session_key = 'password_protect_'.preg_replace('/\W+/', '_', $scope);
 
-  # comment in to cache the password session 
   session_start();
 
   # Check the POST for access
@@ -24,7 +23,6 @@ function with($form, $password, $scope=null) {
   }
 
   # If user has access then simply return so original page can render.
-  # comment in to cache the password session 
   if( isset($_SESSION[$session_key]) && $_SESSION[$session_key] ) return;
 
   require $form;
@@ -44,7 +42,7 @@ function current_url($script_only=false) {
 }
 
 function redirect($url) {
-  echo $url;
+  echo "REDIRECT";
   header("Location: $url");
   exit;
 }

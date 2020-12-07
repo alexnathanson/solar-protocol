@@ -1,5 +1,5 @@
 <?php
-# source: https://gist.github.com/4692807
+# based on: https://gist.github.com/4692807
 namespace Protect;
 
 # Will protect a page with a simple password.
@@ -24,7 +24,7 @@ function with($form, $password, $scope=null) {
 
   # If user has access then simply return so original page can render.
   # comment in to cache the password session 
-  if( $_SESSION[$session_key] ) return;
+  if( isset($_SESSION[$session_key]) && $_SESSION[$session_key] ) return;
 
   require $form;
   exit;

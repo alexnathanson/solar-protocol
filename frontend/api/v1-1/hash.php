@@ -8,7 +8,7 @@
  * By allowing your storage to expand past 60 characters (255 would be good)
  */
 if( isset($_POST['hash'])) {
-	echo $_POST['hash'] <br>;
+	echo $_POST['hash'] . "<br>";
 	echo password_hash($_POST['hash'], PASSWORD_DEFAULT);
 }
 ?>

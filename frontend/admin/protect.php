@@ -7,7 +7,7 @@ namespace Protect;
 # grant access on another page. If not specified then it only grants
 # access to the current page.
 
-# CACHEING HAS BEEN DISABLE - uncomment lines 19 and 29 TO ENABLE IT
+# CACHEING HAS BEEN DISABLE - uncomment lines 19 to enable it
 # The user will only need to input the password once. After that their session will be enough
 # to get them in. 
 
@@ -26,7 +26,7 @@ function with($form, $password, $scope=null) {
 
   # If user has access then simply return so original page can render.
   # comment in to cache the password session 
-  # if( $_SESSION[$session_key] ) return;
+  if( $_SESSION[$session_key] ) return;
 
   require $form;
   exit;

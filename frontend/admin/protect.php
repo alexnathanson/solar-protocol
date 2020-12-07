@@ -1,5 +1,5 @@
 <?php
-# sourced from : https://gist.github.com/4692807
+# based on : https://gist.github.com/4692807
 namespace Protect;
 
 # Will protect a page with a simple password.
@@ -16,7 +16,7 @@ function with($form, $password, $scope=null) {
   session_start();
 
   # Check the POST for access
-  if( isset($_POST['password']) && $_POST['password'] == $password ) {
+  if( isset($_POST['password']) && verifyPW($password)) {
     $_SESSION[$session_key] = true;
     redirect(current_url());
     #return;
@@ -27,6 +27,17 @@ function with($form, $password, $scope=null) {
 
   require $form;
   exit;
+}
+
+
+function verifyPW($hash){
+
+# hash generated from password_hash() more info at https://www.php.net/manual/en/function.password-hash.php
+
+  if(password_verify($_POST['password'], $hash)){
+    return true;
+  }
+  return false;
 }
 
 #### PRIVATE ####

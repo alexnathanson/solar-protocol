@@ -1,6 +1,6 @@
 <?php
   require_once 'protect.php';
-  Protect\with('form.php', 'password');
+  Protect\with('form.php', '$2y$10$P7eYN7FYf0ZpI0L80.WazuNHIIcmqIaF.u2VJ0PnLSBydHUKe.P8W');
 ?>
 
 <!DOCTYPE html>

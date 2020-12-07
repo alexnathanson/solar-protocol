@@ -1,5 +1,5 @@
 <?php
-  require_once 'protect.php';
+  require 'protect.php';
   Protect\with('form.php', 'my_password');
 ?>
 

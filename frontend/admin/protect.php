@@ -1,17 +1,22 @@
 <?php
-# https://gist.github.com/4692807
+# based on: https://gist.github.com/4692807
 namespace Protect;
 
-# Will protect a page with a simple password. The user will only need
-# to input the password once. After that their session will be enough
-# to get them in. The optional scope allows access on one page to
+# Will protect a page with a simple password.
+# The optional scope allows access on one page to
 # grant access on another page. If not specified then it only grants
 # access to the current page.
+
+# CACHEING HAS BEEN DISABLE - uncomment lines 19 and 29 TO ENABLE IT
+# The user will only need to input the password once. After that their session will be enough
+# to get them in. 
+
 function with($form, $password, $scope=null) {
   if( !$scope ) $scope = current_url();
   $session_key = 'password_protect_'.preg_replace('/\W+/', '_', $scope);
 
-  session_start();
+  # comment in to cache the password session 
+  #session_start();
 
   # Check the POST for access
   if( $_POST['password'] == $password ) {
@@ -20,7 +25,8 @@ function with($form, $password, $scope=null) {
   }
 
   # If user has access then simply return so original page can render.
-  if( $_SESSION[$session_key] ) return;
+  # comment in to cache the password session 
+  # if( $_SESSION[$session_key] ) return;
 
   require $form;
   exit;

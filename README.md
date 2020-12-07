@@ -41,7 +41,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 ### BACKEND
 
 * make sure the point of contact log starts rewriting data after 100 entries and doesn't keep adding data forever
-* develop API for security best practices - API keys, environmental variables, etc.
+* develop API for security best practices - storing hashes
 * refactor admin console (not time sensitive)
 * system for adding/ removing network nodes
 

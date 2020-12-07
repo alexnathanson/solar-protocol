@@ -6,10 +6,11 @@ error_reporting(E_ALL);*/
 
 $servername = "localhost";
 
-//CHANGE KEY AND USE ENVIRONMENTAL VARIABLES FOR LIVE VERSION!!! 
+// 
 // If you change this value, the client keys need to match
-$api_key_value = "tPmAT5Ab3j7F9";
-//$api_key_value = getenv('SP_API_KEY'); //THIS LINE HASN'T BEEN TESTED
+//$api_key_value = "tPmAT5Ab3j7F9";//remove this once hash is tested
+$hash = "$2y$10$mCxhv3NC4/lkSycnD85XLuw/AYBCxw1ElmCqeksR.f88BTZoXXuca";
+//$api_key_value = getenv('SP_API_KEY'); //THIS LINE HASN'T BEEN TESTED - remove this assuming hash works...
 
 $api_key= $stamp = $ip = $mac = $name = "";
 $log = [];
@@ -21,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $api_key = test_input($_POST["api_key"]);
 
   //check if key is correct
-  if($api_key == $api_key_value) {
+  if(verifyPW($api_key, $hash)) {
 
     //set variables to POST
     $stamp = test_input($_POST["stamp"]);
@@ -147,6 +148,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       //var_dump($readData);
     }
   }
+}
+
+function verifyPW($pw, $hash){
+
+# hash generated from password_hash() more info at https://www.php.net/manual/en/function.password-hash.php
+
+  if(password_verify($pw, $hash)){
+    return true;
+  }
+  return false;
 }
 
 function test_input($data) {

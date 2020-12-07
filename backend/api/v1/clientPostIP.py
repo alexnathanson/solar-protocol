@@ -5,9 +5,6 @@ import requests
 import time
 import json
 
-#CHANGE KEY AND USE ENVIRONMENTAL VARIABLES FOR LIVE VERSION!!!
-apiKey='tPmAT5Ab3j7F9'
-#apiKey = os.getenv('SP_API_KEY')
 
 headers = {
     #'X-Auth-Key': KEY,
@@ -16,7 +13,7 @@ headers = {
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
-localConfig = "/home/pi/solar-protocol/backend/createHTML/local.json";
+localConfig = "/home/pi/local/local.json";
 
 pocLog = "/home/pi/solar-protocol/backend/api/v1/poc.log"
 pocData = []
@@ -117,6 +114,10 @@ def makePosts(ipList):
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
 myName = getLocalConfig("name")
+
+apiKey = getLocalConfig("apiKey")
+#apiKey = os.getenv('SP_API_KEY')
+
 getPocLog();
 dstList = getIPList()
 makePosts(dstList)

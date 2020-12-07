@@ -9,7 +9,7 @@ $servername = "localhost";
 // 
 // If you change this value, the client keys need to match
 //$api_key_value = "tPmAT5Ab3j7F9";//remove this once hash is tested
-$hash = "$2y$10$mCxhv3NC4/lkSycnD85XLuw/AYBCxw1ElmCqeksR.f88BTZoXXuca";
+$hash = '$2y$10$mCxhv3NC4/lkSycnD85XLuw/AYBCxw1ElmCqeksR.f88BTZoXXuca';
 //$api_key_value = getenv('SP_API_KEY'); //THIS LINE HASN'T BEEN TESTED - remove this assuming hash works...
 
 $api_key= $stamp = $ip = $mac = $name = "";

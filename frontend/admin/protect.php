@@ -19,7 +19,8 @@ function with($form, $password, $scope=null) {
   # Check the POST for access
   if( isset($_POST['password']) && $_POST['password'] == $password ) {
     $_SESSION[$session_key] = true;
-    redirect(current_url());
+    #redirect(current_url());
+    return;
   }
 
   # If user has access then simply return so original page can render.

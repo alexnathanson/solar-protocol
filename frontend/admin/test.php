@@ -12,8 +12,8 @@
 
 <body>
    <?php
-   $username = "the_username_here";
-   $password = "the_password_here";
+   $username = "admin";
+   $password = "password";
    $nonsense = "supercalifragilisticexpialidocious";
 
    if (isset($_COOKIE['PrivatePageLogin'])) {

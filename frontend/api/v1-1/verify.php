@@ -1,7 +1,7 @@
 
 <?php
 // See the password_hash() example to see where this came from.
-$hash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
+$hash = '$2y$10$Nfg/XuVvDxK/tVsj3BIb3umVifD6M1/odQRBFRNt4KFQit25dto.2';
 
 if( isset($_POST['password'])) {
 

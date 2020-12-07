@@ -965,7 +965,7 @@ Source: GLX-S-88M.pdf</description>
 <text x="5.08" y="5.08" size="2.54" layer="94">DC Load: 16 AWG</text>
 <rectangle x1="0" y1="25.4" x2="58.42" y2="35.56" layer="100"/>
 <rectangle x1="0" y1="0" x2="58.42" y2="25.4" layer="100"/>
-<text x="241.3" y="7.62" size="2.54" layer="91">2.0</text>
+<text x="241.3" y="7.62" size="2.54" layer="91">2.1</text>
 </plain>
 <moduleinsts>
 <moduleinst name="50W-12V-PV" module="50W-12V-PV" x="15.24" y="165.1" rot="R90">

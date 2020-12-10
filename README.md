@@ -43,6 +43,9 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 * make sure the point of contact log starts rewriting data after 100 entries and doesn't keep adding data forever
 * refactor admin console (not time sensitive)
 * system for adding/ removing network nodes
+* filter out duplicate IP addressses on admin console
+* API for plaintext redirect... ex. solarprotocol.net/idm would redirect to the IDM solar server even if its not the point of contact at that moment - another option would be to pass the IDM local content to whichever server is the point of contact as needed through the API
+* Add interface in admin console to change local content
 
 ### CONTENT
 

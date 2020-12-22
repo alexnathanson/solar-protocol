@@ -90,6 +90,10 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	* run createHTML every 15 minutes to generate new index.html with current data. `*/15 * * * * cd /home/pi/solar-protocol/backend/createHTML && $(which python3) create_html.py`
 	* reboot daily `@midnight sudo reboot`	
 
+### Local
+* Move the local.json file to the /home/pi/local directory
+* update the info with your information as needed
+
 ### Troubleshooting
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller
 * Run `ps -aux` to list running processes

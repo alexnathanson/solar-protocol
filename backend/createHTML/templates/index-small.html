@@ -20,16 +20,15 @@
     <div class="server-container"> 
    
       <p>
-        ACTIVE SERVER: KOSCIUSZKO ST &nbsp; &nbsp; DATE TIME: {{date}} PV VOLTAGE: {{solarVoltage}}
-        &nbsp; &nbsp; BATTERY LEVEL: {{batteryPercentage}} &nbsp; &nbsp; LOAD VOLTAGE: {{loadVoltage}} &nbsp; &nbsp; LOAD CURRENT: {{loadCurrent}}
-      
+        SERVER: {{name}} in {{location}}, {{city}} || LOCATION: {{lat}}, {{long}} || PV
+        CURRENT: {{solarCurrent}} || BATTERY LEVEL: {{batteryPercentage}} || <a href="index.html#host">Learn more</a>
       </p>
     </div>
     <div class="image-container">
 
       <div class="pagetitle">
         <h1>Solar Protocol</h1>
-        <h2>The first algorithm was made by the sun</h2>
+        <h2>Networking with the sun</h2>
       </div>
     </div>
     <div class="text-title-container"></div>
@@ -110,18 +109,47 @@
         </p>
       </div>
     </div>
-    <div class="text-container">
-      <h2>Get Involved</h2>
-      <p>
-        When we have completed the first phase of this project and have a small prototype network running reliably, we will be seeking 
-        additional host sites and collaborators around the world. We will send out solar server kit to several additional host sites in order
-        to connect a community of people who are interested in exploring the possibilities of small scale, solar powered internet technologies and natural logics.  </p>
-        <p>
-        If you have a sunny rooftop and are interested in experimenting with us, please sign up to our TinyLetter <a href="https://tinyletter.com/Solar-Protocol">here</a> or below. We will send an email soliciting additional host sites for the project soon. 
+    <div id="call">
+      <div class="text-container">
+        <h2>Get Involved</h2>
+        <h3>Call for Server Stewards</h3>
+  
+        <p>  Are you interested in stewarding a server as part of Solar Protocol? A server steward is someone who can host and care for a solar server and who is interested in being a guest collaborator on our project.<sup>*</sup></p>
+  
+          <p> 
+            We're currently looking for people or organizations in different locations around the world who can host one of our servers for at least a year and who are also interested in contributing their domain expertise to help us explore this network together. We are aiming to establish a server on every continent in the world (except perhaps for Antarctica).</p>
+  
+  <p> 
+    Ideally, a server steward would have a basic understanding of programming (specifically with Raspberry Pi/ Linux) and IT infrastructure to assist us with troubleshooting the installation. However, we are also able to bring on a few collaborators with less experience and who can offer different perspectives on the project. At this point there is opportunity for both institutional collaborators like arts venues and universities that might be able fund their own participation as well as individuals or collectives without these resources. If you fall into the latter group, we have a budget to cover expenses for DIY/independent collaborators. Server stewards should demonstrate a willingness to build community and share materials and resources through teaching and learning.</p>
+  
+  <p> 
+    If you have a sunny rooftop and are interested in experimenting with us, please read the questions and answers below and fill out this brief <a href="https://airtable.com/shrwTVfy9TAvg5oHk">expression of interest.</a>  </p>
+  
+          <h3> What are the technical/physical requirements for a server location? </h3>
+          <ul> <li>A safe and accessible outdoor area that is exposed to direct sunlight for at least 4 hours per day (this means a spot that is free from obstructions/shadows and ideally facing the equator)</li>
+            <li> You need to be able to secure the solar panel to a wall, pole or rooftop so it doesn't blow away or get stolen</li>
+            <li> The server needs Internet access either via ethernet cable or wifi (minimum network speed: 25mb/s up & 25mb/s down)</li>
+            <li> You need to be able to set up port forwarding for both http (port 80) and ssh (port 20) with your Internet Service Provider to serve the solar protocol network publically</li>
+            </ul>
+            <h3> What is the timing of this project?</h3>
+            <p>We are looking to set up servers with stewards in the first 3 months of 2021. We ask you to steward and care for your server for a minimum of 12 months.  </p> 
+  
+          <h3>  Do I need to speak English?</h3>
+          <p> Unfortunately our team only speaks English and Italian. We’d be happy to try to find a translator and we would also be interested in translating the project into the language spoken by server stewards.</p>
+          <h3>  Keep in touch</h3>
+         <p>
+         If you have further questions, you can email us <a href="mailto:solar.protocol.info@gmail.com">here.</a> Or to get a very occasional update about this project, please consider joining our TinyLetter <a href="https://tinyletter.com/Solar-Protocol">here</a>. 
+        </p>
+        <div class="notes">
 
-        <form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://tinyletter.com/Solar-Protocol" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/Solar-Protocol', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true"><p><label for="tlemail">Enter your email address</label></p><p><input type="text" style="width:140px" name="email" id="tlemail" /></p><input type="hidden" value="1" name="embed"/><input type="submit" value="Subscribe" /><p><a href="https://tinyletter.com" target="_blank"></a></p></form>
-        
-      </p>
+        <p><i>
+          *Thanks to Taeyoon Choi and collaborators on the <a href="http://distributedweb.care/">Distributed Web of Care</a> project for their work on stewardship, care and the internet.
+        </i>
+        </p>
+      </div>
+
+      </div>
+  
     </div>
     <div class="text-container">
       <h2>Research in Progress</h2>
@@ -134,7 +162,40 @@
       <div class="text-container">
         <h2>Attribution</h2>
         <p>This is work in progress by Tega Brain, Alex Nathanson and Benedetta Piantella. It is a part of the Eyebeam Rapid Response for a <a href="https://www.eyebeam.org/rapidresponse/">Better Digital Future program</a>. </p>
-      </div>
-
-  </body>
-</html>
+    
+        <div id="host">
+          <hr class="footer">
+          <div class="row">
+            <hr.footer>
+            <div class="column left" >
+              <h2>What server am I visiting?</h2>
+                <p>Traffic to the Solar Protocol website is sent to whichever server in our network has the most sunshine at the time. Presently you are on the server called {{name}}.  </p>
+                <p><b>Location:</b> {{location}}, {{city}}, {{country}} </p> 
+                <p><b>Time as active server:</b></p>  
+                <p><b>Weather:</b></p>
+  
+            </div>
+            <div class="column middle-left" >
+              <h2>Server Data</h2>
+              <p><b>Time at location:</b> {{date[10:-7]}} </p>
+                <p><b>PV Voltage:</b> {{solarVoltage}}V </p>
+                <p><b>PV Current: </b>{{solarCurrent}}A</p> 
+                <p> <b>Load Voltage:</b> {{loadVoltage}}V </p>
+                <p><b> Load Current:</b> {{loadCurrent}} A</p> 
+                <p> <b>Battery Voltage:</b> {{batteryVoltage}} V </p> 
+                <p><b>Battery Level:</b> {{batteryPercentage}} %</p>
+            </div>
+              <div class="column middle-right" >
+                <h2>About the server steward</h2>
+              <p>{{description}}</p>
+              
+            </div>
+            <div class="column right">
+              <h2>Server View</h2>
+              <p></p>
+            </div>
+          </div>
+        </div>
+    </body>
+  </html>
+  

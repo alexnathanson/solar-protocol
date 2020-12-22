@@ -57,7 +57,7 @@ h2{
 }
 
 h3{
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: normal;
   margin: 0;
 
@@ -172,6 +172,11 @@ sup {
   font-size: 0.9em;
 }
 
+/* Dashed red border */
+hr.p {
+  border: 0.5px solid grey;
+}
+
 footer {
 
   text-align: left;
@@ -201,7 +206,7 @@ footer {
 .column h2{
   text-transform: uppercase;
   font-size: 15px;
-  font-weight: bold;
+  
 }
 
 .column p{

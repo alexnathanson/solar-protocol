@@ -25,10 +25,13 @@
 
       .column {
         border: 2px solid {{serverColor}};
-
-
-
       }
+      hr.footer {
+        border-color: {{serverColor}};
+        border-style: {{borderStyle}};
+        border-width: 0 0 5px 0;
+      }
+
 
     </style>
 
@@ -36,7 +39,7 @@
   <body>
     <div class="server-container"></p>
       <p>
-        SERVER: {{name}} in {{location}} || LOCATION: {{lat}}, {{long}} || PV
+        SERVER: {{name}} in {{location}}, {{city}} || LOCATION: {{lat}}, {{long}} || PV
         CURRENT: {{solarCurrent}} || BATTERY LEVEL: {{batteryPercentage}} || <a href="index.html#host">Learn more</a>
       </p>
     </div>
@@ -44,7 +47,7 @@
       <img src="images/Solar-globe-bw-small.png" class="halfwidth" />
       <div class="pagetitle">
         <h1>Solar Protocol</h1>
-        <h2>The first algorithm was the sun</h2>
+        <h2>Networking with the sun</h2>
       </div>
     </div>
     <div class="text-title-container"></div>
@@ -112,6 +115,7 @@
         by reconfiguring internet protocols with the logic of the sun. 
       </p>
       <div class="notes">
+        <hr class="p"> 
         <p>
           1. See Timothy Mitchell on the political consequences of different
           energy regimes in <a href="https://www.versobooks.com/books/1445-carbon-democracy"><i>Carbon democracy: Political power in the age of oil. </i></a> Verso
@@ -127,7 +131,9 @@
           Low Tech Magazine (2019). We have taken much inspiration from this prior work.
         </p>
       </div>
+      <hr class="p"> 
     </div>
+    
     <div id="call">
     <div class="text-container">
       <h2>Get Involved</h2>
@@ -154,22 +160,24 @@
           <p>We are looking to set up servers with stewards in the first 3 months of 2021. We ask you to steward and care for your server for a minimum of 12 months.  </p> 
 
         <h3>  Do I need to speak English?</h3>
-        <p> Unfortunately our team only speaks English and Italian. We’d be happy to try to find a translator, but we’d need to figure this out together. We would also be interested in translating the project into the language spoken by server stewards.</p>
+        <p> Unfortunately our team only speaks English and Italian. We’d be happy to try to find a translator and we would also be interested in translating the project into the language spoken by server stewards.</p>
         <h3>  Keep in touch</h3>
        <p>
        If you have further questions, you can email us <a href="mailto:solar.protocol.info@gmail.com">here.</a> Or to get a very occasional update about this project, please consider joining our TinyLetter <a href="https://tinyletter.com/Solar-Protocol">here</a>. 
       </p>
       <div class="notes">
+        <hr class="p"> 
       <p>
-        *Thanks to Taeyoon Choi and his collaborators on the <a href="http://distributedweb.care/">Distributed Web of Care</a> project for their work on stewardship, care and the internet.
+        *Thanks to Taeyoon Choi and collaborators on the <a href="http://distributedweb.care/">Distributed Web of Care</a> project for their work on stewardship, care and the internet.
       </p>
     </div>
+    <hr class="p"> 
     </div>
 
   </div>
 
     <div class="text-container">
-      <h2>Solar Protocol Network So Far</h2>
+      <h2>The Solar Protocol Network So Far</h2>
     </div>
     <div class="image-container">
       <img src="images/map-mockup.png" />
@@ -178,9 +186,12 @@
     <p>
       The prototype network currently consists of three servers located
       throughout New York City.
+      
     </p>
+    
   </div>
     <div class="text-container">
+      
       <h2>Work Progress Documentation</h2>
       <ul>
         <li>
@@ -197,6 +208,7 @@
           >.
         </li>
       </ul>
+      
     </div>
     <div class="text-container">
       <h2>Attribution</h2>
@@ -204,33 +216,38 @@
         This is work in progress by Tega Brain, Alex Nathanson and Benedetta
         Piantella. It is a part of the Eyebeam Rapid Response for a
         <a href="https://www.eyebeam.org/rapidresponse/"
-          >Better Digital Future program</a
-        >.
+          >Better Digital Future program</a>.
       </p>
+      
     </div>
 
 
         <div id="host">
+        <hr class="footer">
         <div class="row">
+          <hr.footer>
           <div class="column left" >
-            <h2>Where is this site hosted?</h2>
-              <p>Traffic to the Solar Protocol website is sent to whichever server in our network has the most sunshine at the time. </p><p> Presently you are visiting {{name}}.  </p>
-              <p>LOCATION: {{location}}, {{city}}.</p> 
-                <p>COUNTRY: {{country}}</p>
+            <h2>What server am I visiting?</h2>
+              <p>Traffic to the Solar Protocol website is sent to whichever server in our network has the most sunshine at the time. Presently you are on the server called {{name}}.  </p>
+              <p><b>Location:</b> {{location}}, {{city}}, {{country}} </p> 
+              <p><b>Time as active server:</b></p>  
+              <p><b>Weather:</b></p>
+
           </div>
           <div class="column middle-left" >
-            <h2>About the server and its steward</h2>
-            <p>{{description}}</p>
+            <h2>Server Data</h2>
+            <p><b>Time at location:</b> {{date[10:-7]}} </p>
+              <p><b>PV Voltage:</b> {{solarVoltage}}V </p>
+              <p><b>PV Current: </b>{{solarCurrent}}A</p> 
+              <p> <b>Load Voltage:</b> {{loadVoltage}}V </p>
+              <p><b> Load Current:</b> {{loadCurrent}} A</p> 
+              <p> <b>Battery Voltage:</b> {{batteryVoltage}} V </p> 
+              <p><b>Battery Level:</b> {{batteryPercentage}} %</p>
           </div>
             <div class="column middle-right" >
-            <h2>Server Data</h2>
-            <p> DATE: {{date[0:-7]}} </p>
-              <p>PV VOLTAGE: {{solarVoltage}}V </p>
-              <p> PV CURRENT: {{solarCurrent}}A</p> 
-              <p> LOAD VOLTAGE: {{loadVoltage}}V </p>
-              <p> LOAD CURRENT: {{loadCurrent}} A</p> 
-              <p> BATTERY VOLTAGE: {{batteryVoltage}} V </p> 
-              <p>BATTERY LEVEL: {{batteryPercentage}} %</p>
+              <h2>About the server steward</h2>
+            <p>{{description}}</p>
+            
           </div>
           <div class="column right">
             <h2>SERVER VIEW</h2>

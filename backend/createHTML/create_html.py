@@ -88,7 +88,17 @@ def make_index(_local_data, _data, _hosting_data):
         loadCurrent=_data["load current"],
         loadPower=_data["load power"],
         hostingLog=_hosting_data,
-        serverName=_local_data["name"]
+        name=_local_data["name"],
+        description=_local_data["description"],
+        location=_local_data["location"],
+        city=_local_data["city"],
+        country=_local_data["country"],
+        lat=_local_data["lat"],
+        long=_local_data["long"],
+        bgColor = _local_data["bgColor"],
+        serverColor = _local_data["serverColor"],
+        font = _local_data["font"],
+        borderStyle = _local_data["borderStyle"]
     )
     #print(rendered_html)
     open("../../frontend/index.html", "w").write(rendered_html)
@@ -170,7 +180,7 @@ def update_hosting_log():
 
 
 def get_local():
-    filename = "/home/pi/local/local.json"
+    filename = "../../../local/local.json"
     with open(filename) as infile:
         local_data = json.load(infile)
     return local_data  # dictionary

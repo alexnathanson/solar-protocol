@@ -3,6 +3,8 @@
 *.sublime-project
 venv/
 */venv/*
+env/
+*/env/*
 charge-controller/data/
 
 *.vscode

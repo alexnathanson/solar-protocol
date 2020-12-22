@@ -6,3 +6,5 @@
 <p>
 default password is 'password'
 </p>
+
+## API Key

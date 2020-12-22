@@ -34,7 +34,10 @@ format:
 Set file permissions for deviceList.json
 * sudo chmod a+w deviceList.json
 
-### Environmental Variables
+### API Key
+The API key should be added to the local.json file
+
+<!--
 The API key should be changed and stored as an environmental variable on each device
 * The environmental variable key is SP_API_KEY
 
@@ -43,6 +46,7 @@ Setting environmental variables on the Pi (source https://linuxize.com/post/how-
 * When declaring environment variables in this file you need to use the export command. Do not put a space around the =.
 * Add this line to bottom of /etc/profile (replace this temp key with a new one)
 	* export SP_API_KEY=tPmAT5Ab3j7F9
+-->
 
 ## v2-mysql
 NOT FUNCTIONING

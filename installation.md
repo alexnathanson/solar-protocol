@@ -40,7 +40,7 @@ Careful to set up pi securely.
 Download repo into /home/pi
 `sudo apt-get install git`<br>
 `git clone http://www.github.com/alexnathanson/solar-protocol`<br>
-* move local directory outside of solar-protocol directory to pi directory
+* See below for updating server with local info
 
 ### Python 3 Packages
 Install pip `sudo apt-get install python3-pip`<br>
@@ -91,8 +91,8 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	* reboot daily `@midnight sudo reboot`	
 
 ### Local
-* Move the local.json file to the /home/pi/local directory
-* update the info with your information as needed
+* Move local directory outside of solar-protocol directory to pi directory
+* Update the info with your information as needed
 
 ### Troubleshooting
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller

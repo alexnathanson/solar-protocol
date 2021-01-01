@@ -2,7 +2,7 @@
 # Solar Protocol  
 #### *Networking with the sun*  
   
-Solar Protocol is an experimental network of solar powered servers installed at different locations around the world. As the sun rises and sets, each server turns on and off as its solar panel goes into sunlight or darkness. The network hosts the Solar Protocol website, and when a request to this site is made, traffic is directed to whichever server is enjoying the most sunlight at that moment. Different parts of this site are distributed across the network and become available at different times of the day, depending on which server is active.  
+Solar Protocol is an experimental network of solar powered servers installed at different locations around the world. As the sun rises and sets, each server turns on and off as its solar panel goes into sunlight or darkness. The network hosts the Solar Protocol website and when a request to this site, traffic is directed to whichever server is enjoying the most sunlight at that moment. Different parts of this site are distributed across the network and become available at different times of the day, depending on which server is active.  
   
 The system directs traffic using the Domain Network Service (DNS) protocol, a decentralized system that resolves a URL to an IP address of a server. In short, DNS dictates the path between client and server. Typically high volume web services like Google or Facebook will configure the DNS to direct network traffic to different servers based on their response times which is ususally a proxy for the sending traffic to the server that is geographically closest. However on the Solar Protocol network, traffic is automatically directed to whichever server has the most solar energy available. The distribution of sunshine (and therefore energy) across the planet detirmines the path from client to server.   
   
@@ -58,3 +58,20 @@ If you have further questions, you can email us here. Or to get a very occasiona
 ### Attribution
   
 This is work in progress by [Tega Brain](http://tegabrain.com/), [Alex Nathanson](http://www.alexnathanson.com/about.html) and [Benedetta Piantella](https://engineering.nyu.edu/faculty/benedetta-piantella). It is a part of the [Eyebeam Rapid Response for a Better Digital Future program.](https://www.eyebeam.org/rapidresponse/) 
+
+### Project Images
+
+*Solar Protocol website (high resolution version displayed when the server battery is charged):*
+![website screenshot](images/website.png)
+
+*Solar Protocol website (low resolution version displayed when the server battery is running low):*
+![website screenshot](images/website2.png)
+
+*Network logic is determined by sun position:*. 
+
+![network logic](images/network-logic.jpg)
+
+*Prototype servers in Brooklyn:*
+![prototype servers](images/servers.png)
+
+

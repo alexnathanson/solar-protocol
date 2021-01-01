@@ -67,7 +67,7 @@ This is work in progress by [Tega Brain](http://tegabrain.com/), [Alex Nathanson
 *Solar Protocol website (low resolution version displayed when the server battery is running low):*
 ![website screenshot](images/website2.png)
 
-*Network logic is determined by sun position:*. 
+*Routing logic of the network is determined by sun position:*. 
 
 ![network logic](images/network-logic.jpg)
 

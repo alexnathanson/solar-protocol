@@ -26,9 +26,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 ### General
 * make an installer.sh (not time sensitive)
 * add link to documention somewhere (https://www.namecheap.com/support/knowledgebase/article.aspx/29/11/how-do-i-use-a-browser-to-dynamically-update-the-hosts-ip)
-* make a script for pull updates from the git repo that automates resetting permissions as needed (not time sensitive)
-	* create a system for updating devices remoting (maybe every evening at midnight?)
-	* make 2 branches - 1 live version and 1 development version
+
 
 ### FRONTEND
 

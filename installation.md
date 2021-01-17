@@ -92,7 +92,6 @@ Change Apache default directory to the frontend directory (src: https://julienre
 * open the crontab for the user `crontab -e` and add this line to the bottom: 
 	* on reboot, run the update script to check from updates from github. '@reboot sh /home/pi/solar-protocol/utilities/update.sh'
 
-
 ### Local
 * Move local directory outside of solar-protocol directory to pi directory
 * Update the info with your information as needed

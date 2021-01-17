@@ -193,7 +193,7 @@ footer {
 .column {
   float: left;
   padding: 10px;
-  height: 200px; /* Should be removed. Only for demonstration */
+  
 }
 
 .left, .right {
@@ -233,3 +233,5 @@ footer {
   display: table;
   clear: both;
 }
+
+#mapid { height: 180px; }

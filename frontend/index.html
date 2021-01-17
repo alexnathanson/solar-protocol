@@ -4,65 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Solar Protocol</title>
-    <meta name="description" content="Networking with the logic of the sun">
-    <link rel="stylesheet" href="style.css" />
-    <link rel="canonical" href="http://solarprotocol.net/">
-    <style>
-      .server-container{
-        background-color: Salmon;
-        color: Gold;
-        font-family: "Monaco";
-        border-color: Gold;
-        border-style: dotted;
-        border-width: 0 0 5px 0;
-      }
-      a {
-      color: Salmon;
-      background-color: Gold;
-      }
-      a:hover {
-      color: Gold;
-      background-color: Salmon;
-      }
-
-      .column {
-        border: 2px solid Salmon;
-      }
-      hr.footer {
-        border-color: Salmon;
-        border-style: dotted;
-        border-width: 0 0 5px 0;
-      }
-
+    <style type="text/css">
+        .server-container
+        {
+            font-family: Arial;
+            font-size:0.9em;
+            background-color:#000; 
+            color: #fff;
+            
+        }
 
     </style>
-
   </head>
   <body>
-    <div class="server-container"></p>
+    <div class="server-container"> 
+   
       <p>
         SERVER: The Gilgamesh Zone in Bedford Stuyvesant, New York City || LOCATION: 73.94 W, 40.65 N || PV
-        CURRENT: 0.09 || BATTERY LEVEL: 0.72 || <a href="index.html#host">Learn more</a>
+        CURRENT: 0.0 || BATTERY LEVEL: 0.29 || <a href="index.html#host">Learn more</a>
       </p>
     </div>
-    <div class="image-container first-container">
-      <img src="images/image1.gif" class="halfwidth" alt="Sun path diagram" />
+    <div class="image-container">
+
       <div class="pagetitle">
         <h1>Solar Protocol</h1>
-        <h2>Networking with the sun</h2>
+        <h2>A naturally intelligent network</h2>
       </div>
     </div>
     <div class="text-title-container"></div>
     <div class="text-container">
       <p>
-        Solar Protocol is an experimental network of solar powered servers
+        Solar Protocol will be an experimental network of solar powered servers
         installed at different locations around the world. As the sun rises and
         sets, each server turns on and off as its solar panel goes into sunlight
         or darkness. When a request to the Solar Protocol website is made,
         traffic is directed to whichever server is enjoying the most sunlight at
-        that moment. This site is distributed across the
-        network and different parts of it become available at different times of the day, depending on 
-        where it is being served from.
+        that moment. Different parts of this site are distributed across the
+        network and become available at different times of the day, depending on
+        which server is active.
       </p>
       <p>
         The system directs traffic using the Domain Network Service (DNS)
@@ -79,13 +58,10 @@
       </p>
     </div>
     <div class="image-container">
-      <img src="images/network1.gif" alt="Diagram of solar logic"/>
+
     </div>
     <div class="text-container">
-      <p class="caption">
-        The position of the sun throughout the day produces the routing logic of
-        the network.
-      </p>
+
     </div>
     <div class="text-container">
       <h3>Natural intelligences</h3>
@@ -108,16 +84,15 @@
         possibilities and limitations<sup>1</sup> and the current cultural and technological imagination is constrained by the availability of cheap fossil energy. </p>
         <p>Other worlds are possible.<sup>2</sup> </p>
         <p>Working with solar energy to
-        power the servers of this network, means the media served must be kept
+        power the servers of this network, means the website served must be kept
         small in size and therefore has to omit energy-intensive tracking technologies,
         foreclosing the possibility of online surveillance and the online
         business models that go with it.<sup>3</sup> Solar power therefore
         encourages a faster, lighter internet that is customized to collective
-        environmental conditions rather than individual user behavior. Solar Protocol seeks to create a space and platform for exploring natural autonomy and intelligence 
+        environmental conditions rather than individual user behavior. Solar Protocol seeks to create a space for exploring natural intelligence 
         by reconfiguring internet protocols with the logic of the sun. 
       </p>
       <div class="notes">
-        <hr class="p"> 
         <p>
           1. See Timothy Mitchell on the political consequences of different
           energy regimes in <a href="https://www.versobooks.com/books/1445-carbon-democracy"><i>Carbon democracy: Political power in the age of oil. </i></a> Verso
@@ -133,129 +108,94 @@
           Low Tech Magazine (2019). We have taken much inspiration from this prior work.
         </p>
       </div>
-      <hr class="p"> 
     </div>
-    
     <div id="call">
-    <div class="text-container">
-      <h2>Get Involved</h2>
-      <h3>Call for Server Stewards</h3>
+      <div class="text-container">
+        <h2>Get Involved</h2>
+        <h3>Call for Server Stewards</h3>
+  
+        <p>  Are you interested in stewarding a server as part of Solar Protocol? A server steward is someone who can host and care for a solar server and who is interested in being a guest collaborator on our project.<sup>*</sup></p>
+  
+          <p> 
+            We're currently looking for people or organizations in different locations around the world who can host one of our servers for at least a year and who are also interested in contributing their domain expertise to help us explore this network together. We are aiming to establish a server on every continent in the world (except perhaps for Antarctica).</p>
+  
+  <p> 
+    Ideally, a server steward would have a basic understanding of programming (specifically with Raspberry Pi/ Linux) and IT infrastructure to assist us with troubleshooting the installation. However, we are also able to bring on a few collaborators with less experience and who can offer different perspectives on the project. At this point there is opportunity for both institutional collaborators like arts venues and universities that might be able fund their own participation as well as individuals or collectives without these resources. If you fall into the latter group, we have a budget to cover expenses for DIY/independent collaborators. Server stewards should demonstrate a willingness to build community and share materials and resources through teaching and learning.</p>
+  
+  <p> 
+    If you have a sunny rooftop and are interested in experimenting with us, please read the questions and answers below and fill out this brief <a href="https://airtable.com/shrwTVfy9TAvg5oHk">expression of interest.</a>  </p>
+  
+          <h3> What are the technical/physical requirements for a server location? </h3>
+          <ul> <li>A safe and accessible outdoor area that is exposed to direct sunlight for at least 4 hours per day (this means a spot that is free from obstructions/shadows and ideally facing the equator)</li>
+            <li> You need to be able to secure the solar panel to a wall, pole or rooftop so it doesn't blow away or get stolen</li>
+            <li> The server needs Internet access either via ethernet cable or wifi (minimum network speed: 25mb/s up & 25mb/s down)</li>
+            <li> You need to be able to set up port forwarding for both http (port 80) and ssh (port 20) with your Internet Service Provider to serve the solar protocol network publically</li>
+            </ul>
+            <h3> What is the timing of this project?</h3>
+            <p>We are looking to set up servers with stewards in the first 3 months of 2021. We ask you to steward and care for your server for a minimum of 12 months.  </p> 
+  
+          <h3>  Do I need to speak English?</h3>
+          <p> Unfortunately our team only speaks English and Italian. We’d be happy to try to find a translator and we would also be interested in translating the project into the language spoken by server stewards.</p>
+          <h3>  Keep in touch</h3>
+         <p>
+         If you have further questions, you can email us <a href="mailto:solar.protocol.info@gmail.com">here.</a> Or to get a very occasional update about this project, please consider joining our TinyLetter <a href="https://tinyletter.com/Solar-Protocol">here</a>. 
+        </p>
+        <div class="notes">
 
-      <p>  Are you interested in stewarding a server as part of Solar Protocol? A server steward is someone who can host and care for a solar server and who is interested in being a guest collaborator on our project.<sup>*</sup></p>
+        <p><i>
+          *Thanks to Taeyoon Choi and collaborators on the <a href="http://distributedweb.care/">Distributed Web of Care</a> project for their work on stewardship, care and the internet.
+        </i>
+        </p>
+      </div>
 
-        <p> 
-          We're currently looking for people or organizations in different locations around the world who can host one of our servers for at least a year and who are also interested in contributing their domain expertise to help us explore this network together. We are aiming to establish a server on every continent in the world (except perhaps for Antarctica).</p>
-
-<p> 
-  Ideally, a server steward would have a basic understanding of programming (specifically with Raspberry Pi/ Linux) and IT infrastructure to assist us with troubleshooting the installation. However, we are also able to bring on a few collaborators with less experience and who can offer different perspectives on the project. At this point there is opportunity for both institutional collaborators like arts venues and universities that might be able fund their own participation as well as individuals or collectives without these resources. If you fall into the latter group, we have a budget to cover expenses for DIY/independent collaborators. Server stewards should demonstrate a willingness to build community and share materials and resources through teaching and learning.</p>
-
-<p> 
-  If you have a sunny rooftop and are interested in experimenting with us, please read the questions and answers below and fill out this brief <a href="https://airtable.com/shrwTVfy9TAvg5oHk">expression of interest.</a>  </p>
-
-        <h3> What are the technical/physical requirements for a server location? </h3>
-        <ul> <li>A safe and accessible outdoor area that is exposed to direct sunlight for at least 4 hours per day (this means a spot that is free from obstructions/shadows and ideally facing the equator)</li>
-          <li> You need to be able to secure the solar panel to a wall, pole or rooftop so it doesn't blow away or get stolen</li>
-          <li> The server needs Internet access either via ethernet cable or wifi (minimum network speed: 25mb/s up & 25mb/s down)</li>
-          <li> You need to be able to set up port forwarding for both http (port 80) and ssh (port 20) with your Internet Service Provider to serve the solar protocol network publically</li>
-          </ul>
-          <h3> What is the timing of this project?</h3>
-          <p>We are looking to set up servers with stewards in the first 3 months of 2021. We ask you to steward and care for your server for a minimum of 12 months.  </p> 
-
-        <h3>  Do I need to speak English?</h3>
-        <p> Unfortunately our team only speaks English and Italian. We’d be happy to try to find a translator and we would also be interested in translating the project into the language spoken by server stewards.</p>
-        <h3>  Keep in touch</h3>
-       <p>
-       If you have further questions, you can email us <a href="mailto:solar.protocol.info@gmail.com">here.</a> Or to get a very occasional update about this project, please consider joining our TinyLetter <a href="https://tinyletter.com/Solar-Protocol">here</a>. 
-      </p>
-      <div class="notes">
-        <hr class="p"> 
-      <p>
-        *Thanks to Taeyoon Choi and collaborators on the <a href="http://distributedweb.care/">Distributed Web of Care</a> project for their work on stewardship, care and the internet.
-      </p>
-    </div>
-    <hr class="p"> 
-    </div>
-
-  </div>
-
-    <div class="text-container">
-      <h2>The Solar Protocol Network So Far</h2>
-    </div>
-    <div class="image-container">
-      <img src="images/map1.gif" alt="Map of servers in Brooklyn" />
+      </div>
+  
     </div>
     <div class="text-container">
-    <p>
-      The prototype network currently consists of three servers located
-      throughout New York City.
-      
-    </p>
-    
-  </div>
-    <div class="text-container">
-      
-      <h2>Work Progress Documentation</h2>
+      <h2>Research in Progress</h2>
       <ul>
-        <li>
-          An admin panel for the active server can be viewed
-          <a href="http://solarprotocol.net/admin/">here</a>.
-        </li>
-        <li>
-          Code is still in development. This work is open-source and shared on
-          <a href="https://github.com/alexnathanson/solar-protocol">Github</a>.
-        </li>
-        <li>
-          A project research archive can be found on this
-          <a href="https://www.are.na/tega-brain/solar-powered-media">channel</a
-          >.
-        </li>
-      </ul>
-      
+        <li>An admin panel for the active server can be viewed <a href="http://solarprotocol.net/admin/">here</a>.</li>
+        <li>Code is still in development. This work is open-source and shared on <a href="https://github.com/alexnathanson/solar-protocol">Github</a>.</li>
+        <li>A project research archive can be found on this <a href="https://www.are.na/tega-brain/solar-powered-media">channel</a>.</li>
+        </ul>
     </div>
-    <div class="text-container">
-      <h2>Attribution</h2>
-      <p>
-        This is work in progress by Tega Brain, Alex Nathanson and Benedetta
-        Piantella. It is a part of the Eyebeam Rapid Response for a
-        <a href="https://www.eyebeam.org/rapidresponse/"
-          >Better Digital Future program</a>.
-      </p>
-      
-    </div>
-
-
+      <div class="text-container">
+        <h2>Attribution</h2>
+        <p>This is work in progress by Tega Brain, Alex Nathanson and Benedetta Piantella. It is a part of the Eyebeam Rapid Response for a <a href="https://www.eyebeam.org/rapidresponse/">Better Digital Future program</a>. </p>
+    
         <div id="host">
-        <hr class="footer">
-        <div class="row">
-          <hr.footer>
-          <div class="column left" >
-            <h2>What server am I visiting?</h2>
-              <p>Traffic to the Solar Protocol website is sent to whichever server in our network has the most sunshine at the time. Presently you are on the server called The Gilgamesh Zone.  </p>
-              <p><b>Location:</b> Bedford Stuyvesant, New York City, USA </p> 
-              <p><b>Time as active server:</b></p>  
-              <p><b>Weather:</b></p>
-
-          </div>
-          <div class="column middle-left" >
-            <h2>Server Data</h2>
-            <p><b>Time at location:</b>  16:21:25 </p>
-              <p><b>PV Voltage:</b> 15.35V </p>
-              <p><b>PV Current: </b>0.09A</p> 
-              <p> <b>Load Voltage:</b> 13.06V </p>
-              <p><b> Load Current:</b> 0.0 A</p> 
-              <p> <b>Battery Voltage:</b> 13.06 V </p> 
-              <p><b>Battery Level:</b> 0.72 %</p>
-          </div>
-            <div class="column middle-right" >
-              <h2>About the server steward</h2>
-            <p>The Gilgamesh Zone is a server stewarded by artist and educator Tega Brain. She is interested in how technology can help us to think differently about our ecology and place in nature. More on this <a href='http://tegabrain.com/'>here.</a></p>
-            
-          </div>
-          <div class="column right">
-            <h2>SERVER VIEW</h2>
-            <p></p>
+          <hr class="footer">
+          <div class="row">
+            <hr.footer>
+            <div class="column left" >
+              <h2>What server am I visiting?</h2>
+                <p>Traffic to the Solar Protocol website is sent to whichever server in our network has the most sunshine at the time. Presently you are on the server called The Gilgamesh Zone.  </p>
+                <p><b>Location:</b> Bedford Stuyvesant, New York City, USA </p> 
+                <p><b>Time as active server:</b></p>  
+                <p><b>Weather:</b></p>
+  
+            </div>
+            <div class="column middle-left" >
+              <h2>Server Data</h2>
+              <p><b>Time at location:</b>  23:59:14 </p>
+                <p><b>PV Voltage:</b> 0.09V </p>
+                <p><b>PV Current: </b>0.0A</p> 
+                <p> <b>Load Voltage:</b> 11.88V </p>
+                <p><b> Load Current:</b> 0.26 A</p> 
+                <p> <b>Battery Voltage:</b> 11.88 V </p> 
+                <p><b>Battery Level:</b> 0.29 %</p>
+            </div>
+              <div class="column middle-right" >
+                <h2>About the server steward</h2>
+              <p>The Gilgamesh Zone is a server stewarded by artist and educator Tega Brain. She is interested in how technology can help us to think differently about our ecology and place in nature. More on this <a href='http://tegabrain.com/'>here.</a></p>
+              
+            </div>
+            <div class="column right">
+              <h2>Server View</h2>
+              <p></p>
+            </div>
           </div>
         </div>
-      </div>
-  </body>
-</html>
+    </body>
+  </html>
+  

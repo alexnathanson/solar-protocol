@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style2.css" />
+  </head>
+  <body>
+    <div class="row">
+      <div class="column-header left" style="background-color: white">
+        <nav role="navigation">
+          <ul>
+            <li>
+              <a href="#">&#9728;</a>
+              <ul class="dropdown">
+                <li><h7>Server Location</h7></li>
+                <li>Location:{{location}}</li>
+                <li>Weather:</li>
+                <li>Time at server:{{date[10:-7]}}</li>
+                <li>Sunrise:</li>
+                <li>Sunset:</li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">&#10227;</a>
+              <ul class="dropdown">
+                <li><h7>Server Energy</h7></li>
+                <li>Battery level:</li>
+                <li>Voltage:</li>
+              </ul>
+            </li>
+            <li><a href="#"> &#8803;</a>
+              <ul class="dropdown">
+                <li><h7>Network Log</h7></li>
+                <li></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="column-header right" style="background-color: white">
+        <a href="index.html">SOLAR PROTOCOL</a> | 
+        <a href="network.html">NETWORK</a> | 
+        <a href="manifesto.html">MANIFESTO</a> | 
+        <a href="docs.html">DOCS</a> | 
+        <a href="dir.html">SOLAR WEB DIRECTORY</a> | 
+        <a href="call.html">CALL</a> | 
+        <a href="library.html">LIBRARY</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column left" style="background-color: #aaa">
+        <h2>Server Panel</h2>
+        <p>Some text..</p>
+      </div>
+      <div class="column right" style="background-color: #bbb">
+        <h2>Solar Protocol</h2>
+        <p>Solar Protocol is a web platform hosted on a network of small solar powered servers located around the world. The network is programmed with the logic of the sun. When visiting this platform, your browser’s request is directed to whichever server is enjoying the most sunlight at that moment. You are currently on the {{name}} server located in {{location}} where it is {{time}} and the weather is {{weather}}.</p>
+        <p>As the sun rises and sets, each server turns on or off as its solar panel goes into sunlight or darkness. Traffic is directed across the network according to wherever there is the most light. </p>
+        <p>As the giver of life, the sun and its interaction with Earth produces a logic, and it is this logic that shapes decision making, daily behaviors and seasonal activities of almost all life forms. Solar Protocol honors this natural logic and intelligence, exploring how it might be used to automate decisions in our technologies.</p>
+      </div>
+    </div>
+  </body>
+</html>

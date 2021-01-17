@@ -1,6 +1,7 @@
 from jinja2 import Template
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 import datetime
+from suntime import Sun, SunTimeException
 import json
 import random
 import csv
@@ -72,7 +73,7 @@ def make_index(_local_data, _data, _hosting_data):
     if (_data["battery percentage"]) < 0.65:
         template_file = open("templates/index-small.html").read()
     else:
-        template_file = open("templates/index-large.html").read()
+        template_file = open("templates/index-large2.html").read()
 
     template = Template(template_file)
     rendered_html = template.render(

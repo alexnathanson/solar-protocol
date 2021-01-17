@@ -7,6 +7,13 @@
     <meta name="description" content="Networking with the logic of the sun">
     <link rel="stylesheet" href="style.css" />
     <link rel="canonical" href="http://solarprotocol.net/">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+   <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+ integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+ crossorigin=""></script>
     <style>
       .server-container{
         background-color: {{bgColor}};
@@ -49,7 +56,7 @@
       <img src="images/image1.gif" class="halfwidth" alt="Sun path diagram" />
       <div class="pagetitle">
         <h1>Solar Protocol</h1>
-        <h2>Networking with the sun</h2>
+        <h2>A naturally intelligent network</h2>
       </div>
     </div>
     <div class="text-title-container"></div>
@@ -252,8 +259,7 @@
             
           </div>
           <div class="column right">
-            <h2>SERVER VIEW</h2>
-            <p></p>
+            <div id="mapid"></div>
           </div>
         </div>
       </div>

@@ -4,5 +4,4 @@ cd /home/pi/solar-protocol
 git stash
 git pull
 sudo chmod +x /home/pi/solar-protocol/utilities/setAllPermissions.sh
-sudo chmod +x /home/pi/solar-protocol/utilities/update.sh
 sh /home/pi/solar-protocol/utilities/setAllPermissions.sh

@@ -32,8 +32,8 @@ Download repo into /home/pi
 Install pip `sudo apt-get install python3-pip`  
 Install pymodbus `sudo pip3 install pymodbus`    
 Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)  
-Install numpy 'sudo pip3 uninstall numpy' followed by `sudo apt-get install python3-numpy`  
-Install jinja 'sudo pip3 install jinja2    
+Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy`  
+Install jinja `sudo pip3 install jinja2`    
 
 ### Security
 Recommendations to set up your pi securely   

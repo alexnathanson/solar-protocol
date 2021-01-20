@@ -17,9 +17,9 @@ This works with a USB to RS485 converter (ch340T chip model).
 ### OS
 Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
 * change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations    
-`sudo reboot` 
-`sudo apt-get update`  
-`sudo apt-get upgrade`  
+* `sudo reboot` 
+* `sudo apt-get update`  
+* `sudo apt-get upgrade`  
 or `sudo apt full-upgrade` 
 
 ### Repository
@@ -71,12 +71,11 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
-* `sudo service apache2 restart`   
-
+* `sudo systemctl restart apache2`   
 
 ### Automate  
 
-#### permissions (you can set all these permissions at once via the utilities/setAllPermissions.sh script if you want)  
+#### permissions (you can set all these permissions at once via the utilities/setAllPermissions.sh script by `sh setAllPermissions.sh`)  
 * `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`  
 * `sudo chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`  
 * `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`  

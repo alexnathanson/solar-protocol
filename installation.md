@@ -4,8 +4,8 @@
 
 ## Hardware
 
-* Solar Charge Controller: We use EPever Tracer3210AN, but any Epever Tracer-AN Series would work.
-* Raspberry Pi 3B+ or more recent
+* Solar Charge Controller: We use EPever Tracer2210AN, but any Epever Tracer-AN Series would work.
+* Raspberry Pi 4 (or 3B+)
 
 ### Wiring
 This works with a USB to RS485 converter (ch340T chip model).
@@ -16,18 +16,34 @@ This works with a USB to RS485 converter (ch340T chip model).
 
 ### OS
 Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
-* change password, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations    
-`sudo apt update`  
-`sudo apt full-upgrade` 
+* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations    
+`sudo reboot` 
+`sudo apt-get update`  
+`sudo apt-get upgrade`  
+or `sudo apt full-upgrade` 
+
+### Repository
+Download repo into /home/pi
+`sudo apt-get install git`  
+`git clone http://www.github.com/alexnathanson/solar-protocol`  
+* See below for updating server with local info and setting the appropriate security measures. 
+
+### Python 3 Packages  
+Install pip `sudo apt-get install python3-pip`  
+Install pymodbus `sudo pip3 install pymodbus`    
+Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)  
+Install numpy 'sudo pip3 uninstall numpy' followed by `sudo apt-get install python3-numpy`  
+Install jinja 'sudo pip3 install jinja2    
 
 ### Security
-Careful to set up pi securely   
-* Check the password is secure  
+Recommendations to set up your pi securely   
+* Choose a strong password  
 * Open ports 80 and 22 on your router    
 * Secure pi - here is a guide: https://www.raspberrypi.org/documentation/configuration/security.md  
-    * Using key-based authentication   
+    * To use key-based authentication   
     	* run `install -d -m 700 ~/.ssh`  
-    	* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
+    	(to be performed after downloading the solar-protocol repo) 
+	* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
     	* set permissions. 
     		* `sudo chmod 644 ~/.ssh/authorized_keys`  
 			* `sudo chown pi:pi ~/.ssh/authorized_keys`  
@@ -35,18 +51,6 @@ Careful to set up pi securely
 		* if it works, disable password login  
 			* `sudo nano /etc/ssh/sshd_config`  
 			* change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)  
-
-### Repository
-Download repo into /home/pi
-`sudo apt-get install git`  `git clone http://www.github.com/alexnathanson/solar-protocol`  
-* See below for updating server with local info. 
-
-### Python 3 Packages  
-Install pip `sudo apt-get install python3-pip`  
-Install pymodbus `sudo pip3 install pymodbus`.    
-Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)  
-Install numpy 'sudo pip3 uninstall numpy' followed by `sudo apt-get install python3-numpy`  
-Install jinja 'sudo pip3 install jinja2    
 
 ### Server
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)   

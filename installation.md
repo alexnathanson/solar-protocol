@@ -96,6 +96,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 
 ### Local
 * Move local directory outside of solar-protocol directory to pi directory  
+`sudo mv /home/pi/solar-protocol/local /home/pi/`
 * Update the info with your information as needed  
 
 ### Troubleshooting  

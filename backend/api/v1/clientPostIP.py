@@ -56,15 +56,15 @@ def getPocLog():
 		pocFileLines = pocFile.readlines()
 
 		#read the most recent 50 lines
-		for l in range(len(pocFileLines)):
+		for l in range(100):
 
 			#print(pocFileLines[l])
 
 			#remove "INFO:root:" from the string and strip spaces
 			pocData.append(pocFileLines[len(pocFileLines)-l-1][10:-1])
 
-			if l > 100:
-				break
+			#if l > 100:
+			#	break
 
 		pocFile.close()
 

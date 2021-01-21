@@ -92,7 +92,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	* run createHTML every 15 minutes to generate new index.html with current data. `*/15 * * * * cd /home/pi/solar-protocol/backend/createHTML && $(which python3) create_html.py`  
 	* reboot daily `@midnight sudo reboot`	  
 * open the crontab for the user `crontab -e` and add this line to the bottom:   
-	* on reboot, run the update script to check from updates from github. '@reboot sh /home/pi/solar-protocol/utilities/update.sh'  
+	* on reboot, run the update script to check from updates from github. `@reboot sh /home/pi/solar-protocol/utilities/update.sh`  
 
 ### Local
 * Move local directory outside of solar-protocol directory to pi directory  

@@ -25,11 +25,11 @@ if sys.argv[2] == 'value':
 
 '''Line'''
 if sys.argv[2] == 'line':
-	url = 'http://'+dst+'/api/v1/api.php?line=head'+sys.argv[3]
+	url = 'http://'+dst+'/api/v1/api.php?line='+sys.argv[3]
 
 '''File'''
 if sys.argv[2] == 'file':
-	url = 'http://'+dst+'/api/v1/api.php?file=list'+sys.argv[3]
+	url = 'http://'+dst+'/api/v1/api.php?file='+sys.argv[3]
 
 PVdata = requests.get(url).text
 print(PVdata)

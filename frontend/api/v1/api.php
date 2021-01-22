@@ -151,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           array_push($dirFiles, $dirArray[$f]);
         }
       }*/
-      $readData = json_encode(justTracerDataFiles());
+      $readData = json_encode(justTracerDataFiles($ccDir));
     } else if (intval($_GET["file"]) >= 0 && intval($_GET["file"]) <= 6){
       $dirArray = justTracerDataFiles();
       for ($f = 0; $f < intval($_GET["file"]); $f++){
@@ -176,8 +176,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 
-function justTracerDataFiles(){
-    $dirArray = scandir($ccDir);
+function justTracerDataFiles($dir){
+    $dirArray = scandir($dir);//returns list of directory contents
     $dirFiles = [];
     for ($f = 0; $f < count($dirArray);$f++){
       if(strpos($dirArray[$f],'tracerData') !== false){

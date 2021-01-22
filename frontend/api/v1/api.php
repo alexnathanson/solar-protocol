@@ -147,6 +147,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if ($_GET["file"] == "list"){//list all charge controller data files
       echo json_encode(justTracerDataFiles($ccDir));
 
+    } else if ($_GET["file"] == "len"){//list all charge controller data files
+      echo count(justTracerDataFiles($ccDir));
+
     } else if (intval($_GET["file"]) >= 1 && intval($_GET["file"]) <= 7){
 
       $multiDayData = [];

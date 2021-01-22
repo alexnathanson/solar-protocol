@@ -99,6 +99,7 @@ Possible keys for get requests
 		* 6 - returns present day + previous 5 days
 		* 7 - returns present day + previous 6 days
 		* list - returns list of all CC files
+		* len - return count of all CC files
 		* [file name without file suffix] - example: /api/v1/api.php?file=tracerData2020-05-17
 
 <p>

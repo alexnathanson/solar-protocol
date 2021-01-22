@@ -15,7 +15,7 @@ $hash = '$2y$10$mCxhv3NC4/lkSycnD85XLuw/AYBCxw1ElmCqeksR.f88BTZoXXuca';
 $api_key= $stamp = $ip = $mac = $name = "";
 $log = [];
 
-$ccDir = "/home/pi/solar-protocol/charge-controller/data/tracerData";
+$ccDir = "/home/pi/solar-protocol/charge-controller/data";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

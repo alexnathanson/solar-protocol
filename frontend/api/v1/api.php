@@ -142,25 +142,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($_GET["file"] == "deviceList"){ //deviceList should be a POST
       $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
-      $readData = getFile($fileName);
+      echo getFile($fileName);
     } else if ($_GET["file"] == "list"){//list all charge controller data files
-      $readData = json_encode(justTracerDataFiles($ccDir));
+      echo json_encode(justTracerDataFiles($ccDir));
     } else if (intval($_GET["file"]) >= 0 && intval($_GET["file"]) <= 6){
       $dirArray = justTracerDataFiles($ccDir);
       for ($f = 0; $f < intval($_GET["file"]); $f++){
         if($f>= count($dirArray)){
           break;
         }
-        $readData = json_encode(getFile($dirArray[$f]));
+        echo json_encode(getFile($dirArray[$f]));
       }
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-      $readData = json_encode(getFile($_GET["file"] . '.json'));
+      echo json_encode(getFile($_GET["file"] . '.json'));
     }
 
-    if($readData != FALSE){
+    /*if($readData != FALSE){
       echo $readData;
       //var_dump($readData);
-    }
+    }*/
   }
 }
 

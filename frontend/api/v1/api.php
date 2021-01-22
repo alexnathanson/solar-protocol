@@ -143,7 +143,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
       $readData = getFile($fileName);
     } else if ($_GET["file"] == "list"){
-      $readData = scandir($ccDir);// can this use the CC function?
+      $dirArray = scandir($ccDir);
+      $dirFiles = [];
+      for ($f = 0; $f < count($dirArray);$f++){
+        if(str_contains("tracerData")){
+          array_push($dirFiles, $dirArray[$f]);
+        }
+      }
+      $readData = json_encode($dirFiles);// can this use the CC function?
     } /*else if (intval($_GET["file"]) >= 0 && intval($_GET["file"]) <= 6){
       //maybe have this be an arbitrary span of days?
     } else{

@@ -151,10 +151,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($f>= count($dirArray)){
           break;
         }
-        $readData = getFile($dirArray[$f]);
+        $readData = json_encode(getFile($dirArray[$f]));
       }
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-      $readData = getFile($_GET["file"] . '.json');
+      $readData = json_encode(getFile($_GET["file"] . '.json'));
     }
 
     if($readData != FALSE){

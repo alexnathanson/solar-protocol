@@ -10,6 +10,8 @@ import requests, sys
 
 dst = sys.argv[0]
 
+url = ''
+
 '''Value
 possible values (use - instead of space):
 PV current,PV power H,PV power L,PV voltage,
@@ -24,7 +26,7 @@ if sys.argv[1] == 'line':
 	url = 'http://'+dst+'/api/v1/api.php?line=head'+sys.argv[2]
 
 '''File'''
-if sys.argv[0] == 'file':
+if sys.argv[1] == 'file':
 	url = 'http://'+dst+'/api/v1/api.php?file=list'+sys.argv[2]
 
 PVdata = requests.get(url).text

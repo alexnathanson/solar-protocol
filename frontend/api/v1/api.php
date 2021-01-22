@@ -135,28 +135,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo $returnJSON;
       }
     }
-    //get a full file - move to post
+
+    //get a full file
   } else if (array_key_exists("file", $_GET)) {
     //echo "Key = File";
 
-    if($_GET["file"] == "deviceList"){
+    if($_GET["file"] == "deviceList"){ //deviceList should be a POST
       $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
       $readData = getFile($fileName);
-    } else if ($_GET["file"] == "list"){
-      $dirArray = scandir($ccDir);
+    } else if ($_GET["file"] == "list"){//list all charge controller data files
+      /*$dirArray = scandir($ccDir);
       $dirFiles = [];
       for ($f = 0; $f < count($dirArray);$f++){
         if(strpos($dirArray[$f],'tracerData') !== false){
           array_push($dirFiles, $dirArray[$f]);
         }
+      }*/
+      $readData = json_encode(justTracerDataFiles());
+    } else if (intval($_GET["file"]) >= 0 && intval($_GET["file"]) <= 6){
+      $dirArray = justTracerDataFiles();
+      for ($f = 0; $f < intval($_GET["file"]); $f++){
+        if($f>= count($dirArray)){
+          break;
+        }
+        $readData = getFile($dirArray[$f]);
       }
-      $readData = json_encode($dirFiles);// can this use the CC function?
-    } /*else if (intval($_GET["file"]) >= 0 && intval($_GET["file"]) <= 6){
-      //maybe have this be an arbitrary span of days?
     } else{
-      //get file by date
-      $readData = getFile($fileName);
-    }*/
+      //get CC data file by file name
+      if(strpos($_GET["file"],'tracerData') !== false){
+        $readData = getFile($_GET["file"]);
+      }
+
+    }
 
 
     if($readData != FALSE){
@@ -164,6 +174,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       //var_dump($readData);
     }
   }
+}
+
+function justTracerDataFiles(){
+    $dirArray = scandir($ccDir);
+    $dirFiles = [];
+    for ($f = 0; $f < count($dirArray);$f++){
+      if(strpos($dirArray[$f],'tracerData') !== false){
+        array_push($dirFiles, $dirArray[$f]);
+      }
+    }
+
+    return $dirFiles;
 }
 
 function verifyPW($pw, $hash){

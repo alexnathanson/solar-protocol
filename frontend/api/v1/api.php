@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         array_push($multiDayData, str_getcsv(getFile($ccDir . $dirArray[count($dirArray)-1-$f])));
       }
 
-      echo str_getcsv($multiDayData);
+      var_dump($multiDayData);
 
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
       echo json_encode(getFile($ccDir . $_GET["file"] . '.csv'));

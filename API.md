@@ -87,11 +87,19 @@ Possible keys for get requests
 		* head - returns the column headers
 		* 0 - returns the most recently collected line of data
 		* increment up to move back in time from 0 to retrieve any other row. For example, 1 will return the 2nd most recent row.
-* file - returns a specific file (should be changed to a POST not a GET)
+* file - returns a specific file
 	* Example: http:// + URL + /api/v1/api.php?file=deviceList
 	* Possible values:
-		* deviceList - returns the deviceList.json file contents
-
+		* deviceList - returns the deviceList.json file contents (should be changed to a POST not a GET)
+		* 0 - returns present day data 
+		* 1 - returns present day + previous day
+		* 2 - returns present day + previous 2 days
+		* 3 - returns present day + previous 3 days
+		* 4 - returns present day + previous 4 days
+		* 5 - returns present day + previous 5 days
+		* 6 - returns present day + previous 6 days
+		* list - returns list of all CC files
+		* [file name]
 
 <p>
 Browser Example: http://solarprotocol.net/api/v1/api.php?value=PV-voltage would return the most recent PV voltage

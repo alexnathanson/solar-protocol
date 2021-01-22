@@ -15,6 +15,8 @@ $hash = '$2y$10$mCxhv3NC4/lkSycnD85XLuw/AYBCxw1ElmCqeksR.f88BTZoXXuca';
 $api_key= $stamp = $ip = $mac = $name = "";
 $log = [];
 
+$ccDir = "/home/pi/solar-protocol/charge-controller/data/tracerData";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
@@ -139,9 +141,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($_GET["file"] == "deviceList"){
       $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
-    }
+      $readData = getFile($fileName);
+    } else if ($_GET["file"] == "list"){
+      $readData = scandir($ccDir);// can this use the CC function?
+    } /*else if (intval($_GET["file"]) >= 0 && intval($_GET["file"]) <= 6){
+      //maybe have this be an arbitrary span of days?
+    } else{
+      //get file by date
+      $readData = getFile($fileName);
+    }*/
 
-    $readData = getFile($fileName);
 
     if($readData != FALSE){
       echo $readData;

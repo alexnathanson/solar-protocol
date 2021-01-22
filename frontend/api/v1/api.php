@@ -146,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $dirArray = scandir($ccDir);
       $dirFiles = [];
       for ($f = 0; $f < count($dirArray);$f++){
-        if(str_contains("tracerData")){
+        if(str_contains($dirArray[$f],"tracerData")){
           array_push($dirFiles, $dirArray[$f]);
         }
       }

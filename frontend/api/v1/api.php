@@ -146,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if ($_GET["file"] == "list"){//list all charge controller data files
       $readData = json_encode(justTracerDataFiles($ccDir));
     } else if (intval($_GET["file"]) >= 0 && intval($_GET["file"]) <= 6){
-      $dirArray = justTracerDataFiles();
+      $dirArray = justTracerDataFiles($ccDir);
       for ($f = 0; $f < intval($_GET["file"]); $f++){
         if($f>= count($dirArray)){
           break;
@@ -154,11 +154,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $readData = getFile($dirArray[$f]);
       }
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-
       $readData = getFile($_GET["file"] . '.json');
-
     }
-
 
     if($readData != FALSE){
       echo $readData;

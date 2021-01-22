@@ -15,7 +15,7 @@ $hash = '$2y$10$mCxhv3NC4/lkSycnD85XLuw/AYBCxw1ElmCqeksR.f88BTZoXXuca';
 $api_key= $stamp = $ip = $mac = $name = "";
 $log = [];
 
-$ccDir = "/home/pi/solar-protocol/charge-controller/data";
+$ccDir = "/home/pi/solar-protocol/charge-controller/data/";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -151,10 +151,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($f>= count($dirArray)){
           break;
         }
-        echo json_encode(getFile($dirArray[$f]));
+        echo json_encode(getFile($ccDir . $dirArray[$f]));
       }
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-      echo json_encode(getFile($_GET["file"] . '.json'));
+      echo json_encode(getFile($ccDir . $_GET["file"] . '.json'));
     }
 
     /*if($readData != FALSE){

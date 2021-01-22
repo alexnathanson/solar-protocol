@@ -155,8 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
 
-        $readData = getFile($_GET["file"] . '.json');
-      }
+      $readData = getFile($_GET["file"] . '.json');
 
     }
 

@@ -157,13 +157,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
 
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-      echo json_encode(getFile($ccDir . $_GET["file"] . '.json'));
+      echo json_encode(getFile($ccDir . $_GET["file"] . '.csv'));
     }
-
-    /*if($readData != FALSE){
-      echo $readData;
-      //var_dump($readData);
-    }*/
   }
 }
 

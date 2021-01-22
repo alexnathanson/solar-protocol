@@ -162,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       var_dump($multiDayData);
 
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-      echo str_getcsv(getFile($ccDir . $_GET["file"] . '.csv'));
+      var_dump(str_getcsv(getFile($ccDir . $_GET["file"] . '.csv')));
     }
   }
 }

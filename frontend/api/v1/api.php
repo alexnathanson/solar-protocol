@@ -156,10 +156,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($f>= count($dirArray)){
           break;
         }
-        array_push($multiDayData, getFile($ccDir . $dirArray[count($dirArray)-1-$f]));
+        array_push($multiDayData, str_getcsv(getFile($ccDir . $dirArray[count($dirArray)-1-$f])));
       }
 
-      echo json_encode($multiDayData);
+      echo $multiDayData;
 
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
       echo json_encode(getFile($ccDir . $_GET["file"] . '.csv'));

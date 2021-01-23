@@ -1,14 +1,10 @@
-# Solar Protocol API
+# Solar Protocol API V1
 
-An API for updating dynamic IPs and comparing data between distributed Raspberry Pis.
+An API for communicating between distributed Raspberry Pis and making system data accessible
 
-## API V1 v1-files
-Version 1 of the API reads and writes CVS and JSON files.
+## api.php
+This manages POST requests on the server
 
-### api.php
-This manages GET and POST requests on the server
-
-* GET requests allow for querying PV data from the device
 * POST requests allow other devices on the network to update the IP list to account for dynamic IP issues
 
 ### clientPostIP.py
@@ -48,18 +44,36 @@ Setting environmental variables on the Pi (source https://linuxize.com/post/how-
 	* export SP_API_KEY=tPmAT5Ab3j7F9
 -->
 
-## v2-mysql
-NOT FUNCTIONING
- 
-Version 2 of the API would potentially use a mysql data base, but this is (at least for the time being) more difficult, because all three servers need to have the same mysql setup i.e. same db, table, and column names as well as the same users with all necessary permissions. This approach possibly consumes less energy that v1.
 
-https://pimylifeup.com/raspberry-pi-mysql/
+### POST
 
-GRANT ALL PRIVILEGES ON exampledb.* TO 'exampleuser'@'localhost';
+Possible keys for Post requests:
+* apiKey
+* stamp - time stamp
+* ip
+* mac
+* name - name of device
+* log - log of "point of contact" events
 
-## API Syntax
+Python Example: 
 
-### GET
+import requests
+
+
+headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+}
+
+myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
+x = requests.post('http://www.mywebsite.xyz/api/v1/api.php', headers=headers,data = myString)
+
+## chargecontroller.php
+This manages open access GET requests for local charge controller data
+
+* GET requests allow for querying PV data from the device
+
+### Syntax
+
 clientGetPV.py is just for testing purposes. solarProtocol.py handles get request when they system is operational. You can also use a browser to make a get request.
 
 Possible keys for get requests
@@ -105,25 +119,3 @@ Possible keys for get requests
 <p>
 Browser Example: http://solarprotocol.net/api/v1/api.php?value=PV-voltage would return the most recent PV voltage
 </p>
-
-### POST
-
-Possible keys for Post requests:
-* apiKey
-* stamp - time stamp
-* ip
-* mac
-* name - name of device
-* log - log of "point of contact" events
-
-Python Example: 
-
-import requests
-
-
-headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-}
-
-myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
-x = requests.post('http://www.mywebsite.xyz/api/v1/api.php', headers=headers,data = myString)

@@ -70,7 +70,7 @@ Possible keys for get requests
 		* PV current
 		* PV power H
 		* PV power L
-		* PV voltage,
+		* PV voltage
 		* battery percentage
 		* battery voltage
 		* charge current

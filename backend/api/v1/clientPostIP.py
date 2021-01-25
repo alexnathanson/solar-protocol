@@ -63,8 +63,8 @@ def getPoeLog():
 			#remove "INFO:root:" from the string and strip spaces
 			poeData.append(poeFileLines[len(poeFileLines)-l-1][10:-1])
 
-			#if l > 100:
-			#	break
+			if l > len(poeFileLines)-1:
+				break
 
 		poeFile.close()
 

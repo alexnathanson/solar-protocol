@@ -33,7 +33,7 @@
   let jsonPoe;
 
 
-  let devListURL = "http://"+ window.location.hostname +"/api/v1/api.php?file=deviceList";
+  let devListURL = "http://"+ window.location.hostname +"/api/v1/chargecontroller.php?file=deviceList";
   console.log(devListURL);
 
   getRequest(devListURL,parseDevList);

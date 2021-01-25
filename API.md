@@ -16,7 +16,7 @@ This script updates the IPs on the other devices on the network
 * this should be set on a cron timer
 
 ### solarProtocol.py
-This script queries the PV data from the other devices and determines if the local device should be point of contact and updates the DNS if so
+This script queries the PV data from the other devices and determines if the local device should be point of entry and updates the DNS if so
 
 * this should be set on a cron timer
 * update the subCall to the appropriate DNS updater system being used
@@ -55,7 +55,7 @@ Possible keys for post requests:
 * ip
 * mac
 * name - name of device
-* log - log of "point of contact" events
+* log - log of "point of entry" events
 
 Python Example: 
 ```

@@ -18,6 +18,8 @@
 
 <h1>Solar Protocol - Admin Console</h1>
 
+<p><a href="/admin">Admin Console</a> | <a href="/admin/local">Local Info</a></p>
+
 <div id="server list"><h2>Servers:</h2></div>
 
 <div id="pointOfContact"><h2>Point of Contact History:</h2></div>

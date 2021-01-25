@@ -1,6 +1,11 @@
 <html>
 <body>
 
+
+<h1>Solar Protocol - Admin Console</h1>
+
+<p><a href="/admin">Admin Console</a> | <a href="/admin/local">Local Info</a></p>
+
 <form method="POST">
   <?php if( $_SERVER['REQUEST_METHOD'] == 'POST' ) { ?>
     Invalid password

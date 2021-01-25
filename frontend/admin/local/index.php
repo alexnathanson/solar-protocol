@@ -6,42 +6,29 @@
     Invalid password
   <?php } ?>
   
-  <p>Name</p>
-  <input type="text" name="name">
+  <p>Name <input type="text" name="name"></p>
   
-  <p>Description</p>
-  <input type="text" name="description">
+  <p>Description <input type="text" name="description"></p>
   
-   <p>Location</p>
-  <input type="text" name="location">
+   <p>Location <input type="text" name="location"></p>
 
-   <p>City</p>
-  <input type="text" name="city">
+   <p>City <input type="text" name="city"></p>
 
-   <p>Country</p>
-  <input type="text" name="country">
+   <p>Country <input type="text" name="country"></p>
 
- 	<p>Latitude</p>
-  <input type="text" name="lat">
+ 	<p>Latitude <input type="text" name="lat"></p>
 
-   <p>longitude</p>
-  <input type="text" name="long">
+   <p>Longitude <input type="text" name="long"></p>
 
- <p>API key</p>
-  <input type="password" name="apiKey">
+   <p>API key <input type="password" name="apiKey"></p>
 
-   <p>Background Color</p>
-  <input type="text" name="bgColor">
+   <p>Background Color <input type="text" name="bgColor"></p>
 
-   <p>Server Color</p>
-  <input type="text" name="serverColor">
+   <p>Server Color <input type="text" name="serverColor"></p>
 
-  <!--make a drop down menu-->
-   <p>Font</p>
-  <input type="text" name="font">
+   <p>Font <input type="radio" name="font" value=""></p>
 
-   <p>Border Style</p>
-  <input type="text" name="borderStyle">
+   <p>Border Style <input type="text" name="borderStyle"></p>
 
   <p></p>
   <button type="submit">Update</button>

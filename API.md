@@ -1,6 +1,8 @@
 # Solar Protocol API V1
 
 An API for communicating between distributed Raspberry Pis and making system data accessible
+* Network communication between servers on the network is done with POST requests via the api.php end point 
+* Retrieving data from charge controllers is done with GET requests via the chargecontroller.php end point.
 
 ## api.php
 This manages POST requests on the server
@@ -47,7 +49,7 @@ Setting environmental variables on the Pi (source https://linuxize.com/post/how-
 
 ### POST
 
-Possible keys for Post requests:
+Possible keys for post requests:
 * apiKey
 * stamp - time stamp
 * ip
@@ -56,7 +58,7 @@ Possible keys for Post requests:
 * log - log of "point of contact" events
 
 Python Example: 
-
+'
 import requests
 
 
@@ -66,6 +68,7 @@ headers = {
 
 myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
 x = requests.post('http://www.mywebsite.xyz/api/v1/api.php', headers=headers,data = myString)
+'
 
 ## chargecontroller.php
 This manages open access GET requests for local charge controller data
@@ -118,4 +121,7 @@ Possible keys for get requests
 
 <p>
 Browser Example: http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage would return the most recent PV voltage
+</p>
+<p>
+Python and JS examples available in utilities directory
 </p>

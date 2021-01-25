@@ -114,8 +114,8 @@ Possible keys for get requests
 		* 7 - returns present day + previous 6 days
 		* list - returns list of all CC files
 		* len - return count of all CC files
-		* [file name without file suffix] - example: /api/v1/api.php?file=tracerData2020-05-17
+		* [file name without file suffix] - example: /api/v1/chargecontroller.php?file=tracerData2020-05-17
 
 <p>
-Browser Example: http://solarprotocol.net/api/v1/api.php?value=PV-voltage would return the most recent PV voltage
+Browser Example: http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage would return the most recent PV voltage
 </p>

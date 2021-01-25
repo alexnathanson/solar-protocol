@@ -1,5 +1,5 @@
 
-console.log(httpGet('http://solarprotocol.net/api/v1/api.php?value=PV-voltage'));
+console.log(httpGet('http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage'));
 
 function httpGet(theUrl)
 {

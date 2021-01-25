@@ -21,7 +21,7 @@
 <div id="server list"><h2>Servers:</h2></div>
 
 <div id="pointOfContact"><h2>Point of Contact History:</h2></div>
-<!-- <div id="poc_chart" style="width: 1500px; height: 500px"></div> -->
+<!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
 
 <script>
   //make this dynamic at some point
@@ -30,7 +30,7 @@
   //get the most recent line of charge controller data
   let toGet = "0";
 
-  let jsonPoc;
+  let jsonPoe;
 
 
   let devListURL = "http://"+ window.location.hostname +"/api/v1/api.php?file=deviceList";
@@ -39,7 +39,7 @@
   getRequest(devListURL,parseDevList);
 
   //point of contact
-  //getRequest(pocURL,sortPocLog);
+  //getRequest(poeURL,sortPoeLog);
 
 
   function getRequest(dst, callback){
@@ -68,29 +68,29 @@
   //individual server data
     for (let i = 0; i < ipList.length; i++){
       //pingServer(tempIPList[i], populate);
-      let requestURL = "http://" + ipList[i] + "/api/v1/api.php?line="+toGet;
+      let requestURL = "http://" + ipList[i] + "/api/v1/chargecontroller.php?line="+toGet;
       getRequest(requestURL, populate);
     }
 
   //point of contact
-  sortPocLog(response);
+  sortPoeLog(response);
   }
 
-  function sortPocLog(response){
+  function sortPoeLog(response){
     console.log(JSON.parse(response));
-    jsonPoc = JSON.parse(response);
+    jsonPoe = JSON.parse(response);
 
-    let justPocLog = []
+    let justPoeLog = []
 
     let storePos = [];//store the position for that particular log
 
     //get just the logs
-    for (let p = 0; p < jsonPoc.length;p++){
-      justPocLog.push(jsonPoc[p]["log"]);   
+    for (let p = 0; p < jsonPoe.length;p++){
+      justPoeLog.push(jsonPoe[p]["log"]);   
       storePos[p] = 0; 
     }
 
-    let outputPocLog = [];
+    let outputPoeLog = [];
 
     for (let p = 0; p < 100;p++){
 
@@ -98,8 +98,8 @@
       let tempPos = [];
       let sorted = [];
       for (let l = 0; l < storePos.length;l++){
-        tempPos[l] = justPocLog[l][storePos[l]];
-        sorted[l] = justPocLog[l][storePos[l]];
+        tempPos[l] = justPoeLog[l][storePos[l]];
+        sorted[l] = justPoeLog[l][storePos[l]];
       }
 
       //sort in decending order
@@ -112,10 +112,10 @@
       for (let x = 0; x < tempPos.length; x++){
         if (sorted[0] == tempPos[x]){
           //add new value to list only if it has changed...
-          if(outputPocLog.length == 0){
-            outputPocLog[outputPocLog.length] = [justPocLog[x][storePos[x]],x];
-          } else if(outputPocLog[outputPocLog.length-1][1] != x){
-            outputPocLog[outputPocLog.length] = [justPocLog[x][storePos[x]],x];
+          if(outputPoeLog.length == 0){
+            outputPoeLog[outputPoeLog.length] = [justPoeLog[x][storePos[x]],x];
+          } else if(outputPoeLog[outputPoeLog.length-1][1] != x){
+            outputPoeLog[outputPoeLog.length] = [justPoeLog[x][storePos[x]],x];
           }
           storePos[x]++;
           break;
@@ -123,30 +123,30 @@
       }
     }
 
-    //console.log(outputPocLog);
+    //console.log(outputPoeLog);
 
-    displayPOC(outputPocLog);
+    displayPOE(outputPoeLog);
 
   } 
 
-  function displayPOC(pocArray){
-    let pocID = document.getElementById('pointOfContact');
+  function displayPOE(poeArray){
+    let poeID = document.getElementById('pointOfContact');
 
     let para = document.createElement('p');
 
-    for (let l = 0; l < pocArray.length;l++){
-      let node = document.createTextNode(pocArray[l][0] + " " + jsonPoc[pocArray[l][1]]['name']);
+    for (let l = 0; l < poeArray.length;l++){
+      let node = document.createTextNode(poeArray[l][0] + " " + jsonPoe[poeArray[l][1]]['name']);
       para.appendChild(node);
       para.appendChild(document.createElement('br'));//dont use a variable here, because then it will treat it as the same thing and only append it once, pushing it to the end of the p
     }
 
-    pocID.appendChild(para);
+    poeID.appendChild(para);
   }
 
 
   function populate(dataToDisplay, dst) {
 
-    let dstIP = dst.replace('/api/v1/api.php?line=0','');
+    let dstIP = dst.replace('/api/v1/chargecontroller.php?line=0','');
     //dstIP = dst.replace('http://','');
 
     const sList = document.getElementById('server list');

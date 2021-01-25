@@ -15,8 +15,8 @@ deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
 localConfig = "/home/pi/local/local.json";
 
-pocLog = "/home/pi/solar-protocol/backend/api/v1/poc.log"
-pocData = []
+poeLog = "/home/pi/solar-protocol/backend/api/v1/poe.log"
+poeData = []
 
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 
@@ -48,30 +48,30 @@ def getIPList():
 
 	return ipList
 
-def getPocLog():
+def getPoeLog():
 
 	try:
-		pocFile = open(pocLog)
+		poeFile = open(poeLog)
 
-		pocFileLines = pocFile.readlines()
+		poeFileLines = poeFile.readlines()
 
 		#read the most recent 50 lines
 		for l in range(100):
 
-			#print(pocFileLines[l])
+			#print(poeFileLines[l])
 
 			#remove "INFO:root:" from the string and strip spaces
-			pocData.append(pocFileLines[len(pocFileLines)-l-1][10:-1])
+			poeData.append(poeFileLines[len(poeFileLines)-l-1][10:-1])
 
 			#if l > 100:
 			#	break
 
-		pocFile.close()
+		poeFile.close()
 
 	except:
-		pocData.append(0)
+		poeData.append(0)
 
-	#print(pocData)
+	#print(poeData)
 
 def getLocalConfig(key):
 
@@ -90,7 +90,7 @@ def getLocalConfig(key):
 
 def makePosts(ipList):
 	
-	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(pocData)
+	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(poeData)
 
 	print(myString)
 
@@ -118,7 +118,7 @@ myName = getLocalConfig("name")
 apiKey = getLocalConfig("apiKey")
 #apiKey = os.getenv('SP_API_KEY')
 
-getPocLog();
+getPoeLog();
 dstList = getIPList()
 makePosts(dstList)
 

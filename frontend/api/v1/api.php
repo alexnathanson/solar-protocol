@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     fclose($fp);
   }
   else {
-      echo "Wrong API Key provided.";
+    echo "Wrong API Key provided.";
   }
 } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   } 
   //get a line of current data file. "len" returns length of current file, "head" returns the column headers, "0" returns most recent line. Increments up for other lines.
-  else if (array_key_exists("line", $_GET)) {
+  /*else if (array_key_exists("line", $_GET)) {
     //echo "Key = Line";
     
     $readData = chargeControllerData();
@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //get a full file
-  } else if (array_key_exists("file", $_GET)) {
+  }*/ /*else if (array_key_exists("file", $_GET)) {
     //echo "Key = File";
 
     if($_GET["file"] == "deviceList"){ //deviceList should be a POST
@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
       var_dump(str_getcsv(getFile($ccDir . $_GET["file"] . '.csv')));
     }
-  }
+  }*/
 }
 
 function justTracerDataFiles($dir){

@@ -28,17 +28,17 @@ deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
 localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
 
-logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poc.log', level=logging.INFO)
+logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', level=logging.INFO)
 
 #return data from a particular server
 def getData(dst):
 	try:
 		#returns a single value
-		response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5)
+		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+apiValue, timeout = 5)
 		#print(response.text)		
 		#check if the response can be converted to a float
 		# try:
-		# 	response = requests.get('http://' + dst + '/api/v1/api.php?value='+apiValue, timeout = 5) 
+		# 	response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+apiValue, timeout = 5) 
 		#this was in the try
 		return float(response.text)
 		# except:
@@ -77,14 +77,14 @@ def determineServer():
 			thisServer = False
 
 	if thisServer:
-		print('Point of contact')
+		print('Point of entry')
 
 		logging.info(datetime.datetime.now())
 
 		#comment back in to run
 		os.system(subCall)
 	else:
-		print('Not point of contact')
+		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing
 
 def localData():

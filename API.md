@@ -58,7 +58,7 @@ Possible keys for post requests:
 * log - log of "point of contact" events
 
 Python Example: 
-'
+'''
 import requests
 
 
@@ -68,7 +68,7 @@ headers = {
 
 myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
 x = requests.post('http://www.mywebsite.xyz/api/v1/api.php', headers=headers,data = myString)
-'
+'''
 
 ## chargecontroller.php
 This manages open access GET requests for local charge controller data

@@ -59,8 +59,7 @@ if (isset($localInfo["borderStyle"])){
   $locBorderStyle = $localInfo["borderStyle"];
 }
 
-echo json_encode($localInfo);
-//dump_var($localInfo);
+//echo json_encode($localInfo);
 
 function getFile($fileName){
   //echo $fileName;

@@ -11,9 +11,54 @@
 
 $localInfo = json_decode(getFile('/home/pi/local/local.json'), true);
 
-//if (isset($localInfo["name"])){
+if (isset($localInfo["name"])){
   $locName = $localInfo["name"];
-//}
+}
+
+if (isset($localInfo["description"])){
+  $locDescription = $localInfo["description"];
+}
+
+if (isset($localInfo["location"])){
+  $locLocation = $localInfo["location"];
+}
+
+if (isset($localInfo["city"])){
+  $locCity = $localInfo["city"];
+}
+
+if (isset($localInfo["country"])){
+  $locCountry = $localInfo["country"];
+}
+
+if (isset($localInfo["lat"])){
+  $locLat = $localInfo["lat"];
+}
+
+if (isset($localInfo["long"])){
+  $locLong = $localInfo["long"];
+}
+
+if (isset($localInfo["apiKey"])){
+  $locKey = $localInfo["apiKey"];
+}
+
+if (isset($localInfo["bgColor"])){
+  $locBg = $localInfo["bgColor"];
+}
+
+if (isset($localInfo["serverColor"])){
+  $locSColor = $localInfo["serverColor"];
+}
+
+if (isset($localInfo["font"])){
+  $locFont = $localInfo["font"];
+}
+
+if (isset($localInfo["borderStyle"])){
+  $locBorderStyle = $localInfo["borderStyle"];
+}
+
 echo json_encode($localInfo);
 //dump_var($localInfo);
 

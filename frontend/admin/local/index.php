@@ -12,7 +12,7 @@
 $localInfo = json_decode(getFile('/home/pi/local/local.json'));
 
 
-$locName = ;
+$locName = "";
 
 echo $localInfo;
 //dump_var($localInfo);

@@ -7,6 +7,29 @@
 <body>
 
 
+<?php
+
+$localInfo = getFile('/home/pi/local/local.json');
+
+$lName = 'Van Brunt St.';
+
+echo $localInfo;
+//dump_var($localInfo);
+
+function getFile($fileName){
+  //echo $fileName;
+  try{
+    return file_get_contents($fileName);
+  }
+  catch(Exception $e) {
+    echo $fileName;
+    return FALSE;
+  }
+
+}
+
+?>
+
 <h1>Solar Protocol - Admin Console</h1>
 
 <p><a href="/admin">Admin Console</a> | <a href="/admin/local">Local Info</a></p>
@@ -16,7 +39,7 @@
     Invalid password
   <?php } ?>
   
-  <p>Name <input type="text" name="name" value="<?php echo $lName;?>"></p>
+  <p>Name <input type="text" name="name" value="<?php if (isset($lName)){echo $lName;}?>"></p>
   
   <p>Description <input type="text" name="description"></p>
   
@@ -46,26 +69,3 @@
 
 </body>
 </html>
-
-<?php
-
-$localInfo = getFile('/home/pi/local/local.json');
-
-$lName = 'Van Brunt St.';
-
-echo $localInfo;
-//dump_var($localInfo);
-
-function getFile($fileName){
-  //echo $fileName;
-  try{
-    return file_get_contents($fileName);
-  }
-  catch(Exception $e) {
-    echo $fileName;
-    return FALSE;
-  }
-
-}
-
-?>

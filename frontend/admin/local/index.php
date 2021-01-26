@@ -16,7 +16,7 @@
     Invalid password
   <?php } ?>
   
-  <p>Name <input type="text" name="name" value="Van Brunt St."></p>
+  <p>Name <input type="text" name="name" value=<?php echo $lName;?>></p>
   
   <p>Description <input type="text" name="description"></p>
   
@@ -50,6 +50,8 @@
 <?php
 
 $localInfo = getFile('/home/pi/local/local.json');
+
+$lName = 'Van Brunt St.';
 
 echo $localInfo;
 //dump_var($localInfo);

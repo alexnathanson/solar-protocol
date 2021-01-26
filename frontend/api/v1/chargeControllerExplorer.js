@@ -7,7 +7,7 @@ console.log(result);
 
 function getBaseUrl() {
     var re = new RegExp(/^.*\/\/[^\/]+/);
-    console.log(re.exec(window.location.href));
+    //console.log(re.exec(window.location.href));
     return re.exec(window.location.href);
 }
 

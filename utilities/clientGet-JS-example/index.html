@@ -10,10 +10,8 @@
 
  <script src="clientGet-example.js"></script> 
 
-<h1>Solar Protocol</h1>
-
 <h2>Charge Controller Data API Explorer</h2> 
-Results displayed in console.
+Results displayed in console. See live version at <a href="http://solarprotocol.net/api/v1" target="_blank">http://solarprotocol.net/api/v1</a>.
 <form method="GET">
 
    <p>Key: Value<input type="radio" name="key" value="value"> Line<input type="radio" name="key" value="line"> File<input type="radio" name="key" value="file"></p>
@@ -23,38 +21,6 @@ Results displayed in console.
   <p></p>
   <button type="submit">Submit</button>
 </form>
-
-<h3>Syntax</h3>
-<strong>value</strong> returns the specified value from the most recently collected line of data
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage</a></p>
-<p>Possible values: PV-current, PV-power-H, PV-power-L, PV-voltage, battery-percentage, battery-voltage, charge-current, charge-power-H, charge-power-L, load-current, load-power, load-voltage, datetime</p>
-
-<strong>line</strong> returns the specified line from the current data logger file with headers in JSON format
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?line=0" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?line=0</a></p>
-<p>Possible values:
-	<ul>
-		<li>len - returns the number of rows in the file</li>
-		<li>head - returns the column headers</li>
-		<li>[line number] - returns the specified line of data. For example, 0 will return the most recent row of data, 1 will return the 2nd most recent row, etc.</li>
-	</ul>
-</p>
-
-<strong>file</strong> returns a specific file
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?file=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?file=2</a></p>
-<p>Possible values:
-	<ul>
-		<li>1 - returns present day data</li>
-		<li>2 - returns present day + previous day</li>
-		<li>3 - returns present day + previous 2 days</li>
-		<li>4 - returns present day + previous 3 days</li>
-		<li>5 - returns present day + previous 4 days</li>
-		<li>6 - returns present day + previous 5 days</li>
-		<li>7 - returns present day + previous 6 days</li>
-		<li>list - returns list of all CC files</li>
-		<li>len - return count of all CC files</li>
-		<li>[file name without file suffix] - example: /api/v1/chargecontroller.php?file=tracerData2020-05-17</li>
-	</ul>
-</p>
 
 </body>
 </html> 

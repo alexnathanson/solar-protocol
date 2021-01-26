@@ -79,6 +79,7 @@ function getFile($fileName){
 
 <p><a href="/admin">Admin Console</a> | <a href="/admin/local">Local Info</a></p>
 
+<h3>Local Info</h3>
 <form method="POST">
   <?php if( $_SERVER['REQUEST_METHOD'] == 'POST' ) { ?>
     Invalid password
@@ -98,8 +99,6 @@ function getFile($fileName){
 
    <p>Longitude <input type="text" name="long" value="<?php if (isset($locLong)){echo $locLong;}?>"></p>
 
-   <p>API key <input type="password" name="apiKey" value="<?php if (isset($locKey)){echo $locKey;}?>"></p>
-
    <p>Background Color <input type="text" name="bgColor" value="<?php if (isset($locBg)){echo $locBg;}?>"></p>
 
    <p>Server Color <input type="text" name="serverColor" value="<?php if (isset($locSColor)){echo $locSColor;}?>"></p>
@@ -111,6 +110,14 @@ function getFile($fileName){
   <p></p>
   <button type="submit">Update</button>
 </form>
+
+
+<h3>Danger Zone</h3>
+
+<form method="POST" border="2px">
+     <p>API key <input type="password" name="apiKey" value="<?php if (isset($locKey)){echo $locKey;}?>"></p>
+  <button type="submit">Update</button>
+  </form>
 
 </body>
 </html>

@@ -114,7 +114,7 @@ function getFile($fileName){
 
 <h3>Danger Zone</h3>
 
-<form method="POST" style="border: 5px solid red">
+<form method="POST" style="padding: 10px; border: 5px solid red">
      <p>API key <input type="password" name="apiKey" value=""></p>
   <button type="submit">Update</button>
   </form>

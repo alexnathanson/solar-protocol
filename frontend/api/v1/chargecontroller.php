@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if($f>= count($dirArray)){
           break;
         }
-        array_push($multiDayData, chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]));
+        array_push($multiDayData, getFile($ccDir . $dirArray[count($dirArray)-1-$f]));
       }
 
       echo json_encode($multiDayData);
@@ -121,6 +121,8 @@ function chargeControllerData($fileName){
       $rawDataArray[] = $data;        
     }
 
+    echo $rawDataArray;
+    
     // Close the file
     fclose($h);
 

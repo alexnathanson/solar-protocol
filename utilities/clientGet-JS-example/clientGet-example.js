@@ -1,5 +1,5 @@
 
-console.log(httpGet('http://solarprotocol.net/api/v1/chargecontroller.php?file=2'));
+console.log(httpGet('http://solarprotocol.net/api/v1/chargecontroller.php?file=tracerData2021-01-06'));
 
 function httpGet(theUrl)
 {

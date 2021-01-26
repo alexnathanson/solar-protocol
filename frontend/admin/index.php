@@ -22,7 +22,7 @@
 
 <div id="server list"><h2>Servers:</h2></div>
 
-<div id="pointOfContact"><h2>Point of Contact History:</h2></div>
+<div id="pointOfEntry"><h2>Point of Entry History:</h2></div>
 <!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
 
 <script>
@@ -40,7 +40,7 @@
 
   getRequest(devListURL,parseDevList);
 
-  //point of contact
+  //point of entry
   //getRequest(poeURL,sortPoeLog);
 
 
@@ -74,7 +74,7 @@
       getRequest(requestURL, populate);
     }
 
-  //point of contact
+  //point of entry
   sortPoeLog(response);
   }
 
@@ -132,7 +132,7 @@
   } 
 
   function displayPOE(poeArray){
-    let poeID = document.getElementById('pointOfContact');
+    let poeID = document.getElementById('pointOfEntry');
 
     let para = document.createElement('p');
 

@@ -1,5 +1,9 @@
+const params = new URLSearchParams(window.location.search);
 
-console.log(httpGet('http://solarprotocol.net/api/v1/chargecontroller.php?file=tracerData2021-01-06'));
+//example http://solarprotocol.net/api/v1/chargecontroller.php?file=list
+let result = JSON.parse(httpGet('http://solarprotocol.net/api/v1/chargecontroller.php?' + params.get("key") + "=" + params.get("value")));
+
+console.log(result);
 
 function httpGet(theUrl)
 {

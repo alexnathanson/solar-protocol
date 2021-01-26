@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       if($_GET["line"] == "len"){//return the number of rows in the file
         echo count($readData);
       } else if($_GET["line"] == "head"){//return the CSV data headers
-        var_dump($readData[0]);
+        echo json_encode($readData[0]);
       } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
         //returns raw line
 //        var_dump($readData[count($readData)-1-$_GET["line"]]);

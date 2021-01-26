@@ -1,3 +1,8 @@
+<?php
+  require_once 'protect.php';
+  Protect\with('form.php', '$2y$10$P7eYN7FYf0ZpI0L80.WazuNHIIcmqIaF.u2VJ0PnLSBydHUKe.P8W');
+?>
+
 <html>
 <body>
 
@@ -41,3 +46,23 @@
 
 </body>
 </html>
+
+<?php
+
+$localInfo = getFile('home/pi/local/local.json');
+
+//dump_var($localInfo);
+
+function getFile($fileName){
+  //echo $fileName;
+  try{
+    return file_get_contents($fileName);
+  }
+  catch(Exception $e) {
+    echo $fileName;
+    return FALSE;
+  }
+
+}
+
+?>

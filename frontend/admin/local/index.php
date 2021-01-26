@@ -9,9 +9,10 @@
 
 <?php
 
-$localInfo = getFile('/home/pi/local/local.json');
+$localInfo = json_decode(getFile('/home/pi/local/local.json'));
 
-$lName = 'Van Brunt St.';
+
+$locName = ;
 
 echo $localInfo;
 //dump_var($localInfo);
@@ -19,7 +20,7 @@ echo $localInfo;
 function getFile($fileName){
   //echo $fileName;
   try{
-    return file_get_contents($fileName);
+    return file($fileName);
   }
   catch(Exception $e) {
     echo $fileName;

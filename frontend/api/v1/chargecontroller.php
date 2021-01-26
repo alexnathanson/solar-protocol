@@ -69,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     } else if ($_GET["file"] == "list"){//list all charge controller data files
       echo json_encode(justTracerDataFiles($ccDir));
+      var_dump(justTracerDataFiles($ccDir));
 
     } else if ($_GET["file"] == "len"){//list all charge controller data files
       echo count(justTracerDataFiles($ccDir));
@@ -132,7 +133,7 @@ function chargeControllerData($fileName){
 function getFile($fileName){
   //echo $fileName;
   try{
-    return file_get_contents($fileName);
+    return file($fileName);
   }
   catch(Exception $e) {
     echo $fileName;

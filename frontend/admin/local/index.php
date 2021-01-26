@@ -11,7 +11,7 @@
 
 $localInfo = json_decode(getFile('/home/pi/local/local.json'));
 
-$locName = "";
+$locName = $localInfo['name'];
 
 echo json_encode($localInfo);
 //dump_var($localInfo);

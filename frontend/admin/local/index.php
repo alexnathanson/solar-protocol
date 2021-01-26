@@ -114,8 +114,8 @@ function getFile($fileName){
 
 <h3>Danger Zone</h3>
 
-<form method="POST" border="2px">
-     <p>API key <input type="password" name="apiKey" value="<?php if (isset($locKey)){echo $locKey;}?>"></p>
+<form method="POST" style="border: 2px solid #ccc">
+     <p>API key <input type="password" name="apiKey" value=""></p>
   <button type="submit">Update</button>
   </form>
 

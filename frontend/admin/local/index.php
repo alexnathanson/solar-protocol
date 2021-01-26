@@ -51,6 +51,7 @@
 
 $localInfo = getFile('home/pi/local/local.json');
 
+echo $localInfo;
 //dump_var($localInfo);
 
 function getFile($fileName){

@@ -9,7 +9,7 @@
 
 <?php
 
-$localInfo = getFile('/home/pi/local/local.json');
+$localInfo = json_decode(getFile('/home/pi/local/local.json'));
 
 $locName = "";
 
@@ -19,7 +19,7 @@ echo $localInfo;
 function getFile($fileName){
   //echo $fileName;
   try{
-    return file($fileName);
+    return file_get_contents($fileName);
   }
   catch(Exception $e) {
     echo $fileName;

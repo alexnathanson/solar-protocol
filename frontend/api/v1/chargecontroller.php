@@ -7,6 +7,9 @@ error_reporting(E_ALL);*/
 
 $ccDir = "/home/pi/solar-protocol/charge-controller/data/";
 
+$todayFile = $ccDir . "tracerData" . date("Y-m-d") . "csv";
+//$fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
+
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
   //read the value of the query string, replace "-" with " "
@@ -19,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $qValue = str_replace("-"," ",$_GET["value"]);
     //echo $qValue;
 
-    $readData = chargeControllerData();
+    $readData = chargeControllerData($todayFile);
 
     if ($readData != FALSE){    
       for ($v = 0; $v < sizeof($readData[0]);$v++){
@@ -34,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   else if (array_key_exists("line", $_GET)) {
     //echo "Key = Line";
     
-    $readData = chargeControllerData();
+    $readData = chargeControllerData($todayFile);
 
     if ($readData != FALSE){    
       
@@ -102,9 +105,9 @@ function justTracerDataFiles($dir){
     return $dirFiles;
 }
 
-function chargeControllerData(){
-  $fileDate = date("Y-m-d");
-  $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
+function chargeControllerData($fileName){
+  //$fileDate = date("Y-m-d");
+  //$fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
     
   $rawDataArray = [];
 

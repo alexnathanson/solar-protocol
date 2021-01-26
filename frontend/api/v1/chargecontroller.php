@@ -69,7 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     } else if ($_GET["file"] == "list"){//list all charge controller data files
       echo json_encode(justTracerDataFiles($ccDir));
-]
+      //var_dump(justTracerDataFiles($ccDir));
+
     } else if ($_GET["file"] == "len"){//list all charge controller data files
       echo count(justTracerDataFiles($ccDir));
 
@@ -88,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       echo json_encode($multiDayData);
 
     } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-      echo json_encode(chargeControllerData($ccDir . $_GET["file"] . '.csv'));
+      echo json_encode(getFile($ccDir . $_GET["file"] . '.csv'));
     }
   }
 }

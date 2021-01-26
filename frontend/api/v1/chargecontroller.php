@@ -121,8 +121,6 @@ function chargeControllerData($fileName){
       $rawDataArray[] = $data;        
     }
 
-    echo json_encode($rawDataArray);
-
     // Close the file
     fclose($h);
 

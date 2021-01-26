@@ -39,29 +39,29 @@ function getFile($fileName){
     Invalid password
   <?php } ?>
   
-  <p>Name <input type="text" name="name" value="<?php if (isset($lName)){echo $lName;}?>"></p>
+  <p>Name <input type="text" name="name" value="<?php if (isset($locName)){echo $locName;}?>"></p>
   
-  <p>Description <input type="text" name="description"></p>
+  <p>Description <input type="text" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p>
   
-   <p>Location <input type="text" name="location"></p>
+   <p>Location <input type="text" name="location" value="<?php if (isset($locLocation)){echo $locLocation;}?>"></p>
 
-   <p>City <input type="text" name="city"></p>
+   <p>City <input type="text" name="city" value="<?php if (isset($locCity)){echo $locCity;}?>"></p>
 
-   <p>Country <input type="text" name="country"></p>
+   <p>Country <input type="text" name="country" value="<?php if (isset($locCountry)){echo $locCountry;}?>"></p>
 
- 	<p>Latitude <input type="text" name="lat"></p>
+ 	<p>Latitude <input type="text" name="lat" value="<?php if (isset($locLat)){echo $locLat;}?>"></p>
 
-   <p>Longitude <input type="text" name="long"></p>
+   <p>Longitude <input type="text" name="long" value="<?php if (isset($locLong)){echo $locLong;}?>"></p>
 
-   <p>API key <input type="password" name="apiKey"></p>
+   <p>API key <input type="password" name="apiKey" value="<?php if (isset($locKey)){echo $locKey;}?>"></p>
 
-   <p>Background Color <input type="text" name="bgColor"></p>
+   <p>Background Color <input type="text" name="bgColor" value="<?php if (isset($locBg)){echo $locBg;}?>"></p>
 
-   <p>Server Color <input type="text" name="serverColor"></p>
+   <p>Server Color <input type="text" name="serverColor" value="<?php if (isset($locSColor)){echo $locSColor;}?>"></p>
 
-   <p>Font <input type="radio" name="font" value=""></p>
+   <p>Font <input type="radio" name="font" value="<?php if (isset($locFont)){echo $locFont;}?>"></p>
 
-   <p>Border Style <input type="text" name="borderStyle"></p>
+   <p>Border Style <input type="text" name="borderStyle" value="<?php if (isset($locBorderStyle)){echo $locBorderStyle;}?>"></p>
 
   <p></p>
   <button type="submit">Update</button>

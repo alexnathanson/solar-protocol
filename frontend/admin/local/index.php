@@ -16,7 +16,7 @@
     Invalid password
   <?php } ?>
   
-  <p>Name <input type="text" name="name"></p>
+  <p>Name <input type="text" name="name" value="Van Brunt St."></p>
   
   <p>Description <input type="text" name="description"></p>
   

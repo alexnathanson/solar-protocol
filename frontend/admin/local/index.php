@@ -49,7 +49,7 @@
 
 <?php
 
-$localInfo = getFile('home/pi/local/local.json');
+$localInfo = getFile('/home/pi/local/local.json');
 
 echo $localInfo;
 //dump_var($localInfo);

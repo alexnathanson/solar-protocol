@@ -16,7 +16,7 @@
     Invalid password
   <?php } ?>
   
-  <p>Name <input type="text" name="name" value=<?php echo $lName;?>></p>
+  <p>Name <input type="text" name="name" value="<?php echo $lName;?>"></p>
   
   <p>Description <input type="text" name="description"></p>
   

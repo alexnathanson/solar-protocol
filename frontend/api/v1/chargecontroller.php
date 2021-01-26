@@ -140,7 +140,7 @@ function getFileContents($fileName){
     return FALSE;
   }
 }
-
+/*
 function getFile($fileName){
   //echo $fileName;
   try{
@@ -150,4 +150,4 @@ function getFile($fileName){
     echo $fileName;
     return FALSE;
   }
-}
+}*/

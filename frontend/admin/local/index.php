@@ -114,7 +114,7 @@ function getFile($fileName){
 
 <div style="padding: 10px; border: 5px solid red">
   <h3>Danger Zone</h3>
-  <form method="POST">
+  <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
     <p>API key <input type="password" name="apiKey" value=""></p>
     <button type="submit">Update</button>
   </form>

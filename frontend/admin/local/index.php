@@ -9,10 +9,11 @@
 
 <?php
 
-$localInfo = json_decode(getFile('/home/pi/local/local.json'));
+$localInfo = json_decode(getFile('/home/pi/local/local.json'), true);
 
-$locName = $localInfo["name"];
-
+//if (isset($localInfo["name"])){
+  $locName = $localInfo["name"];
+//}
 echo json_encode($localInfo);
 //dump_var($localInfo);
 

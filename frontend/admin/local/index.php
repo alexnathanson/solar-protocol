@@ -29,7 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-echo json_encode($localInfo);
+//this will display the api key so DO NOT print directly except for debugging
+//echo json_encode($localInfo);
 
 
 $locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = "";
@@ -116,7 +117,7 @@ function getFile($fileName){
 <div style="padding: 10px; border: 5px solid red">
   <h3>Danger Zone</h3>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
-    <p>API key <input type="password" name="apiKey" value=""></p>
+    <p>API key <input type="text" name="apiKey" value=""></p>
     <button type="submit">Update</button>
   </form>
 </div>

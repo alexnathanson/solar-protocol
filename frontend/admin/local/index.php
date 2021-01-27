@@ -10,23 +10,23 @@
 <?php
 
 //validate form
+
+//$name = $description = $location = $city = $country = $lat = $long = "";
+
+$postedData = array();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   //check if this works...
   for ($k = 0; $k < count(array_keys($_POST));$k++){
-    //$_POST[array_keys($_POST)[$k]] = test_input()
-    echo $k;
     echo array_keys($_POST)[$k];
-  }
 
-if (isset($_POST["name"])){
-  $name = test_input($_POST["name"]);
+    $postedData[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+
+  }
 }
-  $email = test_input($_POST["email"]);
-  $website = test_input($_POST["website"]);
-  $comment = test_input($_POST["comment"]);
-  $gender = test_input($_POST["gender"]);
-}
+
+echo json_encode($postedData);
 
 function test_input($data) {
   $data = trim($data);

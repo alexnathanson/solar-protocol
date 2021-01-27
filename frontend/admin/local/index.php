@@ -10,7 +10,7 @@
 <?php
 
 //read local file
-$localFile = '/home/pi/local/localW.json';
+$localFile = '/home/pi/local/local.json';
 $localInfo = json_decode(getFile($localFile), true);
 
 

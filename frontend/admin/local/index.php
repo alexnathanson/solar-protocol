@@ -39,26 +39,6 @@ if (isset($localInfo["long"])){
   $locLong = $localInfo["long"];
 }
 
-if (isset($localInfo["apiKey"])){
-  $locKey = $localInfo["apiKey"];
-}
-
-if (isset($localInfo["bgColor"])){
-  $locBg = $localInfo["bgColor"];
-}
-
-if (isset($localInfo["serverColor"])){
-  $locSColor = $localInfo["serverColor"];
-}
-
-if (isset($localInfo["font"])){
-  $locFont = $localInfo["font"];
-}
-
-if (isset($localInfo["borderStyle"])){
-  $locBorderStyle = $localInfo["borderStyle"];
-}
-
 //echo json_encode($localInfo);
 
 function getFile($fileName){
@@ -70,7 +50,10 @@ function getFile($fileName){
     echo $fileName;
     return FALSE;
   }
+}
 
+function putFile($fileName, $putData){
+    file_put_contents($filename, $putData);
 }
 
 ?>
@@ -81,9 +64,6 @@ function getFile($fileName){
 
 <h3>Local Info</h3>
 <form method="POST">
-  <?php if( $_SERVER['REQUEST_METHOD'] == 'POST' ) { ?>
-    Invalid password
-  <?php } ?>
   
   <p>Name <input type="text" name="name" value="<?php if (isset($locName)){echo $locName;}?>"></p>
   
@@ -98,14 +78,6 @@ function getFile($fileName){
  	<p>Latitude <input type="text" name="lat" value="<?php if (isset($locLat)){echo $locLat;}?>"></p>
 
    <p>Longitude <input type="text" name="long" value="<?php if (isset($locLong)){echo $locLong;}?>"></p>
-
-   <p>Background Color <input type="text" name="bgColor" value="<?php if (isset($locBg)){echo $locBg;}?>"></p>
-
-   <p>Server Color <input type="text" name="serverColor" value="<?php if (isset($locSColor)){echo $locSColor;}?>"></p>
-
-   <p>Font <input type="radio" name="font" value="<?php if (isset($locFont)){echo $locFont;}?>"></p>
-
-   <p>Border Style <input type="text" name="borderStyle" value="<?php if (isset($locBorderStyle)){echo $locBorderStyle;}?>"></p>
 
   <p></p>
   <button type="submit">Update</button>

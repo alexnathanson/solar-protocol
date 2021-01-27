@@ -88,14 +88,14 @@ function getFile($fileName){
 <p><a href="/admin">Admin Console</a> | <a href="/admin/local">Local Info</a></p>
 
 <h3>Local Info</h3>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form method="post" id="updateLocalInfo" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
   
   <p>Name <input type="text" name="name" value="<?php if (isset($locName)){echo $locName;}?>"></p>
   
-  <p>Description<!--  <input type="text" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p> -->
-  <textarea id="story" name="description"
-          rows="5" cols="33"></textarea>
+  <p>Description (500 characters max)<!--  <input type="text" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p> -->
+
+  <textarea name="description" id="descriptionText" rows="5" cols="33" form="updateLocalInfo" maxlength="500"><?php if (isset($locDescription)){echo $locDescription;}?></textarea>
   </p>
 
    <p>Location <input type="text" name="location" value="<?php if (isset($locLocation)){echo $locLocation;}?>"></p>

@@ -24,11 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //echo array_keys($_POST)[$k];
     $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
   }
+
+  file_put_contents($localFile, $localInfo);
+
 }
 
 echo json_encode($localInfo);
 
-file_put_contents($localFile, $localInfo);
 
 $locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = "";
 

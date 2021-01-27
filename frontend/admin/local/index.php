@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
   }
 
-  file_put_contents($localFile, json_encode($localInfo));
+  file_put_contents($localFile, json_encode($localInfo, JSON_PRETTY_PRINT));
 
 }
 

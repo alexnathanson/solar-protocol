@@ -9,40 +9,38 @@
 
 <?php
 
+//read local file
+$localFile = '/home/pi/local/local.json';
+$localInfo = json_decode(getFile($localFile), true);
+
+//$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = "";
+
 //validate form
 
-//$name = $description = $location = $city = $country = $lat = $long = "";
-
-$postedData = array();
+//$postedData = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  //check if this works...
   for ($k = 0; $k < count(array_keys($_POST));$k++){
-    echo array_keys($_POST)[$k];
-
-    $postedData[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
-
+    //echo array_keys($_POST)[$k];
+    $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
   }
 }
 
-echo json_encode($postedData);
+echo json_encode($localInfo);
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-
-$localInfo = json_decode(getFile('/home/pi/local/local.json'), true);
+//file_put_contents($localFile, $localInfo);
 
 if (isset($localInfo["name"])){
   $locName = $localInfo["name"];
+} else {
+  $locName = "";
 }
 
 if (isset($localInfo["description"])){
   $locDescription = $localInfo["description"];
+} else {
+  $locDescription = "";
 }
 
 if (isset($localInfo["location"])){
@@ -67,6 +65,13 @@ if (isset($localInfo["long"])){
 
 //echo json_encode($localInfo);
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
 function getFile($fileName){
   //echo $fileName;
   try{
@@ -78,9 +83,9 @@ function getFile($fileName){
   }
 }
 
-function putFile($fileName, $putData){
+/*function putFile($fileName, $putData){
     file_put_contents($filename, $putData);
-}
+}*/
 
 ?>
 

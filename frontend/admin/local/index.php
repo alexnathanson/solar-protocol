@@ -81,10 +81,6 @@ function getFile($fileName){
   }
 }
 
-/*function putFile($fileName, $putData){
-    file_put_contents($filename, $putData);
-}*/
-
 ?>
 
 <h1>Solar Protocol - Admin Console</h1>
@@ -97,7 +93,7 @@ function getFile($fileName){
   
   <p>Name <input type="text" name="name" value="<?php if (isset($locName)){echo $locName;}?>"></p>
   
-  <p>Description <input type="text" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p>
+  <p>Description <input type="comment" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p>
   
    <p>Location <input type="text" name="location" value="<?php if (isset($locLocation)){echo $locLocation;}?>"></p>
 

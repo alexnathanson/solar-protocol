@@ -13,7 +13,6 @@
 $localFile = '/home/pi/local/local.json';
 $localInfo = json_decode(getFile($localFile), true);
 
-//$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = "";
 
 //validate form
 
@@ -30,6 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 echo json_encode($localInfo);
 
 //file_put_contents($localFile, $localInfo);
+
+$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = "";
 
 if (isset($localInfo["name"])){
   $locName = $localInfo["name"];

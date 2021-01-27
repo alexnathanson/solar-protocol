@@ -93,8 +93,11 @@ function getFile($fileName){
   
   <p>Name <input type="text" name="name" value="<?php if (isset($locName)){echo $locName;}?>"></p>
   
-  <p>Description <input type="comment" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p>
-  
+  <p>Description<!--  <input type="text" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p> -->
+  <textarea id="story" name="description"
+          rows="5" cols="33"></textarea>
+  </p>
+
    <p>Location <input type="text" name="location" value="<?php if (isset($locLocation)){echo $locLocation;}?>"></p>
 
    <p>City <input type="text" name="city" value="<?php if (isset($locCity)){echo $locCity;}?>"></p>

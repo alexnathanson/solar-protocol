@@ -9,6 +9,31 @@
 
 <?php
 
+//validate form
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  //check if this works...
+  for ($k = 0; $k < count(array_keys($_POST));$k++){
+    //$_POST[array_keys($_POST)[$k]] = test_input()
+    echo array_keys($_POST)[$k];
+  }
+
+if (isset($_POST["name"])){
+  $name = test_input($_POST["name"]);
+}
+  $email = test_input($_POST["email"]);
+  $website = test_input($_POST["website"]);
+  $comment = test_input($_POST["comment"]);
+  $gender = test_input($_POST["gender"]);
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
 $localInfo = json_decode(getFile('/home/pi/local/local.json'), true);
 
 if (isset($localInfo["name"])){
@@ -63,7 +88,8 @@ function putFile($fileName, $putData){
 <p><a href="/admin">Admin Console</a> | <a href="/admin/local">Local Info</a></p>
 
 <h3>Local Info</h3>
-<form method="POST">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
   
   <p>Name <input type="text" name="name" value="<?php if (isset($locName)){echo $locName;}?>"></p>
   

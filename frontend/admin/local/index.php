@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //check if this works...
   for ($k = 0; $k < count(array_keys($_POST));$k++){
     //$_POST[array_keys($_POST)[$k]] = test_input()
+    echo $k;
     echo array_keys($_POST)[$k];
   }
 

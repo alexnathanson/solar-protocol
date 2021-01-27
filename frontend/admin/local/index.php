@@ -28,20 +28,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 echo json_encode($localInfo);
 
-//file_put_contents($localFile, $localInfo);
+file_put_contents($localFile, $localInfo);
 
 $locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = "";
 
 if (isset($localInfo["name"])){
   $locName = $localInfo["name"];
-} else {
-  $locName = "";
 }
 
 if (isset($localInfo["description"])){
   $locDescription = $localInfo["description"];
-} else {
-  $locDescription = "";
 }
 
 if (isset($localInfo["location"])){
@@ -63,8 +59,6 @@ if (isset($localInfo["lat"])){
 if (isset($localInfo["long"])){
   $locLong = $localInfo["long"];
 }
-
-//echo json_encode($localInfo);
 
 function test_input($data) {
   $data = trim($data);

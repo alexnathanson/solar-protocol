@@ -242,7 +242,7 @@ $rawDataArray = [];
 
 echo "<h2>Local PV Data:</h2>";
 
-echo "<p>View: <a href='/admin/?date=today' id='today'>Today</a> | <a href='/admin/?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/admin/?date=before' id='daybefore'>The Day Before</a></p>";
+echo "<p>View: <a href='/admin/local.php?date=today' id='today'>Today</a> | <a href='/admin/local.php?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/admin/local.php?date=before' id='daybefore'>The Day Before</a></p>";
 echo "<h3>File Name:</h3>". $fileName . "<br>";
 
 // current directory

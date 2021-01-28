@@ -20,9 +20,11 @@
 
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a></p>
 
-<div id="server list"><h2>Servers:</h2></div>
+<h2>Network Activity</h2>
 
-<div id="pointOfEntry"><h2>Point of Entry History:</h2></div>
+<div id="server list"><h3>Online Servers:</h3></div>
+
+<div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
 <!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
 
 <script>

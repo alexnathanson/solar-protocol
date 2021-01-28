@@ -16,7 +16,7 @@
 
 <body>
 
-<h1>Solar Protocol - Admin Console</h1>
+<h1><a href="/">Solar Protocol</a> - Admin Console</h1>
 
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a></p>
 

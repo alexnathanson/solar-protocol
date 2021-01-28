@@ -103,7 +103,7 @@ function getFile($fileName){
 
 ?>
 
-<h1>Solar Protocol - Admin Console</h1>
+<h1><a href="/">Solar Protocol</a> - Admin Console</h1>
 
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a></p>
 
@@ -135,7 +135,7 @@ function getFile($fileName){
 <div style="padding: 10px; border: 5px solid red">
   <h3>Danger Zone</h3>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
-    <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"><?php echo $apiErr;?></span></p>
+    <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>
     <button type="submit">Update</button>
   </form>
 </div>

@@ -91,7 +91,7 @@ function getFile($fileName){
 
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a></p>
 
-<h3>Local Info</h3>
+<h2>Local Settings</h2>
 <form method="post" id="updateLocalInfo" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
   

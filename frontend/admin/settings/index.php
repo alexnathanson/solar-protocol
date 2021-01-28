@@ -13,16 +13,22 @@
 $localFile = '/home/pi/local/local.json';
 $localInfo = json_decode(getFile($localFile), true);
 
-
-//validate form
-
-//$postedData = array();
+$apiErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   for ($k = 0; $k < count(array_keys($_POST));$k++){
     //echo array_keys($_POST)[$k];
-    $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+
+    if(isset($_POST['apiKey']){
+      if(empty($data)){
+        $apiErr = "No data entered."
+      } else {
+        $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+      }
+    }else {
+      $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+    }
   }
 
   file_put_contents($localFile, json_encode($localInfo, JSON_PRETTY_PRINT));
@@ -74,6 +80,16 @@ function test_input($data) {
   return $data;
 }
 
+//add in a validation test?
+function testAPIkey($data){
+  echo !empty($data);
+  if(!empty($data)){
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function getFile($fileName){
   //echo $fileName;
   try{
@@ -119,7 +135,7 @@ function getFile($fileName){
 <div style="padding: 10px; border: 5px solid red">
   <h3>Danger Zone</h3>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
-    <p>API key <input type="text" name="apiKey" value=""></p>
+    <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"><?php echo $apiErr;?></span></p>
     <button type="submit">Update</button>
   </form>
 </div>

@@ -64,6 +64,9 @@ if (isset($localInfo["long"])){
 }
 
 function test_input($data) {
+  $data = str_replace("\r", " ", $data) //rm line breaks
+  $data = str_replace("\n", " ", $data) //rm line breaks
+  $data = str_replace("  ", " ", $data) //replace double spaces with single space
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
@@ -93,8 +96,7 @@ function getFile($fileName){
   
   <p>Name <input type="text" name="name" value="<?php if (isset($locName)){echo $locName;}?>"></p>
   
-  <p>Description (500 characters max)<!--  <input type="text" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p> -->
-
+  <p>Description (500 characters max)<br><!--  <input type="text" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p> -->
   <textarea name="description" id="descriptionText" rows="5" cols="33" form="updateLocalInfo" maxlength="500"><?php if (isset($locDescription)){echo $locDescription;}?></textarea>
   </p>
 

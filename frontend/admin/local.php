@@ -20,11 +20,6 @@
 
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a></p>
 
-<div id="server list"><h2>Servers:</h2></div>
-
-<div id="pointOfEntry"><h2>Point of Entry History:</h2></div>
-<!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
-
 <script>
   //make this dynamic at some point
   //let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
@@ -32,19 +27,19 @@
   //get the most recent line of charge controller data
   let toGet = "0";
 
-  let jsonPoe;
+ // let jsonPoe;
 
-
+/*
   let devListURL = "http://"+ window.location.hostname +"/api/v1/chargecontroller.php?file=deviceList";
-  console.log(devListURL);
+  console.log(devListURL);*/
 
-  getRequest(devListURL,parseDevList);
-
+/*  getRequest(devListURL,parseDevList);
+*/
   //point of entry
   //getRequest(poeURL,sortPoeLog);
 
 
-  function getRequest(dst, callback){
+ /* function getRequest(dst, callback){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -55,8 +50,8 @@
     };
     xhttp.open("GET", dst, true);
     xhttp.send();
-  }
-
+  }*/
+/*
   function parseDevList(response){
 
     console.log(JSON.parse(response));
@@ -76,8 +71,8 @@
 
   //point of entry
   sortPoeLog(response);
-  }
-
+  }*/
+/*
   function sortPoeLog(response){
     console.log(JSON.parse(response));
     jsonPoe = JSON.parse(response);
@@ -129,8 +124,8 @@
 
     displayPOE(outputPoeLog);
 
-  } 
-
+  } */
+/*
   function displayPOE(poeArray){
     let poeID = document.getElementById('pointOfEntry');
 
@@ -143,7 +138,7 @@
     }
 
     poeID.appendChild(para);
-  }
+  }*/
 
 
   function populate(dataToDisplay, dst) {
@@ -203,7 +198,7 @@
     sT.appendChild(tbdy);
     return sT;
   }
-
+/*
   function addActions(){
     //ping the servers
   }
@@ -221,7 +216,7 @@
       console.log(aString);
       return false;
     }
-  }
+  }*/
 </script>
 
 <?php

@@ -89,7 +89,7 @@ function getFile($fileName){
 
 <h1>Solar Protocol - Admin Console</h1>
 
-<p><a href="/admin">Admin Console</a> | <a href="/admin/local">Local Info</a></p>
+<p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a></p>
 
 <h3>Local Info</h3>
 <form method="post" id="updateLocalInfo" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

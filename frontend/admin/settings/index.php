@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   for ($k = 0; $k < count(array_keys($_POST));$k++){
     //echo array_keys($_POST)[$k];
 
-    if(isset($_POST['apiKey']){
+    if(isset($_POST['apiKey'])){
       if(empty($data)){
         $apiErr = "No data entered."
       } else {

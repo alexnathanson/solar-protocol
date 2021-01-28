@@ -67,7 +67,7 @@ function test_input($data) {
  /* $data = str_replace("\r", " ", $data) //rm line breaks
   $data = str_replace("\n", " ", $data) //rm line breaks
   $data = str_replace("  ", " ", $data) //replace double spaces with single space*/
-  $data = str_replace(array("\n", "\r"), '', $data);
+  $data = str_replace(array("\n", "\r", "  "), ' ', $data);
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);

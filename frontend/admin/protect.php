@@ -35,8 +35,8 @@ function retrieveHash($un){
 
   try{
     $test = json_decode(file_get_contents($fileName));
-    echo $test;
-    return json_decode(file_get_contents($fileName))['users'][$un];
+    var_dump($test);
+    return json_decode(file_get_contents($fileName))['users'][$un][0];
   }
   catch(Exception $e) {
     echo $fileName;

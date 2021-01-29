@@ -1,6 +1,6 @@
 <?php
-  require_once '/home/pi/solar-protocol/frontend/admin/protect.php';
-  Protect\with('/home/pi/solar-protocol/frontend/admin/form.php','admin');
+  require_once '/home/pi/solar-protocol/frontend/admin/protect/protect.php';
+  Protect\with('/home/pi/solar-protocol/frontend/admin/protect/form.php','admin');
 ?>
 
 <!DOCTYPE html>

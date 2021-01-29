@@ -17,6 +17,7 @@ function with($form, $scope=null) {
 
   # Check the POST for access
   if(isset($_POST['username']) && verifyPW(retrieveHash($_POST['username']))) {
+
     $_SESSION[$session_key] = true;
     $_SESSION["username"] = $_POST['username'];
 
@@ -25,7 +26,15 @@ function with($form, $scope=null) {
   }
 
   # If user has access then simply return so original page can render.
-  if( isset($_SESSION[$session_key]) && $_SESSION[$session_key] ) return;
+  if( isset($_SESSION[$session_key]) && $_SESSION[$session_key] ){
+    
+    // if user is currently logged in and is trying to log out
+    if(isset($_GET['logout']){
+      logout();
+      require $form;
+    }
+    return;
+  }
 
   require $form;
   exit;

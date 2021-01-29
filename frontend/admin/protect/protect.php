@@ -31,7 +31,6 @@ function with($form, $scope=null) {
     // if user is currently logged in and is trying to log out
     if(isset($_GET["logout"])){
       logout();
-      require $form;
     } else {
       return;
     }

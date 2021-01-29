@@ -29,7 +29,7 @@ function with($form, $scope=null) {
   if( isset($_SESSION[$session_key]) && $_SESSION[$session_key] ){
     
     // if user is currently logged in and is trying to log out
-    if(isset($_GET['logout']){
+    if(isset($_GET["logout"]){
       logout();
       require $form;
     }

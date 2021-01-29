@@ -34,7 +34,7 @@ function retrieveHash($un){
   $fileName = '/home/pi/local/access.json';
 
   try{
-    $test = json_decode(file_get_contents($fileName));
+    $test = file_get_contents($fileName);
     var_dump($test);
     return json_decode(file_get_contents($fileName))['users'][$un][0];
   }

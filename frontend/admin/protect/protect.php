@@ -55,6 +55,14 @@ function verifyPW($hash){
   return false;
 }
 
+function logout(){
+  // remove all session variables
+  session_unset();
+
+  // destroy the session
+  session_destroy(); 
+}
+
 #### PRIVATE ####
 
 function current_url($script_only=false) {

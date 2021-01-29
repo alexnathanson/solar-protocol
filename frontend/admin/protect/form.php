@@ -1,6 +1,8 @@
 <html>
 <body>
 
+<h1><a href="/">Solar Protocol</a></h1>
+
 <form method="POST">
   <?php if( $_SERVER['REQUEST_METHOD'] == 'POST' ) { ?>
     Invalid password

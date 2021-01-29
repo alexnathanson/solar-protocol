@@ -25,18 +25,16 @@ function with($form, $scope=null) {
     #return;
   }
 
+
   # If user has access then simply return so original page can render.
-  if( isset($_SESSION[$session_key]) && $_SESSION[$session_key] ){
-    
-    // if user is currently logged in and is trying to log out
-    if(isset($_GET["logout"])){
-      logout();
-    } else {
-      return;
-    }
+  if(isset($_GET["logout"])){// if user is currently logged in and is trying to log out
+    logout();
+  } else if( isset($_SESSION[$session_key]) && $_SESSION[$session_key] ){
+    return;
+  } else {
+  require $form;
   }
 
-  require $form;
   exit;
 }
 
@@ -70,6 +68,8 @@ function logout(){
 
   // destroy the session
   session_destroy(); 
+
+  header(str_replace("?logout","",window.location.href);
 }
 
 #### PRIVATE ####

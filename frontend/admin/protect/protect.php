@@ -18,6 +18,8 @@ function with($form, $scope=null) {
   # Check the POST for access
   if( isset($_POST['password']) && isset($_POST['username']) && verifyPW(retrieveHash($_POST['username']))) {
     $_SESSION[$session_key] = true;
+    $_SESSION["username"] = $_POST['username'];
+
     redirect(current_url());
     #return;
   }

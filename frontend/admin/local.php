@@ -16,7 +16,8 @@
 
 <body>
 
-<h1><a href="/">Solar Protocol</a> - Admin Console (Logged in as <?php echo $_SESSION["username"]?>)</h1>
+<h1><a href="/">Solar Protocol</a> - Admin Console</h1>
+<span>Logged in as <?php echo $_SESSION["username"]?> <a href="" onclick="<?php Protect\logout()?>">(Logout)</a></span>
 
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a></p>
 

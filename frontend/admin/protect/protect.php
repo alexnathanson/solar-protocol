@@ -32,8 +32,9 @@ function with($form, $scope=null) {
     if(isset($_GET["logout"])){
       logout();
       require $form;
+    } else {
+      return;
     }
-    return;
   }
 
   require $form;

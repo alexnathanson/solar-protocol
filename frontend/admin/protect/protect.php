@@ -69,7 +69,8 @@ function logout(){
   // destroy the session
   session_destroy(); 
 
-  header(str_replace("?logout","",window.location.href);
+  $redirect = str_replace("?logout","",window.location.href);
+  header("Location: ".$redirect);
 }
 
 #### PRIVATE ####

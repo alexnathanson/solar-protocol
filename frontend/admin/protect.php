@@ -9,14 +9,14 @@ namespace Protect;
 # The user will only need to input the password once. After that their session will be enough
 # to get them in. 
 
-function with($form, $password, $scope=null) {
+function with($form, $hash, $scope=null) {
   if( !$scope ) $scope = current_url();
   $session_key = 'password_protect_'.preg_replace('/\W+/', '_', $scope);
 
   session_start();
 
   # Check the POST for access
-  if( isset($_POST['password']) && verifyPW($password)) {
+  if( isset($_POST['password']) && isset($_POST['username']) && verifyPW(retrieveHash($_POST['username']))) {
     $_SESSION[$session_key] = true;
     redirect(current_url());
     #return;
@@ -29,6 +29,20 @@ function with($form, $password, $scope=null) {
   exit;
 }
 
+function retrieveHash($un){
+  //echo $fileName;
+  $fileName = '/home/pi/local/access.json';
+
+  try{
+    $test = json_decode(file_get_contents($fileName));
+    echo $test;
+    return json_decode(file_get_contents($fileName))['users'][$un];
+  }
+  catch(Exception $e) {
+    echo $fileName;
+    return FALSE;
+  }
+}
 
 function verifyPW($hash){
 

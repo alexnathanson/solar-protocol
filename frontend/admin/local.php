@@ -40,7 +40,7 @@ if(isset($_GET["date"])){
 $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
 $rawDataArray = [];
 
-echo "<h2>Local PV Data:</h2>";
+echo "<h2>Local PV Data</h2>";
 
 echo "<p>View: <a href='/admin/local.php?date=today' id='today'>Today</a> | <a href='/admin/local.php?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/admin/local.php?date=before' id='daybefore'>The Day Before</a></p>";
 echo "<h3>File Name:</h3>". $fileName . "<br>";

@@ -9,27 +9,36 @@ namespace Protect;
 # The user will only need to input the password once. After that their session will be enough
 # to get them in. 
 
+$sUsername = $sPassword = "";
+
 function with($form, $scope=null) {
   if( !$scope ) $scope = current_url();
   $session_key = 'password_protect_'.preg_replace('/\W+/', '_', $scope);
 
   session_start();
 
+  if(isset($_POST['username']) && isset($_POST['password'])){
+
+    //sanitize input
+    $sUsername = sanitize_input($_POST['username']);
+    $sPassword = sanitize_input($_POST['password']);
+
   # Check the POST for access
-  if(isset($_POST['username']) && verifyPW(retrieveHash($_POST['username']))) {
+    if(verifyPW($sPassword,retrieveHash($sUsername))) {
 
-    $_SESSION[$session_key] = true;
-    $_SESSION["username"] = $_POST['username'];
+      $_SESSION[$session_key] = true;
+      $_SESSION["username"] = $sUsername;
 
-    redirect(current_url());
-    #return;
+      redirect(current_url());
+      #return;
+    }
   }
 
 
-  # If user has access then simply return so original page can render.
   if(isset($_GET["logout"])){// if user is currently logged in and is trying to log out
     logout();
   } else if( isset($_SESSION[$session_key]) && $_SESSION[$session_key] ){
+    # If user has access then simply return so original page can render.
     return;
   } else {
   require $form;
@@ -39,7 +48,6 @@ function with($form, $scope=null) {
 }
 
 function retrieveHash($un){
-  //echo $fileName;
   $fileName = '/home/pi/local/access.json';
 
   try{
@@ -47,16 +55,16 @@ function retrieveHash($un){
     return $f['users'][$un];
   }
   catch(Exception $e) {
-    echo $fileName;
+    //echo $fileName;
     return FALSE;
   }
 }
 
-function verifyPW($hash){
+function verifyPW($pw, $hash){
 
 # hash generated from password_hash() more info at https://www.php.net/manual/en/function.password-hash.php
 
-  if(password_verify($_POST['password'], $hash)){
+  if(password_verify($pw, $hash)){
     return true;
   }
   return false;
@@ -71,6 +79,13 @@ function logout(){
 
   $redirect = str_replace("?logout","",$_SERVER['REQUEST_URI']);
   header("Location: " . $redirect);
+}
+
+function sanitize_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 
 #### PRIVATE ####

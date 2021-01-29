@@ -5,7 +5,7 @@
 
 <form method="POST">
   <?php if( $_SERVER['REQUEST_METHOD'] == 'POST' ) { ?>
-    Invalid password
+    Invalid user name or password
   <?php } ?>
   <p>Username</p>
   <input type="text" name="username">

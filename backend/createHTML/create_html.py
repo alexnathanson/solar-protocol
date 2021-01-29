@@ -1,7 +1,6 @@
 from jinja2 import Template
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 import datetime
-from suntime import Sun, SunTimeException
 import json
 import random
 import csv

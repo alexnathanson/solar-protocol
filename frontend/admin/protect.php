@@ -9,7 +9,7 @@ namespace Protect;
 # The user will only need to input the password once. After that their session will be enough
 # to get them in. 
 
-function with($form, $hash, $scope=null) {
+function with($form, $scope=null) {
   if( !$scope ) $scope = current_url();
   $session_key = 'password_protect_'.preg_replace('/\W+/', '_', $scope);
 

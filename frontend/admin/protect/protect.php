@@ -9,7 +9,7 @@ namespace Protect;
 # The user will only need to input the password once. After that their session will be enough
 # to get them in. 
 
-$sUsername = $sPassword = "";
+$sUsername = $sPassword = $accessLevel = "";
 
 function with($form, $scope=null) {
   if( !$scope ) $scope = current_url();
@@ -24,10 +24,11 @@ function with($form, $scope=null) {
     $sPassword = sanitize_input($_POST['password']);
 
   # Check the POST for access
-    if(verifyPW($sPassword,retrieveHash($sUsername))) {
+    if(verifyPW($sPassword,retrieveUserInfo($sUsername))) {
 
       $_SESSION[$session_key] = true;
       $_SESSION["username"] = $sUsername;
+      $_SESSION["accessLevel"] = $accessLevel;
 
       redirect(current_url());
       #return;
@@ -47,12 +48,17 @@ function with($form, $scope=null) {
   exit;
 }
 
-function retrieveHash($un){
+function retrieveUserInfo($un){
   $fileName = '/home/pi/local/access.json';
 
   try{
     $f = json_decode(file_get_contents($fileName),true);
-    return $f['users'][$un];
+    if(isset($f['users'][$un]['hash']) && isset($f['users'][$un]['access'])){
+      $accessLevel = $f['users'][$un]['access'];
+      return $f['users'][$un]['hash'];
+    } else {
+      return FALSE;
+    }
   }
   catch(Exception $e) {
     //echo $fileName;

@@ -81,26 +81,26 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     //get a full file
-  } else if (array_key_exists("day", $_GET)) {
+  } else if (array_key_exists("file", $_GET)) {
     //echo "Key = File";
 
-    if($_GET["day"] == "deviceList"){ //deviceList should be a POST
+    if($_GET["file"] == "deviceList"){ //deviceList should be a POST
       $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
       echo getFileContents($fileName);
 
-    } else if ($_GET["day"] == "list"){//list all charge controller data files
+    } else if ($_GET["file"] == "list"){//list all charge controller data files
       echo json_encode(justTracerDataFiles($ccDir));
       //var_dump(justTracerDataFiles($ccDir));
 
-    } else if ($_GET["day"] == "len"){//list all charge controller data files
+    } else if ($_GET["file"] == "len"){//list all charge controller data files
       echo count(justTracerDataFiles($ccDir));
 
-    } else if (intval($_GET["day"]) >= 1 && intval($_GET["day"]) <= 7){
+    } else if (intval($_GET["file"]) >= 1 && intval($_GET["file"]) <= 7){
 
       $multiDayData = [];
 
       $dirArray = justTracerDataFiles($ccDir);
-      for ($f = 0; $f < intval($_GET["day"]); $f++){
+      for ($f = 0; $f < intval($_GET["file"]); $f++){
         if($f>= count($dirArray)){
           break;
         }
@@ -109,8 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       echo json_encode($multiDayData);
 
-    } else if(strpos($_GET["day"],'tracerData') !== false){      //get CC data file by file name
-      echo json_encode(chargeControllerData($ccDir . $_GET["day"] . '.csv'));
+    } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
+      echo json_encode(chargeControllerData($ccDir . $_GET["file"] . '.csv'));
     }
   }
 }

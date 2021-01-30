@@ -31,7 +31,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if($f>= count($dirArray)){
           break;
         }
-        var_dump(chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]));
+        $tFile = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
+
+        $valuePosition = 0;
+        foreach($tFile[0] as $k){
+          if($k == $qValue){
+            break;
+          }
+          $valuePosition++;
+        }
+
+        foreach($tFile as $l){
+          $valueTimeSeries[$l[0]]=$l[$valuePosition];
+        }
+
         /*
         $vTime = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
         $vValue = 

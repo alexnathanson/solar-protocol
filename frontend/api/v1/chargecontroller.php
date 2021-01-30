@@ -22,17 +22,38 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $qValue = str_replace("-"," ",$_GET["value"]);
     //echo $qValue;
 
-    $readData = chargeControllerData($todayFile);
+    if(array_key_exists("duration", $_GET)){
+      //returns a given value over time
+      $valueTimeSeries = [];
 
-    if ($readData != FALSE){    
-      for ($v = 0; $v < sizeof($readData[0]);$v++){
-          if($readData[0][$v]==$qValue){
-              echo $readData[count($readData)-1][$v];
-              break;
-          }
+      $dirArray = justTracerDataFiles($ccDir);
+      for ($f = 0; $f < intval($_GET["duration"]); $f++){
+        if($f>= count($dirArray)){
+          break;
+        }
+        var_dump(chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]));
+        /*
+        $vTime = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
+        $vValue = 
+        $valueTimeSeries[$vTime]=$vValue;
+        *///array_push($valueTimeSeries, );
+        }
+
+      echo json_encode($valueTimeSeries);
+    } else {
+      $readData = chargeControllerData($todayFile);
+
+      if ($readData != FALSE){    
+        for ($v = 0; $v < sizeof($readData[0]);$v++){
+            if($readData[0][$v]==$qValue){
+                echo $readData[count($readData)-1][$v];
+                break;
+            }
+        }
       }
     }
-  } 
+    
+  }
   //get a line of current data file. "len" returns length of current file, "head" returns the column headers, "0" returns most recent line. Increments up for other lines.
   else if (array_key_exists("line", $_GET)) {
     //echo "Key = Line";
@@ -60,26 +81,26 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     //get a full file
-  } else if (array_key_exists("file", $_GET)) {
+  } else if (array_key_exists("day", $_GET)) {
     //echo "Key = File";
 
-    if($_GET["file"] == "deviceList"){ //deviceList should be a POST
+    if($_GET["day"] == "deviceList"){ //deviceList should be a POST
       $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
       echo getFileContents($fileName);
 
-    } else if ($_GET["file"] == "list"){//list all charge controller data files
+    } else if ($_GET["day"] == "list"){//list all charge controller data files
       echo json_encode(justTracerDataFiles($ccDir));
       //var_dump(justTracerDataFiles($ccDir));
 
-    } else if ($_GET["file"] == "len"){//list all charge controller data files
+    } else if ($_GET["day"] == "len"){//list all charge controller data files
       echo count(justTracerDataFiles($ccDir));
 
-    } else if (intval($_GET["file"]) >= 1 && intval($_GET["file"]) <= 7){
+    } else if (intval($_GET["day"]) >= 1 && intval($_GET["day"]) <= 7){
 
       $multiDayData = [];
 
       $dirArray = justTracerDataFiles($ccDir);
-      for ($f = 0; $f < intval($_GET["file"]); $f++){
+      for ($f = 0; $f < intval($_GET["day"]); $f++){
         if($f>= count($dirArray)){
           break;
         }
@@ -88,8 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       echo json_encode($multiDayData);
 
-    } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-      echo json_encode(chargeControllerData($ccDir . $_GET["file"] . '.csv'));
+    } else if(strpos($_GET["day"],'tracerData') !== false){      //get CC data file by file name
+      echo json_encode(chargeControllerData($ccDir . $_GET["day"] . '.csv'));
     }
   }
 }

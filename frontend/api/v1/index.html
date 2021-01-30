@@ -17,7 +17,7 @@
 Results displayed in console.
 <form method="GET">
 
-   <p>Key: Value<input type="radio" name="key" value="value"> Line<input type="radio" name="key" value="line"> File<input type="radio" name="key" value="file"></p>
+   <p>Key: Value<input type="radio" name="key" value="value"> Value-series<input type="radio" name="key" value="value-series"> Line<input type="radio" name="key" value="line"> Day<input type="radio" name="key" value="day"></p>
 
  <p>Value <input type="text" name="value"></p>
 
@@ -57,8 +57,8 @@ Results displayed in console.
 	</ul>
 </p>
 
-<strong>file</strong> returns a specific file
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?file=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?file=2</a></p>
+<strong>day</strong> returns all the data from a specific day or range of days
+<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?day=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=2</a></p>
 <p>Possible values:
 	<ul>
 		<li>1 - returns present day data</li>
@@ -70,7 +70,7 @@ Results displayed in console.
 		<li>7 - returns present day + previous 6 days</li>
 		<li>list - returns list of all CC files</li>
 		<li>len - return count of all CC files</li>
-		<li>[file name without file suffix] - example: /api/v1/chargecontroller.php?file=tracerData2020-05-17</li>
+		<li>[file name without file suffix] - example: /api/v1/chargecontroller.php?day=tracerData2020-05-17</li>
 	</ul>
 </p>
 

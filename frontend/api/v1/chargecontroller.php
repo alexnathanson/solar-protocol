@@ -19,7 +19,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   if(array_key_exists("value", $_GET)){
     //echo "Key = Value";
   
+
+    if(!testValue($_GET["value"])){
+      echo "Value incorrect";
+      exit;
+    }
+
     $qValue = str_replace("-"," ",$_GET["value"]);
+
     //echo $qValue;
 
     if(array_key_exists("duration", $_GET)){
@@ -126,6 +133,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       echo json_encode(chargeControllerData($ccDir . $_GET["file"] . '.csv'));
     }
   }
+}
+
+function testValue($v){
+
+  $possibleValues = array('PV-current','PV-current','PV-power-H','PV-power-L','PV-voltage','battery-percentage','battery-voltage','charge-current','charge-power-H', 'charge-power-L','load-current','load-power','load-voltage','datetime')
+
+  foreach($possibleValues as $aV){
+    if($aV == $v){
+      //$v = str_replace("-"," ",$v);
+      return $v;
+    }
+  }
+  return FALSE;
 }
 
 function justTracerDataFiles($dir){

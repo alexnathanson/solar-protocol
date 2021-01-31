@@ -1,7 +1,5 @@
 const params = new URLSearchParams(window.location.search);
 
-console.log(params.getAll(keys));
-
 if(window.location.search.length > 0){
 
 	//this could be much simplied by getting the url search params in a string and just adding it to the url...

@@ -1,7 +1,20 @@
 const params = new URLSearchParams(window.location.search);
 
+let endPt,endPtVal,mod,modVal; 
+
+if(params.get("value")){
+	endPt = "value";
+	endPtVal = params.get("value");
+} else if(params.get("line")){
+	endPt = "line";
+	endPtVal = params.get("line");
+} else if(params.get("day")){
+	endPt = "day";
+	endPtVal = params.get("day");
+}
+
 //example http://solarprotocol.net/api/v1/chargecontroller.php?file=list
-let result = JSON.parse(httpGet(getBaseUrl() + '/api/v1/chargecontroller.php?' + params.get("key") + "=" + params.get("value")));
+let result = JSON.parse(httpGet(getBaseUrl() + '/api/v1/chargecontroller.php?' + endPt + "=" + endPtVal));
 
 console.log(result);
 

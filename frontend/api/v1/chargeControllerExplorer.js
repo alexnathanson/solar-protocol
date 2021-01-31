@@ -14,7 +14,12 @@ if(params.get("value")){
 }
 
 //example http://solarprotocol.net/api/v1/chargecontroller.php?file=list
-let result = JSON.parse(httpGet(getBaseUrl() + '/api/v1/chargecontroller.php?' + endPt + "=" + endPtVal));
+
+let dst = getBaseUrl() + '/api/v1/chargecontroller.php?' + endPt + "=" + endPtVal;
+
+console.log(dst);
+
+let result = JSON.parse(httpGet(dst));
 
 console.log(result);
 

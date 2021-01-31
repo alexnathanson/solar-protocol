@@ -142,13 +142,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
   } else if (array_key_exists("systemInfo", $_GET)) {
 
-    echo "system info!";
+    echo "system info! ";
 
     //get local time zone
     if ($_GET["systemInfo"] == "tz"){
 
       //if (ini_get('date.timezone')) {
-          echo 'date.timezone: ' . ini_get('date.timezone');
+          //echo ini_get('date.timezone');
+          echo date_default_timezone_get();
       //}
     }
   }

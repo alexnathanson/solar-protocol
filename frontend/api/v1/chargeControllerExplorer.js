@@ -1,10 +1,16 @@
 const params = new URLSearchParams(window.location.search);
 
-let endPt,endPtVal,mod,modVal; 
-
+let endPt,endPtVal,mod,modVal = ""; 
+let modified = false;
 if(params.get("value")){
 	endPt = "value";
 	endPtVal = params.get("value");
+
+	if(params.get("duration")){
+		mod= "duration";
+		modVal=params.get("duration");
+		modified = true;
+	}
 } else if(params.get("line")){
 	endPt = "line";
 	endPtVal = params.get("line");
@@ -16,6 +22,10 @@ if(params.get("value")){
 //example http://solarprotocol.net/api/v1/chargecontroller.php?file=list
 
 let dst = getBaseUrl() + '/api/v1/chargecontroller.php?' + endPt + "=" + endPtVal;
+
+if(modified){
+	dst = dst + "&" + mod + "=" + modVal;
+}
 
 console.log(dst);
 

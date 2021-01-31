@@ -96,10 +96,10 @@ Possible keys for get requests
 		* load-power
 		* load-voltage
 		* datetime
-	* Modifier: duration - returns the specified value over a given duration
+	* Modifier: duration - returns the specified value over a given number of days, up to 7.
 		* Example: http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&&duration=1
 		* Possible values:
-			* [integer] - specifies the number of days
+			* [integer] - specifies the number of days starting at 1
 * line - returns the specified line from the current data logger file with headers in JSON format
 	* Example: http:// + URL + /api/v1/chaergecontroller.php?line=0
 	* Possible values:

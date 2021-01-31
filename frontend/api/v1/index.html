@@ -12,14 +12,19 @@
 
 <h1>Solar Protocol - Open API Documentation</h1>
 <p>
-	Note: this is the open-access API, developers on the network can view the complete API documentation on<a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
+	Note: This is the publicly available open-access API, developers on the network can view the complete API documentation on <a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
 </p>
 
-<h2>Charge Controller Data API Explorer</h2> 
+There are 4 types of data this interface provides.
+<ol>
+	<li>Individual values</li>
+	<li> Lines of data containing all the given values for a particular time</li>
+	<li>An entire day's worth of data</li>
+	<li>System information.</li>
+</ol>
+The results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
 
-There are 4 types of data this interface provides. 1) Individual values 2) Lines of data containing all the given values for a particular time 3) An entire day's worth of data 4) System information. Presently the results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
-
-<h3>Value</h3>
+<h2>Value</h2>
 <strong>value</strong> returns the specified value from the most recently collected line of data
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage</a></p>
 <p>Possible values:
@@ -40,13 +45,18 @@ There are 4 types of data this interface provides. 1) Individual values 2) Lines
 		<li>datetime</li>
 	</ul>
 </p>
+Optional modifier: <strong>duration</strong> returns the specified value over a given amount of days up to 7.
+<p>
+Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&duration=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&duration=2</a>
+</p>
+
 <form method="GET">
   <p>Value <input type="text" name="value"></p>
-  <p>Duration <input type="text" name="duration"></p>
+  <p>Duration (optional) <input type="text" name="duration"></p>
   <button type="submit">Get Value</button>
 </form>
 
-<h3>Line</h3>
+<h2>Line</h2>
 
 <strong>line</strong> returns a line of data containing all of the possible vlaues. The specified line from the current data logger file with headers in JSON format
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?line=0" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?line=0</a></p>
@@ -62,7 +72,7 @@ There are 4 types of data this interface provides. 1) Individual values 2) Lines
   <button type="submit">Get Line</button>
 </form>
 
-<h3>Day</h3>
+<h2>Day</h2>
 
 <strong>day</strong> returns all the data from a specific day or range of days
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?day=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=2</a></p>
@@ -87,7 +97,7 @@ There are 4 types of data this interface provides. 1) Individual values 2) Lines
   <button type="submit">Get Day</button>
 </form>
 
-<h3>System Info</h3>
+<h2>System Info</h2>
 
 <strong>systemInfo</strong> returns information about the system.
 

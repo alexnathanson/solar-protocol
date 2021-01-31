@@ -29,13 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     //echo $qValue;
 
-    if(array_key_exists("duration", $_GET)){
+    if(array_key_exists("duration", $_GET) && intval($_GET["duration"]) != 0){
       //returns a given value over time
       $valueTimeSeries = [];
 
       $dirArray = justTracerDataFiles($ccDir);
       for ($f = 0; $f < intval($_GET["duration"]); $f++){
-        if($f>= count($dirArray)){
+        if($f>= count($dirArray) || $f >= 7){
           break;
         }
         $tFile = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);

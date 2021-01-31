@@ -19,7 +19,7 @@ if(params.get("value")){
 } else if(params.get("day")){
 	endPt = "day";
 	endPtVal = params.get("day");
-} else if (params.get("systemInfo"){
+} else if (params.get("systemInfo")){
 	endPt = "systemInfo";
 	endPtVal = params.get("systemInfo");
 }

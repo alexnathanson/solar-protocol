@@ -101,23 +101,15 @@ Possible keys for get requests
 		* Possible values:
 			* [integer] - specifies the number of days starting at 1
 * line - returns the specified line from the current data logger file
-	* Example: http:// + URL + /api/v1/chaergecontroller.php?line=0
+	* Example: http://solarprotocol.net/api/v1/chaergecontroller.php?line=0
 	* Possible values:
 		* len - returns the number of rows in the file
 		* head - returns the column headers
-		* [an integer]
-			* 0 returns the most recently collected line of data
-			* increment up to move back in time from 0 to retrieve any other row. For example, 1 will return the 2nd most recent row.
+		* [an integer from 0 through number if rows-1] - returns the specified line of data from the most recent day of data collected (typically the present day). For example, 0 will return the most recent row of data, 1 will return the 2nd most recent row, etc.
 * day - returns all the data for a given day or range of day
 	* Example: http://solarprotocol.net/api/v1/chargecontroller.php?day=len
 	* Possible values:
-		* 1 - returns most recent day of data (typically the present day)
-		* 2 - returns the 2 most recent days
-		* 3 - returns the 3 most recent days
-		* 4 - returns the 4 most recent days
-		* 5 - returns the 5 most recent days
-		* 6 - returns the 6 most recent days
-		* 7 - returns the 7 most recent days
+		* [an integer from 1-7] - returns the most recent X number of days of data. 1 returns the most recent day of data, 2 returns the most recent days of data, etc.
 		* list - returns list of all available files. Each file represents 1 day's worth of data.
 		* len - returns the amount of files available. Each file represents 1 day's worth of data.
 		* [file name without file suffix] - example: http://solarprotocol.net/api/v1/chargecontroller.php?day=tracerData2020-05-17
@@ -127,5 +119,5 @@ Possible keys for get requests
 		* tz - returns the timezone for the server
 
 <p>
-Python and JS examples available in utilities directory
+Simple client side Python and JS examples available in the <a href="https://github.com/alexnathanson/solar-protocol/tree/master/utilities/apiV1-examples" target="_blank">utilities directory</a>.
 </p>

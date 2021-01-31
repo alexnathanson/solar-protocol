@@ -141,6 +141,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
   } else if (array_key_exists("systemInfo", $_GET)) {
+
+    echo "system info!";
+    
     //get local time zone
     if ($_GET["systemInfo"] == "tz"){
 

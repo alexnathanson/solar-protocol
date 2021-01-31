@@ -19,6 +19,9 @@ if(params.get("value")){
 } else if(params.get("day")){
 	endPt = "day";
 	endPtVal = params.get("day");
+} else if (params.get("systemInfo"){
+	endPt = "systemInfo";
+	endPtVal = params.get("systemInfo");
 }
 
 //example http://solarprotocol.net/api/v1/chargecontroller.php?file=list

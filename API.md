@@ -121,7 +121,7 @@ Possible keys for get requests
 		* len - returns the amount of files available. Each file represents 1 day's worth of data.
 		* [file name without file suffix] - example: http://solarprotocol.net/api/v1/chargecontroller.php?day=tracerData2020-05-17
 * systemInfo - provides information about the system
-	* Example: http://solarprotocol.net/api/v1/chargecontroller.php?sysInfo=tz
+	* Example: http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz
 	* Possible values:
 		* tz - returns the timezone for the server
 <p>

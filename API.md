@@ -100,14 +100,15 @@ Possible keys for get requests
 		* Example: http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&&duration=1
 		* Possible values:
 			* [integer] - specifies the number of days starting at 1
-* line - returns the specified line from the current data logger file with headers in JSON format
+* line - returns the specified line from the current data logger file
 	* Example: http:// + URL + /api/v1/chaergecontroller.php?line=0
 	* Possible values:
 		* len - returns the number of rows in the file
 		* head - returns the column headers
-		* 0 - returns the most recently collected line of data
-		* increment up to move back in time from 0 to retrieve any other row. For example, 1 will return the 2nd most recent row.
-* day - returns all the data for a given day
+		* [an integer]
+			* 0 returns the most recently collected line of data
+			* increment up to move back in time from 0 to retrieve any other row. For example, 1 will return the 2nd most recent row.
+* day - returns all the data for a given day or range of day
 	* Example: http://solarprotocol.net/api/v1/chargecontroller.php?day=len
 	* Possible values:
 		* 1 - returns most recent day of data (typically the present day)

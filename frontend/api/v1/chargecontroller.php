@@ -78,29 +78,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   else if (array_key_exists("line", $_GET)) {
     //echo "Key = Line";
     
-    if(array_key_exists("duration", $_GET)){
+    $readData = chargeControllerData($todayFile);
 
-    } else {
-      $readData = chargeControllerData($todayFile);
+    if ($readData != FALSE){    
+      
+      if($_GET["line"] == "len"){//return the number of rows in the file
+        echo count($readData);
+      } else if($_GET["line"] == "head"){//return the CSV data headers
+        echo json_encode($readData[0]);
+      } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
+        //returns raw line
+        //var_dump($readData[count($readData)-1-$_GET["line"]]);
 
-      if ($readData != FALSE){    
-        
-        if($_GET["line"] == "len"){//return the number of rows in the file
-          echo count($readData);
-        } else if($_GET["line"] == "head"){//return the CSV data headers
-          echo json_encode($readData[0]);
-        } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
-          //returns raw line
-  //        var_dump($readData[count($readData)-1-$_GET["line"]]);
-
-          $returnArray = array();
-          //package line with headers
-          for ($p = 0; $p<count($readData[0]);$p++){
-            $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
-          }  
-            $returnJSON = json_encode($returnArray);
-            echo $returnJSON;
-        }
+        $returnArray = array();
+        //package line with headers
+        for ($p = 0; $p<count($readData[0]);$p++){
+          $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
+        }  
+          $returnJSON = json_encode($returnArray);
+          echo $returnJSON;
       }
     }
     

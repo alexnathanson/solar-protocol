@@ -1,5 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 
+//this could be much simplied by getting the url search params in a string and just adding it to the url...
+
 let endPt,endPtVal,mod,modVal = ""; 
 let modified = false;
 if(params.get("value")){

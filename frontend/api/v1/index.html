@@ -17,10 +17,10 @@
 
 There are 4 types of data this interface provides.
 <ol>
-	<li>Individual values</li>
-	<li> Lines of data containing all the given values for a particular time</li>
+	<li>Individual value</li>
+	<li>Individual lines of data containing all the given values for a particular time</li>
 	<li>An entire day's worth of data</li>
-	<li>System information.</li>
+	<li>System information</li>
 </ol>
 The results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
 
@@ -100,6 +100,13 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <h2>System Info</h2>
 
 <strong>systemInfo</strong> returns information about the system.
+<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?sysInfo=tz" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?sysInfo=tz</a></p>
+<p>Possible values:
+	<ul>
+		<li>tz - returns the timezone for the server</li>
+	</ul>
+</p>
+
 
 <form method="GET">
  <p>System Info <input type="text" name="systemInfo"></p>

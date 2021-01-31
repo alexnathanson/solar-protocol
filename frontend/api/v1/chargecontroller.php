@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   
 
     if(!testValue($_GET["value"])){
-      echo "Value incorrect";
+      echo "Value not found. Acceptable values: PV-current, PV-current, PV-power-H,PV-power-L, PV-voltage, battery-percentage, battery-voltage, charge-current, charge-power-H, charge-power-L, load-current, load-power, load-voltage, datetime";
       exit;
     }
 
@@ -78,49 +78,50 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   else if (array_key_exists("line", $_GET)) {
     //echo "Key = Line";
     
-    $readData = chargeControllerData($todayFile);
+    if(array_key_exists("duration", $_GET)){
 
-    if ($readData != FALSE){    
-      
-      if($_GET["line"] == "len"){//return the number of rows in the file
-        echo count($readData);
-      } else if($_GET["line"] == "head"){//return the CSV data headers
-        echo json_encode($readData[0]);
-      } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
-        //returns raw line
-//        var_dump($readData[count($readData)-1-$_GET["line"]]);
+    } else {
+      $readData = chargeControllerData($todayFile);
 
-        $returnArray = array();
-        //package line with headers
-        for ($p = 0; $p<count($readData[0]);$p++){
-          $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
-        }  
-          $returnJSON = json_encode($returnArray);
-          echo $returnJSON;
+      if ($readData != FALSE){    
+        
+        if($_GET["line"] == "len"){//return the number of rows in the file
+          echo count($readData);
+        } else if($_GET["line"] == "head"){//return the CSV data headers
+          echo json_encode($readData[0]);
+        } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
+          //returns raw line
+  //        var_dump($readData[count($readData)-1-$_GET["line"]]);
+
+          $returnArray = array();
+          //package line with headers
+          for ($p = 0; $p<count($readData[0]);$p++){
+            $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
+          }  
+            $returnJSON = json_encode($returnArray);
+            echo $returnJSON;
+        }
       }
     }
+    
 
     //get a full file
-  } else if (array_key_exists("file", $_GET)) {
+  } else if (array_key_exists("day", $_GET)) {
     //echo "Key = File";
 
-    if($_GET["file"] == "deviceList"){ //deviceList should be a POST
-      $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
-      echo getFileContents($fileName);
-
-    } else if ($_GET["file"] == "list"){//list all charge controller data files
+    if ($_GET["day"] == "list"){//list all charge controller data files
       echo json_encode(justTracerDataFiles($ccDir));
       //var_dump(justTracerDataFiles($ccDir));
 
-    } else if ($_GET["file"] == "len"){//list all charge controller data files
+    } else if ($_GET["day"] == "len"){//list all charge controller data files
       echo count(justTracerDataFiles($ccDir));
 
-    } else if (intval($_GET["file"]) >= 1 && intval($_GET["file"]) <= 7){
+    } else if (intval($_GET["day"]) >= 1 && intval($_GET["day"]) <= 7){
 
       $multiDayData = [];
 
       $dirArray = justTracerDataFiles($ccDir);
-      for ($f = 0; $f < intval($_GET["file"]); $f++){
+      for ($f = 0; $f < intval($_GET["day"]); $f++){
         if($f>= count($dirArray)){
           break;
         }
@@ -129,8 +130,23 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       echo json_encode($multiDayData);
 
-    } else if(strpos($_GET["file"],'tracerData') !== false){      //get CC data file by file name
-      echo json_encode(chargeControllerData($ccDir . $_GET["file"] . '.csv'));
+    } else if(strpos($_GET["day"],'tracerData') !== false){      //get CC data file by file name
+      echo json_encode(chargeControllerData($ccDir . $_GET["day"] . '.csv'));
+    }
+
+     //this should be removed and made into a POST
+    if($_GET["day"] == "deviceList"){
+      $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+      echo getFileContents($fileName);
+    }
+
+  } else if (array_key_exists("systemInfo", $_GET)) {
+    //get local time zone
+    if ($_GET["systemInfo"] == "tz"){
+
+      if (ini_get('date.timezone')) {
+          echo 'date.timezone: ' . ini_get('date.timezone');
+      }
     }
   }
 }

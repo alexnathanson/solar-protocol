@@ -16,13 +16,25 @@
 
 Results displayed in console.
 <form method="GET">
+  <p>Value <input type="text" name="value"></p>
+  <p>Duration <input type="text" name="duration"></p>
+  <button type="submit">Get Value(s)</button>
+</form>
 
+<form method="GET">
    <p>Key: Value<input type="radio" name="key" value="value"> Value-series<input type="radio" name="key" value="value-series"> Line<input type="radio" name="key" value="line"> File<input type="radio" name="key" value="file"></p>
 
  <p>Value <input type="text" name="value"></p>
-
   <p></p>
-  <button type="submit">Submit</button>
+  <button type="submit">Get Line</button>
+</form>
+
+<form method="GET">
+   <p>Key: Value<input type="radio" name="key" value="value"> Value-series<input type="radio" name="key" value="value-series"> Line<input type="radio" name="key" value="line"> File<input type="radio" name="key" value="file"></p>
+
+ <p>Value <input type="text" name="value"></p>
+  <p></p>
+  <button type="submit">Get Day(s)</button>
 </form>
 
 <h3>Syntax</h3>
@@ -47,7 +59,7 @@ Results displayed in console.
 	</ul>
 </p>
 
-<strong>line</strong> returns the specified line from the current data logger file with headers in JSON format
+<strong>line</strong> returns a line of data containing all of the possible vlaues. The specified line from the current data logger file with headers in JSON format
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?line=0" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?line=0</a></p>
 <p>Possible values:
 	<ul>

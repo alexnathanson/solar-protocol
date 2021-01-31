@@ -81,21 +81,25 @@ clientGetPV.py is just for testing purposes. solarProtocol.py handles get reques
 Possible keys for get requests
 
 * value - returns the specified value from the most recently collected line of data
-	* Example: http:// + URL + /api/v1/chargecontroller.php?value=PV-voltage
-	* Possible values (replace spaces with "-"):
-		* PV current
-		* PV power H
-		* PV power L
-		* PV voltage
-		* battery percentage
-		* battery voltage
-		* charge current
-		* charge power H
-		* charge power L
-		* load current
-		* load power
-		* load voltage
+	* Example: http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage
+	* Possible values:
+		* PV-current
+		* PV-power-H
+		* PV-power-L
+		* PV-voltage
+		* battery-percentage
+		* battery-voltage
+		* charge-current
+		* charge-power-H
+		* charge-power-L
+		* load-current
+		* load-power
+		* load-voltage
 		* datetime
+	* Modifier: duration - returns the specified value over a given duration
+		* Example: http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&&duration=1
+		* Possible values:
+			* [integer] - specifies the number of days
 * line - returns the specified line from the current data logger file with headers in JSON format
 	* Example: http:// + URL + /api/v1/chaergecontroller.php?line=0
 	* Possible values:
@@ -103,21 +107,23 @@ Possible keys for get requests
 		* head - returns the column headers
 		* 0 - returns the most recently collected line of data
 		* increment up to move back in time from 0 to retrieve any other row. For example, 1 will return the 2nd most recent row.
-* file - returns a specific file
-	* Example: http:// + URL + /api/v1/chargecontroller.php?file=len
+* day - returns all the data for a given day
+	* Example: http://solarprotocol.net/api/v1/chargecontroller.php?day=len
 	* Possible values:
-		* deviceList - returns the deviceList.json file contents (should be changed to a POST not a GET)
-		* 1 - returns present day data 
-		* 2 - returns present day + previous day
-		* 3 - returns present day + previous 2 days
-		* 4 - returns present day + previous 3 days
-		* 5 - returns present day + previous 4 days
-		* 6 - returns present day + previous 5 days
-		* 7 - returns present day + previous 6 days
-		* list - returns list of all CC files
-		* len - return count of all CC files
-		* [file name without file suffix] - example: /api/v1/chargecontroller.php?file=tracerData2020-05-17
-
+		* 1 - returns most recent day of data (typically the present day)
+		* 2 - returns the 2 most recent days
+		* 3 - returns the 3 most recent days
+		* 4 - returns the 4 most recent days
+		* 5 - returns the 5 most recent days
+		* 6 - returns the 6 most recent days
+		* 7 - returns the 7 most recent days
+		* list - returns list of all available files. Each file represents 1 day's worth of data.
+		* len - returns the amount of files available. Each file represents 1 day's worth of data.
+		* [file name without file suffix] - example: http://solarprotocol.net/api/v1/chargecontroller.php?day=tracerData2020-05-17
+* systemInfo - provides information about the system
+	* Example: http://solarprotocol.net/api/v1/chargecontroller.php?sysInfo=tz
+	* Possible values:
+		* tz - returns the timezone for the server
 <p>
 Browser Example: http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage would return the most recent PV voltage
 </p>

@@ -28,8 +28,8 @@ if sys.argv[2] == 'line':
 	url = 'http://'+dst+'/api/v1/chargecontroller.php?line='+sys.argv[3]
 
 '''File'''
-if sys.argv[2] == 'file':
-	url = 'http://'+dst+'/api/v1/chargecontroller.php?file='+sys.argv[3]
+if sys.argv[2] == 'day':
+	url = 'http://'+dst+'/api/v1/chargecontroller.php?day='+sys.argv[3]
 
 PVdata = requests.get(url).text
 print(PVdata)

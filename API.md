@@ -125,9 +125,7 @@ Possible keys for get requests
 	* Example: http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz
 	* Possible values:
 		* tz - returns the timezone for the server
-<p>
-Browser Example: http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage would return the most recent PV voltage
-</p>
+
 <p>
 Python and JS examples available in utilities directory
 </p>

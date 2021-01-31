@@ -4,41 +4,22 @@
 
 <meta charset="UTF-8">
 
-<title>Client Get Example</title>
+<title>Open API Documentation</title>
 </head>
 <body>
 
  <script src="chargeControllerExplorer.js"></script> 
 
-<h1>Solar Protocol</h1>
+<h1>Solar Protocol - Open API Documentation</h1>
+<p>
+	Note: this is the open-access API, developers on the network can view the complete API documentation on<a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
+</p>
 
 <h2>Charge Controller Data API Explorer</h2> 
 
-Results displayed in console.
-<form method="GET">
-  <p>Value <input type="text" name="value"></p>
-  <p>Duration <input type="text" name="duration"></p>
-  <button type="submit">Get Value</button>
-</form>
+There are 4 types of data this interface provides. 1) Individual values 2) Lines of data containing all the given values for a particular time 3) An entire day's worth of data 4) System information. Presently the results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
 
-<form method="GET">
-  <p>Line <input type="text" name="line"></p>
-  <button type="submit">Get Line</button>
-</form>
-
-<form method="GET">
- <p>Day <input type="text" name="day"></p>
-  <p></p>
-  <button type="submit">Get Day</button>
-</form>
-
-<form method="GET">
- <p>System Info <input type="text" name="systemInfo"></p>
-  <p></p>
-  <button type="submit">Get System Info</button>
-</form>
-
-<h3>Syntax</h3>
+<h3>Value</h3>
 <strong>value</strong> returns the specified value from the most recently collected line of data
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage</a></p>
 <p>Possible values:
@@ -59,6 +40,13 @@ Results displayed in console.
 		<li>datetime</li>
 	</ul>
 </p>
+<form method="GET">
+  <p>Value <input type="text" name="value"></p>
+  <p>Duration <input type="text" name="duration"></p>
+  <button type="submit">Get Value</button>
+</form>
+
+<h3>Line</h3>
 
 <strong>line</strong> returns a line of data containing all of the possible vlaues. The specified line from the current data logger file with headers in JSON format
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?line=0" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?line=0</a></p>
@@ -69,6 +57,12 @@ Results displayed in console.
 		<li>[line number] - returns the specified line of data. For example, 0 will return the most recent row of data, 1 will return the 2nd most recent row, etc.</li>
 	</ul>
 </p>
+<form method="GET">
+  <p>Line <input type="text" name="line"></p>
+  <button type="submit">Get Line</button>
+</form>
+
+<h3>Day</h3>
 
 <strong>day</strong> returns all the data from a specific day or range of days
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?day=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=2</a></p>
@@ -86,6 +80,23 @@ Results displayed in console.
 		<li>[file name without file suffix] - example: /api/v1/chargecontroller.php?day=tracerData2020-05-17</li>
 	</ul>
 </p>
+
+<form method="GET">
+ <p>Day <input type="text" name="day"></p>
+  <p></p>
+  <button type="submit">Get Day</button>
+</form>
+
+<h3>System Info</h3>
+
+<strong>systemInfo</strong> returns information about the system.
+
+<form method="GET">
+ <p>System Info <input type="text" name="systemInfo"></p>
+  <p></p>
+  <button type="submit">Get System Info</button>
+</form>
+
 
 </body>
 </html> 

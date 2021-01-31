@@ -64,7 +64,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 	<ul>
 		<li>len - returns the number of rows in the file</li>
 		<li>head - returns the column headers</li>
-		<li>[an integer] - returns the specified line of data from the most recent day of data collected. For example, 0 will return the most recent row of data, 1 will return the 2nd most recent row, etc.</li>
+		<li>[an integer from 0 through number if rows-1] - returns the specified line of data from the most recent day of data collected. For example, 0 will return the most recent row of data, 1 will return the 2nd most recent row, etc.</li>
 	</ul>
 </p>
 <form method="GET">

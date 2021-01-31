@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if ($readData != FALSE){    
       
       if($_GET["line"] == "len"){//return the number of rows in the file
-        echo count($readData);
+        echo (count($readData)-1);
       } else if($_GET["line"] == "head"){//return the CSV data headers
         echo json_encode($readData[0]);
       } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){

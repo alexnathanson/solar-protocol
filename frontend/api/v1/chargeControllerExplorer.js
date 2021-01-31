@@ -34,7 +34,11 @@ if(modified){
 
 console.log(dst);
 
-let result = JSON.parse(httpGet(dst));
+let result = httpGet(dst);
+
+if(typeof result === "object"){
+	result = JSON.parse(result);
+}
 
 console.log(result);
 

@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //echo array_keys($_POST)[$k];
 
     if(isset($_POST['apiKey'])){
-      if(empty($data)){
+      if(empty($_POST['apiKey'])){
         $apiErr = "No data entered.";
       } else {
         $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);

@@ -65,7 +65,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 * `sudo nano /etc/apache2/apache2.conf`  
 	* add these lines to the file    
 	`<Directory /home/pi/solar-protocol/frontend/>`    
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Options Indexes FollowSymLinks` 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Options Indexes FollowSymLinks`   
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`AllowOverride None`  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  

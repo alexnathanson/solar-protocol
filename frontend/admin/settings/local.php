@@ -10,7 +10,7 @@
 <?php
 
 //local www directory
-$localDirectory = "/home/pi/local/";
+$localDir = "/home/pi/local/";
 $localWWW = "/home/pi/local/www/";
 
 $totalDiskSpace = $availableDiskSpace = "";
@@ -18,8 +18,8 @@ $totalDiskSpace = $availableDiskSpace = "";
 diskSpace();
 
 function diskSpace(){
-  $totalDiskSpace = disk_total_space($localDirectory);
-  $availableDiskSpace = disk_free_space($localDirectory);
+  $totalDiskSpace = disk_total_space($localDir);
+  $availableDiskSpace = disk_free_space($localDir);
   echo disk_total_space("/");
   echo $availableDiskSpace;
 }

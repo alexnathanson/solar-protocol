@@ -115,7 +115,7 @@ function getFile($fileName){
 
 <h2>Local Content</h2>
 
-<p><? php echo $availableDiskSpace . " of " . $totalDiskSpace ?> 
+<p><? php echo $availableDiskSpace . " of " . $totalDiskSpace; ?> 
 </p>
 <form method="post" id="updateLocalInfo" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 

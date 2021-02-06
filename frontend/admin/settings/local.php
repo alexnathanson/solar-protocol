@@ -10,8 +10,8 @@
 <?php
 
 //local www directory
-$localDirectory = '/home/pi/local/';
-$localWWW = '/home/pi/local/www/';
+$localDirectory = "/home/pi/local/";
+$localWWW = "/home/pi/local/www/";
 
 $totalDiskSpace = $availableDiskSpace = "";
 

@@ -134,7 +134,8 @@ function getFile($fileName){
   <button type="submit">Update</button>
 </form>
 
-<div style="padding: 2px; border: 5px solid black">
+<p>
+<div style="padding: 10px; border: 2px solid black">
   <h3>System Photo</h3>
   <p>
     This image will appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
@@ -147,7 +148,9 @@ function getFile($fileName){
     <input type="submit" value="Upload Image" name="submit">
   </form>
 </div>
+</p>
 
+<p>
 <div style="padding: 10px; border: 5px solid red">
   <h3>Danger Zone</h3>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
@@ -155,5 +158,7 @@ function getFile($fileName){
     <button type="submit">Update</button>
   </form>
 </div>
+</p>
+
 </body>
 </html>

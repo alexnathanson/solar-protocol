@@ -19,8 +19,11 @@ diskSpace($localDir);
 diskSpace("/");
 
 function diskSpace($dirSpace){
-  global $totalDiskSpace = disk_total_space($dirSpace);
-  global $availableDiskSpace = disk_free_space($dirSpace);
+  global $totalDiskSpace, $availableDiskSpace;
+
+  $totalDiskSpace = disk_total_space($dirSpace);
+  $availableDiskSpace = disk_free_space($dirSpace);
+  
   echo $availableDiskSpace . " / " . $totalDiskSpace; 
 }
 

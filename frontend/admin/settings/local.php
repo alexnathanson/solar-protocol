@@ -10,12 +10,10 @@
 <?php
 
 //local www directory
-$localDir = "/home/pi/local/";
 $localWWW = "/home/pi/local/www/";
 
 $totalDiskSpace = $availableDiskSpace = "";
 
-diskSpace($localDir);
 diskSpace("/");
 
 function diskSpace($dirSpace){
@@ -23,8 +21,8 @@ function diskSpace($dirSpace){
 
   $totalDiskSpace = disk_total_space($dirSpace);
   $availableDiskSpace = disk_free_space($dirSpace);
-  
-  echo $availableDiskSpace . " / " . $totalDiskSpace; 
+
+  //echo $availableDiskSpace . " / " . $totalDiskSpace; 
 }
 
 /*
@@ -121,7 +119,9 @@ function getFile($fileName){
 
 <h2>Local Content</h2>
 
-<p><?php echo $availableDiskSpace . " of " . $totalDiskSpace; ?> 
+<p>
+  <?php echo "Available disk space: ". $availableDiskSpace . "bytes"; ?>
+  <br><?php echo "Total disk space: " . $totalDiskSpace . "bytes"; ?> 
 </p>
 
 <form method="post" id="updateLocalInfo" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

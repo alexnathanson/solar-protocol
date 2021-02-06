@@ -14,8 +14,11 @@ $localWWW = '/home/pi/local/www/';
 
 $totalDiskSpace = $availableDiskSpace = "";
 
+diskSpace();
+
 function diskSpace(){
-   echo disk_total_space("C:");
+  $totalDiskSpace = disk_total_space("/");
+  $availableDiskSpace = disk_free_space("/");
 }
 
 /*
@@ -123,7 +126,6 @@ function getFile($fileName){
 <div style="padding: 10px; border: 5px solid red">
   <h3>Danger Zone</h3>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
-    <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>
     <button type="submit">Update</button>
   </form>
 </div>

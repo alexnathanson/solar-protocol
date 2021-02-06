@@ -119,22 +119,23 @@ function getFile($fileName){
 
 <h2>Local Content</h2>
 
+<p>We are in the process of developing complete guidelines for uploading content. For the time being, we are only allowing static HTML pages and CSS, without any Javascript or PHP.</p>
+
 <p>
-  <?php echo "Available disk space: ". $availableDiskSpace . "bytes"; ?>
-  <br><?php echo "Total disk space: " . $totalDiskSpace . "bytes"; ?> 
+  The maximum individual image files size is ?
+  <br>The maximum size your site can take up cannot exceed more than 90% of the total disk space.
 </p>
 
-<form method="post" id="updateLocalInfo" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<p>
+  <?php echo "Available disk space: ". $availableDiskSpace . " bytes"; ?>
+  <br><?php echo "Total disk space: " . $totalDiskSpace . " bytes"; ?> 
+</p>
 
-  <button type="submit">Upload</button>
+<form action="upload.php" method="post" enctype="multipart/form-data">
+  Select image to upload:
+  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="submit" value="Upload Image" name="submit">
 </form>
 
-
-<div style="padding: 10px; border: 5px solid red">
-  <h3>Danger Zone</h3>
-  <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
-    <button type="submit">Update</button>
-  </form>
-</div>
 </body>
 </html>

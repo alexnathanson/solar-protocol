@@ -20,7 +20,7 @@ diskSpace();
 function diskSpace(){
   $totalDiskSpace = disk_total_space($localDirectory);
   $availableDiskSpace = disk_free_space($localDirectory);
-  echo $totalDiskSpace;
+  echo disk_total_space("/");
   echo $availableDiskSpace;
 }
 

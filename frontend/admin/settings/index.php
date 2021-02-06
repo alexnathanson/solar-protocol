@@ -109,6 +109,8 @@ function getFile($fileName){
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a></p>
 
 <h2>Local Settings</h2>
+
+<h3>Info</h3>
 <form method="post" id="updateLocalInfo" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
   
@@ -132,6 +134,21 @@ function getFile($fileName){
   <button type="submit">Update</button>
 </form>
 
+<h3>System Photo</h3>
+<p>
+  The maximum individual image files size is ?
+</p>
+<!-- 
+<p>
+  <?php echo "Available disk space: ". $availableDiskSpace . " bytes"; ?>
+  <br><?php echo "Total disk space: " . $totalDiskSpace . " bytes"; ?> 
+</p> -->
+
+<form action="upload.php" method="post" enctype="multipart/form-data">
+  Select image to upload:<br>
+  <input type="file" name="fileToUpload" id="fileToUpload"><br>
+  <input type="submit" value="Upload Image" name="submit">
+</form>
 
 <div style="padding: 10px; border: 5px solid red">
   <h3>Danger Zone</h3>

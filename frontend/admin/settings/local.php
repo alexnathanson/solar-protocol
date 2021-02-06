@@ -132,8 +132,8 @@ function getFile($fileName){
 </p>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
-  Select image to upload:
-  <input type="file" name="fileToUpload" id="fileToUpload">
+  Select image to upload:<br>
+  <input type="file" name="fileToUpload" id="fileToUpload"><br>
   <input type="submit" value="Upload Image" name="submit">
 </form>
 

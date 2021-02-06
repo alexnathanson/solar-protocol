@@ -134,21 +134,19 @@ function getFile($fileName){
   <button type="submit">Update</button>
 </form>
 
-<h3>System Photo</h3>
-<p>
-  The maximum individual image files size is ?
-</p>
-<!-- 
-<p>
-  <?php echo "Available disk space: ". $availableDiskSpace . " bytes"; ?>
-  <br><?php echo "Total disk space: " . $totalDiskSpace . " bytes"; ?> 
-</p> -->
-
-<form action="upload.php" method="post" enctype="multipart/form-data">
-  Select image to upload:<br>
-  <input type="file" name="fileToUpload" id="fileToUpload"><br>
-  <input type="submit" value="Upload Image" name="submit">
-</form>
+<div style="padding: 2px; border: 5px solid black">
+  <h3>System Photo</h3>
+  <p>
+    This image will appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
+  </p>
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <p>
+    <input type="file" name="fileToUpload" id="fileToUpload">
+  </p>
+    <input type="submit" value="Upload Image" name="submit">
+  </form>
+</div>
 
 <div style="padding: 10px; border: 5px solid red">
   <h3>Danger Zone</h3>

@@ -15,13 +15,13 @@ $localWWW = "/home/pi/local/www/";
 
 $totalDiskSpace = $availableDiskSpace = "";
 
-diskSpace();
+diskSpace($localDir);
+diskSpace("/");
 
-function diskSpace(){
-  $totalDiskSpace = disk_total_space($localDir);
-  $availableDiskSpace = disk_free_space($localDir);
-  echo disk_total_space("/");
-  echo $availableDiskSpace;
+function diskSpace($dirSpace){
+  global $totalDiskSpace = disk_total_space($dirSpace);
+  global $availableDiskSpace = disk_free_space($dirSpace);
+  echo $availableDiskSpace . " / " . $totalDiskSpace; 
 }
 
 /*

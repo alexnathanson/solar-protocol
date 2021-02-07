@@ -8,14 +8,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 	// get the file name
 	$filepath= $locDir . @$_GET['file'];
+
 	if (file_exists($filepath)){
-		if(str_contains($filepath, "jpg")){
+		if(strpos($filepath, "jpg")){
 			header("Content-type: image/jpg");
-		} else if(str_contains($filepath, "jpeg")){
+		} else if(strpos($filepath, "jpeg")){
 			header("Content-type: image/jpeg");
-		}  else if(str_contains($filepath, "png")){
+		}  else if(strpos($filepath, "png")){
 			header("Content-type: image/png");
-		} else if(str_contains($filepath, "gif")){
+		} else if(strpos($filepath, "gif")){
 			header("Content-type: image/gif");
 		} 
 		header("Accept-Ranges: bytes");

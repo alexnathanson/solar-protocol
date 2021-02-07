@@ -13,11 +13,28 @@
 //local www directory
 $localWWW = "/home/pi/local/www/";
 
-var_dump(scandir($localWWW));
+/*var_dump(scandir($localWWW));
+*/
+
+$mappedDirectory = [];
+mapDirectory();
 
 $totalDiskSpace = $availableDiskSpace = "";
 
 diskSpace("/");
+
+function mapDirectory(){
+  global $mappedDirectory;
+  $mappedDirectory = scandir($localWWW);
+
+  foreach ($mappedDirectory as $f){
+    echo $f;
+    if(!strpos($f, '.')){
+      
+      print_r(scandir($_GLOBAL['localWWW'] . $f));
+    }
+  } 
+}
 
 function diskSpace($dirSpace){
   global $totalDiskSpace, $availableDiskSpace;
@@ -28,66 +45,6 @@ function diskSpace($dirSpace){
   //echo $availableDiskSpace . " / " . $totalDiskSpace; 
 }
 
-/*
-//read local file
-$localFile = '/home/pi/local/local.json';
-$localInfo = json_decode(getFile($localFile), true);
-
-$apiErr = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  for ($k = 0; $k < count(array_keys($_POST));$k++){
-    //echo array_keys($_POST)[$k];
-
-    if(isset($_POST['apiKey'])){
-      if(empty($_POST['apiKey'])){
-        $apiErr = "No data entered.";
-      } else {
-        $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
-      }
-    }else {
-      $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
-    }
-  }
-
-  file_put_contents($localFile, json_encode($localInfo, JSON_PRETTY_PRINT));
-
-}
-
-//this will display the api key so DO NOT print directly except for debugging
-//echo json_encode($localInfo);
-
-
-$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = "";
-
-if (isset($localInfo["name"])){
-  $locName = $localInfo["name"];
-}
-
-if (isset($localInfo["description"])){
-  $locDescription = $localInfo["description"];
-}
-
-if (isset($localInfo["location"])){
-  $locLocation = $localInfo["location"];
-}
-
-if (isset($localInfo["city"])){
-  $locCity = $localInfo["city"];
-}
-
-if (isset($localInfo["country"])){
-  $locCountry = $localInfo["country"];
-}
-
-if (isset($localInfo["lat"])){
-  $locLat = $localInfo["lat"];
-}
-
-if (isset($localInfo["long"])){
-  $locLong = $localInfo["long"];
-}*/
 
 //from index
 function test_input($data) {

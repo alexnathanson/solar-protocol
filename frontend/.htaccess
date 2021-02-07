@@ -18,4 +18,4 @@ RewriteRule (.*) %{REQUEST_URI}/ [R=301,L]
 
 # NICE URL FOR STEWARD PAGES
 # This redirects for user pages - not working yet
-#RewriteRule ^user/(.*)$ /api/v1/local.php?user=$1
+#RewriteRule ^network/(.*)$ /api/v1/local.php?network=$1

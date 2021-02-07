@@ -3,8 +3,6 @@
   Protect\with('/home/pi/solar-protocol/frontend/admin/protect/form.php','admin');
 ?>
 
-<?php phpinfo(); ?>
-
 <html>
 <body>
 
@@ -14,6 +12,8 @@
 
 //local www directory
 $localWWW = "/home/pi/local/www/";
+
+echo scandir($localWWW);
 
 $totalDiskSpace = $availableDiskSpace = "";
 

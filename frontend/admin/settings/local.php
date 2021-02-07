@@ -29,7 +29,7 @@ function mapDirectory($mapThis, $count = 0){
     foreach ($mappedDirectory as &$f){
       if($f != "." && $f != ".."){
         echo $f;
-        for($c = 0; $< $count; $c++){
+        for($c = 0; $c < $count; $c++){
           echo "-";
         }
         echo "<br>";

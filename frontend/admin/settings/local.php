@@ -33,7 +33,7 @@ function mapDirectory($mapThis, $count = 0){
         }
         $fN = $mapThis.$f;
         echo $fN;
-        echo "last modified: ".date("F d Y H:i:s.", filemtime(fN));
+        echo "last modified: ".date("F d Y H:i:s.", filemtime($fN));
         echo "<br>";
         if(is_dir($fN)){
           mapDirectory($fN."/", $count + 1);

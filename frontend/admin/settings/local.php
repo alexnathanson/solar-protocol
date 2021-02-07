@@ -27,7 +27,7 @@ function mapDirectory($mapThis){
     if($f != "." && $f != ".."){
       echo $f . "<br>";
       if(!strpos($f, '.')){
-        mapDirectory($mapThis . $f));
+        mapDirectory($mapThis . $f);
       }
     }
   } 

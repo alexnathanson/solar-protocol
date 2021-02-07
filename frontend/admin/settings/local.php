@@ -30,9 +30,9 @@ function mapDirectory($mapThis, $count = 0){
     foreach ($mappedDirectory as $k => $f){
       if($f != "." && $f != ".."){
         for($c = 0; $c < $count; $c++){
-          echo "->";
+          echo "- ";
         }
-        echo $f. "<br>";
+        echo $mapThis.$f. "<br>";
         if(is_dir($mapThis . $f)){
           mapDirectory($mapThis . $f, $count + 1);
         }
@@ -92,14 +92,14 @@ function getFile($fileName){
   <br>The maximum size your site can take up cannot exceed more than 90% of the total disk space.
 </p>
 
-<h2>Current Files</h2>
+<h2>local/www Directory</h2>
 
 <p>
   <?php echo "Available disk space: ". $availableDiskSpace . " bytes"; ?>
   <br><?php echo "Total disk space: " . $totalDiskSpace . " bytes"; ?> 
 </p>
 
-
+<h3>Current Files</h3>
 <p>
   <?php mapDirectory($localWWW);?>
 </p>

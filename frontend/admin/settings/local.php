@@ -20,17 +20,22 @@ $totalDiskSpace = $availableDiskSpace = "";
 
 diskSpace("/");
 
-function mapDirectory($mapThis){
-  $mappedDirectory = scandir($mapThis);
+function mapDirectory($mapThis, $count){
 
-  foreach ($mappedDirectory as &$f){
-    if($f != "." && $f != ".."){
-      echo $f . "<br>";
-      if(!strpos($f, '.')){
-        mapDirectory($mapThis . $f);
+  if(is_dir($mapThis)){
+    
+    $mappedDirectory = scandir($mapThis);
+
+    foreach ($mappedDirectory as &$f){
+      if($f != "." && $f != ".."){
+        echo $f . "<br>";
+        if(is_dir($f)){
+          mapDirectory($mapThis . $f);
+        }
       }
     }
-  } 
+
+  }
 }
 
 function diskSpace($dirSpace){

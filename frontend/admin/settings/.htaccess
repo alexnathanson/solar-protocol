@@ -1,2 +1,2 @@
 # Redirect everything in this directory to "good.html" 
-RewriteEngine on RewriteRule .* /api/v1/
+RewriteEngine on RewriteRule .* /home/pi/solarprotocol/frontend/api/v1/index.html

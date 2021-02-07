@@ -16,22 +16,18 @@ $localWWW = "/home/pi/local/www/";
 /*var_dump(scandir($localWWW));
 */
 
-$mappedDirectory = [];
-
 $totalDiskSpace = $availableDiskSpace = "";
 
 diskSpace("/");
 
-function mapDirectory(){
-  global $mappedDirectory, $localWWW;
-  $mappedDirectory = scandir($localWWW);
+function mapDirectory($mapThis){
+  $mappedDirectory = scandir($mapThis);
 
   foreach ($mappedDirectory as &$f){
-    if($f != "." || $f != ".."){
+    if($f != "." && $f != ".."){
       echo $f . "<br>";
       if(!strpos($f, '.')){
-        
-        print_r(scandir($localWWW . $f));
+        mapDirectory($mapThis . $f));
       }
     }
   } 

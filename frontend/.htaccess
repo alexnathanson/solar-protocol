@@ -1,13 +1,9 @@
 RewriteEngine on
 
-# This redirects requests as a query string for a php script
-# RewriteRule ^local/(.*)$ /api/v1/$1 [R=301,NC,L]
-
 # REDIRECT TO LOCAL DIRECTORY
 # for images
 RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif)$
 RewriteRule ^local/(.*)$ /redirect/images.php?file=$1
-RewriteRule ^local(.*)$ /redirect/images.php?file=$1
 
 #for html and css files
 RewriteCond %{REQUEST_URI} \.(html|css)$
@@ -15,7 +11,11 @@ RewriteRule ^local/(.*)$ /redirect/www.php?file=$1
 
 #for local www root
 RewriteRule ^local/$ /redirect/www.php?file=index.html
-RewriteRule ^local$ /redirect/www.php?file=index.html
 
+#add trailing / on www root url
+RewriteCond %{REQUEST_URI} !(/$|\.) 
+RewriteRule (.*) %{REQUEST_URI}/ [R=301,L] 
+
+# NICE URL FOR STEWARD PAGES
 # This redirects for user pages - not working yet
 #RewriteRule ^user/(.*)$ /api/v1/local.php?user=$1

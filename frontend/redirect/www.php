@@ -1,6 +1,6 @@
 <?php
 
-$locDir = "/home/pi/local/";
+$locDir = "/home/pi/local/www/";
 $filepath= "";
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {

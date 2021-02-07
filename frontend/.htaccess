@@ -2,7 +2,10 @@ RewriteEngine on
 
 # This redirects requests as a query string for a php script
 # RewriteRule ^local/(.*)$ /api/v1/$1 [R=301,NC,L]
-RewriteRule ^local/(.*)$ /local.php?file=$1
+
+# REDIRECT TO LOCAL DIRECTORY
+# for images
+RewriteRule ^local/(.*)$ /local/images.php?file=$1
 
 # This redirects for user pages
 #RewriteRule ^user/(.*)$ /api/v1/local.php?user=$1

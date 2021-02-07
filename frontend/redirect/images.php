@@ -18,20 +18,27 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			header("Content-type: image/png");
 		} else if(strpos($filepath, "gif")){
 			header("Content-type: image/gif");
-		} 
+		} else {
+			notFound();
+			return;
+		}
 		header("Accept-Ranges: bytes");
 		header('Content-Length: ' . filesize($filepath));
 		//header("Last-Modified: Fri, 03 Mar 2004 06:32:31 GMT");
 		readfile($filepath);
 	} else {
-		header( "HTTP/1.0 404 Not Found");
-		header("Content-type: image/jpeg");
-		header('Content-Length: ' . filesize("404_files.jpg"));
-		header("Accept-Ranges: bytes");
-		//header("Last-Modified: Fri, 03 Mar 2004 06:32:31 GMT");
-		readfile("404_files.jpg");
+		notFound();
 	}
 	
+}
+
+function notFound(){
+	header( "HTTP/1.0 404 Not Found");
+	header("Content-type: image/jpeg");
+	header('Content-Length: ' . filesize("404_files.jpg"));
+	header("Accept-Ranges: bytes");
+	//header("Last-Modified: Fri, 03 Mar 2004 06:32:31 GMT");
+	readfile("404_files.jpg");
 }
 
 ?>

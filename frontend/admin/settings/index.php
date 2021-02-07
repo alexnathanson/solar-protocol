@@ -164,7 +164,7 @@ function getFile($fileName){
   </div>
   <div style="width:50%"><!--should this float left?-->
     <!--display thumbnail image-->
-    <img src="/local/bkrot-guide.png" style="border: 2px solid black;width:100px; height:auto;">
+    <img src="/local/bkrot-guide.png" style="border: 2px solid black;width:150px; height:auto;">
   </div>
 </div>
 </p>

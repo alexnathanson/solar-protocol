@@ -1,6 +1,6 @@
 <?php
 
-$locDir = "/home/pi/local/www";
+$locDir = "/home/pi/local/";
 $filepath= "";
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$filepath= $locDir . @$_GET['file'];
 
 	if (file_exists($filepath)){
-		if(strpos($filepath, "jpg")){
+		/*if(strpos($filepath, "jpg")){
 			header("Content-type: image/jpg");
 		} else if(strpos($filepath, "jpeg")){
 			header("Content-type: image/jpeg");
@@ -23,20 +23,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			notFound();
 			return;
 		}
-		serveImg();
+		serveImg();*/
+	    header('Content-Type: application/octet-stream');
+	    header('Content-Disposition: attachment; filename='.$download_name);
+	    header('X-Sendfile: '.$filepath);
+	    exit;
+
 	} else {
-		notFound();
+		//notFound();
+		echo "not found";
 	}
 	
-}
-
-function serveImg(){
-	global $filepath;
-
-	header("Accept-Ranges: bytes");
-	header('Content-Length: ' . filesize($filepath));
-	//header("Last-Modified: Fri, 03 Mar 2004 06:32:31 GMT");
-	readfile($filepath);
 }
 
 function notFound(){

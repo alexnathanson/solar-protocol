@@ -18,7 +18,7 @@
 
 //read local file
 $localFile = '/home/pi/local/local.json';
-$imgDir = '/';
+$imgDir = '/home/pi/local/';
 
 $localInfo = json_decode(getFile($localFile), true);
 

@@ -23,17 +23,16 @@ diskSpace("/");
 function mapDirectory($mapThis, $count = 0){
 
   if(is_dir($mapThis)){
-    echo $count;
+    //echo $count;
 
     $mappedDirectory = scandir($mapThis);
 
     foreach ($mappedDirectory as $k => $f){
       if($f != "." && $f != ".."){
-        echo $f;
         for($c = 0; $c < $count; $c++){
-          echo "-";
+          echo "->";
         }
-        echo "<br>";
+        echo $f. "<br>";
         if(is_dir($mapThis . $f)){
           mapDirectory($mapThis . $f, $count + 1);
         }

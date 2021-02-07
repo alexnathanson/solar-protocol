@@ -5,7 +5,7 @@ RewriteEngine on
 
 # REDIRECT TO LOCAL DIRECTORY
 # for images
-RewriteRule ^local/(.*)$ /local/images.php?file=$1
+RewriteRule ^local/(.*)$ local/images.php?file=$1
 
 # This redirects for user pages
 #RewriteRule ^user/(.*)$ /api/v1/local.php?user=$1

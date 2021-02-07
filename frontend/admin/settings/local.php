@@ -28,7 +28,7 @@ function mapDirectory(){
   $mappedDirectory = scandir($localWWW);
 
   foreach ($mappedDirectory as &$f){
-    echo $f . <br>;
+    echo $f . "<br>";
     if(!strpos($f, '.')){
       
       print_r(scandir($localWWW . $f));

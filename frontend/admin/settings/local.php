@@ -30,9 +30,9 @@ function mapDirectory($mapThis, $count = 0){
     foreach ($mappedDirectory as $k => $f){
       if($f != "." && $f != ".."){
         for($c = 0; $c < $count; $c++){
-          echo "- ";
+          echo "-- ";
         }
-        echo $mapThis.$f. "<br>";
+        echo $mapThis."/".$f. "<br>";
         if(is_dir($mapThis . $f)){
           mapDirectory($mapThis . $f, $count + 1);
         }
@@ -100,14 +100,23 @@ function getFile($fileName){
 </p>
 
 <h3>Current Files</h3>
+<!-- <form action="/action_page.php">
+  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+  <label for="vehicle1"> I have a bike</label><br>
+  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+  <label for="vehicle2"> I have a car</label><br>
+  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+  <label for="vehicle3"> I have a boat</label><br><br>
+  <input type="submit" value="Remove Selected Files">
+</form> -->
+
 <p>
   <?php mapDirectory($localWWW);?>
 </p>
 
 
-
 <form action="upload.php" method="post" enctype="multipart/form-data">
-  Select image to upload:<br>
+  Select file to upload:<br>
   <input type="file" name="fileToUpload" id="fileToUpload"><br>
   <input type="submit" value="Upload Image" name="submit">
 </form>

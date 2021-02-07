@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 	} else {
 		//notFound();
-		echo "not found";
+		echo $filepath . " not found";
 	}
 	
 }

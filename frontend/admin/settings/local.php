@@ -13,7 +13,7 @@
 //local www directory
 $localWWW = "/home/pi/local/www/";
 
-echo scandir($localWWW);
+var_dump(scandir($localWWW));
 
 $totalDiskSpace = $availableDiskSpace = "";
 

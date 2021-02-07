@@ -23,7 +23,8 @@ diskSpace("/");
 function mapDirectory($mapThis, $count = 0){
 
   if(is_dir($mapThis)){
-    
+    echo $count;
+
     $mappedDirectory = scandir($mapThis);
 
     foreach ($mappedDirectory as $k => $f){
@@ -33,7 +34,7 @@ function mapDirectory($mapThis, $count = 0){
           echo "-";
         }
         echo "<br>";
-        if(is_dir($f)){
+        if(is_dir($mapThis . $f)){
           mapDirectory($mapThis . $f, $count + 1);
         }
       }

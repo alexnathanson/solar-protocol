@@ -4,8 +4,8 @@
   Protect\with('/home/pi/solar-protocol/frontend/admin/protect/form.php','admin');
 
   //file upload
- /* require_once '../frontend/admin/upload.php';
-  Upload\uploadIt();*/
+  require_once '../frontend/admin/upload.php';
+  //Upload\uploadIt();
 ?>
 
 <html>
@@ -148,7 +148,7 @@ function getFile($fileName){
       This image will appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
       <br>Accepted image file types: jpg, jpeg, png, gif
     </p>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <form action="<?php Upload\uploadIt(); ?>" method="post" enctype="multipart/form-data">
       Select image to upload:
       <p>
       <input type="file" name="fileToUpload" id="fileToUpload">

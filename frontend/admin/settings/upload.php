@@ -1,9 +1,9 @@
 <!-- based on: https://www.w3schools.com/php/php_file_upload.asp -->
 
 <?php
-//namespace Upload;
+namespace Upload;
 
-//function uploadIt(){
+function uploadIt(){
 
   $target_dir = $_POST["directory"];
 
@@ -53,6 +53,6 @@
       echo "Sorry, there was an error uploading your file.";
     }
   }
-//}
+}
 
 ?>

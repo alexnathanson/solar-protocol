@@ -24,14 +24,14 @@ $totalDiskSpace = $availableDiskSpace = "";
 diskSpace("/");
 
 function mapDirectory(){
-  global $mappedDirectory;
+  global $mappedDirectory, $localWWW;
   $mappedDirectory = scandir($localWWW);
 
-  foreach ($mappedDirectory as $f){
+  foreach ($mappedDirectory as &$f){
     echo $f;
     if(!strpos($f, '.')){
       
-      print_r(scandir($_GLOBAL['localWWW'] . $f));
+      print_r(scandir($localWWW . $f));
     }
   } 
 }

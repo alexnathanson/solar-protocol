@@ -16,7 +16,7 @@ $localWWW = "/home/pi/local/www/";
 /*var_dump(scandir($localWWW));
 */
 
-$totalDiskSpace = $availableDiskSpace = "";
+$totalDiskSpace = $availableDiskSpace = $totalDiskUnits = $availableDiskUnits = "";
 
 diskSpace("/");
 
@@ -48,6 +48,7 @@ function diskSpace($dirSpace){
   $totalDiskSpace = disk_total_space($dirSpace);
   $availableDiskSpace = disk_free_space($dirSpace);
 
+  $totalDiskUnits = $availableDiskUnits = "bytes";
   //echo $availableDiskSpace . " / " . $totalDiskSpace; 
 }
 
@@ -95,8 +96,8 @@ function getFile($fileName){
 <h2>local/www Directory</h2>
 
 <p>
-  <?php echo "Available disk space: ". $availableDiskSpace . " bytes"; ?>
-  <br><?php echo "Total disk space: " . $totalDiskSpace . " bytes"; ?> 
+  <?php echo "Available disk space: ". $availableDiskSpace . " " . $availableDiskUnits; ?>
+  <br><?php echo "Total disk space: " . $totalDiskSpace . " " . $totalDiskUnits; ?> 
 </p>
 
 <h3>Current Files</h3>
@@ -117,7 +118,8 @@ function getFile($fileName){
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
   Select file to upload:<br>
-  <input type="file" name="fileToUpload" id="fileToUpload"><br>
+  <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
+  <p>Save as (option) <input type="text" name="saveAs" value=""></p>
   <input type="submit" value="Upload Image" name="submit">
 </form>
 

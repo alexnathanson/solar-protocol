@@ -11,6 +11,8 @@
 
 //read local file
 $localFile = '/home/pi/local/local.json';
+$imgDir = '/home/pi/local/';
+
 $localInfo = json_decode(getFile($localFile), true);
 
 $apiErr = "";
@@ -137,16 +139,24 @@ function getFile($fileName){
 <p>
 <div style="padding: 10px; border: 2px solid black">
   <h3>System Photo</h3>
-  <p>
-    This image will appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
-  </p>
-  <form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
+  <div style="width: 50%">
     <p>
-    <input type="file" name="fileToUpload" id="fileToUpload">
-  </p>
-    <input type="submit" value="Upload Image" name="submit">
-  </form>
+      This image will appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
+      <br>Accepted image file types: jpg, jpeg, png, gif
+    </p>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+      Select image to upload:
+      <p>
+      <input type="file" name="fileToUpload" id="fileToUpload">
+      <input type="hidden" name="directory" value="<?php echo $imgDir; ?>" />
+    </p>
+      <input type="submit" value="Upload Image" name="submit">
+    </form>
+  </div>
+  <div style="width:50%"><!--should this float left?-->
+    <!--display thumbnail image-->
+    <img src="">
+  </div>
 </div>
 </p>
 

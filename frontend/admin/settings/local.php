@@ -3,11 +3,14 @@
   Protect\with('/home/pi/solar-protocol/frontend/admin/protect/form.php','admin');
 ?>
 
+<?php phpinfo(); ?>
+
 <html>
 <body>
 
 
 <?php
+
 
 //local www directory
 $localWWW = "/home/pi/local/www/";

@@ -164,13 +164,13 @@ function getFile($fileName){
   </div>
   <div style="width:50%"><!--should this float left?-->
     <!--display thumbnail image-->
-    <img src="<?php echo ">
+    <img src="<?php echo ""; ?>">
   </div>
 </div>
 </p>
 
 <p>
-<div style="padding: 10px; border: 5px solid red">
+<div style="padding: 10px; border: 5px; solid red">
   <h3>Danger Zone</h3>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
     <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>

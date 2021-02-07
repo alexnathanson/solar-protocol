@@ -1,2 +1,2 @@
 # Redirect everything in this directory to "good.html" 
-RewriteEngine on RewriteRule .* www/index.html
+RewriteEngine on RewriteRule .* /api/v1/

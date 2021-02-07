@@ -12,7 +12,8 @@ RewriteRule ^local/(.*)$ /redirect/images.php?file=$1
 RewriteCond %{REQUEST_URI} \.(html|css)$
 RewriteRule ^local/(.*)$ /redirect/www.php?file=$1
 
-RewriteRule ^local /redirect/www.php?file=index
+#for local www root
+RewriteRule ^local$ /redirect/www.php?file=index.html
 
-# This redirects for user pages
+# This redirects for user pages - not working yet
 #RewriteRule ^user/(.*)$ /api/v1/local.php?user=$1

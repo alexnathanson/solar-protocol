@@ -6,8 +6,8 @@ $filepath= "";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	//NOTE: nothing can be output prior to the image for this to work
 	//var_dump($_GET);
-	echo "WORKING!";
-	
+	//echo "WORKING!";
+
 	// get the file name
 	$filepath= $locDir . @$_GET['file'];
 

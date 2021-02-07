@@ -1,3 +1,4 @@
 # Redirect everything in this directory to "good.html" 
 RewriteEngine on
-RewriteRule ^local/(.*)$ /api/v1/$1 [R=301,NC,L]
+# RewriteRule ^local/(.*)$ /api/v1/$1 [R=301,NC,L]
+RewriteRule ^local/(.*)$ /api/v1/

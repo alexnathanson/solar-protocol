@@ -1,7 +1,7 @@
 <!-- based on: https://www.w3schools.com/php/php_file_upload.asp -->
 
 <?php
-namespace Upload;
+//namespace Upload;
 
 //function uploadIt(){
 

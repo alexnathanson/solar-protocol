@@ -12,35 +12,22 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$filepath= $locDir . @$_GET['file'];
 
 	if (file_exists($filepath)){
-		/*if(strpos($filepath, "jpg")){
-			header("Content-type: image/jpg");
-		} else if(strpos($filepath, "jpeg")){
-			header("Content-type: image/jpeg");
-		}  else if(strpos($filepath, "png")){
-			header("Content-type: image/png");
-		} else if(strpos($filepath, "gif")){
-			header("Content-type: image/gif");
-		} else {
-			notFound();
-			return;
-		}
-		serveImg();*/
-    	include($filepath);
+		
+		//this will run php code
+    	//include($filepath);
+
+    	//this wont run any php code
+    	echo file_get_contents($filepath);
 
 	} else {
-		//notFound();
-		echo $filepath . " not found";
+		notFound();
+		//echo $filepath . " not found";
 	}
 	
 }
 
 function notFound(){
-	header( "HTTP/1.0 404 Not Found");
-	header("Content-type: image/jpeg");
-	header('Content-Length: ' . filesize("404_files.jpg"));
-	header("Accept-Ranges: bytes");
-	//header("Last-Modified: Fri, 03 Mar 2004 06:32:31 GMT");
-	readfile("404_files.jpg");
+	echo file_get_contents("404.html");
 }
 
 ?>

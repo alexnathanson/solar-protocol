@@ -20,7 +20,7 @@ $totalDiskSpace = $availableDiskSpace = "";
 
 diskSpace("/");
 
-function mapDirectory($mapThis, $count){
+function mapDirectory($mapThis, $count = 0){
 
   if(is_dir($mapThis)){
     
@@ -28,9 +28,13 @@ function mapDirectory($mapThis, $count){
 
     foreach ($mappedDirectory as &$f){
       if($f != "." && $f != ".."){
-        echo $f . "<br>";
+        echo $f;
+        for($c = 0; $< $count; $c++){
+          echo "-";
+        }
+        echo "<br>";
         if(is_dir($f)){
-          mapDirectory($mapThis . $f);
+          mapDirectory($mapThis . $f, $count + 1);
         }
       }
     }

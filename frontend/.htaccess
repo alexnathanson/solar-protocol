@@ -8,7 +8,11 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif)$
 RewriteRule ^local/(.*)$ /redirect/images.php?file=$1
 
-#RewriteRule ^local/(.*)$ /redirect/www.php?file=$1
+#for html and css files
+RewriteCond %{REQUEST_URI} \.(html|css)$
+RewriteRule ^local/(.*)$ /redirect/www.php?file=$1
+
+RewriteRule ^local /redirect/www.php?file=index
 
 # This redirects for user pages
 #RewriteRule ^user/(.*)$ /api/v1/local.php?user=$1

@@ -31,9 +31,12 @@ function mapDirectory($mapThis, $count = 0){
         for($c = 0; $c < $count; $c++){
           echo "-- ";
         }
-        echo $mapThis.$f. "<br>";
-        if(is_dir($mapThis . $f)){
-          mapDirectory($mapThis . $f."/", $count + 1);
+        $fN = $mapThis.$f;
+        echo $fN;
+        echo "last modified: ".date("F d Y H:i:s.", filemtime(fN));
+        echo "<br>";
+        if(is_dir($fN)){
+          mapDirectory($fN."/", $count + 1);
         }
       }
     }

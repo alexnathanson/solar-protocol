@@ -9,14 +9,13 @@
 
 <?php
 
-
 //local www directory
 $localWWW = "/home/pi/local/www/";
 
 /*var_dump(scandir($localWWW));
 */
 
-$totalDiskSpace = $availableDiskSpace = $totalDiskUnits = $availableDiskUnits = "";
+$totalDiskSpace = $availableDiskSpace = $diskUnits = "";
 
 diskSpace("/");
 
@@ -43,12 +42,12 @@ function mapDirectory($mapThis, $count = 0){
 }
 
 function diskSpace($dirSpace){
-  global $totalDiskSpace, $availableDiskSpace;
+  global $totalDiskSpace, $availableDiskSpace, $diskUnits;
 
   $totalDiskSpace = disk_total_space($dirSpace);
   $availableDiskSpace = disk_free_space($dirSpace);
 
-  $totalDiskUnits = $availableDiskUnits = "bytes";
+  $diskUnits = "bytes";
   //echo $availableDiskSpace . " / " . $totalDiskSpace; 
 }
 
@@ -96,8 +95,8 @@ function getFile($fileName){
 <h2>local/www Directory</h2>
 
 <p>
-  <?php echo "Available disk space: ". $availableDiskSpace . " " . $availableDiskUnits; ?>
-  <br><?php echo "Total disk space: " . $totalDiskSpace . " " . $totalDiskUnits; ?> 
+  <?php echo "Available disk space: ". $availableDiskSpace . " " . $diskUnits; ?>
+  <br><?php echo "Total disk space: " . $totalDiskSpace . " " . $diskUnits; ?> 
 </p>
 
 <h3>Current Files</h3>

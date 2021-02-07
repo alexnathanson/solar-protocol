@@ -17,7 +17,6 @@ $localWWW = "/home/pi/local/www/";
 */
 
 $mappedDirectory = [];
-mapDirectory();
 
 $totalDiskSpace = $availableDiskSpace = "";
 
@@ -28,10 +27,12 @@ function mapDirectory(){
   $mappedDirectory = scandir($localWWW);
 
   foreach ($mappedDirectory as &$f){
-    echo $f . "<br>";
-    if(!strpos($f, '.')){
-      
-      print_r(scandir($localWWW . $f));
+    if($f != "." || $f != ".."){
+      echo $f . "<br>";
+      if(!strpos($f, '.')){
+        
+        print_r(scandir($localWWW . $f));
+      }
     }
   } 
 }
@@ -86,10 +87,19 @@ function getFile($fileName){
   <br>The maximum size your site can take up cannot exceed more than 90% of the total disk space.
 </p>
 
+<h2>Current Files</h2>
+
 <p>
   <?php echo "Available disk space: ". $availableDiskSpace . " bytes"; ?>
   <br><?php echo "Total disk space: " . $totalDiskSpace . " bytes"; ?> 
 </p>
+
+
+<p>
+  <?php mapDirectory();?>
+</p>
+
+
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
   Select image to upload:<br>

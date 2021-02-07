@@ -92,7 +92,7 @@ function getFile($fileName){
 
 
 <p>
-  <?php mapDirectory();?>
+  <?php mapDirectory($localWWW);?>
 </p>
 
 

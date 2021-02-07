@@ -25,10 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			return;
 		}
 		serveImg();*/
-	    header('Content-Type: application/octet-stream');
-	    header('Content-Disposition: attachment; filename='.$download_name);
-	    header('X-Sendfile: '.$filepath);
-	    exit;
+    	include($filepath);
 
 	} else {
 		//notFound();

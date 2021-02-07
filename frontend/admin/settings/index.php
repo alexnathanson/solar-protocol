@@ -8,17 +8,14 @@
   Upload\uploadIt();*/
 ?>
 
-
-
 <html>
 <body>
-
 
 <?php
 
 //read local file
 $localFile = '/home/pi/local/local.json';
-$imgDir = '/home/pi/local/www/images';
+$imgDir = '/home/pi/local/www/';
 
 $localInfo = json_decode(getFile($localFile), true);
 

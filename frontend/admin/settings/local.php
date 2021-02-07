@@ -32,9 +32,9 @@ function mapDirectory($mapThis, $count = 0){
         for($c = 0; $c < $count; $c++){
           echo "-- ";
         }
-        echo $mapThis."/".$f. "<br>";
+        echo $mapThis.$f. "<br>";
         if(is_dir($mapThis . $f)){
-          mapDirectory($mapThis . $f, $count + 1);
+          mapDirectory($mapThis . $f."/", $count + 1);
         }
       }
     }

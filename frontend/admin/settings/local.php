@@ -26,7 +26,7 @@ function mapDirectory($mapThis, $count = 0){
     
     $mappedDirectory = scandir($mapThis);
 
-    foreach ($mappedDirectory as &$f){
+    foreach ($mappedDirectory as $k = $f){
       if($f != "." && $f != ".."){
         echo $f;
         for($c = 0; $c < $count; $c++){

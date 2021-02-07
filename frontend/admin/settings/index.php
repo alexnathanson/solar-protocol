@@ -1,7 +1,14 @@
 <?php
+  //password protection
   require_once '/home/pi/solar-protocol/frontend/admin/protect/protect.php';
   Protect\with('/home/pi/solar-protocol/frontend/admin/protect/form.php','admin');
+
+  //file upload
+ /* require_once '../frontend/admin/upload.php';
+  Upload\uploadIt();*/
 ?>
+
+
 
 <html>
 <body>
@@ -11,7 +18,7 @@
 
 //read local file
 $localFile = '/home/pi/local/local.json';
-$imgDir = '/home/pi/local/';
+$imgDir = '/';
 
 $localInfo = json_decode(getFile($localFile), true);
 
@@ -149,6 +156,7 @@ function getFile($fileName){
       <p>
       <input type="file" name="fileToUpload" id="fileToUpload">
       <input type="hidden" name="directory" value="<?php echo $imgDir; ?>" />
+      <input type="hidden" name="type" value="image" />
     </p>
       <input type="submit" value="Upload Image" name="submit">
     </form>

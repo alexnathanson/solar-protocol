@@ -181,6 +181,10 @@ function getFile($fileName){
 <p>
 <div style="padding: 10px; border: 5px solid red">
   <h3>Security & Access Keys - Danger Zone!</h3>
+  <p>Upload Access Document</p>
+  <p>
+    or
+  </p>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
     <input type="hidden" name="key" value="form"/>
     <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>

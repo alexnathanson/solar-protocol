@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mkdir($_POST['parent'] . $_POST['newDirectory']);
   } else if (isset($_POST['type']) && $_POST['type'] == "delete"){
     $pK = array_keys($_POST);
-
+    var_dump($pK);
     foreach ($pK as $k => $f){
       if(strpos($f, "file")){
         echo "file: " . $f;

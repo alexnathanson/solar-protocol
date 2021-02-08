@@ -162,7 +162,7 @@ function getFile($fileName){
 
 <div style="padding: 10px; border: 2px solid black">
 <h3>Create New Directory:</h3>
-  <form action="upload.php" method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data">
     <p>Name <input type="text" name="newDirectory" value=""></p>
     <p>
       Select parent directory:<br>

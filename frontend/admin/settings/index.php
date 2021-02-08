@@ -44,7 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   } else if (isset($_POST['key']) && $_POST['key'] == "file"){
     //handle the file
-    echo "file";
+    //echo "file";
+    Upload\uploadIt();
   }
   
 }

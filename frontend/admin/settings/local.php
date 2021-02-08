@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else if (isset($_POST['type']) && $_POST['type'] == "delete"){
     $pK = array_keys($_POST);
     var_dump($pK);
-    foreach ($pK as $k => $f){
+    foreach ($pK as &$f){
       if(strpos($f, "file")){
         echo "file!!!";
         deleteFile($_POST[$f]);

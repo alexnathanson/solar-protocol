@@ -23,6 +23,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //make new directory
   if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
     mkdir($_POST['parent'] . $_POST['newDirectory']);
+  } else if (isset($_POST['type']) && $_POST['type'] == "delete"){
+    $pK = array_keys($_POST);
+
+    foreach ($pK as $k => $f){
+      if(strpos($f, file)){
+        deleteFile($f);
+      } else if (strpos($f, directory)){
+        deleteDirectrory($f);
+      }
+    }
+
   }
 }
 
@@ -46,13 +57,14 @@ function mapDirectory($mapThis, $count = 0){
           echo "-- ";
         }
         $fN = $mapThis.$f;
-        /*echo $fN;
-        echo " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")";
-        echo "<br>";*/
-        outputCheck($fileNum, $fN, $fN . " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")");
-
-        if(is_dir($fN)){
+       
+        if(!is_dir($fN)){
+          outputCheck("file-".$fileNum, $fN, $fN . " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")");
+        } else if(is_dir($fN)){
+          outputCheck("directory-".$fileNum, $fN, $fN . " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")");
           mapDirectory($fN."/", $count + 1);
+        } else {
+
         }
       }
       $fileNum++;
@@ -84,7 +96,7 @@ function listDirectories($mapThis, $nameRadio){
 }
 
 function outputCheck($checkName, $checkValue, $checkDisplay){
-  echo "<input type='checkbox' name=file-" . $checkName . " value=" . $checkValue . ">
+  echo "<input type='checkbox' name=" . $checkName . " value=" . $checkValue . ">
   <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
 }
 
@@ -168,6 +180,7 @@ function getFile($fileName){
 <h3>Current Files</h3>
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return confirm('Are you sure you want to delete the selected files?');">
      <?php mapDirectory($localWWW);?>
+      <input type="hidden" name="type" value="delete" />
       <input type="submit" value="Delete Selected Files" name="submit">
   </form>
 </div>

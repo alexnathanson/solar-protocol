@@ -63,7 +63,7 @@ function listDirectories($mapThis, $nameRadio){
         $fN = $mapThis.$f;
        
         if(is_dir($fN)){
-          listDirectories($fN."/");
+          listDirectories($fN."/", $nameRadio);
         }
       }
     }

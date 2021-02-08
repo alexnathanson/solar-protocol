@@ -27,9 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pK = array_keys($_POST);
 
     foreach ($pK as $k => $f){
-      if(strpos($f, file)){
+      if(strpos($f, "file")){
         deleteFile($f);
-      } else if (strpos($f, directory)){
+      } else if (strpos($f, "directory")){
         deleteDirectrory($f);
       }
     }

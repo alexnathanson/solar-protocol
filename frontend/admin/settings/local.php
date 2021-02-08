@@ -161,8 +161,21 @@ function getFile($fileName){
   </form>
 </div>
 
+
 <div style="padding: 10px; border: 2px solid black">
-<h3>Upload file:</h3>
+<h3>New Directory:</h3>
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    <p>Name <input type="text" name="newDirectory" value=""></p>
+    <p>
+      Save to directory:<br>
+      <?php listDirectories($localWWW);?>
+    </p>
+    <input type="submit" value="Upload File" name="submit">
+  </form>
+</div>
+
+<div style="padding: 10px; border: 2px solid black">
+<h3>Upload File:</h3>
   <form action="upload.php" method="post" enctype="multipart/form-data">
     <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
     <p>Save as (optional) <input type="text" name="saveAs" value=""></p>

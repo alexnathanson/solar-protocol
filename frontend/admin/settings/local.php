@@ -52,7 +52,7 @@ function mapDirectory($mapThis, $count = 0){
 function listDirectories($mapThis, $count = 0){
 
   if(is_dir($mapThis)){
-    outputRadio($fileNum, $mapThis, $fN);
+    outputRadio($fileNum, $mapThis, $mapThis);
     $mappedDirectory = scandir($mapThis);
 
     $fileNum = 0;

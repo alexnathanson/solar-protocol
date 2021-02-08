@@ -49,8 +49,37 @@ function mapDirectory($mapThis, $count = 0){
   }
 }
 
+function listDirectories($mapThis, $count = 0){
+
+  if(is_dir($mapThis)){
+
+    $mappedDirectory = scandir($mapThis);
+
+    $fileNum = 0;
+
+    foreach ($mappedDirectory as $k => $f){
+      if($f != "." && $f != ".."){
+       
+        $fN = $mapThis.$f;
+       
+        if(is_dir($fN)){
+          outputRadio($fileNum, $fN, $fN);
+          listDirectories($fN."/", $count + 1);
+        }
+      }
+      $fileNum++;
+    }
+
+  }
+}
+
 function outputCheck($checkName, $checkValue, $checkDisplay){
   echo "<input type='checkbox' name=" . $checkName . " value=" . $checkValue . ">
+  <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
+}
+
+function outputRadio($checkName, $checkValue, $checkDisplay){
+  echo "<input type='radio' name=" . $checkName . " value=" . $checkValue . ">
   <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
 }
 
@@ -127,30 +156,24 @@ function getFile($fileName){
 
 <h3>Current Files</h3>
 
-<!-- <form action="/action_page.php">
-  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-  <label for="vehicle1"> I have a bike</label><br>
-  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-  <label for="vehicle2"> I have a car</label><br>
-  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
-  <label for="vehicle3"> I have a boat</label><br><br>
-  <input type="submit" value="Remove Selected Files">
-</form> -->
+<p>
+  <form action="/action_page.php">
+     <?php mapDirectory($localWWW);?>
+      <input type="submit" value="Delete Selected Files" name="submit">
+  </form>
+</p>
 
 <p>
- 
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    Select file to upload:<br>
+    <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
+    <p>Save as (optional) <input type="text" name="saveAs" value=""></p>
+    <p>
+      Save to directory:
+      <?php listDirectories($localWWW);?>
+    </p>
+    <input type="submit" value="Upload Image" name="submit">
+  </form>
 </p>
-<form action="/action_page.php">
-   <?php mapDirectory($localWWW);?>
-    <input type="submit" value="Delete Selected Files" name="submit">
-</form>
-
-<form action="upload.php" method="post" enctype="multipart/form-data">
-  Select file to upload:<br>
-  <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
-  <p>Save as (optional) <input type="text" name="saveAs" value=""></p>
-  <input type="submit" value="Upload Image" name="submit">
-</form>
-
 </body>
 </html>

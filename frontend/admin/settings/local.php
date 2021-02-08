@@ -54,6 +54,19 @@ function outputCheck($checkName, $checkValue, $checkDisplay){
   <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
 }
 
+function deleteFile($delThis){
+
+  if(strpos($delThis, $_GLOBAL['localWWW'])){
+      unlink($delThis);
+  }
+}
+
+function deleteDirectrory($delThis){
+  if(strpos($delThis, $_GLOBAL['localWWW'])){
+      rmdir($delThis);
+  }
+}
+
 function diskSpace($dirSpace){
   global $totalDiskSpace, $availableDiskSpace, $diskUnits;
 
@@ -129,6 +142,7 @@ function getFile($fileName){
 </p>
 <form action="/action_page.php">
    <?php mapDirectory($localWWW);?>
+    <input type="submit" value="Delete Selected Files" name="submit">
 </form>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">

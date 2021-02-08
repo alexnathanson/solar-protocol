@@ -26,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else if (isset($_POST['type']) && $_POST['type'] == "delete"){
     $pK = array_keys($_POST);
     var_dump($pK);
-    foreach ($pK as &$f){
-      if(strpos($f, "file")){
+    foreach ($pK as $k => $f){
+      if(strpos($k, "file")){
         echo "file!!!";
-        deleteFile($_POST[$f]);
-      } else if (strpos($f, "directory")){
+        deleteFile($_POST[$k]);
+      } else if (strpos($k, "directory")){
         echo "directory!!!";
-        deleteDirectrory($_POST[$f]);
+        deleteDirectrory($_POST[$k]);
       }
     }
 

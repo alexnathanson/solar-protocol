@@ -66,7 +66,6 @@ function listDirectories($mapThis){
           listDirectories($fN."/");
         }
       }
-      $fileNum++;
     }
 
   }
@@ -79,7 +78,7 @@ function outputCheck($checkName, $checkValue, $checkDisplay){
 
 function outputRadio($radioValue){
   echo "<input type='radio' name=dir-" . $radioValue . " value=" . $radioValue . ">
-  <label for=" . $radioValue . ">" . $checkDisplay ."</label><br>";
+  <label for=" . $radioValue . ">" . $radioValue ."</label><br>";
 }
 
 function deleteFile($delThis){

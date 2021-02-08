@@ -152,26 +152,27 @@ function getFile($fileName){
   <br><?php echo "Total disk space: " . $totalDiskSpace . " " . $diskUnits; ?> 
 </p>
 
-<h3>Current Files</h3>
 
-<p>
+<div style="padding: 10px; border: 2px solid black">
+<h3>Current Files</h3>
   <form action="/action_page.php">
      <?php mapDirectory($localWWW);?>
       <input type="submit" value="Delete Selected Files" name="submit">
   </form>
-</p>
+</div>
 
-<p>
+<div style="padding: 10px; border: 2px solid black">
+<h3>Upload file:</h3>
   <form action="upload.php" method="post" enctype="multipart/form-data">
-    Select file to upload:<br>
     <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
     <p>Save as (optional) <input type="text" name="saveAs" value=""></p>
     <p>
-      Save to directory:
+      Save to directory:<br>
       <?php listDirectories($localWWW);?>
     </p>
-    <input type="submit" value="Upload Image" name="submit">
+    <input type="submit" value="Upload File" name="submit">
   </form>
-</p>
+</div>
+
 </body>
 </html>

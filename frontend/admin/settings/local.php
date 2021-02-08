@@ -49,13 +49,13 @@ function mapDirectory($mapThis, $count = 0){
   }
 }
 
-function listDirectories($mapThis, $count = 0){
+function listDirectories($mapThis){
 
   if(is_dir($mapThis)){
-    outputRadio($fileNum, $mapThis, $mapThis);
+
+    outputRadio($mapThis);
     $mappedDirectory = scandir($mapThis);
 
-    $fileNum = 0;
 
     foreach ($mappedDirectory as $k => $f){
       if($f != "." && $f != ".."){
@@ -63,7 +63,7 @@ function listDirectories($mapThis, $count = 0){
         $fN = $mapThis.$f;
        
         if(is_dir($fN)){
-          listDirectories($fN."/", $count + 1);
+          listDirectories($fN."/");
         }
       }
       $fileNum++;
@@ -73,13 +73,13 @@ function listDirectories($mapThis, $count = 0){
 }
 
 function outputCheck($checkName, $checkValue, $checkDisplay){
-  echo "<input type='checkbox' name=" . $checkName . " value=" . $checkValue . ">
+  echo "<input type='checkbox' name=file-" . $checkName . " value=" . $checkValue . ">
   <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
 }
 
-function outputRadio($checkName, $checkValue, $checkDisplay){
-  echo "<input type='radio' name=" . $checkName . " value=" . $checkValue . ">
-  <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
+function outputRadio($radioValue){
+  echo "<input type='radio' name=dir-" . $radioValue . " value=" . $radioValue . ">
+  <label for=" . $radioValue . ">" . $checkDisplay ."</label><br>";
 }
 
 function deleteFile($delThis){

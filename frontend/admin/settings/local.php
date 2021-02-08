@@ -15,6 +15,17 @@ $localWWW = "/home/pi/local/www/";
 /*var_dump(scandir($localWWW));
 */
 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  var_dump($_POST);
+  
+  if(isset($_POST['key']) && $_POST['key'] == "form"){
+    //handle the form data
+  }
+}
+
+
 $totalDiskSpace = $availableDiskSpace = $diskUnits = "";
 
 diskSpace("/");
@@ -162,7 +173,7 @@ function getFile($fileName){
 
 <div style="padding: 10px; border: 2px solid black">
 <h3>Create New Directory:</h3>
-  <form method="post" enctype="multipart/form-data">
+  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <p>Name <input type="text" name="newDirectory" value=""></p>
     <p>
       Select parent directory:<br>

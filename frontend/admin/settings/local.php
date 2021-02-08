@@ -26,22 +26,32 @@ function mapDirectory($mapThis, $count = 0){
 
     $mappedDirectory = scandir($mapThis);
 
+    $fileNum = 0;
+
     foreach ($mappedDirectory as $k => $f){
       if($f != "." && $f != ".."){
         for($c = 0; $c < $count; $c++){
           echo "-- ";
         }
         $fN = $mapThis.$f;
-        echo $fN;
+        /*echo $fN;
         echo " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")";
-        echo "<br>";
+        echo "<br>";*/
+        outputCheck($fileNum, $fN, $fN . " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")");
+
         if(is_dir($fN)){
           mapDirectory($fN."/", $count + 1);
         }
       }
+      $fileNum++;
     }
 
   }
+}
+
+function outputCheck($checkName, $checkValue, $checkDisplay){
+  echo "<input type='checkbox' name=" . $checkName . " value=" . $checkValue . ">
+  <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
 }
 
 function diskSpace($dirSpace){
@@ -115,11 +125,10 @@ function getFile($fileName){
 </form> -->
 
 <p>
-  <?php mapDirectory($localWWW);?>
+ 
 </p>
 <form action="/action_page.php">
-  <?php echo "<input type='checkbox' id='vehicle1' name='vehicle1' value='Bike'>
-  <label for='vehicle1'> I have a bike</label><br>"; ?>
+   <?php mapDirectory($localWWW);?>
 </form>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">

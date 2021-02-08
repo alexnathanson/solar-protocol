@@ -4,7 +4,7 @@
   Protect\with('/home/pi/solar-protocol/frontend/admin/protect/form.php','admin');
 
   //file upload
-  require_once '../frontend/admin/upload.php';
+  require_once '/home/pi/solar-protocol/frontend/admin/upload.php';
   //Upload\uploadIt();
 ?>
 

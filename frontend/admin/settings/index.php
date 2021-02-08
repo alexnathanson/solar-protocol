@@ -152,7 +152,7 @@ function getFile($fileName){
 
 <p>
 <div style="padding: 10px; border: 2px solid black">
-  <h3>System Photo</h3>
+  <h3>Server Profile Photo</h3>
   <div style="width: 50%">
     <p>
       This image will appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
@@ -164,6 +164,7 @@ function getFile($fileName){
       <input type="hidden" name="key" value="file"/>
       <input type="file" name="fileToUpload" id="fileToUpload">
       <input type="hidden" name="directory" value="<?php echo $imgDir; ?>" />
+      <input type="hidden" name="rename" value="profile"/>
       <input type="hidden" name="type" value="image" />
 <!--       <input type="hidden" name="rename" value="stewardImage"/>
  -->    </p>
@@ -178,8 +179,8 @@ function getFile($fileName){
 </p>
 
 <p>
-<div style="padding: 10px; border: 5px; solid red">
-  <h3>Danger Zone</h3>
+<div style="padding: 10px; border: 5px solid red">
+  <h3>Security & Access Keys - Danger Zone!</h3>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
     <input type="hidden" name="key" value="form"/>
     <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>

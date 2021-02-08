@@ -136,7 +136,9 @@ function getFile($fileName){
 
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
 
-<h2>Local Content</h2>
+<h2>Local Public Content</h2>
+
+<p>Local public content is located in the /home/pi/local/www directory.</p>
 
 <p>We are in the process of developing complete guidelines for uploading content. For the time being, we are only allowing static HTML pages and CSS, without any Javascript or PHP.</p>
 
@@ -145,29 +147,25 @@ function getFile($fileName){
   <br>The maximum size your site can take up cannot exceed more than 90% of the total disk space.
 </p>
 
-<h2>local/www Directory</h2>
-
 <p>
   <?php echo "Available disk space: ". $availableDiskSpace . " " . $diskUnits; ?>
   <br><?php echo "Total disk space: " . $totalDiskSpace . " " . $diskUnits; ?> 
 </p>
 
-
 <div style="padding: 10px; border: 2px solid black">
 <h3>Current Files</h3>
-  <form action="/action_page.php">
+  <form action="/action_page.php" onsubmit="return confirm('Are you sure you want to delete the selected files?');">
      <?php mapDirectory($localWWW);?>
       <input type="submit" value="Delete Selected Files" name="submit">
   </form>
 </div>
 
-
 <div style="padding: 10px; border: 2px solid black">
-<h3>New Directory:</h3>
+<h3>Create New Directory:</h3>
   <form action="upload.php" method="post" enctype="multipart/form-data">
     <p>Name <input type="text" name="newDirectory" value=""></p>
     <p>
-      Save to directory:<br>
+      Select parent directory:<br>
       <?php listDirectories($localWWW, "directory");?>
     </p>
     <input type="submit" value="Upload File" name="submit">

@@ -23,22 +23,30 @@ $apiErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  for ($k = 0; $k < count(array_keys($_POST));$k++){
+  if(isset($_POST['key']) && $_POST['key'] == "form"){
+    //handle the form data
+
+    for ($k = 0; $k < count(array_keys($_POST));$k++){
     //echo array_keys($_POST)[$k];
 
-    if(isset($_POST['apiKey'])){
-      if(empty($_POST['apiKey'])){
-        $apiErr = "No data entered.";
-      } else {
+      if(isset($_POST['apiKey'])){
+        if(empty($_POST['apiKey'])){
+          $apiErr = "No data entered.";
+        } else {
+          $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+        }
+      }else {
         $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
       }
-    }else {
-      $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
     }
+
+    file_put_contents($localFile, json_encode($localInfo, JSON_PRETTY_PRINT));
+
+  } else if (isset($_POST['key']) && $_POST['key'] == "file"){
+    //handle the file
+    echo "file";
   }
-
-  file_put_contents($localFile, json_encode($localInfo, JSON_PRETTY_PRINT));
-
+  
 }
 
 //this will display the api key so DO NOT print directly except for debugging
@@ -119,7 +127,8 @@ function getFile($fileName){
 <h3>Info</h3>
 <form method="post" id="updateLocalInfo" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-  
+  <input type="hidden" name="key" value="form"/>
+
   <p>Name <input type="text" name="name" value="<?php if (isset($locName)){echo $locName;}?>"></p>
   
   <p>Description (500 characters max)<br><!--  <input type="text" name="description" value="<?php if (isset($locDescription)){echo $locDescription;}?>"></p> -->
@@ -148,14 +157,15 @@ function getFile($fileName){
       This image will appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
       <br>Accepted image file types: jpg, jpeg, png, gif
     </p>
-    <form action="<?php Upload\uploadIt(); ?>" method="post" enctype="multipart/form-data">
+    <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post" enctype="multipart/form-data">
       Select image to upload:
       <p>
+      <input type="hidden" name="key" value="file"/>
       <input type="file" name="fileToUpload" id="fileToUpload">
       <input type="hidden" name="directory" value="<?php echo $imgDir; ?>" />
       <input type="hidden" name="type" value="image" />
-      <input type="hidden" name="rename" value="stewardImage"/>
-    </p>
+<!--       <input type="hidden" name="rename" value="stewardImage"/>
+ -->    </p>
       <input type="submit" value="Upload Image" name="submit">
     </form>
   </div>
@@ -170,6 +180,7 @@ function getFile($fileName){
 <div style="padding: 10px; border: 5px; solid red">
   <h3>Danger Zone</h3>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
+    <input type="hidden" name="key" value="form"/>
     <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>
     <button type="submit">Update</button>
   </form>

@@ -113,13 +113,13 @@ function outputRadio($radioValue, $rN){
 
 function deleteFile($delThis){
 
-  if(strpos($delThis, $_GLOBAL['localWWW'])){
+  if(strpos($delThis, $GLOBALS['localWWW'])){
       unlink($delThis);
   }
 }
 
 function deleteDirectrory($delThis){
-  if(strpos($delThis, $_GLOBAL['localWWW'])){
+  if(strpos($delThis, $GLOBALS['localWWW'])){
       rmdir($delThis);
   }
 }

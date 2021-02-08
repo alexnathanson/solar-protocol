@@ -49,11 +49,11 @@ function mapDirectory($mapThis, $count = 0){
   }
 }
 
-function listDirectories($mapThis){
+function listDirectories($mapThis, $nameRadio){
 
   if(is_dir($mapThis)){
 
-    outputRadio($mapThis);
+    outputRadio($mapThis, $nameRadio);
     $mappedDirectory = scandir($mapThis);
 
 
@@ -76,8 +76,8 @@ function outputCheck($checkName, $checkValue, $checkDisplay){
   <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
 }
 
-function outputRadio($radioValue){
-  echo "<input type='radio' name=dir-" . $radioValue . " value=" . $radioValue . ">
+function outputRadio($radioValue, $rN){
+  echo "<input type='radio' name=" . $rN . " value=" . $radioValue . ">
   <label for=" . $radioValue . ">" . $radioValue ."</label><br>";
 }
 
@@ -168,7 +168,7 @@ function getFile($fileName){
     <p>Name <input type="text" name="newDirectory" value=""></p>
     <p>
       Save to directory:<br>
-      <?php listDirectories($localWWW);?>
+      <?php listDirectories($localWWW, "directory");?>
     </p>
     <input type="submit" value="Upload File" name="submit">
   </form>
@@ -178,10 +178,10 @@ function getFile($fileName){
 <h3>Upload File:</h3>
   <form action="upload.php" method="post" enctype="multipart/form-data">
     <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
-    <p>Save as (optional) <input type="text" name="saveAs" value=""></p>
+    <!-- <p>Save as (optional) <input type="text" name="saveAs" value=""></p> -->
     <p>
       Save to directory:<br>
-      <?php listDirectories($localWWW);?>
+      <?php listDirectories($localWWW, "directory");?>
     </p>
     <input type="submit" value="Upload File" name="submit">
   </form>

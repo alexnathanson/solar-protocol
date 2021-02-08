@@ -119,7 +119,7 @@ function getFile($fileName){
 </p>
 <form action="/action_page.php">
   <?php echo "<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-  <label for="vehicle1"> I have a bike</label><br>" ?>
+  <label for="vehicle1"> I have a bike</label><br>"; ?>
 </form>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">

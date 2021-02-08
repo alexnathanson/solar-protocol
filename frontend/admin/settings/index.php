@@ -179,6 +179,12 @@ function getFile($fileName){
 </p>
 
 <p>
+  <div style="padding: 10px; border: 2px solid black">
+    <h3>Local Public Files</h3>
+  </div>
+</p>
+
+<p>
 <div style="padding: 10px; border: 5px solid red">
   <h3>Security & Access Keys - Danger Zone!</h3>
   <p>Upload Access Document</p>

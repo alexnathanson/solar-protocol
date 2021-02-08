@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($pK as $k => $f){
       echo "<br>". $k;
       echo $f;
-      if(strpos($f, "file")){
+      if(strpos($f, "file") !== false){
         echo "file!!!";
         deleteFile($_POST[$f]);
-      } else if (strpos($f, "directory")){
+      } else if (strpos($f, "directory") !== false){
         echo "directory!!!";
         deleteDirectrory($_POST[$f]);
       }

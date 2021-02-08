@@ -22,7 +22,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   //make new directory
   if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
-    mkdir($_POST['newDirectory'].$_POST['parent']);
+    $newDir = $_POST['newDirectory'] . $_POST['parent'];
+    echo $newDir
+    mkdir($newDir);
   }
 }
 

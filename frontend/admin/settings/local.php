@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pK = array_keys($_POST);
     var_dump($pK);
     foreach ($pK as $k => $f){
+      echo "<br>". $k;
+      echo $f;
       if(strpos($k, "file")){
         echo "file!!!";
         deleteFile($_POST[$k]);

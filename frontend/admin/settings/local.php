@@ -22,8 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   //make new directory
   if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
-    $newDir = $_POST['parent'] . $_POST['newDirectory'];
-    echo $newDir;
     mkdir($_POST['parent'] . $_POST['newDirectory']);
   }
 }
@@ -168,7 +166,7 @@ function getFile($fileName){
 
 <div style="padding: 10px; border: 2px solid black">
 <h3>Current Files</h3>
-  <form action="/action_page.php" onsubmit="return confirm('Are you sure you want to delete the selected files?');">
+  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return confirm('Are you sure you want to delete the selected files?');">
      <?php mapDirectory($localWWW);?>
       <input type="submit" value="Delete Selected Files" name="submit">
   </form>

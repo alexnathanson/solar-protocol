@@ -52,7 +52,7 @@ function mapDirectory($mapThis, $count = 0){
 function listDirectories($mapThis, $count = 0){
 
   if(is_dir($mapThis)){
-
+    outputRadio($fileNum, $mapThis, $fN);
     $mappedDirectory = scandir($mapThis);
 
     $fileNum = 0;
@@ -63,7 +63,6 @@ function listDirectories($mapThis, $count = 0){
         $fN = $mapThis.$f;
        
         if(is_dir($fN)){
-          outputRadio($fileNum, $fN, $fN);
           listDirectories($fN."/", $count + 1);
         }
       }

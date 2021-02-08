@@ -181,6 +181,8 @@ function getFile($fileName){
 <p>
   <div style="padding: 10px; border: 2px solid black">
     <h3>Local Public Files</h3>
+    <p>Upload and replace local/www/ directory</p>
+    </p>
   </div>
 </p>
 

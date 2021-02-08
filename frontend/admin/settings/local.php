@@ -103,6 +103,7 @@ function getFile($fileName){
 </p>
 
 <h3>Current Files</h3>
+
 <!-- <form action="/action_page.php">
   <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
   <label for="vehicle1"> I have a bike</label><br>
@@ -116,7 +117,10 @@ function getFile($fileName){
 <p>
   <?php mapDirectory($localWWW);?>
 </p>
-
+<form action="/action_page.php">
+  <?php echo "<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+  <label for="vehicle1"> I have a bike</label><br>" ?>
+</form>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
   Select file to upload:<br>

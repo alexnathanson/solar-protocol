@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //make new directory
   if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
     mkdir($_POST['parent'] . $_POST['newDirectory']);
-  } else if (isset($_POST['type']) && $_POST['type'] == "delete"){
+  } else if (isset($_POST['type']) && $_POST['type'] == "delete"){//delete
     $pK = array_keys($_POST);
     var_dump($pK);
     $pV = array_values($_POST);
@@ -32,10 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       echo "<br>". $k;
       echo $f;
       if(strpos($f, "file") !== false){
-        echo "file!!!";
+        echo "<br> file!!! " . $_POST[$f];
         deleteFile($_POST[$f]);
       } else if (strpos($f, "directory") !== false){
-        echo "directory!!!";
+        echo "<br> directory!!! " . $_POST[$f];
         deleteDirectrory($_POST[$f]);
       }
     }
@@ -115,12 +115,14 @@ function deleteFile($delThis){
 
   if(strpos($delThis, $GLOBALS['localWWW'])){
       unlink($delThis);
+      echo "<br>".$delThis . "deleted";
   }
 }
 
 function deleteDirectrory($delThis){
   if(strpos($delThis, $GLOBALS['localWWW'])){
       rmdir($delThis);
+      echo "<br>".$delThis . "deleted";
   }
 }
 

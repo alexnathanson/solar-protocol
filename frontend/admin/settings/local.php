@@ -19,9 +19,10 @@ $localWWW = "/home/pi/local/www/";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   var_dump($_POST);
-  
-  if(isset($_POST['key']) && $_POST['key'] == "form"){
-    //handle the form data
+
+  //make new directory
+  if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
+    mkdir($_POST['newDirectory']."/".$_POST['parent']);
   }
 }
 
@@ -177,9 +178,9 @@ function getFile($fileName){
     <p>Name <input type="text" name="newDirectory" value=""></p>
     <p>
       Select parent directory:<br>
-      <?php listDirectories($localWWW, "directory");?>
+      <?php listDirectories($localWWW, "parent");?>
     </p>
-    <input type="submit" value="Upload File" name="submit">
+    <input type="submit" value="Create New Directory" name="submit">
   </form>
 </div>
 

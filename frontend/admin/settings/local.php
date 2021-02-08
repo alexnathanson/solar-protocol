@@ -28,11 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     var_dump($pK);
     foreach ($pK as $k => $f){
       if(strpos($f, "file")){
-        echo "file: " . $f;
-        deleteFile($f);
+        echo "file!!!";
+        deleteFile($_POST[$f]);
       } else if (strpos($f, "directory")){
-        echo "directory: " . $f;
-        deleteDirectrory($f);
+        echo "directory!!!";
+        deleteDirectrory($_POST[$f]);
       }
     }
 

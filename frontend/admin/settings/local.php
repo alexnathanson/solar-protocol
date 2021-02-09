@@ -116,7 +116,7 @@ function outputRadio($radioValue, $rN){
 function deleteFile($delThis){
   if(strpos($delThis, $GLOBALS['localWWW'])!== false){
       unlink($delThis);
-      $deleteStatus .= "<br>".$delThis . " deleted";
+      $GLOBALS['deleteStatus'] .= "<br>".$delThis . " deleted";
   }
 }
 
@@ -140,7 +140,7 @@ function deleteDirectory($delThis){
     }
 
     rmdir($delThis);
-    $deleteStatus .= "<br>".$delThis . " deleted";
+    $GLOBALS['deleteStatus'] .= "<br>".$delThis . " deleted";
   }
 }
 

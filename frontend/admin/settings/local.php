@@ -3,7 +3,6 @@
   Protect\with('/home/pi/solar-protocol/backend/protect/form.php','admin');
 
   require_once '/home/pi/solar-protocol/frontend/admin/settings/upload.php';
-
 ?>
 
 <html>
@@ -11,7 +10,6 @@
    <link rel="stylesheet" href="../admin.css">
  </head>
 <body>
-
 
 <?php
 
@@ -192,7 +190,7 @@ function getFile($fileName){
 <p>We are in the process of developing complete guidelines for uploading content. For the time being, we are only allowing static HTML pages and CSS, without any Javascript or PHP.</p>
 
 <p>
-  The maximum individual image files size is ?
+  The maximum individual image files size is <?php echo Upload\$maxFileSizeBytes . " " . $diskUnits; ?>
   <br>The maximum size your site can take up cannot exceed more than 90% of the total disk space.
 </p>
 

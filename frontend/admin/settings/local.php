@@ -126,13 +126,13 @@ function deleteDirectory($delThis){
 
     if(!is_null($scanDir)){
       foreach ($scanDir as $k => $f){
-        if($f != "." && $f != ".."){
+        //if($f != "." && $f != ".."){
           if(is_dir($f)){
             deleteDirectory($f);
-          } else {
+          } else if (is_file($f)){
             deleteFile($f);
           }
-        }
+        //}
       }
     } else {
       rmdir($delThis);

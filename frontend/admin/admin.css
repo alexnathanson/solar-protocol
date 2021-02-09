@@ -12,7 +12,7 @@
 	margin-bottom: 10px;
 }
 
-#uploadStatus{
+#statusBox{
 	color: red;
 	border: 5px solid red;
 }

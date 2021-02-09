@@ -16,6 +16,8 @@
 //local www directory
 $localWWW = "/home/pi/local/www/";
 
+$deleteStatus = $directoryStatus = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   //var_dump($_POST);
@@ -24,8 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
     if(!is_dir($_POST['parent'] . $_POST['newDirectory'])){
       mkdir($_POST['parent'] . $_POST['newDirectory']);
+      $directoryStatus .= "<br>New directory created.";
     } else {
-      echo "<br>Directory already exists.";
+      $directoryStatus .= "<br>Directory already exists.";
     }
   } else if (isset($_POST['type']) && $_POST['type'] == "delete"){//delete file or directory
     $pK = array_keys($_POST);
@@ -113,7 +116,7 @@ function outputRadio($radioValue, $rN){
 function deleteFile($delThis){
   if(strpos($delThis, $GLOBALS['localWWW'])!== false){
       unlink($delThis);
-      echo "<br>".$delThis . " deleted";
+      $deleteStatus .= "<br>".$delThis . " deleted";
   }
 }
 
@@ -137,7 +140,7 @@ function deleteDirectory($delThis){
     }
 
     rmdir($delThis);
-    echo "<br>".$delThis . " deleted";
+    $deleteStatus .= "<br>".$delThis . " deleted";
   }
 }
 
@@ -201,6 +204,11 @@ function getFile($fileName){
 
 <div class="basicBox">
 <h3>Current Files</h3>
+
+<div <?php if($deleteStatus != ""){echo "id='statusBox'";} ?>>
+  <?php echo $deleteStatus; ?>
+</div>
+
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return confirm('Are you sure you want to delete the selected files?');">
     <p>
      <?php mapDirectory($localWWW);?>
@@ -211,6 +219,11 @@ function getFile($fileName){
 </div>
 
 <div class="basicBox">
+
+<div <?php if($directoryStatus != ""){echo "id='statusBox'";} ?>>
+  <?php echo $directoryStatus; ?>
+</div>
+
 <h3>Create New Directory:</h3>
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <p>Name <input type="text" name="newDirectory" value=""></p>
@@ -224,7 +237,7 @@ function getFile($fileName){
 
 <div class="basicBox">
 
-<div <?php if($uploadStatus != ""){echo "id='uploadStatus'";} ?>>
+<div <?php if($uploadStatus != ""){echo "id='statusBox'";} ?>>
   <?php echo $uploadStatus; ?>
 </div>
 

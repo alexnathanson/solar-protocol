@@ -28,7 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   //make new directory
   if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
-    mkdir($_POST['parent'] . $_POST['newDirectory']);
+    if(!is_dir($_POST['parent'] . $_POST['newDirectory'])){
+      mkdir($_POST['parent'] . $_POST['newDirectory']);
+    } else {
+      echo "<br>Directory already exists.";
+    }
   } else if (isset($_POST['type']) && $_POST['type'] == "delete"){//delete file or directory
     $pK = array_keys($_POST);
     var_dump($pK);
@@ -46,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
   } else if (isset($_POST['type']) && $_POST['type'] == "upload"){//upload file
+    echo "<br>Uploading...";
     Upload\uploadIt();
   }
 }
@@ -226,7 +231,6 @@ function getFile($fileName){
       Select parent directory:<br>
       <?php listDirectories($localWWW, "parent");?>
     </p>
-    <input type="hidden" name="type" value="upload" />
     <input type="submit" value="Create New Directory" name="submit">
   </form>
 </div>
@@ -242,6 +246,7 @@ function getFile($fileName){
       Save to directory:<br>
       <?php listDirectories($localWWW, "directory");?>
     </p>
+    <input type="hidden" name="type" value="upload" />
     <input type="submit" value="Upload File" name="submit">
   </form>
 </div>

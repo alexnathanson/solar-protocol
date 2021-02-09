@@ -124,7 +124,7 @@ function deleteDirectory($delThis){
 
     $scanDir = scandir($delThis);
 
-    if (!is_null($scandir)){
+    if (!is_null($scanDir)){
       foreach ($scanDir as $k => $f){
         if($f != "." && $f != ".."){
           if(is_dir($f)){

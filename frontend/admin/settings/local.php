@@ -224,7 +224,7 @@ function getFile($fileName){
 
 <div class="basicBox">
 
-<div <?php if($uploadStatus != ""){echo "id='uploadStatus'"}; ?>>
+<div <?php if($uploadStatus != ""){echo "id='uploadStatus'";} ?>>
   <?php echo $uploadStatus; ?>
 </div>
 

@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //make new directory
   if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
     mkdir($_POST['parent'] . $_POST['newDirectory']);
-  } else if (isset($_POST['type']) && $_POST['type'] == "delete"){//delete
+  } else if (isset($_POST['type']) && $_POST['type'] == "delete"){//delete file or directory
     $pK = array_keys($_POST);
     var_dump($pK);
     $pV = array_values($_POST);
@@ -45,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         deleteDirectory($_POST[$f]);
       }
     }
-
+  } else if (isset($_POST['type']) && $_POST['type'] == "upload"){//upload file
+    Upload\uploadIt();
   }
 }
 
@@ -225,6 +226,7 @@ function getFile($fileName){
       Select parent directory:<br>
       <?php listDirectories($localWWW, "parent");?>
     </p>
+    <input type="hidden" name="type" value="upload" />
     <input type="submit" value="Create New Directory" name="submit">
   </form>
 </div>
@@ -234,6 +236,8 @@ function getFile($fileName){
   <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post" enctype="multipart/form-data">
     <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
     <!-- <p>Save as (optional) <input type="text" name="saveAs" value=""></p> -->
+    <p><input type="checkbox" name="replace" value="0">
+    <label for="replace">Replace existing file if file with same name already exists?</label></p>
     <p>
       Save to directory:<br>
       <?php listDirectories($localWWW, "directory");?>

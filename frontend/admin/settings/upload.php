@@ -11,9 +11,10 @@ function uploadIt(){
 
     $uploadOk = 1;
 
-    if(fileType($target_file)=="image"){
+
+    if(strpos(mime_content_type($target_file),"image")!== false ){
       imageUpload($target_file);
-    } else if (fileType($target_file)=="text"){
+    } else if (strpos(mime_content_type($target_file),"text")!== false ){
       textUpload($target_file);
     }
 /*
@@ -32,7 +33,8 @@ function uploadIt(){
     }*/
 
     // Check if file already exists
-    if (file_exists($target_file)) {
+    //this might need a condition to delete the old file...
+    if (isset($_POST["replace"]) == 0 && file_exists($target_file)) {
       echo "Sorry, file already exists.";
       $uploadOk = 0;
     }
@@ -42,13 +44,6 @@ function uploadIt(){
       echo "Sorry, your file is too large.";
       $uploadOk = 0;
     }
-
-    // Allow certain file formats
-  /*  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif" ) {
-      echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-      $uploadOk = 0;
-    }*/
 
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
@@ -69,20 +64,8 @@ function imageUpload($iF){
 
   global $uploadOk;
 
-  //check for image mimetype
-  if(strpos(fileType($iF),"image")!== false ){
-    // Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif" ) {
-      echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-      $uploadOk = 0;
-    }
-  } else {
-    echo "Mime type is not image.";
-    $uploadOk = 0;
-  }
 
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    $imageFileType = strtolower(pathinfo($iF,PATHINFO_EXTENSION));
 
     // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
@@ -95,6 +78,14 @@ function imageUpload($iF){
         $uploadOk = 0;
       }
     }
+
+  //check for image mimetype
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) {
+      echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+      $uploadOk = 0;
+    }
 }
 
 function textUpload(){
@@ -106,17 +97,6 @@ function textUpload(){
   if($imageFileType != "html" && $imageFileType != "css") {
     echo "Sorry, only HTML and CSS files are allowed.";
     $uploadOk = 0;
-  }
-}
-
-function fileType($getType){
-  $mime = mime_content_type($getType);
-  echo "br>". $mime;
-
-  if(strpos(fileType($getType),"image")!== false){
-    return "image";
-  } else if (strpos(fileType($$getType),"text")!== false){
-    return "text";
   }
 }
 

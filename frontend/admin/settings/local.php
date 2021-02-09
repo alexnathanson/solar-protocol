@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
   } else if (isset($_POST['type']) && $_POST['type'] == "upload"){//upload file
-    echo "<br>Uploading...";
+    $uploadStatus .= "Upload Status:";
     Upload\uploadIt();
   }
 }

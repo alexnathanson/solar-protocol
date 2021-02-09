@@ -7,7 +7,7 @@ $uploadStatus = "";
 
 function uploadIt(){
   global $uploadStatus;
-  
+
   if(isset($_POST["directory"])) {
     $target_dir = $_POST["directory"];
 
@@ -46,6 +46,8 @@ function uploadIt(){
         $uploadStatus .=  "<br>Sorry, there was an error uploading your file.";
       }
     }
+  } else {
+    $uploadStatus .= "<br>Directory not selected. File not uploaded."
   }
 }
 

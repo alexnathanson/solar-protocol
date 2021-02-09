@@ -18,13 +18,9 @@
 //local www directory
 $localWWW = "/home/pi/local/www/";
 
-/*var_dump(scandir($localWWW));
-*/
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  var_dump($_POST);
+  //var_dump($_POST);
 
   //make new directory
   if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
@@ -35,17 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   } else if (isset($_POST['type']) && $_POST['type'] == "delete"){//delete file or directory
     $pK = array_keys($_POST);
-    var_dump($pK);
-    $pV = array_values($_POST);
-    var_dump($pV);
     foreach ($pK as $k => $f){
-      echo "<br>". $k;
-      echo $f;
       if(strpos($f, "file") !== false){
-        echo "<br> file!!! " . $_POST[$f];
         deleteFile($_POST[$f]);
       } else if (strpos($f, "directory") !== false){
-        echo "<br> directory!!! " . $_POST[$f];
         deleteDirectory($_POST[$f]);
       }
     }

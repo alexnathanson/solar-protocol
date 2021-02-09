@@ -47,7 +47,7 @@ function uploadIt(){
       }
     }
   } else {
-    $uploadStatus .= "<br>Directory not selected. File not uploaded."
+    $uploadStatus .= "<br>Directory not selected. File not uploaded.";
   }
 }
 

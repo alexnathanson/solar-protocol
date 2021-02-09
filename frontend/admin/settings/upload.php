@@ -6,7 +6,8 @@ $maxFileSizeBytes = 500000;
 $uploadStatus = "";
 
 function uploadIt(){
-
+  global $uploadStatus;
+  
   if(isset($_POST["directory"])) {
     $target_dir = $_POST["directory"];
 
@@ -51,7 +52,7 @@ function uploadIt(){
 function imageUpload($iF){
   //supported file types jpg, jpeg, png, gif
 
-  global $uploadOk;
+  global $uploadOk, $uploadStatus;
 
 
   $imageFileType = strtolower(pathinfo($iF,PATHINFO_EXTENSION));
@@ -80,7 +81,7 @@ function imageUpload($iF){
 function textUpload($tF){
   //supported file types html, css
   // php is disable on server for this directory
-  global $uploadOk;
+  global $uploadOk, $uploadStatus;
 
   $textFileType = strtolower(pathinfo($tF,PATHINFO_EXTENSION));
 

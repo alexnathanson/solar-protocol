@@ -23,13 +23,13 @@ function uploadIt(){
     // Check if file already exists
     //this might need a condition to delete the old file...
     if (isset($_POST["replace"]) == 0 && file_exists($target_file)) {
-      echo "<br>Sorry, file already exists.";
+      echo "<br>File already exists.";
       $uploadOk = 0;
     }
 
     // Check file size
-    if ($_FILES["fileToUpload"]["size"] > $maxFileSizeBytes) {
-      echo "<br>Sorry, your file is too large.";
+    if ($_FILES["fileToUpload"]["size"] > $GLOBALS["maxFileSizeBytes"]) {
+      echo "<br>Your file is too large.";
       $uploadOk = 0;
     }
 
@@ -59,7 +59,7 @@ function imageUpload($iF){
   if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
-      echo "File is an image - " . $check["mime"] . ".";
+      //echo $check["mime"];
       $uploadOk = 1;
     } else {
       echo "File is not an image.";

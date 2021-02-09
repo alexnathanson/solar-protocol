@@ -120,14 +120,14 @@ function deleteFile($delThis){
 
 function deleteDirectory($delThis){
 
-  if(strpos($delThis, $GLOBALS['localWWW'])!==false){
+  if(strpos($delThis, $GLOBALS['localWWW'])!==false && is_dir($delThis)){
 
     $scanDir = scandir($delThis);
 
     if(!is_null($scanDir)){
       foreach ($scanDir as $k => $f){
         if($f != "." && $f != ".."){
-          $fP = $delThis . "/" / $f;
+          $fP = $delThis . "/" . $f;
           if(is_dir($fP)){
             deleteDirectory($fP);
           } else if (is_file($fP)){
@@ -135,10 +135,10 @@ function deleteDirectory($delThis){
           }
         }
       }
-    } else {
-      rmdir($delThis);
-      echo "<br>".$delThis . " deleted";
     }
+
+    rmdir($delThis);
+    echo "<br>".$delThis . " deleted";
   }
 }
 

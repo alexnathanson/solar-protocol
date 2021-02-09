@@ -114,6 +114,7 @@ function outputRadio($radioValue, $rN){
 function deleteFile($delThis){
 
   if(strpos($delThis, $GLOBALS['localWWW'])){
+      echo $delThis;
       unlink($delThis);
       echo "<br>".$delThis . "deleted";
   }

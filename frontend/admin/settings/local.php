@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         deleteFile($_POST[$f]);
       } else if (strpos($f, "directory") !== false){
         echo "<br> directory!!! " . $_POST[$f];
-        deleteDirectrory($_POST[$f]);
+        deleteDirectory($_POST[$f]);
       }
     }
 
@@ -118,8 +118,22 @@ function deleteFile($delThis){
   }
 }
 
-function deleteDirectrory($delThis){
+function deleteDirectory($delThis){
+
   if(strpos($delThis, $GLOBALS['localWWW'])!==false){
+
+    $scanDir = scandir($delThis);
+    //var_dump($scandir);
+
+    foreach ($scandir as $k => $f){
+        if($f != "." && $f != ".."){
+          deleteFile($f);
+          if(is_dir($f)){
+            deleteDirectory($f);
+          }
+        }
+      }
+
       rmdir($delThis);
       echo "<br>".$delThis . " deleted";
   }

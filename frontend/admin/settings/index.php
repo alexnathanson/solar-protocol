@@ -9,6 +9,9 @@
 ?>
 
 <html>
+<head>
+   <link rel="stylesheet" href="../admin.css">
+</head>
 <body>
 
 <?php
@@ -151,7 +154,7 @@ function getFile($fileName){
 </form>
 
 <p>
-<div style="padding: 10px; border: 2px solid black">
+<div class="basicBox">
   <h3>Server Profile Photo</h3>
   <div style="width: 50%">
     <p>
@@ -179,7 +182,7 @@ function getFile($fileName){
 </p>
 
 <p>
-  <div style="padding: 10px; border: 2px solid black">
+  <div class="basicBox">
     <h3>Local Public Files</h3>
     <p>Upload and replace local/www/ directory</p>
     </p>
@@ -187,7 +190,7 @@ function getFile($fileName){
 </p>
 
 <p>
-<div style="padding: 10px; border: 5px solid red">
+<div class="dangerBox">
   <h3>Security & Access Keys - Danger Zone!</h3>
   <p>Upload Access Document</p>
   <p>

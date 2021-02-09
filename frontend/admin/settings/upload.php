@@ -3,6 +3,7 @@ namespace Upload;
 //based on: https://www.w3schools.com/php/php_file_upload.asp
 
 $maxFileSizeBytes = 500000;
+$uploadStatus = "";
 
 function uploadIt(){
 
@@ -23,25 +24,25 @@ function uploadIt(){
     // Check if file already exists
     //this might need a condition to delete the old file...
     if (isset($_POST["replace"]) == 0 && file_exists($target_file)) {
-      echo "<br>File already exists.";
+      $uploadStatus .= "<br>File already exists.";
       $uploadOk = 0;
     }
 
     // Check file size
     if ($_FILES["fileToUpload"]["size"] > $GLOBALS["maxFileSizeBytes"]) {
-      echo "<br>Your file is too large.";
+      $uploadStatus .= "<br>Your file is too large.";
       $uploadOk = 0;
     }
 
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-      echo "<br>Sorry, your file was not uploaded.";
+      $uploadStatus .=  "<br>Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
     } else {
       if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+        $uploadStatus .=  "<br>The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
       } else {
-        echo "<br>Sorry, there was an error uploading your file.";
+        $uploadStatus .=  "<br>Sorry, there was an error uploading your file.";
       }
     }
   }
@@ -62,7 +63,7 @@ function imageUpload($iF){
       //echo $check["mime"];
       $uploadOk = 1;
     } else {
-      echo "File is not an image.";
+      $uploadStatus .= "<br>File is not an image.";
       $uploadOk = 0;
     }
   }
@@ -71,7 +72,7 @@ function imageUpload($iF){
   // Allow certain file formats
   if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
   && $imageFileType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadStatus .=  "<br>Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
   }
 }
@@ -85,7 +86,7 @@ function textUpload($tF){
 
   // Allow certain file formats
   if($textFileType != "html" && $textFileType != "css") {
-    echo "Sorry, only HTML and CSS files are allowed.";
+    $uploadStatus .= "<br>Sorry, only HTML and CSS files are allowed.";
     $uploadOk = 0;
   }
 }

@@ -190,9 +190,9 @@ function getFile($fileName){
 <p>We are in the process of developing complete guidelines for uploading content. For the time being, we are only allowing static HTML pages and CSS, without any Javascript or PHP.</p>
 
 <p>
-  The maximum individual image files size is <?php echo $maxFileSizeBytes . " " . $diskUnits; ?>
-  <br>The maximum size your site can take up cannot exceed more than 90% of the total disk space.
-</p>
+  The maximum individual image files size is <?php echo $maxFileSizeBytes . " " . $diskUnits; ?>.
+<!--   <br>The maximum size your site can take up cannot exceed more than 90% of the total disk space.
+ --></p>
 
 <p>
   <?php echo "Available disk space: ". $availableDiskSpace . " " . $diskUnits; ?>
@@ -223,6 +223,11 @@ function getFile($fileName){
 </div>
 
 <div class="basicBox">
+
+<div id="uploadStatus">
+  <?php echo $uploadStatus; ?>
+</div>
+
 <h3>Upload File:</h3>
   <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post" enctype="multipart/form-data">
     <p><input type="file" name="fileToUpload" id="fileToUpload"></p>

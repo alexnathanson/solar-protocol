@@ -114,14 +114,14 @@ function outputRadio($radioValue, $rN){
 function deleteFile($delThis){
   if(strpos($delThis, $GLOBALS['localWWW'])!== false){
       unlink($delThis);
-      echo "<br>".$delThis . "deleted";
+      echo "<br>".$delThis . " deleted";
   }
 }
 
 function deleteDirectrory($delThis){
   if(strpos($delThis, $GLOBALS['localWWW'])!==false){
       rmdir($delThis);
-      echo "<br>".$delThis . "deleted";
+      echo "<br>".$delThis . " deleted";
   }
 }
 

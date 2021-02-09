@@ -1,6 +1,9 @@
 <?php
   require_once '/home/pi/solar-protocol/backend/protect/protect.php';
   Protect\with('/home/pi/solar-protocol/backend/protect/form.php','admin');
+
+  require_once '/home/pi/solar-protocol/frontend/admin/settings/upload.php';
+
 ?>
 
 <html>
@@ -228,7 +231,7 @@ function getFile($fileName){
 
 <div class="basicBox">
 <h3>Upload File:</h3>
-  <form action="upload.php" method="post" enctype="multipart/form-data">
+  <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post" enctype="multipart/form-data">
     <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
     <!-- <p>Save as (optional) <input type="text" name="saveAs" value=""></p> -->
     <p>

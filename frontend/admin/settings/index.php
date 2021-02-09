@@ -153,7 +153,6 @@ function getFile($fileName){
   <button type="submit">Update</button>
 </form>
 
-<p>
 <div class="basicBox">
   <h3>Server Profile Photo</h3>
   <div style="width: 50%">
@@ -179,17 +178,13 @@ function getFile($fileName){
     <img src="/local/bkrot-guide.png" style="border: 2px solid black;width:150px; height:auto;">
   </div>
 </div>
-</p>
 
-<p>
   <div class="basicBox">
     <h3>Local Public Files</h3>
     <p>Upload and replace local/www/ directory</p>
     </p>
   </div>
-</p>
 
-<p>
 <div class="dangerBox">
   <h3>Security & Access Keys - Danger Zone!</h3>
   <p>Upload Access Document</p>
@@ -202,7 +197,6 @@ function getFile($fileName){
     <button type="submit">Update</button>
   </form>
 </div>
-</p>
 
 </body>
 </html>

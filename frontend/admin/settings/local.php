@@ -134,11 +134,10 @@ function deleteDirectory($delThis){
           }
         }
       }
+    } else {
+      rmdir($delThis);
+      echo "<br>".$delThis . " deleted";
     }
-
-    rmdir($delThis);
-    echo "<br>".$delThis . " deleted";
-
   }
 }
 

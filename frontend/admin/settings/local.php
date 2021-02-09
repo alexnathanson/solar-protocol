@@ -123,13 +123,14 @@ function deleteDirectory($delThis){
   if(strpos($delThis, $GLOBALS['localWWW'])!==false){
 
     $scanDir = scandir($delThis);
-    //var_dump($scandir);
+    var_dump($scandir);
 
     foreach ($scanDir as $k => $f){
         if($f != "." && $f != ".."){
-          deleteFile($f);
           if(is_dir($f)){
             deleteDirectory($f);
+          } else {
+            deleteFile($f);
           }
         }
       }

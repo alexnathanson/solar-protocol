@@ -4,6 +4,9 @@
 ?>
 
 <html>
+<head>
+   <link rel="stylesheet" href="../admin.css">
+ </head>
 <body>
 
 
@@ -200,16 +203,18 @@ function getFile($fileName){
   <br><?php echo "Total disk space: " . $totalDiskSpace . " " . $diskUnits; ?> 
 </p>
 
-<div style="padding: 10px; border: 2px solid black">
+<div class="basicBox">
 <h3>Current Files</h3>
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return confirm('Are you sure you want to delete the selected files?');">
+    <p>
      <?php mapDirectory($localWWW);?>
+   </p>
       <input type="hidden" name="type" value="delete" />
       <input type="submit" value="Delete Selected Files" name="submit">
   </form>
 </div>
 
-<div style="padding: 10px; border: 2px solid black">
+<div class="basicBox">
 <h3>Create New Directory:</h3>
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <p>Name <input type="text" name="newDirectory" value=""></p>
@@ -221,7 +226,7 @@ function getFile($fileName){
   </form>
 </div>
 
-<div style="padding: 10px; border: 2px solid black">
+<div class="basicBox">
 <h3>Upload File:</h3>
   <form action="upload.php" method="post" enctype="multipart/form-data">
     <p><input type="file" name="fileToUpload" id="fileToUpload"></p>

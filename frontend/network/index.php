@@ -4,7 +4,8 @@
 	//Get device
 	$deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
-	foreach ($dev as $key => $value) {
+	foreach ($deviceInfo as $key => $value) {
+		echo "<br>";
 		var_dump($value);
 	}
 

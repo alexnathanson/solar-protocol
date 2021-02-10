@@ -9,17 +9,18 @@ $listNetwork = true;
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if(isset($_GET['steward'])){
 
-	$localURL ="";
+		$localURL ="";
 
-	foreach ($deviceInfo as $key => $value) {
-		if(formatURL($value['name'])==$_GET['steward']){
-			$localURL = "http://" . $value['ip'] . "/local";
-			$listNetwork = false;
+		foreach ($deviceInfo as $key => $value) {
+			if(formatURL($value['name'])==$_GET['steward']){
+				$localURL = "http://" . $value['ip'] . "/local";
+				$listNetwork = false;
+			}
 		}
-	}
 
-	if($listNetwork == false){
-	  echo file_get_contents($localURL);
+		if($listNetwork == false){
+		  echo file_get_contents($localURL);
+		}
 	}
 }
 

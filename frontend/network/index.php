@@ -8,7 +8,7 @@
 
 		echo "<br>".file_get_contents('http://' . $value['ip'] . "/api/v1/api.php?value=PV-voltage");
 
-		echo "<br><a href='". $value['ip'] . "' target='_blank'>".$value['ip']."</a>";
+		echo "<br><a href='http://". $value['ip'] . "/local' target='_blank'>".$value['ip']."</a>";
 
 		//var_dump($value);
 	}

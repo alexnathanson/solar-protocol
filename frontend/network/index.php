@@ -4,6 +4,27 @@
 	//Get device
 	$deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
+	if ($_SERVER["REQUEST_METHOD"] == "GET") {
+		if(isset($_GET['steward'])){
+
+		$localURL ="";
+
+		foreach ($deviceInfo as $key => $value) {
+			if(formatURL($value['name'])==$_GET['steward']){
+				$localURL = "http://" . $value['ip'] . "/local";
+			}
+		}
+		  echo file_get_contents($localURL);
+		} else {
+			listNetworkSites();
+		}
+	} else {
+		listNetworkSites();
+	}
+
+function listNetworkSites(){
+	global $deviceInfo;
+
 	foreach ($deviceInfo as $key => $value) {
 
 		#echo "<br>".file_get_contents('http://' . $value['ip'] . "/api/v1/api.php?value=PV-voltage");
@@ -23,6 +44,7 @@
 
 		//var_dump($value);
 	}
+}
 
 function formatURL($srcString){
 	return preg_replace('/[^a-zA-Z0-9-_\.]/','', $srcString);
@@ -40,14 +62,3 @@ function getFile($fileName){
 }
 
 ?>
-
-
-<!DOCTYPE html>
-<html>
-
-<head>
-</head>
-<body>
-
-</body>
-</html>

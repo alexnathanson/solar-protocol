@@ -32,8 +32,15 @@ Download repo into /home/pi
 Install pip `sudo apt-get install python3-pip`  
 Install pymodbus `sudo pip3 install pymodbus`    
 Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)  
-Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy`  
+Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)
 Install jinja `sudo pip3 install jinja2`    
+
+#### Troubleshooting numpy
+uninstall numpy (these uninstall commands may need to be run multiple times to get rid of multiple versions):
+* `sudo pip3 uninstall numpy` and/or `sudo apt-get remove python3-numpy`
+then install numpy and this missing library:
+* `sudo pip3 install numpy`
+* `sudo apt-get install libatlas-base-dev`
 
 ### Security
 Recommendations to set up your pi securely   

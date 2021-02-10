@@ -203,11 +203,12 @@ function getFile($fileName){
 </p>
 
 <div class="basicBox">
-<h3>Current Files</h3>
 
 <div <?php if($deleteStatus != ""){echo "id='statusBox'";} ?>>
   <?php echo $deleteStatus; ?>
 </div>
+
+<h3>Current Files</h3>
 
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return confirm('Are you sure you want to delete the selected files?');">
     <p>
@@ -237,7 +238,7 @@ function getFile($fileName){
 
 <div class="basicBox">
 
-<div <?php if($uploadStatus != ""){echo "id='statusBox'";} ?>>
+<div <?php if($uploadStatus != "" && $uploadStatus != "Upload Status"){echo "id='statusBox'";} ?>>
   <?php echo $uploadStatus; ?>
 </div>
 

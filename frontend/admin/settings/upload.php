@@ -70,6 +70,10 @@ function imageUpload($iF){
       $uploadOk = 0;
     }
 
+    if(isset($_POST["dither"])){
+      imagetruecolortopalette($_FILES["fileToUpload"]["tmp_name"], true, 255); 
+    }  
+
     if(isset($_POST["rename"])){
       /*move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "$uploads_dir/$name");*/
 
@@ -80,9 +84,7 @@ function imageUpload($iF){
       move_uploaded_file($tmp_name, $_POST["directory"] . $_POST["rename"] . "." . $imageFileType);
     }
 
-    if(isset($_POST["dither"])){
 
-    }    
   }
 
   //check for image mimetype

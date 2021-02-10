@@ -1,26 +1,31 @@
 <?php
 
-	$deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
-	//Get device
-	$deviceInfo = json_decode(getFile($deviceInfoFile), true);
+$deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+//Get device
+$deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
-	if ($_SERVER["REQUEST_METHOD"] == "GET") {
-		if(isset($_GET['steward'])){
+$listNetwork = true;
 
-		$localURL ="";
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+	if(isset($_GET['steward'])){
 
-		foreach ($deviceInfo as $key => $value) {
-			if(formatURL($value['name'])==$_GET['steward']){
-				$localURL = "http://" . $value['ip'] . "/local";
-			}
+	$localURL ="";
+
+	foreach ($deviceInfo as $key => $value) {
+		if(formatURL($value['name'])==$_GET['steward']){
+			$localURL = "http://" . $value['ip'] . "/local";
+			listNetwork = false;
 		}
-		  echo file_get_contents($localURL);
-		} else {
-			listNetworkSites();
-		}
-	} else {
-		listNetworkSites();
 	}
+
+	if(listNetwork == false){
+	  echo file_get_contents($localURL);
+	}
+}
+
+if(listNetwork == true){
+	listNetworkSites();
+}
 
 function listNetworkSites(){
 	global $deviceInfo;

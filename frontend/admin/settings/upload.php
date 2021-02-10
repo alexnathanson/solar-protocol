@@ -71,7 +71,11 @@ function imageUpload($iF){
     }
 
     if(isset($_POST["dither"])){
-      imagetruecolortopalette($_FILES["fileToUpload"]["tmp_name"], true, 255); 
+      $src = $_FILES["fileToUpload"]["tmp_name"];
+      $dst = imagetruecolortopalette($src, true, 255); 
+      imagedestroy($src);
+      imagejpeg($dst,$_FILES["fileToUpload"]["tmp_name"]);
+      imagedestroy($dst);
     }  
 
     if(isset($_POST["rename"])){

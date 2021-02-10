@@ -73,10 +73,10 @@ function imageUpload($iF){
     if(isset($_POST["rename"])){
       /*move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "$uploads_dir/$name");*/
 
-      $tmp_name = $_FILES["fileToUpload"]["tmp_name"][$key;
+      $tmp_name = $_FILES["fileToUpload"]["tmp_name"];
       // basename() may prevent filesystem traversal attacks;
       // further validation/sanitation of the filename may be appropriate
-      $name = basename($_FILES["pictures"]["name"][$key]);
+      $name = basename($_FILES["fileToUpload"]["name"]);
       move_uploaded_file($tmp_name, $_POST["directory"] . $_POST["rename"] . "." . $imageFileType);
     }
 

@@ -14,16 +14,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	foreach ($deviceInfo as $key => $value) {
 		if(formatURL($value['name'])==$_GET['steward']){
 			$localURL = "http://" . $value['ip'] . "/local";
-			listNetwork = false;
+			$listNetwork = false;
 		}
 	}
 
-	if(listNetwork == false){
+	if($listNetwork == false){
 	  echo file_get_contents($localURL);
 	}
 }
 
-if(listNetwork == true){
+if($listNetwork == true){
 	listNetworkSites();
 }
 

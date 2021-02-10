@@ -4,7 +4,9 @@
 	//Get device
 	$deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
-	var_dump($deviceInfo);
+	foreach ($dev as $key => $value) {
+		var_dump($value);
+	}
 
 	//make list of link
 

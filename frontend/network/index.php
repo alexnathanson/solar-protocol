@@ -13,8 +13,12 @@
 		//add new link
 		echo "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'>";
 		echo "<h3>" . $value['name'] . "</h3>";
-		echo "About this site: " .$value['description']; 
-		echo "<br><a href='http://". $value['ip'] . "/local' target='_blank'>".$value['ip']."</a>";
+
+		if(isset($value['description'])){
+			echo "About this site: " .$value['description'] . "<br>"; 
+		}
+
+		echo "<a href='http://". $value['ip'] . "/local' target='_blank'>".$value['ip']."</a>";
 		echo "</div>";
 
 		//var_dump($value);

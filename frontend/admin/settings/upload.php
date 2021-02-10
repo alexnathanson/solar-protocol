@@ -71,7 +71,7 @@ function imageUpload($iF){
     }
 
     if(isset($_POST["dither"])){
-      $src = $_FILES["fileToUpload"]["tmp_name"];
+      $src = imagecreatefromstring(file_get_contents($_FILES["fileToUpload"]["tmp_name"]));
       $dst = imagetruecolortopalette($src, true, 255); 
       imagedestroy($src);
       imagejpeg($dst,$_FILES["fileToUpload"]["tmp_name"]);

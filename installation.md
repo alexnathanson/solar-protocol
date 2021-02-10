@@ -81,6 +81,10 @@ Change Apache default directory to the frontend directory (src: https://julienre
 * To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
 * `sudo systemctl restart apache2`   
 
+Install PHP graphics library for dithering. Note that the version will need to match you php version.
+* `sudo apt-get install php7.3-gd`
+* `sudo systemctl restart apache2`   
+
 ### Automate  
 
 #### permissions (you can set all these permissions at once via the utilities/setAllPermissions.sh script by `sh setAllPermissions.sh`)  

@@ -30,6 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       $directoryStatus .= "<br>Directory already exists.";
     }
+  } else if(isset($_POST['newDirectory']) && !isset($_POST['parent'])){
+    $directoryStatus .= "<br>No parent directory selected.";
   } else if (isset($_POST['type']) && $_POST['type'] == "delete"){//delete file or directory
     $pK = array_keys($_POST);
     foreach ($pK as $k => $f){

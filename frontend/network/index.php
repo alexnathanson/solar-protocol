@@ -45,7 +45,7 @@ function listNetworkSites(){
 			echo "About this site: " .$value['description'] . "<br>"; 
 		}
 
-		echo "<a href='http://solar-protocol.net/network/". formatURL($value['name']) . "' target='_blank'>'http://solar-protocol.net/network/".formatURL($value['name'])."</a>";
+		echo "<a href='http://solar-protocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a>";
 		echo "</div>";
 
 		//var_dump($value);

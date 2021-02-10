@@ -71,12 +71,14 @@ function imageUpload($iF){
     }
 
     if(isset($_POST["dither"])){
-      $src = imagecreatefromstring(file_get_contents($_FILES["fileToUpload"]["tmp_name"]));
+      $src = $_FILES["fileToUpload"]["tmp_name"];
       $dst = imagetruecolortopalette($src, true, 255); 
       imagedestroy($src);
-      imagejpeg($dst,$_FILES["fileToUpload"]["tmp_name"]);
-      imagedestroy($dst);
+      //imagejpeg($dst,$_FILES["fileToUpload"]["tmp_name"]);
+      //imagedestroy($dst);
+      move_uploaded_file($src, $_FILES["fileToUpload"]["tmp_name"]);
     }  
+
 
     if(isset($_POST["rename"])){
       /*move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "$uploads_dir/$name");*/
@@ -84,7 +86,7 @@ function imageUpload($iF){
       $tmp_name = $_FILES["fileToUpload"]["tmp_name"];
       // basename() may prevent filesystem traversal attacks;
       // further validation/sanitation of the filename may be appropriate
-      $name = basename($_FILES["fileToUpload"]["name"]);
+      //$name = basename($_FILES["fileToUpload"]["name"]);
       move_uploaded_file($tmp_name, $_POST["directory"] . $_POST["rename"] . "." . $imageFileType);
     }
 

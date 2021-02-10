@@ -5,9 +5,10 @@
 	$deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
 	foreach ($deviceInfo as $key => $value) {
-		echo "<br>".$value['ip'];
 
-		echo "<br>".file_get_contents($value['ip'] . "/api/v1/api.php?value=PV-voltage");
+		echo "<br>".file_get_contents('http://' . $value['ip'] . "/api/v1/api.php?value=PV-voltage");
+
+		echo "<br><a href='". $value['ip'] . "' target='_blank'>".$value['ip']."</a>";
 
 		//var_dump($value);
 	}

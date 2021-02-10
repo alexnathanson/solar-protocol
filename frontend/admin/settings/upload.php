@@ -71,10 +71,14 @@ function imageUpload($iF){
     }
 
     if(isset($_POST["dither"])){
+      $target = "temp/" . $_FILES['new_image']['name'];
       $src = $_FILES["fileToUpload"]["tmp_name"];
+
+      move_uploaded_file($src, $target);
+
       $dst = imagetruecolortopalette($src, true, 255); 
       imagedestroy($src);
-      //imagejpeg($dst,$_FILES["fileToUpload"]["tmp_name"]);
+      imagejpeg($dst,$_FILES["fileToUpload"]["tmp_name"]);
       //imagedestroy($dst);
       move_uploaded_file($src, $_FILES["fileToUpload"]["tmp_name"]);
     }  

@@ -69,6 +69,20 @@ function imageUpload($iF){
       $uploadStatus .= "<br>File is not an image.";
       $uploadOk = 0;
     }
+
+    if(isset($_POST["rename"])){
+      /*move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "$uploads_dir/$name");*/
+
+      $tmp_name = $_FILES["fileToUpload"]["tmp_name"][$key;
+      // basename() may prevent filesystem traversal attacks;
+      // further validation/sanitation of the filename may be appropriate
+      $name = basename($_FILES["pictures"]["name"][$key]);
+      move_uploaded_file($tmp_name, $_POST["directory"] . $_POST["rename"] . "." . $imageFileType);
+    }
+
+    if(isset($_POST["dither"])){
+
+    }    
   }
 
   //check for image mimetype

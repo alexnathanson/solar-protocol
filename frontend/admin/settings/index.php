@@ -166,7 +166,7 @@ function getFile($fileName){
       <input type="hidden" name="key" value="file"/>
       <input type="file" name="fileToUpload" id="fileToUpload">
       <input type="hidden" name="directory" value="<?php echo $imgDir; ?>" />
-      <input type="hidden" name="rename" value="profile"/>
+      <input type="hidden" name="rename" value="serverProfile"/>
       <input type="hidden" name="type" value="image" />
 <!--       <input type="hidden" name="rename" value="stewardImage"/>
  -->    </p>
@@ -178,12 +178,6 @@ function getFile($fileName){
     <img src="/local/bkrot-guide.png" style="border: 2px solid black;width:150px; height:auto;">
   </div>
 </div>
-
-  <div class="basicBox">
-    <h3>Local Public Files</h3>
-    <p>Upload and replace local/www/ directory</p>
-    </p>
-  </div>
 
 <div class="dangerBox">
   <h3>Security & Access Keys - Danger Zone!</h3>

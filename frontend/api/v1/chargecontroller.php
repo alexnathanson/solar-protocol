@@ -145,8 +145,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       //if (ini_get('date.timezone')) {
           //echo ini_get('date.timezone');
-          echo date_default_timezone_get();
+      echo date_default_timezone_get();
       //}
+    } else if ($_GET["systemInfo"] == "ping"){
+      echo "ping";
     }
   }
 }

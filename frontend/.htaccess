@@ -17,5 +17,5 @@ RewriteCond %{REQUEST_URI} !(/$|\.)
 RewriteRule (.*) %{REQUEST_URI}/ [R=301,L] 
 
 # NICE URL FOR STEWARD PAGES
-# This redirects for user pages - not working yet
-#RewriteRule ^network/(.*)$ /api/v1/local.php?network=$1
+# This redirects network URL to local URL
+# RewriteRule ^network/(.*)$ local/$1

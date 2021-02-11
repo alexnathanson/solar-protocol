@@ -24,10 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		if($listNetwork == false){
 			//header("Location: $localURL");
 
-			//["jpg","jpeg","gif","png"]
-			if(strpos($_GET['path'], "jpg") !== false){
-				header("content-type: image/jpg");
-			} /*else {*/
+			$imgTypes = ["jpg","jpeg","gif","png"];
+			foreach ($imgTypes as $type) {
+				if(strpos($_GET['path'], $type) !== false){
+					header("content-type: image/".$type);
+				}
+			}
 			
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 				$localURL .= "/" . $_GET['path'];

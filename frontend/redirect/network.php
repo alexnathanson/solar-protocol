@@ -9,6 +9,9 @@ $listNetwork = true;
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if(isset($_GET['steward'])){
 
+		//remove leading or trailing slashes
+		$_GET['steward'] = str_replace("/","", $_GET['steward']);
+		
 		$localURL ="";
 
 		foreach ($deviceInfo as $key => $value) {

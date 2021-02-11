@@ -40,20 +40,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$localURL .= "/" . $_GET['path'];
 			}
 
-			//get request
-			try{
-				$redirected = file_get_contents($localURL);
+			//get request - error reporting supressed with the @ - remove it to see the error messages
+			$redirected = @file_get_contents($localURL);
 
-					echo str_replace(
-				   '<head>', 
-				   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
-				    $redirected);
-
-			}catch(Exception $e) {
+			if($redirected){
+				echo str_replace(
+			   '<head>', 
+			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
+			    $redirected);
+			} else {
 				echo 'Message: Request failed'; //.$e->getMessage();
-				$listNetwork = true;
 			}
-
+			
 			/*echo str_replace(
 			   '<head>', 
 			   '<head><base href="'. $localURL.'/" target="_blank">',

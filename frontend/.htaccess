@@ -12,12 +12,13 @@ RewriteRule ^local/(.*)$ /redirect/www.php?file=$1
 #for local www root
 RewriteRule ^local/$ /redirect/www.php?file=index.html
 
-#add trailing / on www root url
-RewriteCond %{REQUEST_URI} !(/$|\.) 
-RewriteRule (.*) %{REQUEST_URI}/ [R=301,L] 
-
 # NICE URL FOR STEWARD PAGES
 # This redirects network URL to local URL
 # RewriteRule ^network/(.*)$ local/$1
 
-RewriteRule ^network/(.*)$ /network/index.php?steward=$1
+#RewriteCond %{REQUEST_URI} != network/
+RewriteRule ^network/(.*)$ /network/?steward=$1 [L]
+
+#add trailing / on www root url
+RewriteCond %{REQUEST_URI} !(/$|\.) 
+RewriteRule (.*) %{REQUEST_URI}/ [R,L] 

@@ -40,29 +40,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$localURL .= "/" . $_GET['path'];
 			}
 
+			//get request
 			try{
 				$redirected = file_get_contents($localURL);
+
+					echo str_replace(
+				   '<head>', 
+				   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
+				    $redirected);
+
 			}catch(Exception $e) {
-				echo 'Message: Request failed' //.$e->getMessage();
+				echo 'Message: Request failed'; //.$e->getMessage();
+				$listNetwork = true;
 			}
 
 			/*echo str_replace(
 			   '<head>', 
 			   '<head><base href="'. $localURL.'/" target="_blank">',
 			    $redirected
-			);*/
-
-				/*$image = JURI::base().DS.'files'.DS.'images'.DS.'icon.png';
-				$imginfo = getimagesize($image);
-				header("Content-type: ".$imginfo['mime']);
-				echo($image);*/
-			
-			echo str_replace(
-		   '<head>', 
-		   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
-		    $redirected);
-			//}
-			
+			);*/		
 		}
 	}
 }

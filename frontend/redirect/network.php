@@ -79,6 +79,14 @@ function listNetworkSites(){
 		echo "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'>";
 		echo "<h3>" . $value['name'] . "</h3>";
 
+		echo "Status:";
+		if(checkStatus($value['ip'])){
+			echo "online";
+		} else {
+			echo "offline";
+		}
+		
+
 		if(isset($value['description'])){
 			echo "About this site: " .$value['description'] . "<br>"; 
 		}
@@ -88,6 +96,15 @@ function listNetworkSites(){
 
 		//var_dump($value);
 	}
+}
+
+function checkStatus($checkIP){
+	$s = false;
+	
+	if(file_get_contents("http://".$check())){
+		$s = true;
+	}
+	return $s;
 }
 
 function formatURL($srcString){

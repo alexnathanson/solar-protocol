@@ -40,7 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$localURL .= "/" . $_GET['path'];
 			}
 
-			$redirected = file_get_contents($localURL);
+			try{
+				$redirected = file_get_contents($localURL);
+			}catch(Exception $e) {
+				echo 'Message: ' .$e->getMessage();
+			}
+
 			/*echo str_replace(
 			   '<head>', 
 			   '<head><base href="'. $localURL.'/" target="_blank">',

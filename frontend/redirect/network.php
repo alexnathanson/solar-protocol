@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 		//remove leading or trailing slashes
 		$_GET['steward'] = str_replace("/","", $_GET['steward']);
-		
+
 		$localURL ="";
 
 		foreach ($deviceInfo as $key => $value) {
@@ -22,7 +22,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		}
 
 		if($listNetwork == false){
-		  echo file_get_contents($localURL);
+			//header("Location: $localURL");
+			//echo file_get_contents($localURL);
+
+			$redirected = file_get_contents($localURL);
+			echo str_replace(
+			   '<head>', 
+			   '<head><base href=". $localURL." target="_blank">',
+			    $redirected
+			);
 		}
 	}
 }

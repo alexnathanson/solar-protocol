@@ -11,6 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 		//remove leading or trailing slashes
 		$_GET['steward'] = str_replace("/","", $_GET['steward']);
+		//lower cases
+		$_GET['steward'] = strtolower($_GET['steward']);
 
 		$localURL ="";
 
@@ -86,6 +88,8 @@ function listNetworkSites(){
 }
 
 function formatURL($srcString){
+
+	$srcString = strtolower($srcString);
 	return preg_replace('/[^a-zA-Z0-9-_\.]/','', $srcString);
 }
 	

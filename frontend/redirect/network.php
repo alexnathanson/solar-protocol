@@ -101,7 +101,7 @@ function listNetworkSites(){
 function checkStatus($checkIP){
 	$s = false;
 	
-	if(file_get_contents("http://".$checkIP){
+	if(file_get_contents("http://".$checkIP)){
 		$s = true;
 	}
 	return $s;

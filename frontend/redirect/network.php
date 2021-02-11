@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			$redirected = file_get_contents($localURL);
 			echo str_replace(
 			   '<head>', 
-			   '<head><base href=". $localURL." target="_blank">',
+			   '<head><base href="'. $localURL.'" target="_blank">',
 			    $redirected
 			);
 		}

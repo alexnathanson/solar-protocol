@@ -81,9 +81,9 @@ function listNetworkSites(){
 
 		echo "<p>Status:";
 		if(checkStatus($value['ip'])){
-			echo "online</p>";
+			echo " online</p>";
 		} else {
-			echo "offline</p>";
+			echo " offline</p>";
 		}
 		
 		if(isset($value['description'])){

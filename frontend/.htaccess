@@ -17,6 +17,7 @@ RewriteRule ^local/$ /redirect/www.php?file=index.html
 # RewriteRule ^network/(.*)$ local/$1
 
 #RewriteCond %{REQUEST_URI} != network/
+RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
 #add trailing / on www root url

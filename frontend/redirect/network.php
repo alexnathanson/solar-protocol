@@ -25,10 +25,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			//header("Location: $localURL");
 			//echo file_get_contents($localURL);
 
+			if(isset($_GET['path'] && $_GET['path'] != ""){
+				$localURL .= "/" . $_GET['path'];
+			}
 			$redirected = file_get_contents($localURL);
+			/*echo str_replace(
+			   '<head>', 
+			   '<head><base href="'. $localURL.'/" target="_blank">',
+			    $redirected
+			);*/
+
 			echo str_replace(
 			   '<head>', 
-			   '<head><base href="'. $localURL.'" target="_blank">',
+			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward']."/". target="_blank">',
 			    $redirected
 			);
 		}

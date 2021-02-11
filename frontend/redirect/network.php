@@ -79,19 +79,18 @@ function listNetworkSites(){
 		echo "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'>";
 		echo "<h3>" . $value['name'] . "</h3>";
 
-		echo "Status:";
+		echo "<p>Status:";
 		if(checkStatus($value['ip'])){
-			echo "online";
+			echo "online</p>";
 		} else {
-			echo "offline";
+			echo "offline</p>";
 		}
 		
-
 		if(isset($value['description'])){
-			echo "About this site: " .$value['description'] . "<br>"; 
+			echo "<p>About this site: " .$value['description'] . "</p>"; 
 		}
 
-		echo "<a href='http://solarprotocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a>";
+		echo "<p><a href='http://solarprotocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a></p>";
 		echo "</div>";
 
 		//var_dump($value);

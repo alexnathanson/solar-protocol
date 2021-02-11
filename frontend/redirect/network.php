@@ -25,7 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			//header("Location: $localURL");
 			//echo file_get_contents($localURL);
 
-			if(strpos($localURL, ["jpg","jpeg","gif","png"]) !== false){
+			//["jpg","jpeg","gif","png"]
+			if(strpos($_GET['path'], "jpg") !== false){
 				header("content-type: image/jpg");
 			} /*else {*/
 				if(isset($_GET['path']) && $_GET['path'] != ""){
@@ -44,10 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					header("Content-type: ".$imginfo['mime']);
 					echo($image);*/
 				
-					echo str_replace(
-				   '<head>', 
-				   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
-				    $redirected);
+				echo str_replace(
+			   '<head>', 
+			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
+			    $redirected);
 				//}
 			
 			}

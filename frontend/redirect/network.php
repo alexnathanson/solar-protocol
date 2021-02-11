@@ -25,21 +25,32 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			//header("Location: $localURL");
 			//echo file_get_contents($localURL);
 
-			if(isset($_GET['path'] && $_GET['path'] != ""){
-				$localURL .= "/" . $_GET['path'];
-			}
-			$redirected = file_get_contents($localURL);
-			/*echo str_replace(
-			   '<head>', 
-			   '<head><base href="'. $localURL.'/" target="_blank">',
-			    $redirected
-			);*/
+			if(strpos($localURL, ["jpg","jpeg","gif","png"]) !== false){
+				header("content-type: image/jpg");
+			} /*else {*/
+				if(isset($_GET['path']) && $_GET['path'] != ""){
+					$localURL .= "/" . $_GET['path'];
+				}
 
-			echo str_replace(
-			   '<head>', 
-			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward']."/". target="_blank">',
-			    $redirected
-			);
+				$redirected = file_get_contents($localURL);
+				/*echo str_replace(
+				   '<head>', 
+				   '<head><base href="'. $localURL.'/" target="_blank">',
+				    $redirected
+				);*/
+
+					/*$image = JURI::base().DS.'files'.DS.'images'.DS.'icon.png';
+					$imginfo = getimagesize($image);
+					header("Content-type: ".$imginfo['mime']);
+					echo($image);*/
+				
+					echo str_replace(
+				   '<head>', 
+				   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
+				    $redirected);
+				//}
+			
+			}
 		}
 	}
 }

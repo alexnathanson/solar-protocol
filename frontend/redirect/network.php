@@ -50,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			    $redirected);
 			} else {
 				echo 'Message: Request failed'; //.$e->getMessage();
+				$listNetwork = true;
 			}
 			
 			/*echo str_replace(

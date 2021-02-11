@@ -26,14 +26,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		if($listNetwork == false){
 			//header("Location: $localURL");
 
-			$imgTypes = ["jpg","jpeg","gif","png"];
-			foreach ($imgTypes as $type) {
-				if(strpos($_GET['path'], $type) !== false){
-					header("content-type: image/".$type);
-				}
-			}
-			
 			if(isset($_GET['path']) && $_GET['path'] != ""){
+
+				//set image mime type
+				$imgTypes = ["jpg","jpeg","gif","png"];
+				foreach ($imgTypes as $type) {
+					if(strpos($_GET['path'], $type) !== false){
+						header("content-type: image/".$type);
+					}
+				}
+			
+				//routes non-root file paths
 				$localURL .= "/" . $_GET['path'];
 			}
 

@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			try{
 				$redirected = file_get_contents($localURL);
 			}catch(Exception $e) {
-				echo 'Message: ' .$e->getMessage();
+				echo 'Message: Request failed' //.$e->getMessage();
 			}
 
 			/*echo str_replace(

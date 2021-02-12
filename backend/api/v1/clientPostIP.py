@@ -100,7 +100,7 @@ def makePosts(ipList):
 		#if dst != myIP: #does not work when testing only with local network
 		try:
 			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString)
-			print(x.text)
+			#print(x.text)
 			#requests.raise_for_status()
 		except requests.exceptions.HTTPError as errh:
 		 	print("An Http Error occurred:" + repr(errh))

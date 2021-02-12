@@ -117,7 +117,7 @@ myMAC = getmac("wlan0")
 
 myName = getLocalConfig("name")
 #myName = myName.lower();#make lower case
-myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove special characters
+myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
 
 apiKey = getLocalConfig("apiKey")
 #apiKey = os.getenv('SP_API_KEY')

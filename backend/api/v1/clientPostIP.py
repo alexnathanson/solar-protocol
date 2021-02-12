@@ -18,6 +18,8 @@ localConfig = "/home/pi/local/local.json";
 poeLog = "/home/pi/solar-protocol/backend/api/v1/poe.log"
 poeData = []
 
+newDSTList = []
+
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 
 print("MY IP: " + myIP)
@@ -32,7 +34,7 @@ def getmac(interface):
 
 	return mac
 
-def getIPList():
+def getKeyList(getKey):
 
 	ipList = []
 
@@ -42,9 +44,7 @@ def getIPList():
 	#print(data)
 
 	for i in range(len(data)):
-		ipList.append(data[i]['ip'])
-
-	#print(ipList)
+		ipList.append(data[i][getKey])
 
 	return ipList
 
@@ -88,46 +88,76 @@ def getLocalConfig(key):
 		print('local config file exception')
 		return 'pi'
 
-def writeSelf():
-	#load file
+# def writeSelf():
+# 	#load file
+# 	try:
+		
+# 		with open(deviceList) as l:
+# 			devData = json.load(l)
+
+# 			#print(len(devData))
+		
+# 			newMac = True
+
+# 			for i in range(len(devData)):
+# 				if devData[i]['mac'] == myMAC:
+# 					devData[i]['time stamp'] = str(time.time())
+# 					devData[i]['name'] = myName
+# 					devData[i]['log'] = join(poeData)
+# 					print("updating MAC...")
+# 					print(devData)
+# 					newMac = False
+
+# 			#write new content if needed
+# 			if newMac == True:
+# 				newDevice={
+# 					"mac":myMAC,
+# 					"time stamp":str(time.time()),
+# 					"name": myName,
+# 					"log":join(poeData)
+# 				}
+# 				print(newDevice)
+# 				# newDevice["mac"] = myMAC				
+# 				# newDevice["time stamp"] = str(time.time())
+# 				# newDevice["name"] = myName
+# 				# newDevice["log"] = join(poeData)
+
+# 				devData.append(newDevice)
+# 				print("writing new MAC...")
+# 				print(devData)
+
+# 	except:
+# 		print('write self exception')
+
+def getNewDST(responseList):
+	#check if is is a new MAC and post if so
+
+	print(type(responseList))
+	#if MAC exists check if it is a new IP and post if so (maybe compare time stamps accounting for time zone)
+	for r in responseList:
+		print(r['mac'])
+
+		if r['mac'] not in getKeyList('mac'):
+			newDSTList.append(r['ip'])
+		elif r['ip'] not in getKeyList('ip'):
+			#in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
+			newDSTList.append(r['ip'])
+
+def postIt(dstIP,dstData):
 	try:
-		
-		with open(deviceList) as l:
-			devData = json.load(l)
-
-			#print(len(devData))
-		
-			newMac = True
-
-			for i in range(len(devData)):
-				if devData[i]['mac'] == myMAC:
-					devData[i]['time stamp'] = str(time.time())
-					devData[i]['name'] = myName
-					devData[i]['log'] = join(poeData)
-					print("updating MAC...")
-					print(devData)
-					newMac = False
-
-			#write new content if needed
-			if newMac == True:
-				newDevice={
-					"mac":myMAC,
-					"time stamp":str(time.time()),
-					"name": myName,
-					"log":join(poeData)
-				}
-				print(newDevice)
-				# newDevice["mac"] = myMAC				
-				# newDevice["time stamp"] = str(time.time())
-				# newDevice["name"] = myName
-				# newDevice["log"] = join(poeData)
-
-				devData.append(newDevice)
-				print("writing new MAC...")
-				print(devData)
-
-	except:
-		print('write self exception')
+		x = requests.post('http://'+dstIP+'/api/v1/api.php', headers=headers,data = dstData, timeout=5)
+		#print(x.text)
+		getNewDST(x.text)
+		print("Post successful")
+		#requests.raise_for_status()
+	except requests.exceptions.HTTPError as errh:
+	 	print("An Http Error occurred:" + repr(errh))
+	except requests.exceptions.ConnectionError as errc:
+		print("An Error Connecting to the API occurred:" + repr(errc))
+	except requests.exceptions.Timeout as errt:
+	 	print("A Timeout Error occurred:" + repr(errt))
+	except requests.exceptions.RequestException as err:
+	 	print("An Unknown Error occurred" + repr(err))
 
 def makePosts(ipList):
 	
@@ -135,23 +165,15 @@ def makePosts(ipList):
 
 	print(myString)
 
+	#post to self automatically
+	postIt(myIP,myString)
+
 	for dst in ipList:
 		print("DST: " + dst)
-		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
-		#if dst != myIP: #does not work when testing only with local network
-		try:
-			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString, timeout=5)
-			#print(x.text)
-			print("Post successful")
-			#requests.raise_for_status()
-		except requests.exceptions.HTTPError as errh:
-		 	print("An Http Error occurred:" + repr(errh))
-		except requests.exceptions.ConnectionError as errc:
-			print("An Error Connecting to the API occurred:" + repr(errc))
-		except requests.exceptions.Timeout as errt:
-		 	print("A Timeout Error occurred:" + repr(errt))
-		except requests.exceptions.RequestException as err:
-		 	print("An Unknown Error occurred" + repr(err))
+
+		#post own IP but make sure it is the most recent
+		if dst != myIP: #does not work when testing only with local network
+			postIt(dst, myString)
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
@@ -160,7 +182,6 @@ myName = getLocalConfig("name")
 #myName = myName.lower();#make lower case
 myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
 
-
 apiKey = getLocalConfig("apiKey")
 #apiKey = os.getenv('SP_API_KEY')
 
@@ -168,6 +189,7 @@ getPoeLog()
 
 #writeSelf()
 
-dstList = getIPList()
+dstList = getKeyList('ip')
 makePosts(dstList)
+makePosts(newDSTList)
 

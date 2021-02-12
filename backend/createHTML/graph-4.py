@@ -73,9 +73,10 @@ def getIt(dst):
 
 #drawing the sunshine data (yellow)
 def draw_ring(csv_paths, ring_number, energy_parameter):
-    files1 = sorted(glob(csv_paths))
-    files1 = sorted(glob(csv_paths))
+    # files1 = sorted(glob(csv_paths))
+    # files1 = sorted(glob(csv_paths))
 
+    files1 = csv_paths
     recent_files1= files1[-days:]
     #print("Most recent files: "+files[0:3])
     print(recent_files1)
@@ -127,7 +128,7 @@ for i in dstIP:
     print(i)
     ccData.append(getIt(i))
     #getIt(i)
-    
+
 print("CC DATA:")
 print(len(ccData))
 

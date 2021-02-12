@@ -77,7 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         array_push($data, $newEntry);
       }
 
-      var_dump($data);
+      //var_dump($data);
+      echo json_encode($data);
     }
 
     $fp = fopen($fileName, 'w') or die("Error opening output file");

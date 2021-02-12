@@ -104,7 +104,7 @@ def getNewDST(responseList):
 		elif r['ip'] not in getKeyList('ip'):
 			#in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
 			if r['ip'] not in runningDSTList:
-				print("new ip!")
+				print("new ip!!")
 				newDSTList.append(r['ip'])
 				runningDSTList.append(r['ip'])
 

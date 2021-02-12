@@ -134,7 +134,7 @@ def makePosts(ipList, postTrue):
 		print("DST: " + dst)
 
 		#post own IP but make sure it is the most recent
-		if dst != myIP && postTrue: #does not work when testing only with local network
+		if dst != myIP and postTrue: #does not work when testing only with local network
 			postIt(dst, myString)
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable

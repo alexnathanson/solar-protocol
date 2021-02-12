@@ -95,7 +95,7 @@ def writeSelf():
 		with open(deviceList) as f:
 			devData = json.load(f)
 
-		#print(devData)
+			print(len(devData))
 		
 		newMac = True
 

@@ -50,20 +50,36 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			$redirected = @file_get_contents($localURL);
 
 			if($redirected){
-				echo str_replace(
+				/*echo str_replace(
+			   '<head>', 
+			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
+			    $redirected);*/
+
+			    //replace url
+			    $redirected = str_replace(
 			   '<head>', 
 			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
 			    $redirected);
+
+			    //add banner
+				$redirected = str_replace(
+				   "<body>", 
+				   "<body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>",
+				    $redirected
+				);
+
+			    echo $redirected;
+			    
 			} else {
 				echo 'Message: Request failed'; //.$e->getMessage();
 				$listNetwork = true;
 			}
 			
-			/*echo str_replace(
+			str_replace(
 			   "<body>", 
 			   "<body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>",
 			    $redirected
-			);		*/
+			);		
 		}
 	}
 }

@@ -88,47 +88,6 @@ def getLocalConfig(key):
 		print('local config file exception')
 		return 'pi'
 
-# def writeSelf():
-# 	#load file
-# 	try:
-		
-# 		with open(deviceList) as l:
-# 			devData = json.load(l)
-
-# 			#print(len(devData))
-		
-# 			newMac = True
-
-# 			for i in range(len(devData)):
-# 				if devData[i]['mac'] == myMAC:
-# 					devData[i]['time stamp'] = str(time.time())
-# 					devData[i]['name'] = myName
-# 					devData[i]['log'] = join(poeData)
-# 					print("updating MAC...")
-# 					print(devData)
-# 					newMac = False
-
-# 			#write new content if needed
-# 			if newMac == True:
-# 				newDevice={
-# 					"mac":myMAC,
-# 					"time stamp":str(time.time()),
-# 					"name": myName,
-# 					"log":join(poeData)
-# 				}
-# 				print(newDevice)
-# 				# newDevice["mac"] = myMAC				
-# 				# newDevice["time stamp"] = str(time.time())
-# 				# newDevice["name"] = myName
-# 				# newDevice["log"] = join(poeData)
-
-# 				devData.append(newDevice)
-# 				print("writing new MAC...")
-# 				print(devData)
-
-# 	except:
-# 		print('write self exception')
-
 def getNewDST(responseList):
 	#check if is is a new MAC and post if so
 
@@ -147,7 +106,7 @@ def postIt(dstIP,dstData):
 	try:
 		x = requests.post('http://'+dstIP+'/api/v1/api.php', headers=headers,data = dstData, timeout=5)
 		#print(x.text)
-		getNewDST(x.text)
+		getNewDST(json.loads(x.text))
 		print("Post successful")
 		#requests.raise_for_status()
 	except requests.exceptions.HTTPError as errh:

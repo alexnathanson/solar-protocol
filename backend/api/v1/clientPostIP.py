@@ -91,7 +91,7 @@ def getLocalConfig(key):
 def getNewDST(responseList):
 	#check if is is a new MAC and post if so
 
-	if type(responseList) == list
+	#if type(responseList) == list:
 	#if MAC exists check if it is a new IP and post if so (maybe compare time stamps accounting for time zone)
 	for r in responseList:
 		#print(r['mac'])

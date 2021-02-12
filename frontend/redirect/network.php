@@ -109,7 +109,7 @@ function checkStatus($checkIP){
 function formatURL($srcString){
 
 	$srcString = strtolower($srcString);
-	return preg_replace('/[^a-zA-Z0-9-_]/','', $srcString);
+	return preg_replace('/[^a-zA-Z0-9-_\.]/','', $srcString);
 }
 	
 function getFile($fileName){

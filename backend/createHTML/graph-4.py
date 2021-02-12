@@ -75,7 +75,11 @@ def getIt(dst):
 def draw_ring(csv_paths, ring_number, energy_parameter):
     # files1 = sorted(glob(csv_paths))
     # files1 = sorted(glob(csv_paths))
+    print("Draw ring")
+    print(type(csv_paths))
 
+    
+    
     files1 = csv_paths
     recent_files1= files1[-days:]
     #print("Most recent files: "+files[0:3])

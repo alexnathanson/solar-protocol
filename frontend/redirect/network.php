@@ -6,6 +6,12 @@ $deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
 $listNetwork = true;
 
+
+$default_socket_timeout = ini_get('default_socket_timeout');
+echo $default_socket_timeout;
+ini_set('default_socket_timeout', 2);
+
+
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if(isset($_GET['steward'])){
 
@@ -71,7 +77,7 @@ function listNetworkSites(){
 
 	foreach ($deviceInfo as $key => $value) {
 
-		#echo "<br>".file_get_contents('http://' . $value['ip'] . "/api/v1/api.php?value=PV-voltage");
+		//echo "<br>".file_get_contents('http://' . $value['ip'] . "/api/v1/api.php?value=PV-voltage");
 
 		//add a try section to check that the site is online
 

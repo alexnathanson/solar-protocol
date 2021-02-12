@@ -97,34 +97,34 @@ def writeSelf():
 
 			#print(len(devData))
 		
-			# newMac = True
+			newMac = True
 
-			# for i in range(len(devData)):
-			# 	if devData[i]['mac'] == myMAC:
-			# 		devData[i]['time stamp'] = str(time.time())
-			# 		devData[i]['name'] = myName
-			# 		devData[i]['log'] = join(poeData)
-			# 		print("updating MAC...")
-			# 		print(devData)
-			# 		newMac = False
+			for i in range(len(devData)):
+				if devData[i]['mac'] == myMAC:
+					devData[i]['time stamp'] = str(time.time())
+					devData[i]['name'] = myName
+					devData[i]['log'] = join(poeData)
+					print("updating MAC...")
+					print(devData)
+					newMac = False
 
-			# #write new content if needed
-			# if newMac == True:
-			# 	newDevice={
-			# 		"mac":myMAC,
-			# 		"time stamp":str(time.time()),
-			# 		"name": myName,
-			# 		"log":join(poeData)
-			# 	}
-			# 	print(newDevice)
-			# 	# newDevice["mac"] = myMAC				
-			# 	# newDevice["time stamp"] = str(time.time())
-			# 	# newDevice["name"] = myName
-			# 	# newDevice["log"] = join(poeData)
+			#write new content if needed
+			if newMac == True:
+				newDevice={
+					"mac":myMAC,
+					"time stamp":str(time.time()),
+					"name": myName,
+					"log":join(poeData)
+				}
+				print(newDevice)
+				# newDevice["mac"] = myMAC				
+				# newDevice["time stamp"] = str(time.time())
+				# newDevice["name"] = myName
+				# newDevice["log"] = join(poeData)
 
-			# 	devData.append(newDevice)
-			# 	print("writing new MAC...")
-			# 	print(devData)
+				devData.append(newDevice)
+				print("writing new MAC...")
+				print(devData)
 
 	except:
 		print('write self exception')
@@ -166,7 +166,7 @@ apiKey = getLocalConfig("apiKey")
 
 getPoeLog()
 
-writeSelf()
+#writeSelf()
 
 dstList = getIPList()
 makePosts(dstList)

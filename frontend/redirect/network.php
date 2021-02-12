@@ -8,7 +8,7 @@ $listNetwork = true;
 
 
 $default_socket_timeout = ini_get('default_socket_timeout');
-echo $default_socket_timeout;
+//echo $default_socket_timeout;
 ini_set('default_socket_timeout', 2);
 
 
@@ -106,7 +106,7 @@ function listNetworkSites(){
 function checkStatus($checkIP){
 	$s = false;
 	
-	if(file_get_contents("http://".$checkIP)){
+	if(file_get_contents("http://".$checkIP."/api/v1/api.php?value=PV-voltage")){
 		$s = true;
 	}
 	return $s;

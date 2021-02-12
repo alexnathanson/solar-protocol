@@ -45,6 +45,7 @@ def getDeviceInfo(getKey):
     return ipList
 
 def getIt(dst):
+    print("get it!")
     x = requests.get('http://' + dst + "/api/v1/api.php?day=4")
     #print(x.text)
     return x.text

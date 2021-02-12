@@ -7,6 +7,7 @@ from random import choice
 from PIL import Image
 import pandas as pd
 from glob import glob
+import json
 
 #global variables
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data

@@ -4,7 +4,7 @@ Reads list of destination IPs and posts own IP address to those other devices.
 import requests
 import time
 import json
-
+import re
 
 headers = {
     #'X-Auth-Key': KEY,
@@ -101,6 +101,7 @@ def makePosts(ipList):
 		try:
 			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString)
 			#print(x.text)
+			print("Post successful")
 			#requests.raise_for_status()
 		except requests.exceptions.HTTPError as errh:
 		 	print("An Http Error occurred:" + repr(errh))
@@ -113,7 +114,10 @@ def makePosts(ipList):
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
+
 myName = getLocalConfig("name")
+myName = myName.lower();#make lower case
+myName = re.sub('[^A-Za-z0-9_]+', '', myName)#remove special characters
 
 apiKey = getLocalConfig("apiKey")
 #apiKey = os.getenv('SP_API_KEY')

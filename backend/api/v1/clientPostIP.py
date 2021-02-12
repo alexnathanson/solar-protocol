@@ -92,39 +92,39 @@ def writeSelf():
 	#load file
 	try:
 		
-		with open(deviceList) as f:
-			devData = json.load(f)
+		with open(deviceList) as l:
+			devData = json.load(l)
 
-			print(len(devData))
+			#print(len(devData))
 		
-		newMac = True
+			newMac = True
 
-		for i in range(len(devData)):
-			if devData[i]['mac'] == myMAC:
-				devData[i]['time stamp'] = str(time.time())
-				devData[i]['name'] = myName
-				devData[i]['log'] = join(poeData)
-				print("updating MAC...")
+			for i in range(len(devData)):
+				if devData[i]['mac'] == myMAC:
+					devData[i]['time stamp'] = str(time.time())
+					devData[i]['name'] = myName
+					devData[i]['log'] = join(poeData)
+					print("updating MAC...")
+					print(devData)
+					newMac = False
+
+			#write new content if needed
+			if newMac == True:
+				newDevice={
+					"mac":myMAC,
+					"time stamp":str(time.time()),
+					"name": myName,
+					"log":join(poeData)
+				}
+				print(newDevice)
+				# newDevice["mac"] = myMAC				
+				# newDevice["time stamp"] = str(time.time())
+				# newDevice["name"] = myName
+				# newDevice["log"] = join(poeData)
+
+				devData.append(newDevice)
+				print("writing new MAC...")
 				print(devData)
-				newMac = False
-			#ipList.append(data[i]['ip'])
-
-		#write new content if needed
-		if newMac == True:
-			newDevice={
-				"mac":myMAC,
-				"time stamp":str(time.time()),
-				"name": myName,
-				"log":join(poeData)
-			}
-			# newDevice["mac"] = myMAC				
-			# newDevice["time stamp"] = str(time.time())
-			# newDevice["name"] = myName
-			# newDevice["log"] = join(poeData)
-
-			devData.append(newDevice)
-			print("writing new MAC...")
-			print(devData)
 
 	except:
 		print('write self exception')
@@ -160,12 +160,14 @@ myName = getLocalConfig("name")
 #myName = myName.lower();#make lower case
 myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
 
-writeSelf()
 
 apiKey = getLocalConfig("apiKey")
 #apiKey = os.getenv('SP_API_KEY')
 
 getPoeLog()
+
+writeSelf()
+
 dstList = getIPList()
 makePosts(dstList)
 

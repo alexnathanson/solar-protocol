@@ -75,8 +75,8 @@ if($listNetwork == true){
 function listNetworkSites(){
 	global $deviceInfo;
 
-	echo "<!DOCTYPE html><html><head><title>Solar Server</title></head><body><h1><a href='/''>Solar Protocol</a> - Admin Console</h1>";
-	
+	echo "<!DOCTYPE html><html><head><title>Solar Server</title></head><body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div";
+
 	foreach ($deviceInfo as $key => $value) {
 
 		//echo "<br>".file_get_contents('http://' . $value['ip'] . "/api/v1/api.php?value=PV-voltage");

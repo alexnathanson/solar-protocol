@@ -106,10 +106,11 @@ def postIt(dstIP,dstData):
 	try:
 		x = requests.post('http://'+dstIP+'/api/v1/api.php', headers=headers,data = dstData, timeout=5)
 		print(x.text)
-		print(x.json())
+		#print(x.json())
 		#if json.loads(x.text)['result']==success:
 		if x.ok:
-			getNewDST(json.loads(x.text))
+			cleanedText = x.text.replace("'", "\"")
+			getNewDST(json.loads(cleanedText))
 			print("Post successful")
 		#requests.raise_for_status()
 	except requests.exceptions.HTTPError as errh:

@@ -19,6 +19,7 @@ poeLog = "/home/pi/solar-protocol/backend/api/v1/poe.log"
 poeData = []
 
 newDSTList = []
+runningDSTList = []
 
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 
@@ -96,12 +97,14 @@ def getNewDST(responseList):
 		#print(r['mac'])
 
 		if r['mac'] not in getKeyList('mac'):
-			if r['ip'] not in newDSTList:
+			if r['ip'] not in runningDSTList:
 				newDSTList.append(r['ip'])
+				runningDSTList.append(r['ip'])
 		elif r['ip'] not in getKeyList('ip'):
 			#in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
-			if r['ip'] not in newDSTList:
+			if r['ip'] not in runningDSTList:
 				newDSTList.append(r['ip'])
+				runningDSTList.append(r['ip'])
 
 def postIt(dstIP,dstData):
 	try:
@@ -139,6 +142,12 @@ def makePosts(ipList):
 		if dst != myIP: #does not work when testing only with local network
 			postIt(dst, myString)
 
+	if len(newDSTList) > 0:
+		print("New DST list:")
+		print(newDSTList)
+		makePosts(newDSTList)
+		newDSTList = []
+
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
 
@@ -155,7 +164,6 @@ getPoeLog()
 
 dstList = getKeyList('ip')
 makePosts(dstList)
-print('new DST list')
-print(newDSTList)
-makePosts(newDSTList)
+# print(newDSTList)
+# makePosts(newDSTList)
 

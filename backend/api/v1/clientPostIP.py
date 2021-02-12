@@ -97,10 +97,12 @@ def getNewDST(responseList):
 		#print(r['mac'])
 
 		if r['mac'] not in getKeyList('mac'):
-			newDSTList.append(r['ip'])
+			if r['ip'] not in newDSTList:
+				newDSTList.append(r['ip'])
 		elif r['ip'] not in getKeyList('ip'):
 			#in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
-			newDSTList.append(r['ip'])
+			if r['ip'] not in newDSTList:
+				newDSTList.append(r['ip'])
 
 def postIt(dstIP,dstData):
 	try:
@@ -121,7 +123,8 @@ def postIt(dstIP,dstData):
 	except requests.exceptions.RequestException as err:
 	 	print("An Unknown Error occurred" + repr(err))
 
-def makePosts(ipList, postTrue):
+#add a boolean back in if the 
+def makePosts(ipList):
 	
 	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(poeData)
 
@@ -133,8 +136,8 @@ def makePosts(ipList, postTrue):
 	for dst in ipList:
 		print("DST: " + dst)
 
-		#post own IP but make sure it is the most recent
-		if dst != myIP and postTrue: #does not work when testing only with local network
+		#postTrue
+		if dst != myIP: #does not work when testing only with local network
 			postIt(dst, myString)
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
@@ -152,8 +155,8 @@ getPoeLog()
 #writeSelf()
 
 dstList = getKeyList('ip')
-makePosts(dstList,True)
+makePosts(dstList)
 print('new DST list')
 print(newDSTList)
-makePosts(newDSTList,False)
+makePosts(newDSTList)
 

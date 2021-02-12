@@ -10,4 +10,4 @@ charge-controller/data/
 *.vscode
 
 /backend/createHTML/local-content.json
-#/backend/createHTML/local/*
+/backend/createHTML/local/*

@@ -127,7 +127,8 @@ def postIt(dstIP,dstData):
 
 #add a boolean back in if the 
 def makePosts(ipList):
-	
+	newDSTList = []
+
 	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(poeData)
 
 	print(myString)
@@ -146,7 +147,6 @@ def makePosts(ipList):
 		print("New DST list:")
 		print(newDSTList)
 		makePosts(newDSTList)
-		newDSTList = []
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")

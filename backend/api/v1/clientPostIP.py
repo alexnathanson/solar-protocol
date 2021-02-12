@@ -95,7 +95,7 @@ def writeSelf():
 		with open(deviceList) as f:
 			devData = json.load(f)
 
-		print(data)
+		#print(devData)
 		
 		newMac = True
 
@@ -111,17 +111,23 @@ def writeSelf():
 
 		#write new content if needed
 		if newMac == True:
-			newDevice["mac"] = myMAC				
-			newDevice["time stamp"] = str(time.time())
-			newDevice["name"] = myName
-			newDevice["log"] = join(poeData)
+			newDevice={
+				"mac":myMAC,
+				"time stamp":str(time.time()),
+				"name": myName,
+				"log":join(poeData)
+			}
+			# newDevice["mac"] = myMAC				
+			# newDevice["time stamp"] = str(time.time())
+			# newDevice["name"] = myName
+			# newDevice["log"] = join(poeData)
 
 			devData.append(newDevice)
 			print("writing new MAC...")
 			print(devData)
 
 	except:
-		print('local config file exception')
+		print('write self exception')
 
 def makePosts(ipList):
 	

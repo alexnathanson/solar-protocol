@@ -118,6 +118,8 @@ def draw_server_arc(server_no, start, stop, c):
 
 
 dstIP = getDeviceInfo('ip')
+print("DST:")
+print(dstIP)
 
 ccData = []
 for i in dstIP:
@@ -180,12 +182,6 @@ for label in ax.get_xticklabels()[::1]: #only show every second label
 
 # for i, label in enumerate(ax.get_xticklabels()):
 #     label.set_rotation(i*90)
-
-
-
-
-
-
 
 
 plt.ylim(0,10) #puts space in the center (start of y axis)

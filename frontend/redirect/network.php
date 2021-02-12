@@ -75,6 +75,8 @@ if($listNetwork == true){
 function listNetworkSites(){
 	global $deviceInfo;
 
+	echo "<!DOCTYPE html><html><head><title>Solar Server</title></head><body><h1><a href='/''>Solar Protocol</a> - Admin Console</h1>";
+	
 	foreach ($deviceInfo as $key => $value) {
 
 		//echo "<br>".file_get_contents('http://' . $value['ip'] . "/api/v1/api.php?value=PV-voltage");
@@ -92,7 +94,7 @@ function listNetworkSites(){
 			echo " offline</p>";
 		}
 
-		echo "<br>Last check-in: " . date('r', $value['time stamp']);
+		echo "Last check-in: " . date('r', $value['time stamp']);
 		
 		if(isset($value['description'])){
 			echo "<p>About this site: " .$value['description'] . "</p>"; 

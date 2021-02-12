@@ -91,6 +91,8 @@ function listNetworkSites(){
 		} else {
 			echo " offline</p>";
 		}
+
+		echo "<br>Last check-in: " . date('r', $value['time stamp']);
 		
 		if(isset($value['description'])){
 			echo "<p>About this site: " .$value['description'] . "</p>"; 

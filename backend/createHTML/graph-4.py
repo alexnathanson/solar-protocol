@@ -46,7 +46,7 @@ def getDeviceInfo(getKey):
 
 def getIt(dst):
     print("get it!")
-    x = requests.get('http://' + dst + "/api/v1/api.php?day=4")
+    x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?day=4")
     #print(x.text)
     return x.text
 
@@ -125,7 +125,7 @@ print(dstIP)
 ccData = []
 for i in dstIP:
     print(i)
-    #ccData.append(getIt(i))
+    ccData.append(getIt(i))
     #getIt(i)
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)

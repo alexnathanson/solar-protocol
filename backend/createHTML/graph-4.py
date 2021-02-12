@@ -47,6 +47,7 @@ def getDeviceInfo(getKey):
 def getIt(dst):
     x = requests.get('http://' + dst + "/api/v1/api.php?value=PV-current&duration=3")
     print(x.text)
+    return x.text
 
 # Trying to do API Stuff:
 # server_ips = ['108.29.41.133','68.197.168.141','74.73.93.241']
@@ -120,9 +121,9 @@ def draw_server_arc(server_no, start, stop, c):
 
 dstIP = getDeviceInfo('ip')
 
-data = []
+ccData = []
 for i in dstIP:
-    getIt(i)
+    ccData.append(getIt(i))
 
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
@@ -193,11 +194,12 @@ plt.ylim(0,10) #puts space in the center (start of y axis)
 
 #Draw Sun Data for each server
 #draw_ring(data, ringNo, parameter);
-draw_ring(csv_paths1, 3, "PV current")
-draw_ring(csv_paths2, 4, "PV current")
-draw_ring(csv_paths3, 5, "PV current")
-draw_ring(csv_paths2, 6, "PV current")
-draw_ring(csv_paths1, 7, "PV current")
+for rPV in range(len(ccData)):
+    draw_ring(csv_paths1, rPV, "PV current")
+# draw_ring(csv_paths2, 4, "PV current")
+# draw_ring(csv_paths3, 5, "PV current")
+# draw_ring(csv_paths2, 6, "PV current")
+# draw_ring(csv_paths1, 7, "PV current")
 
 
 #Draw Active Server Rings

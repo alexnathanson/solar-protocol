@@ -99,7 +99,7 @@ def makePosts(ipList):
 		#if statement only necessary if storing local IP... if not storing local IP, must auto Post regulary instead of checking for changes...
 		#if dst != myIP: #does not work when testing only with local network
 		try:
-			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString)
+			x = requests.post('http://'+dst+'/api/v1/api.php', headers=headers,data = myString, timeout=5)
 			#print(x.text)
 			print("Post successful")
 			#requests.raise_for_status()

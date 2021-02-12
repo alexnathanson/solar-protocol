@@ -123,8 +123,9 @@ print(dstIP)
 
 ccData = []
 for i in dstIP:
+    print(i)
     #ccData.append(getIt(i))
-    getIt(i)
+    #getIt(i)
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 

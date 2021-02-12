@@ -2,55 +2,129 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import csv
+import requests
 from random import choice
 from PIL import Image
 import pandas as pd
 from glob import glob
 
 #global variables
-days = 4 # how many days do you want?
+days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
 hours = 72
 tick_interval = 2
 label_interval = 12
 sun_color = ['00','26','66','B3']
 owd = os.getcwd()
-csv_paths = '../../charge-controller/data/*.csv'
+# csv_paths1 = '../../charge-controller/data1/*.csv'
+# csv_paths2 = '../../charge-controller/data2/*.csv'
+# csv_paths3 = '../../charge-controller/data3/*.csv'
+# csv_paths4 = '../../charge-controller/data4/*.csv'
+# csv_paths5 = '../../charge-controller/data5/*.csv'
+csv_paths = []
 
-#get sun data files and order according to date
-#BUT THIS IS GETTING WRITE DATE AND NOT NAME DATE <<<<<<< 
-files = sorted(glob(csv_paths))
+# TO DO
+# import data using API from each server on the network
+# do we need to deal with time zones? Or can the API just return the last 72 hours of data?
+# write algorithm for turning the list of timestamps for the active server into a form that can use the drawServerarc();
 
-recent_files= files[-days:]
-#print("Most recent files: "+files[0:3])
-print(recent_files)
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+
+def getDeviceInfo(getKey):
+
+    ipList = []
+
+    with open(deviceList) as f:
+      data = json.load(f)
+
+    #print(data)
+
+    for i in range(len(data)):
+        ipList.append(data[i][getKey])
+
+    return ipList
+
+def getIt(dst):
+    x = requests.get('http://' + dst + "/api/v1/api.php?value=PV-current&duration=3")
+    print(x.text)
+
+# Trying to do API Stuff:
+# server_ips = ['108.29.41.133','68.197.168.141','74.73.93.241']
+
+# # #get last 4 days of PV-current
+# api_call = '/api/v1/chargecontroller.php'
+
+# url = 'http://' + server_ips[0] + api_call
+
+# # #set params
+# params = {"file": "4"}
+
+# # #get data from one server
+# response = requests.get(url, params=params)
+
+# print(response.json())
+
+#make a dataframe
+# dataframe = pd.DataFrame.from_dict(response.json(), orient="index")
+# dataframe = pd.read_json(response.json())
+# print(dataframe)
 
 
-#combine last 4 file
-df_from_each_file = (pd.read_csv(f, sep=',', encoding='latin-1') for f in recent_files)
-df_merged   = pd.concat(df_from_each_file, ignore_index=True)
-df = df_merged
+
+#drawing the sunshine data (yellow)
+def draw_ring(csv_paths, ring_number, energy_parameter):
+    files1 = sorted(glob(csv_paths))
+    files1 = sorted(glob(csv_paths))
+
+    recent_files1= files1[-days:]
+    #print("Most recent files: "+files[0:3])
+    print(recent_files1)
 
 
-df['datetime'] = df['datetime'].astype(str) #convert entire "Dates" Column to string 
-df['datetime']=pd.to_datetime(df['datetime']) #convert entire "Dates" Column to datetime format this time 
-df.index=df['datetime'] #replace index with entire "Dates" Column to work with groupby function
-df_hours = df.groupby(pd.Grouper(freq='H')).mean() #take daily average of multiple values
-df_hours = df_hours.tail(72) # last 72 hours
+    #combine last 4 file
+    df_from_each_file = (pd.read_csv(f, sep=',', encoding='latin-1') for f in recent_files1)
+    df_merged1   = pd.concat(df_from_each_file, ignore_index=True)
+    df1 = df_merged1
+
+
+    df1['datetime'] = df1['datetime'].astype(str) #convert entire "Dates" Column to string 
+    df1['datetime']=pd.to_datetime(df1['datetime']) #convert entire "Dates" Column to datetime format this time 
+    df1.index=df1['datetime'] #replace index with entire "Dates" Column to work with groupby function
+    df_hours = df1.groupby(pd.Grouper(freq='H')).mean() #take daily average of multiple values
+    df_hours = df_hours.tail(72) # last 72 hours
+    print(df_hours[energy_parameter])
+    oldest1 = files1[0]
+    newest1 = files1[-1]
+    df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
+
+    # #correlate sun data wtih colors 
+    for i, current in enumerate(df_hours[energy_parameter].tolist()):
+        # print(current)
+        draw_sun(ring_number, i, i+2, current)
+
+
+    return df_hours
+#gold: color=(1, 0.85, 0, alpha)
+
+#arcs
+def draw_sun(server_no, start, stop, alpha):
+     for i in range(start, stop, 1):
+        #ax.bar(rotation, arc cell length, width of each cell, width of each arc , radius of bottom, color, edgecolor )(1, 0.84, 0.0, alpha) '#D4AF37'+alpha
+        ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 1, width=2 * np.pi / hours, bottom=server_no+0.1, color=(1, 0.85, 0, alpha), edgecolor = "none")
+
+
+def draw_server_arc(server_no, start, stop, c):
+    for i in range(start, stop, 1):
+        ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.45, color=c, edgecolor = c)
+
+
+dstIP = getDeviceInfo('ip')
+
+data = []
+for i in dstIP:
+    getIt(i)
+
+
 pd.set_option("display.max_rows", None, "display.max_columns", None)
-print(df_hours["PV current"])
-    
-
-#average_solar(df_merged)
-
-#get last 72 values for solarCurrent in df_merged and use in viz.
-# do i look at datetime or just the last 72?
-
-
-oldest = files[0]
-newest = files[-1]
-
-#print ("Newest:" +newest)
-
 
 # STYLE COLORS
 # radar grid white solid grid lines
@@ -63,7 +137,8 @@ plt.rc('ytick', labelsize=10, color="none")
 
 
 #customize inside labels
-server_names = ("Brooklyn", "Canada", "Dominica", "Newcastle", "", "")
+server_names = getDeviceInfo('name')
+
 # for label in ax.get_yticklabels()[::]: #only show every second label
 #     label.set_visible(False)
 
@@ -93,17 +168,12 @@ n=0
 ticks = np.arange(hours/tick_interval)*2*np.pi/(hours/tick_interval)
 x_labels = list(range(0,int(hours), tick_interval))
 x_labels[0]="Now"
-#plt.xticks(ticks, x_labels)
+
 plt.xticks(ticks)
 plt.yticks(np.arange(3,10))
-#label.set_visible(False)
+
 
 for label in ax.get_xticklabels()[::1]: #only show every second label
-#     # if(n==0):
-#     #     label.set_rotation(np.pi)
-#     #     n=1
-#     # else:
-#     #     label.set_rotation(0)
     label.set_visible(False)
 
 
@@ -115,60 +185,39 @@ for label in ax.get_xticklabels()[::1]: #only show every second label
 
 
 
-#arcs
-def draw_sun(server_no, start, stop, alpha):
-     for i in range(start, stop, 1):
-        #ax.bar(rotation, arc cell length, width of each cell, width of each arc , radius of bottom, color, edgecolor )(1, 0.84, 0.0, alpha) '#D4AF37'+alpha
-        ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.8, width=2 * np.pi / hours, bottom=server_no+0.1,color=(1, 0.85, 0, alpha), edgecolor = "none")
-
-def draw_server_arc(server_no, start, stop, c):
-    for i in range(start, stop, 1):
-        ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.33,color=c, edgecolor = c)
 
 
-#ax.set_yticks([])
+
 plt.ylim(0,10) #puts space in the center (start of y axis)
 
-df_hours["PV current"] = df_hours["PV current"] / df_hours["PV current"].max()
-
-# #correlate sun data wtih colors 
-for i, current in enumerate(df_hours["PV current"].tolist()):
-   # print(current)
-
-    draw_sun(5, i, i+2, current)
-    draw_sun(4, i, i+2, current)
-    draw_sun(3, i, i+2, current)
+#Draw Sun Data for each server
+#draw_ring(data, ringNo, parameter);
+draw_ring(csv_paths1, 3, "PV current")
+draw_ring(csv_paths2, 4, "PV current")
+draw_ring(csv_paths3, 5, "PV current")
+draw_ring(csv_paths2, 6, "PV current")
+draw_ring(csv_paths1, 7, "PV current")
 
 
-
-# for i in range(72):  
-    
-
-    # draw_sun(3, i, i+2, sun_color[(i+2)%4])
-    # draw_sun(4, i, i+2, sun_color[(i+3)%4])
-    # draw_sun(5, i, i+2, sun_color[(i+1)%4])
+#Draw Active Server Rings
 
 sc = "white"
-
-# draw_server_arc(2, 3, 7, sc)
-# draw_server_arc(3, 7, 10, sc)
-# draw_server_arc(2, 10, 15, sc)
-# draw_server_arc(4, 15, 24, sc)
-draw_server_arc(5, 24, 30, sc)
-draw_server_arc(2, 30, 35, sc)
-draw_server_arc(3, 35, 55, sc)
+#draw_server_arc(ringNo, startHour, stopHour, color )
+draw_server_arc(3, 35, 55,  '#00158a')
+draw_server_arc(4, 30, 35, "pink")
 draw_server_arc(5, 55, 72, sc)
+draw_server_arc(5, 24, 30, 'green')
 
 
 #add line for now
 #ax.plot(wind_speed, wind_direction, c = bar_colors, zorder = 3)
 ax.plot((0,0), (0,10), color="white", linewidth=0.3, zorder=10)
 os.chdir(owd)
-bg = Image.open('background-Arial.png')
 
 
-#plt.show()
-plt.savefig('clock.png')
-fg=Image.open('clock.png')
-bg.paste(fg, (0,0), fg)
-bg.save('final-Arial.png')
+plt.savefig('clock.png') #save plot
+
+
+background = Image.open("face-6-server-days.png")
+foreground = Image.open("clock.png")
+Image.alpha_composite(foreground, background).save("result.png")

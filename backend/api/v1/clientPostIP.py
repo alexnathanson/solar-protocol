@@ -91,10 +91,10 @@ def getLocalConfig(key):
 def getNewDST(responseList):
 	#check if is is a new MAC and post if so
 
-	print(type(responseList))
+	if type(responseList) == list
 	#if MAC exists check if it is a new IP and post if so (maybe compare time stamps accounting for time zone)
 	for r in responseList:
-		print(r['mac'])
+		#print(r['mac'])
 
 		if r['mac'] not in getKeyList('mac'):
 			newDSTList.append(r['ip'])
@@ -105,13 +105,11 @@ def getNewDST(responseList):
 def postIt(dstIP,dstData):
 	try:
 		x = requests.post('http://'+dstIP+'/api/v1/api.php', headers=headers,data = dstData, timeout=5)
-		print("request response!!!")
-		print(x.text)
+		#print("request response!!!")
+		#print(x.text)
 		#print(x.json())
-		#if json.loads(x.text)['result']==success:
 		if x.ok:
-			#cleanedText = x.text.replace("'", "\"")
-			getNewDST(json.loads(cleanedText))
+			getNewDST(x.json())
 			print("Post successful")
 		#requests.raise_for_status()
 	except requests.exceptions.HTTPError as errh:
@@ -155,5 +153,7 @@ getPoeLog()
 
 dstList = getKeyList('ip')
 makePosts(dstList)
+print('new DST list')
+print(newDSTList)
 makePosts(newDSTList)
 

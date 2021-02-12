@@ -127,6 +127,9 @@ for i in dstIP:
     print(i)
     ccData.append(getIt(i))
     #getIt(i)
+    
+print("CC DATA:")
+print(len(ccData))
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 

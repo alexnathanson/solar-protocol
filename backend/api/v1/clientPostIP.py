@@ -121,7 +121,7 @@ def postIt(dstIP,dstData):
 	except requests.exceptions.RequestException as err:
 	 	print("An Unknown Error occurred" + repr(err))
 
-def makePosts(ipList):
+def makePosts(ipList, postTrue):
 	
 	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(poeData)
 
@@ -134,7 +134,7 @@ def makePosts(ipList):
 		print("DST: " + dst)
 
 		#post own IP but make sure it is the most recent
-		if dst != myIP: #does not work when testing only with local network
+		if dst != myIP && postTrue: #does not work when testing only with local network
 			postIt(dst, myString)
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
@@ -152,8 +152,8 @@ getPoeLog()
 #writeSelf()
 
 dstList = getKeyList('ip')
-makePosts(dstList)
+makePosts(dstList,True)
 print('new DST list')
 print(newDSTList)
-makePosts(newDSTList)
+makePosts(newDSTList,False)
 

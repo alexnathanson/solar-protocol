@@ -60,10 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			}
 			
 			/*echo str_replace(
-			   '<head>', 
-			   '<head><base href="'. $localURL.'/" target="_blank">',
+			   "<body>", 
+			   "<body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>",
 			    $redirected
-			);*/		
+			);		*/
 		}
 	}
 }
@@ -75,7 +75,7 @@ if($listNetwork == true){
 function listNetworkSites(){
 	global $deviceInfo;
 
-	echo "<!DOCTYPE html><html><head><title>Solar Server</title></head><body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div";
+	echo "<!DOCTYPE html><html><head><title>Solar Server</title></head><body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>";
 
 	foreach ($deviceInfo as $key => $value) {
 

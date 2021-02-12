@@ -166,5 +166,3 @@ getPoeLog()
 
 dstList = getKeyList('ip')
 makePosts(dstList)
-print('posted')
-

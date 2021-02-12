@@ -81,8 +81,8 @@ def getLocalConfig(key):
 		#locFile = json.loads(localConfig)
 		with open(localConfig) as locFile:
 			locData = json.load(locFile)
-			print(locData)
-			print(locData[key])
+			#print(locData)
+			#print(locData[key])
 			return locData[key]
 
 	except:

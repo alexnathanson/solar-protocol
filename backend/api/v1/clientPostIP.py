@@ -105,11 +105,12 @@ def getNewDST(responseList):
 def postIt(dstIP,dstData):
 	try:
 		x = requests.post('http://'+dstIP+'/api/v1/api.php', headers=headers,data = dstData, timeout=5)
+		print("request response!!!")
 		print(x.text)
 		#print(x.json())
 		#if json.loads(x.text)['result']==success:
 		if x.ok:
-			cleanedText = x.text.replace("'", "\"")
+			#cleanedText = x.text.replace("'", "\"")
 			getNewDST(json.loads(cleanedText))
 			print("Post successful")
 		#requests.raise_for_status()

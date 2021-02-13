@@ -21,7 +21,6 @@ owd = os.getcwd()
 # csv_paths3 = '../../charge-controller/data3/*.csv'
 # csv_paths4 = '../../charge-controller/data4/*.csv'
 # csv_paths5 = '../../charge-controller/data5/*.csv'
-csv_paths = []
 
 # TO DO
 # import data using API from each server on the network
@@ -46,25 +45,13 @@ def getDeviceInfo(getKey):
 
 def getIt(dst):
     print("get it!")
-    x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?day=4")
-    #print(x.text)
+    x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value=PV-current&duration=4")
+    print(type(x.text))
+    print(x.text)
     return x.text
-
-# Trying to do API Stuff:
-# server_ips = ['108.29.41.133','68.197.168.141','74.73.93.241']
-
-# # #get last 4 days of PV-current
-# api_call = '/api/v1/chargecontroller.php'
-
-# url = 'http://' + server_ips[0] + api_call
 
 # # #set params
 # params = {"file": "4"}
-
-# # #get data from one server
-# response = requests.get(url, params=params)
-
-# print(response.json())
 
 #make a dataframe
 # dataframe = pd.DataFrame.from_dict(response.json(), orient="index")
@@ -75,11 +62,12 @@ def getIt(dst):
 def draw_ring(csv_paths, ring_number, energy_parameter):
     # files1 = sorted(glob(csv_paths))
     # files1 = sorted(glob(csv_paths))
-    print("Draw ring")
+    print("--Draw ring--")
+    print(csv_paths)
     print(type(csv_paths))
 
-    
-    
+
+
     files1 = csv_paths
     recent_files1= files1[-days:]
     #print("Most recent files: "+files[0:3])
@@ -124,8 +112,8 @@ def draw_server_arc(server_no, start, stop, c):
 
 
 dstIP = getDeviceInfo('ip')
-print("DST:")
-print(dstIP)
+# print("DST:")
+# print(dstIP)
 
 ccData = []
 for i in dstIP:

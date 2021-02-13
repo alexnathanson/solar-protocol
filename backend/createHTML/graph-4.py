@@ -61,8 +61,9 @@ def draw_ring(ccDict, ring_number, energy_parameter):
     ccDataframe.columns = ccDataframe.iloc[0]
     ccDataframe = ccDataframe.drop(ccDataframe.index[0])
     #ccDataframe['datetime']=ccDataframe.index
-    ccDataframe = ccDataframe.reset_index()
-    ccDataframe.columns = ['datetime',energy_parameter]
+    #ccDataframe = ccDataframe.reset_index()
+    #ccDataframe.columns = ['datetime',energy_parameter]
+    ccDataframe.index.names = ['datetime']
     print(ccDataframe.head())
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 

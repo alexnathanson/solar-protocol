@@ -176,7 +176,7 @@ plt.ylim(0,10) #puts space in the center (start of y axis)
 #Draw Sun Data for each server
 #draw_ring(data, ringNo, parameter);
 for rPV in range(len(ccData)):
-    draw_ring(ccData[rPV],rPV, energyParam)
+    draw_ring(ccData[rPV],rPV+2, energyParam)
 # draw_ring(csv_paths2, 4, "PV current")
 # draw_ring(csv_paths3, 5, "PV current")
 # draw_ring(csv_paths2, 6, "PV current")

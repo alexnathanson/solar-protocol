@@ -48,7 +48,7 @@ def getDeviceInfo(getKey):
 def getIt(dst,ccValue):
     print("GET from " + dst)
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+days,timeout=5)
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
         #print(json.loads(x.text))
         return json.loads(x.text)
     except requests.exceptions.HTTPError as errh:
@@ -130,8 +130,9 @@ def sortPOE():
     dfPOE = dfPOE.loc[pastSeventyTwoHours]
     print(dfPOE.shape)
 
+    print((startTime - dfPOE['datetime']).total_minutes())
     for t in range(dfPOE.shape[1]):
-        dfPOE['percent']= dfPOE['datetime']/(startTime-endTime)
+        dfPOE['percent']= (startTime - dfPOE['datetime']).total_minutes() / (hours*60)
 
     print(dfPOE.head())
 

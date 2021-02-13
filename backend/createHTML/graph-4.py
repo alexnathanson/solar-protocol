@@ -9,6 +9,7 @@ import pandas as pd
 from glob import glob
 import json
 import datetime
+from dateutil.relativedelta import relativedelta
 
 #global variables
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
@@ -122,6 +123,12 @@ def sortPOE():
     print(dfPOE.head())
 
     #get time now and filter by this time - 72 hours
+    #now = datetime.datetime.now()
+    threeDaysAgo = datetime.datetime.now() + relativedelta(days=-3)
+    print(dfPOE.shape)
+    pastSeventyTwoHours = (dfPOE['datetime'] > threeDaysAgo)
+    dfPOE = dfPOE.loc[pastSeventyTwoHours]
+    print(dfPOE.shape)
 
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
@@ -214,7 +221,7 @@ sortPOE()
 sc = "white"
 #draw_server_arc(ringNo, startHour, stopHour, color )
 print(dfPOE.shape[1])
-for l in range(len(dfPOE.shape[1])):
+for l in range(dfPOE.shape[1]):
     draw_server_arc(dfPOE['device'].iloc[l], 35, 55,  '#00158a')
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)

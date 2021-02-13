@@ -48,7 +48,7 @@ def getDeviceInfo(getKey):
 def getIt(dst,ccValue):
     print("GET from " + dst)
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration=4",timeout=5)
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+days,timeout=5)
         #print(json.loads(x.text))
         return json.loads(x.text)
     except requests.exceptions.HTTPError as errh:
@@ -123,12 +123,17 @@ def sortPOE():
     print(dfPOE.head())
 
     #get time now and filter by this time - 72 hours
-    #now = datetime.datetime.now()
-    threeDaysAgo = datetime.datetime.now() + relativedelta(days=-3)
+    startTime = datetime.datetime.now()
+    endTime = datetime.datetime.now() + relativedelta(days=-3) #3 days ago
     print(dfPOE.shape)
-    pastSeventyTwoHours = (dfPOE['datetime'] > threeDaysAgo)
+    pastSeventyTwoHours = (dfPOE['datetime'] > endTime)
     dfPOE = dfPOE.loc[pastSeventyTwoHours]
     print(dfPOE.shape)
+
+    for t in range(dfPOE.shape[1]):
+        dfPOE['percent']= dfPOE['datetime']/(startTime-endTime)
+
+    print(dfPOE.head())
 
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
@@ -219,10 +224,10 @@ for rPV in range(len(ccData)):
 sortPOE()
 
 sc = "white"
-#draw_server_arc(ringNo, startHour, stopHour, color )
-print(dfPOE.shape[1])
-for l in range(dfPOE.shape[1]):
-    draw_server_arc(dfPOE['device'].iloc[l], 35, 55,  '#00158a')
+if dfPOE.shape[1] > 0:
+    for l in range(dfPOE.shape[1]):
+        if l == 0:
+            draw_server_arc(dfPOE['device'].iloc[l]+2, 0, dfPOE['datetime'].iloc[l],  '#00158a')
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)
 # draw_server_arc(5, 24, 30, 'green')

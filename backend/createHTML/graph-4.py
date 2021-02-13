@@ -78,6 +78,7 @@ def draw_ring(ccDict, ring_number, energy_parameter):
 
     ccDataframe.columns = ccDataframe.iloc[0]
     ccDataframe = ccDataframe.drop(0)
+    ccDataframe = ccDataframe.reset_index(drop=True)
     print(ccDataframe.head())
 
     # files1 = csv_paths

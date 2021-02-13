@@ -105,9 +105,11 @@ def sortPOE():
     df = pd.DataFrame(columns = ['device', 'datetime']) 
     print(df.head())
     for l in range(len(log)):
-        tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
-        df[serverNames[l]] = tempDF[0]
-
+        tempDF['datetime'] = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
+        tempDF['device'] = l
+        df.append(tempDF, ignore_index=True)
+        df.shape()
+        
     print(df.head())
 
 dstIP = getDeviceInfo('ip')

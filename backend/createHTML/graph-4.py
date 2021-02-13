@@ -61,15 +61,15 @@ def draw_ring(ccDict, ring_number, energy_parameter):
     ccDataframe.columns = ccDataframe.iloc[0]
     ccDataframe = ccDataframe.drop(ccDataframe.index[0])
     #ccDataframe['datetime']=ccDataframe.index
-    #ccDataframe = ccDataframe.reset_index()
-    #ccDataframe.columns = ['datetime',energy_parameter]
-    ccDataframe.index.names = ['datetime']
+    ccDataframe = ccDataframe.reset_index()
+    ccDataframe.columns = ['datetime',energy_parameter]
+    #ccDataframe.index.names = ['datetime']
     print(ccDataframe.head())
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
     #ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
-    df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take daily average of multiple values
+    df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
     df_hours = df_hours.tail(72) # last 72 hours
     print(df_hours[energy_parameter])
     oldest1 = files1[0]

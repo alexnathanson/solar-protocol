@@ -8,6 +8,7 @@ from PIL import Image
 import pandas as pd
 from glob import glob
 import json
+import datetime
 
 #global variables
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
@@ -108,7 +109,7 @@ activeIPs = []
 for i in dstIP:
     #print(i)
     getResult = getIt(i,energyParam)
-    if getResult.find("Error") == -1:
+    if type(getResult) != type(None):
         ccData.append(getResult)
         activeIPs.append(i)
 
@@ -200,7 +201,9 @@ os.chdir(owd)
 
 plt.savefig('clock.png') #save plot
 
-
 background = Image.open("face-6-server-days.png")
 foreground = Image.open("clock.png")
-Image.alpha_composite(foreground, background).save("result.png")
+Image.alpha_composite(foreground, background).save("/home/pi/frontend/images/clock.png")
+
+archiveImage = Image.open("/home/pi/frontend/images/clock.png")
+archiveImage.save('/home/pi/frontend/images/clock-archive/clock-' + str(datetime.date.today()) +'.png') #archive plot

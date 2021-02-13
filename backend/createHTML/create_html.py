@@ -149,23 +149,28 @@ def get_weather(_local_data):
     lon = _local_data["long"]
     complete_url = base_url + "lon=" + lon+  "&lat=" +lat + "&appid=" + api_key 
     print(complete_url)
+
     response = requests.get(complete_url)
-    x = response.json() 
-    if x["cod"] != "404": 
-        y = x["main"] 
-        current_temperature = y["temp"] 
-        current_humidiy = y["humidity"] 
-        z = x["weather"] 
-        weather_description = z[0]["description"] 
-        print(" Temperature (in kelvin unit) = " +
-                    str(current_temperature) +
-          "\n humidity (in percentage) = " +
-                    str(current_humidiy) +
-          "\n description = " +
-                    str(weather_description)) 
-    else: 
-        print(" City Not Found ") 
-    return x
+    x = response.json()  
+    y = x["main"] 
+    current_temperature = y["temp"] 
+    current_humidiy = y["humidity"] 
+    z = x["weather"] 
+    weather_description = z[0]["description"] 
+    print(" Temperature (in kelvin unit) = " +
+                str(current_temperature) +
+        "\n humidity (in percentage) = " +
+                str(current_humidiy) +
+        "\n description = " +
+                str(weather_description)) 
+   
+    output = {
+        "description": x["weather"][0]["description"],
+        "temp": x["main"]["temp"],
+        "feelslike": x["main"]["feels_like"]
+    }
+
+    return output
 
 
 def get_local():
@@ -178,7 +183,15 @@ def get_local():
 def main():
     energy_data = read_csv()
     local_data = get_local()
-    local_weather = get_weather(local_data)
+    try:
+        local_weather = get_weather(local_data)
+    except Exception as e:
+        print(e)
+        local_weather = {
+            "description": "unavailable",
+            "temp": "unavailable",
+            "feelslike": "unavailable"
+        }
     # print(hosting_data)
     # print("Battery: {}".format(data("batteryPercentage"))
     # print("PV: {}".format(SolarVoltage))

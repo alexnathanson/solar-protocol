@@ -91,8 +91,8 @@ def render_pages(_local_data, _data, _weather):
             template_file
         )
 
-        sunrise=datetime.datetime.fromtimestamp(_weather["sys"]["sunrise"])
-        sunset=datetime.datetime.fromtimestamp(_weather["sys"]["sunset"])
+        sunrise=datetime.datetime.fromtimestamp(_weather["sunrise"])
+        sunset=datetime.datetime.fromtimestamp(_weather["sunset"])
         sunrise = sunrise.strftime("%I:%M %p")
         sunset = sunset.strftime("%I:%M %p")
         time = datetime.datetime.now()
@@ -167,7 +167,9 @@ def get_weather(_local_data):
     output = {
         "description": x["weather"][0]["description"],
         "temp": x["main"]["temp"],
-        "feelslike": x["main"]["feels_like"]
+        "feelslike": x["main"]["feels_like"],
+        "sunrise": x["sys"]["sunrise"],
+        "sunset": x["sys"]["sunset"],
     }
 
     return output
@@ -190,7 +192,9 @@ def main():
         local_weather = {
             "description": "unavailable",
             "temp": "unavailable",
-            "feelslike": "unavailable"
+            "feelslike": "unavailable",
+            "sunrise": "unavailable",
+            "sunset": "unavailable"
         }
     # print(hosting_data)
     # print("Battery: {}".format(data("batteryPercentage"))

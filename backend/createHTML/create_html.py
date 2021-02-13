@@ -91,10 +91,7 @@ def render_pages(_local_data, _data, _weather):
             template_file
         )
 
-        sunrise=datetime.datetime.fromtimestamp(_weather["sunrise"])
-        sunset=datetime.datetime.fromtimestamp(_weather["sunset"])
-        sunrise = sunrise.strftime("%I:%M %p")
-        sunset = sunset.strftime("%I:%M %p")
+        
         time = datetime.datetime.now()
         time = time.strftime("%I:%M %p")
         #would be nice to swap this out if the via script fails
@@ -131,8 +128,8 @@ def render_pages(_local_data, _data, _weather):
             weather=_weather["description"],
             temp=round(_weather["temp"]-273.15, 1) ,
             feelsLike=round(_weather["feels_like"]-273.15, 1),
-            sunrise=sunrise,
-            sunset=sunset,
+            sunrise=_weather["sunrise"],
+            sunset=_weather["sunset"],
             leadImage=leadImage,
 
 
@@ -157,6 +154,13 @@ def get_weather(_local_data):
     current_humidiy = y["humidity"] 
     z = x["weather"] 
     weather_description = z[0]["description"] 
+
+    sunrise=datetime.datetime.fromtimestamp(x["sys"]["sunrise"])
+    sunset=datetime.datetime.fromtimestamp(x["sys"]["sunset"])
+    sunrise = sunrise.strftime("%I:%M %p")
+    sunset = sunset.strftime("%I:%M %p")
+
+
     print(" Temperature (in kelvin unit) = " +
                 str(current_temperature) +
         "\n humidity (in percentage) = " +
@@ -168,8 +172,8 @@ def get_weather(_local_data):
         "description": x["weather"][0]["description"],
         "temp": x["main"]["temp"],
         "feels_like": x["main"]["feels_like"],
-        "sunrise": x["sys"]["sunrise"],
-        "sunset": x["sys"]["sunset"],
+        "sunrise": sunrise,
+        "sunset": sunset,
     }
 
     return output

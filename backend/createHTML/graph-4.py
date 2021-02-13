@@ -65,14 +65,14 @@ def draw_ring(ccDict, ring_number, energy_parameter):
     ccDataframe = ccDataframe.reset_index()
     ccDataframe.columns = ['datetime',energy_parameter]
     #ccDataframe.index.names = ['datetime']
-    print(ccDataframe.head())
+    #print(ccDataframe.head())
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
     ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
-    print(ccDataframe.head())
+    #print(ccDataframe.head())
     df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
     #df_hours = ccDataframe.set_index('datetime').groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
     df_hours = df_hours.tail(72) # last 72 hours
@@ -206,4 +206,4 @@ foreground = Image.open("/home/pi/solar-protocol/backend/createHTML/clock.png")
 Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
 archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
-archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/clock-' + str(datetime.date.today()) +'.png') #archive plot
+archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot

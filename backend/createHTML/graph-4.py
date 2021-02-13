@@ -45,9 +45,18 @@ def getDeviceInfo(getKey):
 
 def getIt(dst,ccValue):
     print("get it!")
-    x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration=4")
-    #print(json.loads(x.text))
-    return json.loads(x.text)
+    try:
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration=4",timeout=5)
+        #print(json.loads(x.text))
+        return json.loads(x.text)
+    except requests.exceptions.HTTPError as errh:
+        print("An Http Error occurred:" + repr(errh))
+    except requests.exceptions.ConnectionError as errc:
+        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.Timeout as errt:
+        print("A Timeout Error occurred:" + repr(errt))
+    except requests.exceptions.RequestException as err:
+        print("An Unknown Error occurred" + repr(err))
 
 # # #set params
 # params = {"file": "4"}

@@ -133,6 +133,9 @@ def sortPOE():
 
     print(dfPOE.shape)
 
+    dfPOE['percent']=0
+    dfPOE['angle']=0
+    
     if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[1]):
             dfPOE['percent'].iloc[t]= (startTime - dfPOE['datetime'].iloc[t]).total_seconds() / (hours*60*60)

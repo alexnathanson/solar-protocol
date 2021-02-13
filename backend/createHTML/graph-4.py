@@ -25,6 +25,11 @@ owd = os.getcwd()
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
+energyParam = "PV-current"
+ccData = []
+
+dfPOE = pd.DataFrame(columns = ['device', 'datetime']) 
+
 def getDeviceInfo(getKey):
 
     ipList = []
@@ -97,7 +102,6 @@ def draw_server_arc(server_no, start, stop, c):
         ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.45, color=c, edgecolor = c)
 
 def sortPOE():
-    dfPOE = pd.DataFrame(columns = ['device', 'datetime']) 
     print(dfPOE.head())
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
@@ -107,21 +111,20 @@ def sortPOE():
         dfPOE = dfPOE.append(tempDF, ignore_index=True)
         dfPOE.shape
 
-    dfPOE['datetime'] = ddfPOEf['datetime'].astype(str) #convert entire "Dates" Column to string 
+    dfPOE['datetime'] = dfPOE['datetime'].astype(str) #convert entire "Dates" Column to string 
     dfPOE['datetime']=pd.to_datetime(dfPOE['datetime']) #convert entire "Dates" Column to datetime format this time 
     
     #dfPOE.index=dfPOE['datetime'] #replace index with entire "Dates" Column to work with groupby function
     #dfPOE = dfPOE.drop(columns=['datetime'])
     print(dfPOE.head())
-    dfPOE = dfPOE.sort_values(by='datetime',ascending=True)
+    dfPOE = dfPOE.sort_values(by='datetime',ascending=False)
     print(dfPOE.head())
-    
+
+    #get time now and filter by this time - 72 hours
+
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
 serverNames = getDeviceInfo('name')
-
-energyParam = "PV-current"
-ccData = []
 
 for i in dstIP:
     #print(i)
@@ -209,10 +212,12 @@ sortPOE()
 
 sc = "white"
 #draw_server_arc(ringNo, startHour, stopHour, color )
-draw_server_arc(3, 35, 55,  '#00158a')
-draw_server_arc(4, 30, 35, "pink")
-draw_server_arc(5, 55, 72, sc)
-draw_server_arc(5, 24, 30, 'green')
+print(dfPOE.shape[1])
+for l in range(len(dfPOE.shape[1])):
+    draw_server_arc(dfPOE['device'].iloc[l], 35, 55,  '#00158a')
+# draw_server_arc(4, 30, 35, "pink")
+# draw_server_arc(5, 55, 72, sc)
+# draw_server_arc(5, 24, 30, 'green')
 
 
 #add line for now

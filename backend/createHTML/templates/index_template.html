@@ -508,19 +508,21 @@ content %}
       }
 
       h2 {
-        font-size: 33px;
+        font-size: calc(var(--text-size) * 1.6);
+        padding: 20px 0px 20px 0px;
+
       }
 
       h3 {
-        font-size: calc(var(--text-size) * 1.6);
-        padding: 0px 0px 20px 0px;
+        font-size: calc(var(--text-size) * 1.3);
+        padding: 0px 0px 0px 0px;
       }
 
       /*Server title*/
       h4 {
         font-size: calc(var(--text-size) * 1.2);
         text-transform: none;
-        padding-top: 10px;
+
         font-style: oblique;
       }
 
@@ -655,11 +657,10 @@ content %}
     <div class="container">
       <nav>
         <ul class="no-bullets">
-          <li><a href="#network">Network</a> •</li>
-          <li><a href="#manifesto">Manifesto</a> •</li>
+          <li><a href="index.html">Home</a> •</li>
           <li><a href="#call">Call</a> •</li>
-          <li><a href="#docs">Docs</a> •</li>
-          <li><a href="#solar-web">Solar Web Directory</a></li>
+          <li><a href="#docs">System</a></li>
+
         </ul>
       </nav>
       <header>
@@ -860,97 +861,7 @@ content %}
             >for a Better Digital Future program.
           </p>
 
-          <a class="anchor" id="network"></a>
-          <h2>Network</h2>
-          <p>
-            To make the Solar Protocol network more robust, we are aiming to set
-            up servers in different locations around the world. We are currently
-            seeking more stewards for our servers. If you are interested in
-            hosting one, please see our
-            <a href="#call">call for stewards</a>.
-          </p>
-          <h3>Servers in the Network</h3>
-          <h4>1. The Gilgamesh Zone in New York</h4>
-          <ul>
-            <li>This server stewarded by artist and educator Tega Brain.</li>
-            <li>Bed Stuy, Brooklyn, USA</li>
-          </ul>
-          <h4>2. Van Brunt St in New York</h4>
-          <ul>
-            <li>This server stewarded by artist and educator Tega Brain.</li>
-            <li>Location: Red Hook, Brooklyn, USA</li>
-          </ul>
-          <h4>3. Hells Gate in Queens 'til I die in New York</h4>
-          <ul>
-            <li>
-              This server stewarded by a designer/technologist/educator and her
-              silly family.
-            </li>
-            <li>Location: Astoria, Queens, USA</li>
-          </ul>
-
-          <a class="anchor" id="manifesto"></a>
-          <h2>Natural Intelligence</h2>
-          <p>
-            Solar Protocol reconfigures internet protocols using natural rather
-            than artificial intelligence. When visiting most large internet
-            platforms today, decisions about what content you see are automated
-            with a type of artificial intelligence called machine learning.
-            Machine learning systems are trained on massive datasets collected
-            via online surveillance. They produce logic from patterns within
-            their data and use this logic to automate decisions. Most large web
-            platforms collect data from every click, view and scroll and then
-            use this data to automate decisions about what content to show their
-            users. In contrast to this, on the Solar Protocol platform,
-            decisions about what content is served is automated with a logic
-            produced by available sunshine and energy. The network operates with
-            a natural intelligence that emerges from the intermittent dynamics
-            of our shared environment.
-          </p>
-          <p>
-            Our current imagination for the internet and computing at large, has
-            been shaped by the energy systems that power it. Cheap, fossil fuel
-            energy has produced a culture that celebrates speed and ever larger,
-            heavier media. These energy systems have also made current forms of
-            artificial intelligence possible. As the author Timothy Mitchell
-            observes, different energy regimes create different political
-            possibilities and limitations [1]. In Solar Protocol, by changing
-            the way a computer network is powered, we aim to expand the
-            imaginative potential for what the internet could be, as well as
-            reshaping expectations of it. Other worlds are possible.2
-          </p>
-
-          <p>
-            Working with small solar powered servers makes it advantageous to
-            reduce the size of the website that you want to serve as much as
-            possible. This is why we have omitted energy-intensive tracking
-            technologies which forecloses the possibility of online surveillance
-            and the online business models that go with it.[3] Solar power
-            therefore encourages a lighter internet that is customized to
-            collective environmental conditions rather than individual user
-            behavior.
-          </p>
-
-          <p>
-            By reconfiguring internet protocols with the logic of the sun, Solar
-            Protocol seeks to create a space for working with natural
-            intelligence and exploring it might change our relationship to the
-            internet for the better.
-          </p>
-          <p>
-            1. See Timothy Mitchell’s book, Carbon democracy: Political power in
-            the age of oil (2011), that discusses the political consequences of
-            different energy systems.
-          </p>
-          <p>
-            2. Anab Jain discusses designing with a more-than-human politics in
-            a recent talk, On Critical Activism and Fungal Revolts (2020).
-          </p>
-          <p>
-            3.This approach was used by the Solar Powered Website published by
-            Low Tech Magazine (2019) and we have taken much inspiration from
-            this groundbreaking project.
-          </p>
+         
 
           <a class="anchor" id="call"></a>
           <h2>Call for Server Stewards</h2>
@@ -1044,62 +955,34 @@ content %}
           </p>
 
           <a class="anchor" id="docs"></a>
-          <h2>Documentation</h2>
+          <h2>System Documentation</h2>
+          <h3>Hardware: What is a solar server?</h3>
           <p>
-            This is an open ended experiment in creating a space for low-carbon
-            online culture. We are working iteratively and in dialogue with our
-            communities. We don't know when we will know we are finished.
+            Each solar server is composed of two main components: a 50W 
+            photovoltaic panel (PV) for harnessing the sun and a weatherized enclosure 
+            containing all the server equipment. The hardware inside the enclosure includes 
+            an MPPT charge controller that translates the power of the sun into electrical charge for the 12V battery which, when successfully charged, wakes up and brings online the RaspberryPi single-board computer hosting the local web content. The hardware also includes in-line fuses and in-line circuit breakers to protect each component of the circuit, and the NEMA-rated enclosure is retrofitted with rugged vents and glands to withstand a wide range of 
+            temperatures and different kinds of environments. 
           </p>
-          <p>We are tracking and sharing this research in several ways:</p>
-          <ul>
-            <li>
-              Server stewards can login to
-              <a href="solarprotocol.net/admin/">an admin panel</a> to access
-              more information about their server's performance.
-            </li>
-            <li>
-              Our code base is still in development, but it is open-source and
-              shared in a
-              <a href="https://github.com/alexnathanson/solar-protocol"
-                >repository on Github.</a
-              >
-            </li>
-            <li>
-              A project research archive can be found on this
-              <a href="https://www.are.na/tega-brain/solar-powered-media"
-                >Are.na channel.</a
-              >
-            </li>
+          <h3>Software</h3>
+          <p>
+            The networking and network API is built in PHP. Each RaspberryPi generates 
+            this static site using Jinja templating in Python, and serves it using an Apache server. 
+            No Javascript is used on the frontend. All visualizations are generated server-side 
+            using python libraries such as MatPlotLib. Where possible, the computation required 
+            to generate visual components of this site is done server side rather than in the 
+            browser. This is because we know that these computational cycles are powered by solar 
+            rather. This design approach minimizes the energy consumption for the user who is likely to be using fossil energy.  
+          </p>
+          <p>
+            <ul>
+            <li>Code is still in development. This work is open-source and <a href="https://github.com/alexnathanson/solar-protocol">shared on Github.</a></li>
+            <li>Stewards: <a href="/admin/">Login to an admin panel </a> to view your server data.</li>
+            
           </ul>
+        </p>
 
-          <a class="anchor" id="solar-web"></a>
-          <h2>Solar Web Directory</h2>
-
-          <p>
-            We have taken much inspiration from other solar powered server
-            projects such as the work of
-            <a href="https://solar.lowtechmagazine.com/">Low Tech Magazine</a>.
-            We hope to see many more servers hosted by renewables in the future,
-            whether via hosting at wind or sun powered data centers or by people
-            self hosting their sites. This is an in progress directory of such
-            websites.
-          </p>
-
-          <p>Enjoy the sun. Surf the solar powered web.</p>
-          <ul>
-            <li><a href="solar-web.html">Site 1</a> by x.</li>
-            <li><a href="solar-web.html">Site 1</a> by x.</li>
-            <li><a href="solar-web.html">Site 1</a> by x.</li>
-            <li><a href="solar-web.html">Site 1</a> by x.</li>
-            <li><a href="solar-web.html">Site 1</a> by x.</li>
-            <li><a href="solar-web.html">Site 1</a> by x.</li>
-          </ul>
-          <p>
-            Submit a site to be included in the directory by
-            <a href="https://airtable.com/shrBMAbdOEzAh1VDn"
-              >filling this form.</a
-            >
-          </p>
+        
           <!-- Column 1 end -->
         </div>
       </main>

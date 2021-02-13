@@ -102,7 +102,13 @@ def draw_server_arc(server_no, start, stop, c):
         ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.45, color=c, edgecolor = c)
 
 def sortPOE():
-    print(type(log))
+    df = pd.DataFrame(columns = ['device', 'datetime']) 
+    print(df.head())
+    for l in range(len(log)):
+        tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
+        df[serverNames[l]] = tempDF[0]
+
+    print(df.head())
 
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
@@ -213,7 +219,7 @@ plt.savefig('/home/pi/solar-protocol/backend/createHTML/clock.png') #save plot
 
 background = Image.open("/home/pi/solar-protocol/backend/createHTML/face-6-server-days.png")
 foreground = Image.open("/home/pi/solar-protocol/backend/createHTML/clock.png")
-Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/viz.png")
+Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
-archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/viz.png")
-archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/viz-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
+archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot

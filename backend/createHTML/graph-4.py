@@ -56,10 +56,12 @@ def getIt(dst,ccValue):
 #drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter):
 
-    ccDataframe = pd.DataFrame.from_dict(ccDict)
+    ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
 
     ccDataframe.columns = ccDataframe.iloc[0]
     ccDataframe = ccDataframe.drop(ccDataframe.index[0])
+    ccDataframe['datetime']=ccDataframe.index
+    ccDataframe = ccDataframe.reset_index()
     print(ccDataframe.head())
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 

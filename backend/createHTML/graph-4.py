@@ -122,7 +122,7 @@ plt.rc('grid', color='#6b6b6b', linewidth=0.3, linestyle='-')
 
 # label colors
 plt.rc('xtick', labelsize=6, color="#e0e0e0")
-plt.rc('ytick', labelsize=10, color="none")
+plt.rc('ytick', labelsize=10, color="#e0e0e0")
 
 
 #customize inside labels
@@ -158,6 +158,8 @@ ticks = np.arange(hours/tick_interval)*2*np.pi/(hours/tick_interval)
 x_labels = list(range(0,int(hours), tick_interval))
 x_labels[0]="Now"
 
+y_labels = getDeviceInfo('name')#need to filter out failed get requests!
+
 plt.xticks(ticks)
 plt.yticks(np.arange(3,10))
 
@@ -165,7 +167,8 @@ plt.yticks(np.arange(3,10))
 for label in ax.get_xticklabels()[::1]: #only show every second label
     label.set_visible(False)
 
-
+for label in ax.get_yticklabels():
+    label.set_visible(True)
 
 # for i, label in enumerate(ax.get_xticklabels()):
 #     label.set_rotation(i*90)
@@ -203,7 +206,7 @@ plt.savefig('/home/pi/solar-protocol/backend/createHTML/clock.png') #save plot
 
 background = Image.open("/home/pi/solar-protocol/backend/createHTML/face-6-server-days.png")
 foreground = Image.open("/home/pi/solar-protocol/backend/createHTML/clock.png")
-Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
+Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/viz.png")
 
-archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
-archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/viz.png")
+archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/viz-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot

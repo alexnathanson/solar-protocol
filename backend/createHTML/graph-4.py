@@ -60,8 +60,9 @@ def draw_ring(ccDict, ring_number, energy_parameter):
 
     ccDataframe.columns = ccDataframe.iloc[0]
     ccDataframe = ccDataframe.drop(ccDataframe.index[0])
-    ccDataframe['datetime']=ccDataframe.index
+    #ccDataframe['datetime']=ccDataframe.index
     ccDataframe = ccDataframe.reset_index()
+    ccDataframe.columns = ['datetime',energy_parameter]
     print(ccDataframe.head())
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
@@ -96,11 +97,11 @@ def draw_server_arc(server_no, start, stop, c):
 
 
 dstIP = getDeviceInfo('ip')
-
+energyParam = "PV-current"
 ccData = []
 for i in dstIP:
     #print(i)
-    ccData.append(getIt(i,"PV-current"))
+    ccData.append(getIt(i,energyParam))
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
@@ -165,7 +166,7 @@ plt.ylim(0,10) #puts space in the center (start of y axis)
 #Draw Sun Data for each server
 #draw_ring(data, ringNo, parameter);
 for rPV in range(len(ccData)):
-    draw_ring(ccData[rPV],rPV, "PV current")
+    draw_ring(ccData[rPV],rPV, energyParam)
 # draw_ring(csv_paths2, 4, "PV current")
 # draw_ring(csv_paths3, 5, "PV current")
 # draw_ring(csv_paths2, 6, "PV current")

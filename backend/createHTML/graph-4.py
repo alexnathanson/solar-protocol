@@ -129,13 +129,14 @@ def sortPOE():
     pastSeventyTwoHours = (dfPOE['datetime'] > endTime)
     dfPOE = dfPOE.loc[pastSeventyTwoHours] #filter out everything older than 3 days ago
     dfPOE = dfPOE.reset_index()
-    dfPOE = dfPOE.drop(columns=['index'])
+    #dfPOE = dfPOE.drop(columns=[0])
 
     print(dfPOE.shape)
 
-    if dfPOE.shape[1] > 0:
+    if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[1]):
             dfPOE['percent']= (startTime - dfPOE['datetime'].iloc[t]).total_seconds() / (hours*60*60)
+            dfPOE['angle'] = int(dfPOE['percent']*360)
 
     print(dfPOE.head())
 
@@ -228,12 +229,12 @@ for rPV in range(len(ccData)):
 sortPOE()
 
 sc = "white"
-if dfPOE.shape[1] > 0:
+if dfPOE.shape[0] > 0:
     for l in range(dfPOE.shape[1]):
         if l == 0:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, 0, dfPOE['percent'].iloc[l],  '#00158a')
+            draw_server_arc(dfPOE['device'].iloc[l]+2, 0, dfPOE['angle'].iloc[l],  '#00158a')
         else:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['percent'].iloc[l-1], dfPOE['percent'].iloc[l],  '#00158a')
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1], dfPOE['angle'].iloc[l],  '#00158a')
 
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)

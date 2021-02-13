@@ -127,12 +127,13 @@ def sortPOE():
     endTime = datetime.datetime.now() + relativedelta(days=-3) #3 days ago
     print(dfPOE.shape)
     pastSeventyTwoHours = (dfPOE['datetime'] > endTime)
-    dfPOE = dfPOE.loc[pastSeventyTwoHours]
+    dfPOE = dfPOE.loc[pastSeventyTwoHours] #filter out everything older than 3 days ago
+    dfPOE = dfPOE.reset_index()
     print(dfPOE.shape)
 
-    print((startTime - dfPOE['datetime']).total_minutes())
+    print((startTime - dfPOE['datetime'].iloc[t]).total_minutes())
     for t in range(dfPOE.shape[1]):
-        dfPOE['percent']= (startTime - dfPOE['datetime']).total_minutes() / (hours*60)
+        dfPOE['percent']= (startTime - dfPOE['datetime'].iloc[t]).total_minutes() / (hours*60)
 
     print(dfPOE.head())
 

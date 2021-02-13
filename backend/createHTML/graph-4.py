@@ -39,7 +39,7 @@ def getDeviceInfo(getKey):
     return ipList
 
 def getIt(dst,ccValue):
-    print("get it!")
+    print("GET from " + dst)
     try:
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration=4",timeout=5)
         #print(json.loads(x.text))
@@ -68,6 +68,7 @@ def draw_ring(ccDict, ring_number, energy_parameter):
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
+    ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
     print(ccDataframe.head())

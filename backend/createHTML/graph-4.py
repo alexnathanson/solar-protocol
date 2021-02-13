@@ -43,12 +43,12 @@ def getDeviceInfo(getKey):
 
     return ipList
 
-def getIt(dst):
+def getIt(dst,ccValue):
     print("get it!")
-    x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value=PV-current&duration=4")
-    print(type(x.text))
-    print(x.text)
-    return x.text
+    x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration=4")
+    print(type(json.loads(x)))
+    print(json.loads(x))
+    return json.loads(x)
 
 # # #set params
 # params = {"file": "4"}
@@ -118,7 +118,7 @@ dstIP = getDeviceInfo('ip')
 ccData = []
 for i in dstIP:
     print(i)
-    ccData.append(getIt(i))
+    ccData.append(getIt(i,"PV-current"))
     #getIt(i)
 
 print("CC DATA:")

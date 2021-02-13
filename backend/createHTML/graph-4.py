@@ -104,11 +104,13 @@ def draw_server_arc(server_no, start, stop, c):
 dstIP = getDeviceInfo('ip')
 energyParam = "PV-current"
 ccData = []
+activeIPs = []
 for i in dstIP:
     #print(i)
     getResult = getIt(i,energyParam)
-    if getResult != "":
+    if getResult.find("Error") == -1:
         ccData.append(getResult)
+        activeIPs.append(i)
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 

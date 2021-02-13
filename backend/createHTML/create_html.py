@@ -126,8 +126,8 @@ def render_pages(_local_data, _data, _weather):
             font=_local_data["font"],
             borderStyle=_local_data["borderStyle"],
             weather=_weather["description"],
-            temp=round(_weather["temp"]-273.15, 1) ,
-            feelsLike=round(_weather["feels_like"]-273.15, 1),
+            temp=_weather["temp"],
+            feelsLike=_weather["feels_like"],
             sunrise=_weather["sunrise"],
             sunset=_weather["sunset"],
             leadImage=leadImage,
@@ -170,8 +170,8 @@ def get_weather(_local_data):
    
     output = {
         "description": x["weather"][0]["description"],
-        "temp": x["main"]["temp"],
-        "feels_like": x["main"]["feels_like"],
+        "temp": round(x["main"]["temp"]-273.15, 1),
+        "feels_like": round(x["main"]["feels_like"]-273.15, 1),
         "sunrise": sunrise,
         "sunset": sunset,
     }

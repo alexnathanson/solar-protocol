@@ -138,7 +138,9 @@ def sortPOE():
 
     if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[0]):
-            dfPOE.at[t,'percent']= 100*((startTime - dfPOE['datetime'].iloc[t]).total_seconds() / (hours*60*60))
+            minPast = ((startTime - dfPOE['datetime'].iloc[t]).total_seconds())/60
+            print(sec)
+            dfPOE.at[t,'percent']= minPast/ (hours*60)
             dfPOE.at[t,'angle'] = 360-(int(dfPOE['percent'].iloc[t]*360))
 
     print(dfPOE.head())
@@ -234,7 +236,7 @@ sortPOE()
 
 sc = "white"
 if dfPOE.shape[1] > 0:
-    for l in range(dfPOE.shape[1]):
+    for l in range(dfPOE.shape[0]):
         if l == 0:
             draw_server_arc(dfPOE['device'].iloc[l]+2, 0, dfPOE['angle'].iloc[l],  '#00158a')
         else:

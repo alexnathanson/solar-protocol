@@ -128,9 +128,9 @@ def render_pages(_local_data, _data, _weather):
             serverColor=_local_data["serverColor"],
             font=_local_data["font"],
             borderStyle=_local_data["borderStyle"],
-            weather=_weather["weather"][0]["description"],
-            temp=round(_weather["main"]["temp"]-273.15, 1) ,
-            feelsLike=round(_weather["main"]["feels_like"]-273.15, 1),
+            weather=_weather["description"],
+            temp=round(_weather["temp"]-273.15, 1) ,
+            feelsLike=round(_weather["feels_like"]-273.15, 1),
             sunrise=sunrise,
             sunset=sunset,
             leadImage=leadImage,
@@ -167,7 +167,7 @@ def get_weather(_local_data):
     output = {
         "description": x["weather"][0]["description"],
         "temp": x["main"]["temp"],
-        "feelslike": x["main"]["feels_like"],
+        "feels_like": x["main"]["feels_like"],
         "sunrise": x["sys"]["sunrise"],
         "sunset": x["sys"]["sunset"],
     }
@@ -192,7 +192,7 @@ def main():
         local_weather = {
             "description": "unavailable",
             "temp": "unavailable",
-            "feelslike": "unavailable",
+            "feels_like": "unavailable",
             "sunrise": "unavailable",
             "sunset": "unavailable"
         }

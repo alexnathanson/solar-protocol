@@ -1,4 +1,5 @@
 <?php
+
 #comment out these lines for production version
 /*ini_set('display_errors', 1); 
 ini_set('display_startup_errors', 1); 
@@ -15,7 +16,7 @@ $hash = '$2y$10$mCxhv3NC4/lkSycnD85XLuw/AYBCxw1ElmCqeksR.f88BTZoXXuca';
 $api_key= $stamp = $ip = $mac = $name = "";
 $log = [];
 
-$ccDir = "/home/pi/solar-protocol/charge-controller/data/";
+//$ccDir = "/home/pi/solar-protocol/charge-controller/data/";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mac = test_input($_POST["mac"]);
     $name = test_input($_POST["name"]);
     $log = explode(',',test_input($_POST["log"]));
-    //var_dump($log);
+    var_dump($log);
 
     // Read the file contents into a string variable,
     // and parse the string into a data structure
@@ -77,8 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         array_push($data, $newEntry);
       }
 
-      //var_dump($data);
-      echo json_encode($data);
+      var_dump($data);
     }
 
     $fp = fopen($fileName, 'w') or die("Error opening output file");
@@ -88,41 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   else {
     echo "Wrong API Key provided.";
   }
-} else if ($_SERVER["REQUEST_METHOD"] == "GET") {
-
-  //read the value of the query string, replace "-" with " "
-  //var_dump($_GET);
-
-  //most recent PV Data queries
-  if(array_key_exists("value", $_GET)){
-    //echo "Key = Value";
-  
-    $qValue = str_replace("-"," ",$_GET["value"]);
-    //echo $qValue;
-
-    $readData = chargeControllerData();
-
-    if ($readData != FALSE){    
-      for ($v = 0; $v < sizeof($readData[0]);$v++){
-          if($readData[0][$v]==$qValue){
-              echo $readData[count($readData)-1][$v];
-              break;
-          }
-      }
-    }
-  } 
-}
-
-function justTracerDataFiles($dir){
-    $dirArray = scandir($dir);//returns list of directory contents
-    $dirFiles = [];
-    for ($f = 0; $f < count($dirArray);$f++){
-      if(strpos($dirArray[$f],'tracerData') !== false){
-        array_push($dirFiles, $dirArray[$f]);
-      }
-    }
-
-    return $dirFiles;
 }
 
 function verifyPW($pw, $hash){
@@ -141,7 +106,7 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
-
+/*
 function chargeControllerData(){
   $fileDate = date("Y-m-d");
   $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
@@ -164,7 +129,7 @@ function chargeControllerData(){
   } else {
     return FALSE;
   }
-}
+}*/
 
 function getFile($fileName){
   //echo $fileName;

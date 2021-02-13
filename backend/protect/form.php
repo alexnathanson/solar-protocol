@@ -1,11 +1,15 @@
 <html>
 <body>
 
+<h1><a href="/">Solar Protocol</a></h1>
+
 <form method="POST">
   <?php if( $_SERVER['REQUEST_METHOD'] == 'POST' ) { ?>
-    Invalid password
+    Invalid user name or password
   <?php } ?>
-  <p>Enter password for access:</p>
+  <p>Username</p>
+  <input type="text" name="username">
+  <p>Password</p>
   <input type="password" name="password">
   <button type="submit">Submit</button>
 </form>

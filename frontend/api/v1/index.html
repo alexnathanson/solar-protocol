@@ -1,0 +1,117 @@
+ <!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Open API Documentation</title>
+</head>
+<body>
+
+ <script src="chargeControllerExplorer.js"></script> 
+
+<h1>Solar Protocol - Open API Documentation</h1>
+<p>
+	Note: This is the publicly available open-access API, developers on the network can view the complete API documentation on <a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
+</p>
+
+There are 4 types of data this interface provides.
+<ol>
+	<li>Individual values</li>
+	<li>Individual lines of data containing all the given values for a particular time</li>
+	<li>An entire day's worth of data</li>
+	<li>System information</li>
+</ol>
+The results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
+
+<h2>Value</h2>
+<strong>value</strong> returns the specified value from the most recently collected line of data.
+<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage</a></p>
+<p>Possible values:
+	<ul>
+		<li>PV-current</li>
+		<li>PV-current</li>
+		<li>PV-power-H</li>
+		<li>PV-power-L</li>
+		<li>PV-voltage</li>
+		<li>battery-percentage</li>
+		<li>battery-voltage</li>
+		<li>charge-current</li>
+		<li>charge-power-H</li>
+		<li>charge-power-L</li>
+		<li>load-current</li>
+		<li>load-power</li>
+		<li>load-voltage</li>
+		<li>datetime</li>
+	</ul>
+</p>
+Optional modifier: <strong>duration</strong> returns the specified value over a given amount of days, from 1 to 7.
+<p>
+Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&duration=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&duration=2</a>
+</p>
+
+<form method="GET">
+  <p>Value <input type="text" name="value"></p>
+  <p>Duration (optional) <input type="text" name="duration"></p>
+  <button type="submit">Get Value</button>
+</form>
+
+<h2>Line</h2>
+
+<strong>line</strong> returns a line of data containing all of the possible values from the most recent file
+<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?line=0" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?line=0</a></p>
+<p>Possible values:
+	<ul>
+		<li>len - returns the number of rows in the file</li>
+		<li>head - returns the column headers</li>
+		<li>[an integer from 0 through number if rows-1] - returns the specified line of data from the most recent day of data collected. For example, 0 will return the most recent row of data, 1 will return the 2nd most recent row, etc.</li>
+	</ul>
+</p>
+<form method="GET">
+  <p>Line <input type="text" name="line"></p>
+  <button type="submit">Get Line</button>
+</form>
+
+<h2>Day</h2>
+
+<strong>day</strong> returns all the data from a specific day or range of days. Note that days may not be consequetive if the server was off for an extended period of time.
+<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?day=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=2</a></p>
+<p>Possible values:
+	<ul>
+		<li>[an integer from 1-7] - returns the most recent X number of days of data. 1 returns the most recent day of data, 2 returns the most recent days of data, etc.</li>
+		<li>list - Returns a list of all the available files. Each file represents 1 day of data.</li>
+		<li>len - Return count of all available files. Each file represents 1 day of data.</li>
+		<li>[file name without file type suffix] - Returns all the data from that particular day. Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?day=tracerData2020-05-17" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=tracerData2020-05-17</a></li>
+	</ul>
+</p>
+
+<form method="GET">
+ <p>Day <input type="text" name="day"></p>
+  <p></p>
+  <button type="submit">Get Day</button>
+</form>
+
+<h2>System Info</h2>
+
+<strong>systemInfo</strong> returns information about the system.
+<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz</a></p>
+<p>Possible values:
+	<ul>
+		<li>tz - returns the timezone for the server</li>
+		<!-- <li>name - returns the name for the server</li>
+		<li>city - returns the city the server is located in</li> -->
+	</ul>
+</p>
+
+<form method="GET">
+ <p>System Info <input type="text" name="systemInfo"></p>
+  <p></p>
+  <button type="submit">Get System Info</button>
+</form>
+
+<p>
+Simple client side Python and JS examples are available in the <a href="https://github.com/alexnathanson/solar-protocol/tree/master/utilities/apiV1-examples" target="_blank">Solar Protocol repository</a>.
+</p>
+
+</body>
+</html> 

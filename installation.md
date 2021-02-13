@@ -29,11 +29,18 @@ Download repo into /home/pi
 * See below for updating server with local info and setting the appropriate security measures. 
 
 ### Python 3 Packages  
-Install pip `sudo apt-get install python3-pip`  
-Install pymodbus `sudo pip3 install pymodbus`    
-Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)  
-Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy`  
-Install jinja `sudo pip3 install jinja2`    
+* Install pip `sudo apt-get install python3-pip`  
+* Install pymodbus `sudo pip3 install pymodbus`    
+* Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)  
+* Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)
+* Install jinja `sudo pip3 install jinja2`    
+
+#### Troubleshooting numpy
+uninstall numpy (these uninstall commands may need to be run multiple times to get rid of multiple versions):
+* `sudo pip3 uninstall numpy` and/or `sudo apt-get remove python3-numpy`
+then install numpy and this missing library:
+* `sudo pip3 install numpy`
+* `sudo apt-get install libatlas-base-dev`
 
 ### Security
 Recommendations to set up your pi securely   
@@ -65,17 +72,23 @@ Change Apache default directory to the frontend directory (src: https://julienre
 * `sudo nano /etc/apache2/apache2.conf`  
 	* add these lines to the file    
 	`<Directory /home/pi/solar-protocol/frontend/>`    
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Options Indexes FollowSymLinks` 
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`AllowOverride None`  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Options Indexes FollowSymLinks`   
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`AllowOverride All`  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
+* To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
+* `sudo systemctl restart apache2`   
+
+Install PHP graphics library for dithering. Note that the version will need to match your php version.
+* `sudo apt-get install php7.3-gd`
 * `sudo systemctl restart apache2`   
 
 ### Automate  
 
 #### permissions (you can set all these permissions at once via the utilities/setAllPermissions.sh script by `sh setAllPermissions.sh`)  
+* `sudo chmod a+w /home/pi/local/local.json` (You must move the local directory before setting permissions. See below.)
 * `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`  
 * `sudo chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`  
 * `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`  

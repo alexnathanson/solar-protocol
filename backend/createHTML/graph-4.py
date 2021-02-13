@@ -7,6 +7,7 @@ from random import choice
 from PIL import Image
 import pandas as pd
 from glob import glob
+import json
 
 #global variables
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
@@ -15,66 +16,68 @@ tick_interval = 2
 label_interval = 12
 sun_color = ['00','26','66','B3']
 owd = os.getcwd()
-csv_paths1 = '../../charge-controller/data1/*.csv'
-csv_paths2 = '../../charge-controller/data2/*.csv'
-csv_paths3 = '../../charge-controller/data3/*.csv'
-csv_paths4 = '../../charge-controller/data4/*.csv'
-csv_paths5 = '../../charge-controller/data5/*.csv'
 
 # TO DO
 # import data using API from each server on the network
 # do we need to deal with time zones? Or can the API just return the last 72 hours of data?
 # write algorithm for turning the list of timestamps for the active server into a form that can use the drawServerarc();
 
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
+def getDeviceInfo(getKey):
 
-# Trying to do API Stuff:
-# server_ips = ['108.29.41.133','68.197.168.141','74.73.93.241']
+    ipList = []
 
-# # #get last 4 days of PV-current
-# api_call = '/api/v1/chargecontroller.php'
+    with open(deviceList) as f:
+      data = json.load(f)
 
-# url = 'http://' + server_ips[0] + api_call
+    #print(data)
 
-# # #set params
-# params = {"file": "4"}
+    for i in range(len(data)):
+        ipList.append(data[i][getKey])
 
-# # #get data from one server
-# response = requests.get(url, params=params)
+    return ipList
 
-# print(response.json())
-
-#make a dataframe
-# dataframe = pd.DataFrame.from_dict(response.json(), orient="index")
-# dataframe = pd.read_json(response.json())
-# print(dataframe)
-
-
+def getIt(dst,ccValue):
+    print("GET from " + dst)
+    try:
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration=4",timeout=5)
+        #print(json.loads(x.text))
+        return json.loads(x.text)
+    except requests.exceptions.HTTPError as errh:
+        print("An Http Error occurred:" + repr(errh))
+    except requests.exceptions.ConnectionError as errc:
+        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.Timeout as errt:
+        print("A Timeout Error occurred:" + repr(errt))
+    except requests.exceptions.RequestException as err:
+        print("An Unknown Error occurred" + repr(err))
 
 #drawing the sunshine data (yellow)
-def draw_ring(csv_paths, ring_number, energy_parameter):
-    files1 = sorted(glob(csv_paths))
-    files1 = sorted(glob(csv_paths))
+def draw_ring(ccDict, ring_number, energy_parameter):
 
-    recent_files1= files1[-days:]
-    #print("Most recent files: "+files[0:3])
-    print(recent_files1)
+    ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
 
+    ccDataframe.columns = ccDataframe.iloc[0]
+    ccDataframe = ccDataframe.drop(ccDataframe.index[0])
+    #ccDataframe['datetime']=ccDataframe.index
+    ccDataframe = ccDataframe.reset_index()
+    ccDataframe.columns = ['datetime',energy_parameter]
+    #ccDataframe.index.names = ['datetime']
+    print(ccDataframe.head())
 
-    #combine last 4 file
-    df_from_each_file = (pd.read_csv(f, sep=',', encoding='latin-1') for f in recent_files1)
-    df_merged1   = pd.concat(df_from_each_file, ignore_index=True)
-    df1 = df_merged1
-
-
-    df1['datetime'] = df1['datetime'].astype(str) #convert entire "Dates" Column to string 
-    df1['datetime']=pd.to_datetime(df1['datetime']) #convert entire "Dates" Column to datetime format this time 
-    df1.index=df1['datetime'] #replace index with entire "Dates" Column to work with groupby function
-    df_hours = df1.groupby(pd.Grouper(freq='H')).mean() #take daily average of multiple values
+    ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
+    ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
+    ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
+    ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
+    ccDataframe = ccDataframe.drop(columns=['datetime'])
+    print(ccDataframe.head())
+    df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
+    #df_hours = ccDataframe.set_index('datetime').groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
     df_hours = df_hours.tail(72) # last 72 hours
-    print(df_hours[energy_parameter])
-    oldest1 = files1[0]
-    newest1 = files1[-1]
+    #print(df_hours[energy_parameter])
+    # oldest1 = files1[0]
+    # newest1 = files1[-1]
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
     # #correlate sun data wtih colors 
@@ -98,6 +101,12 @@ def draw_server_arc(server_no, start, stop, c):
         ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.45, color=c, edgecolor = c)
 
 
+dstIP = getDeviceInfo('ip')
+energyParam = "PV-current"
+ccData = []
+for i in dstIP:
+    #print(i)
+    ccData.append(getIt(i,energyParam))
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
@@ -112,7 +121,8 @@ plt.rc('ytick', labelsize=10, color="none")
 
 
 #customize inside labels
-server_names = ("Brooklyn", "Canada", "Dominica", "Newcastle", "", "")
+server_names = getDeviceInfo('name')
+
 # for label in ax.get_yticklabels()[::]: #only show every second label
 #     label.set_visible(False)
 
@@ -156,21 +166,16 @@ for label in ax.get_xticklabels()[::1]: #only show every second label
 #     label.set_rotation(i*90)
 
 
-
-
-
-
-
-
 plt.ylim(0,10) #puts space in the center (start of y axis)
 
 #Draw Sun Data for each server
 #draw_ring(data, ringNo, parameter);
-draw_ring(csv_paths1, 3, "PV current")
-draw_ring(csv_paths2, 4, "PV current")
-draw_ring(csv_paths3, 5, "PV current")
-draw_ring(csv_paths2, 6, "PV current")
-draw_ring(csv_paths1, 7, "PV current")
+for rPV in range(len(ccData)):
+    draw_ring(ccData[rPV],rPV, energyParam)
+# draw_ring(csv_paths2, 4, "PV current")
+# draw_ring(csv_paths3, 5, "PV current")
+# draw_ring(csv_paths2, 6, "PV current")
+# draw_ring(csv_paths1, 7, "PV current")
 
 
 #Draw Active Server Rings

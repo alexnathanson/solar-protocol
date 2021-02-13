@@ -35,18 +35,18 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 ### FRONTEND
 
 * Basic energy data collection for different sized pages and traffic. (not time sensitive)
-* add poc log to front-end page
+* add poe log to front-end page
 * network visualizations
 * how do we add content from hosts?
 	* make our own personal sites for the servers
 
 ### BACKEND
 
-* make sure the point of contact log starts rewriting data after 100 entries and doesn't keep adding data forever
+* make sure the point of entry log starts rewriting data after 100 entries and doesn't keep adding data forever
 * refactor admin console (not time sensitive)
 * system for adding/ removing network nodes
 * filter out duplicate IP addressses on admin console
-* API for plaintext redirect... ex. solarprotocol.net/idm would redirect to the IDM solar server even if its not the point of contact at that moment - another option would be to pass the IDM local content to whichever server is the point of contact as needed through the API
+* API for plaintext redirect... ex. solarprotocol.net/idm would redirect to the IDM solar server even if its not the point of entry at that moment - another option would be to pass the IDM local content to whichever server is the point of entry as needed through the API
 * Add interface in admin console to change local content
 
 ### CONTENT

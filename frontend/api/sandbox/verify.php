@@ -1,5 +1,6 @@
 
 <?php
+###THIS IS FOR TESTING PURPOSES ONLY###
 // See the password_hash() example to see where this came from.
 $hash = '$2y$10$Nfg/XuVvDxK/tVsj3BIb3umVifD6M1/odQRBFRNt4KFQit25dto.2';
 

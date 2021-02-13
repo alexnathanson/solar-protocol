@@ -138,12 +138,12 @@ def sortPOE():
 
     if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[0]):
-            dfPOE['percent'].iloc[t]= 100*((startTime - dfPOE['datetime'].iloc[t]).total_seconds() / (hours*60*60))
-            dfPOE['angle'].iloc[t] = 360-(int(dfPOE['percent'].iloc[t]*360))
+            dfPOE.at[t,'percent']= 100*((startTime - dfPOE['datetime'].iloc[t]).total_seconds() / (hours*60*60))
+            dfPOE.at[t,'angle'] = 360-(int(dfPOE['percent'].iloc[t]*360))
 
     print(dfPOE.head())
     print(dfPOE.tail())
-    
+
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
 serverNames = getDeviceInfo('name')

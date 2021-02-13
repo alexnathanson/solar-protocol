@@ -65,7 +65,7 @@ def draw_ring(ccDict, ring_number, energy_parameter):
     ccDataframe = ccDataframe.reset_index()
     ccDataframe.columns = ['datetime',energy_parameter]
     #ccDataframe.index.names = ['datetime']
-    #print(ccDataframe.head())
+    print(ccDataframe.head())
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
@@ -103,15 +103,27 @@ def draw_server_arc(server_no, start, stop, c):
 
 
 dstIP = getDeviceInfo('ip')
+log = getDeviceInfo('log')
+serverNames = getDeviceInfo('name')
+
 energyParam = "PV-current"
 ccData = []
-activeIPs = []
+#activeIPs = []
+# activesNames = []
+# activeLogs = []
+
 for i in dstIP:
     #print(i)
     getResult = getIt(i,energyParam)
     if type(getResult) != type(None):
         ccData.append(getResult)
-        activeIPs.append(i)
+        #activeIPs.append(i)
+    else:
+        # thisdict = {
+        #   "datetime": energyParam,
+        #   "": ""
+        # }
+        ccData.append({"datetime": energyParam})
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 

@@ -3,13 +3,14 @@ import numpy as np
 import os
 import csv
 import requests
-from random import choice
+from random import choice #is this used? remove if not used
 from PIL import Image
 import pandas as pd
 from glob import glob
 import json
 import datetime
 from dateutil.relativedelta import relativedelta
+import random
 
 #global variables
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
@@ -133,13 +134,13 @@ def sortPOE():
 
     print(dfPOE.shape)
 
-    dfPOE['percent']=0
+    dfPOE['percent']=0.0
     dfPOE['angle']=0
 
     if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[0]):
             minPast = ((startTime - dfPOE['datetime'].iloc[t]).total_seconds())/60
-            print(sec)
+            $print(minPast/(hours*60))
             dfPOE.at[t,'percent']= minPast/ (hours*60)
             dfPOE.at[t,'angle'] = 360-(int(dfPOE['percent'].iloc[t]*360))
 
@@ -234,13 +235,14 @@ for rPV in range(len(ccData)):
 #Draw Active Server Rings
 sortPOE()
 
-sc = "white"
+poeColors = ["white","pink","red","green","blue","black","purple"]
 if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
+        cP = poeColors[random.randInt(0,len(poeColors)-1)]
         if l == 0:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, 0, dfPOE['angle'].iloc[l],  '#00158a')
+            draw_server_arc(dfPOE['device'].iloc[l]+2, 0, dfPOE['angle'].iloc[l], cP)
         else:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1], dfPOE['angle'].iloc[l],  '#00158a')
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1], dfPOE['angle'].iloc[l], cP)
 
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)

@@ -101,7 +101,7 @@ def draw_sun(server_no, start, stop, alpha):
 
 def draw_server_arc(server_no, start, stop, c):
     for i in range(start, stop, 1):
-        ax.bar((poeRotation*np.pi/180)+(i * 2 * np.pi / (hours*60)), 0.33, width=2 * np.pi / (hours*60), bottom=server_no+0.45, color=c, edgecolor = c)
+        ax.bar((i*np.pi/180), 0.33, width=2 * np.pi / (hours*60), bottom=server_no+0.45, color=c, edgecolor = c)
 
 def sortPOE():
     global dfPOE

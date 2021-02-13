@@ -102,6 +102,7 @@ def draw_server_arc(server_no, start, stop, c):
         ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.45, color=c, edgecolor = c)
 
 def sortPOE():
+    global dfPOE
     print(dfPOE.head())
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe

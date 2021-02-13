@@ -199,11 +199,11 @@ ax.plot((0,0), (0,10), color="white", linewidth=0.3, zorder=10)
 os.chdir(owd)
 
 
-plt.savefig('clock.png') #save plot
+plt.savefig('/home/pi/solar-protocol/backend/createHTML/clock.png') #save plot
 
-background = Image.open("face-6-server-days.png")
-foreground = Image.open("clock.png")
-Image.alpha_composite(foreground, background).save("/home/pi/frontend/images/clock.png")
+background = Image.open("/home/pi/solar-protocol/backend/createHTML/face-6-server-days.png")
+foreground = Image.open("/home/pi/solar-protocol/backend/createHTML/clock.png")
+Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
-archiveImage = Image.open("/home/pi/frontend/images/clock.png")
-archiveImage.save('/home/pi/frontend/images/clock-archive/clock-' + str(datetime.date.today()) +'.png') #archive plot
+archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
+archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/clock-' + str(datetime.date.today()) +'.png') #archive plot

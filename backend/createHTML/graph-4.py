@@ -61,22 +61,17 @@ def draw_ring(ccDict, ring_number, energy_parameter):
 
     ccDataframe.columns = ccDataframe.iloc[0]
     ccDataframe = ccDataframe.drop(ccDataframe.index[0])
-    #ccDataframe['datetime']=ccDataframe.index
     ccDataframe = ccDataframe.reset_index()
     ccDataframe.columns = ['datetime',energy_parameter]
-    #ccDataframe.index.names = ['datetime']
-    print(ccDataframe.head())
+    #print(ccDataframe.head())
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
     ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
-    #print(ccDataframe.head())
     df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
-    #df_hours = ccDataframe.set_index('datetime').groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
     df_hours = df_hours.tail(72) # last 72 hours
-    #print(df_hours[energy_parameter])
     # oldest1 = files1[0]
     # newest1 = files1[-1]
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
@@ -102,18 +97,25 @@ def draw_server_arc(server_no, start, stop, c):
         ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.45, color=c, edgecolor = c)
 
 def sortPOE():
-    df = pd.DataFrame(columns = ['device', 'datetime']) 
-    print(df.head())
+    dfPOE = pd.DataFrame(columns = ['device', 'datetime']) 
+    print(dfPOE.head())
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
         tempDF['datetime'] = tempDF[0]
         tempDF = tempDF.drop(columns=[0])
         tempDF['device'] = l
-        df.append(tempDF, ignore_index=True)
-        df.shape()
+        dfPOE = dfPOE.append(tempDF, ignore_index=True)
+        dfPOE.shape
 
-    print(df.head())
-
+    dfPOE['datetime'] = ddfPOEf['datetime'].astype(str) #convert entire "Dates" Column to string 
+    dfPOE['datetime']=pd.to_datetime(dfPOE['datetime']) #convert entire "Dates" Column to datetime format this time 
+    
+    #dfPOE.index=dfPOE['datetime'] #replace index with entire "Dates" Column to work with groupby function
+    #dfPOE = dfPOE.drop(columns=['datetime'])
+    print(dfPOE.head())
+    dfPOE = dfPOE.sort_values(by='datetime',ascending=True)
+    print(dfPOE.head())
+    
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
 serverNames = getDeviceInfo('name')

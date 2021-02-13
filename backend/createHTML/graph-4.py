@@ -16,11 +16,6 @@ tick_interval = 2
 label_interval = 12
 sun_color = ['00','26','66','B3']
 owd = os.getcwd()
-# csv_paths1 = '../../charge-controller/data1/*.csv'
-# csv_paths2 = '../../charge-controller/data2/*.csv'
-# csv_paths3 = '../../charge-controller/data3/*.csv'
-# csv_paths4 = '../../charge-controller/data4/*.csv'
-# csv_paths5 = '../../charge-controller/data5/*.csv'
 
 # TO DO
 # import data using API from each server on the network
@@ -58,43 +53,18 @@ def getIt(dst,ccValue):
     except requests.exceptions.RequestException as err:
         print("An Unknown Error occurred" + repr(err))
 
-# # #set params
-# params = {"file": "4"}
-
-#make a dataframe
-# dataframe = pd.DataFrame.from_dict(response.json(), orient="index")
-# dataframe = pd.read_json(response.json())
-# print(dataframe)
-
 #drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter):
-    # files1 = sorted(glob(csv_paths))
-    # files1 = sorted(glob(csv_paths))
-    # print("--Draw ring--")
-    # print(csv_paths)
-    # print(type(csv_paths))
 
-    ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
+    ccDataframe = pd.DataFrame.from_dict(ccDict)
 
     ccDataframe.columns = ccDataframe.iloc[0]
-    ccDataframe = ccDataframe.drop(0)
-    ccDataframe = ccDataframe.reset_index(drop=True)
+    ccDataframe = ccDataframe.drop(ccDataframe.index[0])
     print(ccDataframe.head())
-
-    # files1 = csv_paths
-    # recent_files1= files1[-days:]
-    # #print("Most recent files: "+files[0:3])
-    # print(recent_files1)
-
-
-    # #combine last 4 file
-    # df_from_each_file = (pd.read_csv(f, sep=',', encoding='latin-1') for f in recent_files1)
-    # df_merged1   = pd.concat(df_from_each_file, ignore_index=True)
-    # df1 = df_merged1
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
-    ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
+    #ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take daily average of multiple values
     df_hours = df_hours.tail(72) # last 72 hours
     print(df_hours[energy_parameter])

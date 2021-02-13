@@ -101,7 +101,7 @@ def draw_sun(server_no, start, stop, alpha):
 
 def draw_server_arc(server_no, start, stop, c):
     for i in range(start, stop, 1):
-        ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.45, color=c, edgecolor = c)
+        ax.bar((poeRotation*np.pi/180)+(i * 2 * np.pi / (hours*60)), 0.33, width=2 * np.pi / (hours*60), bottom=server_no+0.45, color=c, edgecolor = c)
 
 def sortPOE():
     global dfPOE
@@ -140,7 +140,7 @@ def sortPOE():
     if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[0]):
             minPast = ((startTime - dfPOE['datetime'].iloc[t]).total_seconds())/60
-            $print(minPast/(hours*60))
+            #print(minPast/(hours*60))
             dfPOE.at[t,'percent']= minPast/ (hours*60)
             dfPOE.at[t,'angle'] = 360-(int(dfPOE['percent'].iloc[t]*360))
 
@@ -196,6 +196,7 @@ ax.set_theta_direction(-1)
 ax.set_theta_offset(np.pi/2.0)
 
 rotation=360/hours/2
+poeRotation = 360/(hours*60)/2
 #print(rotation)
 
 n=0
@@ -238,11 +239,11 @@ sortPOE()
 poeColors = ["white","pink","red","green","blue","black","purple"]
 if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
-        cP = poeColors[random.randInt(0,len(poeColors)-1)]
+        cP = poeColors[random.randint(0,len(poeColors)-1)]
         if l == 0:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, 0, dfPOE['angle'].iloc[l], cP)
+            draw_server_arc(dfPOE['device'].iloc[l]+1, 0, dfPOE['angle'].iloc[l], cP)
         else:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1], dfPOE['angle'].iloc[l], cP)
+            draw_server_arc(dfPOE['device'].iloc[l]+1, dfPOE['angle'].iloc[l-1], dfPOE['angle'].iloc[l], cP)
 
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)

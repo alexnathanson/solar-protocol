@@ -46,9 +46,8 @@ def getDeviceInfo(getKey):
 def getIt(dst,ccValue):
     print("get it!")
     x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration=4")
-    print(type(json.loads(x)))
-    print(json.loads(x))
-    return json.loads(x)
+    #print(json.loads(x.text))
+    return json.loads(x.text)
 
 # # #set params
 # params = {"file": "4"}
@@ -59,26 +58,27 @@ def getIt(dst,ccValue):
 # print(dataframe)
 
 #drawing the sunshine data (yellow)
-def draw_ring(csv_paths, ring_number, energy_parameter):
+def draw_ring(ccDict, ring_number, energy_parameter):
     # files1 = sorted(glob(csv_paths))
     # files1 = sorted(glob(csv_paths))
-    print("--Draw ring--")
-    print(csv_paths)
-    print(type(csv_paths))
+    # print("--Draw ring--")
+    # print(csv_paths)
+    # print(type(csv_paths))
+
+    ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
+
+    print(ccDataframe.head())
+
+    # files1 = csv_paths
+    # recent_files1= files1[-days:]
+    # #print("Most recent files: "+files[0:3])
+    # print(recent_files1)
 
 
-
-    files1 = csv_paths
-    recent_files1= files1[-days:]
-    #print("Most recent files: "+files[0:3])
-    print(recent_files1)
-
-
-    #combine last 4 file
-    df_from_each_file = (pd.read_csv(f, sep=',', encoding='latin-1') for f in recent_files1)
-    df_merged1   = pd.concat(df_from_each_file, ignore_index=True)
-    df1 = df_merged1
-
+    # #combine last 4 file
+    # df_from_each_file = (pd.read_csv(f, sep=',', encoding='latin-1') for f in recent_files1)
+    # df_merged1   = pd.concat(df_from_each_file, ignore_index=True)
+    # df1 = df_merged1
 
     df1['datetime'] = df1['datetime'].astype(str) #convert entire "Dates" Column to string 
     df1['datetime']=pd.to_datetime(df1['datetime']) #convert entire "Dates" Column to datetime format this time 
@@ -112,17 +112,11 @@ def draw_server_arc(server_no, start, stop, c):
 
 
 dstIP = getDeviceInfo('ip')
-# print("DST:")
-# print(dstIP)
 
 ccData = []
 for i in dstIP:
-    print(i)
+    #print(i)
     ccData.append(getIt(i,"PV-current"))
-    #getIt(i)
-
-print("CC DATA:")
-print(len(ccData))
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 

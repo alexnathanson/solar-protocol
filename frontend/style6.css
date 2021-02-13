@@ -89,7 +89,7 @@ nav h1 {
 nav p {
   padding: 0px;
   margin: 0px;
-
+  font-size: var(--text-size);
 }
 
 .no-bullets li {
@@ -341,6 +341,7 @@ img {
 }
 
 p {
+  font-size: calc(var(--text-size)*1.2);
   orphans: 3;
   widows: 3;
 }
@@ -379,7 +380,8 @@ h2 {
 
 h3 {
   font-size: calc(var(--text-size) * 1.6);
-  padding: 0px 0px 0px 0px;
+  padding: 15px 0px 10px 0px;
+
 }
 
 /*Server title*/
@@ -407,7 +409,8 @@ h6 {
 
 hr {
   border: none;
-
+  border-bottom: 1px solid #000;
+  padding-bottom:  10px;
 }
 
 ol {
@@ -426,11 +429,11 @@ section {
   margin-top: var(--vertical-padding);
 }
 
-caption {
-  font-size:calc(var(--text-size)*0.5);
+.caption {
+  font-size: calc(var(--text-size)*0.9);
   font-style: oblique;
 
-
+  padding-bottom: var(--vertical-padding);
 }
 
 @media (max-width: 1070px) {
@@ -450,7 +453,8 @@ caption {
   }
 
   .onecol-text {
-    padding: var(--vertical-padding) calc(var(--horizontal-text-padding) * 1);
+    padding: var(--vertical-padding) calc(var(--horizontal-text-padding) * 1)
+      var(--vertical-padding) var(--horizontal-text-padding);
   }
 
   ul.serverdata-left {

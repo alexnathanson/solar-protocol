@@ -4,78 +4,104 @@ content %}
   <div class="full-width-image">
     <img src="{{leadImage}}" />
   </div>
+
 </div>
 <div class="onecol-text">
-  <h4>About</h4>
+  <div class="caption">
+    Three days of network sunlight data are visualized for each server. The colored bars represent the hours that each server as been the active point of entry to the network. 
+  <hr>
+  </div>
+  <h3>About</h3>
   <p>
     Solar Protocol is a web platform hosted on a network of small solar powered
-    servers located around the world. The network is programmed with the logic
-    of the sun. When visiting this platform, your browser’s request is directed
-    to whichever server is enjoying the most sunlight at that moment. You are
-    currently on the {{name}} server located in {{location}} where it is
-    {{time}} and the weather is {{weather}}.
+    servers set up in different locations around the world. A solar powered
+    server is a single board computer that is powered by a solar panel and a
+    small battery. As a stand alone device, a solar server offers intermittent
+    connectivity due to its energy resources being dependent on the length of
+    day and weather conditions. However if connected in a network, the
+    computational work involved in serving a website is able to be distributed
+    across many solar servers.
   </p>
   <p>
-    As the sun rises and sets, each server is activated or deactivated as its
-    solar panel goes into sunlight or darkness. Traffic is directed across the
-    network according to wherever there is the most light.
+    With servers located in different time zones, seasons and weather systems,
+    internet traffic is able to be directed to wherever the sun is shining. When
+    a browser makes a request for this site, it is sent to wherever in the
+    network the most energy is generated. You are currently on the {{name}}
+    server located in {{location}} where it is {{time}} and the weather is
+    {{weather}}.
   </p>
   <p>
-    This project understands the sun’s interaction with Earth as a form of logic
-    that shapes decision making, daily behaviors and seasonal activities of
-    almost all life forms. Solar Protocol honors this natural logic, exploring
-    it as a form of intelligence that can be used to automate decisions on a
-    digital platform.
+    Solar Protocol explores the sun’s interaction with Earth as a form of logic
+    that shapes the daily behaviors, seasonal activities and the decision making
+    of almost all life forms. Solar Protocol honors this natural logic,
+    exploring it as a form of intelligence that is used to automate decisions in
+    a digital network.
   </p>
   <h4>How does it work?</h4>
   <p>
-    Traffic on the internet is directed using the Domain Network Service (DNS)
-    protocol, a decentralized system that associates a URL address to the IP
-    address of a server. In short, DNS dictates the path between client and
-    server. For high volume web services where content is hosted across multiple
-    servers in different locations, the DNS protocol is typically configured to
-    direct network traffic to whichever server gives the quickest response time.
-    For example, when making a Google search, your request would be sent to
-    whichever Google server has the quickest response time, where response time
-    is the interval between client request and server response. This usually
-    means the request is routed to whichever server is geographically closest.
-    Like so much digital culture, this routing logic prioritizes speed over all
-    other factors in how the network operates.
+    As the sun rises and sets, each server becomes active or inactive as its
+    solar panel goes into sunlight or darkness. Traffic is directed across the
+    network according to wherever there is the most light.
+  </p>
+
+  <p>
+    Solar Protocol uses everyday internet technologies like the Domain Network
+    Service (DNS) protocol, a decentralized system that associates a URL address
+    to the IP address of a server. In short, DNS is the system that dictates the
+    path between client and server. For large-scale, high volume web services
+    that use multiple servers hosted in different locations, the DNS protocol is
+    typically configured to direct network traffic to whichever server gives the
+    quickest response time. For example, when making a Google search, your
+    request would be sent to whichever Google server responds the quickest and
+    this usually means the request is routed to whichever server is
+    geographically closest. This routing logic prioritizes speed over all other
+    factors that determine how a network operates, a characteristic that is
+    prevalent in much digital culture.
   </p>
 </div>
-<img class="full-col" src="images/explanatory-diagram.png" />
+<img class="full-col" src="images/earth-sun.png" />
+
 <div class="onecol-text">
+  <div class="caption">
+    The position of the sun throughout the day produces the routing logic of the
+    network.
+  </div>
   <p>
-    The Solar Protocol network is designed with an alternative logic and
-    automatically directs traffic to whichever server is generating the most
-    solar energy at the time of the request. Decisions are made about where to
-    move computational activity based on where there is naturally available
-    energy rather than by prioritizing speed for the user. In other words, the
-    distribution of sunshine (and therefore energy) across the planet determines
-    the path from client to server.
+    In contrast to this, the Solar Protocol network is built with an alternative
+    logic and automatically directs traffic to whichever server is generating
+    the most solar energy at the time of the request. Decisions about where to
+    move computational activity in the network are made according to where there
+    is the most naturally available energy, rather than according to what would
+    produce the quickest results for the user. In other words, in Solar
+    Protocol, the distribution of sunshine (and therefore energy) across the
+    planet determines the path from client to server.
   </p>
+
   <h4>Why does the appearance of this website change from time to time?</h4>
   <p>
     The appearance of this website changes as traffic is routed to different
-    servers in the network. The people stewarding each server have customized
-    their local version of the site and these changes become visible when their
-    server is the active server.
+    servers in the network. The people stewarding each server are able to
+    customize the version of this website on their server. Both these design
+    differences, as well as the content they have chosen to host on the system,
+    will become visible when their server is the active server.
   </p>
   <p>
     The appearance of this website is also energy responsive. Our software
-    changes the styling of the pages according to how much energy is stored in
-    the battery of the active server and so the site may appear different at
-    different times of the day or in different seasons. If the battery level at
-    the active server is low, this website is displayed as raw html without any
-    styling or images. This reduces the size of the page and therefore reduces
-    the energy it takes to send it to the client. If more stored energy is
-    available, the site will appear at higher resolutions with heavier media
-    such as images and non-default fonts.
+    changes the styling and resolution of the pages according to how much energy
+    is stored in the battery of the active server. This means the site may
+    appear different at different times of the day or in different seasons of
+    the year. If the battery level at the active server is low, this website is
+    displayed as raw html without any styling or images. This reduces the size
+    of the page and therefore reduces the energy it takes to send it to people
+    who are looking at it on the internet. If more stored energy is available,
+    the site will appear at higher resolutions with heavier media such as higher
+    resolution images and non-default fonts.
   </p>
   <p>
     Occasionally the website may go down if there is insufficient energy stored
-    at all of the servers. As we set up more servers in diverse time zones and
-    climates, we predict that this will happen less and less.
+    at all of the servers. However as our network grows and we set up more
+    servers in diverse time zones and climates, we predict that this will happen
+    less and less. It’s always sunny somewhere!
   </p>
   <h4>Attribution</h4>
   <p>
@@ -87,6 +113,11 @@ content %}
     >. It is a part of the
     <a href="https://www.eyebeam.org/rapidresponse/">Eyebeam Rapid Response</a>
     for a Better Digital Future program.
+  </p>
+  <p>
+    We wish to thank everyone who has supported our progress with advice,
+    contributions and feedback including Sam Lavigne, Dan Phiffer, Mitchell
+    Whitelaw, Crystal Chen, all of the server stewards and the staff at Eyebeam.
   </p>
 </div>
 {% endblock %}
@@ -251,7 +282,14 @@ content %}
         z-index: 9;
         overflow: scroll;
         height: 100vh;
-        font-size: calc(var(--text-size) * 1.8);
+      }
+
+      header h1 {
+        font-size: calc(var(--text-size) * 3.2);
+      }
+      header p {
+        font-size: calc(var(--text-size) * 1.2);
+        line-height: calc(var(--text-size) * 1.3);
       }
 
       .row:last-child {
@@ -274,11 +312,6 @@ content %}
         font-size: calc(var(--text-size) * 1.2);
         margin-right: 5%;
         margin-top: 0px;
-
-        /* font-family: sans-serif;
-        word-spacing: -.02em;
-        text-rendering: optimizeLegibility;
-        line-height: 1.125em; */
       }
 
       .fill {
@@ -295,7 +328,7 @@ content %}
       }
 
       .onecol-text {
-        padding: var(--vertical-padding)
+        padding: calc(var(--vertical-padding) * 2)
           calc(var(--horizontal-text-padding) * 12) var(--vertical-padding)
           var(--horizontal-text-padding);
         line-height: 1.3;
@@ -362,11 +395,6 @@ content %}
         padding: var(--vertical-padding) var(--horizontal-padding);
       }
 
-      .sub-heading p {
-        font-size: calc(var(--text-size) * 1.2);
-        line-height: calc(var(--text-size) * 1.4);
-      }
-
       ul.serverdata-left {
         font-size: calc(var(--text-size) * 1); /*contolling data text size*/
 
@@ -376,7 +404,7 @@ content %}
         padding: 0;
         width: var(--serverDataLeft); /*NEED TO CALCULATE WITH VARIABLES*/
         /* padding: 0px var(--horizontal-padding); */
-        color: rgb(80,80,80);
+        color: rgb(80, 80, 80);
       }
 
       ul.serverdata-right {
@@ -415,7 +443,7 @@ content %}
           var(--vertical-padding) 0px;
         /* background-color: var(--bgcolor); */
         /* border-radius: 4px; */
-        font-size: calc(var(--text-size) * 1.2);
+
         line-height: calc(var(--text-size) * 1.4);
         border-top: 1px solid white;
       }
@@ -485,7 +513,7 @@ content %}
 
       h3 {
         font-size: calc(var(--text-size) * 1.6);
-        padding: 0px 0px 0px 0px;
+        padding: 0px 0px 20px 0px;
       }
 
       /*Server title*/

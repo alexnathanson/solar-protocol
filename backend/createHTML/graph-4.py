@@ -101,7 +101,7 @@ def draw_sun(server_no, start, stop, alpha):
 
 def draw_server_arc(server_no, start, stop, c):
     for i in range(start, stop, 1):
-        ax.bar((i*np.pi/180), 0.33, width=2 * np.pi / (hours*60), bottom=server_no+0.45, color=c, edgecolor = c)
+        ax.bar((i*np.pi/180), (1/60), width=2 * np.pi / (hours*60), bottom=server_no+0.45, color=c, edgecolor = c)
 
 def sortPOE():
     global dfPOE
@@ -196,8 +196,6 @@ ax.set_theta_direction(-1)
 ax.set_theta_offset(np.pi/2.0)
 
 rotation=360/hours/2
-poeRotation = 360/(hours*60)/2
-#print(rotation)
 
 n=0
 #customize outside labels

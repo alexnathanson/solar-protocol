@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style6.css" />
+  </head>
+  <body>
+    <nav>
+      <h1><a href="page1-template.html">Solar Protocol</a></h1>
+      <ul class="no-bullets">
+        <li><a href="network-template.html">Network</a></li>
+        <li>Manifesto</li>
+        <li>Docs</li>
+        <li>Solar Web</li>
+        <li>Library</li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <header>
+        <div class="row">
+          <div class="sub-heading">
+          <p>A naturally intelligent network.</p>
+          <p>
+            Solar Protocol uses the logic of the sun, to direct 
+            traffic across a network of solar powered servers. 
+            The network hosts this web platform that is served from 
+            whichever server enjoying the most sun. Right it's being sent 
+            from New York City. 
+          </p>
+          </div>
+        </div>
+        <div class="row">
+          <h5>SERVER</h5>
+          <h4>Van Brunt St</h4>
+          <div class="side-box">
+            <img src="images/view.gif" />
+            <img src="images/map.gif" />
+            <div class="clr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <h5>PLACE</h5>
+          <div class="side-box">
+            <ul class="serverdata-left">
+              <li>Location:</li>
+              <li>Local time:</li>
+              <li>Weather:</li>
+              <li>Sunrise:</li>
+              <li>Sunset:</li>
+            </ul>
+            <ul class="serverdata-right">
+              <li>{{location}}</li>
+              <li>{{date}}</li>
+              <li>30 degrees</li>
+              <li>6:00AM</li>
+              <li>6:00PM</li>
+            </ul>
+            <div class="clr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <h5>ENERGY</h5>
+          <div class="side-box">
+            <ul class="serverdata-left">
+              <li>PV Voltage:</li>
+              <li>PV Current:</li>
+              <li>Load Voltage:</li>
+              <li>Load Current:</li>
+              <li>Battery Voltage:</li>
+              <li>Battery Level:</li>
+            </ul>
+            <ul class="serverdata-right">
+              <li>{{solarVoltage}}</li>
+              <li>{{solarCurrent}}</li>
+              <li>{{loadVoltage}}</li>
+              <li>{{loadCurrent}}</li>
+              <li>{{batteryVoltage}}</li>
+              <li>{{batteryPercentage}}</li>
+            </ul>
+            <div class="clr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <h5>STEWARD</h5>
+          <div class="side-box">
+            <p>
+              Traffic to the Solar Protocol website is sent to whichever server
+              in our network has the most sunshine at the time. Presently you
+              are on a server called The Gilgamesh Zone that is located in
+              Bedford Stuyvesant, Brooklyn, New York.
+            </p>
+            <p>
+              The Gilgamesh Zone is a server stewarded by artist and educator
+              Tega Brain. She is interested in how technology can help us to
+              think differently about our ecology.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

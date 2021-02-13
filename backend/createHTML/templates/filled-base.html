@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style6.css" />
+    <title>Solar Protocol</title>
+</head>
+  <body>
+    <div class="container">
+      <nav>
+        <ul class="no-bullets">
+          <li><a href="network.html">Network</a> •</li>
+          <li><a href="manifesto.html">Manifesto</a> •</li>
+          <li><a href="call.html">Call</a> •</li>
+          <li><a href="docs.html">Docs</a> •</li>
+          <li><a href="solar-web.html">Solar Web Directory</a></li>
+        </ul>
+      </nav>
+      <header>
+        <div class="sub-heading">
+          <h1><a href="index.html">Solar Protocol</a></h1>
+          <p>A naturally intelligent network.</p>
+          <p>
+            This website is hosted on a network of solar powered
+            servers. Internet traffic is directed to wherever there is the most
+            sunshine. 
+          </p>
+        </div>
+        <div class="row">
+          <h5>ACTIVE SERVER</h5>
+          <div class="side-box">
+          <p><i>Name:</i>  Van Brunt St</p>
+          <p><i>Location:</i> New York City</p>
+        </div>
+
+          <div class="fill">
+            <h4></h4>
+
+            <img src="images/tega-server.gif" />
+
+            <div class="clr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <h5>STEWARD</h5>
+          <div class="side-box">
+            <p>
+              Traffic to the Solar Protocol website is sent to whichever server
+              in our network has the most sunshine at the time. Presently you
+              are on a server called The Gilgamesh Zone that is located in
+              Bedford Stuyvesant, Brooklyn, New York.
+            </p>
+            <p>
+              The Gilgamesh Zone is a server stewarded by artist and educator
+              Tega Brain. She is interested in how technology can help us to
+              think differently about our ecology.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <h5>PLACE</h5>
+          <div class="side-box">
+            <ul class="serverdata-left">
+
+              <li>Local time:</li>
+              <li>Weather:</li>
+              <li>Temperature:</li>
+              <li>Feels like:</li>
+              <li>Sunrise:</li>
+              <li>Sunset:</li>
+            </ul>
+            <ul class="serverdata-right">
+
+              <li>{{datetime}}</li>
+              <li>{{description}}</li>
+              <li>{{temp}} degrees C</li>
+              <li>{{feelsLike}} degrees C</li>
+              <li>{{sunrise}} AM</li>
+              <li>{{sunset}} PM</li>
+            </ul>
+            <div class="clr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <h5>ENERGY</h5>
+          <div class="side-box">
+            <ul class="serverdata-left">
+              <li>PV Voltage:</li>
+              <li>PV Current:</li>
+              <li>Load Voltage:</li>
+              <li>Load Current:</li>
+              <li>Battery Voltage:</li>
+              <li>Battery Level:</li>
+            </ul>
+            <ul class="serverdata-right">
+              <li>{{solarVoltage}}</li>
+              <li>{{solarCurrent}}</li>
+              <li>{{loadVoltage}}</li>
+              <li>{{loadCurrent}}</li>
+              <li>{{batteryVoltage}}</li>
+              <li>{{batteryPercentage}}</li>
+            </ul>
+            <div class="clr"></div>
+          </div>
+        </div>
+       
+      </header>
+
+     
+       
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+      
+    </div>
+  </body>
+</html>

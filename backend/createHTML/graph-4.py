@@ -101,6 +101,8 @@ def draw_server_arc(server_no, start, stop, c):
     for i in range(start, stop, 1):
         ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 0.33, width=2 * np.pi / hours, bottom=server_no+0.45, color=c, edgecolor = c)
 
+def sortPOE():
+    print(type(log))
 
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
@@ -108,21 +110,13 @@ serverNames = getDeviceInfo('name')
 
 energyParam = "PV-current"
 ccData = []
-#activeIPs = []
-# activesNames = []
-# activeLogs = []
 
 for i in dstIP:
     #print(i)
     getResult = getIt(i,energyParam)
     if type(getResult) != type(None):
         ccData.append(getResult)
-        #activeIPs.append(i)
     else:
-        # thisdict = {
-        #   "datetime": energyParam,
-        #   "": ""
-        # }
         ccData.append({"datetime": energyParam})
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
@@ -199,6 +193,7 @@ for rPV in range(len(ccData)):
 
 
 #Draw Active Server Rings
+sortPOE()
 
 sc = "white"
 #draw_server_arc(ringNo, startHour, stopHour, color )

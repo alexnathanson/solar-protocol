@@ -166,7 +166,7 @@ function getFile($fileName){
       <input type="hidden" name="key" value="file"/>
       <input type="file" name="fileToUpload" id="fileToUpload">
       <input type="hidden" name="directory" value="<?php echo $imgDir; ?>" />
-      <input type="hidden" name="rename" value="serverProfile"/>
+      <input type="hidden" name="rename" value="serverprofile"/>
       <input type="hidden" name="type" value="image" />
       <input type="hidden" name="dither" value="true" />
 <!--       <input type="hidden" name="rename" value="stewardImage"/>

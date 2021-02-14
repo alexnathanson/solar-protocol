@@ -266,10 +266,10 @@ ax.plot((0,0), (0,10), color="white", linewidth=0.3, zorder=10)
 os.chdir(owd)
 
 
-plt.savefig('/home/pi/solar-protocol/backend/createHTML/clock.png') #save plot
+plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png') #save plot
 
-background = Image.open("/home/pi/solar-protocol/backend/createHTML/face-6-server-days.png")
-foreground = Image.open("/home/pi/solar-protocol/backend/createHTML/clock.png")
+background = Image.open("/home/pi/solar-protocol/backend/visualization/face-6-server-days.png")
+foreground = Image.open("/home/pi/solar-protocol/backend/visualization/clock.png")
 Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
 archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")

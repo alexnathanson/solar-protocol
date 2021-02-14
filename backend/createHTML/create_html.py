@@ -78,7 +78,7 @@ def render_pages(_local_data, _data, _weather):
         ("index_template.html", "index.html"),
         ("network_template.html", "network.html"),
         ("call_template.html", "call.html"),
-        ("docs_template.html", "docs.html"),
+        ("system_template.html", "system.html"),
         ("solar-web_template.html", "solar-web.html"),
         ("manifesto_template.html", "manifesto.html"),
     ]

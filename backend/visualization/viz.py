@@ -11,6 +11,7 @@ import json
 import datetime
 from dateutil.relativedelta import relativedelta
 import random
+import pytz
 
 #global variables
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
@@ -25,7 +26,7 @@ owd = os.getcwd()
 # do we need to deal with time zones? Or can the API just return the last 72 hours of data?
 # write algorithm for turning the list of timestamps for the active server into a form that can use the drawServerarc();
 
-deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
 energyParam = "PV-current"
 ccData = []
@@ -63,9 +64,9 @@ def getIt(dst,ccValue):
 
 def getTimeZone(dst):
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?info="+ccValue + "&duration="+str(days),timeout=5)
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo=tz",timeout=5)
         #print(json.loads(x.text))
-        return json.loads(x.text)
+        return x.text
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError as errc:
@@ -76,7 +77,7 @@ def getTimeZone(dst):
         print("An Unknown Error occurred" + repr(err))
 
 #drawing the sunshine data (yellow)
-def draw_ring(ccDict, ring_number, energy_parameter):
+def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
 
     ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
 
@@ -88,6 +89,12 @@ def draw_ring(ccDict, ring_number, energy_parameter):
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
+    
+    #shift by TZ
+    ccDataframe['timedelta'] = pd.to_timedelta(tzOffset(timeZ),'h')
+    ccDataframe['datetime'] = ccDataframe['datetime'] + ccDataframe['timedelta'] 
+    ccDataframe = ccDataframe.drop(columns=['timedelta'])
+    
     ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
@@ -123,13 +130,23 @@ def sortPOE():
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
         tempDF['datetime'] = tempDF[0]
+
+        #tempDF['datetime'] = tempDF['datetime'].astype(str) #convert entire "Dates" Column to string 
+        tempDF['datetime']=pd.to_datetime(tempDF['datetime']) #convert entire "Dates" Column to datetime format this time 
+    
+         #shift by TZ
+        tempDF['timedelta'] = pd.to_timedelta(tzOffset(timeZones[l]),'h')
+        tempDF['datetime'] = tempDF['datetime'] + tempDF['timedelta'] 
+        tempDF = tempDF.drop(columns=['timedelta'])
+
+        #tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=tzOffset(timeZones[l])) #shift by TZ
         tempDF = tempDF.drop(columns=[0])
         tempDF['device'] = l
         dfPOE = dfPOE.append(tempDF, ignore_index=True)
         dfPOE.shape
 
-    dfPOE['datetime'] = dfPOE['datetime'].astype(str) #convert entire "Dates" Column to string 
-    dfPOE['datetime']=pd.to_datetime(dfPOE['datetime']) #convert entire "Dates" Column to datetime format this time 
+    # dfPOE['datetime'] = dfPOE['datetime'].astype(str) #convert entire "Dates" Column to string 
+    # dfPOE['datetime']=pd.to_datetime(dfPOE['datetime']) #convert entire "Dates" Column to datetime format this time 
     
     #dfPOE.index=dfPOE['datetime'] #replace index with entire "Dates" Column to work with groupby function
     #dfPOE = dfPOE.drop(columns=['datetime'])
@@ -161,17 +178,42 @@ def sortPOE():
     print(dfPOE.head())
     print(dfPOE.tail())
 
+def tzOffset(checkTZ):
+    myOffset = datetime.datetime.now(pytz.timezone(myTimeZone)).strftime('%z')
+    theirOffset = datetime.datetime.now(pytz.timezone(checkTZ)).strftime('%z')
+    return abs((int(myOffset)/100) - (int(theirOffset)/100))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
+
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
 serverNames = getDeviceInfo('name')
 
+#in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
+timeZones = []
+myTimeZone = getTimeZone(requests.get('http://whatismyip.akamai.com/').text)
+print("My TZ: " + myTimeZone)
+
 for i in dstIP:
     #print(i)
+    # if i not in activeIPs:
+    #     activeIPs.append(i)
     getResult = getIt(i,energyParam)
     if type(getResult) != type(None):
         ccData.append(getResult)
     else:
         ccData.append({"datetime": energyParam})
+
+    tempTZ = getTimeZone(i)
+    if type(tempTZ) != type(None):
+        timeZones.append(tempTZ)
+    else:
+        timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
+
+print(timeZones)
+# timeZoneOffset = []
+# for t in timeZones:
+#     timeZoneOffset.append(tzOffset(t))
+
+# print(timeZoneOffset)
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
@@ -238,7 +280,7 @@ plt.ylim(0,10) #puts space in the center (start of y axis)
 #Draw Sun Data for each server
 #draw_ring(data, ringNo, parameter);
 for rPV in range(len(ccData)):
-    draw_ring(ccData[rPV],rPV+2, energyParam)
+    draw_ring(ccData[rPV],rPV+2, energyParam,timeZones[rPV])
 # draw_ring(csv_paths2, 4, "PV current")
 # draw_ring(csv_paths3, 5, "PV current")
 # draw_ring(csv_paths2, 6, "PV current")
@@ -265,11 +307,10 @@ if dfPOE.shape[1] > 0:
 ax.plot((0,0), (0,10), color="white", linewidth=0.3, zorder=10)
 os.chdir(owd)
 
+plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png') #save plot
 
-plt.savefig('/home/pi/solar-protocol/backend/createHTML/clock.png') #save plot
-
-background = Image.open("/home/pi/solar-protocol/backend/createHTML/face-6-server-days.png")
-foreground = Image.open("/home/pi/solar-protocol/backend/createHTML/clock.png")
+background = Image.open("/home/pi/solar-protocol/backend/visualization/face-6-server-days.png")
+foreground = Image.open("/home/pi/solar-protocol/backend/visualization/clock.png")
 Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
 archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")

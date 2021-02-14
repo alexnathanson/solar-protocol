@@ -87,6 +87,8 @@ def render_pages(_local_data, _data, _weather):
         template_filename = "templates/" + template_filename
         output_filename = "../../frontend/" + output_filename
         template_file = open(template_filename).read()
+        print("rendering", template_filename)
+        print("battery", _data["battery percentage"]*100)
         template = Environment(loader=FileSystemLoader("templates/")).from_string(
             template_file
         )
@@ -95,11 +97,8 @@ def render_pages(_local_data, _data, _weather):
         time = datetime.datetime.now()
         time = time.strftime("%I:%M %p")
         #would be nice to swap this out if the via script fails
-        leadImage="images/viz.png"
+        leadImage="images/clock.png"
         
-
-
-
 
         # template = Template(template_file)
         rendered_html = template.render(
@@ -131,9 +130,6 @@ def render_pages(_local_data, _data, _weather):
             sunrise=_weather["sunrise"],
             sunset=_weather["sunset"],
             leadImage=leadImage,
-
-
-
         )
 
         # print(rendered_html)

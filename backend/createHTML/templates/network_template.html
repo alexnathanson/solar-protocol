@@ -1,24 +1,28 @@
-{% extends "base-template.html" %}
-{% block content %}
-<div class="title-text">
+{% if batteryPercentage >= 50 %}
+  {% extends "base-template.html" %}
+{% else %}
+  {% extends "base-template-small.html" %}
+{% endif %}
 
-  <div class="full-width-image">
-    <img src="images/BlankMap-World2.gif" />
-  </div>
-</div>
-<div class="onecol-text">
-  <h4>Network</h4>
-  <p>
-    We are currently setting
-    up servers in different locations around the world and are 
-    seeking more stewards in different time zones and continents. If you
-    are interested in hosting a server, please see our
-    <a href="call.html">call for stewards</a>.
-  </p>
-  <h4>Servers in the Network</h4>
-  <div class=network-overview>
+{% block content %}
+{% if batteryPercentage >= 50 %}
+
+    <img class="full-col" src="images/BlankMap-World2.gif" />
     
+
+{% else %}
+{% endif %}
+  <div class="onecol-text">
+    <h3>Network</h3>
+    <p>
+      We are currently setting up servers in different locations around the world
+      and are seeking more stewards in different time zones and continents. If you
+      are interested in hosting a server, please see our
+      <a href="call.html">call for stewards</a>.
+    </p>
+    <h4>Servers in the Network</h4>
+    <div class="network-overview">
+    </div>
   </div>
-  
-</div>
 {% endblock %}
+

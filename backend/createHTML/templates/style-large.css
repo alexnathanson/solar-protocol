@@ -390,7 +390,7 @@ h3 {
 h4 {
   font-size: calc(var(--text-size) * 1.2);
   text-transform: none;
-  padding-top: 10px;
+  padding: var(--vertical-padding) 0px;
   font-style: oblique;
 }
 

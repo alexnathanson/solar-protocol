@@ -5,7 +5,7 @@ venv/
 */venv/*
 env/
 */env/*
-charge-controller/data/
+*charge-controller/data/
 
 *.vscode
 

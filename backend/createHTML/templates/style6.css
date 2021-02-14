@@ -111,7 +111,6 @@ nav a {
   color: var(--textcolor);
 }
 nav a:hover {
-  color: var(--b);
   text-decoration: none;
   /* border-top: 1px white solid; */
 }

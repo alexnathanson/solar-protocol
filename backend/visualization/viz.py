@@ -11,6 +11,7 @@ import json
 import datetime
 from dateutil.relativedelta import relativedelta
 import random
+import pytz
 
 #global variables
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
@@ -63,9 +64,9 @@ def getIt(dst,ccValue):
 
 def getTimeZone(dst):
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?info="+ccValue + "&duration="+str(days),timeout=5)
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo=tz",timeout=5)
         #print(json.loads(x.text))
-        return json.loads(x.text)
+        return x.text
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError as errc:
@@ -161,18 +162,37 @@ def sortPOE():
     print(dfPOE.head())
     print(dfPOE.tail())
 
+def tzOffset(checkTZ):
+    myOffset = datetime.datetime.now(pytz.timezone(myTimeZone)).strftime('%z')
+    theirOffset = datetime.datetime.now(pytz.timezone(checkTZ)).strftime('%z')
+    return abs((int(myOffset)/100) - (int(theirOffset)/100))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
+
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')
 serverNames = getDeviceInfo('name')
 
+#in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
+timeZones = []
+myTimeZone = getTimeZone(requests.get('http://whatismyip.akamai.com/').text)
+print("My TZ: " + myTimeZone)
+
 for i in dstIP:
     #print(i)
+    # if i not in activeIPs:
+    #     activeIPs.append(i)
     getResult = getIt(i,energyParam)
     if type(getResult) != type(None):
         ccData.append(getResult)
     else:
         ccData.append({"datetime": energyParam})
 
+    tempTZ = getTimeZone(i)
+    if type(tempTZ) != type(None):
+        timeZones.append(tempTZ)
+    else:
+        timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
+
+print(timeZones)
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
 # STYLE COLORS

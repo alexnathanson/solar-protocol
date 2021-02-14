@@ -1,573 +1,62 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Solar Protocol</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A naturally intelligent network." />
-    <meta
-      name="keywords"
-      content="Solar Protocol natural intelligence art eyebeam tega brain alex nathanson Benedetta Piantella"
-    />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="style6.css" />
     <title>Solar Protocol</title>
-    <style media="screen" type="text/css">
-      :root {
-        --header-width: 25%;
-        --nav-width: 5%;
-        --content-width: 70%;
-        --vertical-padding: 15px;
-        --horizontal-padding: 15px;
-        --horizontal-text-padding: 30px;
-        --vertical-margin: 5px;
-        --horizontal-margin: 5px;
-        --b: rgb(230, 230, 230);
-        --text-size: 1.125rem;
-        --line-height: 1.4;
-        --bgcolor: #000;
-        --textcolor: white;
-        --text-background: white;
-        --serverDataLeft: 150px;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        background-color: black;
-      }
-
-      .meter {
-        /* height: 65%;  <em>Can be anything </em> */
-        position: relative;
-        /* background: rgb1(0,0,0,0.4); */
-        border-radius: 3px;
-        /* border: solid white 1px; */
-        /* padding: 10px; */
-        /* box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3); */
-      }
-      .meter > span {
-        display: block;
-        /* height: 100%; */
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
-        background-color: rgb(0, 0, 0);
-        color: white;
-        padding: 0px 0px 0px 4px;
-        margin-left: -4px;
-        position: relative;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-
-      nav {
-        /* background-image: linear-gradient(to right, var(--bgcolor), var(--bgcolor), var(--bgcolor), rgb(167, 166, 166), rgb(46,46,47));
-        background-color: var(--bgcolor); */
-        /* padding: var(--vertical-padding) var(--horizontal-padding);
-        width: 100%;
-        position: sticky;
-        top: 0;
-        color: var(--textcolor);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        /* border-bottom: 2px solid rgb(27, 27, 27); */
-        width: var(--nav-width);
-        top: 0;
-        color: var(--textcolor);
-        padding: var(--vertical-padding) 0px;
-        display: flex;
-        align-content: flex-start;
-        justify-content: space-between;
-        align-items: center;
-        font-size: calc(var(--text-size) * 1.2);
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        position: fixed;
-        z-index: 999;
-        right: 0px;
-        background-color: black;
-      }
-
-      nav h1 {
-        font-weight: normal;
-        margin: 0;
-        padding: 0;
-        font-size: calc(var(--text-size));
-      }
-
-      nav p {
-        padding: 0px;
-        margin: 0px;
-        font-size: calc(var(--text-size) * 1);
-      }
-
-      .no-bullets li {
-        /* margin: 0 5px; */
-
-        display: inline;
-      }
-
-      ul.no-bullets {
-        list-style-type: none; /* Remove bullets */
-        padding: 0; /* Remove padding */
-        margin: 0; /* Remove margins */
-        padding-left: 0.05em;
-        text-align: end;
-        flex: 1 0 40%;
-      }
-
-      nav a {
-        color: var(--textcolor);
-      }
-      nav a:hover {
-        color: var(--b);
-        text-decoration: none;
-        /* border-top: 1px white solid; */
-      }
-      .container {
-        /* max-width: calc(var(--header-width) + var(--content-width)); */
-        margin: 0px auto;
-        display: flex;
-
-        /* margin-top: 50px; */
-      }
-
-      header {
-        /* width: calc(var(--header-width) - var(--horizontal-padding)); */
-        /* background-color: rgb(2, 179, 125); */
-        border-right: 2px solid rgb(27, 27, 27);
-        color: black;
-        background: var(--text-background);
-        display: var(--text-size);
-        /* overflow: scroll; */
-        width: var(--header-width);
-        margin: 0px;
-        padding: 0px 0px;
-
-        /* border-right: 1px solid rgb(73, 72, 72); */
-
-        position: fixed;
-        z-index: 9;
-        overflow: scroll;
-        height: 100vh;
-      }
-
-      header h1 {
-        font-size: calc(var(--text-size) * 3.2);
-      }
-      header p {
-        font-size: calc(var(--text-size) * 1.2);
-        line-height: calc(var(--text-size) * 1.3);
-      }
-
-      .row:last-child {
-        margin-bottom: 150px;
-      }
-
-      /* header > div:first-of-type {
-        background-color: rgb(0,0,0);
-      } */
-
-      main {
-        padding: 0px 0px 0px 0px;
-        flex: 1;
-        overflow: auto;
-        max-height: 100%;
-        padding-right: 0px;
-        background-color: var(--bgcolor);
-        width: var(--content-width);
-        margin-left: var(--header-width);
-        font-size: calc(var(--text-size) * 1.2);
-        margin-right: 5%;
-        margin-top: 0px;
-      }
-
-      .fill {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-      }
-      .fill img {
-        flex-shrink: 0;
-        min-width: 100%;
-        min-height: 100%;
-        border-radius: 4px;
-      }
-
-      .onecol-text {
-        padding: calc(var(--vertical-padding) * 2)
-          calc(var(--horizontal-text-padding) * 12) var(--vertical-padding)
-          var(--horizontal-text-padding);
-        line-height: 1.3;
-        color: black;
-        background-color: var(--text-background);
-        border-bottom: 0.5px solid rgb(73, 72, 72);
-      }
-
-      .line {
-        border-top: 0.5px solid rgb(73, 72, 72);
-      }
-
-      .twocol-text {
-        padding: calc(var(--vertical-padding) * 3)
-          var(--horizontal-text-padding);
-        line-height: var(--line-height);
-        background-color: var(--text-background);
-        color: black;
-        column-count: 2;
-        column-gap: 20px;
-        border-top: 0.5px solid rgb(73, 72, 72);
-        border-bottom: 0.5px solid rgb(73, 72, 72);
-      }
-
-      .full-width-image {
-        width: 80%;
-        display: block;
-        margin: auto;
-        /* margin-top: 4em; */
-        padding-bottom: 4em;
-      }
-
-      header img {
-        /* border: 1px solid white; */
-        width: 39%;
-        float: left;
-        margin: 5%;
-      }
-
-      .row {
-        /* padding-bottom: 20px; */
-
-        margin-top: 20px;
-        padding: 0px var(--horizontal-padding);
-      }
-
-      .row p {
-        margin: 0px;
-      }
-      .row h5 {
-        padding-top: 0px;
-      }
-      /* Clear floats after the columns */
-      .row:after {
-        content: "";
-        display: table;
-        clear: both;
-      }
-
-      .sub-heading {
-        /* font-size: 14px;  */
-        /* border-bottom: 1px #0421c4 solid; */
-        /* border-bottom: 1px solid rgb(255, 255, 255); */
-        padding: var(--vertical-padding) var(--horizontal-padding);
-      }
-
-      ul.serverdata-left {
-        font-size: calc(var(--text-size) * 1); /*contolling data text size*/
-
-        list-style-type: none; /* Remove bullets */
-        margin: 0; /* Remove margins */
-        float: left;
-        padding: 0;
-        width: var(--serverDataLeft); /*NEED TO CALCULATE WITH VARIABLES*/
-        /* padding: 0px var(--horizontal-padding); */
-        color: rgb(80, 80, 80);
-      }
-
-      ul.serverdata-right {
-        font-size: calc(var(--text-size) * 1); /*contolling data text size*/
-        font-family: "Arial";
-        list-style-type: none; /* Remove bullets */
-        text-align: left;
-        margin: 0; /* Remove margins */
-        float: left;
-        /* width:65%;NEED TO CALCULATE WITH VARIABLES */
-        width: calc(100% - var(--serverDataLeft));
-        padding-left: 10px;
-        /* padding: 0px var(--horizontal-padding) var(--vertical-padding) var(--horizontal-padding); */
-      }
-
-      li.server {
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 3px;
-        padding: 0px 4px 0px 4px;
-        margin: 4px 0px 4px 0px;
-      }
-
-      li.server-meter {
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 3px;
-        padding: 0px 0px 0px 0px;
-        /* border: rgb(200,200,200) solid 0.5px; */
-        margin: 4px 0px 4px 0px;
-      }
-
-      li {
-        line-height: 1.5em;
-      }
-      .side-box {
-        padding: var(--vertical-padding) var(--horizontal-padding)
-          var(--vertical-padding) 0px;
-        /* background-color: var(--bgcolor); */
-        /* border-radius: 4px; */
-
-        line-height: calc(var(--text-size) * 1.4);
-        border-top: 1px solid white;
-      }
-
-      .clr {
-        clear: both;
-        font-size: 0;
-      }
-
-      .column img {
-        width: 100%;
-        position: relative;
-        float: left;
-        left: -100px;
-        top: 120px;
-        width: 400px;
-      }
-
-      .full-col {
-        border-left: 0.5px solid rgb(73, 72, 72);
-      }
-
-      .page-text p:first-child {
-        margin-top: 0;
-      }
-
-      img {
-        width: 100%;
-      }
-
-      p {
-        orphans: 3;
-        widows: 3;
-      }
-
-      a {
-        color: gray;
-        text-decoration: none;
-      }
-
-      a:hover {
-        color: var(--b);
-        text-decoration: none;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        margin: 0px;
-        padding: 0px;
-        font-weight: normal;
-      }
-
-      h1 {
-        padding-top: 18px;
-      }
-      h1 a {
-        color: black;
-      }
-
-      h2 {
-        font-size: calc(var(--text-size) * 1.6);
-        padding: 20px 0px 20px 0px;
-
-      }
-
-      h3 {
-        font-size: calc(var(--text-size) * 1.3);
-        padding: 0px 0px 0px 0px;
-      }
-
-      /*Server title*/
-      h4 {
-        font-size: calc(var(--text-size) * 1.2);
-        text-transform: none;
-
-        font-style: oblique;
-      }
-
-      /*Titles in sidebar*/
-      /*NEED TO MAKE RESPONSIVE*/
-      h5 {
-        font-size: calc(var(--text-size) * 1.2);
-        font-style: oblique;
-        padding: var(--vertical-padding) 0px;
-      }
-
-      /*Right titles in sidebar*/
-      h6 {
-        padding: var(--vertical-padding) var(--horizontal-padding);
-        font-size: 24px;
-        font-weight: normal;
-      }
-
-      hr {
-        border: none;
-        border-bottom: 2px dashed #ccc;
-        margin: 40px 0px;
-      }
-
-      ol {
-        margin: 0;
-        margin-top: 10px;
-      }
-
-      .top {
-        width: 95%;
-        margin-bottom: 1px solid var(--textcolor);
-      }
-
-      section {
-        border-bottom: 1px solid #000;
-        padding-bottom: var(--vertical-padding);
-        margin-top: var(--vertical-padding);
-      }
-
-      @media (max-width: 1070px) {
-        h1 {
-          font-size: 1.5em;
-        }
-        nav a:hover {
-          color: black;
-        }
-
-        .twocol-text {
-          padding: calc(var(--vertical-padding) * 3)
-            var(--horizontal-text-padding);
-          line-height: 1.3;
-          color: var(--textcolor);
-          background-color: var(--bgcolor);
-          column-count: 1;
-          column-gap: 20px;
-          border-top: 0.5px solid rgb(73, 72, 72);
-          border-bottom: 0.5px solid rgb(73, 72, 72);
-        }
-
-        .onecol-text {
-          padding: calc(var(--vertical-padding) * 2)
-            calc(var(--horizontal-text-padding) * 1) var(--vertical-padding)
-            var(--horizontal-text-padding);
-        }
-
-        ul.serverdata-left {
-          width: calc(
-            var(--serverDataLeft) / 2
-          ); /* NEED TO CALCULATE WITH VARIABLES */
-        }
-        ul.serverdata-right {
-          width: calc(100% - var(--serverDataLeft) / 2);
-          min-width: 55px;
-        }
-        .meter > span {
-          white-space: normal;
-        }
-      }
-
-      @media (max-width: 710px) {
-        header {
-          position: static;
-          width: 100%;
-          height: auto;
-          overflow: auto;
-          padding-right: calc(var(--nav-width) * 1.5);
-          border-bottom: solid 1px black;
-        }
-
-        .sub-heading {
-          padding-right: calc(var(--nav-width) * 1.5);
-        }
-
-        .row:last-child {
-          margin-bottom: 20px;
-        }
-
-        main {
-          margin: 0;
-          margin-left: 0px;
-          padding-left: 0px;
-          width: 100%;
-        }
-
-        nav {
-          width: calc(var(--nav-width) * 1.5);
-        }
-
-        .container {
-          flex-direction: column;
-        }
-
-        .twocol-text {
-          column-count: 1;
-        }
-        ul.serverdata-left {
-          width: var(--serverDataLeft); /* NEED TO CALCULATE WITH VARIABLES */
-        }
-        ul.serverdata-right {
-          width: calc(100% - var(--serverDataLeft));
-          min-width: 55px;
-          height: 50px;
-        }
-        .meter > span {
-          white-space: nowrap;
-        }
-      }
-    </style>
   </head>
   <body>
     <div class="container">
       <nav>
         <ul class="no-bullets">
           <li><a href="index.html">Home</a> •</li>
-          <li><a href="#call">Call</a> •</li>
-          <li><a href="#docs">System</a></li>
-
+          <li><a href="docs.html">System</a> •</li>
+          <li><a href="call.html">Call</a></li>
         </ul>
       </nav>
-      <header>
+      <header style="background-image: linear-gradient(
+        to top,
+        Salmon,
+        Salmon,
+        rgb(100, 100, 100),
+        black,
+        black
+      );">
         <div class="sub-heading">
-          <h1><a href="index-small.html">Solar Protocol</a></h1>
+          <h1><a href="index.html">Solar Protocol</a></h1>
           <p>A naturally intelligent network.</p>
           <p>
             This website is hosted on a network of solar powered servers.
-            Internet traffic is directed to wherever there is the most sunshine.
+            Internet traffic is directed to wherever there is the most sunshine
+            in the network.
           </p>
-
           <ul class="serverdata-left">
             <li class="server">Server Battery:</li>
             <li class="server">Site Render Status:</li>
           </ul>
           <ul class="serverdata-right">
-            <li class="server">
-              <div class="meter">
-                <span style="width: 40.0%"
-                  >40.0 %</span
-                >
-              </div>
-            </li>
-            <li class="server">Low res mode</li>
+            <li class="server"><div class="meter">
+              <span style="width: 90.0%">90.0 %</span>
+            </div></li>
+            <li class="server">High res mode</li>
           </ul>
           <div class="clr"></div>
         </div>
-
         <div class="row">
           <h5>ACTIVE SERVER</h5>
           <div class="side-box">
             <p><i>Name:</i> The Gilgamesh Zone</p>
             <p><i>Location:</i> Bedford Stuyvesant, USA</p>
+          </div>
+ 
+ 
+          <div class="fill">
+            <h4></h4>
+
+            <img src="images/tega-server.gif" />
+
+            <div class="clr"></div>
           </div>
         </div>
         <div class="row">
@@ -600,12 +89,12 @@
             <ul class="serverdata-right">
               <li class="server">New York City</li>
               <li class="server">USA</li>
-              <li class="server">04:08 PM</li>
-              <li class="server">overcast clouds</li>
-              <li class="server">-2.3 &#176; C</li>
-              <li class="server">-8.7 &#176; C</li>
-              <li class="server">06:52 AM</li>
-              <li class="server">05:28 PM</li>
+              <li class="server">08:17 PM</li>
+              <li class="server">unavailable</li>
+              <li class="server">unavailable &#176; C</li>
+              <li class="server">unavailable &#176; C</li>
+              <li class="server">unavailable</li>
+              <li class="server">unavailable</li>
             </ul>
             <div class="clr"></div>
           </div>
@@ -614,7 +103,7 @@
           <h5>ENERGY</h5>
           <div class="side-box">
             <ul class="serverdata-left">
-              <li class="server">Server Battery:</li>
+              <li class="server">Battery Level:</li>
               <li class="server">Battery Voltage:</li>
               <li class="server">PV Power:</li>
               <li class="server">PV Voltage:</li>
@@ -624,13 +113,7 @@
               <li class="server">Load Current:</li>
             </ul>
             <ul class="serverdata-right">
-              <li class="server">
-                <div class="meter">
-                  <span style="width: 40.0%"
-                    >40.0 %</span
-                  >
-                </div>
-              </li>
+              <li class="server">90.0 %</li>
               <li class="server">12.29 volts</li>
               <li class="server">0.0 watts</li>
               <li class="server">0.2 volts</li>
@@ -643,224 +126,129 @@
           </div>
         </div>
       </header>
+
       <main>
-        <div class="onecol-text">
-          <h2>About</h2>
-          <p>
-            Solar Protocol is a web platform hosted on a network of small solar
-            powered servers located around the world. The network is programmed
-            with the logic of the sun. When visiting this platform, your
-            browser’s request is directed to whichever server is enjoying the
-            most sunlight at that moment. You are currently on the The Gilgamesh Zone
-            server located in Bedford Stuyvesant where it is 04:08 PM and the weather
-            is overcast clouds.
-          </p>
-          <p>
-            As the sun rises and sets, each server is activated or deactivated
-            as its solar panel goes into sunlight or darkness. Traffic is
-            directed across the network according to wherever there is the most
-            light.
-          </p>
-          <p>
-            This project understands the sun’s interaction with Earth as a form
-            of logic that shapes decision making, daily behaviors and seasonal
-            activities of almost all life forms. Solar Protocol honors this
-            natural logic, exploring it as a form of intelligence that can be
-            used to automate decisions on a digital platform.
-          </p>
-          <h3>How does it work?</h3>
-          <p>
-            Traffic on the internet is directed using the Domain Network Service
-            (DNS) protocol, a decentralized system that associates a URL address
-            to the IP address of a server. In short, DNS dictates the path
-            between client and server. For high volume web services where
-            content is hosted across multiple servers in different locations,
-            the DNS protocol is typically configured to direct network traffic
-            to whichever server gives the quickest response time. For example,
-            when making a Google search, your request would be sent to whichever
-            Google server has the quickest response time, where response time is
-            the interval between client request and server response. This
-            usually means the request is routed to whichever server is
-            geographically closest. Like so much digital culture, this routing
-            logic prioritizes speed over all other factors in how the network
-            operates.
-          </p>
+<div class="title-text">
+  <div class="full-width-image">
+    <img src="images/viz.png" />
+  </div>
 
-          <p>
-            The Solar Protocol network is designed with an alternative logic and
-            automatically directs traffic to whichever server is generating the
-            most solar energy at the time of the request. Decisions are made
-            about where to move computational activity based on where there is
-            naturally available energy rather than by prioritizing speed for the
-            user. In other words, the distribution of sunshine (and therefore
-            energy) across the planet determines the path from client to server.
-          </p>
-          <h3>
-            Why does the appearance of this website change from time to time?
-          </h3>
-          <p>
-            The appearance of this website changes as traffic is routed to
-            different servers in the network. The people stewarding each server
-            have customized their local version of the site and these changes
-            become visible when their server is the active server.
-          </p>
-          <p>
-            The appearance of this website is also energy responsive. Our
-            software changes the styling of the pages according to how much
-            energy is stored in the battery of the active server and so the site
-            may appear different at different times of the day or in different
-            seasons. If the battery level at the active server is low, this
-            website is displayed as raw html without any styling or images. This
-            reduces the size of the page and therefore reduces the energy it
-            takes to send it to the client. If more stored energy is available,
-            the site will appear at higher resolutions with heavier media such
-            as images and non-default fonts.
-          </p>
-          <p>
-            Occasionally the website may go down if there is insufficient energy
-            stored at all of the servers. As we set up more servers in diverse
-            time zones and climates, we predict that this will happen less and
-            less.
-          </p>
-          <h3>Attribution</h3>
-          <p>
-            This is work in progress by
-            <a href="http://tegabrain.com/">Tega Brain</a>,
-            <a href="https://alexnathanson.com/">Alex Nathanson</a> and
-            <a href="https://engineering.nyu.edu/faculty/benedetta-piantella"
-              >Benedetta Piantella</a
-            >. It is a part of the
-            <a href="https://www.eyebeam.org/rapidresponse/"
-              >Eyebeam Rapid Response</a
-            >for a Better Digital Future program.
-          </p>
+</div>
+<div class="onecol-text">
+  <div class="caption">
+    Three days of network sunlight data are visualized for each server. The colored bars represent the hours that each server as been the active point of entry to the network. 
+  <hr>
+  </div>
+  <h3>About</h3>
+  <p>
+    Solar Protocol is a web platform hosted on a network of small solar powered
+    servers set up in different locations around the world. A solar powered
+    server is a single board computer that is powered by a solar panel and a
+    small battery. As a stand alone device, a solar server offers intermittent
+    connectivity due to its energy resources being dependent on the length of
+    day and weather conditions. However if connected in a network, the
+    computational work involved in serving a website is able to be distributed
+    across many solar servers.
+  </p>
+  <p>
+    With servers located in different time zones, seasons and weather systems,
+    internet traffic is able to be directed to wherever the sun is shining. When
+    a browser makes a request for this site, it is sent to wherever in the
+    network the most energy is generated. You are currently on the The Gilgamesh Zone
+    server located in Bedford Stuyvesant where it is 08:17 PM and the weather is
+    unavailable.
+  </p>
+  <p>
+    Solar Protocol explores the sun’s interaction with Earth as a form of logic
+    that shapes the daily behaviors, seasonal activities and the decision making
+    of almost all life forms. Solar Protocol honors this natural logic,
+    exploring it as a form of intelligence that is used to automate decisions in
+    a digital network.
+  </p>
+  <h4>How does it work?</h4>
+  <p>
+    As the sun rises and sets, each server becomes active or inactive as its
+    solar panel goes into sunlight or darkness. Traffic is directed across the
+    network according to wherever there is the most light.
+  </p>
 
-         
+  <p>
+    Solar Protocol uses everyday internet technologies like the Domain Network
+    Service (DNS) protocol, a decentralized system that associates a URL address
+    to the IP address of a server. In short, DNS is the system that dictates the
+    path between client and server. For large-scale, high volume web services
+    that use multiple servers hosted in different locations, the DNS protocol is
+    typically configured to direct network traffic to whichever server gives the
+    quickest response time. For example, when making a Google search, your
+    request would be sent to whichever Google server responds the quickest and
+    this usually means the request is routed to whichever server is
+    geographically closest. This routing logic prioritizes speed over all other
+    factors that determine how a network operates, a characteristic that is
+    prevalent in much digital culture.
+  </p>
+</div>
+<img class="full-col" src="images/earth-sun.png" />
 
-          <a class="anchor" id="call"></a>
-          <h2>Call for Server Stewards</h2>
-          <p>
-            Are you interested in stewarding a server as part of Solar Protocol?
-          </p>
-          <p>
-            A server steward is someone who can host and care for a solar server
-            and who is interested in being a guest collaborator on our project.*
-          </p>
+<div class="onecol-text">
+  <div class="caption">
+    The position of the sun throughout the day produces the routing logic of the
+    network.
+  </div>
+  <p>
+    In contrast to this, the Solar Protocol network is built with an alternative
+    logic and automatically directs traffic to whichever server is generating
+    the most solar energy at the time of the request. Decisions about where to
+    move computational activity in the network are made according to where there
+    is the most naturally available energy, rather than according to what would
+    produce the quickest results for the user. In other words, in Solar
+    Protocol, the distribution of sunshine (and therefore energy) across the
+    planet determines the path from client to server.
+  </p>
 
-          <p>
-            We're currently looking for people or organizations in different
-            locations around the world who would like to steward one of our
-            servers for at least a year and who are also interested in
-            contributing their domain expertise to help us explore this type of
-            network together. We are aiming to establish a server on every
-            continent in the world (except perhaps for Antarctica).
-          </p>
-
-          <p>
-            Ideally, a server steward would have a basic understanding of
-            programming (specifically with Raspberry Pi/ Linux) and IT
-            infrastructure to assist us with troubleshooting the installation.
-            However, we are also able to bring on a few collaborators with less
-            experience and who can offer different perspectives on the project.
-            At this point there is opportunity for both institutional
-            collaborators like arts venues and universities that might be able
-            fund their own participation as well as individuals or collectives
-            without these resources. If you fall into the latter group, we have
-            a budget to cover expenses for DIY/independent collaborators. Server
-            stewards should demonstrate a willingness to build community and
-            share materials and resources through teaching and learning.
-          </p>
-
-          <p>
-            If you have a sunny rooftop and are interested in experimenting with
-            us, please read the questions and answers below and fill out this
-            brief
-            <a href="https://airtable.com/shrwTVfy9TAvg5oHk"
-              >expression of interest form</a
-            >.
-          </p>
-          <p>
-            <i>
-              *Thanks to Taeyoon Choi and collaborators on the
-              <a href="http://distributedweb.care/">Distributed Web of Care</a>
-              project for their work on stewardship, care and the internet.
-            </i>
-          </p>
-          <h3>FAQ</h3>
-          <h4>
-            What are the technical and physical requirements for a hosting a
-            server ?
-          </h4>
-
-          <ul>
-            <li>
-              You need a safe and accessible outdoor area that is exposed to
-              direct sunlight for at least 4 hours per day (this means a spot
-              that is free from obstructions/shadows and ideally facing the
-              equator)
-            </li>
-            <li>
-              You need to be able to secure the solar panel to a wall, pole or
-              rooftop so it doesn't blow away or get stolen
-            </li>
-            <li>
-              The server needs Internet access either via ethernet cable or wifi
-              (minimum network speed: 25mb/s up & 25mb/s down)
-            </li>
-            <li>
-              You need to be able to set up port forwarding for both http (port
-              80) and ssh (port 20) with your Internet Service Provider to serve
-              the solar protocol network publically
-            </li>
-          </ul>
-          <h4>What is the timing of this project?</h4>
-
-          <p>
-            We are looking to set up servers with stewards in the first 3 months
-            of 2021. We ask you to steward and care for your server for a
-            minimum of 12 months.
-          </p>
-          <h4>Do I need to speak English?</h4>
-
-          <p>
-            Unfortunately our team only speaks English and Italian. We’d be
-            happy to try to find a translator and we would also be interested in
-            translating the project into the language spoken by server stewards.
-          </p>
-
-          <a class="anchor" id="docs"></a>
-          <h2>System Documentation</h2>
-          <h3>Hardware: What is a solar server?</h3>
-          <p>
-            Each solar server is composed of two main components: a 50W 
-            photovoltaic panel (PV) for harnessing the sun and a weatherized enclosure 
-            containing all the server equipment. The hardware inside the enclosure includes 
-            an MPPT charge controller that translates the power of the sun into electrical charge for the 12V battery which, when successfully charged, wakes up and brings online the RaspberryPi single-board computer hosting the local web content. The hardware also includes in-line fuses and in-line circuit breakers to protect each component of the circuit, and the NEMA-rated enclosure is retrofitted with rugged vents and glands to withstand a wide range of 
-            temperatures and different kinds of environments. 
-          </p>
-          <h3>Software</h3>
-          <p>
-            The networking and network API is built in PHP. Each RaspberryPi generates 
-            this static site using Jinja templating in Python, and serves it using an Apache server. 
-            No Javascript is used on the frontend. All visualizations are generated server-side 
-            using python libraries such as MatPlotLib. Where possible, the computation required 
-            to generate visual components of this site is done server side rather than in the 
-            browser. This is because we know that these computational cycles are powered by solar 
-            rather. This design approach minimizes the energy consumption for the user who is likely to be using fossil energy.  
-          </p>
-          <p>
-            <ul>
-            <li>Code is still in development. This work is open-source and <a href="https://github.com/alexnathanson/solar-protocol">shared on Github.</a></li>
-            <li>Stewards: <a href="/admin/">Login to an admin panel </a> to view your server data.</li>
-            
-          </ul>
-        </p>
-
-        
-          <!-- Column 1 end -->
-        </div>
-      </main>
+  <h4>Why does the appearance of this website change from time to time?</h4>
+  <p>
+    The appearance of this website changes as traffic is routed to different
+    servers in the network. The people stewarding each server are able to
+    customize the version of this website on their server. Both these design
+    differences, as well as the content they have chosen to host on the system,
+    will become visible when their server is the active server.
+  </p>
+  <p>
+    The appearance of this website is also energy responsive. Our software
+    changes the styling and resolution of the pages according to how much energy
+    is stored in the battery of the active server. This means the site may
+    appear different at different times of the day or in different seasons of
+    the year. If the battery level at the active server is low, this website is
+    displayed as raw html without any styling or images. This reduces the size
+    of the page and therefore reduces the energy it takes to send it to people
+    who are looking at it on the internet. If more stored energy is available,
+    the site will appear at higher resolutions with heavier media such as higher
+    resolution images and non-default fonts.
+  </p>
+  <p>
+    Occasionally the website may go down if there is insufficient energy stored
+    at all of the servers. However as our network grows and we set up more
+    servers in diverse time zones and climates, we predict that this will happen
+    less and less. It’s always sunny somewhere!
+  </p>
+  <h4>Attribution</h4>
+  <p>
+    This is work in progress by
+    <a href="http://tegabrain.com/">Tega Brain</a>,
+    <a href="https://alexnathanson.com/">Alex Nathanson</a> and
+    <a href="https://engineering.nyu.edu/faculty/benedetta-piantella"
+      >Benedetta Piantella</a
+    >. It is a part of the
+    <a href="https://www.eyebeam.org/rapidresponse/">Eyebeam Rapid Response</a>
+    for a Better Digital Future program.
+  </p>
+  <p>
+    We wish to thank everyone who has supported our progress with advice,
+    contributions and feedback including Sam Lavigne, Dan Phiffer, Mitchell
+    Whitelaw, Crystal Chen, all of the server stewards and the staff at Eyebeam.
+  </p>
+</div>
+</main>
     </div>
   </body>
 </html>
-

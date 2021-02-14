@@ -126,14 +126,7 @@ nav a:hover {
 header {
   border-right: 2px solid rgb(27, 27, 27);
   color: var(--textcolor);
-  background-image: linear-gradient(
-    to top,
-    var(--b),
-    var(--b),
-    rgb(100, 100, 100),
-    black,
-    black
-  );
+
   display: var(--text-size);
   width: var(--header-width);
   margin: 0px;

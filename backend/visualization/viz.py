@@ -131,6 +131,9 @@ def sortPOE():
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
         tempDF['datetime'] = tempDF[0]
 
+        #tempDF['datetime'] = tempDF['datetime'].astype(str) #convert entire "Dates" Column to string 
+        tempDF['datetime']=pd.to_datetime(tempDF['datetime']) #convert entire "Dates" Column to datetime format this time 
+    
          #shift by TZ
         tempDF['timedelta'] = pd.to_timedelta(tzOffset(timeZones[l]),'h')
         tempDF['datetime'] = tempDF['datetime'] + tempDF['timedelta'] 
@@ -142,8 +145,8 @@ def sortPOE():
         dfPOE = dfPOE.append(tempDF, ignore_index=True)
         dfPOE.shape
 
-    dfPOE['datetime'] = dfPOE['datetime'].astype(str) #convert entire "Dates" Column to string 
-    dfPOE['datetime']=pd.to_datetime(dfPOE['datetime']) #convert entire "Dates" Column to datetime format this time 
+    # dfPOE['datetime'] = dfPOE['datetime'].astype(str) #convert entire "Dates" Column to string 
+    # dfPOE['datetime']=pd.to_datetime(dfPOE['datetime']) #convert entire "Dates" Column to datetime format this time 
     
     #dfPOE.index=dfPOE['datetime'] #replace index with entire "Dates" Column to work with groupby function
     #dfPOE = dfPOE.drop(columns=['datetime'])

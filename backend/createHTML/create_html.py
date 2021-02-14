@@ -78,7 +78,7 @@ def render_pages(_local_data, _data, _weather):
         ("index_template.html", "index.html"),
         ("network_template.html", "network.html"),
         ("call_template.html", "call.html"),
-        ("docs_template.html", "docs.html"),
+        ("system_template.html", "system.html"),
         ("solar-web_template.html", "solar-web.html"),
         ("manifesto_template.html", "manifesto.html"),
     ]
@@ -87,22 +87,18 @@ def render_pages(_local_data, _data, _weather):
         template_filename = "templates/" + template_filename
         output_filename = "../../frontend/" + output_filename
         template_file = open(template_filename).read()
+        print("rendering", template_filename)
+        print("battery", _data["battery percentage"]*100)
         template = Environment(loader=FileSystemLoader("templates/")).from_string(
             template_file
         )
 
-        sunrise=datetime.datetime.fromtimestamp(_weather["sys"]["sunrise"])
-        sunset=datetime.datetime.fromtimestamp(_weather["sys"]["sunset"])
-        sunrise = sunrise.strftime("%I:%M %p")
-        sunset = sunset.strftime("%I:%M %p")
+        
         time = datetime.datetime.now()
         time = time.strftime("%I:%M %p")
         #would be nice to swap this out if the via script fails
-        leadImage="images/viz.png"
+        leadImage="images/clock.png"
         
-
-
-
 
         # template = Template(template_file)
         rendered_html = template.render(
@@ -128,15 +124,12 @@ def render_pages(_local_data, _data, _weather):
             serverColor=_local_data["serverColor"],
             font=_local_data["font"],
             borderStyle=_local_data["borderStyle"],
-            weather=_weather["weather"][0]["description"],
-            temp=round(_weather["main"]["temp"]-273.15, 1) ,
-            feelsLike=round(_weather["main"]["feels_like"]-273.15, 1),
-            sunrise=sunrise,
-            sunset=sunset,
+            weather=_weather["description"],
+            temp=_weather["temp"],
+            feelsLike=_weather["feels_like"],
+            sunrise=_weather["sunrise"],
+            sunset=_weather["sunset"],
             leadImage=leadImage,
-
-
-
         )
 
         # print(rendered_html)
@@ -149,23 +142,37 @@ def get_weather(_local_data):
     lon = _local_data["long"]
     complete_url = base_url + "lon=" + lon+  "&lat=" +lat + "&appid=" + api_key 
     print(complete_url)
+
     response = requests.get(complete_url)
-    x = response.json() 
-    if x["cod"] != "404": 
-        y = x["main"] 
-        current_temperature = y["temp"] 
-        current_humidiy = y["humidity"] 
-        z = x["weather"] 
-        weather_description = z[0]["description"] 
-        print(" Temperature (in kelvin unit) = " +
-                    str(current_temperature) +
-          "\n humidity (in percentage) = " +
-                    str(current_humidiy) +
-          "\n description = " +
-                    str(weather_description)) 
-    else: 
-        print(" City Not Found ") 
-    return x
+    x = response.json()  
+    y = x["main"] 
+    current_temperature = y["temp"] 
+    current_humidiy = y["humidity"] 
+    z = x["weather"] 
+    weather_description = z[0]["description"] 
+
+    sunrise=datetime.datetime.fromtimestamp(x["sys"]["sunrise"])
+    sunset=datetime.datetime.fromtimestamp(x["sys"]["sunset"])
+    sunrise = sunrise.strftime("%I:%M %p")
+    sunset = sunset.strftime("%I:%M %p")
+
+
+    print(" Temperature (in kelvin unit) = " +
+                str(current_temperature) +
+        "\n humidity (in percentage) = " +
+                str(current_humidiy) +
+        "\n description = " +
+                str(weather_description)) 
+   
+    output = {
+        "description": x["weather"][0]["description"],
+        "temp": round(x["main"]["temp"]-273.15, 1),
+        "feels_like": round(x["main"]["feels_like"]-273.15, 1),
+        "sunrise": sunrise,
+        "sunset": sunset,
+    }
+
+    return output
 
 
 def get_local():
@@ -178,7 +185,17 @@ def get_local():
 def main():
     energy_data = read_csv()
     local_data = get_local()
-    local_weather = get_weather(local_data)
+    try:
+        local_weather = get_weather(local_data)
+    except Exception as e:
+        print(e)
+        local_weather = {
+            "description": "unavailable",
+            "temp": "unavailable",
+            "feels_like": "unavailable",
+            "sunrise": "unavailable",
+            "sunset": "unavailable"
+        }
     # print(hosting_data)
     # print("Battery: {}".format(data("batteryPercentage"))
     # print("PV: {}".format(SolarVoltage))

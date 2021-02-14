@@ -1,14 +1,19 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Solar Protocol</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style-large.css" />
+    <meta name="description" content="A naturally intelligent network." />
+    <meta
+      name="keywords"
+      content="Solar Protocol natural intelligence art eyebeam tega brain alex nathanson Benedetta Piantella"
+    />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <title>Solar Protocol</title>
+    <link rel="stylesheet" href="style-small.css" />
   </head>
-  <style>
-    a:hover { color: {{bgColor}} };
-  </style>
   <body>
     <div class="container">
       <nav>
@@ -17,27 +22,17 @@
           <li><a href="network">Network</a> •</li>
           <li><a href="system.html">System</a> •</li>
           <li><a href="call.html">Call</a></li>
-
         </ul>
       </nav>
-      <header
-        style="background-image: linear-gradient(
-        to top,
-        {{bgColor}},
-        {{bgColor}},
-        rgb(100, 100, 100),
-        black,
-        black
-      );"
-      >
+      <header>
         <div class="sub-heading">
           <h1><a href="index.html">Solar Protocol</a></h1>
           <p>A naturally intelligent network.</p>
           <p>
             This website is hosted on a network of solar powered servers.
-            Internet traffic is directed to wherever there is the most sunshine
-            in the network.
+            Internet traffic is directed to wherever there is the most sunshine.
           </p>
+
           <ul class="serverdata-left">
             <li class="server">Server Battery:</li>
             <li class="server">Site Render Status:</li>
@@ -46,27 +41,22 @@
           <ul class="serverdata-right">
             <li class="server">
               <div class="meter">
-                <span style="width: {{batteryPercentage}}%">90.0 %</span>
+                <span style="width: 40.0%"
+                  >40.0 %</span
+                >
               </div>
             </li>
-            <li class="server">High res mode</li>
-            <li class="server">{{time}}</li>
+            <li class="server">Low res mode</li>
+            <li class="server">03:31 PM</li>
           </ul>
           <div class="clr"></div>
         </div>
+
         <div class="row">
           <h5>ACTIVE SERVER</h5>
           <div class="side-box">
-            <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}, {{country}}</p>
-          </div>
-
-          <div class="fill">
-            <h4></h4>
-
-            <img src="images/server.gif" />
-
-            <div class="clr"></div>
+            <p><i>Name:</i> The Gilgamesh Zone</p>
+            <p><i>Location:</i> Bedford Stuyvesant, USA</p>
           </div>
         </div>
         <div class="row">
@@ -75,12 +65,12 @@
             <p>
               Traffic to the Solar Protocol website is sent to whichever server
               in our network has the most sunshine at the time. Presently you
-              are on a server called {{name}} that is located in {{location}},
-              {{city}}.
+              are on a server called The Gilgamesh Zone that is located in Bedford Stuyvesant,
+              New York City.
             </p>
             <br />
             <p>About your server steward:</p>
-            <p>{{description}}</p>
+            <p>The Gilgamesh Zone is a server stewarded by artist and educator Tega Brain. She is interested in how technology can help us to think differently about our ecology and place in nature. More on this <a href='http://tegabrain.com/'>here.</a></p>
           </div>
         </div>
         <div class="row">
@@ -97,14 +87,14 @@
               <li class="server">Sunset:</li>
             </ul>
             <ul class="serverdata-right">
-              <li class="server">{{city}}</li>
-              <li class="server">{{country}}</li>
-              <li class="server">{{time}}</li>
-              <li class="server">{{weather}}</li>
-              <li class="server">{{temp}} &#176; C</li>
-              <li class="server">{{feelsLike}} &#176; C</li>
-              <li class="server">{{sunrise}}</li>
-              <li class="server">{{sunset}}</li>
+              <li class="server">New York City</li>
+              <li class="server">USA</li>
+              <li class="server">03:31 PM</li>
+              <li class="server">unavailable</li>
+              <li class="server">unavailable &#176; C</li>
+              <li class="server">unavailable &#176; C</li>
+              <li class="server">unavailable</li>
+              <li class="server">unavailable</li>
             </ul>
             <div class="clr"></div>
           </div>
@@ -113,7 +103,7 @@
           <h5>ENERGY</h5>
           <div class="side-box">
             <ul class="serverdata-left">
-              <li class="server">Battery Level:</li>
+              <li class="server">Server Battery:</li>
               <li class="server">Battery Voltage:</li>
               <li class="server">PV Power:</li>
               <li class="server">PV Voltage:</li>
@@ -123,20 +113,41 @@
               <li class="server">Load Current:</li>
             </ul>
             <ul class="serverdata-right">
-              <li class="server">{{batteryPercentage}} %</li>
-              <li class="server">{{batteryVoltage}} volts</li>
-              <li class="server">{{solarPowerL}} watts</li>
-              <li class="server">{{solarVoltage}} volts</li>
-              <li class="server">{{solarCurrent}} amps</li>
-              <li class="server">{{loadPower}} watts</li>
-              <li class="server">{{loadVoltage}} volts</li>
-              <li class="server">{{loadCurrent}} amps</li>
+              <li class="server">
+                <div class="meter">
+                  <span style="width: 40.0%"
+                    >40.0 %</span
+                  >
+                </div>
+              </li>
+              <li class="server">12.29 volts</li>
+              <li class="server">0.0 watts</li>
+              <li class="server">0.2 volts</li>
+              <li class="server">0.0 amps</li>
+              <li class="server">2.82 watts</li>
+              <li class="server">12.29 volts</li>
+              <li class="server">0.23 amps</li>
             </ul>
             <div class="clr"></div>
           </div>
         </div>
       </header>
-      <main>{% block content %}{% endblock %}</main>
+      <main>
+
+
+  <div class="onecol-text">
+    <h3>Network</h3>
+    <p>
+      We are currently setting up servers in different locations around the world
+      and are seeking more stewards in different time zones and continents. If you
+      are interested in hosting a server, please see our
+      <a href="call.html">call for stewards</a>.
+    </p>
+    <h4>Servers in the Network</h4>
+    <div class="network-overview">
+    </div>
+  </div>
+</main>
     </div>
   </body>
 </html>

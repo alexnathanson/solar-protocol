@@ -1,0 +1,166 @@
+
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Solar Protocol</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A naturally intelligent network." />
+    <meta
+      name="keywords"
+      content="Solar Protocol natural intelligence art eyebeam tega brain alex nathanson Benedetta Piantella"
+    />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <title>Solar Protocol</title>
+    <link rel="stylesheet" href="style-small.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <ul class="no-bullets">
+          <li><a href="index.html">Home</a> •</li>
+          <li><a href="network">Network</a> •</li>
+          <li><a href="system.html">System</a> •</li>
+          <li><a href="call.html">Call</a></li>
+        </ul>
+      </nav>
+      <header>
+        <div class="sub-heading">
+          <h1><a href="index.html">Solar Protocol</a></h1>
+          <p>A naturally intelligent network.</p>
+          <p>
+            This website is hosted on a network of solar powered servers.
+            Internet traffic is directed to wherever there is the most sunshine.
+          </p>
+
+          <ul class="serverdata-left">
+            <li class="server">Server Battery:</li>
+            <li class="server">Site Render Status:</li>
+            <li class="server">Last update:</li>
+          </ul>
+          <ul class="serverdata-right">
+            <li class="server">
+              <div class="meter">
+                <span style="width: 40.0%"
+                  >40.0 %</span
+                >
+              </div>
+            </li>
+            <li class="server">Low res mode</li>
+            <li class="server">03:31 PM</li>
+          </ul>
+          <div class="clr"></div>
+        </div>
+
+        <div class="row">
+          <h5>ACTIVE SERVER</h5>
+          <div class="side-box">
+            <p><i>Name:</i> The Gilgamesh Zone</p>
+            <p><i>Location:</i> Bedford Stuyvesant, USA</p>
+          </div>
+        </div>
+        <div class="row">
+          <h5>STEWARD</h5>
+          <div class="side-box">
+            <p>
+              Traffic to the Solar Protocol website is sent to whichever server
+              in our network has the most sunshine at the time. Presently you
+              are on a server called The Gilgamesh Zone that is located in Bedford Stuyvesant,
+              New York City.
+            </p>
+            <br />
+            <p>About your server steward:</p>
+            <p>The Gilgamesh Zone is a server stewarded by artist and educator Tega Brain. She is interested in how technology can help us to think differently about our ecology and place in nature. More on this <a href='http://tegabrain.com/'>here.</a></p>
+          </div>
+        </div>
+        <div class="row">
+          <h5>PLACE</h5>
+          <div class="side-box">
+            <ul class="serverdata-left">
+              <li class="server">City:</li>
+              <li class="server">Country:</li>
+              <li class="server">Local time:</li>
+              <li class="server">Weather:</li>
+              <li class="server">Temp:</li>
+              <li class="server">Feels like:</li>
+              <li class="server">Sunrise:</li>
+              <li class="server">Sunset:</li>
+            </ul>
+            <ul class="serverdata-right">
+              <li class="server">New York City</li>
+              <li class="server">USA</li>
+              <li class="server">03:31 PM</li>
+              <li class="server">unavailable</li>
+              <li class="server">unavailable &#176; C</li>
+              <li class="server">unavailable &#176; C</li>
+              <li class="server">unavailable</li>
+              <li class="server">unavailable</li>
+            </ul>
+            <div class="clr"></div>
+          </div>
+        </div>
+        <div class="row">
+          <h5>ENERGY</h5>
+          <div class="side-box">
+            <ul class="serverdata-left">
+              <li class="server">Server Battery:</li>
+              <li class="server">Battery Voltage:</li>
+              <li class="server">PV Power:</li>
+              <li class="server">PV Voltage:</li>
+              <li class="server">PV Current:</li>
+              <li class="server">Load Power:</li>
+              <li class="server">Load Voltage:</li>
+              <li class="server">Load Current:</li>
+            </ul>
+            <ul class="serverdata-right">
+              <li class="server">
+                <div class="meter">
+                  <span style="width: 40.0%"
+                    >40.0 %</span
+                  >
+                </div>
+              </li>
+              <li class="server">12.29 volts</li>
+              <li class="server">0.0 watts</li>
+              <li class="server">0.2 volts</li>
+              <li class="server">0.0 amps</li>
+              <li class="server">2.82 watts</li>
+              <li class="server">12.29 volts</li>
+              <li class="server">0.23 amps</li>
+            </ul>
+            <div class="clr"></div>
+          </div>
+        </div>
+      </header>
+      <main>
+  <div class="onecol-text">
+    <h3>System Documentation</h3>
+    <h4>Hardware: What is a solar server?</h4>
+    <p>
+      Each solar server is composed of two main components: a 50W 
+      photovoltaic panel (PV) for harnessing the sun and a weatherized enclosure 
+      containing all the server equipment. The hardware inside the enclosure includes 
+      an MPPT charge controller that translates the power of the sun into electrical charge for the 12V battery which, when successfully charged, wakes up and brings online the RaspberryPi single-board computer hosting the local web content. The hardware also includes in-line fuses and in-line circuit breakers to protect each component of the circuit, and the NEMA-rated enclosure is retrofitted with rugged vents and glands to withstand a wide range of 
+      temperatures and different kinds of environments. 
+    </p>
+    <h4>Software</h4>
+    <p>
+      The networking and network API is built in PHP. Each RaspberryPi generates 
+      this static site using Jinja templating in Python, and serves it using an Apache server. 
+      No Javascript is used on the frontend. All visualizations are generated server-side 
+      using python libraries such as MatPlotLib. Where possible, the computation required 
+      to generate visual components of this site is done server side rather than in the 
+      browser. This is because we know that these computational cycles are powered by solar 
+      rather. This design approach minimizes the energy consumption for the user who is likely to be using fossil energy.  
+    </p>
+    <p>
+      <ul>
+      <li>Code is still in development. This work is open-source and <a href="https://github.com/alexnathanson/solar-protocol">shared on Github.</a></li>
+      <li>Stewards: <a href="/admin/">Login to an admin panel </a> to view your server data.</li>
+      </ul>
+    </p>
+  </div>
+</main>
+    </div>
+  </body>
+</html>

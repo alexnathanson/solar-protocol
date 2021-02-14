@@ -1,86 +1,93 @@
-{% extends "base-template.html" %}
+{% if batteryPercentage >= 50 %}
+  {% extends "base-template.html" %}
+{% else %}
+  {% extends "base-template-small.html" %}
+{% endif %}
+
 {% block content %}
-<div class="onecol-text">
-  <h4>Call for Server Stewards</h4>
-  <p>
-    Are you interested in stewarding a server as part of Solar Protocol?
-  </p>
+  <div class="onecol-text">
+    <h3>Call for Server Stewards</h3>
+    <p>Are you interested in stewarding a server as part of Solar Protocol?</p>
     <p>
-    A server steward is someone who can host and care for a solar server
-    and who is interested in being a guest collaborator on our project.*
-  </p>
+      A server steward is someone who can host and care for a solar server and who
+      is interested in being a guest collaborator on our project.*
+    </p>
 
-  <p>
-    We're currently looking for people or organizations in different
-    locations around the world who would like to steward one of our servers for at
-    least a year and who are also interested in contributing their
-    domain expertise to help us explore this type of network together. We are
-    aiming to establish a server on every continent in the world (except
-    perhaps for Antarctica).
-  </p>
+    <p>
+      We're currently looking for people or organizations in different locations
+      around the world who would like to steward one of our servers for at least a
+      year and who are also interested in contributing their domain expertise to
+      help us explore this type of network together. We are aiming to establish a
+      server on every continent in the world (except perhaps for Antarctica).
+    </p>
 
-  <p>
-    Ideally, a server steward would have a basic understanding of
-    programming (specifically with Raspberry Pi/ Linux) and IT
-    infrastructure to assist us with troubleshooting the installation.
-    However, we are also able to bring on a few collaborators with less
-    experience and who can offer different perspectives on the project.
-    At this point there is opportunity for both institutional
-    collaborators like arts venues and universities that might be able
-    fund their own participation as well as individuals or collectives
-    without these resources. If you fall into the latter group, we have
-    a budget to cover expenses for DIY/independent collaborators. Server
-    stewards should demonstrate a willingness to build community and
-    share materials and resources through teaching and learning.
-  </p>
+    <p>
+      Ideally, a server steward would have a basic understanding of programming
+      (specifically with Raspberry Pi/ Linux) and IT infrastructure to assist us
+      with troubleshooting the installation. However, we are also able to bring on
+      a few collaborators with less experience and who can offer different
+      perspectives on the project. At this point there is opportunity for both
+      institutional collaborators like arts venues and universities that might be
+      able fund their own participation as well as individuals or collectives
+      without these resources. If you fall into the latter group, we have a budget
+      to cover expenses for DIY/independent collaborators. Server stewards should
+      demonstrate a willingness to build community and share materials and
+      resources through teaching and learning.
+    </p>
 
-  <p>
-    If you have a sunny rooftop and are interested in experimenting with
-    us, please read the questions and answers below and fill out this
-    brief <a href="https://airtable.com/shrwTVfy9TAvg5oHk">expression of interest form</a>.
-  </p>
-  <p><i>
-  *Thanks to Taeyoon Choi and collaborators on the <a href="http://distributedweb.care/">Distributed Web of Care</a> project for their work on stewardship, care and the internet. 
-</i>
-</p>
-  <h4>FAQ</h4>
-  <h5>
-    What are the technical and physical requirements for a hosting a server ?
-  </h5>
+    <p>
+      If you have a sunny rooftop and are interested in experimenting with us,
+      please read the questions and answers below and fill out this brief
+      <a href="https://airtable.com/shrwTVfy9TAvg5oHk"
+        >expression of interest form</a
+      >.
+    </p>
+    <p>
+      <i>
+        *Thanks to Taeyoon Choi and collaborators on the
+        <a href="http://distributedweb.care/">Distributed Web of Care</a> project
+        for their work on stewardship, care and the internet.
+      </i>
+    </p>
+    <h3>FAQ</h3>
+    <h5>
+      What are the technical and physical requirements for a hosting a server ?
+    </h5>
 
-  <ul>
-    <li>
-      You need a safe and accessible outdoor area that is exposed to direct
-      sunlight for at least 4 hours per day (this means a spot that is
-      free from obstructions/shadows and ideally facing the equator)
-    </li>
-    <li>
-      You need to be able to secure the solar panel to a wall, pole or
-      rooftop so it doesn't blow away or get stolen
-    </li>
-    <li>
-      The server needs Internet access either via ethernet cable or wifi
-      (minimum network speed: 25mb/s up & 25mb/s down)
-    </li>
-    <li>
-      You need to be able to set up port forwarding for both http (port
-      80) and ssh (port 20) with your Internet Service Provider to serve
-      the solar protocol network publically
-    </li>
-  </ul>
-  <h5>What is the timing of this project?</h5>
+    <ul>
+      <li>
+        You need a safe and accessible outdoor area that is exposed to direct
+        sunlight for at least 4 hours per day (this means a spot that is free from
+        obstructions/shadows and ideally facing the equator)
+      </li>
+      <li>
+        You need to be able to secure the solar panel to a wall, pole or rooftop
+        so it doesn't blow away or get stolen
+      </li>
+      <li>
+        The server needs Internet access either via ethernet cable or wifi
+        (minimum network speed: 25mb/s up & 25mb/s down)
+      </li>
+      <li>
+        You need to be able to set up port forwarding for both http (port 80) and
+        ssh (port 20) with your Internet Service Provider to serve the solar
+        protocol network publically
+      </li>
+    </ul>
+    <h5>What is the timing of this project?</h5>
 
-  <p>
-    We are looking to set up servers with stewards in the first 3 months
-    of 2021. We ask you to steward and care for your server for a
-    minimum of 12 months.
-  </p>
-  <h5>Do I need to speak English?</h5>
+    <p>
+      We are looking to set up servers with stewards in the first 3 months of
+      2021. We ask you to steward and care for your server for a minimum of 12
+      months.
+    </p>
+    <h5>Do I need to speak English?</h5>
 
-  <p>
-    Unfortunately our team only speaks English and Italian. We’d be
-    happy to try to find a translator and we would also be interested in
-    translating the project into the language spoken by server stewards.
-  </p>
-</div>
+    <p>
+      Unfortunately our team only speaks English and Italian. We’d be happy to try
+      to find a translator and we would also be interested in translating the
+      project into the language spoken by server stewards.
+    </p>
+  </div>
 {% endblock %}
+

@@ -1,31 +1,36 @@
-{% extends "base-template.html" %}
-{% block content %}
-<div class="onecol-text">
-  <h4>Solar Web Directory</h4>
-  <p>
-    We have taken much inspiration from other solar powered server
-    projects such as the work of
-    <a href="https://solar.lowtechmagazine.com/">Low Tech Magazine</a>.
-    We hope to see many more servers hosted by renewables in the future,
-    whether via hosting at wind or sun powered data centers or by people
-    self hosting their sites. This is an in progress directory of such
-    websites.
-  </p>
+{% if batteryPercentage >= 50 %}
+  {% extends "base-template.html" %}
+{% else %}
+  {% extends "base-template-small.html" %}
+{% endif %}
 
-  <p>Enjoy the sun. Surf the solar powered web.</p>
-  <ul>
-    <li><a href="solar-web.html">Site 1</a> by x.</li>
-    <li><a href="solar-web.html">Site 1</a> by x.</li>
-    <li><a href="solar-web.html">Site 1</a> by x.</li>
-    <li><a href="solar-web.html">Site 1</a> by x.</li>
-    <li><a href="solar-web.html">Site 1</a> by x.</li>
-    <li><a href="solar-web.html">Site 1</a> by x.</li>
-  </ul>
-  <p>
-    Submit a site to be included in the directory by
-    <a href="https://airtable.com/shrBMAbdOEzAh1VDn"
-      >filling this form.</a
-    >
-  </p>
-</div>
+{% block content %}
+  <div class="onecol-text">
+    <h4>Solar Web Directory</h4>
+    <p>
+      We have taken much inspiration from other solar powered server
+      projects such as the work of
+      <a href="https://solar.lowtechmagazine.com/">Low Tech Magazine</a>.
+      We hope to see many more servers hosted by renewables in the future,
+      whether via hosting at wind or sun powered data centers or by people
+      self hosting their sites. This is an in progress directory of such
+      websites.
+    </p>
+
+    <p>Enjoy the sun. Surf the solar powered web.</p>
+    <ul>
+      <li><a href="solar-web.html">Site 1</a> by x.</li>
+      <li><a href="solar-web.html">Site 1</a> by x.</li>
+      <li><a href="solar-web.html">Site 1</a> by x.</li>
+      <li><a href="solar-web.html">Site 1</a> by x.</li>
+      <li><a href="solar-web.html">Site 1</a> by x.</li>
+      <li><a href="solar-web.html">Site 1</a> by x.</li>
+    </ul>
+    <p>
+      Submit a site to be included in the directory by
+      <a href="https://airtable.com/shrBMAbdOEzAh1VDn"
+        >filling this form.</a
+      >
+    </p>
+  </div>
 {% endblock %}

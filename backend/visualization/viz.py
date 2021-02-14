@@ -181,7 +181,12 @@ def sortPOE():
 def tzOffset(checkTZ):
     myOffset = datetime.datetime.now(pytz.timezone(myTimeZone)).strftime('%z')
     theirOffset = datetime.datetime.now(pytz.timezone(checkTZ)).strftime('%z')
-    return abs((int(myOffset)/100) - (int(theirOffset)/100))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
+    offsetDir = 0
+    if myOffset > theirOffset:
+        offsetDir = 1
+    else:
+        offsetDir = -1 
+    return offsetDir*(abs((int(myOffset)/100) - (int(theirOffset)/100)))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
 
 dstIP = getDeviceInfo('ip')
 log = getDeviceInfo('log')

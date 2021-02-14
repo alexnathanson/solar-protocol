@@ -265,7 +265,6 @@ if dfPOE.shape[1] > 0:
 ax.plot((0,0), (0,10), color="white", linewidth=0.3, zorder=10)
 os.chdir(owd)
 
-
 plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png') #save plot
 
 background = Image.open("/home/pi/solar-protocol/backend/visualization/face-6-server-days.png")

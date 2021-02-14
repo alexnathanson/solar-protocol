@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="style6.css" />
     <title>Solar Protocol</title>
   </head>
+  <style>
+    a:hover { color: {{bgColor}} };
+  </style>
   <body>
     <div class="container">
       <nav>
@@ -15,14 +18,16 @@
           <li><a href="call.html">Call</a></li>
         </ul>
       </nav>
-      <header style="background-image: linear-gradient(
+      <header
+        style="background-image: linear-gradient(
         to top,
         {{bgColor}},
         {{bgColor}},
         rgb(100, 100, 100),
         black,
         black
-      );">
+      );"
+      >
         <div class="sub-heading">
           <h1><a href="index.html">Solar Protocol</a></h1>
           <p>A naturally intelligent network.</p>
@@ -36,9 +41,11 @@
             <li class="server">Site Render Status:</li>
           </ul>
           <ul class="serverdata-right">
-            <li class="server"><div class="meter">
-              <span style="width: {{batteryPercentage}}%">90.0 %</span>
-            </div></li>
+            <li class="server">
+              <div class="meter">
+                <span style="width: {{batteryPercentage}}%">90.0 %</span>
+              </div>
+            </li>
             <li class="server">High res mode</li>
           </ul>
           <div class="clr"></div>
@@ -49,8 +56,7 @@
             <p><i>Name:</i> {{name}}</p>
             <p><i>Location:</i> {{location}}, {{country}}</p>
           </div>
- 
- 
+
           <div class="fill">
             <h4></h4>
 

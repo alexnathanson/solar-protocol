@@ -93,7 +93,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
     #shift by TZ
     ccDataframe['timedelta'] = pd.to_timedelta(tzOffset(timeZ),'h')
     ccDataframe['datetime'] = ccDataframe['datetime'] + ccDataframe['timedelta'] 
-    ccDataframe = ccDataframe.drop(ccDataframe['timedelta'])
+    ccDataframe = ccDataframe.drop(columns=['timedelta'])
     
     ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
@@ -134,7 +134,7 @@ def sortPOE():
          #shift by TZ
         tempDF['timedelta'] = pd.to_timedelta(tzOffset(timeZones[l]),'h')
         tempDF['datetime'] = tempDF['datetime'] + tempDF['timedelta'] 
-        tempDF = tempDF.drop(tempDF['timedelta'])
+        tempDF = tempDF.drop(columns=['timedelta'])
 
         #tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=tzOffset(timeZones[l])) #shift by TZ
         tempDF = tempDF.drop(columns=[0])

@@ -89,7 +89,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
-    ccDataframe['datetime'] = ccDataframe['datetime'] + relativedelta(hours=timeZoneOffset(timeZ)) #shift by TZ
+    ccDataframe['datetime'] = ccDataframe['datetime'] + relativedelta(hours=tzOffset(timeZ)) #shift by TZ
     ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
@@ -125,7 +125,7 @@ def sortPOE():
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
         tempDF['datetime'] = tempDF[0]
-        tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=timeZoneOffset(timeZones[l])) #shift by TZ
+        tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=tzOffset(timeZones[l])) #shift by TZ
         tempDF = tempDF.drop(columns=[0])
         tempDF['device'] = l
         dfPOE = dfPOE.append(tempDF, ignore_index=True)

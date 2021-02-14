@@ -101,7 +101,7 @@ def draw_sun(server_no, start, stop, alpha):
 
 def draw_server_arc(server_no, start, stop, c):
     for i in range(start, stop, 1):
-        ax.bar((i*np.pi/180), (1/60), width=2 * np.pi / (hours*60), bottom=server_no+0.45, color=c, edgecolor = c)
+        ax.bar(i*(np.pi/180), 0.33, width= np.pi/180, bottom=server_no+0.45, color=c, edgecolor = c)
 
 def sortPOE():
     global dfPOE
@@ -193,7 +193,7 @@ fig.set_facecolor('none')
 # AXIS PROPERTIES
 ax.set_theta_direction(-1)
 
-ax.set_theta_offset(np.pi/2.0)
+ax.set_theta_offset(np.pi/2.0) #is this doing anything?
 
 rotation=360/hours/2
 
@@ -239,9 +239,9 @@ if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
         cP = poeColors[random.randint(0,len(poeColors)-1)]
         if l == 0:
-            draw_server_arc(dfPOE['device'].iloc[l]+1, 0, dfPOE['angle'].iloc[l], cP)
+            draw_server_arc(dfPOE['device'].iloc[l]+1, dfPOE['angle'].iloc[l],0, cP)
         else:
-            draw_server_arc(dfPOE['device'].iloc[l]+1, dfPOE['angle'].iloc[l-1], dfPOE['angle'].iloc[l], cP)
+            draw_server_arc(dfPOE['device'].iloc[l]+1, dfPOE['angle'].iloc[l], dfPOE['angle'].iloc[l-1], cP)
 
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)

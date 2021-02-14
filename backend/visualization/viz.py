@@ -77,7 +77,7 @@ def getTimeZone(dst):
         print("An Unknown Error occurred" + repr(err))
 
 #drawing the sunshine data (yellow)
-def draw_ring(ccDict, ring_number, energy_parameter):
+def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
 
     ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
 
@@ -89,6 +89,7 @@ def draw_ring(ccDict, ring_number, energy_parameter):
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
+    ccDataframe['datetime'] = ccDataframe['datetime'] + relativedelta(hours=timeZoneOffset(timeZ)) #shift by TZ
     ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
@@ -124,6 +125,7 @@ def sortPOE():
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
         tempDF['datetime'] = tempDF[0]
+        tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=timeZoneOffset(timeZones[l])) #shift by TZ
         tempDF = tempDF.drop(columns=[0])
         tempDF['device'] = l
         dfPOE = dfPOE.append(tempDF, ignore_index=True)
@@ -193,11 +195,11 @@ for i in dstIP:
         timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
 print(timeZones)
-timeZoneOffset = []
-for t in timeZones:
-    timeZoneOffset.append(tzOffset(t))
+# timeZoneOffset = []
+# for t in timeZones:
+#     timeZoneOffset.append(tzOffset(t))
 
-print(timeZoneOffset)
+# print(timeZoneOffset)
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
@@ -264,7 +266,7 @@ plt.ylim(0,10) #puts space in the center (start of y axis)
 #Draw Sun Data for each server
 #draw_ring(data, ringNo, parameter);
 for rPV in range(len(ccData)):
-    draw_ring(ccData[rPV],rPV+2, energyParam)
+    draw_ring(ccData[rPV],rPV+2, energyParam,timeZones[rPV])
 # draw_ring(csv_paths2, 4, "PV current")
 # draw_ring(csv_paths3, 5, "PV current")
 # draw_ring(csv_paths2, 6, "PV current")

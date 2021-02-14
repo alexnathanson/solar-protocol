@@ -193,6 +193,12 @@ for i in dstIP:
         timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
 print(timeZones)
+timeZoneOffset = []
+for t in timeZones:
+    timeZoneOffset.append(tzOffset(t))
+
+print(timeZoneOffset)
+
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
 # STYLE COLORS

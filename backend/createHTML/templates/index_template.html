@@ -4,8 +4,8 @@ content %}
   <div class="full-width-image">
     <img src="{{leadImage}}" />
   </div>
-
 </div>
+
 <div class="onecol-text">
   <div class="caption">
     Three days of network sunlight data are visualized for each server. The colored bars represent the hours that each server as been the active point of entry to the network. 
@@ -59,6 +59,7 @@ content %}
     prevalent in much digital culture.
   </p>
 </div>
+
 <img class="full-col" src="images/earth-sun.png" />
 
 <div class="onecol-text">
@@ -659,8 +660,11 @@ content %}
       <nav>
         <ul class="no-bullets">
           <li><a href="index.html">Home</a> •</li>
-          <li><a href="#call">Call</a> •</li>
+          <li><a href="#network">Network</a> •</li>
           <li><a href="#docs">System</a></li>
+          <li><a href="#call">Call</a> •</li>
+
+
 
         </ul>
       </nav>
@@ -861,7 +865,48 @@ content %}
               >Eyebeam Rapid Response</a
             >for a Better Digital Future program.
           </p>
-
+          <a class="anchor" id="network"></a>
+          <h4>Network</h4>
+          <p>
+            We are currently setting
+            up servers in different locations around the world and are 
+            seeking more stewards in different time zones and continents. If you
+            are interested in hosting a server, please see our
+            <a href="call.html">call for stewards</a>.
+          </p>
+          <h4>Servers in the Network</h4>
+          <div class=network-overview>
+            
+          </div>
+          
+        </div>
+        <a class="anchor" id="docs"></a>
+          <h2>System Documentation</h2>
+          <h3>Hardware: What is a solar server?</h3>
+          <p>
+            Each solar server is composed of two main components: a 50W 
+            photovoltaic panel (PV) for harnessing the sun and a weatherized enclosure 
+            containing all the server equipment. The hardware inside the enclosure includes 
+            an MPPT charge controller that translates the power of the sun into electrical charge for the 12V battery which, when successfully charged, wakes up and brings online the RaspberryPi single-board computer hosting the local web content. The hardware also includes in-line fuses and in-line circuit breakers to protect each component of the circuit, and the NEMA-rated enclosure is retrofitted with rugged vents and glands to withstand a wide range of 
+            temperatures and different kinds of environments. 
+          </p>
+          <h3>Software</h3>
+          <p>
+            The networking and network API is built in PHP. Each RaspberryPi generates 
+            this static site using Jinja templating in Python, and serves it using an Apache server. 
+            No Javascript is used on the frontend. All visualizations are generated server-side 
+            using python libraries such as MatPlotLib. Where possible, the computation required 
+            to generate visual components of this site is done server side rather than in the 
+            browser. This is because we know that these computational cycles are powered by solar 
+            rather. This design approach minimizes the energy consumption for the user who is likely to be using fossil energy.  
+          </p>
+          <p>
+            <ul>
+            <li>Code is still in development. This work is open-source and <a href="https://github.com/alexnathanson/solar-protocol">shared on Github.</a></li>
+            <li>Stewards: <a href="/admin/">Login to an admin panel </a> to view your server data.</li>
+            
+            </ul>
+          </p>
          
 
           <a class="anchor" id="call"></a>
@@ -955,35 +1000,7 @@ content %}
             translating the project into the language spoken by server stewards.
           </p>
 
-          <a class="anchor" id="docs"></a>
-          <h2>System Documentation</h2>
-          <h3>Hardware: What is a solar server?</h3>
-          <p>
-            Each solar server is composed of two main components: a 50W 
-            photovoltaic panel (PV) for harnessing the sun and a weatherized enclosure 
-            containing all the server equipment. The hardware inside the enclosure includes 
-            an MPPT charge controller that translates the power of the sun into electrical charge for the 12V battery which, when successfully charged, wakes up and brings online the RaspberryPi single-board computer hosting the local web content. The hardware also includes in-line fuses and in-line circuit breakers to protect each component of the circuit, and the NEMA-rated enclosure is retrofitted with rugged vents and glands to withstand a wide range of 
-            temperatures and different kinds of environments. 
-          </p>
-          <h3>Software</h3>
-          <p>
-            The networking and network API is built in PHP. Each RaspberryPi generates 
-            this static site using Jinja templating in Python, and serves it using an Apache server. 
-            No Javascript is used on the frontend. All visualizations are generated server-side 
-            using python libraries such as MatPlotLib. Where possible, the computation required 
-            to generate visual components of this site is done server side rather than in the 
-            browser. This is because we know that these computational cycles are powered by solar 
-            rather. This design approach minimizes the energy consumption for the user who is likely to be using fossil energy.  
-          </p>
-          <p>
-            <ul>
-            <li>Code is still in development. This work is open-source and <a href="https://github.com/alexnathanson/solar-protocol">shared on Github.</a></li>
-            <li>Stewards: <a href="/admin/">Login to an admin panel </a> to view your server data.</li>
-            
-          </ul>
-        </p>
 
-        
           <!-- Column 1 end -->
         </div>
       </main>

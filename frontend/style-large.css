@@ -51,22 +51,10 @@ body {
 }
 
 nav {
-  /* background-image: linear-gradient(to right, var(--bgcolor), var(--bgcolor), var(--bgcolor), rgb(167, 166, 166), rgb(46,46,47));
-  background-color: var(--bgcolor); */
-  /* padding: var(--vertical-padding) var(--horizontal-padding);
-  width: 100%; 
-  position: sticky;
-  top: 0;
-  color: var(--textcolor);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* border-bottom: 2px solid rgb(27, 27, 27); */
   width: var(--nav-width);
   top: 0;
   color: var(--textcolor);
-  padding: var(--vertical-padding) var(--horizontal-padding)
-    var(--vertical-padding) 0px;
+  padding: 10px 0px;
   display: flex;
   align-content: flex-start;
   justify-content: space-between;
@@ -521,8 +509,8 @@ section {
 
   nav {
     width: calc(var(--nav-width) * 1.5);
-    padding: var(--vertical-padding) calc(var(--horizontal-padding) * 2)
-      var(--vertical-padding) var(--horizontal-padding);
+    /* padding: var(--vertical-padding) calc(var(--horizontal-padding) * 2)
+      var(--vertical-padding) var(--horizontal-padding); */
   }
 
   .container {

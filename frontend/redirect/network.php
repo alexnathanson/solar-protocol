@@ -151,11 +151,11 @@ function listNetworkSites(){
 				);*/
 
 	//images
-	$networkTemplate = str_replace(
+	/*$networkTemplate = str_replace(
 				   'src="', 
 				   'src="/',
 				    $networkTemplate
-				);
+				);*/
 
 	echo $networkTemplate;
 

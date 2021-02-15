@@ -8,7 +8,5 @@
   "long": "40.65 N",
   "apiKey" : "replace-with-API-key",
   "bgColor" : "Olive",
-  "serverColor" : "LavenderBlush",
-  "font" : "Monaco",
-  "borderStyle" : "dotted"
+  "font" : "Monaco"
 }

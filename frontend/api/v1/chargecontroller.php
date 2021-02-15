@@ -149,6 +149,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       //}
     } else if ($_GET["systemInfo"] == "ping"){
       echo "ping";
+    } else if ($_GET["systemInfo"] == "color"){
+      //read local bgColor
+
+      echo "ping";
     }
   }
 }

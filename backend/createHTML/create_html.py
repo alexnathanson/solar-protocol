@@ -97,7 +97,7 @@ def render_pages(_local_data, _data, _weather):
         time = datetime.datetime.now()
         time = time.strftime("%I:%M %p")
         try:
-            tz_url = "http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz"
+            tz_url = "/api/v1/chargecontroller.php?systemInfo=tz"
             z = requests.get(tz_url) 
             zone = z.text
             zone = zone.replace('/', ' ')

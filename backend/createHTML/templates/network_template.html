@@ -1,13 +1,8 @@
-{% if batteryPercentage >= 50 %}
-  {% extends "base-template.html" %}
-{% else %}
-  {% extends "base-template-small.html" %}
-{% endif %}
-
+{% extends "base-template.html" %} 
 {% block content %}
 {% if batteryPercentage >= 50 %}
 
-    <img class="full-col" src="images/network.gif" />
+    <img class="full-col" src="/images/network.gif" />
     
 
 {% else %}
@@ -18,7 +13,7 @@
       We are currently setting up servers in different locations around the world
       and are seeking more stewards in different time zones and continents. If you
       are interested in hosting a server, please see our
-      <a href="call.html">call for stewards</a>.
+      <a href="/call.html">call for stewards</a>.
     </p>
     <h4>Servers in the Network</h4>
     <div class="network-overview">

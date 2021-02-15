@@ -78,7 +78,7 @@ def render_pages(_local_data, _data, _weather):
         ("index_template.html", "index.html"),
         ("network_template.html", "network.html"),
         ("call_template.html", "call.html"),
-        ("system_template.html", "system.html"),
+        ("documentation_template.html", "documentation.html"),
         ("solar-web_template.html", "solar-web.html"),
         ("manifesto_template.html", "manifesto.html"),
     ]
@@ -110,6 +110,10 @@ def render_pages(_local_data, _data, _weather):
         # print("UTC TIME", datetime.datetime.utcnow())
         #would be nice to swap this out if the via script fails
         leadImage="images/clock.png"
+        if((_data["battery percentage"]*100)>50):
+            mode="High res mode"
+        else:
+            mode="Low res mode"
         
 
         # template = Template(template_file)
@@ -143,6 +147,7 @@ def render_pages(_local_data, _data, _weather):
             sunset=_weather["sunset"],
             zone=zone,
             leadImage=leadImage,
+            mode=mode
         )
 
         # print(rendered_html)

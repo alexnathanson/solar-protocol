@@ -125,11 +125,9 @@ function listNetworkSites(){
 
 	$networkTemplate = file_get_contents("/home/pi/solar-protocol/frontend/network.html");
 
-	echo $networkTemplate;
-
 	$networkTemplate = str_replace(
-				   "<div class=network-overview>", 
-				   "<div class=network-overview>" . $newString,
+				   '<div class="network-overview">', 
+				   '<div class="network-overview">' . $newString,
 				    $networkTemplate
 				);
 
@@ -145,6 +143,7 @@ function listNetworkSites(){
 				    $networkTemplate
 				);
 	    
+	echo $networkTemplate;
 
 }
 

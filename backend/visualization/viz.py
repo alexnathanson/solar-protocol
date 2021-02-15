@@ -208,8 +208,7 @@ for i in dstIP:
         timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
     tempC = getSysInfo(i,'color')
-    print(tempC)
-    print(type(tempC))
+    
     if type(tempC) == type(None) or tempC == '':
         tempC = 'white'
     sysC.append(tempC) 

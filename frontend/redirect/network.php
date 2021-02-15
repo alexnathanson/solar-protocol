@@ -101,23 +101,32 @@ function listNetworkSites(){
 		//add a try section to check that the site is online
 
 		//add new link
-		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'>";
+		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;background-color=".@file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=color")."'>";
+
 		$newString .= "<h3>" . $value['name'] . "</h3>";
 
 		$newString .= "<p>Status:";
+		$status = true;
 		if(@checkStatus($value['ip'])){
 			$newString .= " online</p>";
 		} else {
 			$newString .= " offline</p>";
+			$status = false;
 		}
 
 		$newString .= "Last check-in: " . date('r', $value['time stamp']);
 		
 		if(isset($value['description'])){
-			$newString .= "<p>About this site: " .$value['description'] . "</p>"; 
+			$newString .= "<p>About this site: " . @file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=description") . "</p>"; 
 		}
 
-		$newString .= "<p><a href='http://solarprotocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a></p>";
+		if(status){
+			$newString .= "<p><a href='http://solarprotocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a></p>";
+
+		} else {
+			$newString .= "<p>http://solarprotocol.net/network/".formatURL($value['name'])."</p>";
+		}
+
 		$newString .= "</div>";
 
 		//var_dump($value);

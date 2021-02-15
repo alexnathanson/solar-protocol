@@ -101,7 +101,8 @@ function listNetworkSites(){
 		//add a try section to check that the site is online
 
 		//add new link
-		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;background-color=".file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=color")."'>";
+		$sC = file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=color")
+		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;background-color=".$sC."'>";
 
 		$newString .= "<h3>" . $value['name'] . "</h3>";
 

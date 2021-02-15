@@ -151,8 +151,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       echo "ping";
     } else if ($_GET["systemInfo"] == "color"){
       //read local bgColor
-
-      echo "ping";
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      // Convert to array 
+      echo json_decode($fileContents, true)[bgColor];
     }
   }
 }

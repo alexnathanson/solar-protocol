@@ -259,7 +259,7 @@ x_labels[0]="Now"
 y_labels = getDeviceInfo('name')#need to filter out failed get requests!
 
 plt.xticks(ticks)
-plt.yticks(np.arange(3,10))
+plt.yticks(np.arange(3,10))#Y LABELS!
 
 
 for label in ax.get_xticklabels()[::1]: #only show every second label

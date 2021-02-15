@@ -34,6 +34,8 @@ Download repo into /home/pi
 * Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)  
 * Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)
 * Install jinja `sudo pip3 install jinja2`    
+* Install matplotlib `sudo apt install python3-matplotlib`
+* `sudo apt-get install libopenjp2-7`
 
 #### Troubleshooting numpy
 uninstall numpy (these uninstall commands may need to be run multiple times to get rid of multiple versions):
@@ -102,7 +104,8 @@ Install PHP graphics library for dithering. Note that the version will need to m
 * open the root crontab `sudo crontab -e` and add these lines to the bottom:  
 	* run clientPostIP every 15 minutes `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/clientPostIP.py > /home/pi/solar-protocol/backend/api/v1/clientPostIP.log 2>&1`  
 	* run solarProtocol every 5 minutes `*/5 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/solarProtocol.py > /home/pi/solar-protocol/backend/api/v1/solarProtocol.log 2>&1`  
-	* run createHTML every 15 minutes to generate new index.html with current data. `*/15 * * * * cd /home/pi/solar-protocol/backend/createHTML && $(which python3) create_html.py`  
+	* run createHTML every 15 minutes to generate new index.html with current data. `*/15 * * * * cd /home/pi/solar-protocol/backend/createHTML && $(which python3) create_html.py`
+	* run data viz every 15 minutes to generate a new clock.png image with current data `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/visualization/viz.py > /home/pi/solar-protocol/visualization/viz.log 2>&1`
 	* reboot daily `@midnight sudo reboot`	  
 * open the crontab for the user `crontab -e` and add this line to the bottom:   
 	* on reboot, run the update script to check from updates from github. `@reboot sh /home/pi/solar-protocol/utilities/update.sh`  

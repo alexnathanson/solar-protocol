@@ -91,7 +91,8 @@ if($listNetwork == true){
 function listNetworkSites(){
 	global $deviceInfo;
 
-	echo "<!DOCTYPE html><html><head><title>Solar Server</title></head><body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>";
+	$newString = "";
+	/*$newString .= "<!DOCTYPE html><html><head><title>Solar Server</title></head><body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>";*/
 
 	foreach ($deviceInfo as $key => $value) {
 
@@ -100,27 +101,64 @@ function listNetworkSites(){
 		//add a try section to check that the site is online
 
 		//add new link
-		echo "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'>";
-		echo "<h3>" . $value['name'] . "</h3>";
+		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'>";
+		$newString .= "<h3>" . $value['name'] . "</h3>";
 
-		echo "<p>Status:";
+		$newString .= "<p>Status:";
 		if(@checkStatus($value['ip'])){
-			echo " online</p>";
+			$newString .= " online</p>";
 		} else {
-			echo " offline</p>";
+			$newString .= " offline</p>";
 		}
 
-		echo "Last check-in: " . date('r', $value['time stamp']);
+		$newString .= "Last check-in: " . date('r', $value['time stamp']);
 		
 		if(isset($value['description'])){
-			echo "<p>About this site: " .$value['description'] . "</p>"; 
+			$newString .= "<p>About this site: " .$value['description'] . "</p>"; 
 		}
 
-		echo "<p><a href='http://solarprotocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a></p>";
-		echo "</div>";
+		$newString .= "<p><a href='http://solarprotocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a></p>";
+		$newString .= "</div>";
 
 		//var_dump($value);
 	}
+
+	$networkTemplate = file_get_contents("/home/pi/solar-protocol/frontend/network.html");
+
+	$networkTemplate = str_replace(
+				   '<div class="network-overview">', 
+				   '<div class="network-overview">' . $newString,
+				    $networkTemplate
+				);
+
+	$networkTemplate = str_replace(
+				   'href="style-small.css"', 
+				   'href="/style-small.css"',
+				    $networkTemplate
+				);
+
+	$networkTemplate = str_replace(
+				   'href="style-large.css"', 
+				   'href="/style-large.css"',
+				    $networkTemplate
+				);
+	
+	//map image
+	/*$networkTemplate = str_replace(
+				   'src="images/network.gif"', 
+				   'src="/images/network.gif"',
+				    $networkTemplate
+				);*/
+
+	//images
+	$networkTemplate = str_replace(
+				   'src="', 
+				   'src="/',
+				    $networkTemplate
+				);
+
+	echo $networkTemplate;
+
 }
 
 function checkStatus($checkIP){

@@ -189,6 +189,8 @@ timeZones = []
 myTimeZone = getSysInfo(requests.get('http://whatismyip.akamai.com/').text,'tz')
 print("My TZ: " + myTimeZone)
 
+sysC = []
+
 for i in dstIP:
     #print(i)
     # if i not in activeIPs:
@@ -205,7 +207,17 @@ for i in dstIP:
     else:
         timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
+    tempC = getSysInfo(dstIP[dfPOE['device'].iloc[l]],'color')
+    print(tempC)
+    print(type(tempC))
+    if type(tempC) == type(None) or tempC == "":
+        tempC == 'white'
+
+    sysC.append(tempC) 
+
 print(timeZones)
+
+
 # timeZoneOffset = []
 # for t in timeZones:
 #     timeZoneOffset.append(tzOffset(t))
@@ -278,10 +290,6 @@ plt.ylim(0,10) #puts space in the center (start of y axis)
 #draw_ring(data, ringNo, parameter);
 for rPV in range(len(ccData)):
     draw_ring(ccData[rPV],rPV+2, energyParam,timeZones[rPV])
-# draw_ring(csv_paths2, 4, "PV current")
-# draw_ring(csv_paths3, 5, "PV current")
-# draw_ring(csv_paths2, 6, "PV current")
-# draw_ring(csv_paths1, 7, "PV current")
 
 #Draw Active Server Rings
 sortPOE()
@@ -290,14 +298,11 @@ sortPOE()
 
 if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
-        sysC = getSysInfo(dstIP[dfPOE['device'].iloc[l]],'color')
-        if type(sysC) == type(None):
-            sysC == 'white' 
-            
+
         if l == 0:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l],360, sysC)
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l],360, sysC[dfPOE['device'].iloc[l]])
         else:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l], dfPOE['angle'].iloc[l-1], sysC)
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l], dfPOE['angle'].iloc[l-1], sysC[dfPOE['device'].iloc[l]])
 
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)

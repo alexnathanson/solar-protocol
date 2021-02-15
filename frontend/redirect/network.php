@@ -131,6 +131,12 @@ function listNetworkSites(){
 				    $networkTemplate
 				);
 
+	$networkTemplate = str_replace(
+				   "href='style-small.css'", 
+				   "href='/style-small.css'",
+				    $networkTemplate
+				);
+	    
 	echo $networkTemplate;
 
 }

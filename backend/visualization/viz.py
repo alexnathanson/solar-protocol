@@ -290,7 +290,10 @@ sortPOE()
 
 if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
-        sysC = getSysInfo(dstIP[dfPOE['device'].iloc[l]],'color');
+        sysC = getSysInfo(dstIP[dfPOE['device'].iloc[l]],'color')
+        if type(sysC) == type(None):
+            sysC == 'white' 
+            
         if l == 0:
             draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l],360, sysC)
         else:

@@ -131,7 +131,7 @@ function listNetworkSites(){
 				    $networkTemplate
 				);
 
-	echo $networkTemplate
+	echo $networkTemplate;
 
 }
 

@@ -142,7 +142,21 @@ function listNetworkSites(){
 				   'href="/style-large.css"',
 				    $networkTemplate
 				);
-	    
+	
+	//map image
+	/*$networkTemplate = str_replace(
+				   'src="images/network.gif"', 
+				   'src="/images/network.gif"',
+				    $networkTemplate
+				);*/
+
+	//images
+	$networkTemplate = str_replace(
+				   'src="', 
+				   'src="/',
+				    $networkTemplate
+				);
+
 	echo $networkTemplate;
 
 }

@@ -123,7 +123,9 @@ function listNetworkSites(){
 		//var_dump($value);
 	}
 
-	$networkTemplate = @file_get_contents("/home/pi/solar-protocol/frontend/network.html");
+	$networkTemplate = file_get_contents("/home/pi/solar-protocol/frontend/network.html");
+
+	echo $networkTemplate;
 
 	$networkTemplate = str_replace(
 				   "<div class=network-overview>", 
@@ -132,12 +134,17 @@ function listNetworkSites(){
 				);
 
 	$networkTemplate = str_replace(
-				   "href='style-small.css'", 
-				   "href='/style-small.css'",
+				   'href="style-small.css"', 
+				   'href="/style-small.css"',
+				    $networkTemplate
+				);
+
+	$networkTemplate = str_replace(
+				   'href="style-large.css"', 
+				   'href="/style-large.css"',
 				    $networkTemplate
 				);
 	    
-	echo $networkTemplate;
 
 }
 

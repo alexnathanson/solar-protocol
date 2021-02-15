@@ -129,7 +129,7 @@ function listNetworkSites(){
 		}
 
 		//image
-		$newString .= "<img src='http://". $value['ip'] . "/local/serverProfile.jpg>";
+		$newString .= "<img src='http://". $value['ip'] . "/local/serverProfile.jpg'>";
 
 		$newString .= "</div>";
 

@@ -123,7 +123,7 @@ function listNetworkSites(){
 		//var_dump($value);
 	}
 
-	$networkTemplate = @file_get_contents($localURL);
+	$networkTemplate = @file_get_contents("/home/pi/solar-protocol/frontend/network.html");
 
 	$networkTemplate = str_replace(
 				   "<div class=network-overview>", 

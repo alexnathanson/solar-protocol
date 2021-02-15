@@ -56,8 +56,9 @@ def getPoeLog():
 
 		poeFileLines = poeFile.readlines()
 
-		#read the most recent 50 lines
-		for l in range(100):
+		#read the most recent 216 lines
+		#if it runs solarProtocol.py every 10 minutes it could have up to 432 entries per 72 hours (if it was the POE every time)
+		for l in range(216):
 
 			#print(poeFileLines[l])
 

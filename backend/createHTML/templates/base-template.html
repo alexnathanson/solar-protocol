@@ -3,12 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% if batteryPercentage >= 50 %}
     <link rel="stylesheet" href="style-large.css" />
     <title>Solar Protocol</title>
-  </head>
+
   <style>
     a:hover { color: {{bgColor}} };
   </style>
+
+  {% else %}
+  <link rel="stylesheet" href="style-small.css" />
+  {% endif %}
+</head>
   <body>
     <div class="container">
       <nav>
@@ -17,24 +23,28 @@
           <li><a href="network">Network</a> •</li>
           <li><a href="system.html">System</a> •</li>
           <li><a href="call.html">Call</a></li>
-
         </ul>
       </nav>
+      <!-- {% if batteryPercentage >= 50 %} -->
       <header
-        style="background-image: linear-gradient(
-        to top,
-        {{bgColor}},
-        {{bgColor}},
-        rgb(100, 100, 100),
-        black,
-        black
-      );"
-      >
+      style="background-image: linear-gradient(
+      to top,
+      {{bgColor}},
+      {{bgColor}},
+      rgb(100, 100, 100),
+      black,
+      black
+    );"
+    >
+    <!-- {% else %}
+    <header>
+    {% endif %} -->
+
         <div class="sub-heading">
           <h1><a href="index.html">Solar Protocol</a></h1>
           <p>A naturally intelligent network.</p>
           <p>
-            This website is hosted on a network of solar powered servers.
+            This website is hosted across a network of solar powered servers.
             Internet traffic is directed to wherever there is the most sunshine
             in the network.
           </p>
@@ -42,6 +52,7 @@
             <li class="server">Server Battery:</li>
             <li class="server">Site Render Status:</li>
             <li class="server">Last update:</li>
+            <li class="server">Time zone:</li>
           </ul>
           <ul class="serverdata-right">
             <li class="server">
@@ -51,6 +62,7 @@
             </li>
             <li class="server">High res mode</li>
             <li class="server">{{time}}</li>
+            <li class="server">{{zone}}</li>
           </ul>
           <div class="clr"></div>
         </div>
@@ -70,7 +82,7 @@
           </div>
         </div>
         <div class="row">
-          <h5>STEWARD</h5>
+          <h5>SERVER STEWARD</h5>
           <div class="side-box">
             <p>
               Traffic to the Solar Protocol website is sent to whichever server

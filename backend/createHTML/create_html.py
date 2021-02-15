@@ -96,6 +96,18 @@ def render_pages(_local_data, _data, _weather):
         
         time = datetime.datetime.now()
         time = time.strftime("%I:%M %p")
+        try:
+            tz_url = "http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz"
+            z = requests.get(tz_url) 
+            zone = z.text
+            zone = zone.replace('/', ' ')
+            print("ZONE", zone)
+
+        except Exception as e:
+            zone = "TZ n/a"
+        # print("ZONE", zone)
+
+        # print("UTC TIME", datetime.datetime.utcnow())
         #would be nice to swap this out if the via script fails
         leadImage="images/clock.png"
         
@@ -129,6 +141,7 @@ def render_pages(_local_data, _data, _weather):
             feelsLike=_weather["feels_like"],
             sunrise=_weather["sunrise"],
             sunset=_weather["sunset"],
+            zone=zone,
             leadImage=leadImage,
         )
 
@@ -190,11 +203,11 @@ def main():
     except Exception as e:
         print(e)
         local_weather = {
-            "description": "unavailable",
-            "temp": "unavailable",
-            "feels_like": "unavailable",
-            "sunrise": "unavailable",
-            "sunset": "unavailable"
+            "description": "n/a",
+            "temp": "n/a",
+            "feels_like": "n/a",
+            "sunrise": "n/a",
+            "sunset": "n/a"
         }
     # print(hosting_data)
     # print("Battery: {}".format(data("batteryPercentage"))

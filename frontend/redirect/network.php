@@ -101,7 +101,7 @@ function listNetworkSites(){
 		//add a try section to check that the site is online
 
 		//add new link
-		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;background-color=".@file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=color")."'>";
+		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;background-color=".file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=color")."'>";
 
 		$newString .= "<h3>" . $value['name'] . "</h3>";
 
@@ -117,7 +117,7 @@ function listNetworkSites(){
 		$newString .= "Last check-in: " . date('r', $value['time stamp']);
 		
 		if(isset($value['description'])){
-			$newString .= "<p>About this site: " . @file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=description") . "</p>"; 
+			$newString .= "<p>About this site: " . file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=description") . "</p>"; 
 		}
 
 		if(status){

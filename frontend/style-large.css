@@ -437,7 +437,7 @@ section {
   font-size: calc(var(--text-size) * 0.9);
   font-style: oblique;
 
-  padding-bottom: var(--vertical-padding);
+  padding: var(--vertical-padding) 0px;
 }
 
 @media (max-width: 1070px) {

@@ -22,9 +22,7 @@ sun_color = ['00','26','66','B3']
 owd = os.getcwd()
 
 # TO DO
-# import data using API from each server on the network
-# do we need to deal with time zones? Or can the API just return the last 72 hours of data?
-# write algorithm for turning the list of timestamps for the active server into a form that can use the drawServerarc();
+# store data from the api calls for use if a server is down
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
@@ -100,8 +98,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
     ccDataframe = ccDataframe.drop(columns=['datetime'])
     df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
     df_hours = df_hours.tail(72) # last 72 hours
-    # oldest1 = files1[0]
-    # newest1 = files1[-1]
+   
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
     # #correlate sun data wtih colors 
@@ -291,6 +288,7 @@ for rPV in range(len(ccData)):
 sortPOE()
 
 poeColors = ["white","orange","red","green","blue","black","purple"]
+
 if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
         if l == 0:

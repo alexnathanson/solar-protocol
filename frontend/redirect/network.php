@@ -116,9 +116,8 @@ function listNetworkSites(){
 
 		$newString .= "Last check-in: " . date('r', $value['time stamp']);
 		
-		if(isset($value['description'])){
-			$newString .= "<p>About this site: " . file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=description") . "</p>"; 
-		}
+		
+		$newString .= "<p>About this site: " . file_get_contents('http://'.$value['ip']."/api/v1/chargecontroller.php?systemInfo=description") . "</p>"; 
 
 		if($status == true){
 			$newString .= "<p><a href='http://solarprotocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a></p>";

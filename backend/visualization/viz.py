@@ -45,7 +45,7 @@ def getDeviceInfo(getKey):
 
     return ipList
 
-def getIt(dst,ccValue):
+def getCC(dst,ccValue):
     print("GET from " + dst)
     try:
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
@@ -60,9 +60,9 @@ def getIt(dst,ccValue):
     except requests.exceptions.RequestException as err:
         print("An Unknown Error occurred" + repr(err))
 
-def getTimeZone(dst):
+def getSysInfo(dst,k):
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo=tz",timeout=5)
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo="+k,timeout=5)
         #print(json.loads(x.text))
         return x.text
     except requests.exceptions.HTTPError as errh:
@@ -186,20 +186,20 @@ serverNames = getDeviceInfo('name')
 
 #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
 timeZones = []
-myTimeZone = getTimeZone(requests.get('http://whatismyip.akamai.com/').text)
+myTimeZone = getSysInfo(requests.get('http://whatismyip.akamai.com/').text,'tz')
 print("My TZ: " + myTimeZone)
 
 for i in dstIP:
     #print(i)
     # if i not in activeIPs:
     #     activeIPs.append(i)
-    getResult = getIt(i,energyParam)
+    getResult = getCC(i,energyParam)
     if type(getResult) != type(None):
         ccData.append(getResult)
     else:
         ccData.append({"datetime": energyParam})
 
-    tempTZ = getTimeZone(i)
+    tempTZ = getSysInfo(i, 'tz')
     if type(tempTZ) != type(None):
         timeZones.append(tempTZ)
     else:
@@ -286,14 +286,15 @@ for rPV in range(len(ccData)):
 #Draw Active Server Rings
 sortPOE()
 
-poeColors = ["white","orange","red","green","blue","black","purple"]
+#poeColors = ["white","orange","red","green","blue","black","purple"]
 
 if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
+        sysC = getSysInfo(dstIP[dfPOE['device'].iloc[l]],'color');
         if l == 0:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l],360, poeColors[dfPOE['device'].iloc[l]])
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l],360, sysC)
         else:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l], dfPOE['angle'].iloc[l-1], poeColors[dfPOE['device'].iloc[l]])
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l], dfPOE['angle'].iloc[l-1], sysC)
 
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)

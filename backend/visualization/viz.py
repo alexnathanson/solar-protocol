@@ -145,14 +145,9 @@ def sortPOE():
         dfPOE = dfPOE.append(tempDF, ignore_index=True)
         dfPOE.shape
 
-    # dfPOE['datetime'] = dfPOE['datetime'].astype(str) #convert entire "Dates" Column to string 
-    # dfPOE['datetime']=pd.to_datetime(dfPOE['datetime']) #convert entire "Dates" Column to datetime format this time 
-    
-    #dfPOE.index=dfPOE['datetime'] #replace index with entire "Dates" Column to work with groupby function
-    #dfPOE = dfPOE.drop(columns=['datetime'])
-    print(dfPOE.head())
+    #print(dfPOE.head())
     dfPOE = dfPOE.sort_values(by='datetime',ascending=False)
-    print(dfPOE.head())
+    #print(dfPOE.head())
 
     #get time now and filter by this time - 72 hours
     startTime = datetime.datetime.now()
@@ -163,7 +158,7 @@ def sortPOE():
     dfPOE = dfPOE.reset_index()
     #dfPOE = dfPOE.drop(columns=[0])
 
-    print(dfPOE.shape)
+    #print(dfPOE.shape)
 
     dfPOE['percent']=0.0
     dfPOE['angle']=0
@@ -175,8 +170,8 @@ def sortPOE():
             dfPOE.at[t,'percent']= minPast/ (hours*60)
             dfPOE.at[t,'angle'] = 360-(int(dfPOE['percent'].iloc[t]*360))
 
-    print(dfPOE.head())
-    print(dfPOE.tail())
+    #print(dfPOE.head())
+    #print(dfPOE.tail())
 
 def tzOffset(checkTZ):
     myOffset = datetime.datetime.now(pytz.timezone(myTimeZone)).strftime('%z')

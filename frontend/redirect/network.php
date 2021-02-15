@@ -131,6 +131,8 @@ function listNetworkSites(){
 				    $networkTemplate
 				);
 
+	echo $networkTemplate
+
 }
 
 function checkStatus($checkIP){

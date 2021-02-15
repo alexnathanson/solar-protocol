@@ -207,12 +207,11 @@ for i in dstIP:
     else:
         timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
-    tempC = getSysInfo(dstIP[dfPOE['device'].iloc[l]],'color')
+    tempC = getSysInfo(i,'color')
     print(tempC)
     print(type(tempC))
-    if type(tempC) == type(None) or tempC == "":
-        tempC == 'white'
-
+    if type(tempC) == type(None) or tempC == '':
+        tempC = 'white'
     sysC.append(tempC) 
 
 print(timeZones)

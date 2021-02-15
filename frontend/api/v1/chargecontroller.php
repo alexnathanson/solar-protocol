@@ -153,7 +153,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       //read local bgColor
       $fileContents = file_get_contents("/home/pi/local/local.json");
       // Convert to array 
-      echo json_decode($fileContents, true)[bgColor];
+      echo json_decode($fileContents, true)['bgColor'];
+    } else if ($_GET["systemInfo"] == "description"){
+      //read local bgColor
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      // Convert to array 
+      echo json_decode($fileContents, true)['description'];
     }
   }
 }

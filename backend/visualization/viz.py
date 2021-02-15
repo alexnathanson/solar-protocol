@@ -283,7 +283,6 @@ for rPV in range(len(ccData)):
 # draw_ring(csv_paths2, 6, "PV current")
 # draw_ring(csv_paths1, 7, "PV current")
 
-
 #Draw Active Server Rings
 sortPOE()
 
@@ -305,7 +304,7 @@ if dfPOE.shape[1] > 0:
 ax.plot((0,0), (0,10), color="white", linewidth=0.3, zorder=10)
 os.chdir(owd)
 
-plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png') #save plot
+plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png',transparent=True) #save plot
 
 background = Image.open("/home/pi/solar-protocol/backend/visualization/face-6-server-days.png")
 foreground = Image.open("/home/pi/solar-protocol/backend/visualization/clock.png")

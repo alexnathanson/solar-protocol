@@ -278,11 +278,11 @@ for label in ax.get_xticklabels()[::1]: #only show every second label
 for label in ax.get_yticklabels():
     label.set_visible(True)
     label.set_horizontalalignment('center')
-    label.set_fontweight('bold')
+    #label.set_verticalalignment('bottom')
+    #label.set_fontweight('bold')
     label.set_fontfamily('serif')
 
 ax.set_rlabel_position(0)
-
 
 plt.ylim(0,10) #puts space in the center (start of y axis)
 

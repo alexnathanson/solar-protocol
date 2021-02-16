@@ -229,15 +229,24 @@ pd.set_option("display.max_rows", None, "display.max_columns", None)
 
 plt.rc('grid', color='#6b6b6b', linewidth=0.3, linestyle='-')
 
+
+font = {'family': 'serif',
+        'color':  '#e0e0e0',
+        'weight': 'bold',
+        'size': 16,
+        }
+
 # label colors
 plt.rc('xtick', labelsize=6, color="#e0e0e0")
-plt.rc('ytick', labelsize=14, color="#e0e0e0")
+#plt.rc('ytick', labelsize=14, color="#e0e0e0",fontweight='bold')
+plt.rc('ytick', fontdict = font)
 
 #customize inside labels
 server_names = getDeviceInfo('name')
 
 # for label in ax.get_yticklabels()[::]: #only show every second label
 #     label.set_visible(False)
+
 
 # set up graph
 fig = plt.figure(figsize=(15, 15)) #SIZE
@@ -277,9 +286,10 @@ for label in ax.get_xticklabels()[::1]: #only show every second label
 
 for label in ax.get_yticklabels():
     label.set_visible(True)
+    label.set_horizontalalignment('center')
 
-# for i, label in enumerate(ax.get_xticklabels()):
-#     label.set_rotation(i*90)
+
+ax.set_rlabel_position(0)
 
 
 plt.ylim(0,10) #puts space in the center (start of y axis)

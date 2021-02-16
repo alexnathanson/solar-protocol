@@ -231,8 +231,7 @@ plt.rc('grid', color='#6b6b6b', linewidth=0.3, linestyle='-')
 
 # label colors
 plt.rc('xtick', labelsize=6, color="#e0e0e0")
-plt.rc('ytick', labelsize=10, color="#e0e0e0")
-
+plt.rc('ytick', labelsize=14, color="#e0e0e0",fontname='Times New Roman')
 
 #customize inside labels
 server_names = getDeviceInfo('name')
@@ -269,8 +268,9 @@ x_labels[0]="Now"
 y_labels = getDeviceInfo('name')#need to filter out failed get requests!
 
 plt.xticks(ticks)
-plt.yticks(np.arange(3,10))#Y LABELS!
+plt.yticks(np.arange(2,9),y_labels)#Y LABELS!
 
+plt.set_ylabel(loc='top')
 
 for label in ax.get_xticklabels()[::1]: #only show every second label
     label.set_visible(False)

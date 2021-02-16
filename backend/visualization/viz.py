@@ -268,7 +268,7 @@ x_labels[0]="Now"
 y_labels = getDeviceInfo('name')#need to filter out failed get requests!
 
 plt.xticks(ticks)
-plt.yticks(np.arange(2,9),y_labels)#Y LABELS!
+plt.yticks(np.arange(2,len(y_labels)+2),y_labels)#Y LABELS!
 
 #plt.set_ylabel(loc='top')
 

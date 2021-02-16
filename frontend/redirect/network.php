@@ -128,9 +128,10 @@ function listNetworkSites(){
 		}
 
 		//image
-		$newString .= "</div><div style='width:50%;float: left;'><img src='http://". $value['ip'] . "/local/serverProfile.jpg' style='max-width: 50%; height: auto;'></div>";
+		$newString .= "</div><div style='width:50%;float: left;'><img src='http://". $value['ip'] . "/local/serverProfile.jpg'></div>";
 
-		$newString .= "</div>";
+/*style='max-width: 50%; height: auto;'
+*/		$newString .= "</div>";
 
 		//var_dump($value);
 	}

@@ -70,6 +70,7 @@ function imageUpload($iF){
       $uploadOk = 0;
     }
 
+    #not working yet!
     if(isset($_POST["dither"])){
       $target = "temp/" . $_FILES['new_image']['name'];
       $src = $_FILES["fileToUpload"]["tmp_name"];

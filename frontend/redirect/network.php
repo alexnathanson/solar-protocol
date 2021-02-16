@@ -103,7 +103,7 @@ function listNetworkSites(){
 		//add new link
 		$sC = file_get_contents('http://'.$value['ip'].'/api/v1/chargecontroller.php?systemInfo=color');
 
-		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;background-color:".$sC.";'><div style='width:50%;float: left;'>";
+		$newString .= "<div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;background-color:".$sC.";'><div style='width:50%;float: left;border: 2px solid red;'>";
 
 		$newString .= "<h3>" . $value['name'] . "</h3>";
 
@@ -128,7 +128,7 @@ function listNetworkSites(){
 		}
 
 		//image
-		$newString .= "</div><div style='width:50%;float:right;'><img src='http://". $value['ip'] . "/local/serverProfile.jpg'></div>";
+		$newString .= "</div><div style='width:50%;float:right;border: 2px solid red;'><img src='http://". $value['ip'] . "/local/serverProfile.jpg'></div>";
 
 /*style='max-width: 50%; height: auto;'
 */		$newString .= "</div>";

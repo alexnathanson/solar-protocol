@@ -123,7 +123,6 @@ function listNetworkSites(){
 
 		if($status == true){
 			$newString .= "<p><a href='http://solarprotocol.net/network/". formatURL($value['name']) . "' target='_blank'>http://solarprotocol.net/network/".formatURL($value['name'])."</a></p>";
-
 		} else {
 			$newString .= "<p>http://solarprotocol.net/network/".formatURL($value['name'])."</p>";
 		}

@@ -128,7 +128,7 @@ function listNetworkSites(){
 		}
 
 		//image
-		$newString .= "</div><div style='width:48%;float:right;'><img src='http://". $value['ip'] . "/local/serverprofile.jpg'style='width: auto; height: auto;'></div>";
+		$newString .= "</div><div style='width:48%;float:right;'><img src='http://". $value['ip'] . "/local/serverprofile.jpg'style='width: 100%; height: auto;'></div>";
 
 		$newString .= "</div>";
 

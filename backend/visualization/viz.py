@@ -229,17 +229,9 @@ pd.set_option("display.max_rows", None, "display.max_columns", None)
 
 plt.rc('grid', color='#6b6b6b', linewidth=0.3, linestyle='-')
 
-
-font = {'family': 'serif',
-        'color':  '#e0e0e0',
-        'weight': 'bold',
-        'size': 16,
-        }
-
 # label colors
 plt.rc('xtick', labelsize=6, color="#e0e0e0")
-#plt.rc('ytick', labelsize=14, color="#e0e0e0",fontweight='bold')
-plt.rc('ytick', fontdict = font)
+plt.rc('ytick', labelsize=14, color="#e0e0e0")
 
 #customize inside labels
 server_names = getDeviceInfo('name')
@@ -284,10 +276,12 @@ plt.yticks(np.arange(2,len(y_labels)+2),y_labels)#Y LABELS!
 for label in ax.get_xticklabels()[::1]: #only show every second label
     label.set_visible(False)
 
+#https://matplotlib.org/stable/api/text_api.html#matplotlib.text.Text.set_fontweight
 for label in ax.get_yticklabels():
     label.set_visible(True)
     label.set_horizontalalignment('center')
-
+    label.set_fontweight('bold')
+    #label.set_fontfamily('Times New Roman')
 
 ax.set_rlabel_position(0)
 

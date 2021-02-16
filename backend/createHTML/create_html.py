@@ -124,7 +124,7 @@ def render_pages(_local_data, _data, _weather):
             solarPowerL=_data["PV power L"],
             solarPowerH=_data["PV power H"],
             batteryVoltage=_data["battery voltage"],
-            batteryPercentage=_data["battery percentage"]*100,
+            batteryPercentage=round(_data["battery percentage"]*100, 1),
             batterCurrent=_data["battery current"],
             loadVoltage=_data["load voltage"],
             loadCurrent=_data["load current"],

@@ -1,5 +1,5 @@
 {% extends "base-template.html" %} {% block content %}
-{% if batteryPercentage >= 50 %}
+{% if batteryPercentage >= 30 %}
   <div class="title-text">
     <div class="full-width-image">
       <img src="{{leadImage}}" />
@@ -7,9 +7,8 @@
   </div>
   <div class="onecol-text">
     <div class="caption">
-      Three days of network sunlight data are visualized for each server. The
-      colored bars represent the hours that each server as been the active point
-      of entry to the network.
+      Sunlight levels at each server are shown in yellow. The
+      colored bars represent which server has been the active server in the network over the past 72 hours.
       <hr />
     </div>
   </div>
@@ -64,7 +63,7 @@
     </p>
   </div>
 
-{% if batteryPercentage >= 50 %}
+{% if batteryPercentage >= 30 %}
   <img class="full-col" src="images/earth-sun.gif" />
   <div class="onecol-text">
   <div class="caption">

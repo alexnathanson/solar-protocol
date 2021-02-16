@@ -3,14 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style-large.css" />
+    <link rel="stylesheet" href="style-large.css" />
     <title>Solar Protocol</title>
     <style>
-      a:hover { color: {{bgColor}} };
+          {% if batteryPercentage >= 30 %}
+          {% else %}
+          header h1 a{ color: black; }
+          header {color: black; }
+          {% endif %}
+          a:hover { color: {{bgColor}} };
+
+
     </style>
   </head>
     <body>
       <div class="container">
+
         <nav>
           <ul class="no-bullets">
             <li><a href="/index.html">Home</a> •</li>
@@ -19,7 +27,7 @@
             <li><a href="/call.html">Call</a></li>
           </ul>
         </nav>
-  {% if batteryPercentage >= 50 %}
+  {% if batteryPercentage >= 30 %}
       <header
       style="background-image: linear-gradient(
       to top,
@@ -28,7 +36,8 @@
       rgb(100, 100, 100),
       black,
       black
-    );"
+    );
+    color: white;"
     >
   {% else %}
   <!-- <header
@@ -39,16 +48,13 @@
   white,
   white
 );"> -->
-<header
-style="background-image: linear-gradient(
-to top,
-{{bgColor}},
-{{bgColor}},
-rgb(100, 100, 100),
-black,
-black
-);"
->
+<header style="background-color: white;">
+  {% endif %}
+  {% if batteryPercentage >= 30 %}
+
+  {% else %}
+  <div class="lowres" style="background-color: {{bgColor}};">
+    SERVER BATTERY LEVEL LOW<br>YOU ARE VIEWING THIS SITE IN LOW RES MODE</div>
   {% endif %}
         <div class="sub-heading">
           <h1><a href="/index.html">Solar Protocol</a></h1>
@@ -83,7 +89,7 @@ black
           <div class="side-box">
             <p><i>Name:</i> {{name}}</p>
             <p><i>Location:</i> {{location}}</p>
-            {% if batteryPercentage >= 50 %}
+            {% if batteryPercentage >= 30 %}
             <div class="fill">
               <img src="/local/server.gif" />
               <div class="clr"></div>
@@ -101,7 +107,7 @@ black
 
           <div class="fill">
             <h4></h4>
-            {% if batteryPercentage >= 50 %}
+            {% if batteryPercentage >= 30 %}
             <img src="images/server.gif" />
             {% else %}
             {% endif %}
@@ -213,7 +219,13 @@ black
     </div>
      
       </header>
-      <main>{% block content %}{% endblock %}</main>
+      {% if batteryPercentage >= 30 %}
+      <main>
+      {% else %}
+      <main style="padding-top: 20px;">
+        {% endif %}
+        
+        {% block content %}{% endblock %}</main>
     </div>
   </body>
 </html>

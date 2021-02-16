@@ -231,7 +231,7 @@ plt.rc('grid', color='#6b6b6b', linewidth=0.3, linestyle='-')
 
 # label colors
 plt.rc('xtick', labelsize=6, color="#e0e0e0")
-plt.rc('ytick', labelsize=14, color="#e0e0e0",fontname='Times New Roman')
+plt.rc('ytick', labelsize=14, color="#e0e0e0")
 
 #customize inside labels
 server_names = getDeviceInfo('name')

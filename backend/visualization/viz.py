@@ -45,7 +45,7 @@ def getDeviceInfo(getKey):
 
     return ipList
 
-def getIt(dst,ccValue):
+def getCC(dst,ccValue):
     print("GET from " + dst)
     try:
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
@@ -60,9 +60,9 @@ def getIt(dst,ccValue):
     except requests.exceptions.RequestException as err:
         print("An Unknown Error occurred" + repr(err))
 
-def getTimeZone(dst):
+def getSysInfo(dst,k):
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo=tz",timeout=5)
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo="+k,timeout=5)
         #print(json.loads(x.text))
         return x.text
     except requests.exceptions.HTTPError as errh:
@@ -186,26 +186,36 @@ serverNames = getDeviceInfo('name')
 
 #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
 timeZones = []
-myTimeZone = getTimeZone(requests.get('http://whatismyip.akamai.com/').text)
+myTimeZone = getSysInfo(requests.get('http://whatismyip.akamai.com/').text,'tz')
 print("My TZ: " + myTimeZone)
+
+sysC = []
 
 for i in dstIP:
     #print(i)
     # if i not in activeIPs:
     #     activeIPs.append(i)
-    getResult = getIt(i,energyParam)
+    getResult = getCC(i,energyParam)
     if type(getResult) != type(None):
         ccData.append(getResult)
     else:
         ccData.append({"datetime": energyParam})
 
-    tempTZ = getTimeZone(i)
+    tempTZ = getSysInfo(i, 'tz')
     if type(tempTZ) != type(None):
         timeZones.append(tempTZ)
     else:
         timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
+    tempC = getSysInfo(i,'color')
+    
+    if type(tempC) == type(None) or tempC == '':
+        tempC = 'white'
+    sysC.append(tempC) 
+
 print(timeZones)
+
+
 # timeZoneOffset = []
 # for t in timeZones:
 #     timeZoneOffset.append(tzOffset(t))
@@ -259,7 +269,7 @@ x_labels[0]="Now"
 y_labels = getDeviceInfo('name')#need to filter out failed get requests!
 
 plt.xticks(ticks)
-plt.yticks(np.arange(3,10))
+plt.yticks(np.arange(3,10))#Y LABELS!
 
 
 for label in ax.get_xticklabels()[::1]: #only show every second label
@@ -278,22 +288,19 @@ plt.ylim(0,10) #puts space in the center (start of y axis)
 #draw_ring(data, ringNo, parameter);
 for rPV in range(len(ccData)):
     draw_ring(ccData[rPV],rPV+2, energyParam,timeZones[rPV])
-# draw_ring(csv_paths2, 4, "PV current")
-# draw_ring(csv_paths3, 5, "PV current")
-# draw_ring(csv_paths2, 6, "PV current")
-# draw_ring(csv_paths1, 7, "PV current")
 
 #Draw Active Server Rings
 sortPOE()
 
-poeColors = ["white","orange","red","green","blue","black","purple"]
+#poeColors = ["white","orange","red","green","blue","black","purple"]
 
 if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
+
         if l == 0:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l],360, poeColors[dfPOE['device'].iloc[l]])
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l],360, sysC[dfPOE['device'].iloc[l]])
         else:
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l], dfPOE['angle'].iloc[l-1], poeColors[dfPOE['device'].iloc[l]])
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l], dfPOE['angle'].iloc[l-1], sysC[dfPOE['device'].iloc[l]])
 
 # draw_server_arc(4, 30, 35, "pink")
 # draw_server_arc(5, 55, 72, sc)

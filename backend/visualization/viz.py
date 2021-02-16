@@ -231,14 +231,10 @@ plt.rc('grid', color='#6b6b6b', linewidth=0.3, linestyle='-')
 
 # label colors
 plt.rc('xtick', labelsize=6, color="#e0e0e0")
-plt.rc('ytick', labelsize=10, color="#e0e0e0")
-
+plt.rc('ytick', labelsize=15, color="#e0e0e0")
 
 #customize inside labels
 server_names = getDeviceInfo('name')
-
-# for label in ax.get_yticklabels()[::]: #only show every second label
-#     label.set_visible(False)
 
 # set up graph
 fig = plt.figure(figsize=(15, 15)) #SIZE
@@ -269,17 +265,23 @@ x_labels[0]="Now"
 y_labels = getDeviceInfo('name')#need to filter out failed get requests!
 
 plt.xticks(ticks)
-plt.yticks(np.arange(3,10))#Y LABELS!
-
+plt.yticks(np.arange(2,len(y_labels)+2),y_labels)#Y LABELS!
 
 for label in ax.get_xticklabels()[::1]: #only show every second label
     label.set_visible(False)
 
+#https://matplotlib.org/stable/api/text_api.html#matplotlib.text.Text.set_fontweight
+# to check python for available fonts:
+#import matplotlib.font_manager
+#print(matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf'))
+
 for label in ax.get_yticklabels():
     label.set_visible(True)
+    label.set_horizontalalignment('center')
+    label.set_fontweight('bold')
+    label.set_fontfamily('serif')
 
-# for i, label in enumerate(ax.get_xticklabels()):
-#     label.set_rotation(i*90)
+ax.set_rlabel_position(0)
 
 
 plt.ylim(0,10) #puts space in the center (start of y axis)

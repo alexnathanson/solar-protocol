@@ -317,7 +317,7 @@ plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png',transparen
 
 background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-blackbg.png")
 foreground = Image.open("/home/pi/solar-protocol/backend/visualization/clock.png")
-Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
+#Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
 background.paste(foreground, (0, 0), foreground)
 #archive images

@@ -319,5 +319,6 @@ background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diag
 foreground = Image.open("/home/pi/solar-protocol/backend/visualization/clock.png")
 Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
+#archive images
 archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
 archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot

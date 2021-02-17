@@ -276,7 +276,7 @@ for label in ax.get_xticklabels()[::1]: #only show every second label
 #print(matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf'))
 
 for label in ax.get_yticklabels():
-    label.set_visible(True)
+    label.set_visible(False)
     label.set_horizontalalignment('center')
     #label.set_verticalalignment('bottom')
     #label.set_fontweight('bold')

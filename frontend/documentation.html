@@ -6,12 +6,9 @@
     <link rel="stylesheet" href="/style-large.css" />
     <title>Solar Protocol</title>
     <style>
-          {% if batteryPercentage >= 30 %}
-          {% else %}
-          header h1 a{ color: black; }
-          header {color: black; }
-          {% endif %}
-          a:hover { color: {{bgColor}} };
+          
+          
+          a:hover { color: Salmon };
 
 
     </style>
@@ -27,35 +24,22 @@
             <li><a href="/call.html">Call</a></li>
           </ul>
         </nav>
-  {% if batteryPercentage >= 30 %}
+  
       <header
       style="background-image: linear-gradient(
       to top,
-      {{bgColor}},
-      {{bgColor}},
+      Salmon,
+      Salmon,
       rgb(100, 100, 100),
       black,
       black
     );
     color: white;"
     >
-  {% else %}
-  <!-- <header
-  style="background-image: linear-gradient(
-  to top,
-  {{bgColor}},
-  {{bgColor}},
-  white,
-  white
-);"> -->
-<header style="background-color: white;">
-  {% endif %}
-  {% if batteryPercentage >= 30 %}
+  
+  
 
-  {% else %}
-  <div class="lowres" style="background-color: {{bgColor}};">
-    SERVER BATTERY LEVEL LOW<br>YOU ARE VIEWING THIS SITE IN LOW RES MODE</div>
-  {% endif %}
+  
         <div class="sub-heading">
           <h1><a href="/index.html">Solar Protocol</a></h1>
           <p>A naturally intelligent network.</p>
@@ -70,17 +54,17 @@
                 <td>Server Battery:</td>
                 <td>
                   <div class="meter">
-                  <span style="width: {{batteryPercentage}}%">{{batteryPercentage}}%</span>
+                  <span style="width: 55.0%">55.0%</span>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td>Site Render Status:</td>
-                <td>{{mode}}</td>
+                <td>High res mode</td>
               </tr>
               <tr>
                 <td>Last update:</td>
-                <td>{{time}} in {{zone}}</td>    
+                <td>10:47 PM in Australia Melbourne</td>    
               </tr>
           </table>
         </p>
@@ -88,30 +72,28 @@
           <div class="row">
           <h5>ACTIVE SERVER</h5>
           <div class="side-box">
-            <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}</p>
-            {% if batteryPercentage >= 30 %}
+            <p><i>Name:</i> The Gilgamesh Zone</p>
+            <p><i>Location:</i> Bedford Stuyvesant</p>
+            
             <div class="fill">
               <img src="/local/serverprofile.jpg" />
               <div class="clr"></div>
             </div>
-            {% else %}
-            {% endif %}
+            
 
 
         <!-- <div class="row">
   
           <div class="side-box">
-            <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}, {{country}}</p>
+            <p><i>Name:</i> The Gilgamesh Zone</p>
+            <p><i>Location:</i> Bedford Stuyvesant, USA</p>
           </div>
 
           <div class="fill">
             <h4></h4>
-            {% if batteryPercentage >= 30 %}
+            
             <img src="images/server.gif" />
-            {% else %}
-            {% endif %}
+            
             <div class="clr"></div>
           </div>
         </div>
@@ -122,11 +104,11 @@
           <h5>SERVER STEWARD</h5>
           <div class="side-box">
         <p>
-              Presently you are on a server called {{name}} that is located in {{location}},
-              {{city}} as this is the server receiving the most sunshine in our network at the moment.
+              Presently you are on a server called The Gilgamesh Zone that is located in Bedford Stuyvesant,
+              New York City as this is the server receiving the most sunshine in our network at the moment.
             </p>
             <p>About your server steward:</p>
-            <p>{{description}}</p>
+            <p>The Gilgamesh Zone is a server stewarded by artist and educator Tega Brain. She is interested in how technology can help us to think differently about our ecology and place in nature. More on this <a href='http://tegabrain.com/'>here.</a></p>
           </div>
         </div>
         <div class="row">
@@ -136,35 +118,35 @@
         <table>
           <tr>
             <td>City:</td>
-            <td>{{city}}</td>         
+            <td>New York City</td>         
           </tr>
           <tr>
             <td>Country:</td>
-            <td>{{country}}</td>           
+            <td>USA</td>           
           </tr>
           <tr>
             <td>Local time:</td>
-            <td>{{time}}</td>          
+            <td>10:47 PM</td>          
           </tr>
           <tr>
             <td>Weather:</td>
-            <td>{{weather}}</td>           
+            <td>few clouds</td>           
           </tr>
           <tr>
             <td>Temp:</td>
-            <td>{{temp}} &#176; C</td>           
+            <td>-1.3 &#176; C</td>           
           </tr>
           <tr>
             <td>Feels like:</td>
-            <td>{{feelsLike}} &#176; C</td>           
+            <td>-9.2 &#176; C</td>           
           </tr>
           <tr>
             <td>Sunrise:</td>
-            <td>{{sunrise}}</td>       
+            <td>06:48 AM</td>       
           </tr>
           <tr>
             <td>Sunset:</td>
-            <td>{{sunset}}</td>
+            <td>05:31 PM</td>
           </tr> 
       </table>
     </p>  
@@ -178,39 +160,39 @@
             <tr>
               <td>Battery Level:</td>
               <td>   
-                {{batteryPercentage}}%
+                55.0%
               </td>
              
             </tr>
             <tr>
               <td>Battery Voltage:</td>
               
-              <td>{{batteryVoltage}} volts</td>
+              <td>12.29 volts</td>
              
             </tr>
             <tr>
               <td>PV Power:</td>
-              <td>{{solarPowerL}} watts</td>            
+              <td>0.0 watts</td>            
             </tr>
             <tr>
               <td>PV Voltage:</td>
-              <td>{{solarVoltage}} volts</td>           
+              <td>0.2 volts</td>           
             </tr>
             <tr>
               <td>PV Current:</td>
-              <td>{{solarCurrent}} amps</td>             
+              <td>0.0 amps</td>             
             </tr>
             <tr>
               <td>Load Power:</td>
-              <td>{{loadPower}} watts</td>           
+              <td>2.82 watts</td>           
             </tr>
             <tr>
               <td>Load Voltage:</td>
-              <td>{{loadVoltage}} volts</td>            
+              <td>12.29 volts</td>            
             </tr>
             <tr>
               <td>Load Current:</td>
-              <td>{{loadCurrent}} amps</td>
+              <td>0.23 amps</td>
             </tr>
         </table>
       </p>
@@ -218,13 +200,44 @@
     </div>
      
       </header>
-      {% if batteryPercentage >= 30 %}
+      
       <main>
-      {% else %}
-      <main style="padding-top: 20px;">
-        {% endif %}
+      
         
-        {% block content %}{% endblock %}</main>
+        
+  <div class="onecol-text">
+    <h3>System Documentation</h3>
+    <h4>Hardware: What is a solar server?</h4>
+  </div>
+  
+    <img class="full-col" src="images/hardware.gif" />
+  
+  <div class="onecol-text">
+    <p>
+      Each solar server is composed of two main components: a 50W 
+      photovoltaic panel (PV) for harnessing the sun and a weatherized enclosure 
+      containing all the server equipment. The hardware inside the enclosure includes 
+      an MPPT charge controller that translates the power of the sun into electrical charge for the 12V battery which, when successfully charged, wakes up and brings online the RaspberryPi single-board computer hosting the local web content. The hardware also includes in-line fuses and in-line circuit breakers to protect each component of the circuit, and the NEMA-rated enclosure is retrofitted with rugged vents and glands to withstand a wide range of 
+      temperatures and different kinds of environments. 
+    </p>
+    <h4>Software</h4>
+    <p>
+      The networking and network API is built in PHP. Each RaspberryPi generates 
+      this static site using Jinja templating in Python, and serves it using an Apache server. 
+      No Javascript is used on the frontend. All visualizations are generated server-side 
+      using python libraries such as MatPlotLib. Where possible, the computation required 
+      to generate visual components of this site is done server side rather than in the 
+      browser. This is because we know that these computational cycles are powered by solar 
+      rather. This design approach minimizes the energy consumption for the user who is likely to be using fossil energy.  
+    </p>
+    <p>
+      <ul>
+      <li>Code is still in development. This work is open-source and <a href="https://github.com/alexnathanson/solar-protocol">shared on Github.</a></li>
+      <li>Stewards: <a href="/admin/">Login to an admin panel </a> to view your server data.</li>
+      </ul>
+    </p>
+  </div>
+</main>
     </div>
   </body>
 </html>

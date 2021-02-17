@@ -18,14 +18,9 @@
     </p>
     <h4>Software</h4>
     <p>
-      The networking and network API is built in PHP. Each RaspberryPi generates 
-      this static site using Jinja templating in Python, and serves it using an Apache server. 
-      No Javascript is used on the frontend. All visualizations are generated server-side 
-      using python libraries such as MatPlotLib. Where possible, the computation required 
-      to generate visual components of this site is done server side rather than in the 
-      browser. This is because we know that these computational cycles are powered by solar 
-      rather. This design approach minimizes the energy consumption for the user who is likely to be using fossil energy.  
-    </p>
+      The networking and the network API is built with PHP. Each RaspberryPi generates this website using Jinja templating. We are running Apache servers.</p> 
+      <p>We decided not to use any Javascript on the frontend of this website and so all of our visualizations are generated server-side using python libraries such as MatPlotLib. Where possible, the generation of the visual assets on this site are done on the server rather than in the browser. We adopted this as an approach that fosters accountability for our design decisions. We know that the computational cycles required to generate our imagery are powered by solar energy rather than potentially powered as fossil energy in the browser. This design approach also minimizes the energy consumption for the user.  
+      </p>
     <p>
       <ul>
       <li>Code is still in development. This work is open-source and <a href="https://github.com/alexnathanson/solar-protocol">shared on Github.</a></li>

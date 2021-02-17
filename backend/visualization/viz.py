@@ -315,7 +315,7 @@ os.chdir(owd)
 
 plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png',transparent=True) #save plot
 
-background = Image.open("/home/pi/solar-protocol/backend/visualization/face-6-server-days.png")
+background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram.png")
 foreground = Image.open("/home/pi/solar-protocol/backend/visualization/clock.png")
 Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 

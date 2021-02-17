@@ -315,10 +315,11 @@ os.chdir(owd)
 
 plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png',transparent=True) #save plot
 
-background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram.png")
+background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-blackbg.png")
 foreground = Image.open("/home/pi/solar-protocol/backend/visualization/clock.png")
 Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
+background.paste(foreground, (0, 0), foreground)
 #archive images
 archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
 archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot

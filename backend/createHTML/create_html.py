@@ -81,6 +81,7 @@ def render_pages(_local_data, _data, _weather):
         ("documentation_template.html", "documentation.html"),
         ("solar-web_template.html", "solar-web.html"),
         ("manifesto_template.html", "manifesto.html"),
+         ("library_template.html", "library.html"),
     ]
 
     for template_filename, output_filename in pages:
@@ -97,7 +98,7 @@ def render_pages(_local_data, _data, _weather):
         time = datetime.datetime.now()
         time = time.strftime("%I:%M %p")
         try:
-            tz_url = "/api/v1/chargecontroller.php?systemInfo=tz"
+            tz_url = "http://localhost/api/v1/chargecontroller.php?systemInfo=tz"
             z = requests.get(tz_url) 
             zone = z.text
             print("ZONE", z.text)
@@ -199,6 +200,11 @@ def get_local():
         local_data = json.load(infile)
     return local_data  # dictionary
 
+def network():
+    deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+    deviceInfo = json.dumps(deviceInfoFile)
+
+
 
 def main():
     energy_data = read_csv()
@@ -214,6 +220,9 @@ def main():
             "sunrise": "n/a",
             "sunset": "n/a"
         }
+
+
+
     # print(hosting_data)
     # print("Battery: {}".format(data("batteryPercentage"))
     # print("PV: {}".format(SolarVoltage))

@@ -186,7 +186,7 @@ serverNames = getDeviceInfo('name')
 
 #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
 timeZones = []
-myTimeZone = getSysInfo(requests.get('http://whatismyip.akamai.com/').text,'tz')
+myTimeZone = getSysInfo("localhost",'tz')
 print("My TZ: " + myTimeZone)
 
 sysC = []

@@ -502,6 +502,7 @@ section {
     border: solid 0.5px rgb(40, 40, 40);
     background-color: rgb(10, 10, 10);
   }
+  
 }
 .network-box {
   padding: 10px;
@@ -540,10 +541,12 @@ section {
   }
 
   nav {
-    width: calc(var(--nav-width) * 1.5);
+    width: calc(var(--nav-width) * 1.6);
     /* padding: var(--vertical-padding) calc(var(--horizontal-padding) * 2)
       var(--vertical-padding) var(--horizontal-padding); */
       font-size: var(--text-size);
+      padding-right: 15px;
+      padding-left:5px;
   }
 
   .container {

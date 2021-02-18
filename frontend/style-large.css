@@ -399,7 +399,7 @@ h2 {
 
 h3 {
   font-size: calc(var(--text-size) * 1.6);
-  padding: 15px 0px 10px 0px;
+  padding: 20px 0px 10px 0px;
 }
 
 /*Server title*/

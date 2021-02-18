@@ -535,9 +535,14 @@ section {
     margin: 0;
     margin-left: 0px;
     padding-left: 0px;
+    padding-right: 20px;
 
     width: 100%;
     background-color: var(--text-background);
+  }
+
+  ul.no-bullets {
+    flex: none;
   }
 
   nav {
@@ -545,9 +550,10 @@ section {
     /* padding: var(--vertical-padding) calc(var(--horizontal-padding) * 2)
       var(--vertical-padding) var(--horizontal-padding); */
       font-size: var(--text-size);
-      padding-right: 15px;
-      padding-left:5px;
-      white-space:nowrap;
+      height: 100vh;
+      /* padding-right: 25px;
+      padding-left:5px; */
+    
   }
 
   .container {

@@ -1,10 +1,9 @@
 {% extends "base-template.html" %} 
 {% block content %}
-<div class="title-text">
-  <div class="full-width-image">
-    <img src="images/earth.jpg" />
-  </div>
-</div>
+{% if batteryPercentage >= 30 %}
+  <img class="full-col" src="images/earth.jpg" />
+  {% else %}
+  {% endif %}
   <div class="onecol-text">
     <div class="caption">
       Illustration from <i>Astronomy</i> by Jean Rambosson, 1875.

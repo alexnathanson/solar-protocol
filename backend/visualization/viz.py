@@ -191,7 +191,13 @@ print("My TZ: " + myTimeZone)
 
 sysC = []
 
-for i in dstIP:
+my_ip = requests.get('http://whatismyip.akamai.com/').text
+
+
+#goes through all ip addresses 
+for i in dstIP: 
+    if i==my_ip:
+        i="localhost"
     #print(i)
     # if i not in activeIPs:
     #     activeIPs.append(i)

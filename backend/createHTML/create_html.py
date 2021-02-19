@@ -111,7 +111,7 @@ def render_pages(_local_data, _data, _weather):
         # print("UTC TIME", datetime.datetime.utcnow())
         #would be nice to swap this out if the via script fails
         leadImage="images/clock.png"
-        if((_data["battery percentage"]*100)>50):
+        if((_data["battery percentage"]*100)>30):
             mode="High res mode"
         else:
             mode="Low res mode"

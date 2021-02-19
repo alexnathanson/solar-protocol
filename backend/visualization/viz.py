@@ -196,25 +196,28 @@ my_ip = requests.get('http://whatismyip.akamai.com/').text
 
 #goes through all ip addresses 
 for i in dstIP: 
+    print("i:",i,my_ip)
     if i==my_ip:
         i="localhost"
     #print(i)
     # if i not in activeIPs:
     #     activeIPs.append(i)
     getResult = getCC(i,energyParam)
+    print("getResult:", getResult)
     if type(getResult) != type(None):
         ccData.append(getResult)
     else:
         ccData.append({"datetime": energyParam})
 
     tempTZ = getSysInfo(i, 'tz')
+    print("tempTZ:", tempTZ)
     if type(tempTZ) != type(None):
         timeZones.append(tempTZ)
     else:
         timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
     tempC = getSysInfo(i,'color')
-    
+    print("tempC:", tempC)
     if type(tempC) == type(None) or tempC == '':
         tempC = 'white'
     sysC.append(tempC) 

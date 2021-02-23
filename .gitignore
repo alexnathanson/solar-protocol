@@ -11,3 +11,5 @@ charge-controller/data/
 
 /backend/createHTML/local-content.json
 /backend/createHTML/local/*
+
+/backend/api/v1/deviceList.json

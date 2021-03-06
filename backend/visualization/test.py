@@ -50,9 +50,8 @@ def getDeviceInfo(getKey):
 
     with open(deviceList) as f:
       data = json.load(f)
-    if (debug_mode):
-        print("Device List data:")
-        print(data)
+      #print("Device List data:")
+      #print(data)
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])
@@ -64,9 +63,8 @@ def getCC(dst,ccValue):
     print("GET from " + dst)
     try:
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
-        if (debug_mode):
-            print("API charge controller data:")
-            print(json.loads(x.text))
+        #print("API charge controller data:")
+        #print(x.text)
         return json.loads(x.text)
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -120,7 +118,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
     ccDataframe = ccDataframe.drop(columns=['datetime'])
     df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
     df_hours = df_hours.tail(72) # last 72 hours
-    print("DF Hours: ", df_hours)
+    #print("DF Hours: ", df_hours)
 
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
@@ -173,8 +171,8 @@ def sortPOE():
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
         tempDF['datetime'] = tempDF[0]
-        print("tempDF['datetime']")
-        print(tempDF['datetime'])
+        #print("tempDF['datetime']")
+        #print(tempDF['datetime'])
         #tempDF['datetime'] = tempDF['datetime'].astype(str) #convert entire "Dates" Column to string 
 
         tempDF['datetime']=pd.to_datetime(tempDF['datetime'], errors="coerce") #convert entire "Dates" Column to datetime format this time 
@@ -210,15 +208,15 @@ def sortPOE():
 
     if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[0]):
-            print("start time:", startTime)
-            print("next time:", dfPOE['datetime'].iloc[t])
+            #print("start time:", startTime)
+            #print("next time:", dfPOE['datetime'].iloc[t])
             minPast = ((startTime - dfPOE['datetime'].iloc[t]).total_seconds())/60
-            print("minutes as POE:", minPast)
-            print("percent of the time:", minPast/(hours*60))
+            #print("minutes as POE:", minPast)
+            #print("percent of the time:", minPast/(hours*60))
             dfPOE.at[t,'percent']= minPast/ (hours*60)
-            print("percent again:", dfPOE['percent'].iloc[t])
+            #print("percent again:", dfPOE['percent'].iloc[t])
             dfPOE.at[t,'angle'] = 360-((dfPOE['percent'].iloc[t])*360)
-            print("Angle:", dfPOE.at[t,'angle'])
+            #print("Angle:", dfPOE.at[t,'angle'])
 
     #print(dfPOE.head())
     #print(dfPOE.tail())
@@ -286,8 +284,18 @@ def text_curve(server_no, message, angle, spacing, ts):
 # -------------- PROGRAM --------------------------------------------------------------------------------
 # -------------- PROGRAM --------------------------------------------------------------------------------
 
+#Get my ip
+myIP = 	requests.get('http://whatismyip.akamai.com/').text
+print("MY IP: ", type(myIP))
+
 #Get IPs, using keyword ip
 dstIP = getDeviceInfo('ip')
+for index, item in enumerate(dstIP):
+    print(item)
+    if(item == myIP):
+        print("Replacing ip of self")
+        dstIP[index]="localhost"
+
 log = getDeviceInfo('log')
 serverNames = getDeviceInfo('name')
 print (dstIP)
@@ -354,16 +362,16 @@ print(dfPOE.shape)
 if dfPOE.shape[1] > 0:
     for l in range(dfPOE.shape[0]):
         if l == 0:
-            print("Server:" ,sysC[dfPOE['device'].iloc[l]])
+            #print("Server:" ,sysC[dfPOE['device'].iloc[l]])
             #print( sysC[dfPOE['device'].iloc[l]])
-            print("First Angle:", dfPOE['angle'].iloc[l])
+            #print("First Angle:", dfPOE['angle'].iloc[l])
             draw_server_arc(dfPOE['device'].iloc[l]+2, 2*Pi, dfPOE['angle'].iloc[l]*(Pi/180), sysC[dfPOE['device'].iloc[l]])
         else:
             #print( sysC[dfPOE['device'].iloc[l]])
-            print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-            print("ring:", dfPOE['device'].iloc[l])
-            print("start arc:", dfPOE['angle'].iloc[l]*Pi/180)
-            print("stop arc:", dfPOE['angle'].iloc[l-1]*Pi/180)
+            #print("Server:" ,sysC[dfPOE['device'].iloc[l]])
+            #print("ring:", dfPOE['device'].iloc[l])
+            #print("start arc:", dfPOE['angle'].iloc[l]*Pi/180)
+            #print("stop arc:", dfPOE['angle'].iloc[l-1]*Pi/180)
             draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1]*Pi/180, dfPOE['angle'].iloc[l]*Pi/180, sysC[dfPOE['device'].iloc[l]])
 
 

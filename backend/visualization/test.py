@@ -21,7 +21,7 @@ ah = (2*Pi)/hours #angle of an hour
 ring_rad = 61 
 
 #Run settings
-local = 1
+local = 0
 debug_mode = 0
 
 path = "/home/pi/solar-protocol/backend"

@@ -2,7 +2,6 @@
 import gizeh as g
 import math
 
-import os
 import pandas as pd
 import json
 import datetime

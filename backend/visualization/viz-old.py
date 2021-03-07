@@ -1,50 +1,55 @@
-from drawbot_skia.drawbot import *
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import csv
+import requests
+from random import choice #is this used? remove if not used
+from PIL import Image
 import pandas as pd
+from glob import glob
 import json
 import datetime
-import requests
+from dateutil.relativedelta import relativedelta
+import random
 import pytz
 
-#Run settings
-local = 1
-debug_mode = 1
+#global variables
+days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
+hours = 72
+tick_interval = 2
+label_interval = 12
+sun_color = ['00','26','66','B3']
+owd = os.getcwd()
 
-path = "/home/pi/solar-protocol/backend"
-if local == 1:
-    path = "../.."   
+# TO DO
+# store data from the api calls for use if a server is down
 
-#Global variables
-deviceList = path + "/api/v1/deviceList.json"
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+
 energyParam = "PV-current"
 ccData = []
-days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
-
 
 dfPOE = pd.DataFrame(columns = ['device', 'datetime']) 
 
-# Get list of IP addresses that the pi can see
 def getDeviceInfo(getKey):
+
     ipList = []
 
     with open(deviceList) as f:
       data = json.load(f)
-    if (debug_mode):
-        print("Device List data:")
-        print(data)
+
+    #print(data)
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])
 
     return ipList
 
-#Call API for every IP address and get charge controller data 
 def getCC(dst,ccValue):
     print("GET from " + dst)
     try:
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
-        if (debug_mode):
-            print("API charge controller data:")
-            print(json.loads(x.text))
+        #print(json.loads(x.text))
         return json.loads(x.text)
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -55,13 +60,10 @@ def getCC(dst,ccValue):
     except requests.exceptions.RequestException as err:
         print("An Unknown Error occurred" + repr(err))
 
-#Call API for every IP address and get charge controller data 
 def getSysInfo(dst,k):
     try:
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo="+k,timeout=5)
-        if (debug_mode):
-            print("API system data:")
-            print(json.loads(x.text))
+        #print(json.loads(x.text))
         return x.text
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -81,9 +83,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
     ccDataframe = ccDataframe.drop(ccDataframe.index[0])
     ccDataframe = ccDataframe.reset_index()
     ccDataframe.columns = ['datetime',energy_parameter]
-    if (debug_mode):
-        print("ccDataframe.head()")
-        print(ccDataframe.head())
+    #print(ccDataframe.head())
 
     ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
@@ -103,18 +103,19 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
 
     # #correlate sun data wtih colors 
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
-        if (debug_mode):
-            print("Current: ", current)
-        draw_sun(ring_number, i, i+2, current) 
+        # print(current)
+        draw_sun(ring_number, i, i+2, current)
+
 
     return df_hours
+#gold: color=(1, 0.85, 0, alpha)
 
 #arcs
 def draw_sun(server_no, start, stop, alpha):
      for i in range(start, stop, 1):
-
         #ax.bar(rotation, arc cell length, width of each cell, width of each arc , radius of bottom, color, edgecolor )(1, 0.84, 0.0, alpha) '#D4AF37'+alpha
         ax.bar((rotation*np.pi/180)+(i * 2 * np.pi / hours), 1, width=2 * np.pi / hours, bottom=server_no+0.1, color=(1, 0.85, 0, alpha), edgecolor = "none")
+
 
 def draw_server_arc(server_no, start, stop, c):
     for i in range(start, stop, 1):
@@ -179,18 +180,14 @@ def tzOffset(checkTZ):
         offsetDir = -1 
     return offsetDir*(abs((int(myOffset)/100) - (int(theirOffset)/100)))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
 
-
-#Get IPs, using keyword ip
 dstIP = getDeviceInfo('ip')
-
 log = getDeviceInfo('log')
 serverNames = getDeviceInfo('name')
-print (serverNames)
 
 #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
 timeZones = []
 myTimeZone = getSysInfo("localhost",'tz')
-print("My TZ: ",  myTimeZone)
+print("My TZ: " + myTimeZone)
 
 sysC = []
 
@@ -198,25 +195,19 @@ for i in dstIP:
     #print(i)
     # if i not in activeIPs:
     #     activeIPs.append(i)
-    getResult = getCC(i, energyParam)
+    getResult = getCC(i,energyParam)
     if type(getResult) != type(None):
         ccData.append(getResult)
     else:
         ccData.append({"datetime": energyParam})
-    try:
-        tempTZ = getSysInfo(i, 'tz')
-    except: 
-        tempTZ = 'America/New_York'
 
+    tempTZ = getSysInfo(i, 'tz')
     if type(tempTZ) != type(None):
         timeZones.append(tempTZ)
     else:
         timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
-    try:
-        tempC = getSysInfo(i,'color')
-    except:
-        tempC = 'white'
+    tempC = getSysInfo(i,'color')
     
     if type(tempC) == type(None) or tempC == '':
         tempC = 'white'
@@ -224,54 +215,111 @@ for i in dstIP:
 
 print(timeZones)
 
+
+# timeZoneOffset = []
+# for t in timeZones:
+#     timeZoneOffset.append(tzOffset(t))
+
+# print(timeZoneOffset)
+
 pd.set_option("display.max_rows", None, "display.max_columns", None)
+
+# STYLE COLORS
+# radar grid white solid grid lines
+
+plt.rc('grid', color='#6b6b6b', linewidth=0.3, linestyle='-')
+
+# label colors
+plt.rc('xtick', labelsize=6, color="#e0e0e0")
+plt.rc('ytick', labelsize=15, color="#e0e0e0")
 
 #customize inside labels
 server_names = getDeviceInfo('name')
 
-# set up graph using drawBot
-newDrawing()
-newPage(500,500)
-font('georgia.ttf')
-fontSize(60)
+# set up graph
+fig = plt.figure(figsize=(15, 15)) #SIZE
+ax = fig.add_axes([0.1, 0.1, 0.8, 0.8], polar=True, facecolor='none')
 
+# ax.set_rticks(server_names)  # Less radial ticks
+# ax.set_rlabel_position(-22.5)  # Move radial labels 
+
+#ax.spines['polar'].set_visible(True) #turn off outside border
+ax.spines['polar'].set_color('#6b6b6b')
+
+#background color
+fig.set_facecolor('none') 
+
+# AXIS PROPERTIES
+ax.set_theta_direction(-1)
+
+ax.set_theta_offset(np.pi/2.0) #is this doing anything?
+
+rotation=360/hours/2
+
+n=0
+#customize outside labels
+ticks = np.arange(hours/tick_interval)*2*np.pi/(hours/tick_interval)
+x_labels = list(range(0,int(hours), tick_interval))
+x_labels[0]="Now"
+
+y_labels = getDeviceInfo('name')#need to filter out failed get requests!
+
+plt.xticks(ticks)
+plt.yticks(np.arange(2,len(y_labels)+2),y_labels)#Y LABELS!
+
+for label in ax.get_xticklabels()[::1]: #only show every second label
+    label.set_visible(False)
+
+#https://matplotlib.org/stable/api/text_api.html#matplotlib.text.Text.set_fontweight
+# to check python for available fonts:
+#import matplotlib.font_manager
+#print(matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf'))
+
+for label in ax.get_yticklabels():
+    label.set_visible(False)
+    label.set_horizontalalignment('center')
+    #label.set_verticalalignment('bottom')
+    #label.set_fontweight('bold')
+    label.set_fontfamily('serif')
+
+ax.set_rlabel_position(0)
+
+plt.ylim(0,10) #puts space in the center (start of y axis)
 
 #Draw Sun Data for each server
+#draw_ring(data, ringNo, parameter);
 for rPV in range(len(ccData)):
     draw_ring(ccData[rPV],rPV+2, energyParam,timeZones[rPV])
 
+#Draw Active Server Rings
+sortPOE()
 
+#poeColors = ["white","orange","red","green","blue","black","purple"]
 
+if dfPOE.shape[1] > 0:
+    for l in range(dfPOE.shape[0]):
 
-# # # set line height
-# # # lineHeight(150)
-# # # set font size
-# # fontSize(60)
-# # # draw text in a box
-# # textBox("Hello World " * 10, (100, 100, 800, 800))
+        if l == 0:
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l],360, sysC[dfPOE['device'].iloc[l]])
+        else:
+            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l], dfPOE['angle'].iloc[l-1], sysC[dfPOE['device'].iloc[l]])
 
+# draw_server_arc(4, 30, 35, "pink")
+# draw_server_arc(5, 55, 72, sc)
+# draw_server_arc(5, 24, 30, 'green')
 
-# rotate(5, center=(50, 50))
-# text("Hello World ",(50,50))
+#add line for now
+#ax.plot(wind_speed, wind_direction, c = bar_colors, zorder = 3)
+ax.plot((0,0), (0,10), color="white", linewidth=0.3, zorder=10)
+os.chdir(owd)
 
-# # fill(1, 0, 0, .5)
-# fill(0,0,0,0)
-# # rect(100, 100, 800, 800)
-stroke(1, 0, 0, .3)
-strokeWidth(10)
+plt.savefig('/home/pi/solar-protocol/backend/visualization/clock.png',transparent=True) #save plot
 
-# # arc(center, radius, startAngle, endAngle, clockwise)
-# pt1 = 238, 182
-# pt2 = 46, 252
-# pt0 = 74, 48
+background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-blackbg.png")
+foreground = Image.open("/home/pi/solar-protocol/backend/visualization/clock.png")
+#Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
-radius = 100
-# path = BezierPath()
-# # path.moveTo(pt0)
-path.arc((250,250), radius, 0, 120, 1)
-
-# # path.arcTo(pt1, pt2, radius)
-# drawPath(path)
-
-# saveImage("test.png")
-# endDrawing()
+background.paste(foreground, (0, 0), foreground)
+#archive images
+archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
+archiveImage.save('/home/pi/solar-protocol/frontend/images/clock-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot

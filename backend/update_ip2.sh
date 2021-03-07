@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# This script is run from solarProtocol.py
+
 # Variables
 LAST_IP_FILE=/tmp/lastip.txt
 LOGFILE=/var/log/namecheap.log

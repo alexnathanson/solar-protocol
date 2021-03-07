@@ -38,7 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
           $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
         }
-      }else {
+      } else if (isset($_POST['dnsPW'])){
+        if(empty($_POST['apiKey'])){
+          $dnsErr = "No data entered.";
+        } else {
+          $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+        }
+      } else {
         $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
       }
     }
@@ -181,14 +187,16 @@ function getFile($fileName){
 
 <div class="dangerBox">
   <h3>Security & Access Keys - Danger Zone!</h3>
-  <p>Upload Access Document</p>
-  <p>
-    or
-  </p>
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
     <input type="hidden" name="key" value="form"/>
-    <p>API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>
-    <button type="submit">Update</button>
+    <p>Network API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>
+    <button type="submit">Update API Key</button>
+  </form>
+
+  <form method="POST" onsubmit="return confirm('Are you sure you want to change the DNS password?');">
+    <input type="hidden" name="key" value="form"/>
+    <p>DNS Password <input type="text" name="dnsPW" value=""><span class="error" style="color:red"> <?php echo $dnsErr;?></span></p>
+    <button type="submit">Update DNS Password</button>
   </form>
 </div>
 

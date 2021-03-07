@@ -50,8 +50,8 @@ def getDeviceInfo(getKey):
 
     with open(deviceList) as f:
       data = json.load(f)
-      #print("Device List data:")
-      #print(data)
+      print("Device List data:")
+      print(data)
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])
@@ -162,7 +162,7 @@ def draw_server_arc(server_no, start, stop, c):
 
 
 
-    circle = g.arc(r=server_no*ring_rad+0.5*ring_rad, xy = [w/2, h/2], a1 = stop-Pi/2, a2 = start-Pi/2, stroke=c, stroke_width= 10)
+    circle = g.arc(r=server_no*ring_rad+0.5*ring_rad, xy = [w/2, h/2], a1 = stop-Pi/2, a2 = start-Pi/2, stroke=c, stroke_width= 15)
     circle.draw(surface)  
 
 def sortPOE():
@@ -240,7 +240,7 @@ def tzOffset(checkTZ):
 
 def text_curve(server_no, message, angle, spacing, ts):
     
-    cr = server_no*ring_rad+(ring_rad/4)
+    cr = server_no*ring_rad+(ring_rad/5)
   # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
     # circle.draw(surface)

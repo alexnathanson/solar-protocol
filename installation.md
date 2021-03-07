@@ -31,11 +31,15 @@ Download repo into /home/pi
 ### Python 3 Packages  
 * Install pip `sudo apt-get install python3-pip`  
 * Install pymodbus `sudo pip3 install pymodbus`    
-* Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)  
-* Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)
-* Install jinja `sudo pip3 install jinja2`    
-* Install matplotlib `sudo apt install python3-matplotlib`
-* `sudo apt-get install libopenjp2-7`
+* Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)   
+* Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)  
+* Install jinja `sudo pip3 install jinja2`     
+
+#### Python 3 Packages for the visualization
+* Install Pillow `sudo pip3 install Pillow`  
+* Install cairo `sudo apt-get install libcairo2-dev`  
+* Install gizeh `sudo pip3 install gizeh`  
+* Install webcolors `sudo pip3 install webcolors`  
 
 #### Troubleshooting numpy
 uninstall numpy (these uninstall commands may need to be run multiple times to get rid of multiple versions):

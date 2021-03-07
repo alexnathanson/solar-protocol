@@ -6,7 +6,9 @@ LOGFILE=/var/log/namecheap.log
 TIME="`date +%Y-%m-%d:%H:%M`"
 HOST=@
 DOMAIN=solarprotocol.net
-PASSWORD=REPLACE_WITH_PASSWORD
+
+#the DNS password is passed as an argument from solarProtocol.py
+PASSWORD=$1
 echo "TIME: $TIME"
 
 # Grab last IP

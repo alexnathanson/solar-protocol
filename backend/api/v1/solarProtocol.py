@@ -83,7 +83,7 @@ def determineServer():
 		logging.info(datetime.datetime.now())
 
 		#comment back in to run
-		os.system(subCall)
+		os.system(subCall + ' ' + dnsKey)
 	else:
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing

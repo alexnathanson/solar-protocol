@@ -91,6 +91,7 @@ def getLocalConfig(key):
 		return 'pi'
 
 def getNewDST(responseList):
+	global newDSTList, runningDSTList
 	#check if is is a new MAC and post if so
 	#if type(responseList) == list:
 	#if MAC exists check if it is a new IP and post if so (maybe compare time stamps accounting for time zone)
@@ -99,13 +100,13 @@ def getNewDST(responseList):
 
 		if r['mac'] not in getKeyList('mac'):
 			if r['ip'] not in runningDSTList:
-				print("new ip!")
+				print("new ip: " + r['ip'])
 				newDSTList.append(r['ip'])
 				runningDSTList.append(r['ip'])
 		elif r['ip'] not in getKeyList('ip'):
 			#in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
 			if r['ip'] not in runningDSTList:
-				print("new ip!!")
+				print("new ip: " + r['ip'])
 				newDSTList.append(r['ip'])
 				runningDSTList.append(r['ip'])
 
@@ -116,8 +117,8 @@ def postIt(dstIP,dstData):
 		#print(x.text)
 		#print(x.json())
 		if x.ok:
-			getNewDST(x.json())
 			print("Post successful")
+			getNewDST(x.json())
 		#requests.raise_for_status()
 	except requests.exceptions.HTTPError as errh:
 	 	print("An Http Error occurred:" + repr(errh))
@@ -130,6 +131,8 @@ def postIt(dstIP,dstData):
 
 #add a boolean back in if the 
 def makePosts(ipList):
+	global newDSTList
+
 	newDSTList = []
 
 	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(poeData)

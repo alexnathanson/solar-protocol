@@ -6,7 +6,7 @@ LOGFILE=/var/log/namecheap.log
 TIME="`date +%Y-%m-%d:%H:%M`"
 HOST=@
 DOMAIN=solarprotocol.net
-PASSWORD=000c18a2b22c44faad23a55bd43573ca
+PASSWORD=REPLACE_WITH_PASSWORD
 echo "TIME: $TIME"
 
 # Grab last IP

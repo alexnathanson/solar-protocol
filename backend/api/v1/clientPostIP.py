@@ -11,9 +11,9 @@ headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
-localConfig = "/home/pi/local/local.json";
+localConfig = "/home/pi/local/local.json"
 
 poeLog = "/home/pi/solar-protocol/backend/api/v1/poe.log"
 poeData = []
@@ -134,13 +134,13 @@ def makePosts(ipList):
 	global newDSTList
 
 	newDSTList = []
-
+	#all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, poe log
 	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(poeData)
 
 	print(myString)
 
 	#post to self automatically
-	postIt(myIP,myString)
+	postIt('localhost', myString)
 
 	for dst in ipList:
 		print("DST: " + dst)

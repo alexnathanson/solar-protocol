@@ -48,6 +48,9 @@ then install numpy and this missing library:
 * `sudo pip3 install numpy`
 * `sudo apt-get install libatlas-base-dev`
 
+#### Troubleshooting PIL
+* 'sudo apt install libtiff5'
+
 ### Security
 Recommendations to set up your pi securely   
 * Choose a strong password  

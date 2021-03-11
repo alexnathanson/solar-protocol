@@ -18,9 +18,10 @@ Pi = 3.14159
 hours = 72
 ah = (2*Pi)/hours #angle of an hour
 ring_rad = 61 
+radius = 61*10
 
 #Run settings
-local = 0
+local = 1
 debug_mode = 0
 
 path = "/home/pi/solar-protocol/backend"
@@ -29,6 +30,8 @@ if local == 1:
 
 #Global variables
 deviceList = path + "/api/v1/deviceList.json"
+
+
 energyParam = "PV-current"
 ccData = []
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
@@ -170,9 +173,9 @@ def sortPOE():
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
         tempDF['datetime'] = tempDF[0]
-        #print("tempDF['datetime']")
-        #print(tempDF['datetime'])
-        #tempDF['datetime'] = tempDF['datetime'].astype(str) #convert entire "Dates" Column to string 
+        print("tempDF['datetime']")
+        print(tempDF['datetime'])
+        tempDF['datetime'] = tempDF['datetime'].astype(str) #convert entire "Dates" Column to string 
 
         tempDF['datetime']=pd.to_datetime(tempDF['datetime'], errors="coerce") #convert entire "Dates" Column to datetime format this time 
 
@@ -210,7 +213,7 @@ def sortPOE():
             #print("start time:", startTime)
             #print("next time:", dfPOE['datetime'].iloc[t])
             minPast = ((startTime - dfPOE['datetime'].iloc[t]).total_seconds())/60
-            #print("minutes as POE:", minPast)
+            #print("minutes since start:", minPast)
             #print("percent of the time:", minPast/(hours*60))
             dfPOE.at[t,'percent']= minPast/ (hours*60)
             #print("percent again:", dfPOE['percent'].iloc[t])
@@ -238,7 +241,6 @@ def tzOffset(checkTZ):
 
 
 def text_curve(server_no, message, angle, spacing, ts):
-    
     cr = server_no*ring_rad+(ring_rad/5)
   # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
@@ -266,17 +268,34 @@ def text_curve(server_no, message, angle, spacing, ts):
         # add 250 so that the origin translates to center of screen, then add coords
         x = w/2 + cr * math.cos(theta)
         y = h/2 + cr * math.sin(theta)
-        # Rotate the box
-        # rotate(theta+PI/2)   # rotation is offset by 90 degrees
         # Display the character
-        # fill(0)
-        # text(currentChar,0,0)
+        
         text = g.text(message[i].capitalize(), fontfamily="Georgia",  fontsize=ts, fill=(1,1,1), xy = [x, y])
         text = text.rotate(theta+(Pi/2), center=[x,y]) # rotation around a center
         text.draw(surface)
         # popMatrix()
         # Move halfway again
         arclength -= spacing/2
+
+def lines(interval):
+        #for loop for lines 
+    a = -(Pi/2)
+    interval = (interval/72)*2*Pi
+    while a < (Pi*2-(Pi/2)):
+        x1 = w/2 + (radius-10) * math.cos(a)
+        y1 = h/2 + (radius-10) * math.sin(a)
+        line = g.polyline(points=[(x1,y1), (w/2,h/2)], stroke_width=1, stroke=(1,1,1,0.1))
+        line.draw(surface)
+        a = a + interval
+    print("finished drawing lines")
+
+
+
+        
+
+
+
+    
 
     
 
@@ -346,31 +365,36 @@ pd.set_option("display.max_rows", None, "display.max_columns", None)
 server_names = getDeviceInfo('name')
 # print("server names", len(server_names))
 
+# go over ccData for each server
 for i, item in enumerate(ccData):
-    #draw sun data
-    # print("item", item)
+
+    # print name of each server
     text_curve(i+2, server_names[i], 0, 0, 16)
+    #draw sun data for each server
     draw_ring(item,i+3, energyParam,timeZones[i])
 
 
 #Draw Active Server Rings
 sortPOE()
-print(dfPOE.shape)
+print("dfPOE.shape", dfPOE.shape)
+print(dfPOE)
+lines(2)
 # draw_server_arc(0, 0, Pi, (1,0,0))
-#         
+
 if dfPOE.shape[1] > 0:
+    #for l, item in enumerate(dfPOE.shape[0]):
     for l in range(dfPOE.shape[0]):
         if l == 0:
-            #print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-            #print( sysC[dfPOE['device'].iloc[l]])
-            #print("First Angle:", dfPOE['angle'].iloc[l])
+            print("Server:" ,sysC[dfPOE['device'].iloc[l]])
+            print( sysC[dfPOE['device'].iloc[l]])
+            print("First Angle:", dfPOE['angle'].iloc[l])
             draw_server_arc(dfPOE['device'].iloc[l]+2, 2*Pi, dfPOE['angle'].iloc[l]*(Pi/180), sysC[dfPOE['device'].iloc[l]])
         else:
-            #print( sysC[dfPOE['device'].iloc[l]])
-            #print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-            #print("ring:", dfPOE['device'].iloc[l])
-            #print("start arc:", dfPOE['angle'].iloc[l]*Pi/180)
-            #print("stop arc:", dfPOE['angle'].iloc[l-1]*Pi/180)
+            print( sysC[dfPOE['device'].iloc[l]])
+            print("Server:" ,sysC[dfPOE['device'].iloc[l]])
+            print("ring:", dfPOE['device'].iloc[l])
+            print("start arc:", dfPOE['angle'].iloc[l])
+            print("stop arc:", dfPOE['angle'].iloc[l-1])
             draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1]*Pi/180, dfPOE['angle'].iloc[l]*Pi/180, sysC[dfPOE['device'].iloc[l]])
 
 
@@ -398,7 +422,7 @@ surface.write_to_png("clock.png")
 
 
 
-background = Image.open("3day-diagram-nolabels-line.png")
+background = Image.open("3day-diagram-nolabels1.png")
 foreground = Image.open("clock.png")
 #Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 

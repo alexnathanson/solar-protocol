@@ -277,7 +277,7 @@ def text_curve(server_no, message, angle, spacing, ts):
         # Move halfway again
         arclength -= spacing/2
 
-def lines(interval):
+def lines(interval, sw, opacity):
         #for loop for lines 
     a = -(Pi/2)
     interval = (interval/72)*2*Pi
@@ -286,10 +286,17 @@ def lines(interval):
         yc = h/2 + ring_rad*2 * math.sin(a)
         x1 = w/2 + (radius-10) * math.cos(a)
         y1 = h/2 + (radius-10) * math.sin(a)
-        line = g.polyline(points=[(x1,y1), (xc,yc)], stroke_width=1, stroke=(1,1,1,0.4))
+        line = g.polyline(points=[(x1,y1), (xc,yc)], stroke_width=sw, stroke=(1,1,1,opacity))
         line.draw(surface)
         a = a + interval
     print("finished drawing lines")
+
+def circles(sw, opacity):
+    b = ring_rad*2
+    while b < (radius):
+        circ = g.circle(r=b, xy = [w/2, h/2], stroke=(1,1,1), stroke_width= 1.5)
+        circ.draw(surface)
+        b = b + ring_rad
 
 
 
@@ -380,7 +387,10 @@ for i, item in enumerate(ccData):
 sortPOE()
 print("dfPOE.shape", dfPOE.shape)
 print(dfPOE)
-lines(2)
+#lines(interval in house, stroke weight, opacity)
+lines(2, 1, 0.2)
+lines(12, 1.5, 1)
+circles(1.5, 1)
 # draw_server_arc(0, 0, Pi, (1,0,0))
 
 if dfPOE.shape[1] > 0:
@@ -431,7 +441,7 @@ foreground = Image.open("clock.png")
 # background.paste(foreground, (0, 0))
 # background.save("clock1.png")
 
-mask = Image.open('mask3.png').resize(background.size).convert('L')
+mask = Image.open('mask5.png').resize(background.size).convert('L')
 background.paste(foreground, (0, 0), mask)
 background.save("../../frontend/images/clock.png")
 # alphaBlended2 = Image.blend(foreground, background, alpha=.5)

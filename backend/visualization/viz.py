@@ -282,9 +282,11 @@ def lines(interval):
     a = -(Pi/2)
     interval = (interval/72)*2*Pi
     while a < (Pi*2-(Pi/2)):
+        xc = w/2 + ring_rad*2 * math.cos(a)
+        yc = h/2 + ring_rad*2 * math.sin(a)
         x1 = w/2 + (radius-10) * math.cos(a)
         y1 = h/2 + (radius-10) * math.sin(a)
-        line = g.polyline(points=[(x1,y1), (w/2,h/2)], stroke_width=1, stroke=(1,1,1,0.1))
+        line = g.polyline(points=[(x1,y1), (xc,yc)], stroke_width=1, stroke=(1,1,1,0.4))
         line.draw(surface)
         a = a + interval
     print("finished drawing lines")

@@ -15,6 +15,7 @@ import logging
 
 #terminal command to update DNS record
 subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh'
+dnsKey = ''
 
 '''
 possible values (use "-" instead of spaces):
@@ -22,6 +23,7 @@ PV current,PV power H,PV power L,PV voltage,
 battery percentage,battery voltage,charge current,
 charge power H,charge power L,date,load current,load power,load voltage,time
 '''
+
 dataValue = 'PV voltage'
 apiValue = 'PV-voltage'
 
@@ -83,7 +85,7 @@ def determineServer():
 		logging.info(datetime.datetime.now())
 
 		#comment back in to run
-		os.system(subCall)
+		os.system(subCall + ' ' + dnsKey)
 	else:
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing

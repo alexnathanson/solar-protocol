@@ -5,7 +5,7 @@
 key=$1
 val=$2
 
-flag=false
+#flag=0
 
 envFileName="/home/pi/.spenv"
 
@@ -23,23 +23,24 @@ then
 
 		while read l; do
 			#check if the line includes the key
-			if [ $l == *"export $key"* ]
+			if [ $l != *"export $key="* ]
 			then
+				echo "$l"
+		    else 
 		    	#echo ${l//abc/XYZ}
 		    	echo "export " $key=$val 
-		    	$flag=true
-		    else 
-		    	echo "$l"
+		    	#$flag=1
+			fi
 		done < $envFileName > $envFileName.tmp
 
-		mv /home/pi/$envFileName{.tmp,}
+		mv $envFileName{.tmp,}
 
-    	#if the environmental variable doesn't already exist in the file
-    	if [ $flag == false]
-    	then
-    		echo "key doesn't already exist"
-			echo "export " $key=$val >> $envFileName
-		fi
+  #   	#if the environmental variable doesn't already exist in the file
+  #   	if [ $flag = 0 ]
+  #   	then
+  #   		echo "key doesn't already exist"
+		# 	echo "export " $key=$val >> $envFileName
+		# fi
 
     else
     	echo "File doesn't exists. Creating new file"

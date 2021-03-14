@@ -23,17 +23,17 @@ then
 
 		while read l; do
 			#check if the line includes the key
-			if [ $l != *"export $key="* ]
+			if [ $l != *"export ${key}="* ]
 			then
 				echo "$l"
 		    else 
 		    	#echo ${l//abc/XYZ}
-		    	echo "export " $key=$val 
+		    	echo "export ${key}=${val}"
 		    	#$flag=1
 			fi
-		done < $envFileName > $envFileName.tmp
+		done < $envFileName > ${envFileName}.tmp
 
-		mv $envFileName{.tmp,}
+		mv ${envFileName}.tmp 
 
   #   	#if the environmental variable doesn't already exist in the file
   #   	if [ $flag = 0 ]
@@ -45,7 +45,7 @@ then
     else
     	echo "File doesn't exists. Creating new file"
     	#dump variable into new file
-	    echo "export " $key=$val >> $envFileName
+	    echo "export ${key}=${val}" >> $envFileName
 	fi
 else
     echo "Missing key and/or value arguments."

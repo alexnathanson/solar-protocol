@@ -1,10 +1,30 @@
 #!/bin/sh
 
-$key = $1
-$val = $2
+#to use these environmental variables you must first source the .spenv file
 
-$ nano /etc/environment
+key=$1
+val=$2
 
-export $key=$val
+envFileName="/home/pi/.spenv"
 
-#export NETWORK_KEY='test'
+#check that neither argument is empty
+if [ $key != "" ] && [ $val != "" ]
+then
+    #check if file exists
+    if [-e $envFileName]
+    then
+    	#read file
+		while read p; do
+		  echo "$p"
+		done < $envFileName
+    	#if the environmental variable doesn't already exist
+    	echo "export " $key=$val >> $envFileName
+    else
+    	#dump variable into new file
+	    echo "export " $key=$val >> $envFileName
+	fi
+else
+    echo "Missing key and/or value arguments."
+fi
+
+

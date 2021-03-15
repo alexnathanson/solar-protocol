@@ -22,7 +22,7 @@ radius = 61*10
 start_ring = 1
 
 #Run settings
-local = 1
+local = 0
 debug_mode = 0
 
 path = "/home/pi/solar-protocol/backend"
@@ -152,6 +152,8 @@ def draw_server_arc(server_no, start, stop, c):
     # print("stop", stop)
     # print("start", start)
     # print("c", c)
+    if c == "Pink":
+        return False
 
     if type(c)==type(" "):
         #print("Name!!", c)

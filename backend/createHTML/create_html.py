@@ -311,7 +311,7 @@ def check_images(server_data):
             print("myIP", myIP)
             if server["ip"] == "localhost": #if it is itself
 
-                image_path = "../../local/www/serverprofile.gif"
+                image_path = "/local/serverprofile.gif"
                 filepath = image_path
             elif os.path.exists(fullpath): #else if the image is in the folder
                 print("Got image for", server["name"])

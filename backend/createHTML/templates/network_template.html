@@ -21,9 +21,9 @@
       <div class="server-box">
         <h3>{{item.name}}, {{item.location}}, {{item.country}}</h3>
         <img src={{item.image_path}}>
-        <p>Status: <strong>{{item.status}}</strong></p>
-        <p>Last check-in: <strong>n/a </strong></p>
-        <p>About: <strong>{{item.description}}</strong></p>
+        <p><i>Server status:</i> {{item.status}}</p>
+        <p><i>Last check-in:</i> {{item.time_stamp}} </p>
+        <p><i>About:</i> {{item.description}}</p>
       </div>
       {% endfor %}
 

@@ -384,6 +384,13 @@ def main():
             status = "offline"
         item["solar_voltage"] = solar_data
         item["status"] = status
+        try: 
+            time_stamp = getDeviceInfo('log')[0][0]
+            print("time_stamp!!!!!!!!!!!!!!!!!!!!", time_stamp)
+            time_stamp = ":".join(time_stamp.split(":")[0:-1])
+        except Exception as e:
+            time_stamp = "N/A"
+        item["time_stamp"] = time_stamp
     
     #4. get images and 
     print(server_data)

@@ -60,7 +60,6 @@ nav {
   align-content: flex-start;
   justify-content: space-between;
   align-items: center;
-  font-size: var(--text-size);
   writing-mode: vertical-rl;
   text-orientation: mixed;
   position: fixed;
@@ -453,6 +452,43 @@ section {
 
   padding: var(--vertical-padding) 0px;
 }
+
+.server-box{
+  /* border: solid 1px black; */
+  padding: none;
+  border: black 1px solid;
+  margin: 20px 0px;
+
+}
+
+.server-box p{
+  margin: 0px;
+  font-size: calc(var(--text-size)*1);
+  vertical-align: top;
+  padding: 3px 10px;
+}
+
+.server-box h3{
+  /* padding: var(--vertical-padding) var(--horizontal-padding); */
+  padding: 5px 10px;
+  background-color: black;
+  color: white;
+  font-size: calc(var(--text-size)*1.2);
+  background-color: rgba(0, 0, 0);
+  line-height: 1.1em;
+  font-style: italic;
+  
+}
+.server-box table{
+  margin: 0px;
+  font-size: calc(var(--text-size)*1);
+  vertical-align: top;
+  
+}
+.server-box td{
+  padding: 5px 5px;
+}
+
 
 .lowres {
   /* position:absolute; */

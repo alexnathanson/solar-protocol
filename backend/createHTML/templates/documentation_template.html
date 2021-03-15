@@ -1,14 +1,12 @@
 {% extends "base-template.html" %}
 {% block content %}
-  <div class="onecol-text">
-    <h3>System Documentation</h3>
-    <h4>Hardware: What is a solar server?</h4>
-  </div>
   {% if batteryPercentage >= 30 %}
     <img class="full-col" src="images/hardware.gif" />
   {% else %}
   {% endif %}
   <div class="onecol-text">
+      <h3>System Documentation</h3>
+      <h4>Hardware: What is a solar server?</h4>
     <p>
       Each solar server is composed of two main components: a 50W 
       photovoltaic panel (PV) for harnessing the sun and a weatherized enclosure 

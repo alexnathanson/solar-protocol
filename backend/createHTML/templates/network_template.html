@@ -2,7 +2,7 @@
 {% block content %}
 {% if batteryPercentage >= 30 %}
 
-    <img class="full-col" src="/images/network.gif" />
+    <img class="full-col" src="images/map.gif" />
     
 
 {% else %}
@@ -13,11 +13,20 @@
       We are currently setting up servers in different locations around the world
       and are seeking more stewards in different time zones and continents. If you
       are interested in hosting a server, please see our
-      <a href="/call.html">call for stewards</a>.
+      <a href="call.html">call for stewards</a>.
     </p>
     <h4>Servers in the Network</h4>
     <div class="network-overview">
-     
+    {% for item in servers %}
+      <div class="server-box">
+        <h3>{{item.name}}, {{item.location}}, {{item.country}}</h3>
+        <img src={{item.image_path}}>
+        <p>Status: <strong>{{item.status}}</strong></p>
+        <p>Last check-in: <strong>n/a </strong></p>
+        <p>About: <strong>{{item.description}}</strong></p>
+      </div>
+      {% endfor %}
+
     </div>
   </div>
 {% endblock %}

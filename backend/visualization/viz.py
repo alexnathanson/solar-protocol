@@ -19,6 +19,7 @@ hours = 72
 ah = (2*Pi)/hours #angle of an hour
 ring_rad = 61 
 radius = 61*10
+start_ring = 1
 
 #Run settings
 local = 1
@@ -136,7 +137,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
 def draw_sun(server_no, hour, alpha):
     a = -Pi/2 + (hour*ah)
     sw = ring_rad
-    arc = g.arc(r = server_no*ring_rad-(ring_rad/2), xy = [w/2, h/2], a1 = a, a2 = a+ah , stroke=(1, 0.84, 0, alpha), stroke_width= sw)
+    arc = g.arc(r = server_no*ring_rad-(ring_rad/2)+(ring_rad*start_ring), xy = [w/2, h/2], a1 = a, a2 = a+ah , stroke=(1, 0.84, 0, alpha), stroke_width= sw)
     arc.draw(surface)
     #DEBUGGING TEXT ON GRAPH
     # text = g.text(str(alpha), fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy = [w/2+200, h/2])
@@ -164,7 +165,7 @@ def draw_server_arc(server_no, start, stop, c):
 
 
 
-    circle = g.arc(r=server_no*ring_rad+0.5*ring_rad, xy = [w/2, h/2], a1 = stop-Pi/2, a2 = start-Pi/2, stroke=c, stroke_width= 15)
+    circle = g.arc(r=server_no*ring_rad+(0.5+start_ring)*ring_rad, xy = [w/2, h/2], a1 = stop-Pi/2, a2 = start-Pi/2, stroke=c, stroke_width= 15)
     circle.draw(surface)  
 
 def sortPOE():
@@ -241,7 +242,7 @@ def tzOffset(checkTZ):
 
 
 def text_curve(server_no, message, angle, spacing, ts):
-    cr = server_no*ring_rad+(ring_rad/5)
+    cr = server_no*ring_rad+(ring_rad/5)+(ring_rad*start_ring)
   # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
     # circle.draw(surface)
@@ -253,7 +254,6 @@ def text_curve(server_no, message, angle, spacing, ts):
 
         # print(message[i])
         # guessing the width of each char
-        spacing = 12
 
         # Each box is centered so we move half the width
         arclength = arclength - spacing/2
@@ -378,7 +378,7 @@ server_names = getDeviceInfo('name')
 for i, item in enumerate(ccData):
 
     # print name of each server
-    text_curve(i+2, server_names[i], 0, 0, 16)
+    text_curve(i+2, server_names[i], 0, 18, 18)
     #draw sun data for each server
     draw_ring(item,i+3, energyParam,timeZones[i])
 

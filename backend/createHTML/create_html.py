@@ -1,12 +1,13 @@
+from collections import UserList
 from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+from glob import glob
 import datetime
 import requests, json 
 import json
-import random
 import csv
-
+import os
 
 def get_data():
     client = ModbusClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
@@ -46,6 +47,22 @@ def get_data():
         print(data)
         return data
 
+#Call API for every IP address and get charge controller data 
+def getCC(dst,ccValue):
+    print("GET from " + dst)
+    try:
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
+        #print("API charge controller data:")
+        #print(x.text)
+        return json.loads(x.text)
+    except requests.exceptions.HTTPError as errh:
+        print("An Http Error occurred:" + repr(errh))
+    except requests.exceptions.ConnectionError as errc:
+        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.Timeout as errt:
+        print("A Timeout Error occurred:" + repr(errt))
+    except requests.exceptions.RequestException as err:
+        print("An Unknown Error occurred" + repr(err))
 
 def read_csv():
     # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
@@ -72,7 +89,7 @@ def read_csv():
 
 
 
-def render_pages(_local_data, _data, _weather):
+def render_pages(_local_data, _data, _weather, _server_data):
     print("Battery Percentage:" + str(_data["battery percentage"]))
     pages = [
         ("index_template.html", "index.html"),
@@ -81,7 +98,7 @@ def render_pages(_local_data, _data, _weather):
         ("documentation_template.html", "documentation.html"),
         ("solar-web_template.html", "solar-web.html"),
         ("manifesto_template.html", "manifesto.html"),
-         ("library_template.html", "library.html"),
+        ("library_template.html", "library.html"),
     ]
 
     for template_filename, output_filename in pages:
@@ -148,7 +165,8 @@ def render_pages(_local_data, _data, _weather):
             sunset=_weather["sunset"],
             zone=zone,
             leadImage=leadImage,
-            mode=mode
+            mode=mode, 
+            servers=_server_data
         )
 
         # print(rendered_html)
@@ -200,10 +218,131 @@ def get_local():
         local_data = json.load(infile)
     return local_data  # dictionary
 
-def network():
-    deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
-    deviceInfo = json.dumps(deviceInfoFile)
+# Get list of IP addresses that the pi can see
+def getDeviceInfo(getKey):
+    ipList = []
 
+    with open(deviceList) as f:
+      data = json.load(f)
+      print("Device List data:")
+      #print(data)
+
+    for i in range(len(data)):
+        ipList.append(data[i][getKey])
+
+    return ipList
+
+def get_ips():
+    # deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+    # deviceInfo = json.dumps(deviceInfoFile)
+    #Get my ip
+    myIP = 	requests.get('http://whatismyip.akamai.com/').text
+    print("MY IP: ", type(myIP))
+
+    #Get IPs, using keyword ip
+    dstIP = getDeviceInfo('ip')
+    for index, item in enumerate(dstIP):
+        print(item)
+        if(item == myIP):
+            print("Replacing ip of self")
+            dstIP[index]="localhost"
+
+    log = getDeviceInfo('log')
+    serverNames = getDeviceInfo('name')
+    print (dstIP)
+    print (serverNames)
+    deviceList_data = dict(zip(serverNames, dstIP))
+    print (deviceList_data)
+    return deviceList_data
+
+
+def active_servers(dst):
+    try:
+        x = requests.get("http://" + dst + "/local",timeout=5)
+    except requests.exceptions.HTTPError as errh:
+        print("An Http Error occurred:" + repr(errh))
+    except requests.exceptions.ConnectionError as errc:
+        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.Timeout as errt:
+        print("A Timeout Error occurred:" + repr(errt))
+    except requests.exceptions.RequestException as err:
+        print("An Unknown Error occurred" + repr(err))
+
+
+#Call API for every IP address and get charge controller data 
+def get_pv_value(dst):
+    try:
+        x = requests.get('http://' + dst + "/api/v1/api.php?value=PV-voltage",timeout=5)
+        return x.text
+    except requests.exceptions.HTTPError as errh:
+        print("An Http Error occurred:" + repr(errh))
+    except requests.exceptions.ConnectionError as errc:
+        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.Timeout as errt:
+        print("A Timeout Error occurred:" + repr(errt))
+    except requests.exceptions.RequestException as err:
+        print("An Unknown Error occurred" + repr(err))
+    
+def download_file(url, local_filename=None):
+    #Downloads a file from a remote URL
+    if local_filename is None:
+        local_filename = url.split("/")[-1]
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(local_filename, "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+    return local_filename
+
+def check_images(server_data):
+    # server_images_paths = glob("../../frontend/images/servers/*.jpg")
+    # server_images_names = [os.path.basename(i) for i in server_images_paths]
+    #server_images_names = server_images_paths.split("/")[-1]
+    # ps.path.basename[image]
+    for server in server_data:
+        filename = server["name"]+".gif"
+        filename = filename.replace(" ", "-")
+        fullpath = "../../frontend/images/servers/" + filename
+        filepath = "images/servers/" + filename
+        #print("server:", server)
+        if "ip" in server:
+            myIP = 	requests.get('http://whatismyip.akamai.com/').text
+            print("Server IP:", server["ip"])
+            print("myIP", myIP)
+            if server["ip"] == "localhost": #if it is itself
+
+                image_path = "../../local/www/serverprofile.gif"
+                filepath = image_path
+            elif os.path.exists(fullpath): #else if the image is in the folder
+                print("Got image for", server["name"])
+            else: #else download image using api and save it to the folder: "../../frontend/images/servers/"
+                image_path = "http://" + server["ip"] + "/local/serverprofile.gif"
+                try:
+                    download_file(image_path, fullpath) 
+                    print("image_path", image_path)
+                    print("local_path", fullpath)
+                except Exception as e:           
+                    print(server["name"], ": Offline. Can't get image")
+            server["image_path"] = filepath
+        
+
+
+
+
+
+
+
+#Run settings
+local = 1
+
+#Global variables
+path = "/home/pi/solar-protocol/backend"
+if local == 1:
+    path = ""   
+deviceList = path + "../api/v1/deviceList.json"
+dstIP = []
+serverNames = []
+myIP = " "
 
 
 def main():
@@ -221,14 +360,40 @@ def main():
             "sunset": "n/a"
         }
 
+    #1. get IP list of addresses
+    deviceList_data = get_ips()
+    #creates deviceList_data
+  
+    #2. import json data as an array of dictionarys
+    with open('servers.json') as f:
+        server_data = json.load(f)
+        #3. Add ips to server_data
+        for item in server_data:
+            for key, value in deviceList_data.items():
+                if item["name"] == key:
+                    item["ip"] = value
+        print(server_data)
+    
+    #3. get solar data and add it to server_data
+    for item in server_data:
+        try:
+            solar_data = get_pv_value(item["ip"])
+            status = "online"
+        except Exception as e:
+            solar_data = None
+            status = "offline"
+        item["solar_voltage"] = solar_data
+        item["status"] = status
+    
+    #4. get images and 
+    print(server_data)
+    check_images(server_data)
+    
 
 
-    # print(hosting_data)
-    # print("Battery: {}".format(data("batteryPercentage"))
-    # print("PV: {}".format(SolarVoltage))
-    render_pages(local_data, energy_data, local_weather)
+    render_pages(local_data, energy_data, local_weather, server_data)
 
-    # print(data)
+
 
 
 if __name__ == "__main__":

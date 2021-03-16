@@ -120,6 +120,8 @@ def postIt(dstIP,dstData):
 			print("Post successful")
 			getNewDST(x.json())
 		#requests.raise_for_status()
+	except json.decoder.JSONDecodeError as e:
+		print("JSON decoding error", e)
 	except requests.exceptions.HTTPError as errh:
 	 	print("An Http Error occurred:" + repr(errh))
 	except requests.exceptions.ConnectionError as errc:

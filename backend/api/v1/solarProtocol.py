@@ -137,14 +137,18 @@ def getmac(interface):
 
 	return mac
 
-def getEnv(thisENV):
+def getEnv(thisEnv):
 	#subprocess.Popen('. ./home/pi/solar-protocol/backend/source_env.sh', shell=true)
-	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh','DNS_KEY'], stdout=subprocess.PIPE)
-	dnsKey = proc.stdout.read()
+	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
+	e = proc.stdout.read()
+	#get sub string
+	e = e.decode("utf-8") 
+	#remove line breaks
+	e = e.replace("\n", " ")
+	return e
 
 
-getEnv('DNS_KEY')
-subCall += dnsKey
+subCall += str(getEnv('DNS_KEY'))
 
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = getmac("wlan0")

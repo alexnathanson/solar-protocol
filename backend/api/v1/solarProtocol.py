@@ -14,7 +14,7 @@ import csv
 import logging
 
 #terminal command to update DNS record
-subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh'
+subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh ' + getenv('DNS')
 dnsKey = ''
 
 '''
@@ -136,9 +136,9 @@ def getmac(interface):
 
 	return mac
 
-def getEnv():
+def getEnv(thisENV):
 	os.system('source /home/pi/.spenv')
-	return os.getenv('DNS-API')
+	return os.getenv(thisENV)
 
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = getmac("wlan0")

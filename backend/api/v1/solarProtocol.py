@@ -138,8 +138,9 @@ def getmac(interface):
 	return mac
 
 def getEnv(thisENV):
-	subprocess.Popen(["/home/pi/backend/source_env.sh"])
-	dnsKey = os.getenv(thisENV)
+	#subprocess.Popen('. ./home/pi/solar-protocol/backend/source_env.sh', shell=true)
+	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh','DNS_KEY'], stdout=subprocess.PIPE)
+	dnsKey = proc.stdout.read()
 
 
 getEnv('DNS_KEY')

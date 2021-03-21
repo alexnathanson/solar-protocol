@@ -36,13 +36,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(empty($_POST['apiKey'])){
           $apiErr = "No data entered.";
         } else {
-          $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+          //$localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+          setEnv('API_KEY',$_POST['apiKey']);
+          echo('API key received');
         }
       } else if (isset($_POST['dnsPW'])){
-        if(empty($_POST['apiKey'])){
+        if(empty($_POST['dnsPW'])){
           $dnsErr = "No data entered.";
         } else {
-          $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+          //$localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+          setEnv('DNS_KEY',$_POST['dnsPW']);
+          echo('DNS key received');
         }
       } else {
         $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
@@ -123,6 +127,10 @@ function getFile($fileName){
     echo $fileName;
     return FALSE;
   }
+}
+
+function setEnv($key,$val){
+  shell_exec('bash /home/pi/solar-protocol/backend/set_env.sh ' + $key + " " $val);
 }
 
 ?>

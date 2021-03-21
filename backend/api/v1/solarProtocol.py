@@ -141,12 +141,11 @@ def getEnv(thisEnv):
 	#subprocess.Popen('. ./home/pi/solar-protocol/backend/source_env.sh', shell=true)
 	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
 	e = proc.stdout.read()
-	#get sub string
+	#convert byte string to string
 	e = e.decode("utf-8") 
 	#remove line breaks
-	e = e.replace("\n", " ")
+	e = e.replace("\n", "")
 	return e
-
 
 subCall += str(getEnv('DNS_KEY'))
 

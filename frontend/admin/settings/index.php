@@ -140,7 +140,12 @@ function setEnv($envKey,$envVal){
   $envVal = test_input($envVal);
 
   $execCmd = escapeshellcmd(". /home/pi/solar-protocol/backend/set_env.sh ${envKey} ${envVal}");
-  system($execCmd);
+  //system($execCmd);
+  $shErr = "";
+
+  shell_exec($execCmd,$shErr);
+
+  echo $shErr;
 }
 
 ?>

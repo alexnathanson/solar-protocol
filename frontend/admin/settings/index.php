@@ -20,6 +20,8 @@
 $localFile = '/home/pi/local/local.json';
 $imgDir = '/home/pi/local/www/';
 
+//$spenv = 'home/pi/.spenv';
+
 $localInfo = json_decode(getFile($localFile), true);
 
 $apiErr = $dnsErr = "";
@@ -109,14 +111,14 @@ function test_input($data) {
 }
 
 //add in a validation test?
-function testAPIkey($data){
+/*function testAPIkey($data){
   echo !empty($data);
   if(!empty($data)){
     return true;
   } else {
     return false;
   }
-}
+}*/
 
 function getFile($fileName){
   //echo $fileName;
@@ -130,9 +132,15 @@ function getFile($fileName){
 }
 
 function setEnv($envKey,$envVal){
-  $shellCmd = ". /home/pi/solar-protocol/backend/set_env.sh ${envKey} ${envVal}";
-  echo $shellCmd;
-  echo shell_exec($shellCmd);
+  /*$shellCmd = ". /home/pi/solar-protocol/backend/set_env.sh ${envKey} ${envVal}";
+  echo $shellCmd;*/
+
+  //test inputs
+  $envKey = test_input($envKey);
+  $envVal = test_input($envVal);
+
+  $execCmd = escapeshellcmd(". /home/pi/solar-protocol/backend/set_env.sh ${envKey} ${envVal}");
+  system($execCmd);
 }
 
 ?>

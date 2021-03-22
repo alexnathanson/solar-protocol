@@ -22,7 +22,7 @@ $imgDir = '/home/pi/local/www/';
 
 $localInfo = json_decode(getFile($localFile), true);
 
-$apiErr = "";
+$apiErr = $dnsErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

@@ -129,8 +129,8 @@ function getFile($fileName){
   }
 }
 
-function setEnv($key,$val){
-  shell_exec('bash /home/pi/solar-protocol/backend/set_env.sh ' + $key + " " $val);
+function setEnv($envKey,$envVal){
+  shell_exec('bash /home/pi/solar-protocol/backend/set_env.sh ' + $envKey + " " + $envVal);
 }
 
 ?>

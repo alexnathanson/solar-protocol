@@ -16,3 +16,5 @@ backend/api/v1/deviceList.json
 backend/visualization/clock.png
 
 /backend/visualization/archive/*
+
+.spenv

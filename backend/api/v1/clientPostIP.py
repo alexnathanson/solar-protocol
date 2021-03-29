@@ -5,6 +5,7 @@ import requests
 import time
 import json
 import re
+import subprocess
 
 headers = {
     #'X-Auth-Key': KEY,
@@ -156,6 +157,16 @@ def makePosts(ipList):
 		print(newDSTList)
 		makePosts(newDSTList)
 
+def getEnv(thisEnv):
+	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
+	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
+	e = proc.stdout.read()
+	#convert byte string to string
+	e = e.decode("utf-8") 
+	#remove line breaks
+	e = e.replace("\n", "")
+	return e
+
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
 
@@ -163,8 +174,8 @@ myName = getLocalConfig("name")
 #myName = myName.lower();#make lower case
 myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
 
-apiKey = getLocalConfig("apiKey")
-#apiKey = os.getenv('SP_API_KEY')
+#apiKey = getLocalConfig("apiKey")
+apiKey = getEnv("API_KEY")
 
 getPoeLog()
 

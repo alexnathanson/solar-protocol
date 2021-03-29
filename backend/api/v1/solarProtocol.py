@@ -6,6 +6,7 @@ If the local devices is the primary it updates the DNS system.
 
 import requests
 import os
+import subprocess
 import fileinput
 import json
 import datetime
@@ -14,7 +15,7 @@ import csv
 import logging
 
 #terminal command to update DNS record
-subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh'
+subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh '
 dnsKey = ''
 
 '''
@@ -136,6 +137,17 @@ def getmac(interface):
 
 	return mac
 
+def getEnv(thisEnv):
+	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
+	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
+	e = proc.stdout.read()
+	#convert byte string to string
+	e = e.decode("utf-8") 
+	#remove line breaks
+	e = e.replace("\n", "")
+	return e
+
+subCall += str(getEnv('DNS_KEY'))
 
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = getmac("wlan0")

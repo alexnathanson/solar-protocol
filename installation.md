@@ -93,7 +93,11 @@ Change Apache default directory to the frontend directory (src: https://julienre
 Install PHP graphics library for dithering. Note that the version will need to match your php version.
 * `sudo apt-get install php7.3-gd`
 * `sudo systemctl restart apache2`   
-
+<!-- 
+Give Apache/PHP user 'www-data' necessary permissions:
+* Open visudo: `sudo visudo`
+* Add this line to the bottom of the file: `www-data	ALL=NOPASSWD: ALL`
+ -->
 ### Automate  
 
 #### permissions (you can set all these permissions at once via the utilities/setAllPermissions.sh script by `sh setAllPermissions.sh`)  

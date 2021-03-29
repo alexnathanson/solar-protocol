@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
           //$localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
           setEnv('API_KEY',$_POST['apiKey']);
-          echo('API key received');
+          //echo('API key received');
         }
       } else if (isset($_POST['dnsPW'])){
         if(empty($_POST['dnsPW'])){
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
           //$localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
           setEnv('DNS_KEY',$_POST['dnsPW']);
-          echo('DNS key received');
+          //echo('DNS key received');
         }
       } else {
         $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);

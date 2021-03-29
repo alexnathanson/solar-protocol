@@ -15,3 +15,5 @@ charge-controller/data/
 /backend/api/v1/deviceList.json
 
 /backend/visualization/archive/*
+
+.spenv

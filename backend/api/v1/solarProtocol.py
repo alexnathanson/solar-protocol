@@ -138,7 +138,7 @@ def getmac(interface):
 	return mac
 
 def getEnv(thisEnv):
-	#subprocess.Popen('. ./home/pi/solar-protocol/backend/source_env.sh', shell=true)
+	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
 	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
 	e = proc.stdout.read()
 	#convert byte string to string

@@ -144,27 +144,30 @@ function setEnv($envKey,$envVal){
   var_dump($shOutput);*/
   if(file_exists($spenv)){
     //read in file
-    $envVar = json_decode(getFile($spenv), true);
-    /*  for ($l = 0; $l < $envVar; $l++){
-    if("export "){
-
-    }
-  } */
-
-    var_dump($envVar);
+    $envVar = file($spenv);
     
-/*    fwrite($spenv, $output);
-    fclose($spenv);
-*/
+    var_dump($envVar);
+
+    $newEnv = fopen($spenv, "w");
+
+    for ($l = 0; $l < count($envVar); $l++){
+      if(! str_contains($envVar[$l],"export ${envKey}=")){
+        fwrite($newEnv, $l);
+
+      }
+    } 
+
+    fwrite($newEnv, "export ${envKey}=${envVar}");
+    fclose($newEnv);
+
   } else {
-    $output = "export " . $envKey . "=". $envVar;
+    $output = "export " . $envKey . "=". $envVal;
     echo $output;
 
-    fwrite($spenv, $output);
-    fclose($spenv);
+    $newEnv = fopen($spenv, "w");
+    fwrite($newEnv, $output);
+    fclose($newEnv);
   }
-
-  
 
 }
 

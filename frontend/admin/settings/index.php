@@ -20,7 +20,7 @@
 $localFile = '/home/pi/local/local.json';
 $imgDir = '/home/pi/local/www/';
 
-$spenv = '/home/pi/.spenv';
+$spenv = '/home/pi/solar-protocol/.spenv';
 
 $localInfo = json_decode(getFile($localFile), true);
 
@@ -133,6 +133,8 @@ function getFile($fileName){
 
 function setEnv($envKey,$envVal){
 
+  echo "setEnv function";
+
   //test inputs
   $envKey = test_input($envKey);
   $envVal = test_input($envVal);
@@ -143,9 +145,15 @@ function setEnv($envKey,$envVal){
 
   var_dump($shOutput);*/
 
+  echo $GLOBALS["spenv"]);
   //read in file
-  $envVar = json_decode(getFile($spenv), true);
+  $envVar = json_decode(getFile($GLOBALS["spenv"]), true);
 
+/*  for ($l = 0; $l < $envVar; $l++){
+    if("export "){
+
+    }
+  } */
 
   var_dump($envVar);
 }

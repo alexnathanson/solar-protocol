@@ -6,10 +6,10 @@
 key=$1
 val=$2
 
-envFileName="/home/pi/.spenv"
+envFileName="/home/pi/solar-protocol/.spenv"
 
 #check that neither argument is empty
-if [ $key != "" ] && [ $val != "" ]
+if [ ! $key == "" ] && [ ! $val == "" ]
 then
     #check if file exists
     if [ -e $envFileName ]

@@ -7,7 +7,7 @@ env/
 */env/*
 
 #this directory is needed, but we just don't want to overwrite it...
-#charge-controller/data/
+charge-controller/data/
 
 *.vscode
 

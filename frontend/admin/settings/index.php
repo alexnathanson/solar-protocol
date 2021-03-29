@@ -161,8 +161,7 @@ function setEnv($envKey,$envVal){
 
   } else {
     $output = "export {$envKey}={$envVal}\n";
-    echo $output;
-
+/*    echo $output;*/
     $newEnv = fopen($spenv, "w");
     fwrite($newEnv, $output);
     fclose($newEnv);

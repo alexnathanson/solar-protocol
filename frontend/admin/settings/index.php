@@ -151,13 +151,12 @@ function setEnv($envKey,$envVal){
     $newEnv = fopen($spenv, "w");
 
     for ($l = 0; $l < count($envVar); $l++){
-      if(! str_contains($envVar[$l],"export ${envKey}=")){
-        fwrite($newEnv, $l);
-
+      if(strpos($envVar[$l],"export {$envKey}=") !== false){
+        fwrite($newEnv, $envVar[$l]);
       }
     } 
 
-    fwrite($newEnv, "export ${envKey}=${envVar}");
+    fwrite($newEnv, "export {$envKey}={$envVar}");
     fclose($newEnv);
 
   } else {

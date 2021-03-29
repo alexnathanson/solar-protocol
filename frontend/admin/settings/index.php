@@ -146,12 +146,12 @@ function setEnv($envKey,$envVal){
     //read in file
     $envVar = file($spenv);
     
-    var_dump($envVar);
+    //var_dump($envVar);
 
     $newEnv = fopen($spenv, "w");
 
     for ($l = 0; $l < count($envVar); $l++){
-      if(strpos($envVar[$l],"export {$envKey}=") !== false){
+      if(strpos($envVar[$l],"export {$envKey}=") === false && $envVar[$l] !== "" && $envVar[$l] !== "\n"){
         fwrite($newEnv, $envVar[$l]."\n");
       }
     } 

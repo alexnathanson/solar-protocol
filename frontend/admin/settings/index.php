@@ -132,9 +132,7 @@ function getFile($fileName){
 }
 
 function setEnv($envKey,$envVal){
-
-  echo "setEnv function";
-
+  global $spenv;
   //test inputs
   $envKey = test_input($envKey);
   $envVal = test_input($envVal);
@@ -144,18 +142,30 @@ function setEnv($envKey,$envVal){
   exec($execCmd, $shOutput);
 
   var_dump($shOutput);*/
-
-  echo $GLOBALS["spenv"]);
-  //read in file
-  $envVar = json_decode(getFile($GLOBALS["spenv"]), true);
-
-/*  for ($l = 0; $l < $envVar; $l++){
+  if(file_exists($spenv)){
+    //read in file
+    $envVar = json_decode(getFile($spenv), true);
+    /*  for ($l = 0; $l < $envVar; $l++){
     if("export "){
 
     }
   } */
 
-  var_dump($envVar);
+    var_dump($envVar);
+    
+/*    fwrite($spenv, $output);
+    fclose($spenv);
+*/
+  } else {
+    $output = "export " . $envKey . "=". $envVar;
+    echo $output;
+
+    fwrite($spenv, $output);
+    fclose($spenv);
+  }
+
+  
+
 }
 
 ?>

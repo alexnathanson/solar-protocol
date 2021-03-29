@@ -37,5 +37,5 @@ else
     echo "Missing key and/or value arguments."
 fi
 
-sudo chmod a+w /home/pi/solar-protocol/.spenv
+sudo chmod a+w $envFileName
 

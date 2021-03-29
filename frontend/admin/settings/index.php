@@ -20,7 +20,7 @@
 $localFile = '/home/pi/local/local.json';
 $imgDir = '/home/pi/local/www/';
 
-$spenv = '/home/pi/solar-protocol/.spenv';
+$spenv = '/home/pi/local/.spenv';
 
 $localInfo = json_decode(getFile($localFile), true);
 
@@ -156,11 +156,11 @@ function setEnv($envKey,$envVal){
       }
     } 
 
-    fwrite($newEnv, "export {$envKey}={$envVal}");
+    fwrite($newEnv, "export {$envKey}={$envVal}\n");
     fclose($newEnv);
 
   } else {
-    $output = "export {$envKey}={$envVal}";
+    $output = "export {$envKey}={$envVal}\n";
     echo $output;
 
     $newEnv = fopen($spenv, "w");

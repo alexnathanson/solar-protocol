@@ -6,7 +6,7 @@
 key=$1
 val=$2
 
-envFileName="/home/pi/solar-protocol/.spenv"
+envFileName="/home/pi/local/.spenv"
 
 #check that neither argument is empty
 if [ ! $key == "" ] && [ ! $val == "" ]

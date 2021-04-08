@@ -19,4 +19,4 @@ backend/visualization/clock.png
 
 /backend/visualization/archive/*
 
-.spenv
+#.spenv

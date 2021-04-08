@@ -122,7 +122,8 @@ def postIt(dstIP,dstData):
 				getNewDST(x.json())
 				print("Post to " + dstIP+ " successful")
 			except:
-				print("Malformatted response from " + dstIP)
+				print("Malformatted response from " + dstIP + ":")
+				print(x.text)
 		#requests.raise_for_status()
 	except json.decoder.JSONDecodeError as e:
 		print("JSON decoding error", e)

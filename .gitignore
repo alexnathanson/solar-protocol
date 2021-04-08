@@ -17,6 +17,6 @@ charge-controller/data/
 backend/api/v1/deviceList.json
 backend/visualization/clock.png
 
-#/backend/visualization/archive/*
+/backend/visualization/archive/*
 
 .spenv

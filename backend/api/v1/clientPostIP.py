@@ -171,8 +171,8 @@ def getEnv(thisEnv):
 	e = e.replace("\n", "")
 	return e
 
-def addPort():
-	p = getLocalConfig("httpPort")
+def addPort(thisPort):
+	p = getLocalConfig(thisPort)
 	if p != "":
 		return ":" + p
 	else 
@@ -185,7 +185,7 @@ myName = getLocalConfig("name")
 #myName = myName.lower();#make lower case
 myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
 
-myIP += addPort 
+myIP += addPort("http") 
 
 #apiKey = getLocalConfig("apiKey")
 apiKey = getEnv("API_KEY")

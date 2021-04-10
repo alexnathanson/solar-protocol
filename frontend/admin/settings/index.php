@@ -24,7 +24,7 @@ $spenv = '/home/pi/local/.spenv';
 
 $localInfo = json_decode(getFile($localFile), true);
 
-$apiErr = $dnsErr = "";
+$apiErr = $dnsErr = $httpErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -51,6 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           //echo('DNS key received');
         }
       } else {
+
+        if (isset($_POST['httpPort']) && ! is_int($_POST['httpPort'])){
+          $httpErr = "Port is not an int";
+        }
+
         $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
       }
     }
@@ -69,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //echo json_encode($localInfo);
 
 
-$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = "";
+$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $httpPort = "";
 
 if (isset($localInfo["name"])){
   $locName = $localInfo["name"];
@@ -97,6 +102,11 @@ if (isset($localInfo["lat"])){
 
 if (isset($localInfo["long"])){
   $locLong = $localInfo["long"];
+}
+
+//https option needed
+if (isset($localInfo["httpPort"])){
+  $httpPort = $localInfo["httpPort"];
 }
 
 function test_input($data) {
@@ -227,6 +237,15 @@ function setEnv($envKey,$envVal){
     <!--display thumbnail image-->
     <img src="/local/serverprofile.jpg" style="border: 2px solid black;width:150px; height:auto;">
   </div>
+</div>
+
+<div class="dangerBox">
+  <h3>Network Info</h3>
+  <form method="POST" onsubmit="return confirm('Are you sure you want to change the http port?');">
+    <input type="hidden" name="key" value="form"/>
+    <p>http port <input type="text" name="httpPort" value="<?php if (isset($httpPort)){echo $httpPort;}?>"><span class="error" style="color:red"> <?php echo $httpErr;?></span></p>
+    <button type="submit">Update Http Port</button>
+  </form>
 </div>
 
 <div class="dangerBox">

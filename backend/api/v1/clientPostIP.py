@@ -171,12 +171,21 @@ def getEnv(thisEnv):
 	e = e.replace("\n", "")
 	return e
 
+def addPort():
+	p = getLocalConfig("httpPort")
+	if p != "":
+		return ":" + p
+	else 
+		return ""
+
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
 
 myName = getLocalConfig("name")
 #myName = myName.lower();#make lower case
 myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
+
+myIP += addPort 
 
 #apiKey = getLocalConfig("apiKey")
 apiKey = getEnv("API_KEY")

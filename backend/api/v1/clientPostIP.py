@@ -142,7 +142,7 @@ def makePosts(ipList):
 
 	newDSTList = []
 	#all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, poe log
-	myString = "api_key="+str(apiKey)+"&stamp="+str(time.time())+"&ip="+str(myIP)+"&mac="+str(myMAC)+"&name="+str(myName)+"&log="+','.join(poeData)
+	myString = "api_key="+str(apiKey)+"&stamp="+str(time.time())+"&ip="+str(myIP)+"&mac="+str(myMAC)+"&name="+str(myName)+"&log="+str(','.join(poeData))
 
 	print(myString)
 

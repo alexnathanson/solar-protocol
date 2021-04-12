@@ -5,6 +5,7 @@ import requests
 import time
 import json
 import re
+import subprocess
 
 headers = {
     #'X-Auth-Key': KEY,
@@ -117,8 +118,12 @@ def postIt(dstIP,dstData):
 		#print(x.text)
 		#print(x.json())
 		if x.ok:
-			print("Post successful")
-			getNewDST(x.json())
+			try:
+				getNewDST(x.json())
+				print("Post to " + dstIP+ " successful")
+			except:
+				print("Malformatted response from " + dstIP + ":")
+				print(x.text)
 		#requests.raise_for_status()
 	except json.decoder.JSONDecodeError as e:
 		print("JSON decoding error", e)
@@ -137,7 +142,7 @@ def makePosts(ipList):
 
 	newDSTList = []
 	#all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, poe log
-	myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(poeData)
+	myString = "api_key="+str(apiKey)+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(str(pD) for pD in poeData)
 
 	print(myString)
 
@@ -156,6 +161,16 @@ def makePosts(ipList):
 		print(newDSTList)
 		makePosts(newDSTList)
 
+def getEnv(thisEnv):
+	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
+	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
+	e = proc.stdout.read()
+	#convert byte string to string
+	e = e.decode("utf-8") 
+	#remove line breaks
+	e = e.replace("\n", "")
+	return e
+
 #wlan0 might need to be changed to eth0 if using an ethernet cable
 myMAC = getmac("wlan0")
 
@@ -163,8 +178,8 @@ myName = getLocalConfig("name")
 #myName = myName.lower();#make lower case
 myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
 
-apiKey = getLocalConfig("apiKey")
-#apiKey = os.getenv('SP_API_KEY')
+#apiKey = getLocalConfig("apiKey")
+apiKey = getEnv("API_KEY")
 
 getPoeLog()
 

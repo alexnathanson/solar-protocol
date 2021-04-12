@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo chmod a+w /home/pi/local/.spenv
 sudo chmod a+w /home/pi/local/local.json
 sudo chmod -R a+w /home/pi/local/www
 sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json

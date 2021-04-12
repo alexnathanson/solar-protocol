@@ -10,7 +10,7 @@ HOST=@
 DOMAIN=solarprotocol.net
 
 #the DNS password is passed as an argument from solarProtocol.py
-PASSWORD=$1
+PASSWORD=$1	
 echo "TIME: $TIME"
 
 # Grab last IP

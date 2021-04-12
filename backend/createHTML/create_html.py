@@ -155,7 +155,6 @@ def render_pages(_local_data, _data, _weather, _server_data):
             lat=_local_data["lat"],
             long=_local_data["long"],
             bgColor=_local_data["bgColor"],
-            serverColor=_local_data["serverColor"],
             font=_local_data["font"],
             borderStyle=_local_data["borderStyle"],
             weather=_weather["description"],

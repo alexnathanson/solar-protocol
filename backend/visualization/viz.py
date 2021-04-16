@@ -10,6 +10,7 @@ from PIL import Image
 import webcolors
 
 import requests
+from json.decoder import JSONDecodeError
 
 w = 1500
 h = 1500
@@ -68,7 +69,10 @@ def getCC(dst,ccValue):
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
         #print("API charge controller data:")
         #print(x.text)
+        x.json()
         return json.loads(x.text)
+    except JSONDecodeError as errj:
+        print("A JSON decode error:" + repr(errj))
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError as errc:

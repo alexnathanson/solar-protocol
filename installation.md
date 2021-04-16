@@ -36,7 +36,8 @@ Download repo into /home/pi
 * Install jinja `sudo pip3 install jinja2`     
 
 #### Python 3 Packages for the visualization
-* Install Pillow `sudo pip3 install Pillow`  
+* Upgrade pip: `python3 -m pip install --upgrade pip`
+* Upgrade/install Pillow `python3 -m pip install --upgrade Pillow`  
 * Install cairo `sudo apt-get install libcairo2-dev`  
 * Install gizeh `sudo pip3 install gizeh`  
 * Install webcolors `sudo pip3 install webcolors`  

@@ -50,12 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           setEnv('DNS_KEY',$_POST['dnsPW']);
           //echo('DNS key received');
         }
-      } else {
-
-        if (isset($_POST['httpPort']) && ! is_int($_POST['httpPort'])){
-          $httpErr = "Port is not an int";
+      } else if (isset($_POST['httpPort'])){
+        if (! is_numeric($_POST['httpPort'])){
+          $httpErr = "Port value is not numeric.";
+        } else {
+          $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
         }
-
+      } else {
         $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
       }
     }
@@ -74,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //echo json_encode($localInfo);
 
 
-$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $httpPort = "";
+$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $httpPort = $httpsPort = "";
 
 if (isset($localInfo["name"])){
   $locName = $localInfo["name"];
@@ -104,9 +105,13 @@ if (isset($localInfo["long"])){
   $locLong = $localInfo["long"];
 }
 
-//https option needed
 if (isset($localInfo["httpPort"])){
   $httpPort = $localInfo["httpPort"];
+}
+
+//front end form for https needed
+if (isset($localInfo["httpsPort"])){
+  $httpPort = $localInfo["httpsPort"];
 }
 
 function test_input($data) {

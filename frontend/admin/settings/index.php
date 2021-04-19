@@ -51,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           //echo('DNS key received');
         }
       } else if (isset($_POST['httpPort'])){
-        if (! is_numeric($_POST['httpPort'])){
-          $httpErr = "Port value is not numeric.";
+        if (! is_numeric($_POST['httpPort']) || str_contains($_POST['httpPort'],'.')){
+          $httpErr = "Port value is not an integer.";
         } else {
           $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
         }

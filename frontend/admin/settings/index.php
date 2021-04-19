@@ -107,12 +107,14 @@ if (isset($localInfo["long"])){
 
 if (isset($localInfo["httpPort"])){
   $httpPort = $localInfo["httpPort"];
+} else {
+  $httpPort = "80"; //display default port if no custom port info is found
 }
 
 //front end form for https needed
-if (isset($localInfo["httpsPort"])){
+/*if (isset($localInfo["httpsPort"])){
   $httpPort = $localInfo["httpsPort"];
-}
+}*/
 
 function test_input($data) {
  /* $data = str_replace("\r", " ", $data) //rm line breaks

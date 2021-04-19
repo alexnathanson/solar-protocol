@@ -89,7 +89,11 @@ def getLocalConfig(key):
 
 	except:
 		print('local config file exception')
-		return 'pi'
+
+		if key == 'name':
+			return 'pi'
+		elif key == 'httpPort':
+			return ''
 
 def getNewDST(responseList):
 	global newDSTList, runningDSTList
@@ -173,9 +177,10 @@ def getEnv(thisEnv):
 
 def addPort(thisPort):
 	p = getLocalConfig(thisPort)
+	print(p)
 	if p != "":
 		return ":" + p
-	else 
+	else: 
 		return ""
 
 #wlan0 might need to be changed to eth0 if using an ethernet cable
@@ -185,7 +190,7 @@ myName = getLocalConfig("name")
 #myName = myName.lower();#make lower case
 myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
 
-myIP += addPort("http") 
+myIP += addPort("httpPort") 
 
 #apiKey = getLocalConfig("apiKey")
 apiKey = getEnv("API_KEY")

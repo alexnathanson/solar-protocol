@@ -19,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			header("Content-type: image/png");
 		} else if(strpos($filepath, "gif")){
 			header("Content-type: image/gif");
+		} else if(strpos($filepath, "mp4")){
+			header("Content-type: video/mp4");
 		} else {
 			notFound();
 			return;

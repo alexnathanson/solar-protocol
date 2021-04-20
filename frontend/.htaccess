@@ -2,7 +2,7 @@ RewriteEngine on
 
 # REDIRECT TO LOCAL DIRECTORY
 # for images
-RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif)$
+RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|mp4)$
 RewriteRule ^local/(.*)$ /redirect/images.php?file=$1
 
 #for html and css files

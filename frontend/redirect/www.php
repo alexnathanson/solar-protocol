@@ -16,6 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		//this will run php code
     	//include($filepath);
 
+		if(strpos($filepath, "css")){
+			header("Content-type: text/css");
+		}
+
     	//this wont run any php code
     	echo file_get_contents($filepath);
 

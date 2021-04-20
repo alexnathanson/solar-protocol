@@ -6,7 +6,6 @@
   "country": "A country",
   "lat": "73.94 W",
   "long": "40.65 N",
-  "apiKey" : "replace-with-API-key",
   "bgColor" : "Olive",
   "font" : "Monaco"
 }

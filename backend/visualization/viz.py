@@ -449,7 +449,7 @@ foreground = Image.open("clock.png")
 
 mask = Image.open('/home/pi/solar-protocol/backend/visualization/mask5.png').resize(background.size).convert('L')
 background.paste(foreground, (0, 0), mask)
-background.save("../../frontend/images/clock.png")
+background.save("/home/pi/solar-protocol/frontend/images/clock.png")
 # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
 # alphaBlended2.save("clock1.png")
 #archive images

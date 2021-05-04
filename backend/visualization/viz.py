@@ -440,7 +440,7 @@ surface.write_to_png("clock.png")
 
 
 
-background = Image.open("../../frontend/images/3day-diagram-nolabels1.png")
+background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1.png")
 foreground = Image.open("clock.png")
 #Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 

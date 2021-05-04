@@ -453,5 +453,5 @@ background.save("../../frontend/images/clock.png")
 # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
 # alphaBlended2.save("clock1.png")
 #archive images
-archiveImage = Image.open("../../frontend/images/clock.png")
-archiveImage.save('archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
+archiveImage.save('/home/pi/solar-protocol/backend/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot

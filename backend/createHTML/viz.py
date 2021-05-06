@@ -90,7 +90,7 @@ def getSysInfo(dst,k):
     try:
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo="+k,timeout=5)
         if (debug_mode):
-            # print("API system data:")
+            print("API system data:")
             # print(json.loads(x.text))
         return x.text
     except requests.exceptions.HTTPError as errh:

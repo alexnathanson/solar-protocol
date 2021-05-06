@@ -8,6 +8,7 @@ import requests, json
 import json
 import csv
 import os
+import viz
 
 
 def get_data():
@@ -345,7 +346,7 @@ myIP = " "
 
 
 def main():
-    exec(open("viz.py").read())
+    viz.main()
     energy_data = read_csv()
     local_data = get_local()
     try:

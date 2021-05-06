@@ -177,7 +177,7 @@ def draw_server_arc(server_no, start, stop, c):
     circle = g.arc(r=server_no*ring_rad+(0.5+start_ring)*ring_rad, xy = [w/2, h/2], a1 = stop-Pi/2, a2 = start-Pi/2, stroke=c, stroke_width= 15)
     circle.draw(surface)  
 
-def sortPOE(log, timeZones):
+def sortPOE(log, timeZones, myTimeZone):
     global dfPOE
     print(dfPOE.head())
     for l in range(len(log)):
@@ -190,7 +190,7 @@ def sortPOE(log, timeZones):
         tempDF['datetime']=pd.to_datetime(tempDF['datetime'], errors="coerce") #convert entire "Dates" Column to datetime format this time 
 
          #shift by TZ
-        tempDF['timedelta'] = pd.to_timedelta(tzOffset(timeZones[l]),'h')
+        tempDF['timedelta'] = pd.to_timedelta(tzOffset(timeZones[l], myTimeZone),'h')
         tempDF['datetime'] = tempDF['datetime'] + tempDF['timedelta'] 
         tempDF = tempDF.drop(columns=['timedelta'])
 
@@ -395,7 +395,7 @@ def main():
 
 
     #Draw Active Server Rings
-    sortPOE(log, timeZones)
+    sortPOE(log, timeZones, myTimeZone)
     # print("dfPOE.shape", dfPOE.shape)
     # print(dfPOE)
     #lines(interval in house, stroke weight, opacity)

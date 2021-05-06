@@ -9,6 +9,9 @@ from dateutil.relativedelta import relativedelta
 from PIL import Image
 import webcolors
 
+from pytz import timezone
+import pytz
+
 import requests
 from json.decoder import JSONDecodeError
 
@@ -55,7 +58,7 @@ def getDeviceInfo(getKey):
     with open(deviceList) as f:
       data = json.load(f)
       print("Device List data:")
-      print(data)
+    #   print(data)
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])
@@ -87,8 +90,8 @@ def getSysInfo(dst,k):
     try:
         x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo="+k,timeout=5)
         if (debug_mode):
-            print("API system data:")
-            print(json.loads(x.text))
+            # print("API system data:")
+            # print(json.loads(x.text))
         return x.text
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -180,8 +183,8 @@ def sortPOE():
     for l in range(len(log)):
         tempDF = pd.DataFrame(log[l]) #convert individual POE lists to dataframe
         tempDF['datetime'] = tempDF[0]
-        print("tempDF['datetime']")
-        print(tempDF['datetime'])
+        # print("tempDF['datetime']")
+        # print(tempDF['datetime'])
         tempDF['datetime'] = tempDF['datetime'].astype(str) #convert entire "Dates" Column to string 
 
         tempDF['datetime']=pd.to_datetime(tempDF['datetime'], errors="coerce") #convert entire "Dates" Column to datetime format this time 
@@ -295,7 +298,7 @@ def lines(interval, sw, opacity):
         line = g.polyline(points=[(x1,y1), (xc,yc)], stroke_width=sw, stroke=(1,1,1,opacity))
         line.draw(surface)
         a = a + interval
-    print("finished drawing lines")
+    # print("finished drawing lines")
 
 def circles(sw, opacity):
     b = ring_rad*2
@@ -319,25 +322,25 @@ def circles(sw, opacity):
 
 #Get my ip
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
-print("MY IP: ", type(myIP))
+# print("MY IP: ", type(myIP))
 
 #Get IPs, using keyword ip
 dstIP = getDeviceInfo('ip')
 for index, item in enumerate(dstIP):
-    print(item)
+    # print(item)
     if(item == myIP):
-        print("Replacing ip of self")
+        # print("Replacing ip of self")
         dstIP[index]="localhost"
 
 log = getDeviceInfo('log')
 serverNames = getDeviceInfo('name')
-print (dstIP)
-print (serverNames)
+# print (dstIP)
+# print (serverNames)
 
 #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
 timeZones = []
 myTimeZone = getSysInfo("localhost",'tz')
-print("My TZ: ", myTimeZone)
+# print("My TZ: ", myTimeZone)
 
 sysC = []
 
@@ -391,8 +394,8 @@ for i, item in enumerate(ccData):
 
 #Draw Active Server Rings
 sortPOE()
-print("dfPOE.shape", dfPOE.shape)
-print(dfPOE)
+# print("dfPOE.shape", dfPOE.shape)
+# print(dfPOE)
 #lines(interval in house, stroke weight, opacity)
 lines(2, 1, 0.2)
 lines(12, 1.5, 1)
@@ -403,16 +406,16 @@ if dfPOE.shape[1] > 0:
     #for l, item in enumerate(dfPOE.shape[0]):
     for l in range(dfPOE.shape[0]):
         if l == 0:
-            print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-            print( sysC[dfPOE['device'].iloc[l]])
-            print("First Angle:", dfPOE['angle'].iloc[l])
+            # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
+            # print( sysC[dfPOE['device'].iloc[l]])
+            # print("First Angle:", dfPOE['angle'].iloc[l])
             draw_server_arc(dfPOE['device'].iloc[l]+2, 2*Pi, dfPOE['angle'].iloc[l]*(Pi/180), sysC[dfPOE['device'].iloc[l]])
         else:
-            print( sysC[dfPOE['device'].iloc[l]])
-            print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-            print("ring:", dfPOE['device'].iloc[l])
-            print("start arc:", dfPOE['angle'].iloc[l])
-            print("stop arc:", dfPOE['angle'].iloc[l-1])
+            # print( sysC[dfPOE['device'].iloc[l]])
+            # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
+            # print("ring:", dfPOE['device'].iloc[l])
+            # print("start arc:", dfPOE['angle'].iloc[l])
+            # print("stop arc:", dfPOE['angle'].iloc[l-1])
             draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1]*Pi/180, dfPOE['angle'].iloc[l]*Pi/180, sysC[dfPOE['device'].iloc[l]])
 
 

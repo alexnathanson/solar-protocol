@@ -177,7 +177,7 @@ def draw_server_arc(server_no, start, stop, c):
     circle = g.arc(r=server_no*ring_rad+(0.5+start_ring)*ring_rad, xy = [w/2, h/2], a1 = stop-Pi/2, a2 = start-Pi/2, stroke=c, stroke_width= 15)
     circle.draw(surface)  
 
-def sortPOE():
+def sortPOE(log):
     global dfPOE
     print(dfPOE.head())
     for l in range(len(log)):
@@ -395,7 +395,7 @@ def main():
 
 
     #Draw Active Server Rings
-    sortPOE()
+    sortPOE(log)
     # print("dfPOE.shape", dfPOE.shape)
     # print(dfPOE)
     #lines(interval in house, stroke weight, opacity)

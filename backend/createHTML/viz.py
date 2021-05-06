@@ -236,10 +236,12 @@ def sortPOE():
 def tzOffset(checkTZ):
     try:
         myOffset = datetime.datetime.now(pytz.timezone(myTimeZone)).strftime('%z')
+        myOffset = int(myOffset)
     except: 
         myOffset = 0
     try:
         theirOffset = datetime.datetime.now(pytz.timezone(checkTZ)).strftime('%z')
+        theirOffset = int(theirOffset)
     except: 
         theirOffset = 0
     offsetDir = 0

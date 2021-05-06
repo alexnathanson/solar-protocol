@@ -343,6 +343,7 @@ deviceList = path + "../api/v1/deviceList.json"
 dstIP = []
 serverNames = []
 myIP = " "
+days = 3
 
 
 def main():

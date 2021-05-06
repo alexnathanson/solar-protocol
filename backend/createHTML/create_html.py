@@ -9,6 +9,7 @@ import json
 import csv
 import os
 
+
 def get_data():
     client = ModbusClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
     client.connect()
@@ -344,6 +345,7 @@ myIP = " "
 
 
 def main():
+    exec(open("viz.py").read())
     energy_data = read_csv()
     local_data = get_local()
     try:

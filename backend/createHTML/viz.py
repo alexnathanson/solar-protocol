@@ -319,142 +319,145 @@ def circles(sw, opacity):
 
 # -------------- PROGRAM --------------------------------------------------------------------------------
 # -------------- PROGRAM --------------------------------------------------------------------------------
+def main():
+    #Get my ip
+    myIP = 	requests.get('http://whatismyip.akamai.com/').text
+    # print("MY IP: ", type(myIP))
 
-#Get my ip
-myIP = 	requests.get('http://whatismyip.akamai.com/').text
-# print("MY IP: ", type(myIP))
+    #Get IPs, using keyword ip
+    dstIP = getDeviceInfo('ip')
+    for index, item in enumerate(dstIP):
+        # print(item)
+        if(item == myIP):
+            # print("Replacing ip of self")
+            dstIP[index]="localhost"
 
-#Get IPs, using keyword ip
-dstIP = getDeviceInfo('ip')
-for index, item in enumerate(dstIP):
-    # print(item)
-    if(item == myIP):
-        # print("Replacing ip of self")
-        dstIP[index]="localhost"
+    log = getDeviceInfo('log')
+    serverNames = getDeviceInfo('name')
+    # print (dstIP)
+    # print (serverNames)
 
-log = getDeviceInfo('log')
-serverNames = getDeviceInfo('name')
-# print (dstIP)
-# print (serverNames)
+    #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
+    timeZones = []
+    myTimeZone = getSysInfo("localhost",'tz')
+    # print("My TZ: ", myTimeZone)
 
-#in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
-timeZones = []
-myTimeZone = getSysInfo("localhost",'tz')
-# print("My TZ: ", myTimeZone)
+    sysC = []
 
-sysC = []
+    # dstIP = dstIP[0:1]
 
-# dstIP = dstIP[0:1]
-
-#iterate through each device
-for i in dstIP:
-    #print(i)
-    # if i not in activeIPs:
-    #     activeIPs.append(i)
-    getResult = getCC(i, energyParam)
-    if type(getResult) != type(None):
-        ccData.append(getResult)
-    else:
-        ccData.append({"datetime": energyParam})
-    try:
-        tempTZ = getSysInfo(i, 'tz')
-    except: 
-        tempTZ = 'America/New_York' 
-
-    if type(tempTZ) != type(None):
-        timeZones.append(tempTZ)
-    else:
-        timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
-
-    try:
-        tempC = getSysInfo(i,'color')
-    except:
-        tempC = (1,1,1)
-    
-    if type(tempC) == type(None) or tempC == '':
-        tempC = (1,1,1)
-    sysC.append(tempC) 
-
-# print(timeZones)
-
-pd.set_option("display.max_rows", None, "display.max_columns", None)
-
-#customize inside labels
-server_names = getDeviceInfo('name')
-# print("server names", len(server_names))
-
-# go over ccData for each server
-for i, item in enumerate(ccData):
-
-    # print name of each server
-    text_curve(i+2, server_names[i], 0, 18, 18)
-    #draw sun data for each server
-    draw_ring(item,i+3, energyParam,timeZones[i])
-
-
-#Draw Active Server Rings
-sortPOE()
-# print("dfPOE.shape", dfPOE.shape)
-# print(dfPOE)
-#lines(interval in house, stroke weight, opacity)
-lines(2, 1, 0.2)
-lines(12, 1.5, 1)
-circles(1.5, 1)
-# draw_server_arc(0, 0, Pi, (1,0,0))
-
-if dfPOE.shape[1] > 0:
-    #for l, item in enumerate(dfPOE.shape[0]):
-    for l in range(dfPOE.shape[0]):
-        if l == 0:
-            # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-            # print( sysC[dfPOE['device'].iloc[l]])
-            # print("First Angle:", dfPOE['angle'].iloc[l])
-            draw_server_arc(dfPOE['device'].iloc[l]+2, 2*Pi, dfPOE['angle'].iloc[l]*(Pi/180), sysC[dfPOE['device'].iloc[l]])
+    #iterate through each device
+    for i in dstIP:
+        #print(i)
+        # if i not in activeIPs:
+        #     activeIPs.append(i)
+        getResult = getCC(i, energyParam)
+        if type(getResult) != type(None):
+            ccData.append(getResult)
         else:
-            # print( sysC[dfPOE['device'].iloc[l]])
-            # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-            # print("ring:", dfPOE['device'].iloc[l])
-            # print("start arc:", dfPOE['angle'].iloc[l])
-            # print("stop arc:", dfPOE['angle'].iloc[l-1])
-            draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1]*Pi/180, dfPOE['angle'].iloc[l]*Pi/180, sysC[dfPOE['device'].iloc[l]])
+            ccData.append({"datetime": energyParam})
+        try:
+            tempTZ = getSysInfo(i, 'tz')
+        except: 
+            tempTZ = 'America/New_York' 
+
+        if type(tempTZ) != type(None):
+            timeZones.append(tempTZ)
+        else:
+            timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
+
+        try:
+            tempC = getSysInfo(i,'color')
+        except:
+            tempC = (1,1,1)
+        
+        if type(tempC) == type(None) or tempC == '':
+            tempC = (1,1,1)
+        sysC.append(tempC) 
+
+    # print(timeZones)
+
+    pd.set_option("display.max_rows", None, "display.max_columns", None)
+
+    #customize inside labels
+    server_names = getDeviceInfo('name')
+    # print("server names", len(server_names))
+
+    # go over ccData for each server
+    for i, item in enumerate(ccData):
+
+        # print name of each server
+        text_curve(i+2, server_names[i], 0, 18, 18)
+        #draw sun data for each server
+        draw_ring(item,i+3, energyParam,timeZones[i])
 
 
-# # initialize surface
-# surface = g.Surface(width=w, height=h) # in pixels
+    #Draw Active Server Rings
+    sortPOE()
+    # print("dfPOE.shape", dfPOE.shape)
+    # print(dfPOE)
+    #lines(interval in house, stroke weight, opacity)
+    lines(2, 1, 0.2)
+    lines(12, 1.5, 1)
+    circles(1.5, 1)
+    # draw_server_arc(0, 0, Pi, (1,0,0))
 
-# text = g.text("Hello World", fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy=(100,100), angle=Pi/12)
-# text.draw(surface)
+    if dfPOE.shape[1] > 0:
+        #for l, item in enumerate(dfPOE.shape[0]):
+        for l in range(dfPOE.shape[0]):
+            if l == 0:
+                # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
+                # print( sysC[dfPOE['device'].iloc[l]])
+                # print("First Angle:", dfPOE['angle'].iloc[l])
+                draw_server_arc(dfPOE['device'].iloc[l]+2, 2*Pi, dfPOE['angle'].iloc[l]*(Pi/180), sysC[dfPOE['device'].iloc[l]])
+            else:
+                # print( sysC[dfPOE['device'].iloc[l]])
+                # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
+                # print("ring:", dfPOE['device'].iloc[l])
+                # print("start arc:", dfPOE['angle'].iloc[l])
+                # print("stop arc:", dfPOE['angle'].iloc[l-1])
+                draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1]*Pi/180, dfPOE['angle'].iloc[l]*Pi/180, sysC[dfPOE['device'].iloc[l]])
+
+
+    # # initialize surface
+    # surface = g.Surface(width=w, height=h) # in pixels
+
+    # text = g.text("Hello World", fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy=(100,100), angle=Pi/12)
+    # text.draw(surface)
 
 
 
 
-# draw_sun(4, w/2, h/2, 20, 0, 0.1) 
-# draw_sun(4, w/2, h/2, 20, 1, 0.5) 
-# draw_sun(4, w/2, h/2, 20, 2, 1) 
+    # draw_sun(4, w/2, h/2, 20, 0, 0.1) 
+    # draw_sun(4, w/2, h/2, 20, 1, 0.5) 
+    # draw_sun(4, w/2, h/2, 20, 2, 1) 
 
-# #def text_curve(cr, message, angle, spacing, ts):
-# text_curve(100, "Server 1", 0, 0, 40)
+    # #def text_curve(cr, message, angle, spacing, ts):
+    # text_curve(100, "Server 1", 0, 0, 40)
 
-# draw_server_arc(2, 0, 3*Pi/2, (1,0,0))
+    # draw_server_arc(2, 0, 3*Pi/2, (1,0,0))
 
-# Now export the surface
-surface.get_npimage() # returns a (width x height x 3) numpy array
-surface.write_to_png("clock.png")
+    # Now export the surface
+    surface.get_npimage() # returns a (width x height x 3) numpy array
+    surface.write_to_png("clock.png")
 
 
 
-background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1.png")
-foreground = Image.open("clock.png")
-#Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
+    background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1.png")
+    foreground = Image.open("clock.png")
+    #Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
-# background.paste(foreground, (0, 0))
-# background.save("clock1.png")
+    # background.paste(foreground, (0, 0))
+    # background.save("clock1.png")
 
-mask = Image.open('/home/pi/solar-protocol/backend/visualization/mask5.png').resize(background.size).convert('L')
-background.paste(foreground, (0, 0), mask)
-background.save("/home/pi/solar-protocol/frontend/images/clock.png")
-# alphaBlended2 = Image.blend(foreground, background, alpha=.5)
-# alphaBlended2.save("clock1.png")
-#archive images
-archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
-archiveImage.save('/home/pi/solar-protocol/backend/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+    mask = Image.open('/home/pi/solar-protocol/backend/visualization/mask5.png').resize(background.size).convert('L')
+    background.paste(foreground, (0, 0), mask)
+    background.save("/home/pi/solar-protocol/frontend/images/clock.png")
+    # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
+    # alphaBlended2.save("clock1.png")
+    #archive images
+    archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
+    archiveImage.save('/home/pi/solar-protocol/backend/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+
+if __name__ == "__main__":
+    main()

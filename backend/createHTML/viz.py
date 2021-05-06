@@ -103,7 +103,7 @@ def getSysInfo(dst,k):
         print("An Unknown Error occurred" + repr(err))
 
 #drawing the sunshine data (yellow)
-def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
+def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
 
     ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
 
@@ -119,7 +119,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ):
     ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
     
     #shift by TZ
-    ccDataframe['timedelta'] = pd.to_timedelta(tzOffset(timeZ),'h')
+    ccDataframe['timedelta'] = pd.to_timedelta(tzOffset(timeZ, myTimeZone),'h')
     ccDataframe['datetime'] = ccDataframe['datetime'] + ccDataframe['timedelta'] 
     ccDataframe = ccDataframe.drop(columns=['timedelta'])
     
@@ -233,7 +233,7 @@ def sortPOE(log, timeZones):
     #print(dfPOE.head())
     #print(dfPOE.tail())
 
-def tzOffset(checkTZ):
+def tzOffset(checkTZ, myTimeZone):
     try:
         myOffset = datetime.datetime.now(pytz.timezone(myTimeZone)).strftime('%z')
         myOffset = int(myOffset)
@@ -391,7 +391,7 @@ def main():
         # print name of each server
         text_curve(i+2, server_names[i], 0, 18, 18)
         #draw sun data for each server
-        draw_ring(item,i+3, energyParam,timeZones[i])
+        draw_ring(item,i+3, energyParam,timeZones[i], myTimeZone)
 
 
     #Draw Active Server Rings

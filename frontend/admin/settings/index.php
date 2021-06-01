@@ -105,11 +105,11 @@ if (isset($localInfo["long"])){
   $locLong = $localInfo["long"];
 }
 
-if (isset($localInfo["watts"])){
+if (isset($localInfo["pvWatts"])){
   $locWatts = $localInfo["watts"];
 }
 
-if (isset($localInfo["volts"])){
+if (isset($localInfo["pbVolts"])){
   $locVolts = $localInfo["volts"];
 }
 

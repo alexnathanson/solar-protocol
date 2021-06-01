@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //echo json_encode($localInfo);
 
 
-$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $httpPort = $httpsPort = "";
+$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $locWatts = $locVolts= $httpPort = $httpsPort = "";
 
 if (isset($localInfo["name"])){
   $locName = $localInfo["name"];
@@ -103,6 +103,14 @@ if (isset($localInfo["lat"])){
 
 if (isset($localInfo["long"])){
   $locLong = $localInfo["long"];
+}
+
+if (isset($localInfo["watts"])){
+  $locWatts = $localInfo["watts"];
+}
+
+if (isset($localInfo["volts"])){
+  $locVolts = $localInfo["volts"];
 }
 
 if (isset($localInfo["httpPort"])){
@@ -215,6 +223,10 @@ function setEnv($envKey,$envVal){
  	<p>Latitude <input type="text" name="lat" value="<?php if (isset($locLat)){echo $locLat;}?>"></p>
 
    <p>Longitude <input type="text" name="long" value="<?php if (isset($locLong)){echo $locLong;}?>"></p>
+
+   <p>PV Module Wattage <input type="text" name="pvWatts" value="<?php if (isset($locWatts)){echo $locWatts;}?>"></p>
+
+   <p>PV Module Voltage <input type="text" name="pvVolts" value="<?php if (isset($locVolts)){echo $locVolts;}?>"></p>
 
   <p></p>
   <button type="submit">Update</button>

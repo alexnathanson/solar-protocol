@@ -46,7 +46,6 @@
   //point of entry
   //getRequest(poeURL,sortPoeLog);
 
-
   function getRequest(dst, callback){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {

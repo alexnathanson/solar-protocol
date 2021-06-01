@@ -159,6 +159,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       $fileContents = file_get_contents("/home/pi/local/local.json");
       // Convert to array 
       echo json_decode($fileContents, true)['description'];
+    } else if ($_GET["systemInfo"] == "name"){
+      //read local name
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      // Convert to array 
+      echo json_decode($fileContents, true)['name'];
     }
   }
 }

@@ -16,7 +16,9 @@
 
 <body>
 
+<!--THIS PHP CODE IS FOR THE SERVER NAME - REFACTOR NEEDED -->
 <?php
+
 //read local file
 $localFile = '/home/pi/local/local.json';
 
@@ -41,7 +43,7 @@ function getFile($fileName){
 
 ?>
 
-<h1><a href="/">Solar Protocol</a> - <?php echo $locName;?> - Admin Console</h1>
+<h1><a href="/">Solar Protocol (<?php echo $locName;?>)</a> - Admin Console</h1>
 
 <span>Logged in as <?php echo $_SESSION["username"]?> <a href="?logout">(Logout)</a></span>
 

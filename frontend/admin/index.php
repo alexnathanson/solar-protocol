@@ -28,6 +28,17 @@ if (isset($localInfo["name"])){
   $locName = "";
 }
 
+function getFile($fileName){
+  //echo $fileName;
+  try{
+    return file_get_contents($fileName);
+  }
+  catch(Exception $e) {
+    echo $fileName;
+    return FALSE;
+  }
+}
+
 ?>
 
 <h1><a href="/">Solar Protocol</a> - <?php echo $locName;?> - Admin Console</h1>

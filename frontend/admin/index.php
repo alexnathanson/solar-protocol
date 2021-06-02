@@ -16,7 +16,22 @@
 
 <body>
 
-<h1><a href="/">Solar Protocol</a> - Admin Console</h1>
+<?php
+//read local file
+$localFile = '/home/pi/local/local.json';
+
+$localInfo = json_decode(getFile($localFile), true);
+
+if (isset($localInfo["name"])){
+  $locName = $localInfo["name"];
+} else {
+  $locName = "";
+}
+
+?>
+
+<h1><a href="/">Solar Protocol</a> - <?php echo $locName;?> - Admin Console</h1>
+
 <span>Logged in as <?php echo $_SESSION["username"]?> <a href="?logout">(Logout)</a></span>
 
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>

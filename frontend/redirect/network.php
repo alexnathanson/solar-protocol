@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			    //add banner
 				$redirected = str_replace(
 				   "<body>", 
-				   "<body><div id='solarprotocol-banner'><h4 style='font-size: 100%; left:0px; width:100%; padding:3px; background-color:grey;'><a href='/' style='color:white;'>This site is hosted on the Solar Protocol Network</a></h4></div>",
+				   "<body><div id='solarprotocol-banner'><span style='font-size: 150%; left:0px; width:100%; padding:3px; background-color:blue;'><a href='/' style='color:white;'>This site is hosted on the Solar Protocol Network</a></span></div>",
 				    $redirected
 				);
 

@@ -60,12 +60,13 @@ function getFile($fileName){
   //make this dynamic at some point
   //let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
   let ipList = [];
+
   //get the most recent line of charge controller data
   let toGet = "0";
 
   let jsonPoe;
 
-
+//the day=deviceList end point should be moved to system info
   let devListURL = "http://"+ window.location.hostname +"/api/v1/chargecontroller.php?day=deviceList";
   console.log(devListURL);
 
@@ -77,11 +78,16 @@ function getFile($fileName){
   function getRequest(dst, callback){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        callback(this.responseText, dst);
-      } else if (this.readyState == 4) {
-        callback(this.statusText, dst);
+      if(callback && typeof callback === "function"){
+         if (this.readyState == 4 && this.status == 200) {
+          callback(this.responseText, dst);
+        } else if (this.readyState == 4) {
+          callback(this.statusText, dst);
+        }
+      } else {
+        return this.statusText;
       }
+     
     };
     xhttp.open("GET", dst, true);
     xhttp.send();
@@ -181,11 +187,14 @@ function getFile($fileName){
     let dstIP = dst.replace('/api/v1/chargecontroller.php?line=0','');
     //dstIP = dst.replace('http://','');
 
+    dstName = getRequest(dstIP + '/api/v1/chargecontroller.php?systemInfo=name');
+    console.log(dstName);
+
     const sList = document.getElementById('server list');
 
     //server header
     const serverH3 = document.createElement('h3');
-    serverH3.textContent = 'Server: ';
+    serverH3.textContent = 'Server: ' + dstName + ' ';
     //make it a link
     const serverLink = document.createElement('a');
     serverLink.href = /*"http://"+*/dstIP;

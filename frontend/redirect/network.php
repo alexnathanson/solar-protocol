@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			    //add banner
 				$redirected = str_replace(
 				   "<body>", 
-				   "<body><div style='left:0px; width:100%; padding:3px; background-color:black;'><h4><a href='/'' style='color:white;'>This site is hosted on the Solar Protocol Network</a></h4></div>",
+				   "<body><div style='left:0px; width:100%; padding-bottom:3px;padding-top:3px; background-color:grey;'><h4><a href='/'' style='color:white;'>This site is hosted on the Solar Protocol Network</a></h4></div>",
 				    $redirected
 				);
 
@@ -79,11 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$listNetwork = true;
 			}
 			
-			str_replace(
+			/*str_replace(
 			   "<body>", 
-			   "<body><div style='padding-bottom: 10px;border: 2px solid black;margin-top: 3px;margin-bottom: 3px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>",
+			   "<body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>",
 			    $redirected
-			);		
+			);		*/
 		}
 	}
 }

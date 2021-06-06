@@ -87,7 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 //if the requested page doesn't exist, redirect to the main network page
 if($listNetwork == true){
 	//listNetworkSites();
-	//	header("Location: http://www.solarprotocol.net/network.html");
 	header("Location: /network.html");
 	die();
 }

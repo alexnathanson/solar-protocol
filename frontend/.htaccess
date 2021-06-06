@@ -13,10 +13,6 @@ RewriteRule ^local/(.*)$ /redirect/www.php?file=$1
 RewriteRule ^local/$ /redirect/www.php?file=index.html
 
 # NICE URL FOR STEWARD PAGES
-# This redirects network URL to local URL
-# RewriteRule ^network/(.*)$ local/$1
-
-#RewriteCond %{REQUEST_URI} != network/
 RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 

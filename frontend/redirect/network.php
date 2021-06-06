@@ -37,12 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
-				//set image mime type
+				//set mime type for images
 				$imgTypes = ["jpg","jpeg","gif","png"];
 				foreach ($imgTypes as $type) {
 					if(strpos($_GET['path'], $type) !== false){
 						header("content-type: image/".$type);
 					}
+				}
+
+				//set mime time for css
+				if(strpos($filepath, "css")){
+					header("Content-type: text/css");
 				}
 			
 				//routes non-root file paths

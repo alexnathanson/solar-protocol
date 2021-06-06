@@ -46,8 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				}
 
 				//set mime time for css
-				if(strpos($filepath, "css")){
-					header("Content-type: text/css");
+				if(strpos($_GET['path'], "css")){
+					header("content-type: text/css");
 				}
 			
 				//routes non-root file paths
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			    //add banner
 				$redirected = str_replace(
 				   "<body>", 
-				   "<body><div style='left:0px; width:100%; padding:3px; background-color:black;'><h3><a href='/'' style='color:white;'>This site is hosted on the Solar Protocol Network</a></h3></div>",
+				   "<body><div style='left:0px; width:100%; padding:3px; background-color:black;'><h4><a href='/'' style='color:white;'>This site is hosted on the Solar Protocol Network</a></h4></div>",
 				    $redirected
 				);
 

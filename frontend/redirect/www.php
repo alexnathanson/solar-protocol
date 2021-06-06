@@ -1,4 +1,5 @@
 <?php
+// this page redirects to the local/www directory
 
 $locDir = "/home/pi/local/www/";
 $filepath= "";

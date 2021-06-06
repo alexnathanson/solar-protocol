@@ -84,10 +84,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	}
 }
 
+//if the requested page doesn't exist, redirect to the main network page
 if($listNetwork == true){
-	listNetworkSites();
+	//listNetworkSites();
+	header("Location: http://www.solarprotocol.net/network.html");
+	die();
 }
 
+//this was the old programatic way to create the network list pages - delete once updated via the templaters properly
 function listNetworkSites(){
 	global $deviceInfo;
 

@@ -79,11 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$listNetwork = true;
 			}
 			
-			/*str_replace(
+			str_replace(
 			   "<body>", 
 			   "<body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>",
 			    $redirected
-			);		*/
+			);		
 		}
 	}
 }

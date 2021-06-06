@@ -60,6 +60,7 @@ function getFile($fileName){
   //make this dynamic at some point
   //let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
   let ipList = [];
+  let nameList = [];
 
   //get the most recent line of charge controller data
   let toGet = "0";
@@ -75,17 +76,21 @@ function getFile($fileName){
   //point of entry
   //getRequest(poeURL,sortPoeLog);
 
-  function getRequest(dst, callback){
+  function getRequest(dst, callback, dstNum){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-      if(callback && typeof callback === "function"){
+      if(dstNum && typeof dstNum === "number"){
+        if (this.readyState == 4 && this.status == 200) {
+          callback(this.responseText, dst, dstNum);
+        } else if (this.readyState == 4) {
+          callback(this.statusText, dst, dstNum);
+        }
+      } else {
          if (this.readyState == 4 && this.status == 200) {
           callback(this.responseText, dst);
         } else if (this.readyState == 4) {
           callback(this.statusText, dst);
         }
-      } else {
-        return this.statusText;
       }
      
     };
@@ -100,6 +105,7 @@ function getFile($fileName){
 
     for (let p = 0; p < jsonDevList.length;p++){
       ipList.push(jsonDevList[p]["ip"]);   
+      nameList.push(jsonDevList[p]["name"]);   
     }
 
 
@@ -107,7 +113,7 @@ function getFile($fileName){
     for (let i = 0; i < ipList.length; i++){
       //pingServer(tempIPList[i], populate);
       let requestURL = "http://" + ipList[i] + "/api/v1/chargecontroller.php?line="+toGet;
-      getRequest(requestURL, populate);
+      getRequest(requestURL, populate, i);
     }
 
   //point of entry
@@ -182,12 +188,12 @@ function getFile($fileName){
   }
 
 
-  function populate(dataToDisplay, dst) {
+  function populate(dataToDisplay, dst, dstNum) {
 
     let dstIP = dst.replace('/api/v1/chargecontroller.php?line=0','');
     //dstIP = dst.replace('http://','');
 
-    dstName = getRequest(dstIP + '/api/v1/chargecontroller.php?systemInfo=name');
+    let dstName = nameList[dstNum] /*getRequest(dstIP + '/api/v1/chargecontroller.php?systemInfo=name');*/
     console.log(dstName);
 
     const sList = document.getElementById('server list');

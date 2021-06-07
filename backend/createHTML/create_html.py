@@ -393,7 +393,8 @@ def main():
         except Exception as e:
             time_stamp = "N/A"
         item["time_stamp"] = time_stamp
-    
+        item["url"]=item["name"]
+        
     #4. get images and 
     print(server_data)
     check_images(server_data)

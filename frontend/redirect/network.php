@@ -37,8 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
+				console_log("path exists!");
+				console_log($_GET['path']);
+
 				//set mime time for css
 				if(strpos($_GET['path'], "css") !== false){
+					console_log("CSS!");
 					header("content-type: text/css");
 				} else {
 					//set mime type for images
@@ -119,6 +123,12 @@ function getFile($fileName){
     echo $fileName;
     return FALSE;
   }
+}
+
+function console_log( $data ){
+  echo '<script>';
+  echo 'console.log('. json_encode( $data ) .')';
+  echo '</script>';
 }
 
 ?>

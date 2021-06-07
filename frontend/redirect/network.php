@@ -31,10 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 		if($listNetwork == false){
 
-			//the include approach will likely load faster, but might be less secure...
-			/*include($localURL);
-			exit();*/
-
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
 				console_log("path exists!");
@@ -56,6 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			
 				//routes non-root file paths
 				$localURL .= "/" . $_GET['path'];
+
+				//the include approach will likely load faster, but might be less secure...
+				/*include($localURL);
+				exit();*/
 			}
 
 			//get request - error reporting supressed with the @ - remove it to see the error messages
@@ -64,10 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			if($redirected){
 
 			    //replace url
-			    $redirected = str_replace(
+			    /*$redirected = str_replace(
 			   '<head>', 
 			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
-			    $redirected);
+			    $redirected);*/
 
 			    //add banner
 				$redirected = str_replace(

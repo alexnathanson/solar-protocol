@@ -33,9 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
-				/*console_log("path exists!");
-				console_log($_GET['path']);*/
-
 				//set mime type
 				if(strpos($_GET['path'], "css")){
 					header("Content-type: text/css");

@@ -71,12 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
 			    $redirected);*/
 
-			    //add banner
-				$redirected = str_replace(
-				   "<body>", 
-				   "<body><div id='solarprotocol-banner'><span style='font-size: 150%; left:0px; width:100%; padding:3px; border: solid; border-color:blue;'><a href='/' style='color:grey;'>This site is hosted on the Solar Protocol Network</a></span></div>",
-				    $redirected
-				);
+			    //add banner if its an html page
+			    if(isset($_GET['path']) && strpos($_GET['path'], "html"){
+			    	$redirected = str_replace(
+						   "<body>", 
+						   "<body><div id='solarprotocol-banner'><span style='font-size: 150%; left:0px; width:100%; padding:3px; border: solid; border-color:blue;'><a href='/' style='color:grey;'>This site is hosted on the Solar Protocol Network</a></span></div>",
+						    $redirected
+						);
+			    }
 
 			    echo $redirected;
 

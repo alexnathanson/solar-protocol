@@ -33,12 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
-				console_log("path exists!");
-				console_log($_GET['path']);
+				/*console_log("path exists!");
+				console_log($_GET['path']);*/
 
 				//set mime type
 				if(strpos($_GET['path'], "css")){
-					header("content-type: text/css");
+					header("Content-type: text/css");
 				} else if(strpos($_GET['path'], "mp4")){
 						header("Content-type: video/mp4");
 				} else {
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					$imgTypes = ["jpg","jpeg","gif","png"];
 					foreach ($imgTypes as $type) {
 						if(strpos($_GET['path'], $type)){
-							header("content-type: image/".$type);
+							header("Content-type: image/".$type);
 							break;
 						}
 					}
@@ -72,13 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			    $redirected);*/
 
 			    //add banner if its an html page
-			    /*if(isset($_GET['path']) && strpos($_GET['path'], "html")){
+			    if(isset($_GET['path']) && strpos($_GET['path'], "html")){
 			    	$redirected = str_replace(
 						   "<body>", 
 						   "<body><div id='solarprotocol-banner'><span style='font-size: 150%; left:0px; width:100%; padding:3px; border: solid; border-color:blue;'><a href='/' style='color:grey;'>This site is hosted on the Solar Protocol Network</a></span></div>",
 						    $redirected
 						);
-			    }*/
+			    }
 
 			    echo $redirected;
 

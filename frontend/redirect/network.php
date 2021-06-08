@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				}
 			
 				//routes non-root file paths
-				$localURL .= "/" . $_GET['path'];
+				$localURL .= "/" . $_GET['steward'] . "/" . $_GET['path'];
 
 				//the include approach will likely load faster, but might be less secure...
 				/*include($localURL);
@@ -64,10 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			if($redirected){
 
 			    //replace url
-			    /*$redirected = str_replace(
+			    $redirected = str_replace(
 			   '<head>', 
 			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
-			    $redirected);*/
+			    $redirected);
 
 			    //add banner if its an html page
 			    if(! isset($_GET['path']) || strpos($_GET['path'], "html")){

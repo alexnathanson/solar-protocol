@@ -40,6 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				if(strpos($_GET['path'], "css") !== false){
 					console_log("CSS!");
 					header("content-type: text/css");
+				} else if(strpos($filepath, "mp4")){
+						header("Content-type: video/mp4");
 				} else {
 					//set mime type for images
 					$imgTypes = ["jpg","jpeg","gif","png"];

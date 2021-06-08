@@ -36,11 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				console_log("path exists!");
 				console_log($_GET['path']);
 
-				//set mime time for css
-				if(strpos($_GET['path'], "css") !== false){
+				//set mime type
+				if(strpos($_GET['path'], "css")){
 					console_log("CSS!");
 					header("content-type: text/css");
-				} else if(strpos($filepath, "mp4")){
+				} else if($_GET['path'], "mp4")){
 						header("Content-type: video/mp4");
 				} else {
 					//set mime type for images

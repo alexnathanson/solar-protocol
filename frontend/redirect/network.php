@@ -34,16 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
 				//set mime type
-				if(strpos($_GET['path'], "css")){
+				if(strpos($_GET['path'], "css") !== false){
 					header("Content-type: text/css");
-				} else if(strpos($_GET['path'], "mp4")){
-						header("Content-type: video/mp4");
+				} else if(strpos($_GET['path'], "mp4") !== false){
+					header("Content-type: video/mp4");
 				} else {
 					//set mime type for images
 					$imgTypes = ["jpg","jpeg","gif","png"];
 					foreach ($imgTypes as $type) {
-						if(strpos($_GET['path'], $type)){
+						if(strpos($_GET['path'], $type) !== false){
 							header("Content-type: image/".$type);
+							//readfile('thefile.png');
 							break;
 						}
 					}
@@ -57,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				exit();*/
 			}
 
-			//get request - error reporting supressed with the @ - remove it to see the error messages
+			//get request - error reporting supressed with the @file_get_contents() - remove the @ to see the error messages
 			$redirected = @file_get_contents($localURL);
 
 			if($redirected){

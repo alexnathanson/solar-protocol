@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					foreach ($imgTypes as $type) {
 						if(strpos($_GET['path'], $type) !== false){
 							header("Content-type: image/".$type);
-							//readfile('thefile.png');
+							//readfile('thefile.png'); //might be faster than file_get_contents for large files
 							break;
 						}
 					}
@@ -70,10 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			    $redirected);
 
 			    //add banner if its an html page
-			    if(! isset($_GET['path']) || strpos($_GET['path'], "html")){
+			    if(! isset($_GET['path']) || $_GET['path'] == "" || strpos($_GET['path'], "html")){
 			    	$redirected = str_replace(
 						   "<body>", 
-						   "<body><div id='solarprotocol-banner'><span style='font-size: 150%; left:0px; width:100%; padding:3px; border: solid; border-color:blue;'><a href='/' style='color:grey;'>This site is hosted on the Solar Protocol Network</a></span></div>",
+						   "<body><div id='solarprotocol-banner'><span style='font-size: 100%; left:0px; width:100%; padding:3px; border: solid; border-color:blue;'><a href='/' style='color:grey;'>This site is hosted on the Solar Protocol Network</a></span></div>",
 						    $redirected
 						);
 			    }

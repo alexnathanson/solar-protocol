@@ -153,7 +153,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
             name=_local_data["name"],
             #make lower case, remove spaces, remove nonstandard characters 
             # url=re.sub('[^A-Za-z0-9-_]+', '', _local_data["name"].lower().replace(" ","")),
-            url='test';
+            url='test',
             description=_local_data["description"],
             location=_local_data["location"],
             city=_local_data["city"],

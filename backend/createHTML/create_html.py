@@ -401,7 +401,7 @@ def main():
         #make lower case, remove spaces, remove nonstandard characters 
         serverURL = 'http://solarprotocol.net/network/' + re.sub('[^A-Za-z0-9-_]+', '', item["name"].lower().replace(" ",""))
         if status == "online":
-            item["link"] =  "<a href='http://solarprotocol.net/network/" + serverURL + "'>" + serverURL +"</a>"
+            item["link"] =  "<a href='" + serverURL + "'>" + serverURL +"</a>"
         else:
             item["link"] = serverURL
 

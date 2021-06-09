@@ -136,6 +136,10 @@ def render_pages(_local_data, _data, _weather, _server_data):
         else:
             mode="Low res mode"
         
+        #make lower case, remove spaces, remove nonstandard characters 
+        _local_data["url"]=re.sub('[^A-Za-z0-9-_]+', '', _local_data["name"].lower().replace(" ","")),
+        print("URL")
+        print(_local_data["url"])
 
         # template = Template(template_file)
         rendered_html = template.render(
@@ -151,9 +155,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
             loadCurrent=_data["load current"],
             loadPower=_data["load power"],
             name=_local_data["name"],
-            #make lower case, remove spaces, remove nonstandard characters 
-            # url=re.sub('[^A-Za-z0-9-_]+', '', _local_data["name"].lower().replace(" ","")),
-            url='test',
+            url=_local_data["url"],
             description=_local_data["description"],
             location=_local_data["location"],
             city=_local_data["city"],

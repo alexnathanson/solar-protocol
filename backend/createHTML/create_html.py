@@ -369,6 +369,7 @@ def main():
     deviceList_data = get_ips()
     #creates deviceList_data
   
+### This needs to be changed to be dynamic via the API - not hard coded ###
     #2. import json data as an array of dictionarys
     with open('servers.json') as f:
         server_data = json.load(f)

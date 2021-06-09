@@ -9,6 +9,7 @@ import json
 import csv
 import os
 import viz
+import re
 
 
 def get_data():
@@ -151,7 +152,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
             loadPower=_data["load power"],
             name=_local_data["name"],
             #make lower case, remove spaces, remove nonstandard characters 
-            url=_local_data["name"].lower().replace(" ","").sub('[^A-Za-z0-9-_]+', '', mystring),
+            url=re.sub('[^A-Za-z0-9-_]+', '', _local_data["name"].lower().replace(" ","")),
             description=_local_data["description"],
             location=_local_data["location"],
             city=_local_data["city"],

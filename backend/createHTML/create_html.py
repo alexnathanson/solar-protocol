@@ -397,8 +397,15 @@ def main():
         except Exception as e:
             time_stamp = "N/A"
         item["time_stamp"] = time_stamp
+
         #make lower case, remove spaces, remove nonstandard characters 
-        item["url"] = re.sub('[^A-Za-z0-9-_]+', '', item["name"].lower().replace(" ","")) 
+        serverURL = 'http://solarprotocol.net/network/' + re.sub('[^A-Za-z0-9-_]+', '', item["name"].lower().replace(" ",""))
+        if status == "online":
+            item["link"] =  "<a href='http://solarprotocol.net/network/" + serverURL + "'>" + serverURL +"</a>"
+        else:
+            item["link"] = serverURL
+
+
 
     #4. get images and 
     print(server_data)

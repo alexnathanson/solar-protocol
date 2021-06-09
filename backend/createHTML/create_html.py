@@ -151,7 +151,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
             loadPower=_data["load power"],
             name=_local_data["name"],
             #make lower case, remove spaces, remove nonstandard characters 
-            url=_local_data["url"].lower().replace(" ","").sub('[^A-Za-z0-9-_]+', '', mystring),
+            url=_local_data["name"].lower().replace(" ","").sub('[^A-Za-z0-9-_]+', '', mystring),
             description=_local_data["description"],
             location=_local_data["location"],
             city=_local_data["city"],
@@ -395,7 +395,6 @@ def main():
         except Exception as e:
             time_stamp = "N/A"
         item["time_stamp"] = time_stamp
-        # item["url"]=item["name"]
         
     #4. get images and 
     print(server_data)

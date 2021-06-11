@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 function notFound(){
 	header("Content-type: text/html");
-	echo file_get_contents("404.html");
+	echo file_get_contents("/redirect/404.html");
 }
 
 ?>

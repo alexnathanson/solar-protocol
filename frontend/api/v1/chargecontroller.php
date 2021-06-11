@@ -147,9 +147,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           //echo ini_get('date.timezone');
       echo date_default_timezone_get();
       //}
-    } else if ($_GET["systemInfo"] == "ping"){
+    } /*else if ($_GET["systemInfo"] == "ping"){
       echo "ping";
-    } else if ($_GET["systemInfo"] == "color"){
+    } */else if ($_GET["systemInfo"] == "color"){
       //read local bgColor
       $fileContents = file_get_contents("/home/pi/local/local.json");
       // Convert to array 
@@ -157,14 +157,38 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else if ($_GET["systemInfo"] == "description"){
       //read local bgColor
       $fileContents = file_get_contents("/home/pi/local/local.json");
-      // Convert to array 
       echo json_decode($fileContents, true)['description'];
     } else if ($_GET["systemInfo"] == "name"){
       //read local name
       $fileContents = file_get_contents("/home/pi/local/local.json");
-      // Convert to array 
       echo json_decode($fileContents, true)['name'];
+    } else if ($_GET["systemInfo"] == "location"){
+      //read local location
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      echo json_decode($fileContents, true)['location'];
+    } else if ($_GET["systemInfo"] == "city"){
+      //read local city
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      echo json_decode($fileContents, true)['city'];
+    } else if ($_GET["systemInfo"] == "country"){
+      //read local country
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      echo json_decode($fileContents, true)['country'];
+    } else if ($_GET["systemInfo"] == "dump"){
+      //read local country
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      $infoArray = json_decode($fileContents, true)
+      $infoDump = array(
+        "timezone" : date_default_timezone_get(),
+        "color" => $infoArray["color"],
+        "name" => $infoArray["name"],
+        "description" => $infoArray["description"],
+        "location" => $infoArray["location"],
+        "city" => $infoArray["city"],
+        "country" => $infoArray["country"]}
+      echo $infoDump;
     }
+  }
   }
 }
 

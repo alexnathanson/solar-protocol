@@ -11,6 +11,7 @@ import os
 import viz
 import re
 
+#jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
 def get_data():
     client = ModbusClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
@@ -285,7 +286,36 @@ def get_pv_value(dst):
         print("A Timeout Error occurred:" + repr(errt))
     except requests.exceptions.RequestException as err:
         print("An Unknown Error occurred" + repr(err))
-    
+
+#return data from a particular server
+def getAPIData(apiEndPoint, dst):
+    try:
+        #returns a single value
+        response = requests.get('http://' + dst + '/api/v1/'+apiEndPoint, timeout = 5)
+        return response.text
+    except requests.exceptions.HTTPError as errh:
+        print("An Http Error occurred:" + repr(errh))
+    except requests.exceptions.ConnectionError as errc:
+        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.Timeout as errt:
+        print("A Timeout Error occurred:" + repr(errt))
+    except requests.exceptions.RequestException as err:
+        print("An Unknown Error occurred" + repr(err))
+
+# name, city, location, status, description
+
+def getAllAPIData(dst):
+    #name
+    endpoint = 'chargecontroller.php?systemInfo=name'
+    sName = getAPIData(endpoint, dst)
+
+    #city
+    endpoint = 'chargecontroller.php?systemInfo=name'
+
+    #description
+    endpoint = 'chargecontroller.php?systemInfo=description'
+
+
 def download_file(url, local_filename=None):
     #Downloads a file from a remote URL
     if local_filename is None:
@@ -348,7 +378,6 @@ serverNames = []
 myIP = " "
 days = 3
 
-
 def main():
     viz.main()
     energy_data = read_csv()
@@ -369,6 +398,8 @@ def main():
     deviceList_data = get_ips()
     #creates deviceList_data
   
+# name, city, location, status, last check-in, description, link
+
 ### This needs to be changed to be dynamic via the API - not hard coded ###
     #2. import json data as an array of dictionarys
     with open('servers.json') as f:
@@ -383,6 +414,7 @@ def main():
     #3. get solar data and add it to server_data
     for item in server_data:
         try:
+            #solar_data = get_pv_value(item["ip"])
             solar_data = get_pv_value(item["ip"])
             status = "online"
         except Exception as e:

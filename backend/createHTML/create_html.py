@@ -10,6 +10,7 @@ import csv
 import os
 import viz
 import re
+import ast
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
@@ -402,7 +403,6 @@ def main():
 
     #2
     # server_data = {}
-
     for key, value in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
@@ -410,7 +410,8 @@ def main():
             print("#2")
             print(sInfo)
             print(type(sInfo))
-            print(json.loads(sInfo))
+            print(ast.literal_eval(sInfo))
+            
 
         except Exception as e:
             print(e)

@@ -293,7 +293,7 @@ def getAPIData(apiEndPoint, dst, dType):
         #returns a single value
         response = requests.get('http://' + dst + '/api/v1/'+apiEndPoint, timeout = 5)
         if dType == "json":
-            return response.json
+            return response.json()
         else:
             return response.text
     except requests.exceptions.HTTPError as errh:

@@ -302,20 +302,6 @@ def getAPIData(apiEndPoint, dst):
     except requests.exceptions.RequestException as err:
         print("An Unknown Error occurred" + repr(err))
 
-# name, city, location, status, description
-
-def getAllAPIData(dst):
-    #name
-    endpoint = 'chargecontroller.php?systemInfo=name'
-    sName = getAPIData(endpoint, dst)
-
-    #city
-    endpoint = 'chargecontroller.php?systemInfo=name'
-
-    #description
-    endpoint = 'chargecontroller.php?systemInfo=description'
-
-
 def download_file(url, local_filename=None):
     #Downloads a file from a remote URL
     if local_filename is None:
@@ -397,20 +383,28 @@ def main():
     #1. get IP list of addresses
     deviceList_data = get_ips()
     #creates deviceList_data
+    print("#1")
+    print(deviceList_data)
   
 # name, city, location, status, last check-in, description, link
 
 ### This needs to be changed to be dynamic via the API - not hard coded ###
     #2. import json data as an array of dictionarys
-    with open('servers.json') as f:
-        server_data = json.load(f)
-        #3. Add ips to server_data
-        for item in server_data:
-            for key, value in deviceList_data.items():
-                if item["name"] == key:
-                    item["ip"] = value
-        print(server_data)
-    
+    # with open('servers.json') as f:
+    #     server_data = json.load(f)
+    #     #3. Add ips to server_data
+    #     for item in server_data:
+    #         for key, value in deviceList_data.items():
+    #             if item["name"] == key:
+    #                 item["ip"] = value
+    #     print(server_data)
+
+    #2
+    for d in deviceList_data:
+        try:
+            item["ip"] = d #add IPs to server data
+            sData = getAPIData('chargecontroller.php?systemInfo=dump',d)
+            
     #3. get solar data and add it to server_data
     for item in server_data:
         try:

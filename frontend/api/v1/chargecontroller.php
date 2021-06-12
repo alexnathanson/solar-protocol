@@ -180,7 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       $infoArray = json_decode($fileContents, true);
       $infoDump = array(
         "timezone" => date_default_timezone_get(),
-        "color" => $infoArray["color"],
+        "color" => $infoArray["bgColor"],
         "name" => $infoArray["name"],
         "description" => $infoArray["description"],
         "location" => $infoArray["location"],

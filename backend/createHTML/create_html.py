@@ -385,6 +385,7 @@ def main():
     #creates deviceList_data
     print("#1")
     print(deviceList_data)
+    print(deviceList_data.items())
   
 # name, city, location, status, last check-in, description, link
 
@@ -402,7 +403,7 @@ def main():
     #2
     # server_data = {}
 
-    for key, value in deviceList_data:
+    for key, value in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
             sInfo = getAPIData('chargecontroller.php?systemInfo=dump',d)
@@ -412,7 +413,7 @@ def main():
 
         except Exception as e:
             sInfo = None
-            
+
     #3. get solar data and add it to server_data
     for item in server_data:
         try:

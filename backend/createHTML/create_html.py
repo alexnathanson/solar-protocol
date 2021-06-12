@@ -413,6 +413,7 @@ def main():
             print(json.loads(sInfo))
 
         except Exception as e:
+            print(e)
             sInfo = None
 
     #3. get solar data and add it to server_data

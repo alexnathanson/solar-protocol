@@ -461,6 +461,12 @@ section {
 
 }
 
+.server-box::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 .server-box p{
   margin: 0px;
   font-size: calc(var(--text-size)*1);
@@ -487,6 +493,11 @@ section {
 }
 .server-box td{
   padding: 5px 5px;
+}
+
+.server-box img{
+  float:  right;
+  width: 50%;
 }
 
 

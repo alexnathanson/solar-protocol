@@ -189,7 +189,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       echo $infoDump;
     }
   }
-  }
 }
 
 function testValue($v){

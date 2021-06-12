@@ -177,7 +177,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else if ($_GET["systemInfo"] == "dump"){
       //read local country
       $fileContents = file_get_contents("/home/pi/local/local.json");
-      $infoArray = json_decode($fileContents, true)
+      $infoArray = json_decode($fileContents, true);
       $infoDump = array(
         "timezone" : date_default_timezone_get(),
         "color" => $infoArray["color"],

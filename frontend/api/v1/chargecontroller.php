@@ -179,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       $fileContents = file_get_contents("/home/pi/local/local.json");
       $infoArray = json_decode($fileContents, true);
       $infoDump = array(
-        "timezone" : date_default_timezone_get(),
+        "timezone" => date_default_timezone_get(),
         "color" => $infoArray["color"],
         "name" => $infoArray["name"],
         "description" => $infoArray["description"],

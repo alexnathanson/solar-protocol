@@ -406,12 +406,12 @@ def main():
     for key, value in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
-            sInfo = getAPIData('chargecontroller.php?systemInfo=dump',value)
+            sInfo = json.loads(getAPIData('chargecontroller.php?systemInfo=dump',value))
             print("#2")
             print(sInfo)
             print(type(sInfo))
-            print(json.loads(sInfo))
-
+            print(sInfo["description"])
+            
         except Exception as e:
             print(e)
             sInfo = None

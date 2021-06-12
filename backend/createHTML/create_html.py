@@ -388,20 +388,7 @@ def main():
     print(deviceList_data)
     print(deviceList_data.items())
   
-# name, city, location, status, last check-in, description, link
-
-### This needs to be changed to be dynamic via the API - not hard coded ###
-    #2. import json data as an array of dictionarys
-    # with open('servers.json') as f:
-    #     server_data = json.load(f)
-    #     #3. Add ips to server_data
-    #     for item in server_data:
-    #         for key, value in deviceList_data.items():
-    #             if item["name"] == key:
-    #                 item["ip"] = value
-    #     print(server_data)
-
-    #2
+    #2 Collect data from all the difference servers
     server_data = []
 
     for key, value in deviceList_data.items():
@@ -416,6 +403,7 @@ def main():
 
         except Exception as e:
             print(e)
+            #reformat page so offline servers dont actually need this blank data?
             server_data.append({'ip':value,'name':key, 'description':'', 'city':'', 'location':'','country':''})
 
     #3. get solar data and add it to server_data
@@ -453,7 +441,6 @@ def main():
 
 
     render_pages(local_data, energy_data, local_weather, server_data)
-
 
 
 

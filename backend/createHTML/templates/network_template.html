@@ -21,10 +21,12 @@
       <div class="server-box">
         <h3>{{item.name}}, {{item.location}}, {{item.country}}</h3>
         <div class="server-image" style="width: 50%; float:right;"><img src={{item.image_path}}></div>
-        <p><i>Server status:</i> {{item.status}}</p>
-        <p><i>Last check-in:</i> {{item.time_stamp}} </p>
-        <p><i>About:</i> {{item.description}}</p>
-        <p><i>Link: </i>{{item.link}} </p>  
+        <div class="server-info" style="width: 50%; float:left;">
+          <p><i>Server status:</i> {{item.status}}</p>
+          <p><i>Last check-in:</i> {{item.time_stamp}} </p>
+          <p><i>About:</i> {{item.description}}</p>
+          <p><i>Link: </i>{{item.link}} </p> 
+        </div> 
       </div>
       {% endfor %}
 

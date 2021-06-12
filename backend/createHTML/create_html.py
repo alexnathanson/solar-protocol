@@ -292,10 +292,7 @@ def getAPIData(apiEndPoint, dst, dType):
     try:
         #returns a single value
         response = requests.get('http://' + dst + '/api/v1/'+apiEndPoint, timeout = 5)
-        if dType == "json":
-            return response.json()
-        else:
-            return response.text
+        return response.text
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError as errc:
@@ -409,10 +406,11 @@ def main():
     for key, value in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
-            sInfo = getAPIData('chargecontroller.php?systemInfo=dump',value, "json")
+            sInfo = getAPIData('chargecontroller.php?systemInfo=dump',value)
             print("#2")
             print(sInfo)
             print(type(sInfo))
+            print(json.loads(sInfo))
 
         except Exception as e:
             sInfo = None

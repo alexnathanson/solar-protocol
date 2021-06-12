@@ -404,7 +404,6 @@ def main():
     #2
     server_data = []
 
-    serverNum = 0
     for key, value in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
@@ -412,13 +411,12 @@ def main():
             print("#2")
             print(sInfo)
             print(type(sInfo))
-            server_data[serverNum] = sInfo
-            server_data[serverNum]['ip'] = value
-            serverNum++
+            server_data[deviceList_data.index(value)] = sInfo
+            server_data[deviceList_data.index(value)]['ip'] = value
 
         except Exception as e:
             print(e)
-            server_data[serverNum]['ip'] = value
+            server_data[deviceList_data.index(value)]['ip'] = value
             # sInfo = None
 
     #3. get solar data and add it to server_data

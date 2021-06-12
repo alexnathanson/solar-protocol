@@ -288,7 +288,7 @@ def get_pv_value(dst):
         print("An Unknown Error occurred" + repr(err))
 
 #return data from a particular server
-def getAPIData(apiEndPoint, dst, dType):
+def getAPIData(apiEndPoint, dst):
     try:
         #returns a single value
         response = requests.get('http://' + dst + '/api/v1/'+apiEndPoint, timeout = 5)

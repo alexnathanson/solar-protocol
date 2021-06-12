@@ -288,11 +288,11 @@ def get_pv_value(dst):
         print("An Unknown Error occurred" + repr(err))
 
 #return data from a particular server
-def getAPIData(apiEndPoint, dst, format):
+def getAPIData(apiEndPoint, dst, dType):
     try:
         #returns a single value
         response = requests.get('http://' + dst + '/api/v1/'+apiEndPoint, timeout = 5)
-        if format == json:
+        if dType == "json":
             return response.json
         else:
             return response.text
@@ -409,7 +409,7 @@ def main():
     for key, value in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
-            sInfo = getAPIData('chargecontroller.php?systemInfo=dump',value, 'json')
+            sInfo = getAPIData('chargecontroller.php?systemInfo=dump',value, "json")
             print("#2")
             print(sInfo)
             print(type(sInfo))

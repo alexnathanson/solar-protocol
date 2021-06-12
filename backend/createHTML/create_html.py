@@ -406,8 +406,8 @@ def main():
     for key, value in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
-            sInfo = getAPIData('chargecontroller.php?systemInfo=dump',d)
-            print("#1")
+            sInfo = getAPIData('chargecontroller.php?systemInfo=dump',value)
+            print("#2")
             print(sInfo)
             print(type(sInfo))
 

@@ -396,9 +396,9 @@ def main():
             # item["ip"] = value #add IPs to server data
             sInfo = json.loads(getAPIData('chargecontroller.php?systemInfo=dump',value))
             sInfo['ip'] = value
-            print("#2")
-            print(sInfo)
-            print(type(sInfo))
+            # print("#2")
+            # print(sInfo)
+            # print(type(sInfo))
             server_data.append(sInfo)
 
         except Exception as e:

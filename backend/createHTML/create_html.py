@@ -400,11 +400,12 @@ def main():
     #     print(server_data)
 
     #2
-    for d in deviceList_data:
-        try:
-            item["ip"] = d #add IPs to server data
-            sData = getAPIData('chargecontroller.php?systemInfo=dump',d)
-            
+    # for d in deviceList_data:
+    #     try:
+    #         item["ip"] = d #add IPs to server data
+    #         sData = getAPIData('chargecontroller.php?systemInfo=dump',d)
+    #     except Exception as e:
+
     #3. get solar data and add it to server_data
     for item in server_data:
         try:

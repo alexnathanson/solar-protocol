@@ -186,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         "location" => $infoArray["location"],
         "city" => $infoArray["city"],
         "country" => $infoArray["country"]);
-      echo json_decode($infoDump);
+      var_dump($infoDump);
     }
   }
 }

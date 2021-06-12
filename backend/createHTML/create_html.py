@@ -416,8 +416,7 @@ def main():
 
         except Exception as e:
             print(e)
-            server_data.append({'ip':value})
-            # sInfo = None
+            server_data.append({'ip':value,'name':key})
 
     #3. get solar data and add it to server_data
     for item in server_data:

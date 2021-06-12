@@ -186,7 +186,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         "location" => $infoArray["location"],
         "city" => $infoArray["city"],
         "country" => $infoArray["country"]);
-      var_dump($infoDump);
+/*      var_dump($infoDump);
+*/      echo json_encode($infoDump);
+
+      /* $returnArray = array();
+        //package line with headers
+        for ($p = 0; $p<count($readData[0]);$p++){
+          $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
+        }  
+          $returnJSON = json_encode($returnArray);
+          echo $returnJSON;*/
     }
   }
 }

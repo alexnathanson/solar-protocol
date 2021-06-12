@@ -404,9 +404,7 @@ def main():
     #2
     server_data = []
 
-    sCount = 0
     for key, value in deviceList_data.items():
-        # sCount = list(deviceList_data.values()).index(value)
         try:
             # item["ip"] = value #add IPs to server data
             sInfo = json.loads(getAPIData('chargecontroller.php?systemInfo=dump',value))
@@ -414,13 +412,12 @@ def main():
             print("#2")
             print(sInfo)
             print(type(sInfo))
-            server_data[sCount] = sInfo
+            server_data.append(sInfo)
 
         except Exception as e:
             print(e)
-            server_data[sCount] = {'ip':value}
+            server_data.append({'ip':value})
             # sInfo = None
-        sCount += 1
 
     #3. get solar data and add it to server_data
     for item in server_data:

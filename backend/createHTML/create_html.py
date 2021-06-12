@@ -411,12 +411,12 @@ def main():
             print("#2")
             print(sInfo)
             print(type(sInfo))
-            server_data[deviceList_data.index(value)] = sInfo
-            server_data[deviceList_data.index(value)]['ip'] = value
+            server_data[deviceList_data.values().index(value)] = sInfo
+            server_data[deviceList_data.values().index(value)]['ip'] = value
 
         except Exception as e:
             print(e)
-            server_data[deviceList_data.index(value)]['ip'] = value
+            server_data[deviceList_data.values().index(value)]['ip'] = value
             # sInfo = None
 
     #3. get solar data and add it to server_data

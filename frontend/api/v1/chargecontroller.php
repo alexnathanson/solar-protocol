@@ -185,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         "description" => $infoArray["description"],
         "location" => $infoArray["location"],
         "city" => $infoArray["city"],
-        "country" => $infoArray["country"]}
+        "country" => $infoArray["country"])
       echo $infoDump;
     }
   }

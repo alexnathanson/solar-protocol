@@ -410,8 +410,7 @@ def main():
             print("#2")
             print(sInfo)
             print(type(sInfo))
-            print(ast.literal_eval(sInfo))
-            
+            print(json.loads(sInfo))
 
         except Exception as e:
             print(e)

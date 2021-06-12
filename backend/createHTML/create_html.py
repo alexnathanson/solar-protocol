@@ -411,7 +411,8 @@ def main():
             print(type(sInfo))
 
         except Exception as e:
-
+            sInfo = None
+            
     #3. get solar data and add it to server_data
     for item in server_data:
         try:

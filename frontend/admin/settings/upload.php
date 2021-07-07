@@ -2,7 +2,7 @@
 namespace Upload;
 //based on: https://www.w3schools.com/php/php_file_upload.asp
 
-$maxFileSizeBytes = 500000;
+$maxFileSizeBytes = 214748364;// .2GB formerly was 500000;
 $uploadStatus = "";
 
 function uploadIt(){

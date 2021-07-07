@@ -20,6 +20,8 @@ function uploadIt(){
       imageUpload($target_file);
     } else if (strpos(mime_content_type($_FILES["fileToUpload"]["tmp_name"]),"text")!== false ){
       textUpload($target_file);
+    } else if (strpos(mime_content_type($_FILES["fileToUpload"]["tmp_name"]),"pdf")!== false ){
+      pdfUpload($target_file);
     }
 
     // Check if file already exists
@@ -117,6 +119,20 @@ function textUpload($tF){
   // Allow certain file formats
   if($textFileType != "html" && $textFileType != "css") {
     $uploadStatus .= "<br>Sorry, only HTML and CSS files are allowed.";
+    $uploadOk = 0;
+  }
+}
+
+function pdfUpload($tF){
+  //supported file types: pdf
+  // php is disable on server for this directory
+  global $uploadOk, $uploadStatus;
+
+  $textFileType = strtolower(pathinfo($tF,PATHINFO_EXTENSION));
+
+  // Allow certain file formats
+  if($textFileType != "pdf") {
+    $uploadStatus .= "<br>Sorry, not a pdf.";
     $uploadOk = 0;
   }
 }

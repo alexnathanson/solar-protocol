@@ -6,6 +6,8 @@ $deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
 $listNetwork = true;
 
+//options are txt or media
+$fileType = 'txt';
 
 $default_socket_timeout = ini_get('default_socket_timeout');
 //echo $default_socket_timeout;
@@ -36,16 +38,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				//set mime type
 				if(strpos($_GET['path'], ".css") !== false){
 					header("Content-type: text/css");
+					$fileType = 'txt';
 				} else if(strpos($_GET['path'], ".mp4") !== false){
 					header("Content-type: video/mp4");
+					$fileType = 'media';
 				} else if(strpos($_GET['path'], ".pdf") !== false){
 					header("Content-type: application/pdf");
+					$fileType = 'media';
 				} else {
 					//set mime type for images
 					$imgTypes = ["jpg","jpeg","gif","png"];
 					foreach ($imgTypes as $type) {
 						if(strpos($_GET['path'], "." .$type) !== false){
 							header("Content-type: image/".$type);
+							$fileType = 'media';
 							//readfile('thefile.png'); //might be faster than file_get_contents for large files
 							break;
 						}
@@ -60,8 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				exit();*/
 			}
 
-			//get request - error reporting supressed with the @file_get_contents() - remove the @ to see the error messages
-			$redirected = @file_get_contents($localURL);
+			if ($fileType == 'media'){
+				$redirected = @readfile($localURL);
+			} else {
+				//get request - error reporting supressed with the @file_get_contents() - remove the @ to see the error messages
+				$redirected = @file_get_contents($localURL);
+			}
 
 			if($redirected){
 

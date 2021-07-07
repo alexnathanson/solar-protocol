@@ -52,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						if(strpos($_GET['path'], "." .$type) !== false){
 							header("Content-type: image/".$type);
 							$fileType = 'media';
-							//readfile('thefile.png'); //might be faster than file_get_contents for large files
 							break;
 						}
 					}

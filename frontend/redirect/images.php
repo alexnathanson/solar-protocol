@@ -11,16 +11,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$filepath= $locDir . @$_GET['file'];
 
 	if (file_exists($filepath)){
-		if(strpos($filepath, "jpg")){
+		if(strpos($filepath, ".jpg")){
 			header("Content-type: image/jpg");
-		} else if(strpos($filepath, "jpeg")){
+		} else if(strpos($filepath, ".jpeg")){
 			header("Content-type: image/jpeg");
-		}  else if(strpos($filepath, "png")){
+		}  else if(strpos($filepath, ".png")){
 			header("Content-type: image/png");
-		} else if(strpos($filepath, "gif")){
+		} else if(strpos($filepath, ".gif")){
 			header("Content-type: image/gif");
-		} else if(strpos($filepath, "mp4")){
+		} else if(strpos($filepath, ".mp4")){
 			header("Content-type: video/mp4");
+		} else if(strpos($filepath, ".pdf")){
+			header("Content-type: application/pdf");
 		} else {
 			notFound();
 			return;

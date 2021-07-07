@@ -34,15 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
 				//set mime type
-				if(strpos($_GET['path'], "css") !== false){
+				if(strpos($_GET['path'], ".css") !== false){
 					header("Content-type: text/css");
-				} else if(strpos($_GET['path'], "mp4") !== false){
+				} else if(strpos($_GET['path'], ".mp4") !== false){
 					header("Content-type: video/mp4");
+				} else if(strpos($_GET['path'], ".pdf") !== false){
+					header("Content-type: application/pdf");
 				} else {
 					//set mime type for images
 					$imgTypes = ["jpg","jpeg","gif","png"];
 					foreach ($imgTypes as $type) {
-						if(strpos($_GET['path'], $type) !== false){
+						if(strpos($_GET['path'], "." .$type) !== false){
 							header("Content-type: image/".$type);
 							//readfile('thefile.png'); //might be faster than file_get_contents for large files
 							break;
@@ -51,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				}
 			
 				//routes non-root file paths
-				$localURL .= "/" . $_GET['steward'] . "/" . $_GET['path'];
+				$localURL .= "/" . $_GET['path'];
 
 				//the include approach will likely load faster, but might be less secure...
 				/*include($localURL);
@@ -66,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			    //replace url
 			    $redirected = str_replace(
 			   '<head>', 
-			   '<head><base href="http://solarprotocol.net/network/'.$_GET['steward'].'/">',
+			   '<head><base href="/network/'.$_GET['steward'].'/">',
 			    $redirected);
 
 			    //add banner if its an html page
@@ -85,11 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$listNetwork = true;
 			}
 			
-			/*str_replace(
-			   "<body>", 
-			   "<body><div style='padding: 10px;border: 2px solid black;margin-top: 10px;margin-bottom: 10px;'><h1><a href='/''>Solar Protocol</a> - Network Sites</h1></div>",
-			    $redirected
-			);*/
 		}
 	}
 }
@@ -97,6 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 //if the requested page doesn't exist, redirect to the main network page
 if($listNetwork == true){
 	header("Location: /network.html");
+	//header("Content-type: text/html");
 	die();
 }
 

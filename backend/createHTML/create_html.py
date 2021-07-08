@@ -436,7 +436,7 @@ def main():
             item["link"] =  "<a href='" + serverURL + "'>" + serverURL +"</a>"
         else:
             item["link"] = serverURL
-        item_count ++
+        item_count += 1
 
 
     #4. get images and 

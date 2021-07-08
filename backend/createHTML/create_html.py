@@ -420,7 +420,10 @@ def main():
         try: 
             time_stamp = getDeviceInfo('time stamp')
             print("time_stamp!!!!!!!!!!!!!!!!!!!!", time_stamp)
-            print(datetime.datetime.fromtimestamp(time_stamp))
+            for t in range(len(time_stamp)):
+                time_stamp[t] = datetime.datetime.fromtimestamp(time_stamp[t])
+                print(time_stamp[t])
+
             #time_stamp = ":".join(time_stamp.split(":")[0:-1])
         except Exception as e:
             time_stamp = "N/A"

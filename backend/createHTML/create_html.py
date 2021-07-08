@@ -422,7 +422,6 @@ def main():
             time_stamp = getDeviceInfo('time stamp')
             print("time_stamp!!!!!!!!!!!!!!!!!!!!", time_stamp[item_count])
          
-            #this line is broken...
             ftime_stamp = datetime.datetime.fromtimestamp(float(time_stamp[item_count])).strftime("%m/%d/%Y %H:%M:%S")
             print(ftime_stamp)
 

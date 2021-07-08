@@ -407,6 +407,7 @@ def main():
             server_data.append({'ip':value,'name':key, 'description':'', 'city':'', 'location':'','country':''})
 
     #3. get solar data and add it to server_data
+    item_count = 0;
     for item in server_data:
         try:
             #solar_data = get_pv_value(item["ip"])
@@ -420,9 +421,9 @@ def main():
         try: 
             time_stamp = getDeviceInfo('time stamp')
             print("time_stamp!!!!!!!!!!!!!!!!!!!!", time_stamp)
-            for t in range(len(time_stamp)):
-                time_stamp[t] = datetime.datetime.fromtimestamp(time_stamp[t])
-                print(time_stamp[t])
+         
+            time_stamp = datetime.datetime.fromtimestamp(time_stamp[item_count])
+            print(time_stamp)
 
             #time_stamp = ":".join(time_stamp.split(":")[0:-1])
         except Exception as e:
@@ -435,10 +436,11 @@ def main():
             item["link"] =  "<a href='" + serverURL + "'>" + serverURL +"</a>"
         else:
             item["link"] = serverURL
-
+        item_count ++
 
 
     #4. get images and 
+    print("SERVER DATA!")
     print(server_data)
     check_images(server_data)
     

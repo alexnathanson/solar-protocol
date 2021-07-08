@@ -420,15 +420,15 @@ def main():
         item["status"] = status
         try: 
             time_stamp = getDeviceInfo('time stamp')
-            print("time_stamp!!!!!!!!!!!!!!!!!!!!", time_stamp)
+            print("time_stamp!!!!!!!!!!!!!!!!!!!!", time_stamp[item_count])
          
-            time_stamp = datetime.datetime.fromtimestamp(time_stamp[item_count])
-            print(time_stamp)
+            ftime_stamp = datetime.datetime.fromtimestamp(time_stamp[item_count]).strftime("%m/%d/%Y %H:%M:%S")
+            print(ftime_stamp)
 
             #time_stamp = ":".join(time_stamp.split(":")[0:-1])
         except Exception as e:
-            time_stamp = "N/A"
-        item["time_stamp"] = time_stamp
+            ftime_stamp = "N/A"
+        item["time_stamp"] = ftime_stamp
 
         #make lower case, remove spaces, remove nonstandard characters 
         serverURL = 'http://solarprotocol.net/network/' + re.sub('[^A-Za-z0-9-_]+', '', item["name"].lower().replace(" ",""))

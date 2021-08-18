@@ -1,7 +1,9 @@
 '''
+Every server runs this script.
 This script retreives PV data from other servers.
 Compares data between devices and identifies the primary.
 If the local devices is the primary it updates the DNS system.
+Otherwise, the script changes nothing.
 '''
 
 import requests

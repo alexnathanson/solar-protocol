@@ -76,15 +76,15 @@ def remoteData(dstIPs, chosenApiValue):
 	return allData
 	#determineServer(allData)
 
-def determineServer():
+def determineServer(remoteData,localData, updateDNSCmd, dnsUpdatePassword):
 
 	thisServer = True
 
 	#print(remotePVData)
 
 	#loop through data from all servers and compare scaled wattage
-	for s in remotePVData:
-		if s > localPVData:
+	for s in remoteData:
+		if s > localData:
 			thisServer = False
 
 	if thisServer:
@@ -93,7 +93,7 @@ def determineServer():
 		logging.info(datetime.datetime.now())
 
 		#comment back in to run
-		os.system(subCall + ' ' + dnsKey)
+		os.system(updateDNSCmd + ' ' + dnsUpdatePassword)
 	else:
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing
@@ -164,4 +164,4 @@ localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
 print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
 remotePVData = remoteData(getIPList(devicesList, myMAC), apiValue)
 #print("Remote Voltage: " + remotePVData)
-determineServer()
+determineServer(remotePVData, localPVData, subCall, dnsKey)

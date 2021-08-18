@@ -63,12 +63,12 @@ def getData(dst, chosenApiValue):
 	except:
 		return -1
 
-def remoteData(dstIPs):
+def remoteData(dstIPs, chosenApiValue):
 	allData = []
 
 	for dst in dstIPs:
 		#print(dst)
-		allData.append(getData(dst,apiValue))
+		allData.append(getData(dst, chosenApiValue))
 
 	# print("ALL DATA:")
 	# print(allData)
@@ -162,6 +162,6 @@ myMAC = getmac("wlan0")
 
 localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
 print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
-remotePVData = remoteData(getIPList(devicesList, myMAC))
+remotePVData = remoteData(getIPList(devicesList, myMAC), apiValue)
 #print("Remote Voltage: " + remotePVData)
 determineServer()

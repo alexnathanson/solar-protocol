@@ -98,12 +98,12 @@ def determineServer():
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing
 
-def localData():
+def localData(localDataFileCsv, chosenDataValue):
 
 	csvArray = []
 
 	#get the local PV data
-	with open(localDataFile, mode='r') as csvfile:
+	with open(localDataFileCsv, mode='r') as csvfile:
 		localPVData = csv.reader(csvfile)
 
 		for row in localPVData:
@@ -113,7 +113,7 @@ def localData():
 
 		#loop through headers to determine position of value needed
 		for v in range(len(csvArray[0])):
-			if csvArray[0][v] == dataValue:
+			if csvArray[0][v] == chosenDataValue:
 				return csvArray[-1][v]
 
 def getIPList():
@@ -160,7 +160,7 @@ subCall += str(getEnv('DNS_KEY'))
 myMAC = getmac("wlan0")
 #print("my mac: " + myMAC)
 
-localPVData = float(localData()) * SP.pvWattsScaler()
+localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
 print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
 remotePVData = remoteData(getIPList())
 #print("Remote Voltage: " + remotePVData)

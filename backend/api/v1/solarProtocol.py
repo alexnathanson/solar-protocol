@@ -116,18 +116,18 @@ def localData(localDataFileCsv, chosenDataValue):
 			if csvArray[0][v] == chosenDataValue:
 				return csvArray[-1][v]
 
-def getIPList():
+def getIPList(devicesListJson, myMACAddr):
 
 	ipList = []
 
-	with open(deviceList) as f:
+	with open(deviceListJson) as f:
 	  data = json.load(f)
 
 	#print(data)
 
 	for i in range(len(data)):
 		#filter out local device's mac address
-		if str(data[i]['mac']).strip() !=  myMAC.strip():
+		if str(data[i]['mac']).strip() !=  myMACAddr.strip():
 			ipList.append(data[i]['ip'])
 
 	#print(ipList)
@@ -162,6 +162,6 @@ myMAC = getmac("wlan0")
 
 localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
 print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
-remotePVData = remoteData(getIPList())
+remotePVData = remoteData(getIPList(devicesList, myMAC))
 #print("Remote Voltage: " + remotePVData)
 determineServer()

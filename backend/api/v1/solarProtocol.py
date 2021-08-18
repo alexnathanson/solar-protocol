@@ -42,10 +42,10 @@ logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', l
 SP = SolarProtocol()
 
 #return data from a particular server
-def getData(dst):
+def getData(dst, chosenApiValue):
 	try:
 		#returns a single value
-		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+apiValue, timeout = 5)
+		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+chosenApiValue, timeout = 5)
 		#print(response.text)		
 		#check if the response can be converted to a float
 		# try:
@@ -68,7 +68,7 @@ def remoteData(dstIPs):
 
 	for dst in dstIPs:
 		#print(dst)
-		allData.append(getData(dst))
+		allData.append(getData(dst,apiValue))
 
 	# print("ALL DATA:")
 	# print(allData)

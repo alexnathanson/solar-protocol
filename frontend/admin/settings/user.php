@@ -26,7 +26,6 @@
   $errMsg = "TEST!";
 
 function updateUserInfo($un, $pwHash){
-  global $errMsg;
 
   $fileName = '/home/pi/local/access.json';
 
@@ -39,28 +38,27 @@ function updateUserInfo($un, $pwHash){
     //var_dump($f);
     file_put_contents($fileName, json_encode($f, JSON_PRETTY_PRINT));
 
-    $errMsg = "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
+    $GLOBALS[errMsg] = "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
   }
   catch(Exception $e) {
 
-    $errMsg = "Error";
+    $GLOBALS[errMsg] = "Error";
 
   }
 }
 
 //what are the criteria to test the password?
 function testInput(){
-  global $errMsg;
 
   //check that passwords match
   if($_POST['hash'] != $_POST['rehash']){
-    $errMsg = "Passwords do not match.";
+    $GLOBALS[errMsg] = "Passwords do not match.";
     return false;
   }
 
   //check for white spaces
   if(strpos($_POST['hash'],' ') !== false){
-    $errMsg = "White space is not allowed.";
+    $GLOBALS[errMsg] = "White space is not allowed.";
     return false;
   }
 

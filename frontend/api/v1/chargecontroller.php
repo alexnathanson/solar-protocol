@@ -24,12 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       exit;
     }
 
-    if($qValue == 'scaled-wattage'){
-      $qValue = 'PV-power-L';
+    $qValue = str_replace("-"," ",$_GET["value"]);
+
+    if($qValue == 'scaled wattage'){
+      $qValue = 'PV power L';
       $scaleIt = true;
     }
 
-    $qValue = str_replace("-"," ",$_GET["value"]);
 
     //echo $qValue;
 

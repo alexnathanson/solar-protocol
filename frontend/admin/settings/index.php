@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
 }
 
-//this will display the api key so DO NOT print directly except for debugging
+//do not print directly except for debugging
 //echo json_encode($localInfo);
 
 

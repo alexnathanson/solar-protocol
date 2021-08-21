@@ -6,7 +6,7 @@
 
   if(isset($_POST['hash']) && isset($_POST['rehash']) && $_POST['hash'] != "" ) {
 
-    if(testInput){
+    if(testInput()){
       updateUserInfo($_SESSION["username"], password_hash($_POST['hash'], PASSWORD_DEFAULT));
     }
   } 

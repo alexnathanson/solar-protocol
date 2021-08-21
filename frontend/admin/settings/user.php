@@ -39,7 +39,7 @@ function updateUserInfo($un, $pwHash){
     //var_dump($f);
     file_put_contents($fileName, json_encode($f, JSON_PRETTY_PRINT));
 
-    $errMsg = "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
+    $errMsg = "Password for user <strong>" . $_SESSION["username"] . "</strong> has been successfully changed.<br>";
   }
   catch(Exception $e) {
 

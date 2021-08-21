@@ -23,7 +23,7 @@
     $locName = "";
   }
 
-  $errMsg = "";
+  $errMsg = "TEST!";
 
 function updateUserInfo($un, $pwHash){
   global $errMsg;

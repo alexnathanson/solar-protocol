@@ -4,13 +4,14 @@
   Protect\with('/home/pi/solar-protocol/backend/protect/form.php','admin');
 
 
+  $errMsg = "";
+
   if(isset($_POST['hash']) && isset($_POST['rehash']) && $_POST['hash'] != "" ) {
 
     if(testInput()){
       updateUserInfo($_SESSION["username"], password_hash($_POST['hash'], PASSWORD_DEFAULT));
     }
   } 
-
 
   //read local file to get current server name
   $localFile = '/home/pi/local/local.json';
@@ -23,9 +24,9 @@
     $locName = "";
   }
 
-  $errMsg = "TEST!";
 
 function updateUserInfo($un, $pwHash){
+  global $errMsg;
 
   $fileName = '/home/pi/local/access.json';
 
@@ -38,27 +39,28 @@ function updateUserInfo($un, $pwHash){
     //var_dump($f);
     file_put_contents($fileName, json_encode($f, JSON_PRETTY_PRINT));
 
-    $GLOBALS[errMsg] = "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
+    $errMsg = "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
   }
   catch(Exception $e) {
 
-    $GLOBALS[errMsg] = "Error";
+    $errMsg = "Error";
 
   }
 }
 
 //what are the criteria to test the password?
 function testInput(){
+  global $errMsg;
 
   //check that passwords match
   if($_POST['hash'] != $_POST['rehash']){
-    $GLOBALS[errMsg] = "Passwords do not match.";
+    $errMsg = "Passwords do not match.";
     return false;
   }
 
   //check for white spaces
   if(strpos($_POST['hash'],' ') !== false){
-    $GLOBALS[errMsg] = "White space is not allowed.";
+    $errMsg = "White space is not allowed.";
     return false;
   }
 

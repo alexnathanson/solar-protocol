@@ -24,7 +24,7 @@ function updateUserInfo($un, $pwHash){
 
     $f['users'][$un]=$pwHash;
     var_dump($f);
-    file_put_contents($fileName, json_encode($localInfo, JSON_PRETTY_PRINT));
+    file_put_contents($fileName, json_encode($fileName, JSON_PRETTY_PRINT));
 
     echo "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
   }

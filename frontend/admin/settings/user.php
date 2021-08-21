@@ -39,12 +39,13 @@ function testInput(){
 
   //check that passwords match
   if($_POST['hash'] != $_POST['rehash']){
-    echo "Passwords do not match";
+    echo "Passwords do not match.";
     return false;
   }
 
   //check for white spaces
   if(strpos($_POST['hash'],' ')){
+    echo "White space is not allowed."
     return false;
   }
   

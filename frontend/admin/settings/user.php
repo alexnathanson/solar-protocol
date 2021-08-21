@@ -12,6 +12,18 @@
   } 
 
 
+  //read local file to get current server name
+  $localFile = '/home/pi/local/local.json';
+
+  $localInfo = json_decode(file_get_contents($localFile), true);
+
+  if (isset($localInfo["name"])){
+    $locName = $localInfo["name"];
+  } else {
+    $locName = "";
+  }
+
+
 
 function updateUserInfo($un, $pwHash){
   $fileName = '/home/pi/local/access.json';

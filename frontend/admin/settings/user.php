@@ -4,7 +4,7 @@
   Protect\with('/home/pi/solar-protocol/backend/protect/form.php','admin');
 
 
-  if(isset($_POST['hash']) && isset($_POST['rehash']) && $_POST['hash'] == $_POST['rehash'] ) {
+  if(isset($_POST['hash']) && isset($_POST['rehash']) && $_POST['hash'] == $_POST['rehash'] && $_POST['hash'] != "" ) {
 
     updateUserInfo($_SESSION["username"], password_hash($_POST['hash'], PASSWORD_DEFAULT));
 

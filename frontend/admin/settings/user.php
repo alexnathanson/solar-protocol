@@ -22,7 +22,7 @@ function updateUserInfo($un, $pwHash){
     
     var_dump($f);
 
-    $f['users'][$un]=$pwHash;
+    $f['users'][$un]['hash']=$pwHash;
     var_dump($f);
     file_put_contents($fileName, json_encode($f, JSON_PRETTY_PRINT));
 

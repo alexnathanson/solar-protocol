@@ -28,7 +28,8 @@ charge power H,charge power L,date,load current,load power,load voltage,time
 '''
 
 dataValue = 'PV voltage'
-apiValue = 'PV-voltage'
+# apiValue = 'PV-voltage'
+apiValue = 'scaled-wattage'
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 

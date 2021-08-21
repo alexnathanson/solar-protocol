@@ -18,11 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   //most recent PV Data queries
   if(array_key_exists("value", $_GET)){
     //echo "Key = Value";
-  
 
     if(!testValue($_GET["value"])){
-      echo "Value not found. Acceptable values: PV-current, PV-current, PV-power-H,PV-power-L, PV-voltage, battery-percentage, battery-voltage, charge-current, charge-power-H, charge-power-L, load-current, load-power, load-voltage, datetime";
+      echo "Value not found. Acceptable values: PV-current, PV-current, PV-power-H,PV-power-L, PV-voltage, battery-percentage, battery-voltage, charge-current, charge-power-H, charge-power-L, load-current, load-power, load-voltage, datetime, scaled-wattage";
       exit;
+    }
+
+    if($qValue == 'scaled-wattage'){
+      $qValue = 'PV-power-L';
+      $scaleIt = true;
     }
 
     $qValue = str_replace("-"," ",$_GET["value"]);
@@ -64,9 +68,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       $readData = chargeControllerData($todayFile);
 
       if ($readData != FALSE){    
+
         for ($v = 0; $v < sizeof($readData[0]);$v++){
             if($readData[0][$v]==$qValue){
-                echo $readData[count($readData)-1][$v];
+
+                if($qValue == 'PV-power-L' && $scaleIt == true){
+                  echo $readData[count($readData)-1][$v] * wattageScaler();
+                } else {
+                  echo $readData[count($readData)-1][$v];
+                }
                 break;
             }
         }
@@ -174,6 +184,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       //read local country
       $fileContents = file_get_contents("/home/pi/local/local.json");
       echo json_decode($fileContents, true)['country'];
+    } else if ($_GET["systemInfo"] == "wattage-scaler"){
+      echo wattageScaler();
+    } else if ($_GET["systemInfo"] == "pvWatts"){
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      echo json_decode($fileContents, true)['pvWatts'];
+    } else if ($_GET["systemInfo"] == "pvVoltage"){
+      $fileContents = file_get_contents("/home/pi/local/local.json");
+      echo json_decode($fileContents, true)['pvVoltage'];
     } else if ($_GET["systemInfo"] == "dump"){
       //read local country
       $fileContents = file_get_contents("/home/pi/local/local.json");
@@ -251,6 +269,22 @@ function getFileContents($fileName){
     return FALSE;
   }
 }
+
+//this function returns a scaler value for the wattage of the module so all modules across the network can be compared
+//a more advance non-linear equation may need to be adopted in the future
+function wattageScaler(){
+  //get local file
+  $fileContents = file_get_contents("/home/pi/local/local.json");
+  $localData = json_decode($fileContents, true);
+  // Convert to array and get PV watts data
+  if (array_key_exists('pvWatts', $localData){
+    $localPVwatts = $localData['pvWatts'];
+    if($localPVwatts != ""){
+      return $localPVwatts / 50.0;
+    }
+  }
+}
+
 /*
 function getFile($fileName){
   //echo $fileName;

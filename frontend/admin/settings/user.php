@@ -84,7 +84,7 @@ function testInput(){
 
 <h1><a href="/">Solar Protocol (<?php echo $locName;?>)</a> - Admin Console</h1>
 
-<span>Logged in as <?php echo $_SESSION["username"]?> <a href="?logout">(Logout)</a></span>
+<span>Logged in as <a href="/admin/settings/user.php"><?php echo $_SESSION["username"]?></a> <a href="?logout">(Logout)</a></span>
 
 <!-- <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
  -->

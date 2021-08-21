@@ -21,8 +21,9 @@ function updateUserInfo($un, $pwHash){
   try{
     $f = json_decode(file_get_contents($fileName),true);
 
-    $f['users'][$un]=$pwHash
-    file_put_contents($fileName, json_encode($localInfo, JSON_PRETTY_PRINT));
+    $f['users'][$un]=$pwHash;
+    var_dump($f);
+    //file_put_contents($fileName, json_encode($localInfo, JSON_PRETTY_PRINT));
   }
   catch(Exception $e) {
     //echo $fileName;

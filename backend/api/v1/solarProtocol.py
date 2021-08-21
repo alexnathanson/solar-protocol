@@ -78,7 +78,7 @@ def determineServer():
 
 	#print(remotePVData)
 
-	#loop through data from all servers and compare voltages
+	#loop through data from all servers and compare scaled wattage
 	for s in remotePVData:
 		if s > localPVData:
 			thisServer = False

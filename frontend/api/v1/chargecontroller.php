@@ -223,7 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 function testValue($v){
 
-  $possibleValues = array('PV-current','PV-current','PV-power-H','PV-power-L','PV-voltage','battery-percentage','battery-voltage','charge-current','charge-power-H', 'charge-power-L','load-current','load-power','load-voltage','datetime');
+  $possibleValues = array('PV-current','PV-current','PV-power-H','PV-power-L','PV-voltage','battery-percentage','battery-voltage','charge-current','charge-power-H', 'charge-power-L','load-current','load-power','load-voltage','datetime','scaled-wattage');
 
   foreach($possibleValues as $aV){
     if($aV == $v){

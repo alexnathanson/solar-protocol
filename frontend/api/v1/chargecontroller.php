@@ -52,9 +52,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           $valuePosition++;
         }
 
-        foreach($tFile as $l){
-          $valueTimeSeries[$l[0]]=$l[$valuePosition];
+        //scale the wattage if required
+        if($qValue == 'PV-power-L' && $scaleIt == true){
+          foreach($tFile as $l){
+            $valueTimeSeries[$l[0]]=$l[$valuePosition] * wattageScaler();
+          }
+        } else { //unscaled wattage
+          foreach($tFile as $l){
+            $valueTimeSeries[$l[0]]=$l[$valuePosition];
+          }
         }
+         
 
         /*
         $vTime = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
@@ -72,9 +80,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         for ($v = 0; $v < sizeof($readData[0]);$v++){
             if($readData[0][$v]==$qValue){
 
+                //scale wattage if required
                 if($qValue == 'PV-power-L' && $scaleIt == true){
                   echo $readData[count($readData)-1][$v] * wattageScaler();
-                } else {
+                } else { //unscaled wattage
                   echo $readData[count($readData)-1][$v];
                 }
                 break;

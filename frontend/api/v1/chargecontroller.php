@@ -291,7 +291,7 @@ function wattageScaler(){
   if (array_key_exists('pvWatts', $localData)){
     $localPVwatts = $localData['pvWatts'];
     if($localPVwatts != ""){
-      return $localPVwatts / 50.0;
+      return 50.0 / $localPVwatts;
     }
   }
 }

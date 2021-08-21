@@ -277,7 +277,7 @@ function wattageScaler(){
   $fileContents = file_get_contents("/home/pi/local/local.json");
   $localData = json_decode($fileContents, true);
   // Convert to array and get PV watts data
-  if (array_key_exists('pvWatts', $localData){
+  if (array_key_exists('pvWatts', $localData)){
     $localPVwatts = $localData['pvWatts'];
     if($localPVwatts != ""){
       return $localPVwatts / 50.0;

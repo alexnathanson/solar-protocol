@@ -72,8 +72,8 @@ def remoteData(dstIPs):
 		else:
 			print("black list activated")
 
-	#print("ALL DATA:")
-	#print(allData)
+	print("ALL DATA:")
+	print(allData)
 
 	return allData
 	#determineServer(allData)

@@ -19,7 +19,7 @@
 </p>
 
 <p>
-  <a href="/admin/settings/user.php">Reset password</a>
+  To reset your password, login and click on your user name.
 </p>
 
 </body>

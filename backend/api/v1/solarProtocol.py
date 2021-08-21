@@ -20,6 +20,9 @@ import logging
 subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh '
 dnsKey = ''
 
+#temporarily here for troubleshooting purposes - needs to actually be a mac address so it persists as the IPs change
+tempBlackList = ["208.0.230.112"]
+
 '''
 possible values (use "-" instead of spaces):
 PV current,PV power H,PV power L,PV voltage,
@@ -64,7 +67,8 @@ def remoteData(dstIPs):
 
 	for dst in dstIPs:
 		#print(dst)
-		allData.append(getData(dst))
+		if dst not in tempBlackList:
+			allData.append(getData(dst))
 
 	#print("ALL DATA:")
 	#print(allData)

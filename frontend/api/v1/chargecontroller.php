@@ -294,6 +294,8 @@ function wattageScaler(){
     if($localPVwatts != ""){
       return 50.0 / $localPVwatts;
     }
+  } else {
+    return 1;
   }
 }
 

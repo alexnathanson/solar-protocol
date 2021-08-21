@@ -1,7 +1,7 @@
 { "users": {
     "admin":{"hash":"$2y$10$r6EC.Fnt3K1zP3yPdwUQdOS3DIoZr135rYpz0/GLciVABktVKo826", "access":1},
     "alexnathanson":{"hash":"$2y$10$SyPFk6FOLVNS3BussVBO6.Sg7JQlBl80r69kydQE8.XBWYvPPHTVO", "access":1},
-    "tegabrain":{"hash":"$2y$10$9FQM3eJfCaHgsPbMePuOtOZRjJ5cq7bg6ukzRoJqRK6zd2EUGZmMO", "access":1},
+    "tegabrain":{"hash":"$2y$10$zLz/h1TI3iBfZMLytL3Ftesg9WSv92c.9gROkxpsN/7aD8uIGrwZ2", "access":1},
     "benedettapiantella":{"hash":"$2y$10$r6EC.Fnt3K1zP3yPdwUQdOS3DIoZr135rYpz0/GLciVABktVKo826", "access":1}
   }
 }

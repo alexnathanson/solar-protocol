@@ -23,7 +23,7 @@
     $locName = "";
   }
 
-
+  $errMsg = "";
 
 function updateUserInfo($un, $pwHash){
   $fileName = '/home/pi/local/access.json';
@@ -37,11 +37,11 @@ function updateUserInfo($un, $pwHash){
     //var_dump($f);
     file_put_contents($fileName, json_encode($f, JSON_PRETTY_PRINT));
 
-    echo "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
+    $errMsg = "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
   }
   catch(Exception $e) {
 
-    echo "Error";
+    $errMsg = "Error";
 
   }
 }
@@ -51,13 +51,13 @@ function testInput(){
 
   //check that passwords match
   if($_POST['hash'] != $_POST['rehash']){
-    echo "Passwords do not match.";
+    $errMsg = "Passwords do not match.";
     return false;
   }
 
   //check for white spaces
   if(strpos($_POST['hash'],' ') !== false){
-    echo "White space is not allowed.";
+    $errMsg = "White space is not allowed.";
     return false;
   }
 
@@ -92,18 +92,20 @@ function testInput(){
   <strong>Submtting this form will change the password for the current user (<?php echo $_SESSION["username"]; ?>) only on this server.</strong>
 </p>
 <p>
-  If you have forgotten your previous password, contact one of the Solar Protocol project leads via email or Discord to have your password reset. If you have access to multiple servers, you will need to manually update your password on each one.
+  If you have forgotten your previous password, contact one of the Solar Protocol project leads to have your password reset. If you have access to multiple servers, you will need to manually update your password on each one.
 </p>
+
+<span class="error" style="color:red"> <?php echo $errMsg;?></span>
 
 <form method="POST" onsubmit="return confirm('Are you sure you want to change your password?');">
 
   <p>Enter new password to hash:</p>
   <p>
-    <input type="password" name="hash" required>
+    <input type="text" name="hash" required>
   </p>
   <p>Re-enter new password to hash:</p>
   <p>
-    <input type="password" name="rehash" required>
+    <input type="text" name="rehash" required>
   </p>
   <button type="submit">Submit</button>
 </form>

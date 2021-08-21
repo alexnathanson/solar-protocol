@@ -92,7 +92,7 @@ function testInput(){
 <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
 
 <p>
-  <strong>Submtting this form will change the password for the current user (<?php echo $_SESSION["username"]; ?>) only on this server.</strong>
+  <strong>Submtting this form will change the password for the current user (<?php echo $_SESSION["username"]; ?>) only on this server (<?php echo $locName;?>).</strong>
 </p>
 <p>
   If you have forgotten your previous password, contact one of the Solar Protocol project leads to have your password reset. If you have access to multiple servers, you will need to manually update your password on each one.

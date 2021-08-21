@@ -13,5 +13,5 @@ Congratulations! If you've gotten this far you have installed your solar server.
 	This is the password for logging in to the backend of Solar Protocol. This portal will allow you add your own content to SP.
 </p>
 <p>
-	The default user names is <strong>admin</p>. Contact one of the primary leads to receive a temporary password. Once you have logged in, you will be able to change the password to something of your choosing.
+	The default steward user names is <strong>admin</p>. Contact one of the primary leads to receive a temporary password. Once you have logged in, you will be able to change the password to something of your choosing.
 </p>

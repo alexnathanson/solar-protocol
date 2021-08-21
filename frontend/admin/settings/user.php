@@ -48,12 +48,13 @@ function testInput(){
     echo "White space is not allowed.";
     return false;
   }
-  
-  //check for characters
-  /*if ($_POST['hash']) {
-    echo "Passwords can only contain letters, numbers, etc.";
-    return false; 
-  }*/
+
+  /*check for password strength - something worth considering adding in the future
+    a minimum of 8 characters
+    at least one uppercase letter
+    at least one number (digit)
+    at least one of the following special characters !@#$%^&*-
+  */
 
   return true;
 }
@@ -62,9 +63,25 @@ function testInput(){
 
 
 <html>
+<head>
+   <link rel="stylesheet" href="../admin.css">
+</head>
+
 <body>
+
+
+<h1><a href="/">Solar Protocol (<?php echo $locName;?>)</a> - Admin Console</h1>
+
+<span>Logged in as <?php echo $_SESSION["username"]?> <a href="?logout">(Logout)</a></span>
+
+<!-- <p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
+ -->
+ 
 <p>
-  Submtting this form will change the password for the current user (<?php echo $_SESSION["username"]; ?>) only on this server. If you have forgotten your previous password, contact Alex, Benedetta, or Tega for instructions to manually reset the password. If you have access to multiple servers, you will need to manually update your password on each one.
+  <strong>Submtting this form will change the password for the current user (<?php echo $_SESSION["username"]; ?>) only on this server.</strong>
+</p>
+<p>
+  If you have forgotten your previous password, contact Alex, Benedetta, or Tega for instructions to manually reset the password. If you have access to multiple servers, you will need to manually update your password on each one.
 </p>
 
 <form method="POST" onsubmit="return confirm('Are you sure you want to change your password?');">

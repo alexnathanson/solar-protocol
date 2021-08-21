@@ -26,6 +26,8 @@
   $errMsg = "";
 
 function updateUserInfo($un, $pwHash){
+  global $errMsg;
+
   $fileName = '/home/pi/local/access.json';
 
   try{
@@ -48,6 +50,7 @@ function updateUserInfo($un, $pwHash){
 
 //what are the criteria to test the password?
 function testInput(){
+  global $errMsg;
 
   //check that passwords match
   if($_POST['hash'] != $_POST['rehash']){

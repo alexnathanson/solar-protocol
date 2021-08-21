@@ -201,10 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else if ($_GET["systemInfo"] == "pvVoltage"){
       $fileContents = file_get_contents("/home/pi/local/local.json");
       echo json_decode($fileContents, true)['pvVolts'];
-    } else if ($_GET["systemInfo"] == "scaled-wattage"){
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      echo json_decode($fileContents, true)['pvWatts'] * wattageScaler();
-    } else if ($_GET["systemInfo"] == "dump"){
+    }  else if ($_GET["systemInfo"] == "dump"){
       //read local country
       $fileContents = file_get_contents("/home/pi/local/local.json");
       $infoArray = json_decode($fileContents, true);
@@ -215,7 +212,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         "description" => $infoArray["description"],
         "location" => $infoArray["location"],
         "city" => $infoArray["city"],
-        "country" => $infoArray["country"]);
+        "country" => $infoArray["country"],
+        "pvWatts" => $infoArray["pvWatts"],
+        "pvVolts" => $infoArray["pvVolts"]);
       echo json_encode($infoDump);
      
     }

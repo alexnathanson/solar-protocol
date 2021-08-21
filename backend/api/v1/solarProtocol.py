@@ -69,6 +69,8 @@ def remoteData(dstIPs):
 		#print(dst)
 		if dst not in tempBlackList:
 			allData.append(getData(dst))
+		else:
+			print("black list activated")
 
 	#print("ALL DATA:")
 	#print(allData)

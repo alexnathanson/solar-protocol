@@ -15,7 +15,7 @@
 </form>
 
 <p>
-  If you have forgotten your password, contact Alex, Benedetta, or Tega for a temporary password.
+  If you have forgotten your password, contact a Solar Protocol project lead for a temporary password.
 </p>
 
 <p>

@@ -30,7 +30,7 @@ battery percentage,battery voltage,charge current,
 charge power H,charge power L,date,load current,load power,load voltage,time
 '''
 
-dataValue = 'PV voltage'
+dataValue = 'PV power L'
 # apiValue = 'PV-voltage'
 apiValue = 'scaled-wattage'
 

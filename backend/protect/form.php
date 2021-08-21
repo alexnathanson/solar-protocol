@@ -14,5 +14,13 @@
   <button type="submit">Submit</button>
 </form>
 
+<p>
+  If you have forgotten your password, contact Alex, Benedetta, or Tega for a temporary password.
+</p>
+
+<p>
+  To reset your password, login and click on your user name.
+</p>
+
 </body>
 </html>

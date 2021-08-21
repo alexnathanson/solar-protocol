@@ -8,10 +8,9 @@
 
     updateUserInfo($_SESSION["username"], password_hash($_POST['hash'], PASSWORD_DEFAULT));
 
-    echo "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
-  } else {
-    echo "Information is incompete or passwords do not match";
-  }
+
+
+  } 
 
 
 
@@ -20,20 +19,25 @@ function updateUserInfo($un, $pwHash){
 
   try{
     $f = json_decode(file_get_contents($fileName),true);
+    
+    var_dump($f);
 
     $f['users'][$un]=$pwHash;
     var_dump($f);
     //file_put_contents($fileName, json_encode($localInfo, JSON_PRETTY_PRINT));
+
+    echo "Password for user " . $_SESSION["username"] . " has been successfully changed.<br>";
   }
   catch(Exception $e) {
-    //echo $fileName;
-    return FALSE;
+
+    echo "Passwords do not match";
+
   }
 }
 
 //what are the criteria to test the password?
 function testInput(){
-
+    echo "Passwords can only contain letters, numbers, etc.";
 }
 
 ?>

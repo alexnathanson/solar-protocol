@@ -98,11 +98,13 @@ function testInput(){
 <form method="POST" onsubmit="return confirm('Are you sure you want to change your password?');">
 
   <p>Enter new password to hash:</p>
-  <input type="hash" name="hash" required>
-
+  <p>
+    <input type="password" name="hash" required>
+  </p>
   <p>Re-enter new password to hash:</p>
-  <input type="hash" name="rehash" required>
-
+  <p>
+    <input type="password" name="rehash" required>
+  </p>
   <button type="submit">Submit</button>
 </form>
 

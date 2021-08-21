@@ -44,7 +44,7 @@ function testInput(){
   }
 
   //check for white spaces
-  if(strpos($_POST['hash'],' ') != false){
+  if(strpos($_POST['hash'],' ') !== false){
     echo "White space is not allowed.";
     return false;
   }

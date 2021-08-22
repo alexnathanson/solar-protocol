@@ -11,12 +11,12 @@ class SolarProtocol:
 
 	#load in data from config file
 	def loadLocalConfigFile(self):
-		print('loading config file...')
+		print('loading config file')
 		#load file
 		try:
-			with open(self.localConfigFile) as locFile:
-				print(json.load(locFile))
-				self.localConfigData = json.load(locFile)
+			with open(self.localConfigFile) as self.locFile:
+				print(json.load(self.locFile))
+				self.localConfigData = json.load(self.locFile)
 				print(self.localConfigData)
 				print('local config data loaded')
 		except:

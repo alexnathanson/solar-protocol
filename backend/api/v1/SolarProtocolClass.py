@@ -20,7 +20,7 @@ class SolarProtocol:
 				locData = json.load(locFile)
 				print(locData)
 				print('local config data loaded 1')
-				for key, value in locData:
+				for key, value in locData.items():
 				    # do something with value
 				    print(key)
 				    print(value)

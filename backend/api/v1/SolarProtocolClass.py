@@ -1,6 +1,6 @@
 import json
 
-print('solar protocol class in attendence')
+#print('solar protocol class in attendence')
 
 # currently this class only handles some new functionality for solarProtocol.py.
 # Refactoring is required to create additional methods and apply this to clientPostIP.py too
@@ -13,7 +13,7 @@ class SolarProtocol:
 
 	#load in data from config file
 	def loadLocalConfigFile(self):
-		print('loading config file')
+		print('loading config file...')
 		#load file
 		try:
 			with open(self.localConfigFile) as locFile:
@@ -26,7 +26,7 @@ class SolarProtocol:
 
 	#returns a specific piece of local config data
 	def getLocalConfig(self, key):
-		#load file
+		#try to get data from specified key
 		try:
 			return self.localConfigData[key]
 		except:

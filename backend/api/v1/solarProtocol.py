@@ -15,7 +15,7 @@ import datetime
 #import time
 import csv
 import logging
-from SolarProtocolClass.py import SolarProtocol
+from SolarProtocolClass import SolarProtocol
 
 #terminal command to update DNS record
 subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh '

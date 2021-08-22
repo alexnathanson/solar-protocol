@@ -17,11 +17,11 @@ class SolarProtocol:
 		#load file
 		try:
 			with open(self.localConfigFile) as locFile:
-				print(type(json.load(locFile)))
-				print(type(self.localConfigData))
+				locData = json.load(locFile)
 				print('local config data loaded 1')
-				#print(locData)
-				self.localConfigData = json.load(locFile)
+				for key, value in locData:
+				    # do something with value
+				    self.localConfigData[key] = value
 				print('local config data loaded 2')
 		except:
 			print('loadLocalConfigFile error')

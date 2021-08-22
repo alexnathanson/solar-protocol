@@ -4,7 +4,7 @@ print('solar protocol class in attendence')
 # Refactoring is required to create additional methods and apply this to clientPostIP.py too
 
 class SolarProtocol:
-	def _init_(self, localConfigFile, localData):
+	def _init_(self):
 		self.localConfigFile = "/home/pi/local/local.json"
 		self.localConfigData
 		self.loadLocalConfigFile()

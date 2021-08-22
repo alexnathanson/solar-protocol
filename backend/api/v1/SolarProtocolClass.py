@@ -1,3 +1,5 @@
+import json
+
 print('solar protocol class in attendence')
 
 # currently this class only handles some new functionality for solarProtocol.py.

@@ -162,7 +162,7 @@ myMAC = getmac("wlan0")
 #print("my mac: " + myMAC)
 
 localPVData = float(localData()) * SP.pvWattsScaler()
-print("My scaled wattage: "+ localPVData)
+print("My scaled wattage: "+ str(localPVData))
 remotePVData = remoteData(getIPList())
 #print("Remote Voltage: " + remotePVData)
 determineServer()

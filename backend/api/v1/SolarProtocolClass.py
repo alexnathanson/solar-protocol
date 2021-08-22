@@ -13,7 +13,7 @@ class SolarProtocol:
 
 	#load in data from config file
 	def loadLocalConfigFile(self):
-		print('loading config file...')
+		#print('loading config file...')
 		#load file
 		try:
 			with open(self.localConfigFile) as locFile:
@@ -46,6 +46,6 @@ class SolarProtocol:
 	'''
 	def pvWattsScaler(self):
 		try:
-			return 50.0 / self.localConfigData['pvWatts']
+			return 50.0 / float(self.localConfigData['pvWatts'])
 		except:
 			return 1

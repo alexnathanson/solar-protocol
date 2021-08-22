@@ -7,5 +7,7 @@
   "lat": "73.94 W",
   "long": "40.65 N",
   "bgColor" : "Olive",
-  "font" : "Monaco"
+  "font" : "Monaco",
+  "pvWatts":"",
+  "pvVolts":""
 }

@@ -15,6 +15,7 @@ class SolarProtocol:
 		#load file
 		try:
 			with open(self.localConfigFile) as locFile:
+				print(json.load(locFile))
 				self.localConfigData = json.load(locFile)
 				print(self.localConfigData)
 				print('local config data loaded')

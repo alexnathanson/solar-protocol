@@ -38,9 +38,8 @@ localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str
 
 logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', level=logging.INFO)
 
+#initialize SolarProtocolClass
 SP = SolarProtocol()
-print(SP.getLocalConfig('pvWatts'))
-print(SP.pvWattsScaler())
 
 #return data from a particular server
 def getData(dst):
@@ -162,7 +161,7 @@ myMAC = getmac("wlan0")
 #print("my mac: " + myMAC)
 
 localPVData = float(localData()) * SP.pvWattsScaler()
-print("My scaled wattage: "+ str(localPVData))
+print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
 remotePVData = remoteData(getIPList())
 #print("Remote Voltage: " + remotePVData)
 determineServer()

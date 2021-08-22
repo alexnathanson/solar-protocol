@@ -39,9 +39,9 @@ localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str
 logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', level=logging.INFO)
 
 SP = SolarProtocol()
-print(SolarProtocol.getLocalConfig('pvWatts'))
-print(SolarProtocol.moduleScaler())
-print(SolarProtocol.scaledPvWatts())
+print(SP.getLocalConfig('pvWatts'))
+print(SP.moduleScaler())
+print(SP.scaledPvWatts())
 
 #return data from a particular server
 def getData(dst):

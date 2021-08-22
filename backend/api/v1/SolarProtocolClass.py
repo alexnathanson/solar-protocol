@@ -11,6 +11,7 @@ class SolarProtocol:
 
 	#load in data from config file
 	def loadLocalConfigFile(self):
+		print('loading config file...')
 		#load file
 		try:
 			with open(self.localConfigFile) as locFile:

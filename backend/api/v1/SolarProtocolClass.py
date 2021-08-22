@@ -16,7 +16,7 @@ class SolarProtocol:
 		try:
 			with open(self.localConfigFile) as locFile:
 				self.localConfigData = json.load(locFile)
-				#print(locData)
+				print(self.localConfigData)
 				print('local config data loaded')
 		except:
 			print('local config file exception')

@@ -15,6 +15,7 @@ import datetime
 #import time
 import csv
 import logging
+from SolarProtocolClass.py import SolarProtocol
 
 #terminal command to update DNS record
 subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh '
@@ -32,6 +33,7 @@ dataValue = 'PV power L'
 apiValue = 'scaled-wattage'
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+# localConfig = "/home/pi/local/local.json"
 
 localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
 
@@ -149,6 +151,26 @@ def getEnv(thisEnv):
 	#remove line breaks
 	e = e.replace("\n", "")
 	return e
+
+# def getLocalConfig(key):
+
+# 	#load file
+# 	try:
+# 		#locFile = json.loads(localConfig)
+# 		with open(localConfig) as locFile:
+# 			locData = json.load(locFile)
+# 			#print(locData)
+# 			#print(locData[key])
+# 			return locData[key]
+
+# 	except:
+# 		print('local config file exception')
+
+# 		if key == 'name':
+# 			return 'pi'
+# 		elif key == 'httpPort':
+# 			return ''
+
 
 subCall += str(getEnv('DNS_KEY'))
 

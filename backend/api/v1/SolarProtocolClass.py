@@ -8,8 +8,7 @@ print('solar protocol class in attendence')
 class SolarProtocol:
 	def __init__(self):
 		self.localConfigFile = "/home/pi/local/local.json"
-		#self.localConfigData = {}
-		self.loadLocalConfigFile()
+		self.localConfigData = self.loadLocalConfigFile()
 
 	#load in data from config file
 	def loadLocalConfigFile(self):
@@ -19,9 +18,10 @@ class SolarProtocol:
 			with open(self.localConfigFile) as locFile:
 				print(json.load(locFile))
 				print('local config data loaded')
-				self.localConfigData = json.load(locFile)
-				print(self.localConfigData)
+				locData = json.load(locFile)
+				print(locData)
 				print('local config data loaded')
+				return locData
 		except:
 			print('loadLocalConfigFile error')
 

@@ -13,14 +13,14 @@ class SolarProtocol:
 	def loadLocalConfigFile(self):
 		print('loading config file')
 		#load file
-		#try:
-		with open(self.localConfigFile) as locFile:
-			print(json.load(locFile))
-			self.localConfigData = json.load(locFile)
-			print(self.localConfigData)
-			print('local config data loaded')
-		#except:
-		#	print('local config file exception')
+		try:
+			with open(self.localConfigFile) as locFile:
+				print(json.load(locFile))
+				self.localConfigData = json.load(locFile)
+				print(self.localConfigData)
+				print('local config data loaded')
+		except:
+			print('loadLocalConfigFile exception')
 
 	#returns a specific piece of local config data
 	def getLocalConfig(self, key):
@@ -28,7 +28,7 @@ class SolarProtocol:
 		try:
 			return self.localConfigData[key]
 		except:
-			print('local config file exception')
+			print('getLocalConfig error')
 
 			if key == 'name':
 				return 'pi'

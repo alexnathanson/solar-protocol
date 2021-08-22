@@ -6,7 +6,7 @@ print('solar protocol class in attendence')
 class SolarProtocol:
 	def _init_(self):
 		self.localConfigFile = "/home/pi/local/local.json"
-		self.localConfigData = {}
+		self.localConfigData
 		self.loadLocalConfigFile()
 
 	#load in data from config file
@@ -41,15 +41,8 @@ class SolarProtocol:
 	and if it is using a 25 watt module it must by multiplied by 2)
 	In the future a more complex method that takes in to account I-V curves may need to be applied
 	'''
-	def moduleScaler(self):
+	def pvWattsScaler(self):
 		try:
 			return 50.0 / self.localConfigData['pvWatts']
 		except:
 			return 1
-
-	# Returns the scaled wattaged
-	def scaledPvWatts(self):
-		try:
-			return self.localConfigData['pvWatts'] * self.moduleScaler()
-		except:
-			return 50

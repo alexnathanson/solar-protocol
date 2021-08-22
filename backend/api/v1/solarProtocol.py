@@ -1,8 +1,8 @@
 '''
 Every server runs this script.
-This script retreives PV data from other servers.
-Compares data between devices and identifies the primary.
-If the local devices is the primary it updates the DNS system.
+This script retreives live PV power (watts) data from other servers.
+Compares data between devices and identifies the device producing the most power at the moment.
+If the local device is producing the most power, it becomes the Point of Entry (PoE) and updates the DNS system.
 Otherwise, the script changes nothing.
 '''
 
@@ -40,8 +40,7 @@ logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', l
 
 SP = SolarProtocol()
 print(SP.getLocalConfig('pvWatts'))
-print(SP.moduleScaler())
-print(SP.scaledPvWatts())
+print(SP.pvWattsScaler())
 
 #return data from a particular server
 def getData(dst):
@@ -156,34 +155,14 @@ def getEnv(thisEnv):
 	e = e.replace("\n", "")
 	return e
 
-# def getLocalConfig(key):
-
-# 	#load file
-# 	try:
-# 		#locFile = json.loads(localConfig)
-# 		with open(localConfig) as locFile:
-# 			locData = json.load(locFile)
-# 			#print(locData)
-# 			#print(locData[key])
-# 			return locData[key]
-
-# 	except:
-# 		print('local config file exception')
-
-# 		if key == 'name':
-# 			return 'pi'
-# 		elif key == 'httpPort':
-# 			return ''
-
-
 subCall += str(getEnv('DNS_KEY'))
 
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = getmac("wlan0")
 #print("my mac: " + myMAC)
 
-localPVData = float(localData())
-#print("My Voltage: "+localPVData)
+localPVData = float(localData()) * SP.pvWattsScaler()
+print("My scaled wattage: "+ localPVData)
 remotePVData = remoteData(getIPList())
 #print("Remote Voltage: " + remotePVData)
 determineServer()

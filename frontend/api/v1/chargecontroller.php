@@ -6,6 +6,7 @@ error_reporting(E_ALL);*/
 
 
 $ccDir = "/home/pi/solar-protocol/charge-controller/data/";
+$scaleIt = false;
 
 $todayFile = $ccDir . "tracerData" . date("Y-m-d") . ".csv";
 //$fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
@@ -26,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     $qValue = str_replace("-"," ",$_GET["value"]);
 
-    if($qValue == 'scaled wattage'){
-      $qValue = 'PV power L';
+    if($qValue == "scaled wattage"){
+      $qValue = "PV power L";
       $scaleIt = true;
     }
 

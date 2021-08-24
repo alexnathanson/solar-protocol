@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             if($readData[0][$v]==$qValue){
 
                 //scale wattage if required
-                if($qValue == 'PV-power-L' && $scaleIt == true){
+                if($qValue == 'PV power L' && $scaleIt == true){
                   echo $readData[count($readData)-1][$v] * wattageScaler();
                 } else { //unscaled wattage
                   echo $readData[count($readData)-1][$v];

@@ -19,6 +19,6 @@ backend/visualization/clock.png
 
 /backend/visualization/archive/*
 
-dns-gateway/key.txt
+dns-gateway/key.php
 
 #.spenv

@@ -1,14 +1,9 @@
 <?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-echo "<h2>Hi from PHP!</h2>";
-
-$host='@';
-$domain='solarprotocol.net';
-$dnskey= file_get_contents("key.txt");
+/*the dynamic dns service API key is stored in plain text in a file called key.php
+this file must return the key as a string
+the only code in that file is a 'return KEY_IN_QUOTES'
+it must be located in the same directory as this script*/
+$dnskey = require('key.php');
 
 //in the future this should be either a database or a seperate json file
 //white list
@@ -26,8 +21,6 @@ $blackList = [
     /*"Dominica" => ""*/
 ];
 
-// should I have multiple endpoints for DNS, white list and black list?
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   //check if key is correct
@@ -38,9 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if($_GET["list"] == "black"){
         echo json_encode($blackList);
       }
-    } elseif(array_key_exists("update", $_GET)){
+    } /*elseif(array_key_exists("update", $_GET)){
       echo "updating...";
-      updateIP("8.29.41.133");
+      updateIP("174.95.54.93");
+    }*/
 }
 
 function verifyPW($key, $ip){
@@ -58,7 +52,10 @@ function verifyPW($key, $ip){
 //makes the API call to the DNS registry to update it
 function updateIP($ip){
 
-  $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $dnskey . "&ip=" .$ip);
+  $host='@';
+  $domain='solarprotocol.net';
+
+  $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $GLOBALS["dnskey"] . "&ip=" . $ip);
   echo $response;
 }
 
@@ -72,7 +69,7 @@ function updateIP($ip){
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<title>Solar Server</title>
+<title>DNS Gateway</title>
 
 </head>
 

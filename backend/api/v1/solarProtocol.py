@@ -93,7 +93,10 @@ def determineServer():
 		logging.info(datetime.datetime.now())
 
 		#comment back in to run
-		os.system(subCall + ' ' + dnsKey)
+		#os.system(subCall + ' ' + dnsKey)
+		
+		getDNS(myIP = 	requests.get('http://whatismyip.akamai.com/').text)
+
 	else:
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing
@@ -153,6 +156,19 @@ def getEnv(thisEnv):
 	#remove line breaks
 	e = e.replace("\n", "")
 	return e
+
+#this could be greatly simplified in the future...
+def getDNS(ip):
+	try:
+		#returns a single value
+		response = requests.get('http://dns.solarprotocol.net/index.php?ip=' + ip + '&key=' + str(getEnv('DNS_KEY')), timeout = 5)
+		print(response.text)		
+	except requests.exceptions.HTTPError as err:
+		print(err)
+	except requests.exceptions.Timeout as err:
+		print(err)
+	except:
+		print(err)
 
 subCall += str(getEnv('DNS_KEY'))
 

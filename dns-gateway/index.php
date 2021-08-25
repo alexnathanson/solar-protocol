@@ -5,6 +5,8 @@ the only code in that file is a 'return KEY_IN_QUOTES'
 it must be located in the same directory as this script*/
 $dnskey = require('key.php');
 
+header('Content-Type: application/json');
+
 //in the future this should be either a database or a seperate json file
 //white list
 $serverHash = [
@@ -23,7 +25,7 @@ $blackList = [
 
 //maybe switch to a post request in the future?
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  echo "we got post!";
+  //echo "we got post!";
   //check if key is correct
   if(array_key_exists("ip", $_POST) && array_key_exists("key", $_POST)){
     verifyPW($_POST["key"],$_POST["ip"],$serverHash, $dnskey);
@@ -48,9 +50,9 @@ function verifyPW($key, $ip, $hashlist, $pw){
 
   #loop through all hashes...
   foreach($hashlist as $name => $hash){
-    echo $hash . "<br>";
+    //echo $hash . "<br>";
     if(password_verify($key, $hash)){
-      echo "updating ip...<br>";
+      //echo "updating ip...<br>";
       updateIP($ip, $pw);
       $verified = true;
     }
@@ -68,6 +70,7 @@ function updateIP($ip, $pw){
   $domain='solarprotocol.net';
 
   $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $pw . "&ip=" . $ip);
+  header('Content-Type: application/json');
   echo $response;
 }
 

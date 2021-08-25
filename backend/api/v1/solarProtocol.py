@@ -161,7 +161,7 @@ def getEnv(thisEnv):
 def getDNS(ip):
 	try:
 		#returns a single value
-		response = requests.get("http://dns.solarprotocol.net/?ip=" + ip + "&key=" + str(getEnv('DNS_KEY')), timeout = 5)
+		response = requests.get("dns.solarprotocol.net/?ip=" + ip + "&key=" + str(getEnv('DNS_KEY')), timeout = 5)
 		print(response.text)		
 	except requests.exceptions.HTTPError as err:
 		print(err)

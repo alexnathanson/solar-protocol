@@ -6,6 +6,7 @@ it must be located in the same directory as this script*/
 $dnskey = require('key.php');
 
 #header('Content-Type: application/json');
+#header("Access-Control-Allow-Origin: *");
 
 //in the future this should be either a database or a seperate json file
 //white list
@@ -31,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     verifyPW($_POST["key"],$_POST["ip"],$serverHash, $dnskey);
   }
 } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+  echo "GETTING!";
   if(array_key_exists("list", $_GET)){
     //echo $_GET["list"];
     if($_GET["list"] == "true"){
@@ -41,6 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } elseif(array_key_exists("ip", $_GET)){
       echo "get updating...<br>";
       verifyPW($_GET["key"],$_GET["ip"],$serverHash, $dnskey);
+  } else {
+    echo "no match";
   }
 }
 
@@ -71,7 +75,7 @@ function updateIP($ip, $pw){
 
   $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $pw . "&ip=" . $ip);
   #header('Content-Type: application/json');
-  echo json_encode($response);
+  echo $response;
 }
 
 ?>

@@ -24,7 +24,7 @@ $blackList = [
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   echo "we got post!";
   //check if key is correct
-  verifyPW($_POST["key"],$_POST["ip"]);
+  verifyPW($_POST["key"],$_POST["ip"],$serverHash);
 } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
     if(array_key_exists("list", $_GET)){
       //echo $_GET["list"];
@@ -33,29 +33,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       } elseif($_GET["list"] == "false"){
         echo json_encode($blackList);
       }
-    } elseif(array_key_exists("update", $_GET)){
-      if($_GET["update"] == "true"){
-        echo "get updating...";
-        verifyPW($_GET["key"],$_GET["ip"]);
-      }
+    } elseif(array_key_exists("ip", $_GET)){
+        echo "get updating...<br>";
+        verifyPW($_GET["key"],$_GET["ip"],$serverHash);
     }
 }
 
-function verifyPW($key, $ip){
-
+function verifyPW($key, $ip, $hashlist){
+  $verified = false;
   # hash generated from password_hash() more info at https://www.php.net/manual/en/function.password-hash.php
 
   #loop through all hashes...
-  foreach($serverHash as $name => $hash){
+  foreach($hashlist as $name => $hash){
+    echo $hash . "<br>";
     if(password_verify($key, $hash)){
-      echo "updating ip...";
+      echo "updating ip...<br>";
       updateIP($ip);
+      $verified = true;
     }
+  }
+  if ($verified == false) {
+      echo "api key not verified";
   }
 }
 
 //makes the API call to the DNS registry to update it
 function updateIP($ip){
+  echo "updating IP for real!<br>";
 
   $host='@';
   $domain='solarprotocol.net';
@@ -66,7 +70,7 @@ function updateIP($ip){
 
 ?>
 
-
+<!-- 
 <!DOCTYPE html>
 <html>
 
@@ -81,4 +85,4 @@ function updateIP($ip){
 <body>
 
 </body>
-</html>
+</html> -->

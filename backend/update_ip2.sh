@@ -30,8 +30,13 @@ echo "CURRENT IP: $IP"
 
 # Update Namecheap DDNS via DNA gateway at dns.solarprotocol.net
 #URL="wget --no-check-certificate -qO - https://dynamicdns.park-your-domain.com/update?host=$HOST&domain=$DOMAIN&password=$PASSWORD&ip=$IP"
-URL="wget --no-check-certificate -qO - http://dns.solarprotocol.net/index.php?update=true&ip=$IP&key=$PASSWORD"
+
+#get request
+URL="wget --no-check-certificate -qO - http://dns.solarprotocol.net/index.php?ip=$IP&key=$PASSWORD"
+
+#post request
 #URL="wget --post-data 'key=$PASSWORD&ip=$IP'  http://dns.solarprotocol.net"
+
 echo $URL
 
 RESPONSE=$($URL)

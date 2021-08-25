@@ -9,11 +9,11 @@ $dnskey = require('key.php');
 //white list
 $serverHash = [
   "SPfA" => "$2y$10$8jr3efgV3/N2RosUY0cH1edYXYcYNE4Iwi6RHqYwyupnccYVX9f5.",
-  "Hells Gate" => "",
+  "Hells Gate" => "$2y$10$5/O1zeTvLmxBNIRpmqve5u6x9RmL8JBi./dzgD3mwfudHEBuABFQ6",
   "Tega" => "",
   "Chile" => "",
-  "Caddie" => "",
-  "Low Carbon Methods" => ""
+  "Caddie" => "$2y$10$157Qs27b4.gUAHlF0o/i5ufIF/tclJ8GitcIQbgeA9t76XYF0S0Ve",
+  "Low Carbon Methods" => "$2y$10$VUtTRwbT5N1dZi902Xa3BeLCRAKhC9BnjQ7M/7iEq9xiO6H3LTGqu"
 ];
 
 //this is the black list. there could potentailly be multiple burned keys from the same server, so another data format might be necessary
@@ -21,11 +21,14 @@ $blackList = [
     /*"Dominica" => ""*/
 ];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//maybe switch to a post request in the future?
+/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
   echo "we got post!";
   //check if key is correct
-  verifyPW($_POST["key"],$_POST["ip"],$serverHash);
-} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+  verifyPW($_POST["key"],$_POST["ip"],$serverHash, $dnskey);
+}*/
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if(array_key_exists("list", $_GET)){
       //echo $_GET["list"];
       if($_GET["list"] == "true"){
@@ -35,11 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     } elseif(array_key_exists("ip", $_GET)){
         echo "get updating...<br>";
-        verifyPW($_GET["key"],$_GET["ip"],$serverHash);
+        verifyPW($_GET["key"],$_GET["ip"],$serverHash, $dnskey);
     }
 }
 
-function verifyPW($key, $ip, $hashlist){
+function verifyPW($key, $ip, $hashlist, $pw){
   $verified = false;
   # hash generated from password_hash() more info at https://www.php.net/manual/en/function.password-hash.php
 
@@ -48,7 +51,7 @@ function verifyPW($key, $ip, $hashlist){
     echo $hash . "<br>";
     if(password_verify($key, $hash)){
       echo "updating ip...<br>";
-      updateIP($ip);
+      updateIP($ip, $pw);
       $verified = true;
     }
   }
@@ -58,13 +61,13 @@ function verifyPW($key, $ip, $hashlist){
 }
 
 //makes the API call to the DNS registry to update it
-function updateIP($ip){
+function updateIP($ip, $pw){
   echo "updating IP for real!<br>";
 
   $host='@';
   $domain='solarprotocol.net';
 
-  $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $GLOBALS["dnskey"] . "&ip=" . $ip);
+  $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $pw . "&ip=" . $ip);
   echo $response;
 }
 

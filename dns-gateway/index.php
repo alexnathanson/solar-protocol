@@ -22,19 +22,23 @@ $blackList = [
 ];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+  echo "we got post!";
   //check if key is correct
-  verifyPW($_POST["api_key"],$_POST["ip"]);
+  verifyPW($_POST["key"],$_POST["ip"]);
 } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
     if(array_key_exists("list", $_GET)){
       //echo $_GET["list"];
       if($_GET["list"] == "true"){
         echo json_encode($serverHash);
+      } elseif($_GET["list"] == "false"){
+        echo json_encode($blackList);
       }
-    } /*elseif(array_key_exists("update", $_GET)){
-      echo "updating...";
-      updateIP("174.95.54.93");
-    }*/
+    } elseif(array_key_exists("update", $_GET)){
+      if($_GET["update"] == "true"){
+        echo "get updating...";
+        verifyPW($_GET["key"],$_GET["ip"]);
+      }
+    }
 }
 
 function verifyPW($key, $ip){

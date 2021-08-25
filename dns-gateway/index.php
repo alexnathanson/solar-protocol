@@ -22,24 +22,24 @@ $blackList = [
 ];
 
 //maybe switch to a post request in the future?
-/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
   echo "we got post!";
   //check if key is correct
-  verifyPW($_POST["key"],$_POST["ip"],$serverHash, $dnskey);
-}*/
-
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    if(array_key_exists("list", $_GET)){
-      //echo $_GET["list"];
-      if($_GET["list"] == "true"){
-        echo json_encode($serverHash);
-      } elseif($_GET["list"] == "false"){
-        echo json_encode($blackList);
-      }
-    } elseif(array_key_exists("ip", $_GET)){
-        echo "get updating...<br>";
-        verifyPW($_GET["key"],$_GET["ip"],$serverHash, $dnskey);
+  if(array_key_exists("ip", $_POST) && array_key_exists("key", $_POST)){
+    verifyPW($_POST["key"],$_POST["ip"],$serverHash, $dnskey);
+  }
+} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+  if(array_key_exists("list", $_GET)){
+    //echo $_GET["list"];
+    if($_GET["list"] == "true"){
+      echo json_encode($serverHash);
+    } elseif($_GET["list"] == "false"){
+      echo json_encode($blackList);
     }
+  } elseif(array_key_exists("ip", $_GET)){
+      echo "get updating...<br>";
+      verifyPW($_GET["key"],$_GET["ip"],$serverHash, $dnskey);
+  }
 }
 
 function verifyPW($key, $ip, $hashlist, $pw){

@@ -35,7 +35,10 @@ echo "CURRENT IP: $IP"
 #URL="wget --no-check-certificate -qO - http://dns.solarprotocol.net/index.php?ip=$IP&key=$PASSWORD"
 
 #post request
-URL="wget --post-data 'key=$PASSWORD&ip=$IP'  http://dns.solarprotocol.net"
+#URL="wget --post-data 'key=$PASSWORD&ip=$IP'  http://dns.solarprotocol.net"
+
+#with CURL
+URL="curl -X POST -F 'key=$PASSWORD' -F 'ip=$IP'  http://dns.solarprotocol.net"
 
 echo $URL
 

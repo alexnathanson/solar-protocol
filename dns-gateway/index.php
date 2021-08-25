@@ -8,7 +8,7 @@ $dnskey = require('key.php');
 //in the future this should be either a database or a seperate json file
 //white list
 $serverHash = [
-  "SPfA" => "",
+  "SPfA" => "$2y$10$8jr3efgV3/N2RosUY0cH1edYXYcYNE4Iwi6RHqYwyupnccYVX9f5.",
   "Hells Gate" => "",
   "Tega" => "",
   "Chile" => "",
@@ -28,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
     if(array_key_exists("list", $_GET)){
       //echo $_GET["list"];
-      if($_GET["list"] == "black"){
-        echo json_encode($blackList);
+      if($_GET["list"] == "true"){
+        echo json_encode($serverHash);
       }
     } /*elseif(array_key_exists("update", $_GET)){
       echo "updating...";
@@ -44,6 +44,7 @@ function verifyPW($key, $ip){
   #loop through all hashes...
   foreach($serverHash as $name => $hash){
     if(password_verify($key, $hash)){
+      echo "updating ip...";
       updateIP($ip);
     }
   }

@@ -71,7 +71,7 @@ function updateIP($ip, $pw){
 
   $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $pw . "&ip=" . $ip);
   #header('Content-Type: application/json');
-  echo $response;
+  echo json_encode($response);
 }
 
 ?>

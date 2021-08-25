@@ -5,7 +5,7 @@ the only code in that file is a 'return KEY_IN_QUOTES'
 it must be located in the same directory as this script*/
 $dnskey = require('key.php');
 
-header('Content-Type: application/json');
+#header('Content-Type: application/json');
 
 //in the future this should be either a database or a seperate json file
 //white list
@@ -70,7 +70,7 @@ function updateIP($ip, $pw){
   $domain='solarprotocol.net';
 
   $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $pw . "&ip=" . $ip);
-  header('Content-Type: application/json');
+  #header('Content-Type: application/json');
   echo $response;
 }
 

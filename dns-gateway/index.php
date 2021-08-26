@@ -5,7 +5,7 @@ the only code in that file is a 'return KEY_IN_QUOTES'
 it must be located in the same directory as this script*/
 $dnskey = require('key.php');
 
-#header('Content-Type: application/json');
+header('Content-Type: application/json');
 #header("Access-Control-Allow-Origin: *");
 
 //in the future this should be either a database or a seperate json file
@@ -14,7 +14,7 @@ $serverHash = [
   "SPfA" => "$2y$10$8jr3efgV3/N2RosUY0cH1edYXYcYNE4Iwi6RHqYwyupnccYVX9f5.",
   "Hells Gate" => "$2y$10$5/O1zeTvLmxBNIRpmqve5u6x9RmL8JBi./dzgD3mwfudHEBuABFQ6",
   "Tega" => "",
-  "Chile" => "",
+  "Chile" => "$2y$10$M3RtM5fYwzUXYQJRx1OGDe9oPSAmnApDPlCWpYCpHXcQixCPVaNge",
   "Caddie" => "$2y$10$157Qs27b4.gUAHlF0o/i5ufIF/tclJ8GitcIQbgeA9t76XYF0S0Ve",
   "Low Carbon Methods" => "$2y$10$VUtTRwbT5N1dZi902Xa3BeLCRAKhC9BnjQ7M/7iEq9xiO6H3LTGqu"
 ];
@@ -76,23 +76,7 @@ function updateIP($ip, $pw){
   $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $pw . "&ip=" . $ip);
   #header('Content-Type: application/json');
   echo $response;
+  exit();#not necessary...
 }
 
 ?>
-
-<!-- 
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-<title>DNS Gateway</title>
-
-</head>
-
-<body>
-
-</body>
-</html> -->

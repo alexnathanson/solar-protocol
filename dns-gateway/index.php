@@ -57,7 +57,7 @@ function verifyPW($key, $ip, $hashlist, $pw){
     if(password_verify($key, $hash)){
       //echo "updating ip...<br>";
       updateIP($ip, $pw);
-      writeMostRecent($name);
+      //writeMostRecent($name);
       $verified = true;
     }
   }

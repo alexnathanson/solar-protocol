@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     verifyPW($_POST["key"],$_POST["ip"],$serverHash, $dnskey);
   }
 } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-  echo "GETTING!";
+  //echo "GETTING!";
   if(array_key_exists("list", $_GET)){
     //echo $_GET["list"];
     if($_GET["list"] == "true"){
@@ -58,6 +58,7 @@ function verifyPW($key, $ip, $hashlist, $pw){
     if(password_verify($key, $hash)){
       //echo "updating ip...<br>";
       updateIP($ip, $pw);
+      writeMostRecent($name);
       $verified = true;
     }
   }
@@ -77,6 +78,18 @@ function updateIP($ip, $pw){
   #header('Content-Type: application/json');
   echo $response;
   exit();#not necessary...
+}
+
+function writeMostRecent($thisPOE){
+  $file = 'poe.txt';
+  // Open the file to get existing content
+  #$current = file_get_contents($file);
+  // Append a new person to the file
+  #$current .= "John Smith\n";
+
+  $current = $thisPOE;
+  // Write the contents back to the file
+  file_put_contents($file, $current);
 }
 
 ?>

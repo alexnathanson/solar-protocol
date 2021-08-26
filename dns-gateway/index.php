@@ -5,8 +5,7 @@ the only code in that file is a 'return KEY_IN_QUOTES'
 it must be located in the same directory as this script*/
 $dnskey = require('key.php');
 
-header('Content-Type: application/json');
-#header("Access-Control-Allow-Origin: *");
+#header('Content-Type: application/json');
 
 //in the future this should be either a database or a seperate json file
 //white list
@@ -41,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       echo json_encode($blackList);
     }
   } elseif(array_key_exists("ip", $_GET)){
-      echo "get updating...<br>";
+      #echo "get updating...<br>";
       verifyPW($_GET["key"],$_GET["ip"],$serverHash, $dnskey);
   } else {
     echo "no match";
@@ -69,7 +68,7 @@ function verifyPW($key, $ip, $hashlist, $pw){
 
 //makes the API call to the DNS registry to update it
 function updateIP($ip, $pw){
-  echo "updating IP for real!<br>";
+  #echo "updating IP for real!<br>";
 
   $host='@';
   $domain='solarprotocol.net';
@@ -77,7 +76,7 @@ function updateIP($ip, $pw){
   $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $pw . "&ip=" . $ip);
   #header('Content-Type: application/json');
   echo $response;
-  exit();#not necessary...
+  #exit();#not necessary...
 }
 
 function writeMostRecent($thisPOE){

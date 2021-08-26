@@ -17,8 +17,7 @@ import csv
 import logging
 from SolarProtocolClass import SolarProtocol
 
-#terminal command to update DNS record
-subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh '
+
 dnsKey = ''
 
 '''
@@ -91,9 +90,6 @@ def determineServer():
 		print('Point of entry')
 
 		logging.info(datetime.datetime.now())
-
-		#comment back in to run
-		#os.system(subCall + ' ' + dnsKey)
 		
 		getDNS(requests.get('http://whatismyip.akamai.com/').text)
 
@@ -160,9 +156,8 @@ def getEnv(thisEnv):
 #this could be greatly simplified in the future...
 def getDNS(ip):
 	try:
-		#returns a single value
 		dnsDST = "https://server.solarpowerforartists.com?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
-		print(dnsDST)
+		#print(dnsDST)
 		response = requests.get(dnsDST, timeout = 5)
 		print(response.text)		
 	except requests.exceptions.HTTPError as err:
@@ -172,37 +167,35 @@ def getDNS(ip):
 	except:
 		print(err)
 
-def postDNS(dstIP):
+# def postDNS(dstIP):
 
-	headers = {
-	    #'X-Auth-Key': KEY,
-	    'Content-Type': 'application/x-www-form-urlencoded',
-	}
+# 	headers = {
+# 	    #'X-Auth-Key': KEY,
+# 	    'Content-Type': 'application/x-www-form-urlencoded',
+# 	}
 
-	dstData = "ip="+ dstIP +"&key="+str(getEnv('DNS_KEY'))
+# 	dstData = "ip="+ dstIP +"&key="+str(getEnv('DNS_KEY'))
 
-	try:
-		x = requests.post('http://dns.solarprotocol.net/', headers=headers,data = dstData, timeout=5)
-		print(x.text)
-		#print(x.json())
-		if x.ok:
-			try:
-				print("Post to " + dstIP+ " successful")
-			except:
-				print(x.text)
-		#requests.raise_for_status()
-	except json.decoder.JSONDecodeError as e:
-		print("JSON decoding error", e)
-	except requests.exceptions.HTTPError as errh:
-	 	print("An Http Error occurred:" + repr(errh))
-	except requests.exceptions.ConnectionError as errc:
-		print("An Error Connecting to the API occurred:" + repr(errc))
-	except requests.exceptions.Timeout as errt:
-	 	print("A Timeout Error occurred:" + repr(errt))
-	except requests.exceptions.RequestException as err:
-	 	print("An Unknown Error occurred" + repr(err))
-
-subCall += str(getEnv('DNS_KEY'))
+# 	try:
+# 		x = requests.post('http://dns.solarprotocol.net/', headers=headers,data = dstData, timeout=5)
+# 		print(x.text)
+# 		#print(x.json())
+# 		if x.ok:
+# 			try:
+# 				print("Post to " + dstIP+ " successful")
+# 			except:
+# 				print(x.text)
+# 		#requests.raise_for_status()
+# 	except json.decoder.JSONDecodeError as e:
+# 		print("JSON decoding error", e)
+# 	except requests.exceptions.HTTPError as errh:
+# 	 	print("An Http Error occurred:" + repr(errh))
+# 	except requests.exceptions.ConnectionError as errc:
+# 		print("An Error Connecting to the API occurred:" + repr(errc))
+# 	except requests.exceptions.Timeout as errt:
+# 	 	print("A Timeout Error occurred:" + repr(errt))
+# 	except requests.exceptions.RequestException as err:
+# 	 	print("An Unknown Error occurred" + repr(err))
 
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = getmac("wlan0")

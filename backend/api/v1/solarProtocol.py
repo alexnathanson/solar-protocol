@@ -156,11 +156,11 @@ def getEnv(thisEnv):
 #this could be greatly simplified in the future...
 def getDNS(ip):
 	try:
-		dnsDST = "https://server.solarpowerforartists.com?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
+		#dnsDST = "https://server.solarpowerforartists.com?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
 		#the dns subdomain isnt forwarding correctly...?
-		#dnsDST = "http://dns.solarprotocol.net?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
+		dnsDST = "http://dns.solarprotocol.net?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
 		#print(dnsDST)
-		response = requests.get(dnsDST, timeout = 5)
+		response = requests.get(dnsDST, allow_redirects=True, timeout = 5)
 		print(response.text)		
 	except requests.exceptions.HTTPError as err:
 		print(err)

@@ -134,44 +134,44 @@ def getIPList():
 	return ipList
 
 #this only works with linux
-def getmac(interface):
+# def getmac(interface):
 
-	try:
-		mac = open('/sys/class/net/'+interface+'/address').readline()
-	except:
-		mac = "00:00:00:00:00:00"
+# 	try:
+# 		mac = open('/sys/class/net/'+interface+'/address').readline()
+# 	except:
+# 		mac = "00:00:00:00:00:00"
 
-	return mac
+# 	return mac
 
-def getEnv(thisEnv):
-	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
-	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
-	e = proc.stdout.read()
-	#convert byte string to string
-	e = e.decode("utf-8") 
-	#remove line breaks
-	e = e.replace("\n", "")
-	return e
+# def getEnv(thisEnv):
+# 	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
+# 	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
+# 	e = proc.stdout.read()
+# 	#convert byte string to string
+# 	e = e.decode("utf-8") 
+# 	#remove line breaks
+# 	e = e.replace("\n", "")
+# 	return e
 
 #this could be greatly simplified in the future...
-def getDNS(ip):
-	try:
-		dnsDST = "https://server.solarpowerforartists.com?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
-		#the dns subdomain isnt forwarding correctly so we're temporarily using the above url
-		#dnsDST = "http://dns.solarprotocol.net?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
-		#print(dnsDST)
-		#allow_redirects=True should be the default so probably not necessary...
-		response = requests.get(dnsDST, allow_redirects=True, timeout = 5)
-		print(response.text)		
-	except requests.exceptions.HTTPError as err:
-		print(err)
-	except requests.exceptions.Timeout as err:
-		print(err)
-	except:
-		print(err)
+# def getDNS(ip):
+# 	try:
+# 		dnsDST = "https://server.solarpowerforartists.com?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
+# 		#the dns subdomain isnt forwarding correctly so we're temporarily using the above url
+# 		#dnsDST = "http://dns.solarprotocol.net?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
+# 		#print(dnsDST)
+# 		#allow_redirects=True should be the default so probably not necessary...
+# 		response = requests.get(dnsDST, allow_redirects=True, timeout = 5)
+# 		print(response.text)		
+# 	except requests.exceptions.HTTPError as err:
+# 		print(err)
+# 	except requests.exceptions.Timeout as err:
+# 		print(err)
+# 	except:
+# 		print(err)
 
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
-myMAC = getmac("wlan0")
+myMAC = SP.getMAC(SP.MACinterface)
 #print("my mac: " + myMAC)
 
 localPVData = float(localData()) * SP.pvWattsScaler()

@@ -15,6 +15,7 @@ class SolarProtocol:
 		# dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
 		self.dnsURL = "https://server.solarpowerforartists.com/"
 		self.getEnv = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
+		self.MACinterface = "wlan0"
 
 	#load in data from config file
 	def loadLocalConfigFile(self):
@@ -68,6 +69,15 @@ class SolarProtocol:
 		#remove line breaks
 		e = e.replace("\n", "")
 		return e
+
+	#this only works with linux, but shouldn't be a problem because all the servers are linux devices
+	def getMAC(self, interface):
+		try:
+			mac = open('/sys/class/net/'+ interface +'/address').readline()
+		except:
+			mac = "00:00:00:00:00:00"
+
+		return mac
 
 	# def getMyIP(self):
 	# 	return requests.get('http://whatismyip.akamai.com/').text

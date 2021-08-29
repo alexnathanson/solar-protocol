@@ -8,7 +8,7 @@ Otherwise, the script changes nothing.
 
 import requests
 import os
-import subprocess
+#import subprocess
 import fileinput
 import json
 import datetime

@@ -1,10 +1,24 @@
+'''
+this class handles some common core functionality for the Solar Protocol project
+including:
+retrieving data from local config
+retrieving local environmental variables
+managing DNS gateway endpoints (updating and return white/black lists)
+
+future additions:
+retrieving live and historic data from charge controller
+
+currently this class only handles some new functionality for solarProtocol.py.
+Refactoring and expansion is required to create additional methods and apply this to clientPostIP.py too
+'''
+
 import json
 import requests
+import subprocess
 
+#confirm class is loaded
 #print('solar protocol class in attendence')
 
-# currently this class only handles some new functionality for solarProtocol.py.
-# Refactoring is required to create additional methods and apply this to clientPostIP.py too
 
 class SolarProtocol:
 	def __init__(self):

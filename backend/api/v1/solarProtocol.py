@@ -91,8 +91,8 @@ def determineServer():
 
 		logging.info(datetime.datetime.now())
 		
-		getDNS(requests.get('http://whatismyip.akamai.com/').text)
-
+		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
+		SP.updateDNS()
 	else:
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing
@@ -157,9 +157,10 @@ def getEnv(thisEnv):
 def getDNS(ip):
 	try:
 		dnsDST = "https://server.solarpowerforartists.com?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
-		#the dns subdomain isnt forwarding correctly...?
+		#the dns subdomain isnt forwarding correctly so we're temporarily using the above url
 		#dnsDST = "http://dns.solarprotocol.net?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
 		#print(dnsDST)
+		#allow_redirects=True should be the default so probably not necessary...
 		response = requests.get(dnsDST, allow_redirects=True, timeout = 5)
 		print(response.text)		
 	except requests.exceptions.HTTPError as err:
@@ -168,36 +169,6 @@ def getDNS(ip):
 		print(err)
 	except:
 		print(err)
-
-# def postDNS(dstIP):
-
-# 	headers = {
-# 	    #'X-Auth-Key': KEY,
-# 	    'Content-Type': 'application/x-www-form-urlencoded',
-# 	}
-
-# 	dstData = "ip="+ dstIP +"&key="+str(getEnv('DNS_KEY'))
-
-# 	try:
-# 		x = requests.post('http://dns.solarprotocol.net/', headers=headers,data = dstData, timeout=5)
-# 		print(x.text)
-# 		#print(x.json())
-# 		if x.ok:
-# 			try:
-# 				print("Post to " + dstIP+ " successful")
-# 			except:
-# 				print(x.text)
-# 		#requests.raise_for_status()
-# 	except json.decoder.JSONDecodeError as e:
-# 		print("JSON decoding error", e)
-# 	except requests.exceptions.HTTPError as errh:
-# 	 	print("An Http Error occurred:" + repr(errh))
-# 	except requests.exceptions.ConnectionError as errc:
-# 		print("An Error Connecting to the API occurred:" + repr(errc))
-# 	except requests.exceptions.Timeout as errt:
-# 	 	print("A Timeout Error occurred:" + repr(errt))
-# 	except requests.exceptions.RequestException as err:
-# 	 	print("An Unknown Error occurred" + repr(err))
 
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = getmac("wlan0")

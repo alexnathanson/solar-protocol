@@ -60,6 +60,7 @@ class SolarProtocol:
 		except:
 			return 1
 
+	#runs the environmental variable GET script and returns the specified variable
 	def getEnv(self, thisEnv):
 		#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
 		proc = subprocess.Popen(['bash',self.getEnv,thisEnv], stdout=subprocess.PIPE)
@@ -70,7 +71,8 @@ class SolarProtocol:
 		e = e.replace("\n", "")
 		return e
 
-	#this only works with linux, but shouldn't be a problem because all the servers are linux devices
+	#returns the device's MAC address at the specified interface
+	#this only works with linux
 	def getMAC(self, interface):
 		try:
 			mac = open('/sys/class/net/'+ interface +'/address').readline()
@@ -121,11 +123,11 @@ class SolarProtocol:
 			print(err)
 
 	#returns the url with parameters for updated the DNS
-	def updateDNS(self):
-		return self.dnsURL + "?ip=" + self.myIP + "&key=" + self.getEnv('DNS_KEY')
+	def updateDNS(self, ip, key):
+		return self.dnsURL + "?ip=" + ip + "&key=" + key
 
 	#returns the url with parameters for retrieving the node black and white lists from the server
 	#true = white list
 	#false = black list
-	def getNodeHashList(self, boolean):
-		return self.dnsURL + "?list=" + boolean
+	def getNodeHashList(self, aBoolean):
+		return self.dnsURL + "?list=" + aBoolean

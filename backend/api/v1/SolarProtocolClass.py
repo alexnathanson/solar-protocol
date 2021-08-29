@@ -112,7 +112,7 @@ class SolarProtocol:
 
 	#returns the url with parameters for updated the DNS
 	def updateDNS(self):
-		return self.dnsURL + "?ip=" self.myIP + "key=" + self.getEnv('DNS_KEY')
+		return self.dnsURL + "?ip=" + self.myIP + "&key=" + self.getEnv('DNS_KEY')
 
 	#returns the url with parameters for retrieving the node black and white lists from the server
 	#true = white list

@@ -122,11 +122,11 @@ class SolarProtocol:
 		except:
 			print(err)
 
-	#returns the url with parameters for updated the DNS
+	#returns the url with parameters for updating the DNS via a GET request
 	def updateDNS(self, ip, key):
 		return self.dnsURL + "?ip=" + ip + "&key=" + key
 
-	#returns the url with parameters for retrieving the node black and white lists from the server
+	#returns the url with parameters for retrieving the node black and white lists from the server via a GET request
 	#true = white list
 	#false = black list
 	def getNodeHashList(self, aBoolean):

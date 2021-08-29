@@ -17,7 +17,6 @@ import csv
 import logging
 from SolarProtocolClass import SolarProtocol
 
-
 dnsKey = ''
 
 '''
@@ -26,9 +25,7 @@ PV current,PV power H,PV power L,PV voltage,
 battery percentage,battery voltage,charge current,
 charge power H,charge power L,date,load current,load power,load voltage,time
 '''
-
 dataValue = 'PV power L'
-# apiValue = 'PV-voltage'
 apiValue = 'scaled-wattage'
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
@@ -41,6 +38,7 @@ logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', l
 SP = SolarProtocol()
 
 #return data from a particular server
+# this is redundant with the class... add this error handling to the class?
 def getData(dst):
 	try:
 		#returns a single value
@@ -135,43 +133,6 @@ def getIPList():
 	#print(ipList)
 
 	return ipList
-
-#this only works with linux
-# def getmac(interface):
-
-# 	try:
-# 		mac = open('/sys/class/net/'+interface+'/address').readline()
-# 	except:
-# 		mac = "00:00:00:00:00:00"
-
-# 	return mac
-
-# def getEnv(thisEnv):
-# 	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
-# 	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
-# 	e = proc.stdout.read()
-# 	#convert byte string to string
-# 	e = e.decode("utf-8") 
-# 	#remove line breaks
-# 	e = e.replace("\n", "")
-# 	return e
-
-#this could be greatly simplified in the future...
-# def getDNS(ip):
-# 	try:
-# 		dnsDST = "https://server.solarpowerforartists.com?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
-# 		#the dns subdomain isnt forwarding correctly so we're temporarily using the above url
-# 		#dnsDST = "http://dns.solarprotocol.net?ip=" + ip + "&key=" + str(getEnv('DNS_KEY'))
-# 		#print(dnsDST)
-# 		#allow_redirects=True should be the default so probably not necessary...
-# 		response = requests.get(dnsDST, allow_redirects=True, timeout = 5)
-# 		print(response.text)		
-# 	except requests.exceptions.HTTPError as err:
-# 		print(err)
-# 	except requests.exceptions.Timeout as err:
-# 		print(err)
-# 	except:
-# 		print(err)
 
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = SP.getMAC(SP.MACinterface)

@@ -3,6 +3,8 @@ this class handles some common core functionality for the Solar Protocol project
 including:
 retrieving data from local config
 retrieving local environmental variables
+getting own MAC address
+getting own public IP address
 managing DNS gateway endpoints (updating and return white/black lists)
 
 future additions:
@@ -138,12 +140,12 @@ class SolarProtocol:
 
 	#returns the url with parameters for updating the DNS via a GET request
 	def updateDNS(self, ip, key):
-		print(self.dnsURL + "?ip=" + ip + "&key=" + key)
+		#print(self.dnsURL + "?ip=" + ip + "&key=" + key)
 		return self.dnsURL + "?ip=" + ip + "&key=" + key
 
 	#returns the url with parameters for retrieving the node black and white lists from the server via a GET request
 	#true = white list
 	#false = black list
 	def getNodeHashList(self, aBoolean):
-		print(self.dnsURL + "?list=" + aBoolean)
+		#print(self.dnsURL + "?list=" + aBoolean)
 		return self.dnsURL + "?list=" + aBoolean

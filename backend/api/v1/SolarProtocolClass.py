@@ -69,7 +69,7 @@ class SolarProtocol:
 		e = e.decode("utf-8") 
 		#remove line breaks
 		e = e.replace("\n", "")
-		return str(e)
+		return e
 
 	#returns the device's MAC address at the specified interface
 	#this only works with linux

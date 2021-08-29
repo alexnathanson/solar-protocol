@@ -92,7 +92,7 @@ def determineServer():
 		logging.info(datetime.datetime.now())
 		
 		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
-		SP.getRequest(SP.updateDNS(SP.myIP,SP.getEnv('DNS_KEY')))
+		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
 	else:
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing

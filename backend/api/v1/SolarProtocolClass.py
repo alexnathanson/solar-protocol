@@ -14,7 +14,7 @@ class SolarProtocol:
 		self.myIP = requests.get('http://whatismyip.akamai.com/').text
 		# dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
 		self.dnsURL = "https://server.solarpowerforartists.com/"
-		self.getEnv = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
+		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
 		self.MACinterface = "wlan0"
 
 	#load in data from config file
@@ -63,7 +63,7 @@ class SolarProtocol:
 	#runs the environmental variable GET script and returns the specified variable
 	def getEnv(self, thisEnv):
 		#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
-		proc = subprocess.Popen(['bash',self.getEnv,thisEnv], stdout=subprocess.PIPE)
+		proc = subprocess.Popen(['bash',self.getEnvScriptPath,thisEnv], stdout=subprocess.PIPE)
 		e = proc.stdout.read()
 		#convert byte string to string
 		e = e.decode("utf-8") 

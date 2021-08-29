@@ -92,8 +92,8 @@ def determineServer():
 		logging.info(datetime.datetime.now())
 		
 		print(SP.myIP)
-		print(str(SP.getEnv('DNS_KEY')))
-		
+		print(SP.getEnv('DNS_KEY'))
+
 		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
 		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
 	else:

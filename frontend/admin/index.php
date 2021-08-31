@@ -211,7 +211,7 @@ function getFile($fileName){
         //if its a new name, add the name
         poeNames.push(poeArray[l][1]);
 
-        let newString = '';
+        let newString = poeArray[l][1] +'=>';
         //back fill this new entry with blank spaces
         for(let s = 0; s < countSpaces.length;s++){
           newString += spaceChar;

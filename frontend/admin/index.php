@@ -53,6 +53,8 @@ function getFile($fileName){
 
 <div id="server list"><h3>Online Servers:</h3></div>
 
+<div id="pointOfEntryViz"><h3>Point of Entry History:</h3></div>
+
 <div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
 <!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
 
@@ -171,6 +173,7 @@ function getFile($fileName){
 
     displayPOE(outputPoeLog);
 
+    poeViz(outputPoeLog)
   } 
 
   function displayPOE(poeArray){
@@ -187,6 +190,42 @@ function getFile($fileName){
     poeID.appendChild(para);
   }
 
+  function poeViz(poeArray){
+    let poeID = document.getElementById('pointOfEntryViz');
+
+    for (let l = 0; l < poeArray.length;l++){
+      print(poeArray[l]);
+      let node = document.createTextNode(poeArray[l][0] + " " + jsonPoe[poeArray[l][1]]['name']);
+      para.appendChild(node);
+      para.appendChild(document.createElement('br'));//dont use a variable here, because then it will treat it as the same thing and only append it once, pushing it to the end of the p
+    }
+
+    poeID.appendChild(para);
+
+/*
+    let pT = document.createElement("table"); 
+    pT.style.width = '100%';
+    sT.setAttribute('border', '1');
+
+    let ptbdy = document.createElement('tbody');
+
+    for (let r = 0; r <2;r++) {
+      let tr = document.createElement('tr');
+      for (let c = 0; c < Object.keys(jsonData).length; c++) {
+        let td = document.createElement('td');
+        if (r == 0) {//headers
+          td.appendChild(document.createTextNode(Object.keys(jsonData)[c]));
+          tr.appendChild(td);
+        } else if (r == 1){//content
+          td.appendChild(document.createTextNode(jsonData[Object.keys(jsonData)[c]]));
+          tr.appendChild(td);
+        }
+      }
+      tbdy.appendChild(tr);
+    }
+    sT.appendChild(tbdy);*/
+
+  }
 
   function populate(dataToDisplay, dst, dstNum) {
 

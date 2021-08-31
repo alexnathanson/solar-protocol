@@ -204,7 +204,7 @@ function getFile($fileName){
     let spaceChar = "_";
 
     for (let l = 0; l < poeArray.length;l++){
-      console.log(poeArray[l]);
+      //console.log(poeArray[l]);
       //check if it is a new name
       if (!poeNumbers.includes(poeArray[l][1])){
         //if its a new name, add the name

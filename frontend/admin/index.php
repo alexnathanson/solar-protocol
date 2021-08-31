@@ -210,7 +210,6 @@ function getFile($fileName){
       if (!poeNames.includes(poeArray[l][1])){
         //if its a new name, add the name
         poeNames.push(poeArray[l][1]);
-        console.log(poeNames);
 
         let newString = '';
         //back fill this new entry with blank spaces
@@ -235,7 +234,7 @@ function getFile($fileName){
           }
         }
       }
-      countSpaces ++;
+      countSpaces += 1;
     }
 
 

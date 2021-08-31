@@ -8,11 +8,9 @@ Otherwise, the script changes nothing.
 
 import requests
 import os
-#import subprocess
 import fileinput
 import json
 import datetime
-#import time
 import csv
 import logging
 from SolarProtocolClass import SolarProtocol
@@ -39,10 +37,11 @@ SP = SolarProtocol()
 
 #return data from a particular server
 # this is redundant with the class... add this error handling to the class?
-def getData(dst):
+def getData(dst, chosenApiValue):
+
 	try:
 		#returns a single value
-		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+apiValue, timeout = 5)
+		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+chosenApiValue, timeout = 5)
 		#print(response.text)		
 		#check if the response can be converted to a float
 		# try:
@@ -60,12 +59,12 @@ def getData(dst):
 	except:
 		return -1
 
-def remoteData(dstIPs):
+def remoteData(dstIPs, chosenApiValue):
 	allData = []
 
 	for dst in dstIPs:
 		#print(dst)
-		allData.append(getData(dst))
+		allData.append(getData(dst, chosenApiValue))
 
 	# print("ALL DATA:")
 	# print(allData)
@@ -73,15 +72,15 @@ def remoteData(dstIPs):
 	return allData
 	#determineServer(allData)
 
-def determineServer():
+def determineServer(remoteData,localData, dnsUpdatePassword):
 
 	thisServer = True
 
 	#print(remotePVData)
 
 	#loop through data from all servers and compare scaled wattage
-	for s in remotePVData:
-		if s > localPVData:
+	for s in remoteData:
+		if s > localData:
 			thisServer = False
 
 	if thisServer:
@@ -94,16 +93,17 @@ def determineServer():
 
 		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
 		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
+
 	else:
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing
 
-def localData():
+def localData(localDataFileCsv, chosenDataValue):
 
 	csvArray = []
 
 	#get the local PV data
-	with open(localDataFile, mode='r') as csvfile:
+	with open(localDataFileCsv, mode='r') as csvfile:
 		localPVData = csv.reader(csvfile)
 
 		for row in localPVData:
@@ -113,21 +113,21 @@ def localData():
 
 		#loop through headers to determine position of value needed
 		for v in range(len(csvArray[0])):
-			if csvArray[0][v] == dataValue:
+			if csvArray[0][v] == chosenDataValue:
 				return csvArray[-1][v]
 
-def getIPList():
+def getIPList(devicesListJson, myMACAddr):
 
 	ipList = []
 
-	with open(deviceList) as f:
+	with open(deviceListJson) as f:
 	  data = json.load(f)
 
 	#print(data)
 
 	for i in range(len(data)):
 		#filter out local device's mac address
-		if str(data[i]['mac']).strip() !=  myMAC.strip():
+		if str(data[i]['mac']).strip() !=  myMACAddr.strip():
 			ipList.append(data[i]['ip'])
 
 	#print(ipList)
@@ -138,8 +138,8 @@ def getIPList():
 myMAC = SP.getMAC(SP.MACinterface)
 #print("my mac: " + myMAC)
 
-localPVData = float(localData()) * SP.pvWattsScaler()
+localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
 print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
-remotePVData = remoteData(getIPList())
+remotePVData = remoteData(getIPList(devicesList, myMAC), apiValue)
 #print("Remote Voltage: " + remotePVData)
-determineServer()
+determineServer(remotePVData, localPVData, subCall, dnsKey)

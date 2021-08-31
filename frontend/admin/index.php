@@ -192,14 +192,30 @@ function getFile($fileName){
 
   function poeViz(poeArray){
     let poeID = document.getElementById('pointOfEntryViz');
+    let para = document.createElement('p');
+
+    let poeNames = [];
+    let poeSymbols = ['/','*','~','|','{','[','+','=','}',']','-','_'];
+
+    let poeString = '';
 
     for (let l = 0; l < poeArray.length;l++){
       console.log(poeArray[l]);
-      let node = document.createTextNode(poeArray[l][0] + " " + jsonPoe[poeArray[l][1]]['name']);
-      para.appendChild(node);
-      para.appendChild(document.createElement('br'));//dont use a variable here, because then it will treat it as the same thing and only append it once, pushing it to the end of the p
+      if (!poeNames.includes(jsonPoe[poeArray[l][1]]['name'])){
+        poeNames.push(jsonPoe[poeArray[l][1]]['name']);
+        poeString += poeSymbols[poeNames.length];
+      } else {
+        //get position of name
+        for(let n = 0; n < poeNames.length;n++){
+          if(jsonPoe[poeArray[l][1]]['name'] == poeNames[n]){
+            poeString += poeSymbols[poeNames[n]];
+            break;
+          }
+        }
+      }
+      let node = document.createTextNode(poeString);
     }
-
+    para.appendChild(node);
     poeID.appendChild(para);
 
 /*

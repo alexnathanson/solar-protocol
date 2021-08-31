@@ -53,7 +53,7 @@ function getFile($fileName){
 
 <div id="server list"><h3>Online Servers:</h3></div>
 
-<div id="pointOfEntryViz"><h3>Point of Entry History:</h3></div>
+<div id="pointOfEntryViz"><h3>Point of Entry History ASCII Vizs:</h3></div>
 
 <div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
 <!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
@@ -192,11 +192,10 @@ function getFile($fileName){
 
   function asciiPoeViz(poeArray){
     let poeID = document.getElementById('pointOfEntryViz');
-    let para = document.createElement('p');
 
     //an array of all the server names that were PoE
     let poeNames = [];
-
+    let poeNumbers = [];
     //an array of all the ascii lines by device
     let poeStrings = [];
 
@@ -209,7 +208,8 @@ function getFile($fileName){
       //check if it is a new name
       if (!poeNames.includes(poeArray[l][1])){
         //if its a new name, add the name
-        poeNames.push(poeArray[l][1]);
+        poeNumbers.push(poeArray[l][1]);
+        poeNames.push(jsonPoe[poeArray[l][1]]['name']);
 
         let newString = poeArray[l][1] +'=>';
         //back fill this new entry with blank spaces
@@ -226,9 +226,9 @@ function getFile($fileName){
 
       } else {
         //get position of name
-        for(let n = 0; n < poeNames.length;n++){
-          if(poeArray[l][1] == poeNames[n]){
-            poeStrings[n] += poeNames[n];
+        for(let n = 0; n < poeNumbers.length;n++){
+          if(poeArray[l][1] == poeNumbers[n]){
+            poeStrings[n] += poeNumbers[n];
           } else {
             poeStrings[n] += spaceChar;
           }
@@ -237,13 +237,34 @@ function getFile($fileName){
       countSpaces ++;
     }
 
+    let sT = document.createElement("table"); 
+    sT.style.width = '100%';
+    sT.setAttribute('border', '1');
+    let tbdy = document.createElement('tbody');
+    let tr = document.createElement('tr');
+    let tdNames = document.createElement('td');
 
     for(let s = 0; s < poeStrings.length;s ++){
-      let asciiLine = document.createTextNode(poeStrings[s]);
-      para.appendChild(asciiLine);
-      para.appendChild(document.createElement('br'))
+      let nameLine = document.createTextNode(poeNames[s]);
+      tdNames.appendChild(nameLine);
+      tdNames.appendChild(document.createElement('br'))
     }
-    poeID.appendChild(para);
+
+    let tdData = document.createElement('td');
+
+    //let para = document.createElement('p');
+    for(let s = 0; s < poeStrings.length;s ++){
+      let asciiLine = document.createTextNode(poeStrings[s]);
+      tdData.appendChild(asciiLine);
+      tdData.appendChild(document.createElement('br'))
+    }
+    //poeID.appendChild(para);
+    
+    tr.appendChild(tdNames);
+    tr.appendChild(tdData);
+
+    tbdy.appendChild(tr);
+    poeID.appendChild(tbdy);
   }
 
   function populate(dataToDisplay, dst, dstNum) {

@@ -194,7 +194,7 @@ function getFile($fileName){
     let poeID = document.getElementById('pointOfEntryViz');
 
     for (let l = 0; l < poeArray.length;l++){
-      print(poeArray[l]);
+      console.log(poeArray[l]);
       let node = document.createTextNode(poeArray[l][0] + " " + jsonPoe[poeArray[l][1]]['name']);
       para.appendChild(node);
       para.appendChild(document.createElement('br'));//dont use a variable here, because then it will treat it as the same thing and only append it once, pushing it to the end of the p

@@ -84,7 +84,6 @@ def determineServer(remoteData,localData):
 	if thisServer:
 		print('Point of entry')
 
-		#do we need to import time for this to work???
 		logging.info(datetime.datetime.now())
 		
 		#print(SP.myIP)
@@ -97,6 +96,7 @@ def determineServer(remoteData,localData):
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing
 
+#this should be added to class
 def localData(localDataFileCsv, chosenDataValue):
 
 	csvArray = []
@@ -115,6 +115,7 @@ def localData(localDataFileCsv, chosenDataValue):
 			if csvArray[0][v] == chosenDataValue:
 				return csvArray[-1][v]
 
+#this should be added to class
 def getIPList(deviceListJson, myMACAddr):
 
 	ipList = []

@@ -5,10 +5,11 @@ retrieving data from local config
 retrieving local environmental variables
 getting own MAC address
 getting own public IP address
-managing DNS gateway endpoints (updating and return white/black lists)
+managing DNS gateway endpoints (updating and returning white/black lists)
 
 future additions:
 retrieving live and historic data from charge controller
+load and retrieve deviceList file
 
 currently this class only handles some new functionality for solarProtocol.py.
 Refactoring and expansion is required to create additional methods and apply this to clientPostIP.py too
@@ -27,7 +28,7 @@ class SolarProtocol:
 		self.localConfigFile = "/home/pi/local/local.json"
 		self.localConfigData = dict()
 		self.loadLocalConfigFile()
-		self.myIP = requests.get('http://whatismyip.akamai.com/').text
+		self.myIP = requests.get('http://whatismyip.akamai.com/').text #we should have our own API endpoint for this...
 		# dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
 		self.dnsURL = "https://server.solarpowerforartists.com/"
 		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables

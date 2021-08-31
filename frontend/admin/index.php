@@ -53,7 +53,7 @@ function getFile($fileName){
 
 <div id="server list"><h3>Online Servers:</h3></div>
 
-<div id="pointOfEntryViz"><h3>Point of Entry History ASCII Vizs:</h3></div>
+<div id="pointOfEntryViz"><h3>Point of Entry History ASCII Viz:</h3></div>
 
 <div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
 <!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->

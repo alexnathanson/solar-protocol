@@ -216,7 +216,7 @@ function getFile($fileName){
         }
         newString += poeArray[l][1];
         poeStrings.push(newString);
-        
+
         //add a space to all other entries
         for(let s = 0;s< poeStrings.length-1;s++){
           poeStrings[s] += ' ';
@@ -232,6 +232,7 @@ function getFile($fileName){
           }
         }
       }
+      countSpaces ++;
     }
 
 

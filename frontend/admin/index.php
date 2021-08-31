@@ -209,16 +209,19 @@ function getFile($fileName){
         //if its a new name, add the name
         poeNames.push(poeArray[l][1]);
 
+        let newString = '';
         //back fill this new entry with blank spaces
         for(let s = 0; s < countSpaces.length;s++){
-          poeStrings += ' ';
+          newString += ' ';
         }
-        poeString += poeArray[l][1];
-
+        newString += poeArray[l][1];
+        poeStrings.push(newString);
+        
         //add a space to all other entries
         for(let s = 0;s< poeStrings.length-1;s++){
           poeStrings[s] += ' ';
         }
+
       } else {
         //get position of name
         for(let n = 0; n < poeNames.length;n++){

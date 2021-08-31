@@ -42,6 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } elseif(array_key_exists("ip", $_GET)){
       #echo "get updating...<br>";
       verifyPW($_GET["key"],$_GET["ip"],$serverHash, $dnskey);
+  } elseif(array_key_exists("myip", $_GET)){
+    /*there are a number of headers (such as 'HTTP_CLIENT_IP' and 'HTTP_X_FORWARDED_FOR') that can potentially provide the public IP, however these are set by proxy servers and may produce wrong/faulty info
+    'REMOTE_ADDR is set by the client and is reliable as long as the client is reliable...*/
+      $ip = $_SERVER['REMOTE_ADDR'];
+      #echo 'remote addr';
+      echo $ip;
   } else {
     echo "no match";
   }

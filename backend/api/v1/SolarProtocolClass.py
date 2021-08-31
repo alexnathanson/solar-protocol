@@ -28,7 +28,7 @@ class SolarProtocol:
 		self.localConfigFile = "/home/pi/local/local.json"
 		self.localConfigData = dict()
 		self.loadLocalConfigFile()
-		self.myIP = requests.get('http://whatismyip.akamai.com/').text #we should have our own API endpoint for this...
+		self.myIP = requests.get('https://server.solarpowerforartists.com/?myip').text #we should have our own API endpoint for this...
 		# dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
 		self.dnsURL = "https://server.solarpowerforartists.com/"
 		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables

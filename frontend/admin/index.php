@@ -208,6 +208,7 @@ function getFile($fileName){
       if (!poeNames.includes(poeArray[l][1])){
         //if its a new name, add the name
         poeNames.push(poeArray[l][1]);
+        console.log(poeNames);
 
         let newString = '';
         //back fill this new entry with blank spaces
@@ -237,7 +238,7 @@ function getFile($fileName){
 
 
     for(let s = 0; s < poeStrings.length;s ++){
-      let asciiLine = document.createTextNode(poeStrings);
+      let asciiLine = document.createTextNode(poeStrings[s]);
       para.appendChild(asciiLine);
       para.appendChild(document.createElement('br'))
     }

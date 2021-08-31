@@ -115,7 +115,7 @@ def localData(localDataFileCsv, chosenDataValue):
 			if csvArray[0][v] == chosenDataValue:
 				return csvArray[-1][v]
 
-def getIPList(devicesListJson, myMACAddr):
+def getIPList(deviceListJson, myMACAddr):
 
 	ipList = []
 

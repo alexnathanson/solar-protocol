@@ -31,7 +31,7 @@ class SolarProtocol:
 		# dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
 		self.dnsURL = "https://server.solarpowerforartists.com/"
 		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
-		self.MACinterface = "wlan0"
+		self.MACinterface = "wlan0" #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 
 	#load in data from config file
 	def loadLocalConfigFile(self):

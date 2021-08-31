@@ -18,12 +18,15 @@ from SolarProtocolClass import SolarProtocol
 dnsKey = ''
 
 '''
-possible values (use "-" instead of spaces):
+possible values for dataValue (use "-" instead of spaces):
 PV current,PV power H,PV power L,PV voltage,
 battery percentage,battery voltage,charge current,
 charge power H,charge power L,date,load current,load power,load voltage,time
+possible values for apiValue include all of the above + scaled-wattage
 '''
+#this is the value to be retrieved locally (and then scaled). It could potentially be retrieved via an API call to itself, which might make code cleaner
 dataValue = 'PV power L'
+#this is the key to retrieve from remote devices
 apiValue = 'scaled-wattage'
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
@@ -44,12 +47,7 @@ def getData(dst, chosenApiValue):
 		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+chosenApiValue, timeout = 5)
 		#print(response.text)		
 		#check if the response can be converted to a float
-		# try:
-		# 	response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+apiValue, timeout = 5) 
-		#this was in the try
 		return float(response.text)
-		# except:
-		# 	return -1
 	except requests.exceptions.HTTPError as err:
 		print(err)
 		return -1
@@ -72,7 +70,7 @@ def remoteData(dstIPs, chosenApiValue):
 	return allData
 	#determineServer(allData)
 
-def determineServer(remoteData,localData, dnsUpdatePassword):
+def determineServer(remoteData,localData):
 
 	thisServer = True
 
@@ -86,10 +84,11 @@ def determineServer(remoteData,localData, dnsUpdatePassword):
 	if thisServer:
 		print('Point of entry')
 
+		#do we need to import time for this to work???
 		logging.info(datetime.datetime.now())
 		
-		print(SP.myIP)
-		print(SP.getEnv('DNS_KEY'))
+		#print(SP.myIP)
+		#print(SP.getEnv('DNS_KEY'))
 
 		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
 		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
@@ -134,7 +133,6 @@ def getIPList(devicesListJson, myMACAddr):
 
 	return ipList
 
-#this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 myMAC = SP.getMAC(SP.MACinterface)
 #print("my mac: " + myMAC)
 
@@ -142,4 +140,4 @@ localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
 print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
 remotePVData = remoteData(getIPList(devicesList, myMAC), apiValue)
 #print("Remote Voltage: " + remotePVData)
-determineServer(remotePVData, localPVData, subCall, dnsKey)
+determineServer(remotePVData, localPVData)

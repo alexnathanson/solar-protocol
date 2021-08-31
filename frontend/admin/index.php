@@ -173,7 +173,7 @@ function getFile($fileName){
 
     displayPOE(outputPoeLog);
 
-    poeViz(outputPoeLog)
+    asciiPoeViz(outputPoeLog)
   } 
 
   function displayPOE(poeArray){
@@ -190,57 +190,54 @@ function getFile($fileName){
     poeID.appendChild(para);
   }
 
-  function poeViz(poeArray){
+  function asciiPoeViz(poeArray){
     let poeID = document.getElementById('pointOfEntryViz');
     let para = document.createElement('p');
 
+    //an array of all the server names that were PoE
     let poeNames = [];
-    let poeSymbols = ['/','*','~','|','{','[','+','=','}',']','-','_'];
 
-    let poeString = '';
+    //an array of all the ascii lines by device
+    let poeStrings = [];
+
+    let countSpaces = 0;
 
     for (let l = 0; l < poeArray.length;l++){
       console.log(poeArray[l]);
-      if (!poeNames.includes(jsonPoe[poeArray[l][1]]['name'])){
-        poeNames.push(jsonPoe[poeArray[l][1]]['name']);
-        poeString += poeSymbols[poeNames.length];
+      //check if it is a new name
+      if (!poeNames.includes(poeArray[l][1])){
+        //if its a new name, add the name
+        poeNames.push(poeArray[l][1]);
+
+        //back fill this new entry with blank spaces
+        for(let s = 0; s < countSpaces.length;s++){
+          poeStrings += ' ';
+        }
+        poeString += poeArray[l][1];
+
+        //add a space to all other entries
+        for(let s = 0;s< poeStrings.length-1;s++){
+          poeStrings[s] += ' ';
+        }
       } else {
         //get position of name
         for(let n = 0; n < poeNames.length;n++){
-          if(jsonPoe[poeArray[l][1]]['name'] == poeNames[n]){
-            poeString += poeSymbols[poeNames[n]];
-            break;
+          if(poeArray[l][1] == poeNames[n]){
+            poeStrings[n] += poeNames[n];
+          } else {
+            poeStrings[n] += ' ';
           }
         }
       }
-      let node = document.createTextNode(poeString);
     }
-    para.appendChild(node);
+
+
+    for(let s = 0; s < poeStrings.length;s ++){
+      let asciiLine = document.createTextNode(poeStrings);
+      para.appendChild(asciiLine);
+      para.appendChild(document.createElement('br'))
+    }
     poeID.appendChild(para);
-
-/*
-    let pT = document.createElement("table"); 
-    pT.style.width = '100%';
-    sT.setAttribute('border', '1');
-
-    let ptbdy = document.createElement('tbody');
-
-    for (let r = 0; r <2;r++) {
-      let tr = document.createElement('tr');
-      for (let c = 0; c < Object.keys(jsonData).length; c++) {
-        let td = document.createElement('td');
-        if (r == 0) {//headers
-          td.appendChild(document.createTextNode(Object.keys(jsonData)[c]));
-          tr.appendChild(td);
-        } else if (r == 1){//content
-          td.appendChild(document.createTextNode(jsonData[Object.keys(jsonData)[c]]));
-          tr.appendChild(td);
-        }
-      }
-      tbdy.appendChild(tr);
-    }
-    sT.appendChild(tbdy);*/
-
   }
 
   function populate(dataToDisplay, dst, dstNum) {

@@ -138,6 +138,6 @@ myMAC = SP.getMAC(SP.MACinterface)
 
 localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
 print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
-remotePVData = remoteData(getIPList(devicesList, myMAC), apiValue)
+remotePVData = remoteData(getIPList(deviceList, myMAC), apiValue)
 #print("Remote Voltage: " + remotePVData)
 determineServer(remotePVData, localPVData)

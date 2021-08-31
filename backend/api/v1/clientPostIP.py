@@ -1,4 +1,5 @@
 '''
+Every server runs this script.
 Reads list of destination IPs and posts own IP address to those other devices.
 '''
 import requests

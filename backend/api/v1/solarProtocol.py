@@ -8,17 +8,13 @@ Otherwise, the script changes nothing.
 
 import requests
 import os
-import subprocess
 import fileinput
 import json
 import datetime
-#import time
 import csv
 import logging
 from SolarProtocolClass import SolarProtocol
 
-#terminal command to update DNS record
-subCall = 'sudo sh /home/pi/solar-protocol/backend/update_ip2.sh '
 dnsKey = ''
 
 '''
@@ -27,9 +23,7 @@ PV current,PV power H,PV power L,PV voltage,
 battery percentage,battery voltage,charge current,
 charge power H,charge power L,date,load current,load power,load voltage,time
 '''
-
 dataValue = 'PV power L'
-# apiValue = 'PV-voltage'
 apiValue = 'scaled-wattage'
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
@@ -42,7 +36,9 @@ logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', l
 SP = SolarProtocol()
 
 #return data from a particular server
+# this is redundant with the class... add this error handling to the class?
 def getData(dst, chosenApiValue):
+
 	try:
 		#returns a single value
 		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+chosenApiValue, timeout = 5)
@@ -76,7 +72,7 @@ def remoteData(dstIPs, chosenApiValue):
 	return allData
 	#determineServer(allData)
 
-def determineServer(remoteData,localData, updateDNSCmd, dnsUpdatePassword):
+def determineServer(remoteData,localData, dnsUpdatePassword):
 
 	thisServer = True
 
@@ -91,9 +87,13 @@ def determineServer(remoteData,localData, updateDNSCmd, dnsUpdatePassword):
 		print('Point of entry')
 
 		logging.info(datetime.datetime.now())
+		
+		print(SP.myIP)
+		print(SP.getEnv('DNS_KEY'))
 
-		#comment back in to run
-		os.system(updateDNSCmd + ' ' + dnsUpdatePassword)
+		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
+		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
+
 	else:
 		print('Not point of entry')
 		#logging.info(datetime.datetime.now())#comment this out after testing
@@ -134,30 +134,8 @@ def getIPList(devicesListJson, myMACAddr):
 
 	return ipList
 
-#this only works with linux
-def getmac(interface):
-
-	try:
-		mac = open('/sys/class/net/'+interface+'/address').readline()
-	except:
-		mac = "00:00:00:00:00:00"
-
-	return mac
-
-def getEnv(thisEnv):
-	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
-	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
-	e = proc.stdout.read()
-	#convert byte string to string
-	e = e.decode("utf-8") 
-	#remove line breaks
-	e = e.replace("\n", "")
-	return e
-
-subCall += str(getEnv('DNS_KEY'))
-
 #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
-myMAC = getmac("wlan0")
+myMAC = SP.getMAC(SP.MACinterface)
 #print("my mac: " + myMAC)
 
 localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()

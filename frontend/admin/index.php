@@ -213,14 +213,14 @@ function getFile($fileName){
         let newString = '';
         //back fill this new entry with blank spaces
         for(let s = 0; s < countSpaces.length;s++){
-          newString += ' ';
+          newString += '&nbsp';
         }
         newString += poeArray[l][1];
         poeStrings.push(newString);
 
         //add a space to all other entries
         for(let s = 0;s< poeStrings.length-1;s++){
-          poeStrings[s] += ' ';
+          poeStrings[s] += '&nbsp';
         }
 
       } else {
@@ -229,7 +229,7 @@ function getFile($fileName){
           if(poeArray[l][1] == poeNames[n]){
             poeStrings[n] += poeNames[n];
           } else {
-            poeStrings[n] += ' ';
+            poeStrings[n] += '&nbsp';
           }
         }
       }

@@ -206,12 +206,12 @@ function getFile($fileName){
     for (let l = 0; l < poeArray.length;l++){
       console.log(poeArray[l]);
       //check if it is a new name
-      if (!poeNames.includes(poeArray[l][1])){
+      if (!poeNumbers.includes(poeArray[l][1])){
         //if its a new name, add the name
         poeNumbers.push(poeArray[l][1]);
         poeNames.push(jsonPoe[poeArray[l][1]]['name']);
 
-        let newString = poeArray[l][1] +'=>';
+        let newString = '';
         //back fill this new entry with blank spaces
         for(let s = 0; s < countSpaces;s++){
           newString += spaceChar;

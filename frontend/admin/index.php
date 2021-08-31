@@ -202,6 +202,8 @@ function getFile($fileName){
 
     let countSpaces = 0;
 
+    let spaceChar = "_";
+
     for (let l = 0; l < poeArray.length;l++){
       console.log(poeArray[l]);
       //check if it is a new name
@@ -213,14 +215,14 @@ function getFile($fileName){
         let newString = '';
         //back fill this new entry with blank spaces
         for(let s = 0; s < countSpaces.length;s++){
-          newString += '&nbsp';
+          newString += spaceChar;
         }
         newString += poeArray[l][1];
         poeStrings.push(newString);
 
         //add a space to all other entries
         for(let s = 0;s< poeStrings.length-1;s++){
-          poeStrings[s] += '&nbsp';
+          poeStrings[s] += spaceChar;
         }
 
       } else {
@@ -229,7 +231,7 @@ function getFile($fileName){
           if(poeArray[l][1] == poeNames[n]){
             poeStrings[n] += poeNames[n];
           } else {
-            poeStrings[n] += '&nbsp';
+            poeStrings[n] += spaceChar;
           }
         }
       }

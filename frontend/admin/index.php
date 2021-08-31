@@ -213,7 +213,7 @@ function getFile($fileName){
 
         let newString = poeArray[l][1] +'=>';
         //back fill this new entry with blank spaces
-        for(let s = 0; s < countSpaces.length;s++){
+        for(let s = 0; s < countSpaces;s++){
           newString += spaceChar;
         }
         newString += poeArray[l][1];
@@ -234,7 +234,7 @@ function getFile($fileName){
           }
         }
       }
-      countSpaces += 1;
+      countSpaces ++;
     }
 
 

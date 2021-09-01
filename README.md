@@ -35,7 +35,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-
 * To test, set up a virtual environment and install requirements.txt
  -->
 
-## Needs
+## Collaborate with us!
 
 This is a growing global collaborative project and there are many ways to contribute. Some tasks that a volunteer could take on are listed below. Please get in touch if you would like to contribute in some way.
 

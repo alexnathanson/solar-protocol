@@ -12,15 +12,15 @@ url https://server.solarpowerforartists.com/ (redirection through dns.solarproto
 
 ### GET requests
 
-ip & key
-'?ip=0.0.0.0&key=123456789'
+ip & key<br>
+`https://server.solarpowerforartists.com/?ip=0.0.0.0&key=123456789` updates the DNS record
 
-list
-'?list=true' returns white list
-'?list=false' returns black list
+list<br>
+`https://server.solarpowerforartists.com/?list=true` returns white list
+`https://server.solarpowerforartists.com/?list=false` returns black list
 
-myip
-'?myip' returns the client's public IP address
+myip<br>
+`https://server.solarpowerforartists.com/?myip` returns the client's public IP address
 
 <!-- ### POST requests
 none currently -->

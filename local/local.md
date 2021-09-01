@@ -1,6 +1,6 @@
 # Local Directory
 
-This directly gets moved to home/pi/local
+This directory gets moved to home/pi/local
 
 ## local.json
 

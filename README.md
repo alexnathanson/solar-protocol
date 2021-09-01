@@ -30,6 +30,32 @@ https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 
 https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-maintenance.md
 
-### FRONT END
+<!-- ### FRONT END
 * Code for an energy responsive front end is in test-site folder
 * To test, set up a virtual environment and install requirements.txt
+ -->
+
+## Needs
+
+This is a growing global collaborative project and there are many ways to contribute. Some tasks that a volunteer could take on are listed below. Please get in touch if you would like to contribute in some way.
+
+### Software development
+
+* Enable better network analytics
+* Refactor the admin console
+* Write a script to periodically run a software update automatically
+* Write a script to run the backend processes based on battery status, rather than just time
+
+### Design
+
+* Admin console redesign
+* Solar Protocol header for steward pages
+
+### Content
+
+* Do you have a great idea for something that could make use of this unique system? It could be an art project, research project, essay, etc.
+
+### Other
+
+* Can you conduct an LCA of the hardware we use?
+* Can you help identify an accurate way to quantify the energy consumed by transferring data across the internet?

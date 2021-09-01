@@ -1,8 +1,8 @@
-# Traffic controller
+# DNS Gateway
 
 The contents of this directory run on a server redirected through dns.solarprotocol.net (redirection through dns.solarprotocol.net isn't working currently so we are temporarily using https://server.solarpowerforartists.com)
 
-This handles requests to repoint the DNS and manages the white/black lists.
+This handles requests from servers on the network to repoint the DNS and manages the access lists.
 
 This server also handles some functionality that we were previously using 3rd parties for, such as retrieving our public IP.
 

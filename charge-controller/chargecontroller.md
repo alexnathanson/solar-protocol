@@ -6,8 +6,8 @@ These scripts enable logging data from an Epever Tracer-AN Series charge control
 
 ## Wiring
 
-* RJ45 blue => b
-* RJ45 green => a
+* RJ45 blue wire => b terminal on ch340T
+* RJ45 green wire => a terminal on ch340T
 
 ## Installation
 Install pymodbus

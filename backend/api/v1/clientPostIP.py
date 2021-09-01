@@ -23,6 +23,7 @@ poeData = []
 newDSTList = []
 runningDSTList = []
 
+#update this with the SP IP site
 myIP = 	requests.get('http://whatismyip.akamai.com/').text
 
 print("MY IP: " + myIP)

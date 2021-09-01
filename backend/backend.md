@@ -14,7 +14,7 @@ The contents of this directory all run on each of the servers.
 ## Create HTML
 
 * the templates directory contains template files for all of the pages
-* create_html.py updates the page templates and runs the viz.py script
+* create_html.py is a static site generator. It updates the page templates (saves them in the frontend directly) and runs the viz.py script
 	* this is run via chron
 * viz.py produces the data visualization of the network featured on the home page
 

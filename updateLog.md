@@ -1,5 +1,9 @@
 # Software Update Log
 
+## 9/1/21
+
+Cleaned up repository and added documentation
+
 ## 8/31/21
 
 refactored solarprotocol.py, created a DNS gateway on that will enable a lot more future functionality and network reliability (such as managing DNS access, distributing access lists, and taking on some 3rd party functions like public IP identification, started messing around with an ascii visualization of the network (which has been added to the admin console). 

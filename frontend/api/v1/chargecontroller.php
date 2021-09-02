@@ -215,6 +215,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         "location" => $infoArray["location"],
         "city" => $infoArray["city"],
         "country" => $infoArray["country"],
+        "wattage-scaler" => wattageScaler(),
         "pvWatts" => $infoArray["pvWatts"],
         "pvVolts" => $infoArray["pvVolts"]);
       echo json_encode($infoDump);

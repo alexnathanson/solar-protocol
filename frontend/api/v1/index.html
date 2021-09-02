@@ -15,14 +15,18 @@
 	Note: This is the publicly available open-access API, developers on the network can view the complete API documentation on <a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
 </p>
 
-There are 4 types of data this interface provides.
+<p>
+	Solar Protocol is a network of servers located all over the world. The primary server, which we call the "point of entry" or "POE", is determined by whichever server is in the most sunlight at a given time. The data returned from these GET requests pertains to the POE server only. This means that every call you make to the API might get a response from a different device with different values of data.
+</p>
+
+There are 4 types of data this API provides:
 <ol>
-	<li>Individual values</li>
+	<li>Individual pieces of data from the charge controller for PV, battery, and load status</li>
 	<li>Individual lines of data containing all the given values for a particular time</li>
 	<li>An entire day's worth of data</li>
 	<li>System information</li>
 </ol>
-The results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
+All of these results are only for the current primary server. The results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
 
 <h2>Value</h2>
 <strong>value</strong> returns the specified value from the most recently collected line of data.
@@ -43,6 +47,7 @@ The results from these API calls are displayed in the browser console. (fn + f12
 		<li>load-power</li>
 		<li>load-voltage</li>
 		<li>datetime</li>
+		<li>scaled-wattage</li>
 	</ul>
 </p>
 Optional modifier: <strong>duration</strong> returns the specified value over a given amount of days, from 1 to 7.
@@ -93,7 +98,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 
 <h2>System Info</h2>
 
-<strong>systemInfo</strong> returns information about the system.
+<strong>systemInfo</strong> returns information about the system and that server's local variables
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz</a></p>
 <p>Possible values:
 	<ul>
@@ -104,6 +109,9 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 		<li>location - returns the location</li>
 		<li>city - returns the city the server is located in</li>
 		<li>country - returns the country the server is located in</li>
+		<li>wattage-scaler -returns the scaler value based on a standard of a 50 watt module</li>
+		<li>pvWatts -returns the wattage of the module</li>
+		<li>pvVoltage - returns the voltage of the module</li>
 		<li>dump - returns a dictionary containing all of the above system info</li>
 	</ul>
 </p>

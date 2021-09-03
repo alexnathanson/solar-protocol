@@ -223,7 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       $devNames = getFileContents($fileName)[0]['names'];
 
-      echo $devNames
+      echo $devNames;
     }
   }
 }

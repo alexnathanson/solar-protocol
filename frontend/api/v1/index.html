@@ -19,12 +19,16 @@
 	Solar Protocol is a network of servers located all over the world. The primary server, which we call the "point of entry" or "POE", is determined by whichever server is in the most sunlight at a given time. The data returned from these GET requests pertains to the POE server only. This means that every call you make to the API might get a response from a different device with different values of data.
 </p>
 
-There are 4 types of data this API provides:
+There are 3 main types of data this API provides:
 <ol>
-	<li>Individual pieces of data from the charge controller for PV, battery, and load status</li>
-	<li>Individual lines of data containing all the given values for a particular time</li>
-	<li>An entire day's worth of data</li>
-	<li>System information</li>
+	<li>Local charge controller data</li>
+	<ol>
+		<li>Individual pieces of data from the charge controller for PV, battery, and load status</li>
+		<li>Individual lines of data containing all the given values for a particular time</li>
+		<li>An entire day's worth of data</li>
+	</ol>
+	<li>Local System information</li>
+	<li>Network information</li>
 </ol>
 All of these results are only for the current primary server. The results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
 

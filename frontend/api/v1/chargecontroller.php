@@ -227,7 +227,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       $contents = getFileContents($fileName);
       echo gettype($contents)
 
-      for ($d = 0; $d < count($contents);$d++){
+      for ($d = 0; $d < count($contents);$d++;){
         array_push($output,$contents[$d]["name"]);
       }
       #echo json_encode($output);

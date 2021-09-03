@@ -25,6 +25,9 @@ if(window.location.search.length > 0){
 	} else if (params.get("systemInfo")){
 		endPt = "systemInfo";
 		endPtVal = params.get("systemInfo");
+	} else if (params.get("networkInfo")){
+		endPt = "networkInfo";
+		endPtVal = params.get("networkInfo");
 	}
 
 	//example http://solarprotocol.net/api/v1/chargecontroller.php?file=list
@@ -48,13 +51,9 @@ if(window.location.search.length > 0){
 
 function getBaseUrl() {
 
-	if(params.get("dst") && params.get("dst") != ''){
-		return "http://" + params.get("dst");
-	} else {
-		var re = new RegExp(/^.*\/\/[^\/]+/);
-	    //console.log(re.exec(window.location.href));
-	    return re.exec(window.location.href);
-	}
+	var re = new RegExp(/^.*\/\/[^\/]+/);
+    //console.log(re.exec(window.location.href));
+    return re.exec(window.location.href);
 }
 
 function httpGet(theUrl)

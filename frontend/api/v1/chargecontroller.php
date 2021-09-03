@@ -217,13 +217,21 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
   } else if (array_key_exists("networkInfo", $_GET)) {
 
-       //this should be removed and made into a POST
+
     if($_GET["networkInfo"] == "deviceList"){
+  
+      $output = [];
+
       $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
-      $devNames = getFileContents($fileName)[0]['names'];
+      $contents = getFileContents($fileName);
+      #echo gettype($contents)
 
-      echo $devNames;
+      for ($d = 0; $d < count($contents)){
+        array_push($output,$contents[$d]["name"]);
+      }
+      echo json_encode($output);
+
     }
   }
 }

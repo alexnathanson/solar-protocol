@@ -151,12 +151,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       echo json_encode(chargeControllerData($ccDir . $_GET["day"] . '.csv'));
     }
 
-     //this should be removed and made into a POST
-    if($_GET["day"] == "deviceList"){
-      $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
-      echo getFileContents($fileName);
-    }
-
   } else if (array_key_exists("systemInfo", $_GET)) {
 
     //echo "system info! ";
@@ -220,6 +214,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         "pvVolts" => $infoArray["pvVolts"]);
       echo json_encode($infoDump);
      
+    }
+  } else if (array_key_exists("networkInfo", $_GET)) {
+
+       //this should be removed and made into a POST
+    if($_GET["networkInfo"] == "deviceList"){
+      $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+
+      $devNames = getFileContents($fileName)[0]['names'];
+
+      echo $devNames
     }
   }
 }

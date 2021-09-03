@@ -47,9 +47,14 @@ if(window.location.search.length > 0){
 }
 
 function getBaseUrl() {
-    var re = new RegExp(/^.*\/\/[^\/]+/);
-    //console.log(re.exec(window.location.href));
-    return re.exec(window.location.href);
+
+	if(params.get("dst") && params.get("dst") != ''){
+		return "http://" + params.get("dst");
+	} else {
+		var re = new RegExp(/^.*\/\/[^\/]+/);
+	    //console.log(re.exec(window.location.href));
+	    return re.exec(window.location.href);
+	}
 }
 
 function httpGet(theUrl)

@@ -96,7 +96,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
   <button type="submit">Get Day</button>
 </form>
 
-<h2>System Info</h2>
+<h2>Local System Info</h2>
 
 <strong>systemInfo</strong> returns information about the system and that server's local variables
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz</a></p>
@@ -120,6 +120,22 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
  <p>System Info <input type="text" name="systemInfo"></p>
   <p></p>
   <button type="submit">Get System Info</button>
+</form>
+
+
+<h2>Network Ifno</h2>
+
+<strong>networkInfo</strong> returns information about the network
+<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?networkInfo=devices" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?networkInfo=devices</a></p>
+<p>Possible values:
+	<ul>
+		<li>devices - returns a list of the names of servers</li>
+	</ul>
+
+<form method="GET">
+ <p>Network Devices <input type="text" name="networkInfo"></p>
+  <p></p>
+  <button type="submit">Get Network Info</button>
 </form>
 
 <p>

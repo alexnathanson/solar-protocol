@@ -224,13 +224,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 
-      $contents = file_get_contents($fileName); #getFileContents($fileName);
-      echo gettype(json_decode($contents,true));
+      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
 
       for ($d = 0; $d < count($contents);$d++){
         array_push($output,$contents[$d]["name"]);
       }
-      #echo json_encode($output);
+      echo json_encode($output);
 
     }
   }

@@ -1,4 +1,5 @@
 RewriteEngine on
+Options +FollowSymLinks
 
 # REDIRECT TO LOCAL DIRECTORY
 # for media
@@ -17,8 +18,25 @@ RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 
 
 # NICE URL FOR STEWARD PAGES
+#ln 21 just added
+#RewriteCond %{REQUEST_URI} ^network/(.*)$
+
 RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
+
+
+
+####
+#RewriteEngine On
+#RewriteRule ^(.*) http://www.newdomain.com%{REQUEST_URI} [R=302,NC]
+
+#Redirect from old domain with subdirectory to new domain w/o subdirectory including full path and query string:
+#Options +FollowSymLinks
+#RewriteEngine On
+#RewriteCond %{REQUEST_URI} ^/subdirname/(.*)$
+#RewriteRule ^(.*) http://www.katcode.com/%1 [R=302,NC]
+###########
+
 
 #add trailing / on www root url
 RewriteCond %{REQUEST_URI} !(/$|\.) 

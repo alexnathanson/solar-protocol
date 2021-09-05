@@ -23,11 +23,11 @@ RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 
 # %2F is the / symbol
 #remove everything up to and including network/
-RewriteCond %{REQUEST_URI} ^/network/(.*)$ 
+#RewriteCond %{REQUEST_URI} ^/network/(.*)$ 
 #replace the / with %2F
-RewriteRule ^([^/]*)/([^/]*/.*) $1%2F$2 [N]
-RewriteRule ^([^/]*)/([^/]*)$ $1%2F$2 [N]
-RewriteRule ^(.*)%2F(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
+RewriteRule ^/network/([^/]*)/([^/]*/.*) $1%2F$2
+RewriteRule ^/network/([^/]*)/([^/]*)$ $1%2F$2
+RewriteRule ^/network/(.*)%2F(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 

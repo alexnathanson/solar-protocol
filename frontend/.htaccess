@@ -18,17 +18,7 @@ RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 
 # NICE URL FOR STEWARD PAGES - old stuff that mostly works
 # this doesn't work with subdirectories because you can't have / in a query string...
-#RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
-#RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
-
-# %2F is the / symbol
-#remove everything up to and including network/
-#RewriteCond %{REQUEST_URI} ^/network/(.*)$ 
-#replace the / with %2F
-RewriteRule ^/network/([^/]*)/([^/]*/.*) $1%2F$2
-RewriteRule ^/network/([^/]*)/([^/]*)$ $1%2F$2
-RewriteRule ^/network/(.*)%2F(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
-
+RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
 

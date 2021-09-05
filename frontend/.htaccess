@@ -1,5 +1,5 @@
-RewriteEngine on
 Options +FollowSymLinks
+RewriteEngine on
 
 # REDIRECT TO LOCAL DIRECTORY
 # for media

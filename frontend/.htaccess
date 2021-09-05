@@ -1,4 +1,3 @@
-Options +FollowSymLinks
 RewriteEngine on
 
 # REDIRECT TO LOCAL DIRECTORY
@@ -18,11 +17,15 @@ RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 
 
 # NICE URL FOR STEWARD PAGES
-#ln 21 just added
-#RewriteCond %{REQUEST_URI} ^network/(.*)$
+#ln 21 just added - this removes everything up to and include the network directory 
+RewriteCond %{REQUEST_URI} ^/network/(.*)$
+RewriteRule ^(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
+RewriteRule ^(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
-RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
-RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
+
+#old stuff that worked
+#RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
+#RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
 
 

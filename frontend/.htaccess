@@ -16,16 +16,15 @@ RewriteRule ^local/$ /redirect/www.php?file=index.html
 RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 
 
-# NICE URL FOR STEWARD PAGES
-#ln 21 just added - this removes everything up to and include the network directory 
-RewriteCond %{REQUEST_URI} ^/network/(.*)$
-RewriteRule (.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
-RewriteRule (.*)$ /redirect/network.php?steward=$1 [QSA,L]
+#new stuff that doesn't work - this removes everything up to and include the network directory 
+#RewriteCond %{REQUEST_URI} ^/network/(.*)$
+#RewriteRule (.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
+#RewriteRule (.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
 
-#old stuff that worked
-#RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
-#RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
+# NICE URL FOR STEWARD PAGES - old stuff that mostly works
+RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
+RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
 
 #add trailing / on www root url

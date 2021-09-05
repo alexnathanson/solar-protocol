@@ -19,8 +19,8 @@ RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 # NICE URL FOR STEWARD PAGES
 #ln 21 just added - this removes everything up to and include the network directory 
 RewriteCond %{REQUEST_URI} ^/network/(.*)$
-RewriteRule ^(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
-RewriteRule ^(.*)$ /redirect/network.php?steward=$1 [QSA,L]
+RewriteRule (.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
+RewriteRule (.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
 
 #old stuff that worked
@@ -32,7 +32,6 @@ RewriteRule ^(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 ####
 #RewriteEngine On
 #RewriteRule ^(.*) http://www.newdomain.com%{REQUEST_URI} [R=302,NC]
-
 #Redirect from old domain with subdirectory to new domain w/o subdirectory including full path and query string:
 #Options +FollowSymLinks
 #RewriteEngine On

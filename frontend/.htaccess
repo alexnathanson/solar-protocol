@@ -12,7 +12,7 @@ RewriteRule ^local/(.*)$ /redirect/www.php?file=$1
 #for local www root
 RewriteRule ^local/$ /redirect/www.php?file=index.html
 
-#hands subdirectory roots -for example routes mysite/mysubdirectory/ to mysite/mysubdirectory/index.html
+#handles subdirectory roots - for example routes mysite/mysubdirectory/ to mysite/mysubdirectory/index.html
 RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 
 

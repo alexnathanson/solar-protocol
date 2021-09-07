@@ -81,8 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				if(isset($_GET['path']) && $_GET['path'] != ""){
 					$explodedString = explode("/", $_GET['path']);
 
-					for ($e = 1; $e < count($explodedString); $e ++){
-						$newBase .= "/" . $explodedString[e];
+					for ($e = 0; $e < count($explodedString) -1; $e++){
+						$newBase .= "/" . $explodedString[$e];
 					}
 					
 				}

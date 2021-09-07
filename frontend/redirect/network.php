@@ -83,9 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					$explodedString = explode("/", $_GET['path']);
 
 					for ($e = 0; $e < count($explodedString); $e++){
-						if ($e == count($explodedString) -1){
+						if ($e == count($explodedString) - 1){
 							//check if the last part of the path is a file name and if not add it to the path
-							if (strpos($explodedString[$e], ".") != false){
+							if (strpos($explodedString[$e], ".") !== false){
 								$newBase .= "/" . $explodedString[$e];
 							}
 						} else {

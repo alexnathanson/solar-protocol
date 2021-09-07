@@ -17,6 +17,8 @@ RewriteRule ^local/$ /redirect/www.php?file=index.html
 
 
 # NICE URL FOR STEWARD PAGES
+# This can only handle 6 sub directories - add more lines and extend as needed
+# the re-baseing that happens in the network.php file is crucial for the links working
 RewriteRule ^network/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4/$5/$6 [QSA,L]
 RewriteRule ^network/(.*)/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4/$5 [QSA,L]
 RewriteRule ^network/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4 [QSA,L]

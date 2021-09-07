@@ -17,7 +17,6 @@ RewriteRule ^local/$ /redirect/www.php?file=index.html
 
 
 # NICE URL FOR STEWARD PAGES - old stuff that mostly works
-# this doesn't work with subdirectories because you can't have / in a query string...
 RewriteRule ^network/(.*)/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4/$5 [QSA,L]
 RewriteRule ^network/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4 [QSA,L]
 RewriteRule ^network/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3 [QSA,L]
@@ -25,6 +24,10 @@ RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
 
-#add trailing / on www root url
+#add trailing /index.html on www root url
 RewriteCond %{REQUEST_URI} !(/$|\.) 
-RewriteRule (.*) %{REQUEST_URI}/ [R,L] 
+RewriteRule (.*) %{REQUEST_URI}/index.html [R,L] 
+
+#add trailing index.html on www root url ending in a slash
+RewriteCond %{REQUEST_URI} !(\.) 
+RewriteRule (.*) %{REQUEST_URI}index.html [R,L] 

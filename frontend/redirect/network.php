@@ -77,10 +77,21 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 			if($redirected){
 
+				$newBase = $_GET['steward']; 
+				if(isset($_GET['path']) && $_GET['path'] != ""){
+					$explodedString = explode("/", $_GET['path']);
+
+					for ($e = 0; $e < count($explodedString); $e ++){
+						$newBase .= $explodedString[e];
+					}
+					
+				}
+
+
 			    //replace url
 			    $redirected = str_replace(
 			   '<head>', 
-			   '<head><base href="/network/'.$_GET['steward'].'/">',
+			   '<head><base href="/network/'. $newBase.'/">',
 			    $redirected);
 
 			    //add banner if its an html page

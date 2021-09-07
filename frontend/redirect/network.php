@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
+				$_GET['path'] = str_replace('%2F','/',$_GET['path']);
 				echo $_GET['path'];
 				exit();
 				

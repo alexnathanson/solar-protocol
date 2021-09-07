@@ -16,7 +16,8 @@ RewriteRule ^local/$ /redirect/www.php?file=index.html
 #RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 
 
-# NICE URL FOR STEWARD PAGES - old stuff that mostly works
+# NICE URL FOR STEWARD PAGES
+RewriteRule ^network/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4/$5/$6 [QSA,L]
 RewriteRule ^network/(.*)/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4/$5 [QSA,L]
 RewriteRule ^network/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4 [QSA,L]
 RewriteRule ^network/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3 [QSA,L]

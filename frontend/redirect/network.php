@@ -77,14 +77,21 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 			if($redirected){
 
+				//this rebases it with the necessary subdirectories...
 				$newBase = $_GET['steward']; 
 				if(isset($_GET['path']) && $_GET['path'] != ""){
 					$explodedString = explode("/", $_GET['path']);
 
-					for ($e = 0; $e < count($explodedString) -1; $e++){
-						$newBase .= "/" . $explodedString[$e];
+					for ($e = 0; $e < count($explodedString); $e++){
+						if ($e == count($explodedString) -1){
+							//check if the last part of the path is a file name and if not add it to the path
+							if (strpos($explodedString[$e], ".") != false){
+								$newBase .= "/" . $explodedString[$e];
+							}
+						} else {
+							$newBase .= "/" . $explodedString[$e];
+						}
 					}
-					
 				}
 
 

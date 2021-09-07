@@ -17,3 +17,7 @@ Congratulations! If you've gotten this far you have installed your solar server.
 ### Step 2: Local variables
 
 ### Step 3: Upload your site
+
+All URLs must be relative.
+
+/ will take you back to solarprotocol.net

@@ -455,7 +455,7 @@ def main():
     background.save("/home/pi/solar-protocol/frontend/images/clock.png")
 
     exhibitionbackground.paste(foreground, (0, 0), mask)
-    background.save("/home/pi/solar-protocol/frontend/images/clock-exhibit.png")
+    exhibitionbackground.save("/home/pi/solar-protocol/frontend/images/clock-exhibit.png")
 
     # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
     # alphaBlended2.save("clock1.png")

@@ -67,15 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				if($fileType !== ''){
 					//routes non-root file paths
 					$localURL .= "/" . $_GET['path'];
-				} else if (isset($_GET['path']) && $_GET['path'] != ""){
+				} else {
 					//add index if its a sub directory root
 					$localURL .= "/" . $_GET['path'] . "/index.html";
 					$fileType = 'txt';
-				} else {
-					//add index if its a root
-					$localURL .= "/index.html";
-					$fileType = 'txt';
-				}
+				} 
 	
 
 				//the include approach will likely load faster, but might be less secure...
@@ -86,6 +82,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			if ($fileType == 'media'){
 				$redirected = @readfile($localURL);
 			} else {
+
+				//if a file wasn't specified i.e. its a root or sub directory root specify the index.html file
+				if ($fileType == ''){
+					//add index if its a root
+					$localURL .= "/index.html";
+				}
 				//get request - error reporting supressed with the @file_get_contents() - remove the @ to see the error messages
 				$redirected = @file_get_contents($localURL);
 			}

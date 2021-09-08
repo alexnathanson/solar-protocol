@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar Protocol</title>
+    <meta
+      name="author"
+      content=" Tega Brain, Alex Nathanson and Benedetta Piantella."
+    />
+    <link rel="icon" href="favicon.png" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      img {
+        display: block;
+        width: 100vh;
+        height: 100vh;
+        object-fit: cover;
+      }
+      div {
+        background-color: rgba(0, 0, 0);
+        background-image: url("images/clock2.png");
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <script>
+      let i = 0;
+      let s = 300;
+      setInterval(reload, 1000 * s);
+      function reload() {
+        const img = new Image();
+        const url = "images/clock2.png?i=" + i;
+        img.addEventListener('load', () => {
+          setImage(url);
+        })
+        img.src = url;
+        i++;
+      }
+
+      function setImage(url) {
+        document.getElementById("graph").style.backgroundImage = `url(${url})`;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="graph"></div>
+  </body>
+</html>

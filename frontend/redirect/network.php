@@ -45,6 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					header("Content-type: text/css");
 					$fileType = 'txt';
 					$fileSpecified = true;
+				} else if(strpos($_GET['path'], ".html") !== false){
+					header("Content-type: text/html");
+					$fileType = 'txt';
+					$fileSpecified = true;
 				} else if(strpos($_GET['path'], ".mp4") !== false){
 					header("Content-type: video/mp4");
 					$fileType = 'media';

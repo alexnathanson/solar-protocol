@@ -15,16 +15,6 @@ RewriteRule ^local/$ /redirect/www.php?file=index.html
 #handles subdirectory roots - for example routes mysite/mysubdirectory/ to mysite/mysubdirectory/index.html
 #RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html
 
-#add trailing /index.html on www root url for only pages in with network or local in th URI
-RewriteCond %{REQUEST_URI} !(/$|\.) 
-RewriteCond %{REQUEST_URI} (^network|^local) 
-RewriteRule (.*) %{REQUEST_URI}/index.html [R,L] 
-
-#add trailing index.html on www root url ending in a slash for only pages in with network or local in th URI
-RewriteCond %{REQUEST_URI} !(\.)
-RewriteCond %{REQUEST_URI} (^network|^local)  
-RewriteRule (.*) %{REQUEST_URI}index.html [R,L] 
-
 # NICE URL FOR STEWARD PAGES
 # This can only handle 6 sub directories - add more lines and extend as needed
 # the re-baseing that happens in the network.php file is crucial for the links working
@@ -35,4 +25,12 @@ RewriteRule ^network/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3
 RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
+#add trailing /index.html on www root url for only pages in with network or local in th URI
+RewriteCond %{REQUEST_URI} !(/$|\.) 
+RewriteCond %{REQUEST_URI} (^network|^local) 
+RewriteRule (.*) %{REQUEST_URI}/index.html [R,L] 
 
+#add trailing index.html on www root url ending in a slash for only pages in with network or local in th URI
+RewriteCond %{REQUEST_URI} !(\.)
+RewriteCond %{REQUEST_URI} (^network|^local)  
+RewriteRule (.*) %{REQUEST_URI}index.html [R,L] 

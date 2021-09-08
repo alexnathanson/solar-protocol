@@ -6,6 +6,7 @@ $deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 $deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
 $listNetwork = true;
+$fileSpecified = false;
 
 //options are txt or media
 $fileType = 'txt';
@@ -43,12 +44,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				if(strpos($_GET['path'], ".css") !== false){
 					header("Content-type: text/css");
 					$fileType = 'txt';
+					$fileSpecified = true;
 				} else if(strpos($_GET['path'], ".mp4") !== false){
 					header("Content-type: video/mp4");
 					$fileType = 'media';
+					$fileSpecified = true;
 				} else if(strpos($_GET['path'], ".pdf") !== false){
 					header("Content-type: application/pdf");
 					$fileType = 'media';
+					$fileSpecified = true;
 				} else {
 					//set mime type for images
 					$imgTypes = ["jpg","jpeg","gif","png"];
@@ -56,13 +60,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						if(strpos($_GET['path'], "." .$type) !== false){
 							header("Content-type: image/".$type);
 							$fileType = 'media';
+							$fileSpecified = true;
 							break;
 						}
 					}
 				}
 			
-				//routes non-root file paths
-				$localURL .= "/" . $_GET['path'];
+				if($fileSpecified){
+					//routes non-root file paths
+					$localURL .= "/" . $_GET['path'];
+				} else {
+					//add index if its a root
+					$localURL .= "/index.html";
+				}
+	
 
 				//the include approach will likely load faster, but might be less secure...
 				/*include($localURL);

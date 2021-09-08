@@ -1,6 +1,7 @@
 
 import gizeh as g
 import math
+import csv
 
 import pandas as pd
 import json
@@ -26,7 +27,7 @@ radius = 61*10
 start_ring = 1
 
 #Run settings
-local = 0
+local = 1
 debug_mode = 0
 
 path = "/home/pi/solar-protocol/backend"
@@ -384,14 +385,20 @@ def main():
     #customize inside labels
     server_names = getDeviceInfo('name')
     # print("server names", len(server_names))
+    with open ('ccData.csv', 'a') as csvfile:
+        fieldnames = ['item', 'emergyParam', 'timeZone', 'myTimeZone']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-    # go over ccData for each server
-    for i, item in enumerate(ccData):
+        # go over ccData for each server
+        for i, item in enumerate(ccData):
 
-        # print name of each server
-        text_curve(i+2, server_names[i], 0, 18, 18)
-        #draw sun data for each server
-        draw_ring(item,i+3, energyParam,timeZones[i], myTimeZone)
+            # print name of each server
+            text_curve(i+2, server_names[i], 0, 18, 18)
+            #draw sun data for each server
+            draw_ring(item,i+3, energyParam,timeZones[i], myTimeZone)    
+            print(item)
+            # writer.writerow({'item':item, 'emergyParam':energyParam, 'timeZone':timeZones[i], 'myTimeZone':myTimeZone})
+
 
 
     #Draw Active Server Rings
@@ -407,6 +414,7 @@ def main():
     if dfPOE.shape[1] > 0:
         #for l, item in enumerate(dfPOE.shape[0]):
         for l in range(dfPOE.shape[0]):
+
             if l == 0:
                 # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
                 # print( sysC[dfPOE['device'].iloc[l]])
@@ -445,21 +453,21 @@ def main():
 
 
 
-    background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1.png")
-    foreground = Image.open("clock.png")
-    #Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
+    # background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1.png")
+    # foreground = Image.open("clock.png")
+    # #Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
-    # background.paste(foreground, (0, 0))
-    # background.save("clock1.png")
+    # # background.paste(foreground, (0, 0))
+    # # background.save("clock1.png")
 
-    mask = Image.open('/home/pi/solar-protocol/backend/visualization/mask5.png').resize(background.size).convert('L')
-    background.paste(foreground, (0, 0), mask)
-    background.save("/home/pi/solar-protocol/frontend/images/clock.png")
-    # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
-    # alphaBlended2.save("clock1.png")
-    #archive images
-    archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
-    archiveImage.save('/home/pi/solar-protocol/backend/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+    # mask = Image.open('/home/pi/solar-protocol/backend/visualization/mask5.png').resize(background.size).convert('L')
+    # background.paste(foreground, (0, 0), mask)
+    # background.save("/home/pi/solar-protocol/frontend/images/clock.png")
+    # # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
+    # # alphaBlended2.save("clock1.png")
+    # #archive images
+    # archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
+    # archiveImage.save('/home/pi/solar-protocol/backend/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
 
 if __name__ == "__main__":
     main()

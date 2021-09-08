@@ -14,7 +14,7 @@ mypy-extensions==0.4.3
 numpy==1.19.5
 pandas==1.2.0
 pathspec==0.8.1
-Pillow==8.1.0
+Pillow==8.3.2
 pymodbus==2.4.0
 pyparsing==2.4.7
 pyserial==3.5

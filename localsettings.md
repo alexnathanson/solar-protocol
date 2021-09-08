@@ -14,10 +14,22 @@ Congratulations! If you've gotten this far you have installed your solar server.
 </p>
 
 
-### Step 2: Local variables
+### Step 2: Add your info
 
 ### Step 3: Upload your site
 
-All URLs must be relative.
+<strong>All URLs must be relative.</strong>
 
-/ will take you back to solarprotocol.net
+* / will take you back to solarprotocol.net
+* # will take you back to you root directory, so for example if you want to link to the midpoint on a the contact page, you would use this: contact.html#midpoint instead of simply #midpoint
+
+File names:
+* no spaces
+* in some instances (that we are a little stumped by) files with underscore aren't routing properly. It is best to avoid underscores and use a dash or camel case instead
+* no other irregular characters besides dashes
+
+<h3>Best practices</h3>
+
+* small images
+	* 72 dpi
+* dithered images

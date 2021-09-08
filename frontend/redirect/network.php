@@ -67,6 +67,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				if($fileType !== ''){
 					//routes non-root file paths
 					$localURL .= "/" . $_GET['path'];
+				} else if ($_GET['path'] != ""){
+					//add index if its a sub directory root
+					$localURL .= "/" . $_GET['path'] . "/index.html";
+					$fileType = 'txt';
 				} else {
 					//add index if its a root
 					$localURL .= "/index.html";

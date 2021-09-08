@@ -6,10 +6,9 @@ $deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 $deviceInfo = json_decode(getFile($deviceInfoFile), true);
 
 $listNetwork = true;
-$fileSpecified = false;
 
 //options are txt or media
-$fileType = 'txt';
+$fileType = '';
 
 $default_socket_timeout = ini_get('default_socket_timeout');
 //echo $default_socket_timeout;
@@ -44,19 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				if(strpos($_GET['path'], ".css") !== false){
 					header("Content-type: text/css");
 					$fileType = 'txt';
-					$fileSpecified = true;
 				} else if(strpos($_GET['path'], ".html") !== false){
 					header("Content-type: text/html");
 					$fileType = 'txt';
-					$fileSpecified = true;
 				} else if(strpos($_GET['path'], ".mp4") !== false){
 					header("Content-type: video/mp4");
 					$fileType = 'media';
-					$fileSpecified = true;
 				} else if(strpos($_GET['path'], ".pdf") !== false){
 					header("Content-type: application/pdf");
 					$fileType = 'media';
-					$fileSpecified = true;
 				} else {
 					//set mime type for images
 					$imgTypes = ["jpg","jpeg","gif","png"];
@@ -64,18 +59,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						if(strpos($_GET['path'], "." .$type) !== false){
 							header("Content-type: image/".$type);
 							$fileType = 'media';
-							$fileSpecified = true;
 							break;
 						}
 					}
 				}
 			
-				if($fileSpecified){
+				if($fileType !== ''){
 					//routes non-root file paths
 					$localURL .= "/" . $_GET['path'];
 				} else {
 					//add index if its a root
 					$localURL .= "/index.html";
+					$fileType = 'txt';
 				}
 	
 

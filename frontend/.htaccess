@@ -22,11 +22,6 @@ RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html [L]
 #handles subdirectory roots without trailing slash
 #RewriteRule ^local/(.*)$ /redirect/www.php?file=$1/index.html [L]
 
-#TEST
-#handles local directory roots without trailing slash
-RewriteCond %{REQUEST_URI} !(/$|\.) 
-RewriteRule ^local$ %{REQUEST_URI}/index.html [R, L]
-
 # NICE URL FOR STEWARD PAGES
 # Var 1 takes any number of characters except slashes, Var 2 takes the rest of the path
 #if the uri ends in a / or doesn't include a period

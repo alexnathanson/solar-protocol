@@ -26,6 +26,7 @@ RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
 
 #add trailing /index.html on www root url for only pages in with network or local in th URI
+# this stuff relating to trailing / or no slash is now being handled by the network.php page and can probably be deleted
 RewriteCond %{REQUEST_URI} !(/$|\.) 
 RewriteCond %{REQUEST_URI} (^network|^local) 
 RewriteRule (.*) %{REQUEST_URI}/index.html [R,L] 

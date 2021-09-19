@@ -1,3 +1,5 @@
+# there is still some redundancy here and it could probably be minimized further
+
 RewriteEngine on
 
 # REDIRECT TO LOCAL DIRECTORY (local is for a server serving content that is owns locally i.e. the stewards website)
@@ -10,28 +12,16 @@ RewriteRule ^local/(.*)$ /redirect/images.php?file=$1 [L]
 RewriteCond %{REQUEST_URI} \.(html|css)$
 RewriteRule ^local/(.*)$ /redirect/www.php?file=$1 [L]
 
-
-# TEST
-#RewriteCond %{REQUEST_URI} /+[^\.]+$ 
+# Adds trailing slash for directories network and local
 RewriteCond %{REQUEST_URI} (^/network|^/local)  
 RewriteCond %{REQUEST_URI} !(/$|\.) 
-#RewriteRule (.*) %{REQUEST_URI}/ [R,L] 
 RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R,L]
-
 
 #for local www root with trailing slash
 RewriteRule ^local/$ /redirect/www.php?file=index.html [L]
 
-#for local www root without trailing slash
-#RewriteRule ^local$ /redirect/www.php?file=index.html [L]
-
 #handles subdirectory roots with trailing slash
 RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html [L]
-
-#handles subdirectory roots without trailing slash
-#RewriteRule ^local/(.*)$ /redirect/www.php?file=$1/index.html [L]
-
-
 
 # NICE URL FOR STEWARD PAGES
 # Var 1 takes any number of characters except slashes, Var 2 takes the rest of the path
@@ -44,27 +34,8 @@ RewriteRule ^network/([^/]+)/(.*)$ /redirect/network.php?steward=$1&path=$2/inde
 RewriteCond %{REQUEST_URI} (/$) 
 RewriteRule ^network/([^/]+)/(.*)$ /redirect/network.php?steward=$1&path=$2index.html [QSA,L]
 
+#for non-roots
 RewriteRule ^network/([^/]+)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
 
-# NICE URL FOR STEWARD PAGES - this stuff works but isn't dynamic
-# This can only handle 6 sub directories - add more lines and extend as needed
-# the re-baseing that happens in the network.php file is crucial for the links working
-# RewriteRule ^network/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4/$5/$6 [QSA,L]
-# RewriteRule ^network/(.*)/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4/$5 [QSA,L]
-# RewriteRule ^network/(.*)/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3/$4 [QSA,L]
-# RewriteRule ^network/(.*)/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2/$3 [QSA,L]
-# RewriteRule ^network/(.*)/(.*)$ /redirect/network.php?steward=$1&path=$2 [QSA,L]
+# for steward root directories
 RewriteRule ^network/(.*)$ /redirect/network.php?steward=$1 [QSA,L]
-
-
-# I DONT THINK THIS STUFF BELOW THIS POINT IS DOING ANYTHING...
-#add trailing /index.html on www root url for only pages in with network or local in th URI
-# this stuff relating to trailing / or no slash is now being handled by the network.php page and can probably be deleted
-#RewriteCond %{REQUEST_URI} !(/$|\.) 
-#RewriteCond %{REQUEST_URI} (^network|^local) 
-#RewriteRule (.*) %{REQUEST_URI}/index.html [R,L] 
-
-#add trailing index.html on www root url ending in a slash for only pages in with network or local in th URI
-#RewriteCond %{REQUEST_URI} !(\.)
-#RewriteCond %{REQUEST_URI} (^network|^local)  
-#RewriteRule (.*) %{REQUEST_URI}index.html [R,L] 

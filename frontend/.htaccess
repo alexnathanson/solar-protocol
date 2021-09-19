@@ -13,10 +13,10 @@ RewriteRule ^local/(.*)$ /redirect/www.php?file=$1 [L]
 
 # TEST
 #RewriteCond %{REQUEST_URI} /+[^\.]+$ 
-#RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
-RewriteCond %{REQUEST_URI} (^network|^local)  
+RewriteCond %{REQUEST_URI} (^/network|^/local)  
 RewriteCond %{REQUEST_URI} !(/$|\.) 
-RewriteRule (.*) %{REQUEST_URI}/ [R,L] 
+#RewriteRule (.*) %{REQUEST_URI}/ [R,L] 
+RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R,L]
 
 
 #for local www root with trailing slash

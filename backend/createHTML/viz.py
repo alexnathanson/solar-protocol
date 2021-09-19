@@ -446,15 +446,17 @@ def main():
 
 
     background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1.png")
+    exhibitionbackground = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1-nokey.png")
     foreground = Image.open("clock.png")
-    #Image.alpha_composite(foreground, background).save("/home/pi/solar-protocol/frontend/images/clock.png")
 
-    # background.paste(foreground, (0, 0))
-    # background.save("clock1.png")
 
     mask = Image.open('/home/pi/solar-protocol/backend/visualization/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
     background.save("/home/pi/solar-protocol/frontend/images/clock.png")
+
+    exhibitionbackground.paste(foreground, (0, 0), mask)
+    exhibitionbackground.save("/home/pi/solar-protocol/frontend/images/clock-exhibit.png")
+
     # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
     # alphaBlended2.save("clock1.png")
     #archive images

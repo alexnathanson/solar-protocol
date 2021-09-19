@@ -10,17 +10,28 @@ RewriteRule ^local/(.*)$ /redirect/images.php?file=$1 [L]
 RewriteCond %{REQUEST_URI} \.(html|css)$
 RewriteRule ^local/(.*)$ /redirect/www.php?file=$1 [L]
 
+
+# TEST
+#RewriteCond %{REQUEST_URI} /+[^\.]+$ 
+#RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
+RewriteCond %{REQUEST_URI} (^network|^local)  
+RewriteCond %{REQUEST_URI} !(/$|\.) 
+RewriteRule (.*) %{REQUEST_URI}/ [R,L] 
+
+
 #for local www root with trailing slash
 RewriteRule ^local/$ /redirect/www.php?file=index.html [L]
 
 #for local www root without trailing slash
-RewriteRule ^local$ /redirect/www.php?file=index.html [L]
+#RewriteRule ^local$ /redirect/www.php?file=index.html [L]
 
 #handles subdirectory roots with trailing slash
 RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html [L]
 
 #handles subdirectory roots without trailing slash
-RewriteRule ^local/(.*)$ /redirect/www.php?file=$1/index.html [L]
+#RewriteRule ^local/(.*)$ /redirect/www.php?file=$1/index.html [L]
+
+
 
 # NICE URL FOR STEWARD PAGES
 # Var 1 takes any number of characters except slashes, Var 2 takes the rest of the path

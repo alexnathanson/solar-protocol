@@ -7,10 +7,10 @@ Congratulations! If you've gotten this far you have installed your solar server.
 ### Step 1: Change your admin password
 
 <p>
-	This is the password for logging in to the backend of Solar Protocol. This portal will allow you add your own content to SP.
+	This is the password for logging in to the backend of Solar Protocol. This portal will allow you to see system stats and add your own content to SP.
 </p>
 <p>
-	The default steward user names is <strong>admin</p>. Contact one of the primary leads to receive a temporary password. Once you have logged in, you will be able to change the password to something of your choosing.
+	The default steward user names is <strong>admin</p>. Contact one of the primary leads to receive a temporary password. Once you have logged in, click on your user name to change your password to something of your choosing. 
 </p>
 
 

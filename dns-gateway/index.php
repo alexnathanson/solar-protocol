@@ -15,7 +15,7 @@ $serverHash = [
   "Chile" => "$2y$10$M3RtM5fYwzUXYQJRx1OGDe9oPSAmnApDPlCWpYCpHXcQixCPVaNge",
   "Caddie" => "$2y$10$157Qs27b4.gUAHlF0o/i5ufIF/tclJ8GitcIQbgeA9t76XYF0S0Ve",
   "Low Carbon Methods" => "$2y$10$VUtTRwbT5N1dZi902Xa3BeLCRAKhC9BnjQ7M/7iEq9xiO6H3LTGqu",
-  "Beijing" => "$2y$10$rq2eAw7LOcWwy6yXb1AjleUEaZLVZPcPTlzxOvRBmaWeRZ9e.4Dt2"
+  "Beijing" => "$2y$10$0uZh7HjT27KTN5uszOCuxe6yhEWbWxzX/i/ZY1vIfZg1xqfNgshmS"
 ];
 
 //this is the black list. there could potentailly be multiple burned keys from the same server, so another data format might be necessary

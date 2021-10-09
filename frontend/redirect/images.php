@@ -1,4 +1,7 @@
 <?php
+//this runs on the steward's server
+//it retrieves the files and sends them back to the Poe server
+//in the future this could be merged with the www.php script
 
 $locDir = "/home/pi/local/www/";
 $filepath= "";

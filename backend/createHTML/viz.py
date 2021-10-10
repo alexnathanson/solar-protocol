@@ -310,13 +310,14 @@ def circles(sw, opacity):
         b = b + ring_rad
 
 
-
         
 
 
 
     
-
+path = "/home/pi/solar-protocol"
+if local == 1:
+    path = ""   
     
 
 # -------------- PROGRAM --------------------------------------------------------------------------------
@@ -336,6 +337,7 @@ def main():
 
     log = getDeviceInfo('log')
     serverNames = getDeviceInfo('name')
+
     # print (dstIP)
     # print (serverNames)
 
@@ -445,23 +447,23 @@ def main():
 
 
 
-    background = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1.png")
-    exhibitionbackground = Image.open("/home/pi/solar-protocol/backend/visualization/3day-diagram-nolabels1-nokey.png")
+    background = Image.open(path+"/backend/visualization/3day-diagram-nolabels1.png")
+    exhibitionbackground = Image.open(path+"/backend/visualization/3day-diagram-nolabels1-nokey.png")
     foreground = Image.open("clock.png")
 
 
-    mask = Image.open('/home/pi/solar-protocol/backend/visualization/mask5.png').resize(background.size).convert('L')
+    mask = Image.open(path+'/visualization/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
-    background.save("/home/pi/solar-protocol/frontend/images/clock.png")
+    background.save(path+"/frontend/images/clock.png")
 
     exhibitionbackground.paste(foreground, (0, 0), mask)
-    exhibitionbackground.save("/home/pi/solar-protocol/frontend/images/clock-exhibit.png")
+    exhibitionbackground.save(path+"/frontend/images/clock-exhibit.png")
 
     # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
     # alphaBlended2.save("clock1.png")
     #archive images
     archiveImage = Image.open("/home/pi/solar-protocol/frontend/images/clock.png")
-    archiveImage.save('/home/pi/solar-protocol/backend/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+    archiveImage.save(path+"/backend/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
 
 if __name__ == "__main__":
     main()

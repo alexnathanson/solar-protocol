@@ -26,3 +26,6 @@ myip returns the client's public IP address<br>
 
 <!-- ### POST requests
 none currently -->
+
+test
+`https://server.solarpowerforartists.com/?test=AN-IP-ADDRESS` updates the DNS

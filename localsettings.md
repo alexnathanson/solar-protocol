@@ -21,7 +21,7 @@ Congratulations! If you've gotten this far you have installed your solar server.
 <strong>All URLs must be relative.</strong>
 
 * / will take you back to solarprotocol.net and not your root directory
-* # will take you back to your root directory, so for example if you want to link to the midpoint on a the contact page, you would use this: contact.html#midpoint instead of simply #midpoint
+* # will take you back to your root directory, so for example if you want to link to the midpoint on the contact page, you would use this: contact.html#midpoint instead of simply #midpoint
 
 File names:
 * no spaces

@@ -138,6 +138,14 @@ Give Apache/PHP user 'www-data' necessary permissions:
 		* `error_reporting = E_ALL`  
 * point of contact logging only logs when it is TRUE. Uncomment out the logging for FALSE if you need to test out that it is logging these events.  
 
+### Troubleshooting Opening Ports
+* Log into the router and set a static internal IP
+* Set up port forwarding for port 22 and 80 for the internal IP address
+* In some places, ISPs blocks ports. Call them to check these ports arent blocked.
+* Tool to check if ports are blocked: https://www.yougetsignal.com/tools/open-ports/
+* Check firewall is off
+* Try forwarding a port that is not port 80.
+
 ### Manually updating the software from the Repository  
 * cd into the solar protocol folder and git pull  
 	* `cd /home/pi/solar-protocol`  

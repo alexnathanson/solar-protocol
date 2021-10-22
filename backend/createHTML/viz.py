@@ -33,7 +33,7 @@ debug_mode = 0
 # if local == 1:
 #     path = "../"   
 
-path = "/home/pi/solar-protocol"
+path = "/home/pi/solar-protocol/backend"
 if local == 0:
     path = ".."   
 

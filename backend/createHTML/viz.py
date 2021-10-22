@@ -34,7 +34,7 @@ debug_mode = 0
 #     path = "../"   
 
 path = "/home/pi/solar-protocol"
-if local == 1:
+if local == 0:
     path = ".."   
 
 #Global variables

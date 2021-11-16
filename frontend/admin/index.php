@@ -30,8 +30,8 @@ if (isset($localInfo["name"])){
   $locName = "";
 }
 
-if (isset($localInfo["port"])){
-  $locPort = $localInfo["port"];
+if (isset($localInfo["httpPort"])){
+  $locPort = $localInfo["httpPort"];
 } else {
   $locPort = "80";
 }

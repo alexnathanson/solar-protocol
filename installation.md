@@ -148,6 +148,12 @@ Give Apache/PHP user 'www-data' necessary permissions:
 		* `display_errors = On`   
 		* `error_reporting = E_ALL`  
 * point of contact logging only logs when it is TRUE. Uncomment out the logging for FALSE if you need to test out that it is logging these events.  
+* Apache logs are found here: /var/log/apache2/access.log
+	* Use `sudo tail -100 /var/log/apache2/access.log` to display the last 100 entries
+	* More info on Apache logs can be found at https://phoenixnap.com/kb/apache-access-log
+* The individual server status can be found at http://www.solarprotocol.net/server-status
+	* append ?auto for machine readable version)
+	* replace http://www.solarprotocol.net with whichever IP is needed
 
 ### Troubleshooting Opening Ports
 * Log into the router and set a static internal IP

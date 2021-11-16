@@ -92,9 +92,9 @@ Change Apache default directory to the frontend directory (src: https://julienre
 To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
 * then restart `sudo systemctl restart apache2`   
 
-Enable server activity stats:
+Enable server status interface:
 * edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
-* add these 4 lines to the file directly above `</VirtualHost>`
+* add these 4 lines to the file directly above `</VirtualHost>`<br>
 `<Location /server-status>`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`

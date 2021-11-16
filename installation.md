@@ -89,7 +89,15 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
 * To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
-* `sudo systemctl restart apache2`   
+	* then restart `sudo systemctl restart apache2`   
+* Enable server activity stats:
+	* edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
+	* add these 4 lines to the file directly above `</VirtualHost>`
+	`<Location /server-status>`
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`
+	`</Location>`
+	* save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
 
 Install PHP graphics library for dithering. Note that the version will need to match your php version.
 * `sudo apt-get install php7.3-gd`

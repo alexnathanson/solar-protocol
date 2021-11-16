@@ -95,9 +95,9 @@ To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
 Enable server status interface:
 * edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
 * add these 4 lines to the file directly above `</VirtualHost>`<br>
-`<Location /server-status>`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`
+`<Location /server-status>`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
 `</Location>`
 * save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
 * once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto

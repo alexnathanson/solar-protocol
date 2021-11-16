@@ -88,16 +88,19 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
-* To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
-	* then restart `sudo systemctl restart apache2`   
-* Enable server activity stats:
-	* edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
-	* add these 4 lines to the file directly above `</VirtualHost>`
-	`<Location /server-status>`
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`
-	`</Location>`
-	* save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
+
+To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
+* then restart `sudo systemctl restart apache2`   
+
+Enable server activity stats:
+* edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
+* add these 4 lines to the file directly above `</VirtualHost>`
+`<Location /server-status>`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`
+`</Location>`
+* save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
+* once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
 
 Install PHP graphics library for dithering. Note that the version will need to match your php version.
 * `sudo apt-get install php7.3-gd`

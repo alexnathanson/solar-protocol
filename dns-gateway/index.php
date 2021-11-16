@@ -10,19 +10,19 @@ $dnskey = require('key.php');
 //in the future this should be either a database or a seperate json file
 //white list
 $serverHash = [
-  "SPfA" => "$2y$10$8jr3efgV3/N2RosUY0cH1edYXYcYNE4Iwi6RHqYwyupnccYVX9f5.",
   "Hells Gate" => "$2y$10$5/O1zeTvLmxBNIRpmqve5u6x9RmL8JBi./dzgD3mwfudHEBuABFQ6",
   "Chile" => "$2y$10$M3RtM5fYwzUXYQJRx1OGDe9oPSAmnApDPlCWpYCpHXcQixCPVaNge",
   "Caddie" => "$2y$10$157Qs27b4.gUAHlF0o/i5ufIF/tclJ8GitcIQbgeA9t76XYF0S0Ve",
   "Low Carbon Methods" => "$2y$10$VUtTRwbT5N1dZi902Xa3BeLCRAKhC9BnjQ7M/7iEq9xiO6H3LTGqu",
-  "Beijing" => "$2y$10$0uZh7HjT27KTN5uszOCuxe6yhEWbWxzX/i/ZY1vIfZg1xqfNgshmS",
   "Dominica" => "$2y$10$MLdkxh3qzwwU0yucGTBte.964aMIPxRHa4UiH3o0AH67jGk5P5nDu"
 ];
 
 //this is the black list. there could potentailly be multiple burned keys from the same server, so another data format might be necessary
 $blackList = [
-    /*"Dominica" => "",
-    "Tega" => ""
+  /*
+    "Tega" => "",
+    "SPfA" => "$2y$10$8jr3efgV3/N2RosUY0cH1edYXYcYNE4Iwi6RHqYwyupnccYVX9f5.",
+    "Beijing" => "$2y$10$0uZh7HjT27KTN5uszOCuxe6yhEWbWxzX/i/ZY1vIfZg1xqfNgshmS"
 */
 ];
 

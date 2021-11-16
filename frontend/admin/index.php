@@ -30,6 +30,12 @@ if (isset($localInfo["name"])){
   $locName = "";
 }
 
+if (isset($localInfo["port"])){
+  $locPort = $localInfo["port"];
+} else {
+  $locPort = "80";
+}
+
 function getFile($fileName){
   //echo $fileName;
   try{
@@ -70,7 +76,8 @@ function getFile($fileName){
   let jsonPoe;
 
 //the day=deviceList end point should be moved to system info
-  let devListURL = "http://"+ window.location.hostname +"/api/v1/chargecontroller.php?day=deviceList";
+  let devListURL = "http://"+ window.location.hostname + ":"+ locPort + "/api/v1/chargecontroller.php?day=deviceList";
+  
   console.log(devListURL);
 
   getRequest(devListURL,parseDevList);

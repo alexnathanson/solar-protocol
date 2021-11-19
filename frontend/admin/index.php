@@ -51,9 +51,9 @@ function getFile($fileName){
 
 <span>Logged in as <a href="/admin/settings/user.php"><?php echo $_SESSION["username"]?></a> <a href="?logout">(Logout)</a></span>
 
-<p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
+<p><a href="/admin">Network Status</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
 
-<h2>Network Activity</h2>
+<h2>Network Status</h2>
 
 <div id="server list"><h3>Online Servers:</h3></div>
 
@@ -63,8 +63,6 @@ function getFile($fileName){
 <!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
 
 <script>
-  //make this dynamic at some point
-  //let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
   let ipList = [];
   let nameList = [];
 

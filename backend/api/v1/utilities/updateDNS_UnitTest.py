@@ -5,6 +5,8 @@ This only tests that the call to the DNS gateway was successful.
 It does NOT test that the routing to the actual server is functioning as intended.
 Check the URL in a browser manually to confirm that.
 
+To do: automatically return true or false based on response
+
 '''
 
 #this enables us to load a module from the parent directory
@@ -21,10 +23,10 @@ SP = SolarProtocol()
 def testDNS():
 
 	print('Testing DNS gateway GET reqiest...')
-	println("This only tests that the call to the DNS gateway was successful.")
+	print("This only tests that the call to the DNS gateway was successful.")
 	print("It does NOT test that the routing to the actual server is functioning as intended.")
 	print("Check the URL in a browser manually to confirm that.")
-	println("Successfull tests will return Errcount 0 and Done true")
+	print("Successfull tests will return Errcount 0 and Done true")
 	
 	SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
 

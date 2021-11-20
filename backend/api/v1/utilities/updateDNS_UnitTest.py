@@ -22,11 +22,12 @@ SP = SolarProtocol()
 
 def testDNS():
 
-	print('Testing DNS gateway GET reqiest...')
+	print('Testing DNS gateway GET request.')
 	print("This only tests that the call to the DNS gateway was successful.")
 	print("It does NOT test that the routing to the actual server is functioning as intended.")
 	print("Check the URL in a browser manually to confirm that.")
 	print("Successfull tests will return Errcount 0 and Done true")
+	print("")
 	
 	SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
 

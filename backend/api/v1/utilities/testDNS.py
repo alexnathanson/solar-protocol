@@ -2,7 +2,7 @@
 Run this script to test that the DNS can be properly pointed to the server.
 '''
 
-from SolarProtocolClass import SolarProtocol
+from v1.SolarProtocolClass import SolarProtocol
 
 dnsKey = ''
 

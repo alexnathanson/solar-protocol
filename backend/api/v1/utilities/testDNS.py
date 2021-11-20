@@ -2,7 +2,11 @@
 Run this script to test that the DNS can be properly pointed to the server.
 '''
 
-from ..SolarProtocolClass import SolarProtocol
+import sys
+
+#this enables us to load a path from the parent directory
+sys.path.append('../v1')
+from v1.SolarProtocolClass import SolarProtocol
 
 dnsKey = ''
 

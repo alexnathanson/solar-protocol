@@ -69,7 +69,7 @@ There are many ways to spin up a server. Follow these instructions to create a P
 * Start the server (if you are using a port other than 80 for HTML replace `80` below with your actual port number)
 	* If you are running Python2 enter this command to start your server: `python -m SimpleHTTPServer 80`
 	* If you are running Python3 enter this command to start your server: `python -m http.server 80` or `python3 -m http.server 80` or `py -3 -m http.server 80`
-* Test your server by opening up a browser and going to `http.://localhost:80`
+* Test your server by opening up a browser and going to `http://localhost:80`
 
 ## Troubleshooting
 

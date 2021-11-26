@@ -50,7 +50,7 @@ Run this test on both your http and ssh ports. If you were not able to use the d
 
 ## 3) Disable port forwarding
 
-Do not leave port forwarding enabled, particularly for SSH unless you have a proper security measures in place. Go back through step 1 and disable both HTTP and SSH port forwarding.
+Once the test has been successfully completed, do not leave port forwarding enabled unless you have the proper security measures in place. Go back through step 1 and disable both HTTP and SSH port forwarding.
 
 ## Create a server for testing
 

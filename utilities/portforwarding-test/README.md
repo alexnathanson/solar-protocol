@@ -1,8 +1,13 @@
 # Port forwarding test
 
-Port forwarding is a crucial component of Solar Protocol. If your hardware is being purchased and/ or shipped to you by Solar Protocol you must check that your network can properly enable port forwarding before we send you any hardware. If you are purchasing your own hardware, we strongly recommended that you test that port forwarding is possible first to avoid wasting your money.
+Port forwarding is a crucial component of Solar Protocol. It is what allows an external device to talk to your server on your local private network. <strong>If your hardware is being purchased and/ or shipped to you by Solar Protocol you must check that your network can properly enable port forwarding before we send you any hardware.</strong> If you are purchasing your own hardware, we strongly recommended that you test that port forwarding is possible first to avoid wasting your money.
 
 While there are work arounds if your ISP or hardware doesn't allow for port forwarding, we generally want avoid complex routing or tunneling because we want to minimize the amount of hardware not running directly off of solar power.
+
+### How do IPs work?
+Every local area network (LAN) assigns IP addresses to all the networked devices on the local private network. The ISP assigns a public IP to your...
+
+Set the test device to a static IP. This will ensure that the device's local IP wont change. The Solar Protocol network is designed to allow dynamic public IPs. A public IP is the IP address used by external devices to communicate with your local area network (LAN). However, it will not work with dynamic private IPs i.e. 
 
 ## Testing device
 
@@ -22,10 +27,6 @@ The typical process goes something like this:
 
 1) Set local static IP
 
-### How do IPs work?
-Every local area network (LAN) assigns IP addresses to all the networked devices on the local private network. The ISP assigns a public IP to your...
-
-Set the test device to a static IP. This will ensure that the device's local IP wont change. The Solar Protocol network is designed to allow dynamic public IPs. A public IP is the IP address used by external devices to communicate with your local area network (LAN). However, it will not work with dynamic private IPs i.e. 
 
 2) Set ports
 

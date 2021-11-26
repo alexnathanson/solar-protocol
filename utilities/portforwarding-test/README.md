@@ -48,13 +48,11 @@ If you are weren't able to use port 80, you will have to append your IP address 
 
 #### 2.2.2) SSH in to your device
 
-Enable SSH on the device your server is running to test that as well. We have not found any instance (yet) where port forwarding works for HTTP but not for SSH, so if you are using a computer that doesn't easily let you ssh in to it and you can't run test this test you should be fine. 
-
-On PCs you must use Putty. On Mac ...
+If you are using a Raspberry Pi, you should definitely complete this step. If you are using a Windows device it may be difficult to enable SSH. We have not found any instance (yet) where port forwarding works for HTTP but not for SSH, so if you are using a computer that doesn't easily let you SSH in to it and you can't run test this test you should be fine assuming the other 3 tests were successful. 
 
 ## 3) Disable port forwarding
 
-Once the test has been successfully completed, do not leave port forwarding enabled unless you have the proper security measures in place. Go back through step 1 and disable both HTTP and SSH port forwarding.
+Once the tests have been successfully completed, do not leave port forwarding enabled unless you have the proper security measures in place. Go back through step 1 and disable both HTTP and SSH port forwarding.
 
 ## Create a server for testing
 

@@ -2,6 +2,8 @@
 
 Port forwarding is a crucial component of Solar Protocol. If your hardware is being purchased and/ or shipped to you by Solar Protocol you must check that your network can properly enable port forwarding before we send you any hardware. If you are purchasing your own hardware, we strongly recommended that you test that port forwarding is possible to avoid wasting your money.
 
+While there are work arounds if your ISP or hardware doesn't allow for port forwarding, we generally want avoid complex routing or tunneling because we want to minimize the amount of hardware not running directly off of solar power.
+
 ## Testing device
 
 In order to test this, you must create a server. The best way to do this is with a Raspberry Pi, which is what we are using for the servers in Solar Protocol. This will allow you to test both the html and ssh ports.
@@ -37,6 +39,8 @@ It is crucial that you run this test from a device not on your local network. On
 
 a) In a browser, go to your public IP address
 
+If you aren't sure what your public IP address is you can find it by going to https://www.myip.com/
+
 If you are weren't able to use port 80, you will have to append your IP address with the port like this:<br>
 ` 8.8.8.8:1000` In this example `8.8.8.8` is the IP address which is followed by a `:` and then the port number which is `1000`
 
@@ -44,12 +48,12 @@ b) SSH in to your device
 
 2) Testing tools
 
-There are a number of online tools available that can confirm your ports are open.
+There are a number of online tools available that can confirm your ports are open. Either of these will work:
 
 * https://portchecker.co/
 * https://www.yougetsignal.com/tools/open-ports/
 
-Run this test on both your http and ssh ports
+Run this test on both your http and ssh ports. If you were not able to use the default ports (80 & 22) you must manually enter the port number when you run the test. The tester will tell you if the ports are open or closed.
 
 ## Troubleshooting
 

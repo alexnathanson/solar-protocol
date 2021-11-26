@@ -1,12 +1,16 @@
 # Port forwarding test
 
-Port forwarding is a crucial component of Solar Protocol. If your hardware is being purchased and/ or shipped to you by Solar Protocol you must check that your network can properly enable port forwarding before we send you any hardware. If you are purchasing your own hardware, we strongly recommended that you test that port forwarding is possible to avoid wasting your money.
+Port forwarding is a crucial component of Solar Protocol. If your hardware is being purchased and/ or shipped to you by Solar Protocol you must check that your network can properly enable port forwarding before we send you any hardware. If you are purchasing your own hardware, we strongly recommended that you test that port forwarding is possible first to avoid wasting your money.
 
 While there are work arounds if your ISP or hardware doesn't allow for port forwarding, we generally want avoid complex routing or tunneling because we want to minimize the amount of hardware not running directly off of solar power.
 
 ## Testing device
 
-In order to test this, you must create a server. The best way to do this is with a Raspberry Pi, which is what we are using for the servers in Solar Protocol. This will allow you to test both the html and ssh ports.
+For this test to work, you must set up a simple server to serve a basic HTML page. We also recommend that you enable SSH on the server to enable that test. However, we have not found any instances (yet) where portforwarding works for html but not for ssh, so if you can't run test 1B, you should be fine. 
+
+We recommend you use a Raspberry Pi, which is the computer Solar Protocol uses for our servers. This will allow you to test both the html and ssh ports in exactly the same way we will be using the devices when it is connected to the network. If you are using a Raspberry Pi, go ahead an install the Solar Protocol software. For this test, you should not enable the scripts via crontab. It can also run off of grid power for this test.
+
+If you are using another type of device to run this test (like your laptop or desktop computer), you can spin up a server quickly with the following commands:
 
 ## Set static IP and enable port forwarding on your router
 

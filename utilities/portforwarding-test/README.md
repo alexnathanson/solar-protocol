@@ -4,6 +4,8 @@ Port forwarding is a crucial component of Solar Protocol. It is what allows an e
 
 While there are work arounds if your ISP or hardware doesn't allow for port forwarding, we generally want avoid complex routing or tunneling to minimize the amount of hardware not running directly off of solar power.
 
+This test is for residential and small scale commercial networks. It requires that you log in to your networking hardware to make the necessary changes. If you are on a large commerical network, you will likely need to consult with your IT department.
+
 ## 1) Set static IP and enable port forwarding on your router
 
 Every router is different, which makes providing instructions difficult. These settings are found on your router's interface. To access your router's interface you will either need to enter a URL or IP address in a browser. This information might be found a sticker on the router, documentation/manuals you received when your internet was installed, or you may need to contact your ISP to find out. Once you have logged in to the router's control panel follow the steps below.
@@ -12,11 +14,13 @@ Every router is different, which makes providing instructions difficult. These s
 
 Your public IP address is assigned by your ISP. A public IP is the IP address used by external devices to communicate with devices on your local area network (LAN). Your private LAN IP is assigned by your router either automatically through DHCP or manually. IPs set with DHCP change periodically, so we need to manually assign a static IP to the device our server is running on. This will ensure that the device's local IP wont change. The Solar Protocol network is designed to allow dynamic public IPs, so it is not a problem if your ISP changes your public IP. 
 
+Locate your device. Typically, it will already have been assigned an IP address from the DHCP server. It is crucial that you dont assign your server an IP address already in use by another device. To avoid this, set your devices IP address to the address is has already been assigned. (On some networks there are blocks of IPs that are reserved for static use. If that is the case, you can pick one of them)
+
 ### 1.2) Set ports
 
 The standard ports we use are 80 for HTTP and 22 for SSH. If those ports aren't available because they are being used by something else on your network or by the router itself, you can choose different ports. We recommend 8080 and 8022 as backups.
 
-## 2) Test your portforwarding settings
+## 2) Test your port forwarding settings
 
 There are 2 ways to test that your portforwarding settings are working properly. You must do both tests.
 
@@ -43,6 +47,10 @@ There are a number of online tools available that can confirm whether your ports
 * https://www.yougetsignal.com/tools/open-ports/
 
 Run this test on both your http and ssh ports. If you were not able to use the default ports (80 & 22) you must manually enter the port number when you run the test. The tester will tell you if the ports are open or closed.
+
+## 3) Disable port forwarding
+
+Do not leave port forwarding enabled, particularly for SSH unless you have a proper security measures in place. Go back through step 1 and disable both HTTP and SSH port forwarding.
 
 ## Create a server for testing
 

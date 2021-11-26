@@ -22,24 +22,9 @@ The standard ports we use are 80 for HTTP and 22 for SSH. If those ports aren't 
 
 ## 2) Test your port forwarding settings
 
-There are 2 ways to test that your portforwarding settings are working properly. You must do both tests.
+There are 2 tests that you should conduct for both HTTP and SSH
 
-### 2.1) Serve HTML content and SSH into your server
-
-For this test to work, you must set up a server to serve HTML content. See the instructions below to create a server for testing. We also recommend that you enable SSH on the server to test that as well. However, we have not found any instance (yet) where port forwarding works for HTML but not for SSH, so if you can't run test 2.1.2, you should be fine. 
-
-It is crucial that you run this test from a device not on your local network. One easy way to do this is through your smart phone. Make sure your device is using cell network data and is not on wifi. Alternatively, you can connect to a completely different network and try to connect to your server. If necessary, ask one of the members of Solar Protocol to attemp to access your test site.
-
-#### 2.1.1) In a browser, go to your public IP address
-
-If you aren't sure what your public IP address is you can find it by going to https://www.myip.com/
-
-If you are weren't able to use port 80, you will have to append your IP address with the port like this:<br>
-` 8.8.8.8:1000` In this example `8.8.8.8` is the IP address which is followed by a `:` and then the port number which is `1000`
-
-#### 2.1.2) SSH in to your device
-
-### 2.2) Online testing tools
+### 2.1) Online testing tools
 
 There are a number of online tools available that can confirm whether your ports are open. Either of these will work:
 
@@ -47,6 +32,25 @@ There are a number of online tools available that can confirm whether your ports
 * https://www.yougetsignal.com/tools/open-ports/
 
 Run this test on both your http and ssh ports. If you were not able to use the default ports (80 & 22) you must manually enter the port number when you run the test. The tester will tell you if the ports are open or closed.
+
+### 2.2) Serve HTML content and SSH into your server
+
+It is crucial that you run these tests from a device not on your local network. One easy way to do this is through your smart phone. Make sure your phone is using cell network data and is not on wifi. Alternatively, you can connect to a completely different network and try to connect to your server. If necessary, ask one of the members of Solar Protocol to attemp to access your test site remotely.
+
+#### 2.2.1) Go to your web page in a browser
+
+For this test to work, you must set up a server to serve HTML content. See the instructions below to create a server for testing.  
+
+If you aren't sure what your public IP address is you can find it by going to https://www.myip.com/
+
+If you are weren't able to use port 80, you will have to append your IP address with the port like this:<br>
+` 8.8.8.8:1000` In this example `8.8.8.8` is the IP address which is followed by a `:` and then the port number which is `1000`
+
+#### 2.2.2) SSH in to your device
+
+Enable SSH on the device your server is running to test that as well. We have not found any instance (yet) where port forwarding works for HTTP but not for SSH, so if you are using a computer that doesn't easily let you ssh in to it and you can't run test this test you should be fine. 
+
+On PCs you must use Putty. On Mac ...
 
 ## 3) Disable port forwarding
 

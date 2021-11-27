@@ -25,7 +25,6 @@ csv_file_name = "server-report.csv"
 #ignore these loopback addresses
 ignoreHosts = ["::1","0000:0000:0000:0000:0000:0000:0000:0001","127.0.0.1","localhost"]
 
-hosts = {}
 
 def apache_output(line):
     split_line = line.split()
@@ -36,6 +35,8 @@ def apache_output(line):
 
 
 def final_report(logfile):
+    hosts = {}
+
     for line in logfile:
         line_dict = apache_output(line)
         #check that the IP isn't in the ignore lists
@@ -45,7 +46,7 @@ def final_report(logfile):
             else:
                 hosts[line_dict['remote_host']] = 1
         #print(line_dict)
-    print(hosts)
+    return hosts
 
 
 if __name__ == "__main__":
@@ -57,4 +58,5 @@ if __name__ == "__main__":
         print (__doc__)
     log_report = final_report(infile)
     print (log_report)
+    print(len(log_report))
     infile.close()

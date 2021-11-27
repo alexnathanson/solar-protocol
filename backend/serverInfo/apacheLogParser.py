@@ -41,10 +41,12 @@ def final_report(logfile):
         line_dict = apache_output(line)
         #check that the IP isn't in the ignore lists
         if line_dict['remote_host'] not in ignoreHosts:
-            if line_dict['remote_host'] in hosts.keys():
-                hosts[line_dict['remote_host']] = hosts[line_dict['remote_host']] + 1
-            else:
-                hosts[line_dict['remote_host']] = 1
+            #these x00 may represent failed requests from https
+            if "x00" not in line_dict['remote_host']:
+                if line_dict['remote_host'] in hosts.keys():
+                    hosts[line_dict['remote_host']] = hosts[line_dict['remote_host']] + 1
+                else:
+                    hosts[line_dict['remote_host']] = 1
         #print(line_dict)
     return hosts
 

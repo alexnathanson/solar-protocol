@@ -45,7 +45,7 @@ def final_report(logfile):
 
     lineCount = 0
     for line in logfile:
-        lineCount++
+        lineCount = lineCount + 1
         m = pattern.match(line)
         mDict = m.groupdict()
 

@@ -17,6 +17,7 @@ Are there relevent errors to display?
 """
 
 import csv
+import re
 
 log_file_name = "/var/log/apache2/access.log"
 
@@ -25,29 +26,54 @@ csv_file_name = "server-report.csv"
 #ignore these loopback addresses
 ignoreHosts = ["::1","0000:0000:0000:0000:0000:0000:0000:0001","127.0.0.1","localhost"]
 
+parts = [
+    r'(?P<host>\S+)',                   # host %h
+    r'\S+',                             # indent %l (unused)
+    r'(?P<user>\S+)',                   # user %u
+    r'\[(?P<time>.+)\]',                # time %t
+    r'"(?P<request>.+)"',               # request "%r"
+    r'(?P<status>[0-9]+)',              # status %>s
+    r'(?P<size>\S+)',                   # size %b (careful, can be '-')
+    r'"(?P<referer>.*)"',               # referer "%{Referer}i"
+    r'"(?P<agent>.*)"',                 # user agent "%{User-agent}i"
+]
 
-def apache_output(line):
-    split_line = line.split()
-    return {'remote_host': split_line[0],
-            #'apache_status': split_line[8],
-            #'data_transfer': split_line[9],
-    }
+pattern = re.compile(r'\s+'.join(parts)+r'\s*\Z')
+
+'''
+for line in file:
+    m = pattern.match(line)
+    result = m.groups()
+    csv_out.writerow(result)
+'''
+
+# def apache_output(line):
+#     split_line = line.split()
+#     return {'remote_host': split_line[0],
+#             #'apache_status': split_line[8],
+#             #'data_transfer': split_line[9],
+#     }
 
 
 def final_report(logfile):
     hosts = {}
 
     for line in logfile:
-        line_dict = apache_output(line)
+        m = pattern.match(line)
+        line_dict = m.groupdict()
+
+        #line_dict = apache_output(line)
+
         #check that the IP isn't in the ignore lists
-        if line_dict['remote_host'] not in ignoreHosts:
+        if line_dict['host'] not in ignoreHosts:
             #these x00 may represent failed requests from https
-            if 'x00' not in line_dict['remote_host']:
-                if line_dict['remote_host'] in hosts.keys():
-                    hosts[line_dict['remote_host']] = hosts[line_dict['remote_host']] + 1
+            if 'x00' not in line_dict['host']:
+                if line_dict['host'] in hosts.keys():
+                    hosts[line_dict['host']] = hosts[line_dict['host']] + 1
                 else:
-                    hosts[line_dict['remote_host']] = 1
+                    hosts[line_dict['host']] = 1
         #print(line_dict)
+    
     return hosts
 
 

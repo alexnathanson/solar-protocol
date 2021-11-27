@@ -61,7 +61,7 @@ def final_report(logfile):
     for line in logfile:
         m = pattern.match(line)
         line_dict = m.groupdict()
-
+        print(line_dict)
         #line_dict = apache_output(line)
 
         #check that the IP isn't in the ignore lists
@@ -74,7 +74,7 @@ def final_report(logfile):
                     hosts[line_dict['host']] = 1
         #print(line_dict)
     
-    return hosts
+    #return hosts
 
 
 if __name__ == "__main__":

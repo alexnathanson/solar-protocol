@@ -38,8 +38,9 @@ def apache_output(line):
 def final_report(logfile):
     for line in logfile:
         line_dict = apache_output(line)
+        #check that the IP isn't in the ignore lists
         if line_dict['remote_host'] not in ignoreHosts:
-            if line_dict['remote_host'] not in ignoreHosts: in hosts.keys():
+            if line_dict['remote_host'] in hosts.keys():
                 hosts[line_dict['remote_host']] = hosts[line_dict['remote_host']] + 1
             else:
                 hosts[line_dict['remote_host']] = 1

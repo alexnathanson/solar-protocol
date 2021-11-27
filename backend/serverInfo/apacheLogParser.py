@@ -18,13 +18,14 @@ Are there relevent errors to display?
 
 import csv
 
-
 log_file_name = "/var/log/apache2/access.log"
 
 csv_file_name = "server-report.csv"
 
 #ignore these loopback addresses
 ignoreHosts = ["::1","0000:0000:0000:0000:0000:0000:0000:0001","127.0.0.1","localhost"]
+
+hosts = {}
 
 def apache_output(line):
     split_line = line.split()
@@ -37,7 +38,9 @@ def apache_output(line):
 def final_report(logfile):
     for line in logfile:
         line_dict = apache_output(line)
-        print(line_dict)
+        hosts[line_dict['remote_host']] = hosts[line_dict['remote_host']] + 1
+        #print(line_dict)
+    print(hosts)
 
 
 if __name__ == "__main__":

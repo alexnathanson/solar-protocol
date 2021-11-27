@@ -1,4 +1,3 @@
-
 """
 USAGE:
 
@@ -43,9 +42,9 @@ pattern = re.compile(r'\s+'.join(parts)+r'\s*\Z')
 def final_report(logfile):
     hosts = {}
 
-    #lineCount = 0
+    lineCount = 0
     for line in logfile:
-        #lineCount = lineCount + 1
+        lineCount = lineCount + 1
         m = pattern.match(line)
         mDict = m.groupdict()
 
@@ -57,13 +56,16 @@ def final_report(logfile):
         #check that the IP isn't in the ignore lists
         if line_dict['host'] not in ignoreHosts:
             #these x00 may represent failed requests from https
+            if 'x00' in line_dict['host']:
+                print(type(line_dict['host']))
+                
             if 'x00' not in line_dict['host']:
                 if line_dict['host'] in hosts.keys():
                     hosts[line_dict['host']] = hosts[line_dict['host']] + 1
                 else:
                     hosts[line_dict['host']] = 1
         print(hosts.keys())
-        #print(lineCount)
+        print("total lines: " + lineCount)
     
     return hosts
 

@@ -69,6 +69,17 @@ def final_report(logfile):
     
     return hosts
 
+def getRequest(url):
+        try:            
+            response = requests.get(url, timeout = 5)
+            return response.text       
+        except requests.exceptions.HTTPError as err:
+            print(err)
+        except requests.exceptions.Timeout as err:
+            print(err)
+        except:
+            print(err)
+
 #pass in a Apache log line converted to a dictionary
 #based on code from https://www.seehuhn.de/blog/52.html
 def convertApacheToPython(lineDict):
@@ -89,6 +100,9 @@ def convertApacheToPython(lineDict):
     return lineDict
 
 if __name__ == "__main__":
+    
+    serverStatus = getRequest("http://solarprotocol.net/server-status?auto")
+    print(serverStatus)
     
     try:
         infile = open(log_file_name, 'r')

@@ -43,7 +43,9 @@ pattern = re.compile(r'\s+'.join(parts)+r'\s*\Z')
 def final_report(logfile):
     hosts = {}
 
+    lineCount = 0
     for line in logfile:
+        lineCount++
         m = pattern.match(line)
         mDict = m.groupdict()
 
@@ -61,6 +63,7 @@ def final_report(logfile):
                 else:
                     hosts[line_dict['host']] = 1
         #print(line_dict)
+        print(lineCount)
     
     return hosts
 

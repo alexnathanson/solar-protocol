@@ -58,14 +58,14 @@ def final_report(logfile):
             #these x00 may represent failed requests from https
             if 'x00' in line_dict['host']:
                 print(type(line_dict['host']))
-                
+
             if 'x00' not in line_dict['host']:
                 if line_dict['host'] in hosts.keys():
                     hosts[line_dict['host']] = hosts[line_dict['host']] + 1
                 else:
                     hosts[line_dict['host']] = 1
         print(hosts.keys())
-        print("total lines: " + lineCount)
+        print("total lines: " + str(lineCount))
     
     return hosts
 

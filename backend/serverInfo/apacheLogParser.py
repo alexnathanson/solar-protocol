@@ -43,14 +43,14 @@ pattern = re.compile(r'\s+'.join(parts)+r'\s*\Z')
 def final_report(logfile):
     hosts = {}
 
-    lineCount = 0
+    #lineCount = 0
     for line in logfile:
-        lineCount = lineCount + 1
+        #lineCount = lineCount + 1
         m = pattern.match(line)
         mDict = m.groupdict()
 
         line_dict = convertApacheToPython(mDict)
-        #print(line_dict['host'])
+        print(line_dict)
         
         #line_dict = apache_output(line)
 
@@ -62,8 +62,8 @@ def final_report(logfile):
                     hosts[line_dict['host']] = hosts[line_dict['host']] + 1
                 else:
                     hosts[line_dict['host']] = 1
-        #print(line_dict)
-        print(lineCount)
+        print(hosts.keys())
+        #print(lineCount)
     
     return hosts
 

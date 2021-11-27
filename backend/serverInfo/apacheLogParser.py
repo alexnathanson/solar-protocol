@@ -74,7 +74,7 @@ def final_report(logfile):
                     hosts[line_dict['host']] = 1
         #print(line_dict)
     
-    #return hosts
+    return hosts
 
 
 if __name__ == "__main__":

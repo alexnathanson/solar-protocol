@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 """
 USAGE:
@@ -14,6 +13,7 @@ This script reads and parses an apache log file. It combines it with the server-
 
 Are there relevent errors to display?
 
+Re from https://www.seehuhn.de/blog/52.html
 """
 
 import csv
@@ -40,28 +40,16 @@ parts = [
 
 pattern = re.compile(r'\s+'.join(parts)+r'\s*\Z')
 
-'''
-for line in file:
-    m = pattern.match(line)
-    result = m.groups()
-    csv_out.writerow(result)
-'''
-
-# def apache_output(line):
-#     split_line = line.split()
-#     return {'remote_host': split_line[0],
-#             #'apache_status': split_line[8],
-#             #'data_transfer': split_line[9],
-#     }
-
-
 def final_report(logfile):
     hosts = {}
 
     for line in logfile:
         m = pattern.match(line)
-        line_dict = m.groupdict()
-        print(line_dict['host'])
+        mDict = m.groupdict()
+
+        line_dict = convertApacheToPython(mDict)
+        #print(line_dict['host'])
+        
         #line_dict = apache_output(line)
 
         #check that the IP isn't in the ignore lists
@@ -76,6 +64,24 @@ def final_report(logfile):
     
     return hosts
 
+#pass in a Apache log line converted to a dictionary
+#based on code from https://www.seehuhn.de/blog/52.html
+def convertApacheToPython(lineDict):
+    #convert Apache format to Python data types (not really necessaru)
+    if lineDict["user"] == "-":
+        lineDict["user"] = None
+
+    lineDict["status"] = int(lineDict["status"])
+
+    if lineDict["size"] == "-":
+        lineDict["size"] = 0
+    else:
+        lineDict["size"] = int(lineDict["size"])
+
+    if lineDict["referer"] == "-":
+        lineDict["referer"] = None
+
+    return lineDict
 
 if __name__ == "__main__":
     

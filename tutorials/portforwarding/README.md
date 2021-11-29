@@ -77,7 +77,7 @@ There are many ways to spin up a server. Follow these instructions to create a P
 * If you dont already have Python, you can install it from https://www.python.org/
 	* To check if you already have python installed, run this command in terminal: `python --version` or if that command fails try `python3 -V`
 * We will be serving the index.html file in the portforwarding-test directory
-	* Either download the entire repository or just the index.html file found at https://github.com/alexnathanson/solar-protocol/blob/master/utilities/portforwarding-test/index.html.
+	* Either download the entire repository or just the index.html file found at https://github.com/alexnathanson/solar-protocol/blob/master/tutorials/portforwarding/index.html.
 * In terminal, navigate to the location of that index file.
 * Check which version of Python you are running by typing this command in terminal:`python --version` or if that command fails try `python3 -V`
 * Start the server (if you are using a port other than 80 for HTML replace `80` below with your actual port number)

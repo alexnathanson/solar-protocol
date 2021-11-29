@@ -8,17 +8,30 @@ This test is for residential and small scale commercial networks. It requires th
 
 ## 1) Set static IP and enable port forwarding on your router
 
-Every router is different, which makes providing instructions difficult. These settings are found on your router's interface. To access your router's interface you will either need to enter a URL or IP address in a browser. This information might be found a sticker on the router, documentation/manuals you received when your internet was installed, or you may need to contact your ISP to find out. Once you have logged in to the router's control panel follow the steps below.
+Every router is different, which makes providing instructions difficult. These settings are found on your router's web interface, which can be accessed via a browser. To access your router's interface you will need to know the default gateway address for your network. The default gateway address is an IP address for your router. Some routers also have a conveniant URL. The easiest way to find this address is usually via your computer's network settings. Instructions for finding your default gateway address from your computer's network settings can be found at https://www.lifewire.com/how-to-find-your-default-gateway-ip-address-2626072. This information might also be found on a sticker on the router or in the router hardware manual. If all else fails, you may need to contact your ISP to find out. Once you have logged in to the router's control panel follow the steps below.
 
-### 1.1) Set local static IP
+### 1.1) Set local/private static IP
 
 Your public IP address is assigned by your ISP. A public IP is the IP address used by external devices to communicate with devices on your local area network (LAN). Your private LAN IP is assigned by your router either automatically through DHCP or manually. IPs set with DHCP change periodically, so we need to manually assign a static IP to the device our server is running on. This will ensure that the device's local IP wont change. The Solar Protocol network is designed to allow dynamic public IPs, so it is not a problem if your ISP changes your public IP. 
 
-If your server is already connected to your network, you should be able to locate your device within a list of device in the router interface. If might be found under the sections "connected devices", "dhcp assignments", or something similar.  Typically, it will already have been assigned an IP address from the DHCP server. It is crucial that you dont assign your server an IP address already in use by another device. To avoid this, set your devices IP address to the address is has already been assigned. (On some networks there are blocks of IPs that are reserved for static use. If that is the case, you can pick one of them)
+A static IP can be set via the device being connected to the network (in our case the Raspberry Pi) or by the router. If you are setting a static IP on the device, make sure that you choose an IP address outside of the DHCP range of your router. It is important to ensure that the same IP address isn't used by multiple devices simultaneously. For this reason, we recommend keeping the Raspberry Pi set to DHCP and setting the static IP via the router's interface.
+
+* Make sure that the device you want to set is on the network
+* Access your router's interface
+* Locate the list of devices currently on the network. This section might be called "client devices", "connected devices", "dhcp assignments", "dhcp reservations", or something similar.
+	* All the devices on your network that use DHCP will be listed. Locate your device in this list.  
+* Look for a way to reserve a particular IP address or assign an IP address to a particular device.
+* If you are able to reserve an IP address, choose the IP address that your device is currently assigned. It is crucial that you dont assign your server an IP address already in use by another device. If you can't reserve an IP address currently used for DHCP, make sure to select an IP address outside of the DHCP range that isn't being used by anything else. On some networks there are blocks of IPs that are explicity reserved for static use.
 
 ### 1.2) Set ports
 
-The standard ports we use are 80 for HTTP and 22 for SSH. If those ports aren't available because they are being used by something else on your network or by the router itself, you can choose different ports. We recommend 8080 and 8022 as backups.
+* Access your router's interface
+* Locate the port forwarding settings
+	* This is often under the Advanced tab.
+* Enable port forwarding
+	* Typically, you must enter a name for your device, specify the IP address, and the port that will be forwarded.
+	* The standard ports we use are 80 for HTTP and 22 for SSH. If those ports aren't available because they are being used by something else on your network or by the router itself, you can choose different ports.
+	* You will likely need to make 2 seperate entries for each of the ports that will be forwarded.
 
 ## 2) Test your port forwarding settings
 
@@ -30,6 +43,7 @@ There are a number of online tools available that can confirm whether your ports
 
 * https://portchecker.co/
 * https://www.yougetsignal.com/tools/open-ports/
+* https://www.portchecktool.com/
 
 Run this test on both your http and ssh ports. If you were not able to use the default ports (80 & 22) you must manually enter the port number when you run the test. The tester will tell you if the ports are open or closed.
 

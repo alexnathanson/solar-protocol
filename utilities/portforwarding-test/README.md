@@ -1,4 +1,4 @@
-# Port forwarding test
+# How to set up and test static IP and port forwarding for Solar Protocol
 
 Port forwarding is a crucial component of Solar Protocol. It is what allows an external device to communicate with your server on your local private network. <strong>If your hardware is being purchased and/ or shipped to you by Solar Protocol you must confirm that your network can properly enable port forwarding before we send you any hardware.</strong> If you are purchasing your own hardware, we strongly recommended that you test that port forwarding is possible first to avoid wasting your money.
 
@@ -66,7 +66,7 @@ If you are using a Raspberry Pi, you should definitely complete this step. If yo
 
 ## 3) Disable port forwarding
 
-Once the tests have been successfully completed, do not leave port forwarding enabled unless you have the proper security measures in place. Go back through step 1 and disable both HTTP and SSH port forwarding.
+If you are only running a test (and not actually installing your server), once the tests have been successfully completed you should close your ports. Do not leave port forwarding enabled unless you have the proper security measures in place. Go back through step 1 and disable both HTTP and SSH port forwarding. You can leave the static IP set if you want, because it isn't a security issue, but its not necessary.
 
 ## Create a server for testing
 

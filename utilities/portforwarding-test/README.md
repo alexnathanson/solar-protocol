@@ -14,7 +14,7 @@ Every router is different, which makes providing instructions difficult. These s
 
 Your public IP address is assigned by your ISP. A public IP is the IP address used by external devices to communicate with devices on your local area network (LAN). Your private LAN IP is assigned by your router either automatically through DHCP or manually. IPs set with DHCP change periodically, so we need to manually assign a static IP to the device our server is running on. This will ensure that the device's local IP wont change. The Solar Protocol network is designed to allow dynamic public IPs, so it is not a problem if your ISP changes your public IP. 
 
-Locate your device. Typically, it will already have been assigned an IP address from the DHCP server. It is crucial that you dont assign your server an IP address already in use by another device. To avoid this, set your devices IP address to the address is has already been assigned. (On some networks there are blocks of IPs that are reserved for static use. If that is the case, you can pick one of them)
+If your server is already connected to your network, you should be able to locate your device within a list of device in the router interface. If might be found under the sections "connected devices", "dhcp assignments", or something similar.  Typically, it will already have been assigned an IP address from the DHCP server. It is crucial that you dont assign your server an IP address already in use by another device. To avoid this, set your devices IP address to the address is has already been assigned. (On some networks there are blocks of IPs that are reserved for static use. If that is the case, you can pick one of them)
 
 ### 1.2) Set ports
 

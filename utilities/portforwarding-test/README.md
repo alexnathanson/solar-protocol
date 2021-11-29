@@ -35,7 +35,7 @@ A static IP can be set via the device being connected to the network (in our cas
 
 ## 2) Test your port forwarding settings
 
-There are 2 tests that you should conduct for both HTTP and SSH
+There are 2 ways that you can confirm your port forwarding was successful. You can use an port forwarding testing tool. This will confirm if a particular port is open. You can also serve content or access your device over that particular port. We recommend that you do both methods for both HTTP and SSH.
 
 ### 2.1) Online testing tools
 

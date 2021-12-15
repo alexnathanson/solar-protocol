@@ -1,6 +1,9 @@
 #!/bin/sh
 
-# This script is run from solarProtocol.py
+#This script is used to force the DNS to update directly.
+#It is used for testing if the DNS is working and connects to the server.
+#It does not go through the DNS gateway.
+#The DNS password is passed as an argument
 
 # Variables
 LAST_IP_FILE=/tmp/lastip.txt
@@ -9,7 +12,7 @@ TIME="`date +%Y-%m-%d:%H:%M`"
 HOST=@
 DOMAIN=solarprotocol.net
 
-#the DNS password is passed as an argument from solarProtocol.py
+#the DNS password is passed as an argument
 PASSWORD=$1	
 echo "TIME: $TIME"
 

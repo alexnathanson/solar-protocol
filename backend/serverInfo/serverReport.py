@@ -84,6 +84,9 @@ def parseLogFile(logfile):
     #past 72 SP requests
     spReq72 = 0
 
+    #days
+    tDelta = 1
+
     for line in spDevices:
         #create dictionary of all hosts and requests
         if line['host'] in spHosts.keys():
@@ -92,8 +95,8 @@ def parseLogFile(logfile):
             spHosts[line['host']] = 1
         spReq = spReq + 1
 
-        #filter to the only data logged in the last 72 hours
-        if line['time'].replace(tzinfo=None) > datetime.datetime.now() - datetime.timedelta(3):
+        #filter to the only data logged within a given delta
+        if line['time'].replace(tzinfo=None) > datetime.datetime.now() - datetime.timedelta(tDelta):
             #create dictionary of all hosts and requests
             if line['host'] in spHosts72.keys():
                 spHosts72[line['host']] = spHosts72[line['host']] + 1
@@ -107,24 +110,50 @@ def parseLogFile(logfile):
     #total amount of requests
     logFileStats['allSPRequests'] = spReq
     #total amount of hosts making requests
-    logFileStats['72SPHosts'] = len(spHosts72.keys())
+    logFileStats['filteredSPHosts'] = len(spHosts72.keys())
     #total amount of requests
-    logFileStats['72SPRequests'] = spReq72
+    logFileStats['filteredSPRequests'] = spReq72
 
 
-    # #get non Solar Protocol host making requests
-    # externalHosts = {}
-    # totExReq = 0
+    #get non Solar Protocol host making requests
 
-    # for h in hosts.keys():
-    #     #check that the IP isn't in the network devices list
-    #     if h not in spIPList:
-    #         #these x00 may represent failed requests from https
-    #         if '\x00' not in h:
-    #             externalHosts[h] = hosts[h]
-    #             totExReq = totExReq + hosts[h]
-        
 
+   #all time unique SP hosts
+    exHosts = {}
+    #all time requests from SP hosts
+    exReq = 0
+    #past 72 SP hosts
+    exHosts72 = {}
+    #past 72 SP requests
+    exReq72 = 0
+
+
+    for line in exDevices:
+        #create dictionary of all hosts and requests
+        if line['host'] in exHosts.keys():
+            exHosts[line['host']] = exHosts[line['host']] + 1
+        else:
+            exHosts[line['host']] = 1
+        exReq = exReq + 1
+
+        #filter to the only data logged within a given delta
+        if line['time'].replace(tzinfo=None) > datetime.datetime.now() - datetime.timedelta(tDelta):
+            #create dictionary of all hosts and requests
+            if line['host'] in exHosts72.keys():
+                exHosts72[line['host']] = exHosts72[line['host']] + 1
+            else:
+                exHosts72[line['host']] = 1
+            exReq72 = exReq72 + 1
+
+
+    #total amount of hosts making requests
+    logFileStats['allExHosts'] = len(exHosts.keys())
+    #total amount of requests
+    logFileStats['allExRequests'] = exReq
+    #total amount of hosts making requests
+    logFileStats['filteredExHosts'] = len(exHosts72.keys())
+    #total amount of requests
+    logFileStats['filteredExRequests'] = exReq72
 
     return logFileStats
 

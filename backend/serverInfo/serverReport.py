@@ -66,7 +66,7 @@ def parseLogFile(logfile):
     for line in logfile:
 
         if fL:
-            firstLine = lineDict
+            firstLine = line
             fL = false
 
         '''filter out the hex stuff that is fucking shit up

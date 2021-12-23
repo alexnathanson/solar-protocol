@@ -87,7 +87,7 @@ def parseLogFile(logfile):
     print("TOTALS")
     print(logFileStats)
 
-    print(logFileStats.keys())
+    print(hosts.keys())
 
     return logFileStats
 

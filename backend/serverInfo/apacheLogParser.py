@@ -74,10 +74,10 @@ def getRequest(url):
         try:            
             response = requests.get(url, timeout = 5)
             return response.text       
-        except requests.exceptions.HTTPError as err:
-            print(err)
-        except requests.exceptions.Timeout as err:
-            print(err)
+        # except requests.exceptions.HTTPError as err:
+        #     print(err)
+        # except requests.exceptions.Timeout as err:
+        #     print(err)
         except:
             print(err)
 

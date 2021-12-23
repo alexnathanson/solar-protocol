@@ -170,7 +170,7 @@ def writeReport(fReport):
 
         f = open("json_file_name", "w")
 
-        json.dump(d, fReport)
+        json.dump(fReport, f)
 
         f.close()
 
@@ -202,5 +202,5 @@ if __name__ == "__main__":
     print("***FINAL REPORT***")
     print (finalReport)
     writeReport(finalReport)
-    
+
     infile.close()

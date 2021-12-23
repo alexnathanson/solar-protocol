@@ -27,8 +27,7 @@ deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
 log_file_name = "/var/log/apache2/access.log"
 
-# csv_file_name = "server-report.csv"
-json_file_name = "server-report.json"
+json_file_name = "/home/pi/local/server-report.json"
 
 #ignore these loopback addresses
 ignoreLocalHosts = ["::1","0000:0000:0000:0000:0000:0000:0000:0001","127.0.0.1","localhost"]
@@ -168,7 +167,7 @@ def getKeyList(getKey):
 def writeReport(fReport):
 
 
-        f = open("json_file_name", "w")
+        f = open(json_file_name, "w")
 
         json.dump(fReport, f)
 

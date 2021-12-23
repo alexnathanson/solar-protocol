@@ -92,17 +92,14 @@ def parseLogFile(logfile):
             spHosts[line['host']] = 1
         spReq = spReq + 1
 
-        print(line['time'])
-        print(type(line['time']))
-
         #filter to the only data logged in the last 72 hours
-        # if line['time'] > datetime.datetime.now() - datetime.timedelta(3):
-        #     #create dictionary of all hosts and requests
-        #     if line['host'] in spHosts.keys():
-        #         spHosts72[line['host']] = spHosts72[line['host']] + 1
-        #     else:
-        #         spHosts72[line['host']] = 1
-        #     spReq72 = spReq72 + 1
+        if line['time'] > datetime.datetime.now() - datetime.timedelta(3):
+            #create dictionary of all hosts and requests
+            if line['host'] in spHosts.keys():
+                spHosts72[line['host']] = spHosts72[line['host']] + 1
+            else:
+                spHosts72[line['host']] = 1
+            spReq72 = spReq72 + 1
 
 
     #total amount of hosts making requests
@@ -134,7 +131,6 @@ def parseLogFile(logfile):
 #pass in a Apache log line converted to a dictionary
 #based on code from https://www.seehuhn.de/blog/52.html
 def convertApacheToPython(lineDict):
-    print(lineDict)
 
     #convert Apache format to Python data types (not really necessary for us...)
     if lineDict["user"] == "-":

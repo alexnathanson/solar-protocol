@@ -81,14 +81,14 @@ def parseLogFile(logfile):
                 totExReq = totExReq + hosts[h]
         
     #amount of hosts making requests excluding SP devices
-    logFileStats['externalHosts'] = len(hosts.externalHosts)
+    logFileStats['externalHosts'] = len(externalHosts.keys())
 
     #total amount of requests excluding SP devices
     logFileStats['externalRequests'] = totExReq
 
     print("TOTALS")
     print(logFileStats)
-    
+
         #check that the IP isn't in the ignore lists
         # if line_dict['host'] not in ignoreHosts:
         #     if 'x00' in line_dict['host']:

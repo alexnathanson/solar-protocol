@@ -74,7 +74,8 @@ def parseLogFile(logfile):
         #check that the IP isn't in the ignore lists
         if h not in ignoreLocalHosts:
             #these x00 may represent failed requests from https
-            if 'x00' not in h:
+            # if 'x00' not in h:
+            if h.find('x00') == -1:
                 externalHosts[h] = hosts[h]
                 totExReq = totExReq + hosts[h]
         

@@ -27,7 +27,7 @@ log_file_name = "/var/log/apache2/access.log"
 csv_file_name = "server-report.csv"
 
 #ignore these loopback addresses
-ignoreHosts = ["::1","0000:0000:0000:0000:0000:0000:0000:0001","127.0.0.1","localhost"]
+ignoreLocalHosts = ["::1","0000:0000:0000:0000:0000:0000:0000:0001","127.0.0.1","localhost"]
 
 parts = [
     r'(?P<host>\S+)',                   # host %h
@@ -68,13 +68,11 @@ def parseLogFile(logfile):
     #total amount of requests
     logFileStats['totalRequests'] = lineCount
 
-
-
     externalHosts = {}
     totExReq = 0
     for h in hosts.keys():
         #check that the IP isn't in the ignore lists
-        if h not in ignoreHosts:
+        if h not in ignoreLocalHosts:
             #these x00 may represent failed requests from https
             if 'x00' not in h:
                 externalHosts[h] = hosts[h]
@@ -89,20 +87,9 @@ def parseLogFile(logfile):
     print("TOTALS")
     print(logFileStats)
 
-        #check that the IP isn't in the ignore lists
-        # if line_dict['host'] not in ignoreHosts:
-        #     if 'x00' in line_dict['host']:
-        #         print(type(line_dict['host']))
+    print(logFileStats.keys())
 
-        #     if 'x00' not in line_dict['host']:
-        #         if line_dict['host'] in hosts.keys():
-        #             hosts[line_dict['host']] = hosts[line_dict['host']] + 1
-        #         else:
-        #             hosts[line_dict['host']] = 1
-
-
-    
-    return hosts
+    return logFileStats
 
 #pass in a Apache log line converted to a dictionary
 #based on code from https://www.seehuhn.de/blog/52.html
@@ -160,5 +147,4 @@ if __name__ == "__main__":
         print (__doc__)
     log_report = parseLogFile(infile)
     # print (log_report)
-    print(len(log_report))
     infile.close()

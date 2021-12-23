@@ -17,6 +17,7 @@ Re from https://www.seehuhn.de/blog/52.html
 
 import csv
 import re
+import requests
 
 log_file_name = "/var/log/apache2/access.log"
 
@@ -101,7 +102,8 @@ def convertApacheToPython(lineDict):
 
 if __name__ == "__main__":
     
-    serverStatus = getRequest("http://solarprotocol.net/server-status?auto")
+    #get current server status
+    serverStatus = getRequest("localhost/server-status?auto")
     print(serverStatus)
     
     try:

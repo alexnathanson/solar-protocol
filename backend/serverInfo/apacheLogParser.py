@@ -121,23 +121,22 @@ def convertApacheToPython(lineDict):
 
 #pass in the return info from the server-status?auto
 def parseServerStatus(autoStatus):
-    print("server status function")
-
     autoStatusLines = autoStatus.splitlines()
-    print(autoStatusLines)
-    print(type(autoStatusLines))
 
     statusDict = {}
 
     for line in autoStatusLines:
         splitPos = line.find(":")
         print(splitPos)
-        #remove leading and trailing whitespace and line breaks
-        statusDict[line[0:splitPos]] = line[splitPos + 1:].replace("\n", "").strip()
+        #check if there is no delineator
+        if(splitPos != -1):
+            #remove leading and trailing whitespace and line breaks
+            statusDict[line[0:splitPos]] = line[splitPos + 1:].replace("\n", "").strip()
+        else:
+            statusDict['URL'] = line.replace("\n", "").strip()
 
-
-    print("server status")
-    print(statusDict.keys())
+    # print("server status")
+    # print(statusDict.keys())
 
     return statusDict
 
@@ -183,14 +182,15 @@ if __name__ == "__main__":
     #get current server status
     #DOES THIS NEED TO PULL PORT???
     serverStatus = getRequest("http://localhost/server-status?auto")
-    print(parseServerStatus(serverStatus))
+    finalReport = parseServerStatus(serverStatus)
     
     try:
         infile = open(log_file_name, 'r')
     except IOError:
         print ("You must specify a valid file to parse")
         print (__doc__)
-    finalReport = parseLogFile(infile)
+    finalReport = finalReport.update(parseLogFile(infile))
+    
     print("***FINAL REPORT***")
     print (finalReport)
     infile.close()

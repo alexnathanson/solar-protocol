@@ -173,7 +173,7 @@ if __name__ == "__main__":
     #get current server status
     #DOES THIS NEED TO PULL PORT???
     serverStatus = getRequest("http://localhost/server-status?auto")
-    print(serverStatus)
+    print(parseServerStatus(serverStatus))
     
     try:
         infile = open(log_file_name, 'r')

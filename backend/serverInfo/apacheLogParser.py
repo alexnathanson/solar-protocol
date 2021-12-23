@@ -123,6 +123,9 @@ def convertApacheToPython(lineDict):
 def parseServerStatus(autoStatus):
     statusDict = json.loads(autoStatus)
 
+    print("server status")
+    print(type(statusDict))
+    print(statusDict.keys())
     # for line in autoStatus:
     #     line.find(":")
 

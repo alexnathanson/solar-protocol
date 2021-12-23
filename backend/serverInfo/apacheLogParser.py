@@ -124,7 +124,7 @@ def parseServerStatus(autoStatus):
     print("server status function")
 
     autoStatusLines = autoStatus.splitlines()
-    print(autoStatusLinest)
+    print(autoStatusLines)
     print(type(autoStatusLines))
 
     statusDict = {}

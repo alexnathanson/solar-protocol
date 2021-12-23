@@ -126,7 +126,7 @@ def parseServerStatus(autoStatus):
     for line in autoStatus:
         splitPos = line.find(":")
         #remove leading and trailing whitespace and line breaks
-        statusDict[line[0:splitPos]] = strip(line[splitPos + 1]).replace("\n", "")
+        statusDict[line[0:splitPos]] = line[splitPos + 1].replace("\n", "").strip()
 
 
     print("server status")

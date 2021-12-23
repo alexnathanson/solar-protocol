@@ -58,18 +58,22 @@ def parseLogFile(logfile):
 
     #convert each line of the log file into a dictionary
     for line in logfile:
-        m = pattern.match(line)
-        mDict = m.groupdict()
-        line_dict = convertApacheToPython(mDict)
-        
-        #check that the IP isn't in the local hosts list
-        if line_dict['host'] not in ignoreLocalHosts:
-            #create list of logs from SP devices
-            if line_dict['host'] in spIPList:
-                spDevices.append(line_dict)
-            #create list of logs from SP devices
-            else:
-                exDevices.append(line_dict)
+
+        '''filter out the hex stuff that is fucking shit up
+        x00 may represent failed requests from https'''
+        if '\x00' not in h:
+            m = pattern.match(line)
+            mDict = m.groupdict()
+            line_dict = convertApacheToPython(mDict)
+            
+            #check that the IP isn't in the local hosts list
+            if line_dict['host'] not in ignoreLocalHosts:
+                #create list of logs from SP devices
+                if line_dict['host'] in spIPList:
+                    spDevices.append(line_dict)
+                #create list of logs from SP devices
+                else:
+                    exDevices.append(line_dict)
 
     #all time unique SP hosts
     spHosts = {}
@@ -131,7 +135,7 @@ def parseLogFile(logfile):
 #based on code from https://www.seehuhn.de/blog/52.html
 def convertApacheToPython(lineDict):
     print(lineDict)
-    
+
     #convert Apache format to Python data types (not really necessary for us...)
     if lineDict["user"] == "-":
         lineDict["user"] = None
@@ -148,7 +152,6 @@ def convertApacheToPython(lineDict):
 
     #convert string to timezone aware datetime object
     lineTime = lineDict["time"]
-    print(lineTime)
     lineDict["time"] = parse(lineTime[:11]+ " " + lineTime[12:])
 
     return lineDict

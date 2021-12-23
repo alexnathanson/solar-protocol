@@ -56,12 +56,12 @@ def parseLogFile(logfile):
     spDevices = []
     exDevices = []
 
-
+    print(type(logfile))
 
     firstLine = ''
     lastLine = ''
     fL = True
-    
+
     #convert each line of the log file into a dictionary
     for line in logfile:
 

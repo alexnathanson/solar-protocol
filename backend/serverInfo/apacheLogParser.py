@@ -8,8 +8,8 @@ This script reads and parses an apache log file. It combines it with the server-
 * server up time
 * all time total amount of unique hosts
 * all time amount of unique hosts (exluding SP network devices)
-* 7 days total amount of unique hosts
-* 7 days total amount of unique hosts (exluding SP network devices)
+* 7 days total amount of unique hosts - not implemented
+* 7 days total amount of unique hosts (exluding SP network devices) - not implemented
 
 Are there relevent errors to display?
 
@@ -27,7 +27,8 @@ deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
 log_file_name = "/var/log/apache2/access.log"
 
-csv_file_name = "server-report.csv"
+# csv_file_name = "server-report.csv"
+json_file_name = "server-report.json"
 
 #ignore these loopback addresses
 ignoreLocalHosts = ["::1","0000:0000:0000:0000:0000:0000:0000:0001","127.0.0.1","localhost"]
@@ -74,7 +75,7 @@ def parseLogFile(logfile):
     #total amount of requests
     logFileStats['totalRequests'] = lineCount
 
-    #get list of host makinng requests excluding devices in the Solar Protocol network
+    #get list of host making requests excluding devices in the Solar Protocol network
     externalHosts = {}
     totExReq = 0
     spIPList = getKeyList('ip')
@@ -166,15 +167,18 @@ def getKeyList(getKey):
 
 def writeReport(fReport):
 
-    with open(csv_file_name, 'w') as out:
-        csv_out=csv.writer(out)
 
-        csv_out.writerow(['server built', 'current time','server uptime', 'total requesting hosts', 'total requesting hosts excluding SP devices','7 day total requesting hosts', '7 day total requesting hosts excluding SP devices'])
+        f = open("json_file_name", "w")
 
-        # for line in file:
-        #     m = pattern.match(line)
-        #     result = m.groups()
-        #     csv_out.writerow(result)
+        json.dump(d, fReport)
+
+        f.close()
+
+
+    # with open(csv_file_name, 'w') as out:
+    #     csv_out=csv.writer(out)
+        #csv_out.writerow(['server built', 'current time','server uptime', 'total requesting hosts', 'total requesting hosts excluding SP devices','7 day total requesting hosts', '7 day total requesting hosts excluding SP devices'])
+
 
 if __name__ == "__main__":
     
@@ -195,7 +199,8 @@ if __name__ == "__main__":
 
     #merge dictionaries into the final report
     finalReport = {**serverStatDict,**logDict}
-
     print("***FINAL REPORT***")
     print (finalReport)
+    writeReport(finalReport)
+    
     infile.close()

@@ -95,7 +95,7 @@ def parseLogFile(logfile):
         #filter to the only data logged in the last 72 hours
         if line['time'].replace(tzinfo=None) > datetime.datetime.now() - datetime.timedelta(3):
             #create dictionary of all hosts and requests
-            if line['host'] in spHosts.keys():
+            if line['host'] in spHosts72.keys():
                 spHosts72[line['host']] = spHosts72[line['host']] + 1
             else:
                 spHosts72[line['host']] = 1
@@ -151,7 +151,7 @@ def convertApacheToPython(lineDict):
     lineTime = lineDict["time"]
     print(lineTime)
     lineDict["time"] = parse(lineTime[:11]+ " " + lineTime[12:])
-    print(lineDict)
+    print(lineDict["time"])
 
     return lineDict
 

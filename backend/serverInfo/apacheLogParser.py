@@ -4,6 +4,7 @@ USAGE:
 This script reads and parses an apache log file. It combines it with the server-status info and generates a report with:
 
 * server creation time
+* current time
 * server up time
 * all time total amount of unique hosts
 * all time amount of unique hosts (exluding SP network devices)
@@ -13,6 +14,8 @@ This script reads and parses an apache log file. It combines it with the server-
 Are there relevent errors to display?
 
 Re from https://www.seehuhn.de/blog/52.html
+
+Apache Logging Basics: https://www.loggly.com/ultimate-guide/apache-logging-basics/
 """
 
 import csv
@@ -40,7 +43,9 @@ parts = [
 
 pattern = re.compile(r'\s+'.join(parts)+r'\s*\Z')
 
-def final_report(logfile):
+def parseLogFile(logfile):
+    logFileStats = {}
+    
     hosts = {}
 
     lineCount = 0
@@ -50,41 +55,47 @@ def final_report(logfile):
         mDict = m.groupdict()
 
         line_dict = convertApacheToPython(mDict)
-        print(line_dict)
+        #print(line_dict)
         
-        #line_dict = apache_output(line)
+        #create dictionary of all hosts and requests
+        if line_dict['host'] in hosts.keys():
+            hosts[line_dict['host']] = hosts[line_dict['host']] + 1
+        else:
+            hosts[line_dict['host']] = 1
+
+    #total amount of hosts making requests
+    logFileStats['totalHosts'] = len(hosts.keys())
+    #total amount of requests
+    logFileStats['totalRequests'] = lineCount
+
+    print("TOTALS")
+    print(logFileStats)
 
         #check that the IP isn't in the ignore lists
-        if line_dict['host'] not in ignoreHosts:
-            #these x00 may represent failed requests from https
-            if 'x00' in line_dict['host']:
-                print(type(line_dict['host']))
+        # if line_dict['host'] not in ignoreHosts:
+        #     #these x00 may represent failed requests from https
+        #     if 'x00' in line_dict['host']:
+        #         print(type(line_dict['host']))
 
-            if 'x00' not in line_dict['host']:
-                if line_dict['host'] in hosts.keys():
-                    hosts[line_dict['host']] = hosts[line_dict['host']] + 1
-                else:
-                    hosts[line_dict['host']] = 1
-        print(hosts.keys())
-        print("total lines: " + str(lineCount))
+        #     if 'x00' not in line_dict['host']:
+        #         if line_dict['host'] in hosts.keys():
+        #             hosts[line_dict['host']] = hosts[line_dict['host']] + 1
+        #         else:
+        #             hosts[line_dict['host']] = 1
+
+        
+        #amount of hosts making requests excluding SP devices
+        # logFileStats['externalHosts'] = 
+ 
+        # #total amount of requests excluding SP devices
+        # logFileStats['externalRequests'] =
     
     return hosts
-
-def getRequest(url):
-        try:            
-            response = requests.get(url, timeout = 5)
-            return response.text       
-        except requests.exceptions.HTTPError as err:
-            print(err)
-        except requests.exceptions.Timeout as err:
-            print(err)
-        except requests.exceptions.RequestException as err:
-            print(err)
 
 #pass in a Apache log line converted to a dictionary
 #based on code from https://www.seehuhn.de/blog/52.html
 def convertApacheToPython(lineDict):
-    #convert Apache format to Python data types (not really necessaru)
+    #convert Apache format to Python data types (not really necessary for us...)
     if lineDict["user"] == "-":
         lineDict["user"] = None
 
@@ -100,6 +111,29 @@ def convertApacheToPython(lineDict):
 
     return lineDict
 
+def getRequest(url):
+        try:            
+            response = requests.get(url, timeout = 5)
+            return response.text       
+        except requests.exceptions.HTTPError as err:
+            print(err)
+        except requests.exceptions.Timeout as err:
+            print(err)
+        except requests.exceptions.RequestException as err:
+            print(err)
+
+def writeReport(fReport):
+
+    with open(csv_file_name, 'w') as out:
+        csv_out=csv.writer(out)
+
+        csv_out.writerow(['server built', 'current time','server uptime', 'total requesting hosts', 'total requesting hosts excluding SP devices','7 day total requesting hosts', '7 day total requesting hosts excluding SP devices'])
+
+        # for line in file:
+        #     m = pattern.match(line)
+        #     result = m.groups()
+        #     csv_out.writerow(result)
+
 if __name__ == "__main__":
     
     #get current server status
@@ -111,7 +145,7 @@ if __name__ == "__main__":
     except IOError:
         print ("You must specify a valid file to parse")
         print (__doc__)
-    log_report = final_report(infile)
-    print (log_report)
+    log_report = parseLogFile(infile)
+    # print (log_report)
     print(len(log_report))
     infile.close()

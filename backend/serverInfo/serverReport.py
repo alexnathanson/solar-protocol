@@ -93,7 +93,7 @@ def parseLogFile(logfile):
         spReq = spReq + 1
 
         #filter to the only data logged in the last 72 hours
-        if line['time'] > datetime.datetime.now() - datetime.timedelta(3):
+        if line['time'].replace(tzinfo=None) > datetime.datetime.now() - datetime.timedelta(3):
             #create dictionary of all hosts and requests
             if line['host'] in spHosts.keys():
                 spHosts72[line['host']] = spHosts72[line['host']] + 1
@@ -147,8 +147,11 @@ def convertApacheToPython(lineDict):
         lineDict["referer"] = None
 
     #convert string to timezone aware datetime object
+    # source: https://nablux.net/tgp/weblog/2013/10/29/parsing-timestamps-apache-log-files-python/
     lineTime = lineDict["time"]
+    print(lineTime)
     lineDict["time"] = parse(lineTime[:11]+ " " + lineTime[12:])
+    print(lineDict)
 
     return lineDict
 

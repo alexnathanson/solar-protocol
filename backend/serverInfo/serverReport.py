@@ -22,6 +22,7 @@ import csv
 import re
 import requests
 import json
+import datetime
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
@@ -49,54 +50,82 @@ pattern = re.compile(r'\s+'.join(parts)+r'\s*\Z')
 def parseLogFile(logfile):
     logFileStats = {}
     
-    hosts = {}
+    spIPList = getKeyList('ip')
 
-    #get all hosts making requests
-    lineCount = 0
+    # lineCount = 0
+
+    spDevices = []
+    exDevices = []
+
+    #convert each line of the log file into a dictionary
     for line in logfile:
         lineCount = lineCount + 1
         m = pattern.match(line)
         mDict = m.groupdict()
-
         line_dict = convertApacheToPython(mDict)
-        #print(line_dict)
         
         #check that the IP isn't in the local hosts list
         if line_dict['host'] not in ignoreLocalHosts:
-            #create dictionary of all hosts and requests
-            if line_dict['host'] in hosts.keys():
-                hosts[line_dict['host']] = hosts[line_dict['host']] + 1
+            #create list of logs from SP devices
+            if line_dict['host'] in spIPList:
+                spDevices.append(line_dict)
+            #create list of logs from SP devices
             else:
-                hosts[line_dict['host']] = 1
+                exDevices.append(line_dict)
+
+    #all time unique SP hosts
+    spHosts = {}
+    #all time requests from SP hosts
+    spReq = 0
+    #past 72 SP hosts
+    spHosts72 = {}
+    #past 72 SP requests
+    spReq72 = 0
+
+    for line in spDevices:
+        #create dictionary of all hosts and requests
+        if line['host'] in spHosts.keys():
+            spHosts[line['host']] = spHosts[line['host']] + 1
+        else:
+            spHosts[line['host']] = 1
+        spReq = spReq + 1
+
+        print(line['time'])
+        print(type(line['time']))
+
+        #filter to the only data logged in the last 72 hours
+        # if line['time'] > datetime.datetime.now() - datetime.timedelta(3):
+        #     #create dictionary of all hosts and requests
+        #     if line['host'] in spHosts.keys():
+        #         spHosts72[line['host']] = spHosts72[line['host']] + 1
+        #     else:
+        #         spHosts72[line['host']] = 1
+        #     spReq72 = spReq72 + 1
+
 
     #total amount of hosts making requests
-    logFileStats['totalHosts'] = len(hosts.keys())
+    logFileStats['allSPHosts'] = len(spHosts.keys())
     #total amount of requests
-    logFileStats['totalRequests'] = lineCount
+    logFileStats['allSPRequests'] = spReq
+    #total amount of hosts making requests
+    logFileStats['72SPHosts'] = len(spHosts72.keys())
+    #total amount of requests
+    logFileStats['72SPRequests'] = spReq72
 
-    #get list of host making requests excluding devices in the Solar Protocol network
-    externalHosts = {}
-    totExReq = 0
-    spIPList = getKeyList('ip')
 
-    for h in hosts.keys():
-        #check that the IP isn't in the network devices list
-        if h not in spIPList:
-            #these x00 may represent failed requests from https
-            if '\x00' not in h:
-                externalHosts[h] = hosts[h]
-                totExReq = totExReq + hosts[h]
+    # #get non Solar Protocol host making requests
+    # externalHosts = {}
+    # totExReq = 0
+
+    # for h in hosts.keys():
+    #     #check that the IP isn't in the network devices list
+    #     if h not in spIPList:
+    #         #these x00 may represent failed requests from https
+    #         if '\x00' not in h:
+    #             externalHosts[h] = hosts[h]
+    #             totExReq = totExReq + hosts[h]
         
-    #amount of hosts making requests excluding SP devices
-    logFileStats['externalHosts'] = len(externalHosts.keys())
 
-    #total amount of requests excluding SP devices
-    logFileStats['externalRequests'] = totExReq
-
-    # print("TOTALS")
-    # print(logFileStats)
-
-    # print(externalHosts.keys())
 
     return logFileStats
 

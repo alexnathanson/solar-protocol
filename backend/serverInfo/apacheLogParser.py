@@ -127,7 +127,6 @@ def parseServerStatus(autoStatus):
 
     for line in autoStatusLines:
         splitPos = line.find(":")
-        print(splitPos)
         #check if there is no delineator
         if(splitPos != -1):
             #remove leading and trailing whitespace and line breaks
@@ -183,7 +182,8 @@ if __name__ == "__main__":
     #DOES THIS NEED TO PULL PORT???
     serverStatus = getRequest("http://localhost/server-status?auto")
     serverStatDict = parseServerStatus(serverStatus)
-    
+    print(serverStatDict)
+
     try:
         infile = open(log_file_name, 'r')
     except IOError:
@@ -191,6 +191,7 @@ if __name__ == "__main__":
         print (__doc__)
 
     logDict = parseLogFile(infile)
+    print(logDict)
     finalReport = serverStatDict.update(logDict)
 
     print("***FINAL REPORT***")

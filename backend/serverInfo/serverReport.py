@@ -130,6 +130,8 @@ def parseLogFile(logfile):
 #pass in a Apache log line converted to a dictionary
 #based on code from https://www.seehuhn.de/blog/52.html
 def convertApacheToPython(lineDict):
+    print(lineDict)
+    
     #convert Apache format to Python data types (not really necessary for us...)
     if lineDict["user"] == "-":
         lineDict["user"] = None

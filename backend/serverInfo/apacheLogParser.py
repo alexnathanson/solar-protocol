@@ -78,7 +78,7 @@ def parseLogFile(logfile):
     externalHosts = {}
     totExReq = 0
     spIPList = getKeyList('ip')
-    print(spIPList)
+
     for h in hosts.keys():
         #check that the IP isn't in the network devices list
         if h not in spIPList:
@@ -96,7 +96,7 @@ def parseLogFile(logfile):
     print("TOTALS")
     print(logFileStats)
 
-    print(hosts.keys())
+    print(externalHosts.keys())
 
     return logFileStats
 
@@ -118,6 +118,15 @@ def convertApacheToPython(lineDict):
         lineDict["referer"] = None
 
     return lineDict
+
+#pass in the return info from the server-status?auto
+def parseServerStatus(autoStatus):
+    statusDict = json.loads(autoStatus)
+
+    # for line in autoStatus:
+    #     line.find(":")
+
+    return statusDict
 
 def getRequest(url):
         try:            
@@ -168,6 +177,7 @@ if __name__ == "__main__":
     except IOError:
         print ("You must specify a valid file to parse")
         print (__doc__)
-    log_report = parseLogFile(infile)
-    # print (log_report)
+    finalReport = parseLogFile(infile)
+    print("***FINAL REPORT***")
+    print (finalReport)
     infile.close()

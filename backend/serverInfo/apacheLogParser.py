@@ -193,8 +193,8 @@ if __name__ == "__main__":
     logDict = parseLogFile(infile)
     print(logDict)
 
-    #this may not work with newest versions of Python...
-    finalReport = serverStatDict.update(logDict)
+    #merge dictionaries into the final report
+    finalReport = {**serverStatDict,**logDict}
 
     print("***FINAL REPORT***")
     print (finalReport)

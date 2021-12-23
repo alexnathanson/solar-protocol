@@ -121,13 +121,16 @@ def convertApacheToPython(lineDict):
 
 #pass in the return info from the server-status?auto
 def parseServerStatus(autoStatus):
-    statusDict = json.loads(autoStatus)
+    statusDict = {}
+
+    for line in autoStatus:
+        splitPos = line.find(":")
+        #remove leading and trailing whitespace and line breaks
+        statusDict[line[0:splitPos]] = strip(line[splitPos + 1]).replace("\n", "")
+
 
     print("server status")
-    print(type(statusDict))
     print(statusDict.keys())
-    # for line in autoStatus:
-    #     line.find(":")
 
     return statusDict
 

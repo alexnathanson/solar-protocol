@@ -56,6 +56,11 @@ def parseLogFile(logfile):
     spDevices = []
     exDevices = []
 
+    print("FIRST LINE OF LOG FILE:")
+    print(logfile[0])
+    print("LAST LINE OF LOG FILE:")
+    print(logfile[-1])
+
     #convert each line of the log file into a dictionary
     for line in logfile:
 
@@ -178,9 +183,7 @@ def convertApacheToPython(lineDict):
     #convert string to timezone aware datetime object
     # source: https://nablux.net/tgp/weblog/2013/10/29/parsing-timestamps-apache-log-files-python/
     lineTime = lineDict["time"]
-    print(lineTime)
     lineDict["time"] = parse(lineTime[:11]+ " " + lineTime[12:])
-    print(lineDict["time"])
 
     return lineDict
 

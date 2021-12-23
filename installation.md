@@ -52,6 +52,9 @@ then install numpy and this missing library:
 #### Troubleshooting PIL
 * 'sudo apt install libtiff5'
 
+#### Further troubleshooting updates and dependencies
+* In some instances it may be necessary to manually change the mirror which determines where apt-get pulls from. Instructions for manually changing the mirror can be found at https://pimylifeup.com/raspbian-repository-mirror/
+
 ### Security
 Recommendations to set up your pi securely   
 * Choose a strong password  

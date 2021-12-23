@@ -52,14 +52,11 @@ def parseLogFile(logfile):
     
     spIPList = getKeyList('ip')
 
-    # lineCount = 0
-
     spDevices = []
     exDevices = []
 
     #convert each line of the log file into a dictionary
     for line in logfile:
-        lineCount = lineCount + 1
         m = pattern.match(line)
         mDict = m.groupdict()
         line_dict = convertApacheToPython(mDict)

@@ -182,15 +182,17 @@ if __name__ == "__main__":
     #get current server status
     #DOES THIS NEED TO PULL PORT???
     serverStatus = getRequest("http://localhost/server-status?auto")
-    finalReport = parseServerStatus(serverStatus)
+    serverStatDict = parseServerStatus(serverStatus)
     
     try:
         infile = open(log_file_name, 'r')
     except IOError:
         print ("You must specify a valid file to parse")
         print (__doc__)
-    finalReport = finalReport.update(parseLogFile(infile))
-    
+
+    logDict = parseLogFile(infile)
+    finalReport = serverStatDict.update(logDict)
+
     print("***FINAL REPORT***")
     print (finalReport)
     infile.close()

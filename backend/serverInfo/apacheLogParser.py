@@ -68,12 +68,29 @@ def parseLogFile(logfile):
     #total amount of requests
     logFileStats['totalRequests'] = lineCount
 
+
+
+    externalHosts = {}
+    totExReq = 0
+    for h in hosts.keys():
+        #check that the IP isn't in the ignore lists
+        if h not in ignoreHosts:
+            #these x00 may represent failed requests from https
+            if 'x00' not in h:
+                externalHosts[h] = hosts[h]
+                totExReq = totExReq + hosts[h]
+        
+    #amount of hosts making requests excluding SP devices
+    logFileStats['externalHosts'] = len(hosts.externalHosts)
+
+    #total amount of requests excluding SP devices
+    logFileStats['externalRequests'] = totExReq
+
     print("TOTALS")
     print(logFileStats)
-
+    
         #check that the IP isn't in the ignore lists
         # if line_dict['host'] not in ignoreHosts:
-        #     #these x00 may represent failed requests from https
         #     if 'x00' in line_dict['host']:
         #         print(type(line_dict['host']))
 
@@ -83,12 +100,7 @@ def parseLogFile(logfile):
         #         else:
         #             hosts[line_dict['host']] = 1
 
-        
-        #amount of hosts making requests excluding SP devices
-        # logFileStats['externalHosts'] = 
- 
-        # #total amount of requests excluding SP devices
-        # logFileStats['externalRequests'] =
+
     
     return hosts
 
@@ -137,7 +149,8 @@ def writeReport(fReport):
 if __name__ == "__main__":
     
     #get current server status
-    serverStatus = getRequest("localhost/server-status?auto")
+    #DOES THIS NEED TO PULL PORT???
+    serverStatus = getRequest("http://localhost/server-status?auto")
     print(serverStatus)
     
     try:

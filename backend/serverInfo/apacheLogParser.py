@@ -21,6 +21,9 @@ Apache Logging Basics: https://www.loggly.com/ultimate-guide/apache-logging-basi
 import csv
 import re
 import requests
+import json
+
+deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
 log_file_name = "/var/log/apache2/access.log"
 
@@ -48,6 +51,7 @@ def parseLogFile(logfile):
     
     hosts = {}
 
+    #get all hosts making requests
     lineCount = 0
     for line in logfile:
         lineCount = lineCount + 1
@@ -57,22 +61,27 @@ def parseLogFile(logfile):
         line_dict = convertApacheToPython(mDict)
         #print(line_dict)
         
-        #create dictionary of all hosts and requests
-        if line_dict['host'] in hosts.keys():
-            hosts[line_dict['host']] = hosts[line_dict['host']] + 1
-        else:
-            hosts[line_dict['host']] = 1
+        #check that the IP isn't in the local hosts list
+        if line_dict['host'] not in ignoreLocalHosts:
+            #create dictionary of all hosts and requests
+            if line_dict['host'] in hosts.keys():
+                hosts[line_dict['host']] = hosts[line_dict['host']] + 1
+            else:
+                hosts[line_dict['host']] = 1
 
     #total amount of hosts making requests
     logFileStats['totalHosts'] = len(hosts.keys())
     #total amount of requests
     logFileStats['totalRequests'] = lineCount
 
+    #get list of host makinng requests excluding devices in the Solar Protocol network
     externalHosts = {}
     totExReq = 0
+    spIPList = getKeyList('ip')
+    print(spIPList)
     for h in hosts.keys():
-        #check that the IP isn't in the ignore lists
-        if h not in ignoreLocalHosts:
+        #check that the IP isn't in the network devices list
+        if h not in spIPList:
             #these x00 may represent failed requests from https
             if '\x00' not in h:
                 externalHosts[h] = hosts[h]
@@ -120,6 +129,20 @@ def getRequest(url):
             print(err)
         except requests.exceptions.RequestException as err:
             print(err)
+
+def getKeyList(getKey):
+
+    ipList = []
+
+    with open(deviceList) as f:
+      data = json.load(f)
+
+    #print(data)
+
+    for i in range(len(data)):
+        ipList.append(data[i][getKey])
+
+    return ipList
 
 def writeReport(fReport):
 

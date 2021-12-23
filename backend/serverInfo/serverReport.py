@@ -61,7 +61,7 @@ def parseLogFile(logfile):
 
         '''filter out the hex stuff that is fucking shit up
         x00 may represent failed requests from https'''
-        if '\x00' not in h:
+        if '\x00' not in line:
             m = pattern.match(line)
             mDict = m.groupdict()
             line_dict = convertApacheToPython(mDict)

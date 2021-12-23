@@ -193,7 +193,8 @@ if __name__ == "__main__":
     logDict = parseLogFile(infile)
     print(logDict)
 
-    finalReport = serverStatDict | logDict
+    #this may not work with newest versions of Python...
+    finalReport = serverStatDict.update(logDict)
 
     print("***FINAL REPORT***")
     print (finalReport)

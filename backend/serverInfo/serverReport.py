@@ -23,6 +23,7 @@ import re
 import requests
 import json
 import datetime
+from dateutil.parser import parse
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 
@@ -142,6 +143,10 @@ def convertApacheToPython(lineDict):
 
     if lineDict["referer"] == "-":
         lineDict["referer"] = None
+
+    #convert string to timezone aware datetime object
+    lineTime = lineDict["time"]
+    lineDict["time"] = parse(lineTime[:11]+ " " + lineTime[12:])
 
     return lineDict
 

@@ -93,10 +93,10 @@ def parseLogFile(logfile):
     #total amount of requests excluding SP devices
     logFileStats['externalRequests'] = totExReq
 
-    print("TOTALS")
-    print(logFileStats)
+    # print("TOTALS")
+    # print(logFileStats)
 
-    print(externalHosts.keys())
+    # print(externalHosts.keys())
 
     return logFileStats
 
@@ -192,7 +192,8 @@ if __name__ == "__main__":
 
     logDict = parseLogFile(infile)
     print(logDict)
-    finalReport = serverStatDict.update(logDict)
+
+    finalReport = serverStatDict | logDict
 
     print("***FINAL REPORT***")
     print (finalReport)

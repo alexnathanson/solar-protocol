@@ -146,6 +146,7 @@ def convertApacheToPython(lineDict):
 
     #convert string to timezone aware datetime object
     lineTime = lineDict["time"]
+    print(lineTime)
     lineDict["time"] = parse(lineTime[:11]+ " " + lineTime[12:])
 
     return lineDict

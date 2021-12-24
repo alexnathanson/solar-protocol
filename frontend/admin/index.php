@@ -340,15 +340,15 @@ function getFile($fileName){
 
     sSP = document.createElement("p")
 
-    sSP.appendChild(document.createTextNode('Server Uptime: ' + sSDict['ServerUptime']))
-
+    sSP.appendChild(document.createTextNode('Server Uptime: ' + sSDict['ServerUptime'] + " | " + 'Total Accesses: ' + sSDict['Total Accesses'] + " | " + 'CPU Load: ' + sSDict['CPULoad']))
+/*
     sSP.appendChild(document.createElement("br"))
 
     sSP.appendChild(document.createTextNode('Total Accesses: ' + sSDict['Total Accesses']))
 
     sSP.appendChild(document.createElement("br"))
 
-    sSP.appendChild(document.createTextNode('CPU Load: ' + sSDict['CPULoad']))
+    sSP.appendChild(document.createTextNode('CPU Load: ' + sSDict['CPULoad']))*/
 
     sS.appendChild(sSP)
   }

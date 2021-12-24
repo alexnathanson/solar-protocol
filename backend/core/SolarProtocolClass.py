@@ -128,7 +128,7 @@ class SolarProtocol:
 	# 	except requests.exceptions.RequestException as err:
 	# 	 	print("An Unknown Error occurred" + repr(err))
 
-	def getRequest(self, url):
+	def getRequest(self, url, returnBool):
 		try:			
 			response = requests.get(url, timeout = 5)
 			print(response.text)		
@@ -138,6 +138,9 @@ class SolarProtocol:
 			print(err)
 		except:
 			print(err)
+
+		if returnBool:
+			return response.text
 
 	#returns the url with parameters for updating the DNS via a GET request
 	def updateDNS(self, ip, key):

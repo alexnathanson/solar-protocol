@@ -81,7 +81,7 @@ def determineServer(remoteData,localData):
 		#print(SP.getEnv('DNS_KEY'))
 
 		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
-		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
+		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
 
 	else:
 		print('Not point of entry')

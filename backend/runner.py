@@ -12,7 +12,7 @@ import datetime
 import time
 # import logging
 
-loopFrequency = 3
+loopFrequency = 10
 
 def runSP():
 	print("*****Runner Started!******")
@@ -22,22 +22,30 @@ def runSP():
 	# solarProtocol.runSP()
 
 	# clientPostIP.runClientPostIP()
+	SP = SolarProtocolClass()
 
-	while True:
+	batPercentage =	SP.getRequest("http://localhost/api/v1/?value=battery-percentage", True)
 
-		print(datetime.datetime.now().minute)
+	print(batPercentage)
+	print(type(batPercentage))
+	print(type(int(batPercentage)))
+	# while True:
+
+	# 	print(datetime.datetime.now().minute)
 		
-		if datetime.datetime.now().minute % loopFrequency == 0:
+	# 	if datetime.datetime.now().minute % loopFrequency == 0:
 
-			#log when the script triggers
-			# logging.info(datetime.datetime.now())
+	# 		#log when the script triggers
+	# 		# logging.info(datetime.datetime.now())
 
-			solarProtocol.runSP()
+	# 		clientPostIP.runClientPostIP()
 
-			clientPostIP.runClientPostIP()
+	# 		solarProtocol.runSP()
 
-		#sleep for 60 seconds
-		time.sleep(60)
+	# 		SP.getRequest("http://localhost/api/v1/", True)
+
+	# 	#sleep for 60 seconds
+	# 	time.sleep(60)
 
 
 if __name__ == '__main__':

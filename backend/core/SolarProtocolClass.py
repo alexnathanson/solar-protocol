@@ -15,12 +15,12 @@ currently this class only handles some new functionality for solarProtocol.py.
 Refactoring and expansion is required to create additional methods and apply this to clientPostIP.py too
 '''
 
-import json
 import requests
+import json
 import subprocess
 
 #confirm class is loaded
-#print('solar protocol class in attendence')
+print('solar protocol class in attendence')
 
 
 class SolarProtocol:

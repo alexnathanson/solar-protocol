@@ -6,6 +6,13 @@ If the local device is producing the most power, it becomes the Point of Entry (
 Otherwise, the script changes nothing.
 '''
 
+import os
+import fileinput
+import datetime
+import csv
+import logging
+import requests
+import json
 
 dnsKey = ''
 
@@ -20,14 +27,6 @@ possible values for apiValue include all of the above + scaled-wattage
 dataValue = 'PV power L'
 #this is the key to retrieve from remote devices
 apiValue = 'scaled-wattage'
-
-deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
-
-localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
-
-logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', level=logging.INFO)
-
-
 
 #return data from a particular server
 # this is redundant with the class... add this error handling to the class?
@@ -126,6 +125,13 @@ def getIPList(deviceListJson, myMACAddr):
 	return ipList
 
 def runSP():
+
+	deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+
+	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
+
+	logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', level=logging.INFO)
+
 	myMAC = SP.getMAC(SP.MACinterface)
 	#print("my mac: " + myMAC)
 
@@ -137,16 +143,10 @@ def runSP():
 
 if __name__ == '__main__':
 
-	import requests
-	import os
-	import fileinput
-	import json
-	import datetime
-	import csv
-	import logging
+
 	from SolarProtocolClass import SolarProtocol
 
 	#initialize SolarProtocolClass
 	SP = SolarProtocol()
-	
+
 	runSP()

@@ -3,6 +3,11 @@ Every server runs this script.
 Reads list of destination IPs and posts own IP address to those other devices.
 '''
 
+#these modules are only used by this module within this packages
+#all other modules are imported via __init__
+import re
+import time
+
 headers = {
     #'X-Auth-Key': KEY,
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -204,9 +209,7 @@ def runClientPostIP():
 
 if __name__ == '__main__':
 	import requests
-	import time
 	import json
-	import re
 	import subprocess
 
 	runClientPostIP()

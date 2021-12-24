@@ -10,25 +10,33 @@ from core import solarProtocol
 from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 import datetime
 import time
+import logging
 
-loopFrequency = 15
+loopFrequency = 1
 
 def runSP():
 	print("*****Runner Started!******")
 	
-	solarProtocol.runSP()
+	logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/runner.log', encoding='utf-8', level=logging.INFO)
 
-	clientPostIP.runClientPostIP()
+	# solarProtocol.runSP()
 
-	# while True:
-	# 	print(datetime.datetime.now().minute)
-	# 	if datetime.datetime.now().minute % loopFrequency == 0:
-	# 		solarProtocol.runSP()
+	# clientPostIP.runClientPostIP()
 
-	# 		clientPostIP.runClientPostIP()
+	while True:
 
-	# 	#sleep for 60 seconds
-	# 	time.sleep(60)
+		print(datetime.datetime.now().minute)
+		if datetime.datetime.now().minute % loopFrequency == 0:
+
+			#log when the script triggers
+			logging.info(datetime.datetime.now())
+
+			solarProtocol.runSP()
+
+			clientPostIP.runClientPostIP()
+
+		#sleep for 60 seconds
+		time.sleep(60)
 
 
 if __name__ == '__main__':

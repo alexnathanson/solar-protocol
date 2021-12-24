@@ -12,7 +12,7 @@ import datetime
 import time
 import logging
 
-loopFrequency = 1
+loopFrequency = 10
 
 def runSP():
 	print("*****Runner Started!******")

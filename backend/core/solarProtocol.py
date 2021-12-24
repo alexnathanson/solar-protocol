@@ -13,7 +13,7 @@ import csv
 import logging
 import requests
 import json
-from SolarProtocolClass import SolarProtocol
+from core.SolarProtocolClass import SolarProtocol
 
 
 #initialize SolarProtocolClass

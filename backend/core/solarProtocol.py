@@ -13,6 +13,11 @@ import csv
 import logging
 import requests
 import json
+from SolarProtocolClass import SolarProtocol
+
+
+#initialize SolarProtocolClass
+SP = SolarProtocol()
 
 dnsKey = ''
 
@@ -142,11 +147,5 @@ def runSP():
 	determineServer(remotePVData, localPVData)
 
 if __name__ == '__main__':
-
-
-	from SolarProtocolClass import SolarProtocol
-
-	#initialize SolarProtocolClass
-	SP = SolarProtocol()
 
 	runSP()

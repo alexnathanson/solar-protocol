@@ -10,9 +10,6 @@ This script controls when the other scripts run based on battery status
 def runSP():
 	print("SP Runner Started!")
 
-	#initialize SolarProtocolClass
-	SP = SolarProtocolClass()
-
 	solarProtocol.runSP()
 
 if __name__ == '__main__':

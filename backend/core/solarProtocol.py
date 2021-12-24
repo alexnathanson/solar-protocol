@@ -126,6 +126,8 @@ def getIPList(deviceListJson, myMACAddr):
 	return ipList
 
 def runSP():
+	print("*****Running Solar Protocol script*****")
+
 	#initialize SolarProtocolClass
 	SP = SolarProtocolClass()
 
@@ -148,7 +150,7 @@ def runSP():
 def outputToConsole(printThis):
 	if consoleOutput:
 		print(printThis)
-		
+
 if __name__ == '__main__':
 	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	
 	runSP()

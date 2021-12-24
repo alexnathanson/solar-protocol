@@ -20,7 +20,7 @@ import json
 import subprocess
 
 #confirm class is loaded
-print('solar protocol class in attendence')
+#print('solar protocol class in attendence')
 
 
 class SolarProtocol:

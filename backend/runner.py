@@ -14,7 +14,7 @@ import time
 loopFrequency = 15
 
 def runSP():
-	print("SP Runner Started!")
+	print("*****Runner Started!******")
 	
 	solarProtocol.runSP()
 

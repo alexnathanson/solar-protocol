@@ -24,7 +24,7 @@ def runSP():
 	# clientPostIP.runClientPostIP()
 	SP = SolarProtocolClass()
 
-	batPercentage =	SP.getRequest("http://localhost/api/v1/?value=battery-percentage", True)
+	batPercentage =	SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True)
 
 	print(batPercentage)
 	print(type(batPercentage))

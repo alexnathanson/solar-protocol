@@ -21,7 +21,6 @@ deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 localConfig = "/home/pi/local/local.json"
 
 poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
-poeData = []
 
 newDSTList = []
 runningDSTList = []
@@ -51,6 +50,7 @@ def getKeyList(getKey):
 	return ipList
 
 def getPoeLog():
+	poeData = []
 
 	try:
 		poeFile = open(poeLog)
@@ -74,7 +74,7 @@ def getPoeLog():
 	except:
 		poeData.append(0)
 
-	#print(poeData)
+	return poeData
 
 def getLocalConfig(key):
 
@@ -141,12 +141,17 @@ def postIt(dstIP,dstData):
 	 	print("An Unknown Error occurred" + repr(err))
 
 #add a boolean back in if the 
-def makePosts(ipList, apiKey):
+def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC):
+
+
+	poeData = getPoeLog()
+
+
 	global newDSTList
 
 	newDSTList = []
 	#all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, poe log
-	myString = "api_key="+str(apiKey)+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(str(pD) for pD in poeData)
+	myString = "api_key="+str(api_Key)+"&stamp="+str(time.time())+"&ip="+my_IP+"&mac="+my_MAC+"&name="+my_Name+"&log="+','.join(str(pD) for pD in poeData)
 
 	print(myString)
 
@@ -157,7 +162,7 @@ def makePosts(ipList, apiKey):
 		print("DST: " + dst)
 
 		#postTrue
-		if dst != myIP: #does not work when testing only with local network
+		if dst != my_IP: #does not work when testing only with local network
 			postIt(dst, myString)
 
 	if len(newDSTList) > 0:
@@ -200,12 +205,10 @@ def runClientPostIP():
 	#apiKey = getLocalConfig("apiKey") #not in use
 	# apiKey = getEnv("API_KEY")
 
-	getPoeLog()
-
 	#writeSelf()
 
 	dstList = getKeyList('ip')
-	makePosts(dstList,getEnv("API_KEY"))
+	makePosts(dstList,getEnv("API_KEY"), myIP, myName, myMAC)
 
 
 if __name__ == '__main__':

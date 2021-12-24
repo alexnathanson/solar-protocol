@@ -15,7 +15,7 @@ import time
 SP = SolarProtocolClass()
 
 def runSP():
-	print("*****Runner Started!******")
+	print("*****Solar Protocol Runner Started******")
 	
 	# logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/runner.log', encoding='utf-8', level=logging.INFO)
 
@@ -24,7 +24,7 @@ def runSP():
 
 	while True:
 
-		print(datetime.datetime.now().minute)
+		# print(datetime.datetime.now().minute)
 		
 		if datetime.datetime.now().minute % loopFrequency == 0:
 
@@ -35,20 +35,16 @@ def runSP():
 
 			solarProtocol.runSP()
 
-			SP.getRequest("http://localhost/api/v1/", True)
-
 			loopFrequency = setFreq()
 		#sleep for 60 seconds
 		time.sleep(60)
 
 
 def setFreq():
-	print("setting frequency")
+	#print("setting frequency")
 
 	try:
 		bP =float(SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True))
-
-		print(type(bP))
 
 		if bP > .9:
 			lF = 10

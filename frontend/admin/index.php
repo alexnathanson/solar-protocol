@@ -329,7 +329,7 @@ function getFile($fileName){
       sSValue = sSLines[l].substring(splitPos).trim();
       console.log(sSValue);
 
-      sSDict[ssKey] = sSValue;
+      sSDict[sSKey] = sSValue;
     }
 
     console.log(sSDict);

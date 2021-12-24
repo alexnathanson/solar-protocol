@@ -326,7 +326,7 @@ function getFile($fileName){
 
       sSKey = sSLines[l].substring(0,splitPos).trim();
       console.log(sSKey);
-      sSValue = sSLines[l].substring(splitPos).trim();
+      sSValue = sSLines[l].substring(splitPos + 1).trim();
       console.log(sSValue);
 
       sSDict[sSKey] = sSValue;
@@ -336,6 +336,19 @@ function getFile($fileName){
 
     sS = document.getElementById("serverStatus" + dstNum);
 
+    sSP = document.createElement("p")
+
+    sSP.appenchChild(document.createTextNode('Server Uptime: ' + sSDict['ServerUptime']))
+
+    sSP.appenchChild(document.createElement("br"))
+
+    sSP.appenchChild(document.createTextNode('Total Accesses: ' + sSDict['Total Accesses']))
+
+    sSP.appenchChild(document.createElement("br"))
+
+    sSP.appenchChild(document.createTextNode('CPU Load: ' + sSDict['CPULoad']))
+
+    sS.appendChild(sSP)
   }
 
 

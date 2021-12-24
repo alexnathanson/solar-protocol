@@ -16,6 +16,8 @@ loopFrequency = 15
 def runSP():
 	print("SP Runner Started!")
 	
+	solarProtocol.runSP()
+
 	clientPostIP.runClientPostIP()
 
 	# while True:

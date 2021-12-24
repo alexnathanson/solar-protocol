@@ -105,13 +105,13 @@ def getNewDST(responseList):
 
 		if r['mac'] not in getKeyList('mac'):
 			if r['ip'] not in runningDSTList:
-				print("new ip: " + r['ip'])
+				outputToConsole("new ip: " + r['ip'])
 				newDSTList.append(r['ip'])
 				runningDSTList.append(r['ip'])
 		elif r['ip'] not in getKeyList('ip'):
 			#in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
 			if r['ip'] not in runningDSTList:
-				print("new ip: " + r['ip'])
+				outputToConsole("new ip: " + r['ip'])
 				newDSTList.append(r['ip'])
 				runningDSTList.append(r['ip'])
 
@@ -143,9 +143,7 @@ def postIt(dstIP,dstData):
 #add a boolean back in if the 
 def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC):
 
-
 	poeData = getPoeLog()
-
 
 	global newDSTList
 
@@ -166,8 +164,8 @@ def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC):
 			postIt(dst, myString)
 
 	if len(newDSTList) > 0:
-		print("New DST list:")
-		print(newDSTList)
+		outputToConsole("New DST list:")
+		outputToConsole(newDSTList)
 		makePosts(newDSTList)
 
 def getEnv(thisEnv):
@@ -182,7 +180,7 @@ def getEnv(thisEnv):
 
 def addPort(thisPort):
 	p = getLocalConfig(thisPort)
-	print(p)
+	outputToConsole(p)
 	if p != "":
 		return ":" + p
 	else: 
@@ -211,5 +209,14 @@ def runClientPostIP():
 	makePosts(dstList,getEnv("API_KEY"), myIP, myName, myMAC)
 
 
+def outputToConsole(printThis):
+	if consoleOutput:
+		print(printThis)
+
 if __name__ == '__main__':
 	runClientPostIP()
+
+	consoleOutput = True
+
+else:
+	consoleOutput = False

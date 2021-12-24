@@ -128,7 +128,7 @@ def getIPList(deviceListJson, myMACAddr):
 def runSP():
 	#initialize SolarProtocolClass
 	SP = SolarProtocolClass()
-	
+
 	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
 	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
@@ -139,17 +139,24 @@ def runSP():
 	#print("my mac: " + myMAC)
 
 	localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
-	print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
+	outputToConsole("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
 	remotePVData = remoteData(getIPList(deviceList, myMAC), apiValue)
 	#print("Remote Voltage: " + remotePVData)
 	determineServer(remotePVData, localPVData)
 
+
+def outputToConsole(printThis):
+	if consoleOutput:
+		print(printThis)
+		
 if __name__ == '__main__':
 	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	
 	runSP()
 
+	consoleOutput = True
+
 else:
-	#from core.SolarProtocolClass import SolarProtocol
+	consoleOutput = False
 	from .SolarProtocolClass import SolarProtocol as SolarProtocolClass
 
 

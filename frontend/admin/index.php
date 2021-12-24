@@ -120,8 +120,8 @@ function getFile($fileName){
       let requestURL = "http://" + ipList[i] + "/api/v1/chargecontroller.php?line="+toGet;
       getRequest(requestURL, populate, i);
 
-      requestURL = "http://" + ipList[i] + "/server-status?auto"
-      getRequest(requestURL, populateServerInfo, i)
+ /*     requestURL = "http://" + ipList[i] + "/server-status?auto"
+      getRequest(requestURL, populateServerInfo, i)*/
     }
 
   //point of entry
@@ -313,6 +313,9 @@ function getFile($fileName){
     sS.id = "serverStatus" + dstNum;
 
     sList.appendChild(sS);
+
+    let requestSS = "http://" + ipList[i] + "/server-status?auto"
+    getRequest(requestSS, populateServerInfo, dstNum)
   }
 
   function populateServerInfo(dataToDisplay, dst, dstNum) {

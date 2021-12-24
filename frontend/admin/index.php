@@ -343,7 +343,7 @@ function getFile($fileName){
 
     sSP = document.createElement("p")
 
-    sSP.appendChild(document.createTextNode('Server Uptime: ' + sSDict['ServerUptime'] + " | " + 'Total Accesses: ' + sSDict['Total Accesses'] + " | " + 'CPU Load: ' + sSDict['CPULoad']))
+    sSP.appendChild(document.createTextNode('Server Uptime: ' + sSDict['ServerUptime'] + " | " + "Requests Per Second: " + sSDict["ReqPerSec"] + " | " + 'Total Accesses: ' + sSDict['Total Accesses'] + " | " + 'CPU Load: ' + sSDict['CPULoad'] + "%"))
 /*
     sSP.appendChild(document.createElement("br"))
 

@@ -1,6 +1,8 @@
 # Server Info
 
-This script packages the Apache server status and access log into 1 report.
+This script isn't currently in use.
+
+serverReport.py packages the Apache server status and access log into 1 report.
 
 ## Server Status
 

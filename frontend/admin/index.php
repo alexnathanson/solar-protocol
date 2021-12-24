@@ -318,26 +318,24 @@ function getFile($fileName){
     let sSLines = dataToDisplay.split("\n");
 
     console.log(sSLines)
-    
+
     let sSDict = {};
 
     for (let l = 0; l < sSLines.length; l++){
       splitPos = sSLines[l].search(":");
 
-      ssKey = ssLines[l].substring(0,splitPos).trim();
+      sSKey = sSLines[l].substring(0,splitPos).trim();
       console.log(ssKey);
-      ssValue = ssLines[l].substring(splitPos).trim();
-      console.log(ssValue);
+      sSValue = sSLines[l].substring(splitPos).trim();
+      console.log(sSValue);
 
-      ssDict[ssKey] = ssValue;
+      sSDict[ssKey] = sSValue;
     }
 
-    console.log(ssDict);
+    console.log(sSDict);
 
     sS = document.getElementById("serverStatus" + dstNum);
 
-    console.log(dataToDisplay);
-    console.log(typeof dataToDisplay);
   }
 
 

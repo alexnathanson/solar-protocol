@@ -12,41 +12,54 @@ import datetime
 import time
 # import logging
 
-loopFrequency = 10
-
 def runSP():
 	print("*****Runner Started!******")
 	
 	# logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/runner.log', encoding='utf-8', level=logging.INFO)
 
-	# solarProtocol.runSP()
-
-	# clientPostIP.runClientPostIP()
 	SP = SolarProtocolClass()
 
-	batPercentage =	SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True)
+	loopFrequency = setFreq()
 
-	print(batPercentage)
-	print(type(batPercentage))
-	print(type(int(batPercentage)))
-	# while True:
+	while True:
 
-	# 	print(datetime.datetime.now().minute)
+		print(datetime.datetime.now().minute)
 		
-	# 	if datetime.datetime.now().minute % loopFrequency == 0:
+		if datetime.datetime.now().minute % loopFrequency == 0:
 
-	# 		#log when the script triggers
-	# 		# logging.info(datetime.datetime.now())
+			#log when the script triggers
+			# logging.info(datetime.datetime.now())
 
-	# 		clientPostIP.runClientPostIP()
+			clientPostIP.runClientPostIP()
 
-	# 		solarProtocol.runSP()
+			solarProtocol.runSP()
 
-	# 		SP.getRequest("http://localhost/api/v1/", True)
+			SP.getRequest("http://localhost/api/v1/", True)
 
-	# 	#sleep for 60 seconds
-	# 	time.sleep(60)
+			loopFrequency = setFreq()
+		#sleep for 60 seconds
+		time.sleep(60)
 
+
+def setFreq():
+
+	try:
+		bP =float(SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True))
+
+		print(type(bP))
+
+		if bP > .9:
+			lF = 10
+		elif bP > .7:
+			lF = 15
+		elif bP > .5:
+			lF = 20
+		else:
+			lF = 30
+	except:
+		lF = 20
+
+	return lF
 
 if __name__ == '__main__':
 	runSP()

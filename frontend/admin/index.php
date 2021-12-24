@@ -315,12 +315,14 @@ function getFile($fileName){
 
   function populateServerInfo(dataToDisplay, dst, dstNum) {
 
-    sSLines = dataToDisplay.split("\n");
+    let sSLines = dataToDisplay.split("\n");
 
+    console.log(sSLines)
+    
     let sSDict = {};
 
     for (let l = 0; l < sSLines.length; l++){
-      splitPos = ssLines[l].search(":");
+      splitPos = sSLines[l].search(":");
 
       ssKey = ssLines[l].substring(0,splitPos).trim();
       console.log(ssKey);

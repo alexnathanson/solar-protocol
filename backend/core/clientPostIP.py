@@ -141,7 +141,7 @@ def postIt(dstIP,dstData):
 	 	print("An Unknown Error occurred" + repr(err))
 
 #add a boolean back in if the 
-def makePosts(ipList):
+def makePosts(ipList, apiKey):
 	global newDSTList
 
 	newDSTList = []
@@ -197,15 +197,15 @@ def runClientPostIP():
 
 	myIP += addPort("httpPort") 
 
-	#apiKey = getLocalConfig("apiKey")
-	apiKey = getEnv("API_KEY")
+	#apiKey = getLocalConfig("apiKey") #not in use
+	# apiKey = getEnv("API_KEY")
 
 	getPoeLog()
 
 	#writeSelf()
 
 	dstList = getKeyList('ip')
-	makePosts(dstList)
+	makePosts(dstList,getEnv("API_KEY"))
 
 
 if __name__ == '__main__':

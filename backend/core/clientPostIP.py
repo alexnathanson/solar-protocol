@@ -7,6 +7,9 @@ Reads list of destination IPs and posts own IP address to those other devices.
 #all other modules are imported via __init__
 import re
 import time
+import requests
+import json
+import subprocess
 
 headers = {
     #'X-Auth-Key': KEY,
@@ -22,8 +25,6 @@ poeData = []
 
 newDSTList = []
 runningDSTList = []
-
-
 
 #this only works with linux
 def getmac(interface):
@@ -208,8 +209,4 @@ def runClientPostIP():
 
 
 if __name__ == '__main__':
-	import requests
-	import json
-	import subprocess
-
 	runClientPostIP()

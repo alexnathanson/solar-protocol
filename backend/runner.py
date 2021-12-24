@@ -5,7 +5,9 @@ This script controls when the other scripts run based on battery status
 >50% & <=70% every 20 minutes
 <=50% every 30 minutes
 '''
-
+from core import clientPostIP
+from core import solarProtocol
+from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 
 def runSP():
 	print("SP Runner Started!")
@@ -13,11 +15,4 @@ def runSP():
 	solarProtocol.runSP()
 
 if __name__ == '__main__':
-	import clientPostIP
-	import solarProtocol
-	from SolarProtocolClass import SolarProtocol as SolarProtocolClass
 	runSP()
-else:
-	from core import clientPostIP
-	from core import solarProtocol
-	from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass

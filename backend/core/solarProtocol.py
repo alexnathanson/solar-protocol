@@ -13,11 +13,7 @@ import csv
 import logging
 import requests
 import json
-from core.SolarProtocolClass import SolarProtocol
 
-
-#initialize SolarProtocolClass
-SP = SolarProtocol()
 
 dnsKey = ''
 
@@ -130,7 +126,9 @@ def getIPList(deviceListJson, myMACAddr):
 	return ipList
 
 def runSP():
-
+	#initialize SolarProtocolClass
+	SP = SolarProtocolClass()
+	
 	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
 	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
@@ -147,5 +145,11 @@ def runSP():
 	determineServer(remotePVData, localPVData)
 
 if __name__ == '__main__':
-
+	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	
 	runSP()
+
+else:
+	#from core.SolarProtocolClass import SolarProtocol
+	from .SolarProtocolClass import SolarProtocol as SolarProtocolClass
+
+

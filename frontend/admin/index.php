@@ -325,7 +325,7 @@ function getFile($fileName){
       splitPos = sSLines[l].search(":");
 
       sSKey = sSLines[l].substring(0,splitPos).trim();
-      console.log(ssKey);
+      console.log(sSKey);
       sSValue = sSLines[l].substring(splitPos).trim();
       console.log(sSValue);
 

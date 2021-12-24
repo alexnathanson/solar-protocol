@@ -1,17 +1,16 @@
 """
+This script is not currently in use, but may have some utility in the future.
+(For example, if we want server-status to be private this could package it up and pipe it out via the API in a more controlled way.)
+
 USAGE:
 
 This script reads and parses an apache log file. It combines it with the server-status info and generates a report with:
 
-* server creation time
-* current time
-* server up time
+* all the auto server status info
 * all time total amount of unique hosts
 * all time amount of unique hosts (exluding SP network devices)
-* 7 days total amount of unique hosts - not implemented
-* 7 days total amount of unique hosts (exluding SP network devices) - not implemented
-
-Are there relevent errors to display?
+* 72 hours total amount of unique hosts
+* 72 hours total amount of unique hosts (exluding SP network devices)
 
 Re from https://www.seehuhn.de/blog/52.html
 
@@ -58,16 +57,16 @@ def parseLogFile(logfile):
 
     print(type(logfile))
 
-    firstLine = ''
-    lastLine = ''
-    fL = True
+    # firstLine = ''
+    # lastLine = ''
+    # fL = True
 
     #convert each line of the log file into a dictionary
     for line in logfile:
 
-        if fL:
-            firstLine = line
-            fL = False
+        # if fL:
+        #     firstLine = line
+        #     fL = False
 
         '''filter out the hex stuff that is fucking shit up
         x00 may represent failed requests from https'''
@@ -85,12 +84,12 @@ def parseLogFile(logfile):
                 else:
                     exDevices.append(line_dict)
 
-        lastLine = line
+        # lastLine = line
 
-    print("FIRST LINE OF LOG FILE:")
-    print(firstLine)
-    print("LAST LINE OF LOG FILE:")
-    print(lastLine)
+    # print("FIRST LINE OF LOG FILE:")
+    # print(firstLine)
+    # print("LAST LINE OF LOG FILE:")
+    # print(lastLine)
 
     #all time unique SP hosts
     spHosts = {}

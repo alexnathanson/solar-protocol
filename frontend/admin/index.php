@@ -119,6 +119,9 @@ function getFile($fileName){
       //pingServer(tempIPList[i], populate);
       let requestURL = "http://" + ipList[i] + "/api/v1/chargecontroller.php?line="+toGet;
       getRequest(requestURL, populate, i);
+
+      requestURL = "http://" + ipList[i] + "/server-status?auto"
+      getRequest(requestURL, populateServerInfo, i)
     }
 
   //point of entry
@@ -304,7 +307,20 @@ function getFile($fileName){
     }
     sList.appendChild(serverH3);
     sList.appendChild(dataPara);
+
+    //add the div for server status
+    let sS = document.createElement("div");
+    sS.id = "serverStatus" + dstNum;
   }
+
+  function populateServerInfo(dataToDisplay, dst, dstNum) {
+
+    sS = document.getElementById("serverStatus" + dstNum);
+
+    console.log(dataToDisplay);
+    console.log(typeof dataToDisplay);
+  }
+
 
   function createTable(jsonData){
     let sT = document.createElement("table"); 

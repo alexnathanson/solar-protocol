@@ -42,7 +42,8 @@ def runSP():
 
 
 def setFreq():
-
+	print("setting frequency")
+	
 	try:
 		bP =float(SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True))
 

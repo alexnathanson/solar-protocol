@@ -8,11 +8,26 @@ This script controls when the other scripts run based on battery status
 from core import clientPostIP
 from core import solarProtocol
 from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
+import datetime
+import time
+
+loopFrequency = 15
 
 def runSP():
 	print("SP Runner Started!")
+	
+	clientPostIP.runClientPostIP()
 
-	solarProtocol.runSP()
+	# while True:
+	# 	print(datetime.datetime.now().minute)
+	# 	if datetime.datetime.now().minute % loopFrequency == 0:
+	# 		solarProtocol.runSP()
+
+	# 		clientPostIP.runClientPostIP()
+
+	# 	#sleep for 60 seconds
+	# 	time.sleep(60)
+
 
 if __name__ == '__main__':
 	runSP()

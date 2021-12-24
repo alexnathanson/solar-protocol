@@ -130,7 +130,7 @@ def runSP():
 
 	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
 
-	logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', level=logging.INFO)
+	logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
 
 	myMAC = SP.getMAC(SP.MACinterface)
 	#print("my mac: " + myMAC)

@@ -314,7 +314,7 @@ function getFile($fileName){
 
     sList.appendChild(sS);
 
-    let requestSS = "http://" + ipList[i] + "/server-status?auto"
+    let requestSS = dstIP + "/server-status?auto"
     getRequest(requestSS, populateServerInfo, dstNum)
   }
 

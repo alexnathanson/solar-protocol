@@ -44,21 +44,21 @@ def runSP():
 def setFreq():
 	print("setting frequency")
 	
-	try:
-		bP =float(SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True))
+	# try:
+	bP =float(SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True))
 
-		print(type(bP))
+	print(type(bP))
 
-		if bP > .9:
-			lF = 10
-		elif bP > .7:
-			lF = 15
-		elif bP > .5:
-			lF = 20
-		else:
-			lF = 30
-	except:
+	if bP > .9:
+		lF = 10
+	elif bP > .7:
+		lF = 15
+	elif bP > .5:
 		lF = 20
+	else:
+		lF = 30
+	# except:
+	# 	lF = 20
 
 	return lF
 

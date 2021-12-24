@@ -311,6 +311,8 @@ function getFile($fileName){
     //add the div for server status
     let sS = document.createElement("div");
     sS.id = "serverStatus" + dstNum;
+
+    sList.appendChild(sS);
   }
 
   function populateServerInfo(dataToDisplay, dst, dstNum) {
@@ -332,7 +334,7 @@ function getFile($fileName){
       sSDict[sSKey] = sSValue;
     }
 
-    console.log(sSDict);
+    //console.log(sSDict);
 
     sS = document.getElementById("serverStatus" + dstNum);
 

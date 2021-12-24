@@ -325,9 +325,9 @@ function getFile($fileName){
       splitPos = sSLines[l].search(":");
 
       sSKey = sSLines[l].substring(0,splitPos).trim();
-      console.log(sSKey);
+      //console.log(sSKey);
       sSValue = sSLines[l].substring(splitPos + 1).trim();
-      console.log(sSValue);
+      //console.log(sSValue);
 
       sSDict[sSKey] = sSValue;
     }
@@ -338,15 +338,15 @@ function getFile($fileName){
 
     sSP = document.createElement("p")
 
-    sSP.appenchChild(document.createTextNode('Server Uptime: ' + sSDict['ServerUptime']))
+    sSP.appendChild(document.createTextNode('Server Uptime: ' + sSDict['ServerUptime']))
 
-    sSP.appenchChild(document.createElement("br"))
+    sSP.appendChild(document.createElement("br"))
 
-    sSP.appenchChild(document.createTextNode('Total Accesses: ' + sSDict['Total Accesses']))
+    sSP.appendChild(document.createTextNode('Total Accesses: ' + sSDict['Total Accesses']))
 
-    sSP.appenchChild(document.createElement("br"))
+    sSP.appendChild(document.createElement("br"))
 
-    sSP.appenchChild(document.createTextNode('CPU Load: ' + sSDict['CPULoad']))
+    sSP.appendChild(document.createTextNode('CPU Load: ' + sSDict['CPULoad']))
 
     sS.appendChild(sSP)
   }

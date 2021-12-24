@@ -12,12 +12,13 @@ import datetime
 import time
 # import logging
 
+SP = SolarProtocolClass()
+
 def runSP():
 	print("*****Runner Started!******")
 	
 	# logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/runner.log', encoding='utf-8', level=logging.INFO)
 
-	SP = SolarProtocolClass()
 
 	loopFrequency = setFreq()
 
@@ -43,22 +44,22 @@ def runSP():
 
 def setFreq():
 	print("setting frequency")
-	
-	# try:
-	bP =float(SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True))
 
-	print(type(bP))
+	try:
+		bP =float(SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True))
 
-	if bP > .9:
-		lF = 10
-	elif bP > .7:
-		lF = 15
-	elif bP > .5:
-		lF = 20
-	else:
-		lF = 30
-	# except:
-	# 	lF = 20
+		print(type(bP))
+
+		if bP > .9:
+			lF = 10
+		elif bP > .7:
+			lF = 15
+		elif bP > .5:
+			lF = 20
+		else:
+			lF = 30
+	except:
+	 	lF = 20
 
 	return lF
 

@@ -315,6 +315,23 @@ function getFile($fileName){
 
   function populateServerInfo(dataToDisplay, dst, dstNum) {
 
+    sSLines = dataToDisplay.split("\n");
+
+    let sSDict = {};
+
+    for (let l = 0; l < sSLines.length; l++){
+      splitPos = ssLines[l].search(":");
+
+      ssKey = ssLines[l].substring(0,splitPos).trim();
+      console.log(ssKey);
+      ssValue = ssLines[l].substring(splitPos).trim();
+      console.log(ssValue);
+
+      ssDict[ssKey] = ssValue;
+    }
+
+    console.log(ssDict);
+
     sS = document.getElementById("serverStatus" + dstNum);
 
     console.log(dataToDisplay);

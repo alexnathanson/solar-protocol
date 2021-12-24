@@ -126,7 +126,7 @@ def getIPList(deviceListJson, myMACAddr):
 
 def runSP():
 
-	deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
 	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
 

@@ -13,11 +13,11 @@ headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
 localConfig = "/home/pi/local/local.json"
 
-poeLog = "/home/pi/solar-protocol/backend/api/v1/poe.log"
+poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
 poeData = []
 
 newDSTList = []

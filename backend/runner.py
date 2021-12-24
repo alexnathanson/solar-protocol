@@ -53,7 +53,7 @@ def setFreq():
 		elif bP > .5:
 			lF = 20
 		else:
-			lF = 30
+			lF = 10
 	except:
 	 	lF = 20
 

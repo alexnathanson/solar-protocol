@@ -3,8 +3,10 @@
 
 import os
 
+#pass in the path to the file from the SP root directory.
+#For example, to get the full path to the deviceList.json file use "backend/data/deviceList.json"
 
-def realPath(aFile):
+def fullPath(aFile):
 	#the full path for this utilities directory that the findPath.py lives in
 	utilDirectory = os.path.dirname(__file__)
 
@@ -13,12 +15,12 @@ def realPath(aFile):
 	print(utilDirectory + rootDirectory)
 
 	#this is the full path to a given file
-	realPath = os.path.realpath(utilDirectory + rootDirectory + aFile)
+	fP = os.path.realpath(utilDirectory + rootDirectory + aFile)
 
-	return realPath
+	return fP
 
 
 
 if __name__ == "__main__":
 
-    print(realPath("backend/data/deviceList.json"))
+    print(fullPath("backend/data/deviceList.json"))

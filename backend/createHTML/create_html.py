@@ -11,6 +11,7 @@ import os
 # import viz
 import re
 import ast
+from utilties import findPath
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
@@ -73,8 +74,11 @@ def getCC(dst,ccValue):
 def read_csv(): 
     # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
     filename = (
-        "../../charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
+        "charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
     )
+
+    filename = findPath.fullPath(filename)
+
     with open(filename, "r") as data:
         alllines = [line for line in csv.DictReader(data)]
 

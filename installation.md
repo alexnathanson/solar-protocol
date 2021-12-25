@@ -15,12 +15,12 @@ This works with a USB to RS485 converter (ch340T chip model).
 ## Software
 
 ### OS
-Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
-* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations    
-* `sudo reboot` 
+* Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
+	* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations
+	* Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
+	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot` 
 * `sudo apt-get update`  
-* `sudo apt-get upgrade`  
-or `sudo apt full-upgrade` 
+* `sudo apt full-upgrade` (note that `sudo apt-get upgrade`  is the "safer" version of this command that is probably better to use if an upgrade is necessary after Solar Protocol is installed and running in order to avoid problems with dependencies)
 
 ### Repository
 Download repo into /home/pi

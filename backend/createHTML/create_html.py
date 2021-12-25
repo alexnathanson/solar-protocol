@@ -356,12 +356,12 @@ def check_images(server_data):
 
 
 #Run settings
-local = 1
+# local = 1
 
 #Global variables
 path = "/home/pi/solar-protocol/backend"
-if local == 1:
-    path = ""   
+# if local == 1:
+#     path = ""   
 deviceList = path + "../data/deviceList.json"
 dstIP = []
 serverNames = []
@@ -458,7 +458,17 @@ def main():
     render_pages(local_data, energy_data, local_weather, server_data)
 
 
+#this path determines the relationship to the root solar-protocol directory,
+#all paths used in the code can then be relative to that point
+def calcPath():
+    import os
+
+    currentDirectory = os.path.dirname(__file__)
 
 if __name__ == "__main__":
-
+    path = ""
     main()
+
+else:
+    path = "/home/pi/solar-protocol/backend/createHTML"
+

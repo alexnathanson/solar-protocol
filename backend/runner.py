@@ -11,6 +11,7 @@ from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 import datetime
 import time
 
+SP = SolarProtocolClass()
 
 def runSP():
 	print("*****Solar Protocol Runner Started******")
@@ -35,8 +36,6 @@ def runSP():
 def setFreq():
 	#print("setting frequency")
 	
-	SP = SolarProtocolClass()
-
 	try:
 		bP =float(SP.getRequest("http://localhost/api/v1/chargecontroller.php?value=battery-percentage", True))
 

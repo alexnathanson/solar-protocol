@@ -446,12 +446,12 @@ def main():
 
 
 
-    background = Image.open(path+"/visualization/3day-diagram-nolabels1.png")
-    exhibitionbackground = Image.open(path+"/visualization/3day-diagram-nolabels1-nokey.png")
+    background = Image.open(path+"/../visualization/3day-diagram-nolabels1.png")
+    exhibitionbackground = Image.open(path+"/../visualization/3day-diagram-nolabels1-nokey.png")
     foreground = Image.open("clock.png")
 
 
-    mask = Image.open(path+'/visualization/mask5.png').resize(background.size).convert('L')
+    mask = Image.open(path+'/../visualization/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
     background.save(path+"/../frontend/images/clock.png")
 
@@ -462,7 +462,7 @@ def main():
     # alphaBlended2.save("clock1.png")
     #archive images
     archiveImage = Image.open(path+"/../frontend/images/clock.png")
-    archiveImage.save(path+'/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+    archiveImage.save(path+'/../visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
 
 
 if __name__ == "__main__":

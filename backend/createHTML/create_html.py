@@ -73,7 +73,7 @@ def getCC(dst,ccValue):
 #gets power data from charge controller
 def read_csv(): 
     # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
-    filename = (
+    filename = (path +
         "../charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
     )
     with open(filename, "r") as data:

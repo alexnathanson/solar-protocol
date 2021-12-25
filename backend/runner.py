@@ -18,7 +18,7 @@ import logging
 SP = SolarProtocolClass()
 
 def runSP():
-	print("***** Solar Protocol Runner Started at " + datetime.datetime.now() + " ******")
+	print("***** Solar Protocol Runner Started ******")
 	#print(sys.argv)
 
 	loopFrequency = setFreq()
@@ -45,7 +45,8 @@ def runSP():
 		time.sleep(60)
 
 def scriptsToRun():
-
+	print("Running at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+	
 	try:
 		clientPostIP.runClientPostIP()
 	except Exception as err:

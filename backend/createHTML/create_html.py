@@ -133,7 +133,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         template_file = open(template_filename).read()
         print("rendering", template_filename)
         print("battery", _data["battery percentage"]*100)
-        template = Environment(loader=FileSystemLoader("templates/")).from_string(
+        template = Environment(loader=FileSystemLoader(path + "/createHTML/templates/")).from_string(
             template_file
         )
 

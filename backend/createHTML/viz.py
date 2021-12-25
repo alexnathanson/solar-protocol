@@ -320,7 +320,7 @@ def circles(sw, opacity):
 # -------------- PROGRAM --------------------------------------------------------------------------------
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
-    print("current sys path (viz): " + sys.path)
+    # print("current sys path (viz): " + sys.path)
 
     #Get my ip
     myIP = 	requests.get('http://whatismyip.akamai.com/').text
@@ -467,6 +467,6 @@ def main():
 
 if __name__ == "__main__":
     #this enables the relative paths to work when running this directly from command line
-    sys.path.append('createHTML')
+    # sys.path.append('createHTML')
 
     main()

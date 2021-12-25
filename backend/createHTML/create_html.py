@@ -11,7 +11,6 @@ import os
 # import viz
 import re
 import ast
-import sys
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
@@ -461,7 +460,5 @@ def main():
 
 
 if __name__ == "__main__":
-    #this enables the relative paths to work when running this directly from command line
-    # sys.path.append('../')
 
     main()

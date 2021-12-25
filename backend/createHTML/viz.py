@@ -15,8 +15,6 @@ import pytz
 import requests
 from json.decoder import JSONDecodeError
 
-import sys
-
 w = 1500
 h = 1500
 
@@ -466,7 +464,5 @@ def main():
 
 
 if __name__ == "__main__":
-    #this enables the relative paths to work when running this directly from command line
-    # sys.path.append('createHTML')
 
     main()

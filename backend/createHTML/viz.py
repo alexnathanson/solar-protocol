@@ -320,6 +320,10 @@ def circles(sw, opacity):
 # -------------- PROGRAM --------------------------------------------------------------------------------
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
+    print()
+    print("***** Running viz.py ******")
+    print()
+
     # print("current sys path (viz): " + sys.path)
 
     #Get my ip
@@ -446,8 +450,8 @@ def main():
 
 
 
-    background = Image.open(rootPath+"/visualization/3day-diagram-nolabels1.png")
-    exhibitionbackground = Image.open(rootPath+"/visualization/3day-diagram-nolabels1-nokey.png")
+    background = Image.open(path+"/visualization/3day-diagram-nolabels1.png")
+    exhibitionbackground = Image.open(path+"/visualization/3day-diagram-nolabels1-nokey.png")
     foreground = Image.open("clock.png")
 
 

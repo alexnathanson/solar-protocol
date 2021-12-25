@@ -368,6 +368,10 @@ def check_images(server_data):
 
 def main():
     
+    print()
+    print("***** Running create_html *****")
+    print()
+
     #this is now run via the main runner script
     #viz.main()
     

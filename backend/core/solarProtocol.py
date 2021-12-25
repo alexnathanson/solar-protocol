@@ -5,7 +5,6 @@ Compares data between devices and identifies the device producing the most power
 If the local device is producing the most power, it becomes the Point of Entry (PoE) and updates the DNS system.
 Otherwise, the script changes nothing.
 '''
-
 import os
 import fileinput
 import datetime
@@ -14,9 +13,8 @@ import logging
 import requests
 import json
 
-
 #globals
-SP = None
+SP = 0
 
 consoleOutput = True
 

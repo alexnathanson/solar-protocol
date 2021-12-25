@@ -38,7 +38,7 @@ if local == 0:
     path = ".."   
 
 #Global variables
-deviceList = path + "/api/v1/deviceList.json"
+deviceList = path + "/data/deviceList.json"
 
 
 energyParam = "PV-current"

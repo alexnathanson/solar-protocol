@@ -8,6 +8,7 @@ This script controls when the other scripts run based on battery status
 from core import clientPostIP
 from core import solarProtocol
 from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
+from createHTML import create_html
 import datetime
 import time
 
@@ -27,6 +28,8 @@ def runSP():
 			clientPostIP.runClientPostIP()
 
 			solarProtocol.runSP()
+
+			create_html.main()
 
 			loopFrequency = setFreq()
 

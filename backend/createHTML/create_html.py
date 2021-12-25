@@ -241,7 +241,7 @@ def getDeviceInfo(getKey):
 
 
 def get_ips():
-    # deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+    # deviceInfoFile = "/home/pi/solar-protocol/backend/data/deviceList.json"
     # deviceInfo = json.dumps(deviceInfoFile)
     #Get my ip
     myIP = 	requests.get('http://whatismyip.akamai.com/').text
@@ -362,7 +362,7 @@ local = 1
 path = "/home/pi/solar-protocol/backend"
 if local == 1:
     path = ""   
-deviceList = path + "../api/v1/deviceList.json"
+deviceList = path + "../data/deviceList.json"
 dstIP = []
 serverNames = []
 myIP = " "

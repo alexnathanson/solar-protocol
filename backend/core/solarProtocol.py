@@ -14,7 +14,7 @@ import requests
 import json
 
 #globals
-SP = 0
+# SP = 0
 
 consoleOutput = True
 
@@ -64,7 +64,7 @@ def remoteData(dstIPs, chosenApiValue):
 	return allData
 	#determineServer(allData)
 
-def determineServer(remoteData,localData):
+def determineServer(remoteData,localData, SP):
 
 	#FOR TESTING
 	print("****TESTING****")
@@ -153,7 +153,7 @@ def runSP():
 	outputToConsole("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
 	remotePVData = remoteData(getIPList(deviceList, myMAC), apiValue)
 	#print("Remote Voltage: " + remotePVData)
-	determineServer(remotePVData, localPVData)
+	determineServer(remotePVData, localPVData, SP)
 
 
 def outputToConsole(printThis):

@@ -18,9 +18,10 @@ SP = SolarProtocolClass()
 
 def runSP():
 	print("*****Solar Protocol Runner Started******")
-
+	print(sys.argv)
+	
 	loopFrequency = setFreq()
-
+	print(loopFrequency)
 
 	while True:
 
@@ -37,6 +38,7 @@ def runSP():
 			scriptsToRun()
 
 			loopFrequency = setFreq()
+			print(loopFrequency)
 
 		#sleep for 60 seconds
 		time.sleep(60)

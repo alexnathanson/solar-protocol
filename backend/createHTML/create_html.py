@@ -14,14 +14,17 @@ import ast
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
-#root path
-rootPath = "/home/pi/solar-protocol/"
+
 
 #Run settings
 # local = 1
 
-#Global variables
+#GLOBALS
+#path is used for paths within the backend directory
 path = "/home/pi/solar-protocol/backend"
+#root path is used for things within the solar-protocol directory
+rootPath = "/home/pi/solar-protocol/"
+
 # if local == 1:
 #     path = ""   
 deviceList = path + "/data/deviceList.json"
@@ -125,7 +128,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
     ]
 
     for template_filename, output_filename in pages:
-        template_filename = path + "createHTML/templates/" + template_filename
+        template_filename = path + "/createHTML/templates/" + template_filename
         output_filename = rootPath + "/frontend/" + output_filename
         template_file = open(template_filename).read()
         print("rendering", template_filename)

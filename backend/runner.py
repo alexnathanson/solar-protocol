@@ -63,7 +63,7 @@ def setFreq():
 		else:
 			lF = 10
 	except:
-	 	lF = 20
+	 	lF = 30
 
 	return lF
 

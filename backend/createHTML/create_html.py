@@ -8,7 +8,7 @@ import requests, json
 import json
 import csv
 import os
-import viz
+# import viz
 import re
 import ast
 
@@ -369,7 +369,10 @@ myIP = " "
 days = 3
 
 def main():
-    viz.main()
+    
+    #this is now run via the main runner script
+    #viz.main()
+    
     energy_data = read_csv() #get pv data from local csv 
     local_data = get_local() #get local steward data for front end
     try:

@@ -9,6 +9,7 @@ from core import clientPostIP
 from core import solarProtocol
 from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 from createHTML import create_html
+from createHTML import viz
 import datetime
 import time
 
@@ -29,6 +30,7 @@ def runSP():
 
 			solarProtocol.runSP()
 
+			viz.main()
 			create_html.main()
 
 			loopFrequency = setFreq()

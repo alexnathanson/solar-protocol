@@ -13,7 +13,7 @@ To do: automatically return true or false based on response
 import sys
 sys.path.append('..')
 
-from v1.SolarProtocolClass import SolarProtocol
+from core.SolarProtocolClass import SolarProtocol
 
 dnsKey = ''
 

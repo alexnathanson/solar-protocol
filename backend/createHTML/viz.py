@@ -460,7 +460,7 @@ def main():
     # alphaBlended2.save("clock1.png")
     #archive images
     archiveImage = Image.open(path+"/../frontend/images/clock.png")
-    archiveImage.save(path+'/../visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+    archiveImage.save(path+'/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
 
 
 if __name__ == "__main__":

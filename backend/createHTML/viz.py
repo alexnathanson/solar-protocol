@@ -455,9 +455,9 @@ def main():
     foreground = Image.open("clock.png")
 
 
-    mask = Image.open(rootPath+'/visualization/mask5.png').resize(background.size).convert('L')
+    mask = Image.open(path+'/visualization/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
-    background.save(path+"/../frontend/images/clock.png")
+    background.save(rootPath+"/frontend/images/clock.png")
 
     exhibitionbackground.paste(foreground, (0, 0), mask)
     exhibitionbackground.save(rootPath+"/frontend/images/clock-exhibit.png")

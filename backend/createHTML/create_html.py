@@ -125,7 +125,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
     ]
 
     for template_filename, output_filename in pages:
-        template_filename = "templates/" + template_filename
+        template_filename = path + "createHTML/templates/" + template_filename
         output_filename = rootPath + "/frontend/" + output_filename
         template_file = open(template_filename).read()
         print("rendering", template_filename)
@@ -460,18 +460,6 @@ def main():
     render_pages(local_data, energy_data, local_weather, server_data)
 
 
-#this path determines the relationship to the root solar-protocol directory,
-#all paths used in the code can then be relative to that point
-def calcPath():
-    import os
-
-    currentDirectory = os.path.dirname(__file__)
-
 if __name__ == "__main__":
     main()
-
-#else:
-    # path = "/home/pi/solar-protocol/backend/createHTML"
-    #deviceList = path + "/../data/deviceList.json"
-
 

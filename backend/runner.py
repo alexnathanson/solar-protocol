@@ -19,15 +19,15 @@ SP = SolarProtocolClass()
 def runSP():
 	print("*****Solar Protocol Runner Started******")
 	print(sys.argv)
-	
+
 	loopFrequency = setFreq()
 	print(loopFrequency)
 
 	while True:
 
 		#pass the argument "now" to run everything once
-		if len(sys.argv) > 0:
-				if sys.argv[0] == "now":
+		if len(sys.argv) > 1:
+				if sys.argv[1] == "now":
 					scriptsToRun()
 					return
 
@@ -63,9 +63,9 @@ def setFreq():
 		elif bP > .5:
 			lF = 20
 		else:
-			lF = 10
+			lF = 30
 	except:
-	 	lF = 30
+	 	lF = 20
 
 	return lF
 

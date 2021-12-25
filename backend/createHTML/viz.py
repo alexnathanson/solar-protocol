@@ -33,6 +33,8 @@ debug_mode = 0
 # if local == 1:
 #     path = "../"   
 
+rootPath = "/home/pi/solar-protocol"
+
 path = "/home/pi/solar-protocol/backend"
 if local == 0:
     path = ".."   
@@ -444,23 +446,23 @@ def main():
 
 
 
-    background = Image.open(path+"/../visualization/3day-diagram-nolabels1.png")
-    exhibitionbackground = Image.open(path+"/../visualization/3day-diagram-nolabels1-nokey.png")
+    background = Image.open(rootPath+"/visualization/3day-diagram-nolabels1.png")
+    exhibitionbackground = Image.open(rootPath+"/visualization/3day-diagram-nolabels1-nokey.png")
     foreground = Image.open("clock.png")
 
 
-    mask = Image.open(path+'/../visualization/mask5.png').resize(background.size).convert('L')
+    mask = Image.open(rootPath+'/visualization/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
     background.save(path+"/../frontend/images/clock.png")
 
     exhibitionbackground.paste(foreground, (0, 0), mask)
-    exhibitionbackground.save(path+"/../frontend/images/clock-exhibit.png")
+    exhibitionbackground.save(rootPath+"/frontend/images/clock-exhibit.png")
 
     # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
     # alphaBlended2.save("clock1.png")
     #archive images
-    archiveImage = Image.open(path+"/../frontend/images/clock.png")
-    archiveImage.save(path+'/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+    archiveImage = Image.open(rootPath+"/frontend/images/clock.png")
+    archiveImage.save(rootPath+'/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
 
 
 if __name__ == "__main__":

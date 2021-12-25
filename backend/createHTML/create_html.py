@@ -14,8 +14,8 @@ import ast
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
-#full root path
-# fRP = "/home/pi/solar-protocol/"
+#root path
+rootPath = "/home/pi/solar-protocol/"
 
 #Run settings
 # local = 1
@@ -24,7 +24,7 @@ import ast
 path = "/home/pi/solar-protocol/backend"
 # if local == 1:
 #     path = ""   
-deviceList = path + "../data/deviceList.json"
+deviceList = path + "/data/deviceList.json"
 dstIP = []
 serverNames = []
 myIP = " "
@@ -89,7 +89,7 @@ def getCC(dst,ccValue):
 def read_csv(): 
     # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
     filename = (
-        path + "../../../charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
+        rootPath + "/charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
     )
 
     with open(filename, "r") as data:
@@ -126,7 +126,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     for template_filename, output_filename in pages:
         template_filename = "templates/" + template_filename
-        output_filename = "../../frontend/" + output_filename
+        output_filename = rootPath + "/frontend/" + output_filename
         template_file = open(template_filename).read()
         print("rendering", template_filename)
         print("battery", _data["battery percentage"]*100)
@@ -342,7 +342,7 @@ def check_images(server_data):
     for server in server_data:
         filename = server["name"]+".gif"
         filename = filename.replace(" ", "-")
-        fullpath = "../../frontend/images/servers/" + filename
+        fullpath = rootPath + "/frontend/images/servers/" + filename
         filepath = "images/servers/" + filename
         #print("server:", server)
         if "ip" in server:
@@ -351,7 +351,7 @@ def check_images(server_data):
             print("myIP", myIP)
             if server["ip"] == "localhost": #if it is itself
 
-                image_path = "/local/serverprofile.gif"
+                image_path = "home/pi/local/serverprofile.gif"
                 filepath = image_path
             elif os.path.exists(fullpath): #else if the image is in the folder
                 print("Got image for", server["name"])
@@ -464,12 +464,10 @@ def calcPath():
     currentDirectory = os.path.dirname(__file__)
 
 if __name__ == "__main__":
-    path = ""
-    deviceList = "../data/deviceList.json"
     main()
 
-else:
-    path = "/home/pi/solar-protocol/backend/createHTML"
-    deviceList = path + "/../data/deviceList.json"
+#else:
+    # path = "/home/pi/solar-protocol/backend/createHTML"
+    #deviceList = path + "/../data/deviceList.json"
 
 

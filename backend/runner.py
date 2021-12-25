@@ -13,12 +13,13 @@ from createHTML import viz
 import datetime
 import time
 import sys
+import logging
 
 SP = SolarProtocolClass()
 
 def runSP():
-	print("*****Solar Protocol Runner Started******")
-	print(sys.argv)
+	print("***** Solar Protocol Runner Started at " + datetime.datetime.now() + " ******")
+	#print(sys.argv)
 
 	loopFrequency = setFreq()
 	print(loopFrequency)

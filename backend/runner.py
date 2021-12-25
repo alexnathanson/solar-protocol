@@ -47,23 +47,29 @@ def scriptsToRun():
 
 	try:
 		clientPostIP.runClientPostIP()
-	except:
-		print("clientPostIP.py Exception")
+	except Exception as err:
+		printLoud("clientPostIP.py Exception", err)
 
 	try:
 		solarProtocol.runSP()
-	except:
-		print("solarProtocol.py exception")
-		
+	except Exception as err:
+		printLoud("solarProtocol.py Exception", err)
+
 	try:
 		viz.main()
-	except:
-		print("viz exception")
+	except Exception as err:
+		printLoud("viz Exception", err)
 
 	try:
 		create_html.main()
-	except:
-		print("create_html exception")
+	except Exception as err:
+		printLoud("create_html Exception", err)
+
+def printLoud(mess, e):
+	print()
+	print("!!!!! " + mess + " !!!!!")
+	print(e)
+	print()
 
 def setFreq():
 	#print("setting frequency")

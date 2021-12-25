@@ -371,6 +371,7 @@ days = 3
 
 def main():
     
+    print("current sys path (create_html): " + sys.path)
     #this is now run via the main runner script
     #viz.main()
     
@@ -462,6 +463,6 @@ def main():
 
 if __name__ == "__main__":
     #this enables the relative paths to work when running this directly from command line
-    sys.path.append('createHTML')
+    sys.path.append('../')
 
     main()

@@ -320,6 +320,8 @@ def circles(sw, opacity):
 # -------------- PROGRAM --------------------------------------------------------------------------------
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
+    print("current sys path (viz): " + sys.path)
+
     #Get my ip
     myIP = 	requests.get('http://whatismyip.akamai.com/').text
     # print("MY IP: ", type(myIP))

@@ -14,6 +14,7 @@ import logging
 import requests
 import json
 
+consoleOutput = True
 
 dnsKey = ''
 
@@ -154,8 +155,6 @@ def outputToConsole(printThis):
 if __name__ == '__main__':
 	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	
 	runSP()
-
-	consoleOutput = True
 
 else:
 	consoleOutput = False

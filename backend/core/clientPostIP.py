@@ -11,6 +11,8 @@ import requests
 import json
 import subprocess
 
+consoleOutput = True
+
 headers = {
     #'X-Auth-Key': KEY,
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -217,8 +219,6 @@ def outputToConsole(printThis):
 
 if __name__ == '__main__':
 	runClientPostIP()
-
-	consoleOutput = True
 
 else:
 	consoleOutput = False

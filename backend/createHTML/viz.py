@@ -15,6 +15,8 @@ import pytz
 import requests
 from json.decoder import JSONDecodeError
 
+import sys
+
 w = 1500
 h = 1500
 
@@ -449,17 +451,20 @@ def main():
 
     mask = Image.open(path+'/visualization/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
-    background.save(path+"/frontend/images/clock.png")
+    background.save(path+"/../frontend/images/clock.png")
 
     exhibitionbackground.paste(foreground, (0, 0), mask)
-    exhibitionbackground.save(path+"/frontend/images/clock-exhibit.png")
+    exhibitionbackground.save(path+"/../frontend/images/clock-exhibit.png")
 
     # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
     # alphaBlended2.save("clock1.png")
     #archive images
-    archiveImage = Image.open(path+"/frontend/images/clock.png")
+    archiveImage = Image.open(path+"/../frontend/images/clock.png")
     archiveImage.save(path+'/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
 
 
 if __name__ == "__main__":
+    #this enables the relative paths to work when running this directly from command line
+    sys.path.append('/createHTML')
+
     main()

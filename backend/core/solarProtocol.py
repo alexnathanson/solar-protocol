@@ -16,7 +16,7 @@ import json
 
 
 #globals
-SP
+SP = None
 
 consoleOutput = True
 

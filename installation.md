@@ -127,6 +127,14 @@ Give Apache/PHP user 'www-data' necessary permissions:
 	* open rc.local `sudo nano /etc/rc.local`  
 		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &`  
 	* verify it works `sudo reboot`  
+* run Python script runner on start up
+	* open rc.local `sudo nano /etc/rc.local`  
+		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/backend > /home/pi/solar-protocol/backend/runner.log 2>&1 &`  
+	* verify it works `sudo reboot`  	
+* open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
+	* reboot daily `@midnight sudo reboot`	
+
+##### Previous versions ran everything else via crontab, which we are phasing out
 * open the root crontab `sudo crontab -e` and add these lines to the bottom:  
 	* run clientPostIP every 15 minutes `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/clientPostIP.py > /home/pi/solar-protocol/backend/api/v1/clientPostIP.log 2>&1`  
 	* run solarProtocol every 5 minutes `*/5 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/solarProtocol.py > /home/pi/solar-protocol/backend/api/v1/solarProtocol.log 2>&1`  
@@ -143,6 +151,7 @@ Give Apache/PHP user 'www-data' necessary permissions:
 ### Troubleshooting  
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  
 * Run `ps -aux` to list running processes  
+* Run `ps -ef | grep .py` to list running python processes
 * All Python scripts use python3  
 * if cron logging isn't working use `sudo crontab -e` instead of `crontab -e`  
 * PHP error logging (best to only use these during development and revert back for production version)  

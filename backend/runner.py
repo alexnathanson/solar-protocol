@@ -12,6 +12,7 @@ from createHTML import create_html
 from createHTML import viz
 import datetime
 import time
+import sys
 
 SP = SolarProtocolClass()
 
@@ -20,23 +21,32 @@ def runSP():
 
 	loopFrequency = setFreq()
 
+
 	while True:
+
+		#pass the argument "now" to run everything once
+		if len(sys.argv) > 0:
+				if sys.argv[0] == "now":
+					scriptsToRun()
+					return
 
 		# print(datetime.datetime.now().minute)
 		
 		if datetime.datetime.now().minute % loopFrequency == 0:
 
-			clientPostIP.runClientPostIP()
-
-			solarProtocol.runSP()
-
-			viz.main()
-			create_html.main()
+			scriptsToRun()
 
 			loopFrequency = setFreq()
 
 		#sleep for 60 seconds
 		time.sleep(60)
+
+def scriptsToRun():
+
+	clientPostIP.runClientPostIP()
+	solarProtocol.runSP()
+	viz.main()
+	create_html.main()
 
 def setFreq():
 	#print("setting frequency")

@@ -66,6 +66,10 @@ def remoteData(dstIPs, chosenApiValue):
 
 def determineServer(remoteData,localData):
 
+	#FOR TESTING
+	print("****TESTING****")
+	print(SP.localConfigFile)
+
 	thisServer = True
 
 	#print(remotePVData)
@@ -82,10 +86,6 @@ def determineServer(remoteData,localData):
 		
 		#print(SP.myIP)
 		#print(SP.getEnv('DNS_KEY'))
-
-		#FOR TESTING
-		print("****TESTING****")
-		print(SP.localConfigFile)
 
 		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
 		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)

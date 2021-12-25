@@ -11,9 +11,24 @@ import os
 # import viz
 import re
 import ast
-from utilities import findPath
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
+
+#full root path
+# fRP = "/home/pi/solar-protocol/"
+
+#Run settings
+# local = 1
+
+#Global variables
+path = "/home/pi/solar-protocol/backend"
+# if local == 1:
+#     path = ""   
+deviceList = path + "../data/deviceList.json"
+dstIP = []
+serverNames = []
+myIP = " "
+days = 3
 
 def get_data():
     client = ModbusClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
@@ -74,10 +89,8 @@ def getCC(dst,ccValue):
 def read_csv(): 
     # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
     filename = (
-        "charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
+        path + "../../../charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
     )
-
-    filename = findPath.fullPath(filename)
 
     with open(filename, "r") as data:
         alllines = [line for line in csv.DictReader(data)]
@@ -352,25 +365,6 @@ def check_images(server_data):
                     print(server["name"], ": Offline. Can't get image")
             server["image_path"] = filepath
         
-
-
-
-
-
-
-
-#Run settings
-# local = 1
-
-#Global variables
-path = "/home/pi/solar-protocol/backend"
-# if local == 1:
-#     path = ""   
-deviceList = path + "../data/deviceList.json"
-dstIP = []
-serverNames = []
-myIP = " "
-days = 3
 
 def main():
     

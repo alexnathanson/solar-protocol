@@ -14,6 +14,10 @@ import logging
 import requests
 import json
 
+
+#globals
+SP
+
 consoleOutput = True
 
 dnsKey = ''

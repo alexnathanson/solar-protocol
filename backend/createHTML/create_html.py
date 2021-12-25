@@ -467,8 +467,11 @@ def calcPath():
 
 if __name__ == "__main__":
     path = ""
+    deviceList = "../data/deviceList.json"
     main()
 
 else:
     path = "/home/pi/solar-protocol/backend/createHTML"
+    deviceList = path + "/../data/deviceList.json"
+
 

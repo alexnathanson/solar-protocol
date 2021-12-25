@@ -66,10 +66,6 @@ def remoteData(dstIPs, chosenApiValue):
 
 def determineServer(remoteData,localData, SP):
 
-	#FOR TESTING
-	print("****TESTING****")
-	print(SP.localConfigFile)
-
 	thisServer = True
 
 	#print(remotePVData)

@@ -189,8 +189,10 @@ def addPort(thisPort):
 		return ""
 
 def runClientPostIP():
+	print()
 	print("*****Running ClientPostIP script*****")
-
+	print()
+	
 	#update this with the SP IP site
 	myIP = 	requests.get('http://whatismyip.akamai.com/').text
 	print("MY IP: " + myIP)

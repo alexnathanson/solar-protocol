@@ -45,10 +45,25 @@ def runSP():
 
 def scriptsToRun():
 
-	clientPostIP.runClientPostIP()
-	solarProtocol.runSP()
-	viz.main()
-	create_html.main()
+	try:
+		clientPostIP.runClientPostIP()
+	except:
+		print("clientPostIP.py Exception")
+
+	try:
+		solarProtocol.runSP()
+	except:
+		print("solarProtocol.py exception")
+		
+	try:
+		viz.main()
+	except:
+		print("viz exception")
+
+	try:
+		create_html.main()
+	except:
+		print("create_html exception")
 
 def setFreq():
 	#print("setting frequency")

@@ -11,7 +11,7 @@ import os
 # import viz
 import re
 import ast
-from .utilties import findPath
+import utilities.findPath as findPath
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 

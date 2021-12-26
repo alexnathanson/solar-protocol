@@ -124,18 +124,7 @@ Give Apache/PHP user 'www-data' necessary permissions:
 All the necessary file and directory permissions can set by running this script: utilities/setAllPermissions.sh
 * `sh setAllPermissions.sh`
 * You must move the local directory to its proper position before setting permissions.
-
-If you need to set permissions individually 
-* `sudo chmod a+w /home/pi/local/.spenv`
-* `sudo chmod a+w /home/pi/local/local.json`
-* `sudo chmod a+w /home/pi/local/access.json`
-* `sudo chmod -R a+w /home/pi/local/www`
-* `sudo chmod a+w /home/pi/solar-protocol/backend/data/deviceList.json`
-* `sudo chmod a+w /home/pi/solar-protocol/backend/data/poe.log`
-* `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`
-* `sudo chmod a+w /home/pi/solar-protocol/frontend/index.html`
-* `sudo chmod +x /home/pi/solar-protocol/utilities/update.sh`
-* `sudo chmod a+w /home/pi/solar-protocol/frontend/images/clock-exhibit.png`
+* If the above command was successful, you do not need to set permissions individually. If it failed or can't be run for some reason you can manually enter the commands listed in the setAllPermissions script.
 
 ### Automate  
 

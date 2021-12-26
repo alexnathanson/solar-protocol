@@ -446,13 +446,13 @@ def main():
 
     # Now export the surface
     surface.get_npimage() # returns a (width x height x 3) numpy array
-    surface.write_to_png("clock.png")
+    surface.write_to_png(path + "/clock.png")
 
 
 
     background = Image.open(path+"/visualization/3day-diagram-nolabels1.png")
     exhibitionbackground = Image.open(path+"/visualization/3day-diagram-nolabels1-nokey.png")
-    foreground = Image.open("clock.png")
+    foreground = Image.open(path + "/clock.png")
 
 
     mask = Image.open(path+'/visualization/mask5.png').resize(background.size).convert('L')

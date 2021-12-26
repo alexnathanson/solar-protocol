@@ -113,16 +113,32 @@ Give Apache/PHP user 'www-data' necessary permissions:
 * Open visudo: `sudo visudo`
 * Add this line to the bottom of the file: `www-data	ALL=NOPASSWD: ALL`
  -->
+
+### Local
+* Move local directory outside of solar-protocol directory to pi directory  
+`sudo mv /home/pi/solar-protocol/local /home/pi/`
+* Update the info with your information as needed  
+
+### Permissions
+
+All the necessary file and directory permissions can set by running this script: utilities/setAllPermissions.sh
+* `sh setAllPermissions.sh`
+* You must move the local directory to its proper position before setting permissions.
+
+If you need to set permissions individually 
+* `sudo chmod a+w /home/pi/local/.spenv`
+* `sudo chmod a+w /home/pi/local/local.json`
+* `sudo chmod a+w /home/pi/local/access.json`
+* `sudo chmod -R a+w /home/pi/local/www`
+* `sudo chmod a+w /home/pi/solar-protocol/backend/data/deviceList.json`
+* `sudo chmod a+w /home/pi/solar-protocol/backend/data/poe.log`
+* `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`
+* `sudo chmod a+w /home/pi/solar-protocol/frontend/index.html`
+* `sudo chmod +x /home/pi/solar-protocol/utilities/update.sh`
+* `sudo chmod a+w /home/pi/solar-protocol/frontend/images/clock-exhibit.png`
+
 ### Automate  
 
-#### permissions (you can set all these permissions at once via the utilities/setAllPermissions.sh script by `sh setAllPermissions.sh`)  
-* `sudo chmod a+w /home/pi/local/local.json` (You must move the local directory before setting permissions. See below.)
-* `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`  
-* `sudo chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`  
-* `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`  
-* `sudo chmod a+w /home/pi/solar-protocol/frontend/index.html`  
-
-#### Timing
 * run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup)
 	* open rc.local `sudo nano /etc/rc.local`  
 		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &`  
@@ -132,21 +148,7 @@ Give Apache/PHP user 'www-data' necessary permissions:
 		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/backend > /home/pi/solar-protocol/backend/runner.log 2>&1 &`  
 	* verify it works `sudo reboot`  	
 * open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
-	* reboot daily `@midnight sudo reboot`	
-
-##### Previous versions ran everything else via crontab, which we are phasing out
-* open the root crontab `sudo crontab -e` and add these lines to the bottom:  
-	* run clientPostIP every 15 minutes `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/clientPostIP.py > /home/pi/solar-protocol/backend/api/v1/clientPostIP.log 2>&1`  
-	* run solarProtocol every 5 minutes `*/5 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/solarProtocol.py > /home/pi/solar-protocol/backend/api/v1/solarProtocol.log 2>&1`  
-	* run createHTML every 15 minutes to generate new index.html with current data. `*/15 * * * * cd /home/pi/solar-protocol/backend/createHTML && $(which python3) create_html.py`
-	* reboot daily `@midnight sudo reboot`	  
-* open the crontab for the user `crontab -e` and add this line to the bottom:   
-	* on reboot, run the update script to check from updates from github. `@reboot sh /home/pi/solar-protocol/utilities/update.sh`  
-
-### Local
-* Move local directory outside of solar-protocol directory to pi directory  
-`sudo mv /home/pi/solar-protocol/local /home/pi/`
-* Update the info with your information as needed  
+	* reboot daily `@midnight sudo reboot`
 
 ### Troubleshooting  
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  

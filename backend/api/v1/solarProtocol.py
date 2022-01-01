@@ -16,18 +16,46 @@ import logging
 from SolarProtocolClass import SolarProtocol
 
 dnsKey = ''
+#constants
 
-'''
-possible values for dataValue (use "-" instead of spaces):
-PV current,PV power H,PV power L,PV voltage,
-battery percentage,battery voltage,charge current,
-charge power H,charge power L,date,load current,load power,load voltage,time
-possible values for apiValue include all of the above + scaled-wattage
-'''
-#this is the value to be retrieved locally (and then scaled). It could potentially be retrieved via an API call to itself, which might make code cleaner
-dataValue = 'PV power L'
+apiPVCurrent         = 'PV-current'
+apiPVPowerH          = 'PV-power-H'
+apiPVPowerL          = 'PV-power-L'
+apiPVVoltage         = 'PV-voltage'
+apiBatteryPercentage = 'battery-percentage'
+apiBatteryVoltage    = 'battery-volage'
+apiChargeCurrent     = 'charge-current'
+apiChargePowerH      = 'charge-power-H'
+apiChargePowerL      = 'charge-power-L'
+apiDate              = 'date'
+apiLoadCurrent       = 'load-current'
+apiLoadPower         = 'load-power'
+apiLoadVoltage       = 'load-voltage'
+apiTime              = 'time'
+apiScaledWattage     = 'scaled-wattage'
+
+apiToCsv = {
+    apiPVCurrent: 'PV current',
+    apiPVPowerH: 'PV power H',
+    apiPVPowerL: 'PV power L',
+    apiVoltage: 'PV voltage',
+    apiBatteryPercentage: 'battery percentage',
+    apiBatteryVoltage: 'battery voltage',
+    apiChargeCurrent: 'charge current',
+    apiChargePowerH: 'charge power H',
+    apiChargePowerL: 'charge power L',
+    apiDate: 'date',
+    apiLoadCurrent: 'load current',
+    apiLoadPower: 'load power',
+    apiLoadVoltage: 'load voltage',
+    apiTime: 'time',
+    apiScaledWattage: 'PV power L'
+}
+
 #this is the key to retrieve from remote devices
-apiValue = 'scaled-wattage'
+apiValue = apiScaledWattage
+#this is the value to be retrieved locally (and then scaled). It could potentially be retrieved via an API call to itself, which might make code cleaner
+dataValue = apiToCsv[apiValue]
 
 deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
 

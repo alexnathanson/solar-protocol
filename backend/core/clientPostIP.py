@@ -168,7 +168,7 @@ def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC):
 	if len(newDSTList) > 0:
 		outputToConsole("New DST list:")
 		outputToConsole(newDSTList)
-		makePosts(newDSTList)
+		makePosts(newDSTList, api_Key, my_IP, my_Name, my_MAC)
 
 def getEnv(thisEnv):
 	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)

@@ -90,7 +90,7 @@ def getLocalConfig(key):
 			return locData[key]
 
 	except:
-		print('local config file exception')
+		print('local config file exception with key ' + key)
 
 		if key == 'name':
 			return 'pi'

@@ -124,7 +124,7 @@ def getIPList(deviceListJson, myMACAddr):
 		if str(data[i]['mac']).strip() !=  myMACAddr.strip():
 			ipList.append(data[i]['ip'])
 
-	#print(ipList)
+	print(ipList)
 
 	return ipList
 

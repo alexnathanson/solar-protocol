@@ -238,7 +238,7 @@ function setEnv($envKey,$envVal){
   <div style="width: 50%">
     <p>
       This image will be saved as serverprofile.gif and appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
-      <br>Accepted image file types: jpg, jpeg, png, gif
+      <br>The image file type must be a gif. It it recommended that you dither the image prior to uploading.
     </p>
     <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post" enctype="multipart/form-data">
       Select image to upload:

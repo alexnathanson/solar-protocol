@@ -278,8 +278,8 @@ function setEnv($envKey,$envVal){
 
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the DNS password?');">
     <input type="hidden" name="key" value="form"/>
-    <p>DNS Password <input type="text" name="dnsPW" value=""><span class="error" style="color:red"> <?php echo $dnsErr;?></span></p>
-    <button type="submit">Update DNS Password</button>
+    <p>DNS Gateway Password <input type="text" name="dnsPW" value=""><span class="error" style="color:red"> <?php echo $dnsErr;?></span></p>
+    <button type="submit">Update DNS Gateway Password</button>
   </form>
 </div>
 

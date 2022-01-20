@@ -355,7 +355,9 @@ def check_images(server_data):
             print("myIP", myIP)
             if server["ip"] == "localhost": #if it is itself
 
-                image_path = "home/pi/local/serverprofile.gif"
+               image_path = "home/pi/local/www/serverprofile.gif"
+               #this wont work with irregular ports
+               #image_path = "http://localhost/local/serverprofile.gif"
                 filepath = image_path
             elif os.path.exists(fullpath): #else if the image is in the folder
                 print("Got image for", server["name"])

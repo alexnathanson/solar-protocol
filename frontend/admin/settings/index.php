@@ -237,7 +237,7 @@ function setEnv($envKey,$envVal){
   <h3>Server Profile Photo</h3>
   <div style="width: 50%">
     <p>
-      This image will be saved as serverprofile.jpg and appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
+      This image will be saved as serverprofile.gif and appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
       <br>Accepted image file types: jpg, jpeg, png, gif
     </p>
     <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post" enctype="multipart/form-data">
@@ -255,7 +255,7 @@ function setEnv($envKey,$envVal){
   </div>
   <div style="width:50%"><!--should this float left?-->
     <!--display thumbnail image-->
-    <img src="/local/serverprofile.jpg" style="border: 2px solid black;width:150px; height:auto;">
+    <img src="/local/serverprofile.gif" style="border: 2px solid black;width:150px; height:auto;">
   </div>
 </div>
 

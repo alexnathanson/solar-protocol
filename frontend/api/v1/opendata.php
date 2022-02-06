@@ -1,6 +1,6 @@
 <?php
 
-#This was previously the open data components of the API. Will not be updated further, but will be kept for servers that are still using the older system
+# This is for all public (non-password protected) data. Most of these functions previously lived in the chargecontroller.php script
 
 #comment out these lines for production version
 /*ini_set('display_errors', 1); 
@@ -237,6 +237,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       for ($d = 0; $d < count($contents);$d++){
         array_push($output,$contents[$d]["name"]);
+      }
+      echo json_encode($output);
+
+    } else if($_GET["networkInfo"] == "poe"){
+  
+      $output = [];
+
+      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+
+      for ($d = 0; $d < count($contents);$d++){
+        array_push($output,$contents[$d]["log"]);
       }
       echo json_encode($output);
 

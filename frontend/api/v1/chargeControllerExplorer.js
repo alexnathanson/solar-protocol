@@ -30,9 +30,9 @@ if(window.location.search.length > 0){
 		endPtVal = params.get("networkInfo");
 	}
 
-	//example http://solarprotocol.net/api/v1/chargecontroller.php?file=list
+	//example http://solarprotocol.net/api/v1/opendata.php?file=list
 
-	let dst = getBaseUrl() + '/api/v1/chargecontroller.php?' + endPt + "=" + endPtVal;
+	let dst = getBaseUrl() + '/api/v1/opendata.php?' + endPt + "=" + endPtVal;
 
 	if(modified){
 		dst = dst + "&" + mod + "=" + modVal;

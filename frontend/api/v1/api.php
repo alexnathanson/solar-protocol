@@ -1,4 +1,7 @@
 <?php
+
+# This manages the internal network API. This is for private sharing of data between servers on the network.
+
 #comment out these lines for production version
 /*ini_set('display_errors', 1); 
 ini_set('display_startup_errors', 1); 

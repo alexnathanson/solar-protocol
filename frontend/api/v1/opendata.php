@@ -226,7 +226,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
   } else if (array_key_exists("networkInfo", $_GET)) {
 
-
+    #return the list of names of all the servers stored locally
     if($_GET["networkInfo"] == "deviceList"){
   
       $output = [];
@@ -240,6 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       }
       echo json_encode($output);
 
+      #return the POE logs stored locally for all devices
     } else if($_GET["networkInfo"] == "poe"){
   
       $output = [];
@@ -252,6 +253,62 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         array_push($output,$contents[$d]["log"]);
       }
       echo json_encode($output);
+
+      # return the specified value for all devices listed on dev list
+      # it only returns the value if the server is on and connecged
+    } else if($_GET["networkInfo"] == "value"){
+  
+      /*$output = [];
+
+      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+
+      for ($d = 0; $d < count($contents);$d++){
+        array_push($output,$contents[$d]["log"]);
+      }
+      echo json_encode($output);*/
+
+    # return the specified value for all devices listed on dev list
+    # it only returns the value if the server is on and connecged
+    } else if($_GET["networkInfo"] == "line"){
+  
+      /*$output = [];
+
+      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+
+      for ($d = 0; $d < count($contents);$d++){
+        array_push($output,$contents[$d]["log"]);
+      }
+      echo json_encode($output);*/
+
+    } else if($_GET["networkInfo"] == "day"){
+  
+      /*$output = [];
+
+      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+
+      for ($d = 0; $d < count($contents);$d++){
+        array_push($output,$contents[$d]["log"]);
+      }
+      echo json_encode($output);*/
+
+    } else if($_GET["networkInfo"] == "local"){
+  
+      /*$output = [];
+
+      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+
+      for ($d = 0; $d < count($contents);$d++){
+        array_push($output,$contents[$d]["log"]);
+      }
+      echo json_encode($output);*/
 
     }
   }

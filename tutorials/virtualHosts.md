@@ -59,3 +59,7 @@ See instructions for this at https://ostechnix.com/configure-apache-virtual-host
 ### No connection
 
 This could be an issue with the DNS registry.
+
+### No connection to the main SP site
+
+This hasn't been tested on a server acting as the Solar Protocol PoE. If enabling this makes solarprotocol.net inaccessible, some work around having a catch all virtual server will be necessary.

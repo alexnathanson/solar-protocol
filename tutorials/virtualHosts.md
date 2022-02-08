@@ -48,8 +48,8 @@ The default config file is whichever one is loaded first, which is why the defau
 
 If you attempt to go to the URL in a browser and get a response that says access denied add these lines to the bottom of the /etc/apache2/apache2.conf file (the path should be your document root).
 
-`<Directory /home/pi/local/www>`
-`	Require all granted`
+`<Directory /home/pi/local/www>`<br>
+`	Require all granted`<br>
 `</Directory>`
 
 If you are still running into the access denied error, you can try changing the user that owns the directory you are serving the site from. I haven't found this to solve anything, but some instructions for this process have included this step.

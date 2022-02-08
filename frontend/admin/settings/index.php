@@ -237,8 +237,8 @@ function setEnv($envKey,$envVal){
   <h3>Server Profile Photo</h3>
   <div style="width: 50%">
     <p>
-      This image will be saved as serverprofile.jpg and appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
-      <br>Accepted image file types: jpg, jpeg, png, gif
+      This image will be saved as serverprofile.gif and appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
+      <br>The image file type must be a gif. It it recommended that you dither the image prior to uploading.
     </p>
     <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post" enctype="multipart/form-data">
       Select image to upload:
@@ -255,7 +255,7 @@ function setEnv($envKey,$envVal){
   </div>
   <div style="width:50%"><!--should this float left?-->
     <!--display thumbnail image-->
-    <img src="/local/serverprofile.jpg" style="border: 2px solid black;width:150px; height:auto;">
+    <img src="/local/serverprofile.gif" style="border: 2px solid black;width:150px; height:auto;">
   </div>
 </div>
 
@@ -278,8 +278,8 @@ function setEnv($envKey,$envVal){
 
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the DNS password?');">
     <input type="hidden" name="key" value="form"/>
-    <p>DNS Password <input type="text" name="dnsPW" value=""><span class="error" style="color:red"> <?php echo $dnsErr;?></span></p>
-    <button type="submit">Update DNS Password</button>
+    <p>DNS Gateway Password <input type="text" name="dnsPW" value=""><span class="error" style="color:red"> <?php echo $dnsErr;?></span></p>
+    <button type="submit">Update DNS Gateway Password</button>
   </form>
 </div>
 

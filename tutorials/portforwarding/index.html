@@ -1,0 +1,40 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Solar Protocol</title>
+</head>
+<body>
+
+<h1 id="test-result">Testing...</h1>
+
+<p>
+Remember you must access this page from a different network than the one that your server is running on for it to be a valid test. If your test is invalid, it means that your server is running, but you are on the same network as your server. Try accessing this page from another network. The easiest way to do this is often from your smart phone on the cellular data network with wifi turned off.
+</p>
+
+<script>
+
+lh = location.host
+
+console.log(location.host)
+
+const Http = new XMLHttpRequest();
+const url='https://server.solarpowerforartists.com/?myip';
+Http.open("GET", url);
+Http.send();
+
+Http.onreadystatechange = (e) => {
+  //will this work without the default ports???
+
+  let tr = document.getElementById("test-result")
+
+  if( !lh.includes(Http.responseText) && !lh.includes("localhost")){
+    tr.innerHTML = "Congratulations, your port forwarding test works!"
+  } else {
+    tr.innerHTML = "Invalid test - You are on the same network as your server."
+  }
+}
+
+</script>
+
+</body>
+</html> 

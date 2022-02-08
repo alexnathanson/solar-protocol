@@ -5,15 +5,18 @@ Compares data between devices and identifies the device producing the most power
 If the local device is producing the most power, it becomes the Point of Entry (PoE) and updates the DNS system.
 Otherwise, the script changes nothing.
 '''
-
-import requests
 import os
 import fileinput
-import json
 import datetime
 import csv
 import logging
-from SolarProtocolClass import SolarProtocol
+import requests
+import json
+
+#globals
+# SP = 0
+
+consoleOutput = True
 
 dnsKey = ''
 
@@ -28,15 +31,6 @@ possible values for apiValue include all of the above + scaled-wattage
 dataValue = 'PV power L'
 #this is the key to retrieve from remote devices
 apiValue = 'scaled-wattage'
-
-deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
-
-localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
-
-logging.basicConfig(filename='/home/pi/solar-protocol/backend/api/v1/poe.log', level=logging.INFO)
-
-#initialize SolarProtocolClass
-SP = SolarProtocol()
 
 #return data from a particular server
 # this is redundant with the class... add this error handling to the class?
@@ -70,7 +64,7 @@ def remoteData(dstIPs, chosenApiValue):
 	return allData
 	#determineServer(allData)
 
-def determineServer(remoteData,localData):
+def determineServer(remoteData,localData, SP):
 
 	thisServer = True
 
@@ -90,7 +84,7 @@ def determineServer(remoteData,localData):
 		#print(SP.getEnv('DNS_KEY'))
 
 		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
-		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
+		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
 
 	else:
 		print('Not point of entry')
@@ -130,15 +124,44 @@ def getIPList(deviceListJson, myMACAddr):
 		if str(data[i]['mac']).strip() !=  myMACAddr.strip():
 			ipList.append(data[i]['ip'])
 
-	#print(ipList)
+	print(ipList)
 
 	return ipList
 
-myMAC = SP.getMAC(SP.MACinterface)
-#print("my mac: " + myMAC)
+def runSP():
+	print()
+	print("*****Running Solar Protocol script*****")
+	print()
 
-localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
-print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
-remotePVData = remoteData(getIPList(deviceList, myMAC), apiValue)
-#print("Remote Voltage: " + remotePVData)
-determineServer(remotePVData, localPVData)
+	#initialize SolarProtocolClass
+	SP = SolarProtocolClass()
+
+	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+
+	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
+
+	logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
+
+	myMAC = SP.getMAC(SP.MACinterface)
+	#print("my mac: " + myMAC)
+
+	localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
+	outputToConsole("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
+	remotePVData = remoteData(getIPList(deviceList, myMAC), apiValue)
+	#print("Remote Voltage: " + remotePVData)
+	determineServer(remotePVData, localPVData, SP)
+
+
+def outputToConsole(printThis):
+	if consoleOutput:
+		print(printThis)
+
+if __name__ == '__main__':
+	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	
+	runSP()
+
+else:
+	consoleOutput = False
+	from .SolarProtocolClass import SolarProtocol as SolarProtocolClass
+
+

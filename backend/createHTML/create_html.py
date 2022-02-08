@@ -8,11 +8,30 @@ import requests, json
 import json
 import csv
 import os
-import viz
+# import viz
 import re
 import ast
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
+
+
+
+#Run settings
+# local = 1
+
+#GLOBALS
+#path is used for paths within the backend directory
+path = "/home/pi/solar-protocol/backend"
+#root path is used for things within the solar-protocol directory
+rootPath = "/home/pi/solar-protocol/"
+
+# if local == 1:
+#     path = ""   
+deviceList = path + "/data/deviceList.json"
+dstIP = []
+serverNames = []
+myIP = " "
+days = 3
 
 def get_data():
     client = ModbusClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
@@ -73,8 +92,9 @@ def getCC(dst,ccValue):
 def read_csv(): 
     # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
     filename = (
-        "../../charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
+        rootPath + "/charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
     )
+
     with open(filename, "r") as data:
         alllines = [line for line in csv.DictReader(data)]
 
@@ -108,12 +128,13 @@ def render_pages(_local_data, _data, _weather, _server_data):
     ]
 
     for template_filename, output_filename in pages:
-        template_filename = "templates/" + template_filename
-        output_filename = "../../frontend/" + output_filename
+        template_filename = path + "/createHTML/templates/" + template_filename
+        output_filename = rootPath + "/frontend/" + output_filename
         template_file = open(template_filename).read()
         print("rendering", template_filename)
         print("battery", _data["battery percentage"]*100)
-        template = Environment(loader=FileSystemLoader("templates/")).from_string(
+        #this line was changed last, it was: "/templates/"
+        template = Environment(loader=FileSystemLoader(path + "/createHTML/templates/")).from_string(
             template_file
         )
 
@@ -220,7 +241,7 @@ def get_weather(_local_data):
 
 #get local front end data
 def get_local():
-    filename = "../../../local/local.json"
+    filename = "/home/pi/local/local.json"
     with open(filename) as infile:
         local_data = json.load(infile)
     return local_data  # dictionary
@@ -241,7 +262,7 @@ def getDeviceInfo(getKey):
 
 
 def get_ips():
-    # deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+    # deviceInfoFile = "/home/pi/solar-protocol/backend/data/deviceList.json"
     # deviceInfo = json.dumps(deviceInfoFile)
     #Get my ip
     myIP = 	requests.get('http://whatismyip.akamai.com/').text
@@ -325,7 +346,7 @@ def check_images(server_data):
     for server in server_data:
         filename = server["name"]+".gif"
         filename = filename.replace(" ", "-")
-        fullpath = "../../frontend/images/servers/" + filename
+        fullpath = rootPath + "/frontend/images/servers/" + filename
         filepath = "images/servers/" + filename
         #print("server:", server)
         if "ip" in server:
@@ -334,7 +355,9 @@ def check_images(server_data):
             print("myIP", myIP)
             if server["ip"] == "localhost": #if it is itself
 
-                image_path = "/local/serverprofile.gif"
+                image_path = "home/pi/local/www/serverprofile.gif"
+                #this wont work with irregular ports
+                #image_path = "http://localhost/local/serverprofile.gif"
                 filepath = image_path
             elif os.path.exists(fullpath): #else if the image is in the folder
                 print("Got image for", server["name"])
@@ -349,27 +372,15 @@ def check_images(server_data):
             server["image_path"] = filepath
         
 
-
-
-
-
-
-
-#Run settings
-local = 1
-
-#Global variables
-path = "/home/pi/solar-protocol/backend"
-if local == 1:
-    path = ""   
-deviceList = path + "../api/v1/deviceList.json"
-dstIP = []
-serverNames = []
-myIP = " "
-days = 3
-
 def main():
-    viz.main()
+    
+    print()
+    print("***** Running create_html *****")
+    print()
+
+    #this is now run via the main runner script
+    #viz.main()
+    
     energy_data = read_csv() #get pv data from local csv 
     local_data = get_local() #get local steward data for front end
     try:
@@ -455,6 +466,6 @@ def main():
     render_pages(local_data, energy_data, local_weather, server_data)
 
 
-
 if __name__ == "__main__":
     main()
+

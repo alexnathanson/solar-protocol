@@ -8,8 +8,6 @@
 
 <head>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 <title>Solar Server</title>
 
 </head>
@@ -30,6 +28,12 @@ if (isset($localInfo["name"])){
   $locName = "";
 }
 
+if (isset($localInfo["httpPort"])){
+  $locPort = $localInfo["httpPort"];
+} else {
+  $locPort = "80";
+}
+
 function getFile($fileName){
   //echo $fileName;
   try{
@@ -47,9 +51,9 @@ function getFile($fileName){
 
 <span>Logged in as <a href="/admin/settings/user.php"><?php echo $_SESSION["username"]?></a> <a href="?logout">(Logout)</a></span>
 
-<p><a href="/admin">Network Activity</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
+<p><a href="/admin">Network Status</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
 
-<h2>Network Activity</h2>
+<h2>Network Status</h2>
 
 <div id="server list"><h3>Online Servers:</h3></div>
 
@@ -59,8 +63,6 @@ function getFile($fileName){
 <!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
 
 <script>
-  //make this dynamic at some point
-  //let tempIPList = ["74.73.93.241","67.85.62.144","108.29.41.133"];
   let ipList = [];
   let nameList = [];
 
@@ -70,7 +72,8 @@ function getFile($fileName){
   let jsonPoe;
 
 //the day=deviceList end point should be moved to system info
-  let devListURL = "http://"+ window.location.hostname +"/api/v1/chargecontroller.php?day=deviceList";
+  let devListURL = "http://"+ window.location.hostname + ":"+ <?php echo $locPort; ?> + "/api/v1/chargecontroller.php?day=deviceList";
+
   console.log(devListURL);
 
   getRequest(devListURL,parseDevList);
@@ -116,6 +119,9 @@ function getFile($fileName){
       //pingServer(tempIPList[i], populate);
       let requestURL = "http://" + ipList[i] + "/api/v1/chargecontroller.php?line="+toGet;
       getRequest(requestURL, populate, i);
+
+ /*     requestURL = "http://" + ipList[i] + "/server-status?auto"
+      getRequest(requestURL, populateServerInfo, i)*/
     }
 
   //point of entry
@@ -301,7 +307,55 @@ function getFile($fileName){
     }
     sList.appendChild(serverH3);
     sList.appendChild(dataPara);
+
+    //add the div for server status
+    let sS = document.createElement("div");
+    sS.id = "serverStatus" + dstNum;
+
+    sList.appendChild(sS);
+
+    let requestSS = dstIP + "/server-status?auto"
+    getRequest(requestSS, populateServerInfo, dstNum)
   }
+
+  function populateServerInfo(dataToDisplay, dst, dstNum) {
+
+    let sSLines = dataToDisplay.split("\n");
+
+    console.log(sSLines)
+
+    let sSDict = {};
+
+    for (let l = 0; l < sSLines.length; l++){
+      splitPos = sSLines[l].search(":");
+
+      sSKey = sSLines[l].substring(0,splitPos).trim();
+      //console.log(sSKey);
+      sSValue = sSLines[l].substring(splitPos + 1).trim();
+      //console.log(sSValue);
+
+      sSDict[sSKey] = sSValue;
+    }
+
+    //console.log(sSDict);
+
+    sS = document.getElementById("serverStatus" + dstNum);
+
+    sSP = document.createElement("p")
+
+    sSP.appendChild(document.createTextNode('Server Uptime: ' + sSDict['ServerUptime'] + " | " + "Requests Per Second: " + sSDict["ReqPerSec"] + " | " + 'Total Accesses: ' + sSDict['Total Accesses'] + " | " + 'CPU Load: ' + sSDict['CPULoad'] + "%"))
+/*
+    sSP.appendChild(document.createElement("br"))
+
+    sSP.appendChild(document.createTextNode('Total Accesses: ' + sSDict['Total Accesses']))
+
+    sSP.appendChild(document.createElement("br"))
+
+    sSP.appendChild(document.createTextNode('CPU Load: ' + sSDict['CPULoad']))*/
+
+    sS.appendChild(sSP)
+  }
+
 
   function createTable(jsonData){
     let sT = document.createElement("table"); 

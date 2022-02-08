@@ -2,31 +2,30 @@
 Every server runs this script.
 Reads list of destination IPs and posts own IP address to those other devices.
 '''
-import requests
-import time
-import json
+
+#these modules are only used by this module within this packages
+#all other modules are imported via __init__
 import re
+import time
+import requests
+import json
 import subprocess
+
+consoleOutput = True
 
 headers = {
     #'X-Auth-Key': KEY,
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
 localConfig = "/home/pi/local/local.json"
 
-poeLog = "/home/pi/solar-protocol/backend/api/v1/poe.log"
-poeData = []
+poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
 
 newDSTList = []
 runningDSTList = []
-
-#update this with the SP IP site
-myIP = 	requests.get('http://whatismyip.akamai.com/').text
-
-print("MY IP: " + myIP)
 
 #this only works with linux
 def getmac(interface):
@@ -53,6 +52,7 @@ def getKeyList(getKey):
 	return ipList
 
 def getPoeLog():
+	poeData = []
 
 	try:
 		poeFile = open(poeLog)
@@ -76,7 +76,7 @@ def getPoeLog():
 	except:
 		poeData.append(0)
 
-	#print(poeData)
+	return poeData
 
 def getLocalConfig(key):
 
@@ -90,7 +90,7 @@ def getLocalConfig(key):
 			return locData[key]
 
 	except:
-		print('local config file exception')
+		print('local config file exception with key ' + key)
 
 		if key == 'name':
 			return 'pi'
@@ -107,13 +107,13 @@ def getNewDST(responseList):
 
 		if r['mac'] not in getKeyList('mac'):
 			if r['ip'] not in runningDSTList:
-				print("new ip: " + r['ip'])
+				outputToConsole("new ip: " + r['ip'])
 				newDSTList.append(r['ip'])
 				runningDSTList.append(r['ip'])
 		elif r['ip'] not in getKeyList('ip'):
 			#in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
 			if r['ip'] not in runningDSTList:
-				print("new ip: " + r['ip'])
+				outputToConsole("new ip: " + r['ip'])
 				newDSTList.append(r['ip'])
 				runningDSTList.append(r['ip'])
 
@@ -143,12 +143,15 @@ def postIt(dstIP,dstData):
 	 	print("An Unknown Error occurred" + repr(err))
 
 #add a boolean back in if the 
-def makePosts(ipList):
+def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC):
+
+	poeData = getPoeLog()
+
 	global newDSTList
 
 	newDSTList = []
 	#all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, poe log
-	myString = "api_key="+str(apiKey)+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName+"&log="+','.join(str(pD) for pD in poeData)
+	myString = "api_key="+str(api_Key)+"&stamp="+str(time.time())+"&ip="+my_IP+"&mac="+my_MAC+"&name="+my_Name+"&log="+','.join(str(pD) for pD in poeData)
 
 	print(myString)
 
@@ -159,13 +162,13 @@ def makePosts(ipList):
 		print("DST: " + dst)
 
 		#postTrue
-		if dst != myIP: #does not work when testing only with local network
+		if dst != my_IP: #does not work when testing only with local network
 			postIt(dst, myString)
 
 	if len(newDSTList) > 0:
-		print("New DST list:")
-		print(newDSTList)
-		makePosts(newDSTList)
+		outputToConsole("New DST list:")
+		outputToConsole(newDSTList)
+		makePosts(newDSTList, api_Key, my_IP, my_Name, my_MAC)
 
 def getEnv(thisEnv):
 	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
@@ -179,27 +182,45 @@ def getEnv(thisEnv):
 
 def addPort(thisPort):
 	p = getLocalConfig(thisPort)
-	print(p)
+	outputToConsole(p)
 	if p != "":
 		return ":" + p
 	else: 
 		return ""
 
-#wlan0 might need to be changed to eth0 if using an ethernet cable
-myMAC = getmac("wlan0")
+def runClientPostIP():
+	print()
+	print("*****Running ClientPostIP script*****")
+	print()
+	
+	#update this with the SP IP site
+	myIP = 	requests.get('http://whatismyip.akamai.com/').text
+	print("MY IP: " + myIP)
 
-myName = getLocalConfig("name")
-#myName = myName.lower();#make lower case
-myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
+	#wlan0 might need to be changed to eth0 if using an ethernet cable
+	myMAC = getmac("wlan0")
 
-myIP += addPort("httpPort") 
+	myName = getLocalConfig("name")
+	#myName = myName.lower();#make lower case
+	myName = re.sub('[^A-Za-z0-9_ ]+', '', myName)#remove all characters not specified
 
-#apiKey = getLocalConfig("apiKey")
-apiKey = getEnv("API_KEY")
+	myIP += addPort("httpPort") 
 
-getPoeLog()
+	#apiKey = getLocalConfig("apiKey") #not in use
+	# apiKey = getEnv("API_KEY")
 
-#writeSelf()
+	#writeSelf()
 
-dstList = getKeyList('ip')
-makePosts(dstList)
+	dstList = getKeyList('ip')
+	makePosts(dstList,getEnv("API_KEY"), myIP, myName, myMAC)
+
+
+def outputToConsole(printThis):
+	if consoleOutput:
+		print(printThis)
+
+if __name__ == '__main__':
+	runClientPostIP()
+
+else:
+	consoleOutput = False

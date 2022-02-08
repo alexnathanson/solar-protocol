@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     //this should be removed and made into a POST
     if($_GET["day"] == "deviceList"){
-      $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
       echo getFileContents($fileName);
     }
 
@@ -228,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   
       $output = [];
 
-      $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
 
       $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
 

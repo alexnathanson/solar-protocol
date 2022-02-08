@@ -16,7 +16,7 @@ $ccDir = "/home/pi/solar-protocol/charge-controller/data/";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $fileName = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+  $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
 
   $api_key = test_input($_POST["api_key"]);
 

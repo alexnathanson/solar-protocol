@@ -15,12 +15,12 @@ This works with a USB to RS485 converter (ch340T chip model).
 ## Software
 
 ### OS
-Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
-* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations    
-* `sudo reboot` 
+* Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
+	* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations
+	* Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
+	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot` 
 * `sudo apt-get update`  
-* `sudo apt-get upgrade`  
-or `sudo apt full-upgrade` 
+* `sudo apt full-upgrade` (note that `sudo apt-get upgrade`  is the "safer" version of this command that is probably better to use if an upgrade is necessary after Solar Protocol is installed and running in order to avoid problems with dependencies)
 
 ### Repository
 Download repo into /home/pi
@@ -51,6 +51,9 @@ then install numpy and this missing library:
 
 #### Troubleshooting PIL
 * 'sudo apt install libtiff5'
+
+#### Further troubleshooting updates and dependencies
+* In some instances it may be necessary to manually change the mirror which determines where apt-get pulls from. Instructions for manually changing the mirror can be found at https://pimylifeup.com/raspbian-repository-mirror/
 
 ### Security
 Recommendations to set up your pi securely   
@@ -88,8 +91,19 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
-* To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
-* `sudo systemctl restart apache2`   
+
+To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
+* then restart `sudo systemctl restart apache2`   
+
+Enable server status interface:
+* edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
+* add these 4 lines to the file directly above `</VirtualHost>`<br>
+`<Location /server-status>`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
+`</Location>`
+* save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
+* once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
 
 Install PHP graphics library for dithering. Note that the version will need to match your php version.
 * `sudo apt-get install php7.3-gd`
@@ -99,36 +113,36 @@ Give Apache/PHP user 'www-data' necessary permissions:
 * Open visudo: `sudo visudo`
 * Add this line to the bottom of the file: `www-data	ALL=NOPASSWD: ALL`
  -->
-### Automate  
-
-#### permissions (you can set all these permissions at once via the utilities/setAllPermissions.sh script by `sh setAllPermissions.sh`)  
-* `sudo chmod a+w /home/pi/local/local.json` (You must move the local directory before setting permissions. See below.)
-* `sudo chmod a+w /home/pi/solar-protocol/backend/api/v1/deviceList.json`  
-* `sudo chmod +x /home/pi/solar-protocol/backend/update_ip2.sh`  
-* `sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py`  
-* `sudo chmod a+w /home/pi/solar-protocol/frontend/index.html`  
-
-#### Timing
-* run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup)
-	* open rc.local `sudo nano /etc/rc.local`  
-		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &`  
-	* verify it works `sudo reboot`  
-* open the root crontab `sudo crontab -e` and add these lines to the bottom:  
-	* run clientPostIP every 15 minutes `*/15 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/clientPostIP.py > /home/pi/solar-protocol/backend/api/v1/clientPostIP.log 2>&1`  
-	* run solarProtocol every 5 minutes `*/5 * * * * /usr/bin/python3 /home/pi/solar-protocol/backend/api/v1/solarProtocol.py > /home/pi/solar-protocol/backend/api/v1/solarProtocol.log 2>&1`  
-	* run createHTML every 15 minutes to generate new index.html with current data. `*/15 * * * * cd /home/pi/solar-protocol/backend/createHTML && $(which python3) create_html.py`
-	* reboot daily `@midnight sudo reboot`	  
-* open the crontab for the user `crontab -e` and add this line to the bottom:   
-	* on reboot, run the update script to check from updates from github. `@reboot sh /home/pi/solar-protocol/utilities/update.sh`  
 
 ### Local
 * Move local directory outside of solar-protocol directory to pi directory  
 `sudo mv /home/pi/solar-protocol/local /home/pi/`
 * Update the info with your information as needed  
 
+### Permissions
+
+All the necessary file and directory permissions can set by running this script: utilities/setAllPermissions.sh
+* `sh setAllPermissions.sh`
+* You must move the local directory to its proper position before setting permissions.
+* If the above command was successful, you do not need to set permissions individually. If it failed or can't be run for some reason you can manually enter the commands listed in the setAllPermissions script.
+
+### Automate  
+
+* run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup)
+	* open rc.local `sudo nano /etc/rc.local`  
+		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &`  
+	* verify it works `sudo reboot`  
+* run Python script runner on start up
+	* open rc.local `sudo nano /etc/rc.local`  
+		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/backend > /home/pi/solar-protocol/backend/runner.log 2>&1 &`  
+	* verify it works `sudo reboot`  	
+* open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
+	* reboot daily `@midnight sudo reboot`
+
 ### Troubleshooting  
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  
 * Run `ps -aux` to list running processes  
+* Run `ps -ef | grep .py` to list running python processes
 * All Python scripts use python3  
 * if cron logging isn't working use `sudo crontab -e` instead of `crontab -e`  
 * PHP error logging (best to only use these during development and revert back for production version)  
@@ -137,6 +151,20 @@ Give Apache/PHP user 'www-data' necessary permissions:
 		* `display_errors = On`   
 		* `error_reporting = E_ALL`  
 * point of contact logging only logs when it is TRUE. Uncomment out the logging for FALSE if you need to test out that it is logging these events.  
+* Apache logs are found here: /var/log/apache2/access.log
+	* Use `sudo tail -100 /var/log/apache2/access.log` to display the last 100 entries
+	* More info on Apache logs can be found at https://phoenixnap.com/kb/apache-access-log
+* The individual server status can be found at http://www.solarprotocol.net/server-status
+	* append ?auto for machine readable version)
+	* replace http://www.solarprotocol.net with whichever IP is needed
+
+### Troubleshooting Opening Ports
+* Log into the router and set a static internal IP
+* Set up port forwarding for port 22 and 80 for the internal IP address
+* In some places, ISPs blocks ports. Call them to check these ports arent blocked.
+* Tool to check if ports are blocked: https://www.yougetsignal.com/tools/open-ports/
+* Check firewall is off
+* Try forwarding a port that is not port 80.
 
 ### Manually updating the software from the Repository  
 * cd into the solar protocol folder and git pull  

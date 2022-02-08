@@ -27,7 +27,7 @@ Underneath the ServerAdmin line, add the following line (obviously replace mygre
 
 If you have any server aliases add them on the next line. If you are not using an alias, then ignore this. `ServerAlias www.mygreatproject.com`
 
-Change the document root path to the local of your site root directory
+Change the document root path to the location of your site root directory
 `DocumentRoot /home/pi/local/www/`
 
 ### Step 3
@@ -48,10 +48,14 @@ The default config file is whichever one is loaded first, which is why the defau
 
 If you attempt to go to the URL in a browser and get a response that says access denied add these lines to the bottom of the /etc/apache2/apache2.conf file (the path should be your document root).
 
-`<Directory /home/pi/local/www>
-	Require all granted
-</Directory>`
+`<Directory /home/pi/local/www>`
+`	Require all granted`
+`</Directory>`
 
 If you are still running into the access denied error, you can try changing the user that owns the directory you are serving the site from. I haven't found this to solve anything, but some instructions for this process have included this step.
 
 See instructions for this at https://ostechnix.com/configure-apache-virtual-hosts-ubuntu-part-1/
+
+### No connection
+
+This could be an issue with the DNS registry.

@@ -15,7 +15,7 @@ Remember you must access this page from a different network than the one that yo
 
 lh = location.host
 
-console.log(location.host)
+console.log("browser location: " + location.host)
 
 const Http = new XMLHttpRequest();
 const url='https://server.solarpowerforartists.com/?myip';
@@ -26,6 +26,8 @@ Http.onreadystatechange = (e) => {
   //will this work without the default ports???
 
   let tr = document.getElementById("test-result")
+
+  console.log("response: " + Http.responseText)
 
   if( !lh.includes(Http.responseText) && !lh.includes("localhost")){
     tr.innerHTML = "Congratulations, your port forwarding test works!"

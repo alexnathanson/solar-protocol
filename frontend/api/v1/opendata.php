@@ -258,16 +258,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       # it only returns the value if the server is on and connecged
     } else if($_GET["networkInfo"] == "value"){
   
-      /*$output = [];
+      $output = [];
 
       $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
 
       $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
 
+      #loop through contents and make IP calls
       for ($d = 0; $d < count($contents);$d++){
-        array_push($output,$contents[$d]["log"]);
+/*        array_push($output,file_get_contents($contents[$d]["ip"]));*/
       }
-      echo json_encode($output);*/
+
+      echo json_encode($output);
 
     # return the specified value for all devices listed on dev list
     # it only returns the value if the server is on and connecged

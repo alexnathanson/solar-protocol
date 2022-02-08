@@ -69,7 +69,8 @@ def getCC(dst,ccValue):
     except requests.exceptions.RequestException as err:
         print("An Unknown Error occurred" + repr(err))
 
-def read_csv():
+#gets power data from charge controller
+def read_csv(): 
     # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
     filename = (
         "../../charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
@@ -177,6 +178,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         # print(rendered_html)
         open(output_filename, "w").write(rendered_html)
 
+#get weather data
 def get_weather(_local_data):
     api_key = "24df3e6ca023273cd426f67e7ac06ac9"
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
@@ -216,7 +218,7 @@ def get_weather(_local_data):
 
     return output
 
-
+#get local front end data
 def get_local():
     filename = "../../../local/local.json"
     with open(filename) as infile:
@@ -236,6 +238,7 @@ def getDeviceInfo(getKey):
         ipList.append(data[i][getKey])
 
     return ipList
+
 
 def get_ips():
     # deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
@@ -367,10 +370,10 @@ days = 3
 
 def main():
     viz.main()
-    energy_data = read_csv()
-    local_data = get_local()
+    energy_data = read_csv() #get pv data from local csv 
+    local_data = get_local() #get local steward data for front end
     try:
-        local_weather = get_weather(local_data)
+        local_weather = get_weather(local_data) 
     except Exception as e:
         print(e)
         local_weather = {
@@ -388,13 +391,16 @@ def main():
     print(deviceList_data)
     print(deviceList_data.items())
   
-    #2 Collect data from all the difference servers
+    #2 Collect data from all the difference servers on the network
     server_data = []
 
     for key, value in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
             sInfo = json.loads(getAPIData('chargecontroller.php?systemInfo=dump',value))
+            # the above returns a dictionary containing all of the above system info
+            # as documented here: http://solarprotocol.net/api/v1/
+            # pvVoltage is a constant that is rated for the module.
             sInfo['ip'] = value
             # print("#2")
             # print(sInfo)
@@ -407,11 +413,11 @@ def main():
             server_data.append({'ip':value,'name':key, 'description':'', 'city':'', 'location':'','country':''})
 
     #3. get solar data and add it to server_data
-    item_count = 0;
+    item_count = 0
     for item in server_data:
         try:
-            #solar_data = get_pv_value(item["ip"])
-            solar_data = get_pv_value(item["ip"])
+            solar_data = get_pv_value(item["ip"]) 
+            #the above calls the api again. This returns the live PV voltage.
             status = "online"
         except Exception as e:
             solar_data = None

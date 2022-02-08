@@ -1,4 +1,5 @@
 <?php
+//this runs on the POE server - it routes to the steward's device
 
 $deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
 //Get device
@@ -7,7 +8,7 @@ $deviceInfo = json_decode(getFile($deviceInfoFile), true);
 $listNetwork = true;
 
 //options are txt or media
-$fileType = 'txt';
+$fileType = '';
 
 $default_socket_timeout = ini_get('default_socket_timeout');
 //echo $default_socket_timeout;
@@ -35,9 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 			if(isset($_GET['path']) && $_GET['path'] != ""){
 
+				/*echo $_GET['path'];
+				exit();*/
+				
 				//set mime type
 				if(strpos($_GET['path'], ".css") !== false){
 					header("Content-type: text/css");
+					$fileType = 'txt';
+				} else if(strpos($_GET['path'], ".html") !== false){
+					header("Content-type: text/html");
 					$fileType = 'txt';
 				} else if(strpos($_GET['path'], ".mp4") !== false){
 					header("Content-type: video/mp4");
@@ -57,8 +64,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					}
 				}
 			
-				//routes non-root file paths
-				$localURL .= "/" . $_GET['path'];
+				if($fileType !== ''){
+					//routes non-root file paths
+					$localURL .= "/" . $_GET['path'];
+				} else {
+					//add index if its a sub directory root
+					$localURL .= "/" . $_GET['path'] . "/index.html";
+					$fileType = 'txt';
+				} 
+	
 
 				//the include approach will likely load faster, but might be less secure...
 				/*include($localURL);
@@ -68,16 +82,40 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			if ($fileType == 'media'){
 				$redirected = @readfile($localURL);
 			} else {
+
+				//if a file wasn't specified i.e. its a root or sub directory root specify the index.html file
+				if ($fileType == ''){
+					//add index if its a root
+					$localURL .= "/index.html";
+				}
 				//get request - error reporting supressed with the @file_get_contents() - remove the @ to see the error messages
 				$redirected = @file_get_contents($localURL);
 			}
 
 			if($redirected){
 
+				//this rebases it with the necessary subdirectories...
+				$newBase = $_GET['steward']; 
+				if(isset($_GET['path']) && $_GET['path'] != ""){
+					$explodedString = explode("/", $_GET['path']);
+
+					for ($e = 0; $e < count($explodedString); $e++){
+						if ($e == count($explodedString) - 1){
+							//check if the last part of the path is a file name and if not add it to the path
+							if (strpos($explodedString[$e], ".") === false){
+								$newBase .= "/" . $explodedString[$e];
+							}
+						} else {
+							$newBase .= "/" . $explodedString[$e];
+						}
+					}
+				}
+
+
 			    //replace url
 			    $redirected = str_replace(
 			   '<head>', 
-			   '<head><base href="/network/'.$_GET['steward'].'/">',
+			   '<head><base href="/network/'. $newBase.'/">',
 			    $redirected);
 
 			    //add banner if its an html page
@@ -110,7 +148,7 @@ if($listNetwork == true){
 function formatURL($srcString){
 
 	$srcString = strtolower($srcString);
-	return preg_replace('/[^a-zA-Z0-9-_\.]/','', $srcString);
+	return preg_replace('/[^a-zA-Z0-9-_\.\-]/','', $srcString);
 }
 	
 function getFile($fileName){

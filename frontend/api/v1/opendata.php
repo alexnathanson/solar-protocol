@@ -356,7 +356,7 @@ function getFile($fileName){
   }
 }*/
 
-function getServerData($serverNum){
+function getServerData(){
 
   $endPoint = assembleGETstring();
   $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";

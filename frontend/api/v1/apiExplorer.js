@@ -7,9 +7,9 @@ if(window.location.search.length > 0){
 	let endPt,endPtVal,mod,modVal = ""; 
 	let modified = false;
 
-	let allParams = params.getAll();
-	console.log(allParams);
-	console.log(typeof allParams);
+/*	let allParams = params.getAll();
+*/	console.log(params);
+	console.log(typeof params);
 
 	if(params.get("value")){
 		endPt = "value";

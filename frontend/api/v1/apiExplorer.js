@@ -17,7 +17,7 @@ if(window.location.search.length > 0){
 			if(p != 0){
 				endPoint = endPoint + "&";
 			}
-			endPoint = endPoint + paramKeys[p] + "=" paramValues[p]
+			endPoint = endPoint + paramKeys[p] + "=" + paramValues[p];
 		}	
 	}
 

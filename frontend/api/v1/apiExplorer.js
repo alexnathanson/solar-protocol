@@ -7,14 +7,26 @@ if(window.location.search.length > 0){
 	let endPt,endPtVal,mod,modVal = ""; 
 	let modified = false;
 
-	let paramKeys = params.keys();
+/*	let paramKeys = params.keys();
 	let paramValues = params.values();
 
 	console.log(paramKeys);
-	console.log(paramValues);
-	
+	console.log(paramValues);*/
+
 	let endPoint = '';
 
+
+	for(let pair of searchParams.entries()) {
+	   console.log(pair[0]+ ', '+ pair[1]);
+
+	   if (pair[0] != 'server'){
+			if(endPoint != ''){
+				endPoint = endPoint + "&";
+			}
+			endPoint = endPoint + pair[0] + "=" + pair[1];
+		}	
+	}
+/*
 	for(let p = 0; p < paramKeys.length; p ++){
 		if (paramKeys[p] != 'server'){
 			if(p != 0){
@@ -22,7 +34,7 @@ if(window.location.search.length > 0){
 			}
 			endPoint = endPoint + paramKeys[p] + "=" + paramValues[p];
 		}	
-	}
+	}*/
 
 	console.log(endPoint);
 

@@ -368,8 +368,6 @@ function getServerData(){
     array_push($ipList,$contents[$d]["ip"]);
   }
 
-  error_log('API 0: http://' . $ipList[$_GET['server']] . $endPoint, 0);
-
   if (is_numeric($_GET["server"])){
     #make API call to that specific server
     echo json_encode(file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint));
@@ -380,9 +378,9 @@ function getServerData(){
 
     #make API calls
     for ($d = 0; $d < count($ipList);$d++){
-      error_log('API destination: http://' . $ipList[d] . $endPoint, 0);
+      error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
 
-      array_push($output, file_get_contents('http://' . $ipList[d] . $endPoint));
+      array_push($output, file_get_contents('http://' . $ipList[$d] . $endPoint));
     }
 
     echo json_encode($output);

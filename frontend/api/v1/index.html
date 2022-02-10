@@ -12,28 +12,34 @@
 
 <h1>Solar Protocol - Open API Documentation</h1>
 <p>
-	Note: This is the publicly available open-access API, developers on the network can view the complete API documentation on <a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
+	Note: This is the publicly available open-access API. Developers on the network can view the complete API documentation on <a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
 </p>
 
 <p>
-	Solar Protocol is a network of servers located all over the world. The primary server, which we call the "point of entry" or "POE", is determined by whichever server is in the most sunlight at a given time. The data returned from these GET requests pertains to the POE server only. This means that every call you make to the API might get a response from a different device with different values of data.
+	Solar Protocol is a network of servers located all over the world. The primary server, which we call the "point of entry" or "POE", is determined by whichever server is in the most sunlight at a given time (determined by wattage scaled to a 50 watt module). The data returned from these GET requests pertains to the POE server only (calls to other servers in the system are explained below). This means that every call you make to the API might get a response from a different device with different values of data.
 </p>
 
-There are 3 main types of data this API provides:
+There are 2 main types of data this API provides:
 <ol>
-	<li>Local charge controller data</li>
-	<ul>
+	<li>Charge controller data - This pertains to the PV system, such as solar power production, battery status, etc.</li>
+	<li>System information - This pertains to local server info, such as location and hardware specs.</li>
+</ol>
+By default, these results are queried from the POE, which means the results may change if the POE changes. By using the server argument you can collect data from a specific server or from all the servers in the network. In this API explorer, the results from these API calls are displayed in the browser console.
+
+<h3>Using this API explorer</h3>
+Enter the value you want return in the form provided. The syntax for the call will be show in the browser bar and the results of the call will open up in the browser console. The console can be opened via the browser's developer settings or by pression the Fn and F12 keys simultaniously (works on most browsers).
+
+<h2>Charge Controller Data</h2>
+
+Charge controller data:
+<ul>
 		<li>Individual pieces of data i.e. a single value like wattage</li>
 		<li>Individual pieces of data over a particular length of time</li>
 		<li>Individual lines of data containing all the given values for a particular time</li>
 		<li>An entire day's worth of data</li>
 	</ul>
-	<li>Local System information</li>
-	<li>Network information</li>
-</ol>
-All of these results are only for the current primary server. The results from these API calls are displayed in the browser console. (fn + f12 to open console on most browsers)
 
-<h2>Value</h2>
+<h3>Value</h3>
 <strong>value</strong> returns the specified value from the most recently collected line of data.
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage</a></p>
 <p>Possible values:
@@ -66,7 +72,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
   <button type="submit">Get Value</button>
 </form>
 
-<h2>Line</h2>
+<h3>Line</h3>
 
 <strong>line</strong> returns a line of data containing all of the possible values from the most recent file
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?line=0" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?line=0</a></p>
@@ -82,7 +88,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
   <button type="submit">Get Line</button>
 </form>
 
-<h2>Day</h2>
+<h3>Day</h3>
 
 <strong>day</strong> returns all the data from a specific day or range of days. Note that days may not be consequetive if the server was off for an extended period of time.
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?day=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=2</a></p>
@@ -101,7 +107,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
   <button type="submit">Get Day</button>
 </form>
 
-<h2>Local System Info</h2>
+<h2>System Info</h2>
 
 <strong>systemInfo</strong> returns information about the system and that server's local variables
 <p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz</a></p>
@@ -136,10 +142,6 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 	<ul>
 		<li>deviceList - returns a list of the names of servers</li>
 		<li>poe - returns the list of point of entry time stamps by server</li>
-		<li>value - append the 'val' values as listed above</li>
-		<li>line - append the 'line' values as listed above</li>
-		<li>day - append the 'day' values as listed above</li>
-		<li>local - append the 'localinfo' values as listed above</li>
 	</ul>
 </p>
 
@@ -149,9 +151,30 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
   <button type="submit">Get Network Info</button>
 </form>
 
+<h2>Remote Server Data</h2>
+
 <p>
-Simple client side Python and JS examples are available in the <a href="https://github.com/alexnathanson/solar-protocol/tree/master/utilities/apiV1-examples" target="_blank">Solar Protocol repository</a>.
+This key=value pairs can be used in conjunction with all of the above API calls to query data from a specific server or from all the servers on the network.
 </p>
+
+<strong>server</strong> used in combination with any of the above calls returns the call for the specified server
+<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?networkInfo=devices" target="_blank">http://solarprotocol.net/api/v1/opendata.php?server=all&value=PV-voltage</a></p>
+<p>Possible values:
+	<ul>
+		<li>all - returns the specified value for all servers</li>
+		<li>an integer - returns the specified value for the specified server</li>
+	</ul>
+</p>
+
+<form method="GET">
+ <p>Server <input type="text" name="server"></p>
+  <p></p>
+  <button type="submit">Get server specific data</button>
+</form>
+
+<!-- <p>
+Simple client side Python and JS examples are available in the <a href="https://github.com/alexnathanson/solar-protocol/tree/master/utilities/apiV1-examples" target="_blank">Solar Protocol repository</a>.
+</p> -->
 
 </body>
 </html> 

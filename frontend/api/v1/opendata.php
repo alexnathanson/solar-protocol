@@ -262,8 +262,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       }
     }
   } else if(array_key_exists("server", $_GET)){
-      getServerData()
-       /* echo json_encode($_GET);*/
+      getServerData();
   }
 }
 

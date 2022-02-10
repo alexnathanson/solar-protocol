@@ -19,301 +19,252 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   //read the value of the query string, replace "-" with " "
   //var_dump($_GET);
 
-  //most recent PV Data queries
-  if(array_key_exists("value", $_GET)){
-    //echo "Key = Value";
+  //ignore if the request should be directed to a specific server or all servers
+  if(!array_key_exists("server", $_GET)){
 
-    if(!testValue($_GET["value"])){
-      echo "Value not found. Acceptable values: PV-current, PV-current, PV-power-H,PV-power-L, PV-voltage, battery-percentage, battery-voltage, charge-current, charge-power-H, charge-power-L, load-current, load-power, load-voltage, datetime, scaled-wattage";
-      exit;
-    }
+    //most recent PV Data queries
+    if(array_key_exists("value", $_GET)){
+      //echo "Key = Value";
 
-    $qValue = str_replace("-"," ",$_GET["value"]);
+      if(!testValue($_GET["value"])){
+        echo "Value not found. Acceptable values: PV-current, PV-current, PV-power-H,PV-power-L, PV-voltage, battery-percentage, battery-voltage, charge-current, charge-power-H, charge-power-L, load-current, load-power, load-voltage, datetime, scaled-wattage";
+        exit;
+      }
 
-    if($qValue == "scaled wattage"){
-      $qValue = "PV power L";
-      $scaleIt = true;
-    }
+      $qValue = str_replace("-"," ",$_GET["value"]);
+
+      if($qValue == "scaled wattage"){
+        $qValue = "PV power L";
+        $scaleIt = true;
+      }
 
 
-    //echo $qValue;
+      //echo $qValue;
 
-    if(array_key_exists("duration", $_GET) && intval($_GET["duration"]) != 0){
-      //returns a given value over time
-      $valueTimeSeries = [];
+      if(array_key_exists("duration", $_GET) && intval($_GET["duration"]) != 0){
+        //returns a given value over time
+        $valueTimeSeries = [];
 
-      $dirArray = justTracerDataFiles($ccDir);
-      for ($f = 0; $f < intval($_GET["duration"]); $f++){
-        if($f>= count($dirArray) || $f >= 7){
-          break;
-        }
-        $tFile = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
-
-        $valuePosition = 0;
-        foreach($tFile[0] as $k){
-          if($k == $qValue){
+        $dirArray = justTracerDataFiles($ccDir);
+        for ($f = 0; $f < intval($_GET["duration"]); $f++){
+          if($f>= count($dirArray) || $f >= 7){
             break;
           }
-          $valuePosition++;
-        }
+          $tFile = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
 
-        //scale the wattage if required
-        if($qValue == 'PV-power-L' && $scaleIt == true){
-          foreach($tFile as $l){
-            $valueTimeSeries[$l[0]]=$l[$valuePosition] * wattageScaler();
+          $valuePosition = 0;
+          foreach($tFile[0] as $k){
+            if($k == $qValue){
+              break;
+            }
+            $valuePosition++;
           }
-        } else { //unscaled wattage
-          foreach($tFile as $l){
-            $valueTimeSeries[$l[0]]=$l[$valuePosition];
+
+          //scale the wattage if required
+          if($qValue == 'PV-power-L' && $scaleIt == true){
+            foreach($tFile as $l){
+              $valueTimeSeries[$l[0]]=$l[$valuePosition] * wattageScaler();
+            }
+          } else { //unscaled wattage
+            foreach($tFile as $l){
+              $valueTimeSeries[$l[0]]=$l[$valuePosition];
+            }
+          }
+           
+
+          /*
+          $vTime = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
+          $vValue = 
+          $valueTimeSeries[$vTime]=$vValue;
+          *///array_push($valueTimeSeries, );
+        }
+
+        echo json_encode($valueTimeSeries);
+      } else {
+        $readData = chargeControllerData($todayFile);
+
+        if ($readData != FALSE){    
+
+          for ($v = 0; $v < sizeof($readData[0]);$v++){
+              if($readData[0][$v]==$qValue){
+
+                  //scale wattage if required
+                  if($qValue == 'PV power L' && $scaleIt == true){
+                    echo $readData[count($readData)-1][$v] * wattageScaler();
+                  } else { //unscaled wattage
+                    echo $readData[count($readData)-1][$v];
+                  }
+                  break;
+              }
           }
         }
-         
-
-        /*
-        $vTime = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
-        $vValue = 
-        $valueTimeSeries[$vTime]=$vValue;
-        *///array_push($valueTimeSeries, );
-        }
-
-      echo json_encode($valueTimeSeries);
-    } else {
+      }
+      
+    }
+    //get a line of current data file. "len" returns length of current file, "head" returns the column headers, "0" returns most recent line. Increments up for other lines.
+    else if (array_key_exists("line", $_GET)) {
+      //echo "Key = Line";
+      
       $readData = chargeControllerData($todayFile);
 
       if ($readData != FALSE){    
+        
+        if($_GET["line"] == "len"){//return the number of rows in the file
+          echo (count($readData)-1);
+        } else if($_GET["line"] == "head"){//return the CSV data headers
+          echo json_encode($readData[0]);
+        } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
+          //returns raw line
+          //var_dump($readData[count($readData)-1-$_GET["line"]]);
 
-        for ($v = 0; $v < sizeof($readData[0]);$v++){
-            if($readData[0][$v]==$qValue){
-
-                //scale wattage if required
-                if($qValue == 'PV power L' && $scaleIt == true){
-                  echo $readData[count($readData)-1][$v] * wattageScaler();
-                } else { //unscaled wattage
-                  echo $readData[count($readData)-1][$v];
-                }
-                break;
-            }
+          $returnArray = array();
+          //package line with headers
+          for ($p = 0; $p<count($readData[0]);$p++){
+            $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
+          }  
+            $returnJSON = json_encode($returnArray);
+            echo $returnJSON;
         }
       }
-    }
-    
-  }
-  //get a line of current data file. "len" returns length of current file, "head" returns the column headers, "0" returns most recent line. Increments up for other lines.
-  else if (array_key_exists("line", $_GET)) {
-    //echo "Key = Line";
-    
-    $readData = chargeControllerData($todayFile);
-
-    if ($readData != FALSE){    
       
-      if($_GET["line"] == "len"){//return the number of rows in the file
-        echo (count($readData)-1);
-      } else if($_GET["line"] == "head"){//return the CSV data headers
-        echo json_encode($readData[0]);
-      } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
-        //returns raw line
-        //var_dump($readData[count($readData)-1-$_GET["line"]]);
 
-        $returnArray = array();
-        //package line with headers
-        for ($p = 0; $p<count($readData[0]);$p++){
-          $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
-        }  
-          $returnJSON = json_encode($returnArray);
-          echo $returnJSON;
-      }
-    }
-    
+      //get a full file
+    } else if (array_key_exists("day", $_GET)) {
+      //echo "Key = File";
 
-    //get a full file
-  } else if (array_key_exists("day", $_GET)) {
-    //echo "Key = File";
+      if ($_GET["day"] == "list"){//list all charge controller data files
+        echo json_encode(justTracerDataFiles($ccDir));
+        //var_dump(justTracerDataFiles($ccDir));
 
-    if ($_GET["day"] == "list"){//list all charge controller data files
-      echo json_encode(justTracerDataFiles($ccDir));
-      //var_dump(justTracerDataFiles($ccDir));
+      } else if ($_GET["day"] == "len"){//list all charge controller data files
+        echo count(justTracerDataFiles($ccDir));
 
-    } else if ($_GET["day"] == "len"){//list all charge controller data files
-      echo count(justTracerDataFiles($ccDir));
+      } else if (intval($_GET["day"]) >= 1 && intval($_GET["day"]) <= 7){
 
-    } else if (intval($_GET["day"]) >= 1 && intval($_GET["day"]) <= 7){
+        $multiDayData = [];
 
-      $multiDayData = [];
-
-      $dirArray = justTracerDataFiles($ccDir);
-      for ($f = 0; $f < intval($_GET["day"]); $f++){
-        if($f>= count($dirArray)){
-          break;
+        $dirArray = justTracerDataFiles($ccDir);
+        for ($f = 0; $f < intval($_GET["day"]); $f++){
+          if($f>= count($dirArray)){
+            break;
+          }
+          array_push($multiDayData, chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]));
         }
-        array_push($multiDayData, chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]));
+
+        echo json_encode($multiDayData);
+
+      } else if(strpos($_GET["day"],'tracerData') !== false){      //get CC data file by file name
+        echo json_encode(chargeControllerData($ccDir . $_GET["day"] . '.csv'));
       }
 
-      echo json_encode($multiDayData);
+      //this should be removed and made into a POST
+      if($_GET["day"] == "deviceList"){
+        $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+        echo getFileContents($fileName);
+      }
 
-    } else if(strpos($_GET["day"],'tracerData') !== false){      //get CC data file by file name
-      echo json_encode(chargeControllerData($ccDir . $_GET["day"] . '.csv'));
+    } else if (array_key_exists("systemInfo", $_GET)) {
+
+      //echo "system info! ";
+
+      //get local time zone
+      if ($_GET["systemInfo"] == "tz"){
+
+        //if (ini_get('date.timezone')) {
+            //echo ini_get('date.timezone');
+        echo date_default_timezone_get();
+        //}
+      } /*else if ($_GET["systemInfo"] == "ping"){
+        echo "ping";
+      } */else if ($_GET["systemInfo"] == "color"){
+        //read local bgColor
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        // Convert to array 
+        echo json_decode($fileContents, true)['bgColor'];
+      } else if ($_GET["systemInfo"] == "description"){
+        //read local bgColor
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        echo json_decode($fileContents, true)['description'];
+      } else if ($_GET["systemInfo"] == "name"){
+        //read local name
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        echo json_decode($fileContents, true)['name'];
+      } else if ($_GET["systemInfo"] == "location"){
+        //read local location
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        echo json_decode($fileContents, true)['location'];
+      } else if ($_GET["systemInfo"] == "city"){
+        //read local city
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        echo json_decode($fileContents, true)['city'];
+      } else if ($_GET["systemInfo"] == "country"){
+        //read local country
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        echo json_decode($fileContents, true)['country'];
+      } else if ($_GET["systemInfo"] == "wattage-scaler"){
+        echo wattageScaler();
+      } else if ($_GET["systemInfo"] == "pvWatts"){
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        echo json_decode($fileContents, true)['pvWatts'];
+      } else if ($_GET["systemInfo"] == "pvVoltage"){
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        echo json_decode($fileContents, true)['pvVolts'];
+      }  else if ($_GET["systemInfo"] == "dump"){
+        //read local country
+        $fileContents = file_get_contents("/home/pi/local/local.json");
+        $infoArray = json_decode($fileContents, true);
+        $infoDump = array(
+          "timezone" => date_default_timezone_get(),
+          "color" => $infoArray["bgColor"],
+          "name" => $infoArray["name"],
+          "description" => $infoArray["description"],
+          "location" => $infoArray["location"],
+          "city" => $infoArray["city"],
+          "country" => $infoArray["country"],
+          "wattage-scaler" => wattageScaler(),
+          "pvWatts" => $infoArray["pvWatts"],
+          "pvVolts" => $infoArray["pvVolts"]);
+        echo json_encode($infoDump);
+       
+      }
+    } else if (array_key_exists("networkInfo", $_GET)) {
+
+      #return the list of names of all the servers stored locally
+      if($_GET["networkInfo"] == "deviceList"){
+    
+        $output = [];
+
+        $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+        $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+
+        for ($d = 0; $d < count($contents);$d++){
+          array_push($output,$contents[$d]["name"]);
+        }
+        echo json_encode($output);
+
+        #return the POE logs stored locally for all devices
+      } else if($_GET["networkInfo"] == "poe"){
+    
+        $output = [];
+
+        $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+        $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+
+        for ($d = 0; $d < count($contents);$d++){
+          array_push($output,$contents[$d]["log"]);
+        }
+        echo json_encode($output);
+
+        # return the specified value for all devices listed on dev list
+        # it only returns the value if the server is on and connected
+      }
     }
+  } else if(array_key_exists("server", $_GET)){
 
-    //this should be removed and made into a POST
-    if($_GET["day"] == "deviceList"){
-      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-      echo getFileContents($fileName);
-    }
-
-  } else if (array_key_exists("systemInfo", $_GET)) {
-
-    //echo "system info! ";
-
-    //get local time zone
-    if ($_GET["systemInfo"] == "tz"){
-
-      //if (ini_get('date.timezone')) {
-          //echo ini_get('date.timezone');
-      echo date_default_timezone_get();
-      //}
-    } /*else if ($_GET["systemInfo"] == "ping"){
-      echo "ping";
-    } */else if ($_GET["systemInfo"] == "color"){
-      //read local bgColor
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      // Convert to array 
-      echo json_decode($fileContents, true)['bgColor'];
-    } else if ($_GET["systemInfo"] == "description"){
-      //read local bgColor
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      echo json_decode($fileContents, true)['description'];
-    } else if ($_GET["systemInfo"] == "name"){
-      //read local name
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      echo json_decode($fileContents, true)['name'];
-    } else if ($_GET["systemInfo"] == "location"){
-      //read local location
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      echo json_decode($fileContents, true)['location'];
-    } else if ($_GET["systemInfo"] == "city"){
-      //read local city
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      echo json_decode($fileContents, true)['city'];
-    } else if ($_GET["systemInfo"] == "country"){
-      //read local country
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      echo json_decode($fileContents, true)['country'];
-    } else if ($_GET["systemInfo"] == "wattage-scaler"){
-      echo wattageScaler();
-    } else if ($_GET["systemInfo"] == "pvWatts"){
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      echo json_decode($fileContents, true)['pvWatts'];
-    } else if ($_GET["systemInfo"] == "pvVoltage"){
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      echo json_decode($fileContents, true)['pvVolts'];
-    }  else if ($_GET["systemInfo"] == "dump"){
-      //read local country
-      $fileContents = file_get_contents("/home/pi/local/local.json");
-      $infoArray = json_decode($fileContents, true);
-      $infoDump = array(
-        "timezone" => date_default_timezone_get(),
-        "color" => $infoArray["bgColor"],
-        "name" => $infoArray["name"],
-        "description" => $infoArray["description"],
-        "location" => $infoArray["location"],
-        "city" => $infoArray["city"],
-        "country" => $infoArray["country"],
-        "wattage-scaler" => wattageScaler(),
-        "pvWatts" => $infoArray["pvWatts"],
-        "pvVolts" => $infoArray["pvVolts"]);
-      echo json_encode($infoDump);
-     
-    }
-  } else if (array_key_exists("networkInfo", $_GET)) {
-
-    #return the list of names of all the servers stored locally
-    if($_GET["networkInfo"] == "deviceList"){
-  
-      $output = [];
-
-      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-
-      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
-
-      for ($d = 0; $d < count($contents);$d++){
-        array_push($output,$contents[$d]["name"]);
-      }
-      echo json_encode($output);
-
-      #return the POE logs stored locally for all devices
-    } else if($_GET["networkInfo"] == "poe"){
-  
-      $output = [];
-
-      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-
-      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
-
-      for ($d = 0; $d < count($contents);$d++){
-        array_push($output,$contents[$d]["log"]);
-      }
-      echo json_encode($output);
-
-      # return the specified value for all devices listed on dev list
-      # it only returns the value if the server is on and connected
-    } else if($_GET["networkInfo"] == "value"){
-  
-      echo json_encode($_GET);
-      #getNetworkData();
-      /*$output = [];
-
-      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-
-      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
-
-      #loop through contents and make IP calls
-      for ($d = 0; $d < count($contents);$d++){
-        array_push($output,file_get_contents($contents[$d]["ip"]));
-      }
-
-      echo json_encode($output);*/
-
-    # return the specified value for all devices listed on dev list
-    # it only returns the value if the server is on and connecged
-    } else if($_GET["networkInfo"] == "line"){
-  
-      /*$output = [];
-
-      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-
-      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
-
-      for ($d = 0; $d < count($contents);$d++){
-        array_push($output,$contents[$d]["log"]);
-      }
-      echo json_encode($output);*/
-
-    } else if($_GET["networkInfo"] == "day"){
-  
-      /*$output = [];
-
-      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-
-      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
-
-      for ($d = 0; $d < count($contents);$d++){
-        array_push($output,$contents[$d]["log"]);
-      }
-      echo json_encode($output);*/
-
-    } else if($_GET["networkInfo"] == "local"){
-  
-      /*$output = [];
-
-      $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-
-      $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
-
-      for ($d = 0; $d < count($contents);$d++){
-        array_push($output,$contents[$d]["log"]);
-      }
-      echo json_encode($output);*/
-
+    if($_GET["server"] == "all"){
+        echo json_encode($_GET);
     }
   }
 }

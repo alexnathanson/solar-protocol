@@ -262,10 +262,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       }
     }
   } else if(array_key_exists("server", $_GET)){
-
-    if($_GET["server"] == "all"){
-        echo json_encode($_GET);
-    }
+      getServerData()
+       /* echo json_encode($_GET);*/
   }
 }
 
@@ -358,23 +356,50 @@ function getFile($fileName){
   }
 }*/
 
-function getNetworkData($query){
-  $output = [];
+function getServerData($serverNum){
+
+  $endPoint = assembleGETstring();
+  $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+  $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
   $ipList = [];
 
-  $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-
-  $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
-
-  #loop through contents and make IP calls
+  #loop through contents of device list and collect IP addresses
   for ($d = 0; $d < count($contents);$d++){
     array_push($ipList,file_get_contents($contents[$d]["ip"]));
   }
 
-  #make API calls
-  for ($d = 0; $d < count($ipList);$d++){
-    array_push($output,file_get_contents($ipList[$d]));
-  }
+  if (is_numeric($_GET["server"])){
+    #make API call to that specific server
+    echo json_encode(file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint));
+
+  } else if($_GET["server"] == "all"){
+
+    $output = [];
+
+    #make API calls
+    for ($d = 0; $d < count($ipList);$d++){
+      array_push($output, file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint));
+    }
+  } 
 
   echo json_encode($output);
+}
+
+#assemble all of the GET key:value pairs into the end point for the API request
+function assembleGETstring(){
+
+  $call = '';
+
+  foreach($_GET as $gKey => $gValue) {
+    if($gKey != 'server'){
+      if($call != ''){
+        $call = $call . '&';
+      }
+      $call = $call . $gKey . "=" . $gValue;
+    }
+  }
+
+  #change chargecontroller.php to opendata.php when this gets updated on all servers
+  $call = '/api/v1/chargecontroller.php?' . $call;
+  return $call;
 }

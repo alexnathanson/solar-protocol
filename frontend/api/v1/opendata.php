@@ -384,9 +384,9 @@ function getServerData(){
 
       array_push($output, file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint));
     }
-  } 
 
-  echo json_encode($output);
+    echo json_encode($output);
+  } 
 }
 
 #assemble all of the GET key:value pairs into the end point for the API request

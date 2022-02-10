@@ -10,6 +10,9 @@ if(window.location.search.length > 0){
 	let paramKeys = params.keys();
 	let paramValues = params.values();
 
+	console.log(paramKeys);
+	console.log(paramValues);
+	
 	let endPoint = '';
 
 	for(let p = 0; p < paramKeys.length; p ++){

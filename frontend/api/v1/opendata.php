@@ -361,7 +361,9 @@ function getServerData(){
   $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
   $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
   $ipList = [];
-
+  
+  error_log('API 0: http://' . $ipList[$_GET['server']] . $endPoint, 0);
+  
   #loop through contents of device list and collect IP addresses
   for ($d = 0; $d < count($contents);$d++){
     array_push($ipList,file_get_contents($contents[$d]["ip"]));
@@ -378,7 +380,7 @@ function getServerData(){
     #make API calls
     for ($d = 0; $d < count($ipList);$d++){
       error_log('API destination: http://' . $ipList[$_GET['server']] . $endPoint, 0);
-      
+
       array_push($output, file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint));
     }
   } 

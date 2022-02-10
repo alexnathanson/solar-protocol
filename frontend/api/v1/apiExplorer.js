@@ -7,9 +7,21 @@ if(window.location.search.length > 0){
 	let endPt,endPtVal,mod,modVal = ""; 
 	let modified = false;
 
-/*	let allParams = params.getAll();
-*/	console.log(params);
-	console.log(typeof params);
+	let paramKeys = params.keys();
+	let paramValues = params.values();
+
+	let endPoint = '';
+
+	for(let p = 0; p < paramKeys.length; p ++){
+		if (paramKeys[p] != 'server'){
+			if(p != 0){
+				endPoint = endPoint + "&";
+			}
+			endPoint = endPoint + paramKeys[p] + "=" paramValues[p]
+		}	
+	}
+
+	console.log(endPoint);
 
 	if(params.get("value")){
 		endPt = "value";

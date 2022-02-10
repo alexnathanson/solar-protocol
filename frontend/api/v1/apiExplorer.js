@@ -16,7 +16,7 @@ if(window.location.search.length > 0){
 	let endPoint = '';
 
 
-	for(let pair of searchParams.entries()) {
+	for(let pair of params.entries()) {
 	   console.log(pair[0]+ ', '+ pair[1]);
 
 	   if (pair[0] != 'server'){

@@ -255,10 +255,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       echo json_encode($output);
 
       # return the specified value for all devices listed on dev list
-      # it only returns the value if the server is on and connecged
+      # it only returns the value if the server is on and connected
     } else if($_GET["networkInfo"] == "value"){
   
-      $output = [];
+      echo json_encode($_GET);
+      #getNetworkData();
+      /*$output = [];
 
       $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
 
@@ -266,10 +268,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       #loop through contents and make IP calls
       for ($d = 0; $d < count($contents);$d++){
-/*        array_push($output,file_get_contents($contents[$d]["ip"]));*/
+        array_push($output,file_get_contents($contents[$d]["ip"]));
       }
 
-      echo json_encode($output);
+      echo json_encode($output);*/
 
     # return the specified value for all devices listed on dev list
     # it only returns the value if the server is on and connecged
@@ -377,7 +379,7 @@ function getFileContents($fileName){
 }
 
 //this function returns a scaler value for the wattage of the module so all modules across the network can be compared
-//a more advance non-linear equation may need to be adopted in the future
+//a more advanced non-linear equation may need to be adopted in the future
 function wattageScaler(){
   //get local file
   $fileContents = file_get_contents("/home/pi/local/local.json");
@@ -404,3 +406,24 @@ function getFile($fileName){
     return FALSE;
   }
 }*/
+
+function getNetworkData($query){
+  $output = [];
+  $ipList = [];
+
+  $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+  $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+
+  #loop through contents and make IP calls
+  for ($d = 0; $d < count($contents);$d++){
+    array_push($ipList,file_get_contents($contents[$d]["ip"]));
+  }
+
+  #make API calls
+  for ($d = 0; $d < count($ipList);$d++){
+    array_push($output,file_get_contents($ipList[$d]));
+  }
+
+  echo json_encode($output);
+}

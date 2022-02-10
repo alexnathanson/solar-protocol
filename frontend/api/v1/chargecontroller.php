@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       $scaleIt = true;
     }
 
-
     //echo $qValue;
 
     if(array_key_exists("duration", $_GET) && intval($_GET["duration"]) != 0){

@@ -154,7 +154,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <h2>Remote Server Data</h2>
 
 <p>
-This key=value pairs can be used in conjunction with all of the above API calls to query data from a specific server or from all the servers on the network.
+This argument can be used in conjunction with all of the above API calls to query data from a specific server or from all the servers on the network. This intended to be used in conjunction with the deviceList query.
 </p>
 
 <strong>server</strong> used in combination with any of the above calls returns the call for the specified server
@@ -162,7 +162,7 @@ This key=value pairs can be used in conjunction with all of the above API calls 
 <p>Possible values:
 	<ul>
 		<li>all - returns the specified value for all servers</li>
-		<li>an integer - returns the specified value for the specified server</li>
+		<li>an integer - the integer corresponds to the order of servers returned from the device list query. The call returns the specified value for the specified server</li>
 	</ul>
 </p>
 

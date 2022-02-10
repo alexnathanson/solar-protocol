@@ -7,6 +7,8 @@ if(window.location.search.length > 0){
 	let endPt,endPtVal,mod,modVal = ""; 
 	let modified = false;
 
+	console.log(params)
+
 	if(params.get("value")){
 		endPt = "value";
 		endPtVal = params.get("value");

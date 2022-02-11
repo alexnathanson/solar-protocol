@@ -370,7 +370,7 @@ function getServerData(){
 
   if (is_numeric($_GET["server"])){
     #make API call to that specific server
-    echo json_encode(file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint));
+    echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint);
 
   } else if($_GET["server"] == "all"){
 

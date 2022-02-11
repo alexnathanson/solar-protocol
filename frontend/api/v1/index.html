@@ -33,10 +33,10 @@ Enter the value you want return in the form provided. The syntax for the call wi
 
 Charge controller data:
 <ul>
-		<li>Individual pieces of data i.e. a single value like wattage</li>
-		<li>Individual pieces of data over a particular length of time</li>
-		<li>Individual lines of data containing all the given values for a particular time</li>
-		<li>An entire day's worth of data</li>
+		<li>value: Individual pieces of data i.e. a single value like PV wattage or battery percentage.</li>
+		<li>value & duration: Individual pieces of data over a particular length of time.</li>
+		<li>line: Individual lines or a range of lines of data. Each line contains all the possible values for a particular time.</li>
+		<li>day: An entire calendar day's worth of lines i.e. all the data collected on a particular date.</li>
 	</ul>
 
 <h3>Value</h3>
@@ -154,7 +154,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <h2>Remote Server Data</h2>
 
 <p>
-This argument can be used in conjunction with all of the above API calls to query data from a specific server or from all the servers on the network. This intended to be used in conjunction with the deviceList query.
+This argument is used in conjunction with any of the above API calls listed above to query data from a specific server or from all the servers on the network. In practice, to retrieve data from a specific server this will likely be used after a deviceList query.
 </p>
 
 <strong>server</strong> used in combination with any of the above calls returns the call for the specified server
@@ -168,7 +168,7 @@ This argument can be used in conjunction with all of the above API calls to quer
 
 <form method="GET">
 	<p>Server <input type="text" name="server"></p>
-	Pick 1 of the below fields:
+	Pick 1 of the below fields. See above for possible values:
   <p>Value <input type="text" name="value"> Duration (optional) <input type="text" name="duration"></p>
   <p>Line <input type="text" name="line"></p>
 	<p>Day <input type="text" name="day"></p>

@@ -2,16 +2,12 @@ const params = new URLSearchParams(window.location.search);
 
 if(window.location.search.length > 0){
 
-	//this could be much simplied by getting the url search params in a string and just adding it to the url...
-
-/*	let endPt,endPtVal,mod,modVal = ""; 
-	let modified = false;
-*/
 	let endPoint = '';
 
 	for(let pair of params.entries()) {
 /*	   console.log(pair[0]+ ', '+ pair[1]);*/
 
+		//SHOULD I BE REMOVING THE SERVER VAR??? PROBABLY NOT!!!!!!
 	   if (pair[0] != 'server'){
 			if(endPoint != ''){
 				endPoint = endPoint + "&";
@@ -20,38 +16,7 @@ if(window.location.search.length > 0){
 		}	
 	}
 
-	console.log(endPoint);
-
-	/*if(params.get("value")){
-		endPt = "value";
-		endPtVal = params.get("value");
-
-		if(params.get("duration")){
-			mod= "duration";
-			modVal=params.get("duration");
-			modified = true;
-		}
-	} else if(params.get("line")){
-		endPt = "line";
-		endPtVal = params.get("line");
-	} else if(params.get("day")){
-		endPt = "day";
-		endPtVal = params.get("day");
-	} else if (params.get("systemInfo")){
-		endPt = "systemInfo";
-		endPtVal = params.get("systemInfo");
-	} else if (params.get("networkInfo")){
-		endPt = "networkInfo";
-		endPtVal = params.get("networkInfo");
-	}
-*/
-	//example http://solarprotocol.net/api/v1/opendata.php?file=list
-
 	let dst = getBaseUrl() + '/api/v1/opendata.php?' + endPoint;
-
-/*	if(modified){
-		dst = dst + "&" + mod + "=" + modVal;
-	}*/
 
 	console.log(dst);
 

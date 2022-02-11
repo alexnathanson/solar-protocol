@@ -7,8 +7,7 @@ if(window.location.search.length > 0){
 	for(let pair of params.entries()) {
 /*	   console.log(pair[0]+ ', '+ pair[1]);*/
 
-		//SHOULD I BE REMOVING THE SERVER VAR??? PROBABLY NOT!!!!!!
-	   if (pair[0] != 'server'){
+	   if (pair[1] == ''){
 			if(endPoint != ''){
 				endPoint = endPoint + "&";
 			}

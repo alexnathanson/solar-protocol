@@ -1,8 +1,8 @@
 <?php
 
-# This is for all public (non-password protected) data. Most of these functions previously lived in the chargecontroller.php script
+// This is for all public (non-password protected) data. Most of these functions previously lived in the chargecontroller.php script
 
-#comment out these lines for production version
+//comment out these lines for production version
 /*ini_set('display_errors', 1); 
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL);*/
@@ -69,12 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             }
           }
            
-
-          /*
-          $vTime = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
-          $vValue = 
-          $valueTimeSeries[$vTime]=$vValue;
-          *///array_push($valueTimeSeries, );
         }
 
         echo json_encode($valueTimeSeries);
@@ -83,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         if ($readData != FALSE){    
 
-          #loop through the header line to find the position of the requested value
+          //loop through the header line to find the position of the requested value
           for ($v = 0; $v < sizeof($readData[0]);$v++){
             if($readData[0][$v]==$qValue){
 
@@ -97,10 +91,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             }
           }
         }
-      }
-      
+      }  
     }
-    //get a line of current data file. "len" returns length of current file, "head" returns the column headers, an integer returns the specified line. "0" returns most recent line. Increment up for other lines.
+
+    /**
+     * get a line of data from the current day's file.
+     * "len" returns length of current file,
+     * "head" returns the column headers,
+     * an integer returns the specified line. "0" returns most recent line. Increment up for other lines.
+    * */
+
     else if (array_key_exists("line", $_GET)) {
       //echo "Key = Line";
       
@@ -133,7 +133,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       if ($_GET["day"] == "list"){//list all charge controller data files
         echo json_encode(justTracerDataFiles($ccDir));
-        //var_dump(justTracerDataFiles($ccDir));
 
       } else if ($_GET["day"] == "len"){//list all charge controller data files
         echo count(justTracerDataFiles($ccDir));
@@ -164,10 +163,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     } else if (array_key_exists("systemInfo", $_GET)) {
 
-      //echo "system info! ";
-
-      //get local time zone
       if ($_GET["systemInfo"] == "tz"){
+        //get local time zone
         echo date_default_timezone_get();
       } else if ($_GET["systemInfo"] == "color"){
         //read local bgColor
@@ -285,14 +282,14 @@ function justTracerDataFiles($dir){
 
 //converts a file of CC data to an array
 function chargeControllerData($fileName){
-  //$fileDate = date("Y-m-d");
-  //$fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
     
   $rawDataArray = [];
 
   if (($h = fopen("{$fileName}", "r")) !== FALSE) {
-    // Each line in the file is converted into an individual array that we call $data
-    // The items of the array are comma separated
+    /** 
+     * Each line in the file is converted into an individual array that we call $data
+     * The items of the array are comma separated
+    **/
     while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
     {
       // Each individual array is being pushed into the nested array
@@ -319,8 +316,10 @@ function getFileContents($fileName){
   }
 }
 
-//this function returns a scaler value for the wattage of the module so all modules across the network can be compared
-//a more advanced non-linear equation may need to be adopted in the future
+/**
+ * this function returns a scaler value for the wattage of the module so all modules across the network can be compared.
+ * a more advanced non-linear equation may need to be adopted in the future
+**/
 function wattageScaler(){
   //get local file
   $fileContents = file_get_contents("/home/pi/local/local.json");
@@ -363,8 +362,11 @@ function getServerData(){
     array_push($ipList,$contents[$d]["ip"]);
   }
 
+  /**
+   * if a number was passed as the value, make an API call to that specific server
+   * the number is based on the order of the server names returned from the networkInfo=deviceList call
+  **/
   if (is_numeric($_GET["server"])){
-    #make API call to that specific server
     echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint);
   } else if($_GET["server"] == "all"){
 
@@ -381,17 +383,8 @@ function getServerData(){
   } 
 }
 
-/*function apiGetRequest($apiDST){
-  try{
-    return file_get_contents($apiDST);
-  }
-  catch(Exception $e) {
-    //echo $fileName;
-    return $e;
-  }
-}*/
 
-#assemble all of the GET key:value pairs into the end point for the API request
+//assemble all of the GET key:value pairs into the end point for the API request
 function assembleGETstring(){
 
   $call = '';
@@ -405,7 +398,7 @@ function assembleGETstring(){
     }
   }
 
-  #change chargecontroller.php to opendata.php when this gets updated on all servers
+  //change chargecontroller.php to opendata.php when this gets updated on all servers
   $call = '/api/v1/chargecontroller.php?' . $call;
   return $call;
 }

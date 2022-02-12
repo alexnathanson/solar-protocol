@@ -8,8 +8,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);*/
 
 /**
- * in prior versions, not everything echoed was json encoded
- * including most of the systemInfo values, day:len, line:len
+ * in prior versions, not all systemInfo values were echoed as json
  * might need to be considered when changing cc.php to od.php
 **/
 
@@ -407,6 +406,8 @@ function getServerData(){
 
       if(json_decode($resp) != null){
         $resp = json_decode($resp);
+      } else {
+        $resp = json_encode($resp);
       }
       //array_push($output, json_decode(getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
       array_push($output, $resp);

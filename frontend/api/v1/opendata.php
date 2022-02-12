@@ -406,8 +406,6 @@ function getServerData(){
 
       if(json_decode($resp) != null){
         $resp = json_decode($resp);
-      } else {
-        $resp = json_encode($resp);
       }
       //array_push($output, json_decode(getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
       array_push($output, $resp);

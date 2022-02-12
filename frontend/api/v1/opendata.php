@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if(array_key_exists("value", $_GET)){
       //echo "Key = Value";
 
+      //check if value queried exists
       if(!testValue($_GET["value"])){
         echo "Value not found. Acceptable values: PV-current, PV-current, PV-power-H,PV-power-L, PV-voltage, battery-percentage, battery-voltage, charge-current, charge-power-H, charge-power-L, load-current, load-power, load-voltage, datetime, scaled-wattage";
         exit;
@@ -37,9 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $qValue = "PV power L";
         $scaleIt = true;
       }
-
-
-      //echo $qValue;
 
       if(array_key_exists("duration", $_GET) && intval($_GET["duration"]) != 0){
         //returns a given value over time
@@ -85,23 +83,24 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         if ($readData != FALSE){    
 
+          #loop through the header line to find the position of the requested value
           for ($v = 0; $v < sizeof($readData[0]);$v++){
-              if($readData[0][$v]==$qValue){
+            if($readData[0][$v]==$qValue){
 
-                  //scale wattage if required
-                  if($qValue == 'PV power L' && $scaleIt == true){
-                    echo $readData[count($readData)-1][$v] * wattageScaler();
-                  } else { //unscaled wattage
-                    echo $readData[count($readData)-1][$v];
-                  }
-                  break;
+              //scale wattage if required
+              if($qValue == 'PV power L' && $scaleIt == true){
+                echo $readData[count($readData)-1][$v] * wattageScaler();
+              } else { //unscaled wattage
+                echo $readData[count($readData)-1][$v];
               }
+              break;
+            }
           }
         }
       }
       
     }
-    //get a line of current data file. "len" returns length of current file, "head" returns the column headers, "0" returns most recent line. Increments up for other lines.
+    //get a line of current data file. "len" returns length of current file, "head" returns the column headers, an integer returns the specified line. "0" returns most recent line. Increment up for other lines.
     else if (array_key_exists("line", $_GET)) {
       //echo "Key = Line";
       
@@ -157,11 +156,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         echo json_encode(chargeControllerData($ccDir . $_GET["day"] . '.csv'));
       }
 
-      //this should be removed and made into a POST
-      if($_GET["day"] == "deviceList"){
+      //this should be removed now that we can query the poe
+      /*if($_GET["day"] == "deviceList"){
         $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
         echo getFileContents($fileName);
-      }
+      }*/
 
     } else if (array_key_exists("systemInfo", $_GET)) {
 
@@ -169,20 +168,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       //get local time zone
       if ($_GET["systemInfo"] == "tz"){
-
-        //if (ini_get('date.timezone')) {
-            //echo ini_get('date.timezone');
         echo date_default_timezone_get();
-        //}
-      } /*else if ($_GET["systemInfo"] == "ping"){
-        echo "ping";
-      } */else if ($_GET["systemInfo"] == "color"){
+      } else if ($_GET["systemInfo"] == "color"){
         //read local bgColor
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        // Convert to array 
         echo json_decode($fileContents, true)['bgColor'];
       } else if ($_GET["systemInfo"] == "description"){
-        //read local bgColor
+        //read local description
         $fileContents = file_get_contents("/home/pi/local/local.json");
         echo json_decode($fileContents, true)['description'];
       } else if ($_GET["systemInfo"] == "name"){
@@ -257,8 +249,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         echo json_encode($output);
 
-        # return the specified value for all devices listed on dev list
-        # it only returns the value if the server is on and connected
       }
     }
   } else if(array_key_exists("server", $_GET)){
@@ -266,6 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   }
 }
 
+//check if the requested value exists
 function testValue($v){
 
   $possibleValues = array('PV-current','PV-current','PV-power-H','PV-power-L','PV-voltage','battery-percentage','battery-voltage','charge-current','charge-power-H', 'charge-power-L','load-current','load-power','load-voltage','datetime','scaled-wattage');
@@ -279,6 +270,7 @@ function testValue($v){
   return FALSE;
 }
 
+//returns an array of all the file names in the charge controller data directory
 function justTracerDataFiles($dir){
     $dirArray = scandir($dir);//returns list of directory contents
     $dirFiles = [];
@@ -291,6 +283,7 @@ function justTracerDataFiles($dir){
     return $dirFiles;
 }
 
+//converts a file of CC data to an array
 function chargeControllerData($fileName){
   //$fileDate = date("Y-m-d");
   //$fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
@@ -359,7 +352,7 @@ function getServerData(){
 
   $endPoint = assembleGETstring();
   $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-  $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+  $contents = json_decode(file_get_contents($fileName),true); //retrieve contents of the deviceList file
   $ipList = [];
   
 
@@ -385,6 +378,16 @@ function getServerData(){
 
     echo json_encode($output);
   } 
+}
+
+function apiGetRequest($apiDST){
+  try{
+    return file_get_contents($apiDST);
+  }
+  catch(Exception $e) {
+    //echo $fileName;
+    return FALSE;
+  }
 }
 
 #assemble all of the GET key:value pairs into the end point for the API request

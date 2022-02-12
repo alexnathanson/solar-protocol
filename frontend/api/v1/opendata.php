@@ -367,8 +367,7 @@ function getServerData(){
    * the number is based on the order of the server names returned from the networkInfo=deviceList call
   **/
   if (is_numeric($_GET["server"])){
-    //echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint, 0);
-    echo curlCall('http://' . $ipList[$_GET['server']] . $endPoint);
+    echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint, 0);
 
   } else if($_GET["server"] == "all"){
 
@@ -406,8 +405,14 @@ function assembleGETstring(){
 }
 
 
+/**
+ * the php7.3-curl package doesn't work on Raspberry Pi for whatever reason
+ * in the future, move to php8 to use curl
+* */
+
 function curlCall($urlDst){
 
+  //approach 1
  /* $ch = curl_init($urlDst);
 
   curl_exec($ch);
@@ -422,7 +427,9 @@ function curlCall($urlDst){
 
 //****************
 
-  // Create curl resource
+  //approach 2
+
+  /*// Create curl resource
   $ch = curl_init();
 
   // set url
@@ -437,5 +444,5 @@ function curlCall($urlDst){
   return $output;
 
   // Close curl resource to free up system resources
-  curl_close($ch);     
+  curl_close($ch); */    
 }

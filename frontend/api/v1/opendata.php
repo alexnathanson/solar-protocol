@@ -393,7 +393,8 @@ function getServerData(){
     for ($d = 0; $d < count($ipList);$d++){
       error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
 
-      array_push($output, json_decode(getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
+      //array_push($output, json_decode(getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
+      array_push($output, getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext));
     }
 
     echo json_encode($output);

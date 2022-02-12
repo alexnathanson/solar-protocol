@@ -356,6 +356,15 @@ function getServerData(){
   $contents = json_decode(file_get_contents($fileName),true); //retrieve contents of the deviceList file
   $ipList = [];
   
+  //this sets the timeout for the API calls
+  $streamContext = stream_context_create(
+    array('http'=>
+        array(
+            //the default is 60 seconds, we're using 20 seconds
+            'timeout' => 20,
+        )
+    )
+);
 
   #loop through contents of device list and collect IP addresses
   for ($d = 0; $d < count($contents);$d++){
@@ -367,7 +376,7 @@ function getServerData(){
    * the number is based on the order of the server names returned from the networkInfo=deviceList call
   **/
   if (is_numeric($_GET["server"])){
-    echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint, 0);
+    echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint, false, $streamContext);
 
   } else if($_GET["server"] == "all"){
 
@@ -377,7 +386,7 @@ function getServerData(){
     for ($d = 0; $d < count($ipList);$d++){
       //error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
 
-      array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint, 0)));
+      array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
     }
 
     echo json_encode($output);
@@ -408,6 +417,7 @@ function assembleGETstring(){
 /**
  * the php7.3-curl package doesn't work on Raspberry Pi for whatever reason
  * in the future, move to php8 to use curl
+ * cURL allows for me granular control over the request, like timeouts and authentication
 * */
 
 function curlCall($urlDst){

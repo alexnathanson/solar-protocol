@@ -426,11 +426,10 @@ function assembleGETstring(){
   return $call;
 }
 
-
 function getContentsErr($dst,$bool, $context){
   $req = file_get_contents($dst, $bool, $context);
   if($req === false) {
-    return 'false';
+    return 'err';
   } else {
     return $req;
   }

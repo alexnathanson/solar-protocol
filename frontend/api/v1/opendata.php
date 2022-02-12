@@ -367,7 +367,7 @@ function getServerData(){
    * the number is based on the order of the server names returned from the networkInfo=deviceList call
   **/
   if (is_numeric($_GET["server"])){
-    echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint);
+    echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint, 0);
   } else if($_GET["server"] == "all"){
 
     $output = [];
@@ -376,7 +376,7 @@ function getServerData(){
     for ($d = 0; $d < count($ipList);$d++){
       //error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
 
-      array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint)));
+      array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint, 0)));
     }
 
     echo json_encode($output);

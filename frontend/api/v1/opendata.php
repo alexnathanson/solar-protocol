@@ -367,7 +367,9 @@ function getServerData(){
    * the number is based on the order of the server names returned from the networkInfo=deviceList call
   **/
   if (is_numeric($_GET["server"])){
-    echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint, 0);
+    //echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint, 0);
+    echo curlCall('http://' . $ipList[$_GET['server']] . $endPoint);
+    
   } else if($_GET["server"] == "all"){
 
     $output = [];
@@ -402,3 +404,20 @@ function assembleGETstring(){
   $call = '/api/v1/chargecontroller.php?' . $call;
   return $call;
 }
+
+function curlCall($urlDst){
+
+  $ch = curl_init($urlDst);
+
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+
+  curl_exec($ch);
+
+  if(curl_error($ch) == '') {
+      reurn $ch;
+  } else {
+    return curl_error($ch);
+  }
+
+  curl_close($ch);
+  }

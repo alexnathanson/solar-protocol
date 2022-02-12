@@ -424,7 +424,7 @@ function assembleGETstring(){
 function getContentsErr($dst,$bool, $context){
   $req = file_get_contents($dst, $bool, $context);
   if($req === false) {
-    return False;
+    return 'false';
   } else {
     return $req;
   }

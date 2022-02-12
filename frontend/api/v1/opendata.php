@@ -360,8 +360,8 @@ function getServerData(){
   $streamContext = stream_context_create(
     array('http'=>
         array(
-            //the default is 60 seconds, we're using 20 seconds
-            'timeout' => 20,
+            //the default is 60 seconds, we're using 15 seconds
+            'timeout' => 15,
         )
     )
 );
@@ -420,7 +420,7 @@ function assembleGETstring(){
  * cURL allows for me granular control over the request, like timeouts and authentication
 * */
 
-function curlCall($urlDst){
+//function curlCall($urlDst){
 
   //approach 1
  /* $ch = curl_init($urlDst);
@@ -455,4 +455,4 @@ function curlCall($urlDst){
 
   // Close curl resource to free up system resources
   curl_close($ch); */    
-}
+//}

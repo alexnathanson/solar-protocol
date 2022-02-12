@@ -7,6 +7,11 @@
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL);*/
 
+/**
+ * in prior versions, not everything echoed was json encoded
+ * including most of the systemInfo values, day:len, line:len
+ * might need to be considered when changing cc.php to od.php
+**/
 
 $ccDir = "/home/pi/solar-protocol/charge-controller/data/";
 $scaleIt = false;
@@ -162,42 +167,44 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       }*/
 
     } else if (array_key_exists("systemInfo", $_GET)) {
+      //previously this wasn't encoded to json before output - might need to be considered when changing cc.php to od.php
+      $siOutput = '';
 
       if ($_GET["systemInfo"] == "tz"){
         //get local time zone
-        echo date_default_timezone_get();
+        $siOutput = date_default_timezone_get();
       } else if ($_GET["systemInfo"] == "color"){
         //read local bgColor
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        echo json_decode($fileContents, true)['bgColor'];
+        $siOutput =  json_decode($fileContents, true)['bgColor'];
       } else if ($_GET["systemInfo"] == "description"){
         //read local description
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        echo json_decode($fileContents, true)['description'];
+        $siOutput = json_decode($fileContents, true)['description'];
       } else if ($_GET["systemInfo"] == "name"){
         //read local name
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        echo json_decode($fileContents, true)['name'];
+        $siOutput = json_decode($fileContents, true)['name'];
       } else if ($_GET["systemInfo"] == "location"){
         //read local location
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        echo json_decode($fileContents, true)['location'];
+        $siOutput = json_decode($fileContents, true)['location'];
       } else if ($_GET["systemInfo"] == "city"){
         //read local city
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        echo json_decode($fileContents, true)['city'];
+        $siOutput = json_decode($fileContents, true)['city'];
       } else if ($_GET["systemInfo"] == "country"){
         //read local country
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        echo json_decode($fileContents, true)['country'];
+        $siOutput = json_decode($fileContents, true)['country'];
       } else if ($_GET["systemInfo"] == "wattage-scaler"){
-        echo wattageScaler();
+        $siOutput = wattageScaler();
       } else if ($_GET["systemInfo"] == "pvWatts"){
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        echo json_decode($fileContents, true)['pvWatts'];
+        $siOutput = json_decode($fileContents, true)['pvWatts'];
       } else if ($_GET["systemInfo"] == "pvVoltage"){
         $fileContents = file_get_contents("/home/pi/local/local.json");
-        echo json_decode($fileContents, true)['pvVolts'];
+        $siOutput = json_decode($fileContents, true)['pvVolts'];
       }  else if ($_GET["systemInfo"] == "dump"){
         //read local country
         $fileContents = file_get_contents("/home/pi/local/local.json");
@@ -213,9 +220,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           "wattage-scaler" => wattageScaler(),
           "pvWatts" => $infoArray["pvWatts"],
           "pvVolts" => $infoArray["pvVolts"]);
-        echo json_encode($infoDump);
+        $siOutput = $infoDump;
        
       }
+
+      echo json_encode($siOutput);
+
     } else if (array_key_exists("networkInfo", $_GET)) {
 
       #return the list of names of all the servers stored locally

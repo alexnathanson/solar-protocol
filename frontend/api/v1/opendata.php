@@ -347,6 +347,13 @@ function getFile($fileName){
   }
 }*/
 
+
+/**
+ * in the future, it might be best to use cURL not file_get_contents
+ * the php7.3-curl package doesn't work on Raspberry Pi for whatever reason
+ * if using php8 at somepoint, try cURL,
+ * because it allows for me granular control over the request, like timeouts and authentication
+* */
 function getServerData(){
 
   $endPoint = assembleGETstring();
@@ -361,10 +368,10 @@ function getServerData(){
     array('http'=>
         array(
             //the default is 60 seconds, we're using 15 seconds
-            'timeout' => 15,
+            'timeout' => 5,
         )
     )
-);
+  );
 
   #loop through contents of device list and collect IP addresses
   for ($d = 0; $d < count($contents);$d++){
@@ -386,7 +393,7 @@ function getServerData(){
     for ($d = 0; $d < count($ipList);$d++){
       //error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
 
-      array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint/*, false, $streamContext*/)));
+      array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
     }
 
     echo json_encode($output);
@@ -414,45 +421,3 @@ function assembleGETstring(){
 }
 
 
-/**
- * the php7.3-curl package doesn't work on Raspberry Pi for whatever reason
- * in the future, move to php8 to use curl
- * cURL allows for me granular control over the request, like timeouts and authentication
-* */
-
-//function curlCall($urlDst){
-
-  //approach 1
- /* $ch = curl_init($urlDst);
-
-  curl_exec($ch);
-
-  if(curl_error($ch) == '') {
-      reurn $ch;
-  } else {
-    return curl_error($ch);
-  }
-
-  curl_close($ch);*/
-
-//****************
-
-  //approach 2
-
-  /*// Create curl resource
-  $ch = curl_init();
-
-  // set url
-  curl_setopt($ch, CURLOPT_URL, "$urlDst");
-
-  // Return the transfer as a string
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-  // $output contains the output string
-  $output = curl_exec($ch);
-
-  return $output;
-
-  // Close curl resource to free up system resources
-  curl_close($ch); */    
-//}

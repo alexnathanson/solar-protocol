@@ -365,9 +365,7 @@ function getServerData(){
 
   if (is_numeric($_GET["server"])){
     #make API call to that specific server
-    //echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint);
-    echo apiGetRequest('http://' . $ipList[$_GET['server']] . $endPoint);
-
+    echo file_get_contents('http://' . $ipList[$_GET['server']] . $endPoint);
   } else if($_GET["server"] == "all"){
 
     $output = [];
@@ -376,15 +374,14 @@ function getServerData(){
     for ($d = 0; $d < count($ipList);$d++){
       //error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
 
-      //array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint)));
-      array_push($output, json_decode(apiGetRequest('http://' . $ipList[$d] . $endPoint)));
+      array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint)));
     }
 
     echo json_encode($output);
   } 
 }
 
-function apiGetRequest($apiDST){
+/*function apiGetRequest($apiDST){
   try{
     return file_get_contents($apiDST);
   }
@@ -392,7 +389,7 @@ function apiGetRequest($apiDST){
     //echo $fileName;
     return $e;
   }
-}
+}*/
 
 #assemble all of the GET key:value pairs into the end point for the API request
 function assembleGETstring(){

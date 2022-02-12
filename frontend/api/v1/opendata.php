@@ -366,10 +366,10 @@ function getServerData(){
   //this sets the timeout for the API calls
   $streamContext = stream_context_create(
     array('http'=>
-        array(
-            //the default is 60 seconds, we're using 15 seconds
-            'timeout' => 5,
-        )
+      array(
+          //the default is 60 seconds, we're using 15 seconds
+          'timeout' => 5,
+      )
     )
   );
 
@@ -391,7 +391,7 @@ function getServerData(){
 
     #make API calls
     for ($d = 0; $d < count($ipList);$d++){
-      //error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
+      error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
 
       array_push($output, json_decode(file_get_contents('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
     }

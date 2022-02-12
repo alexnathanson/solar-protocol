@@ -404,12 +404,11 @@ function assembleGETstring(){
   $call = '/api/v1/chargecontroller.php?' . $call;
   return $call;
 }
-/*
+
+
 function curlCall($urlDst){
 
-  $ch = curl_init($urlDst);
-
-  curl_setopt($ch, CURLOPT_HEADER, 0);
+ /* $ch = curl_init($urlDst);
 
   curl_exec($ch);
 
@@ -419,5 +418,24 @@ function curlCall($urlDst){
     return curl_error($ch);
   }
 
-  curl_close($ch);
-}*/
+  curl_close($ch);*/
+
+//****************
+
+  // Create curl resource
+  $ch = curl_init();
+
+  // set url
+  curl_setopt($ch, CURLOPT_URL, "$urlDst");
+
+  // Return the transfer as a string
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+  // $output contains the output string
+  $output = curl_exec($ch);
+
+  return $output;
+
+  // Close curl resource to free up system resources
+  curl_close($ch);     
+}

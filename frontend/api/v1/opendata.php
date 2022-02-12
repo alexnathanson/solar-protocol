@@ -404,7 +404,7 @@ function assembleGETstring(){
   $call = '/api/v1/chargecontroller.php?' . $call;
   return $call;
 }
-
+/*
 function curlCall($urlDst){
 
   $ch = curl_init($urlDst);
@@ -420,4 +420,4 @@ function curlCall($urlDst){
   }
 
   curl_close($ch);
-}
+}*/

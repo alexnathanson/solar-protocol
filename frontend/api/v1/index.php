@@ -10,6 +10,24 @@
 
 <!--  <script src="apiExplorer.js"></script>  -->
 
+<php?
+	if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+		$apiCall = '';
+
+		foreach(array_keys($_GET) as $gK){
+			if($apiCall == ''){
+				$apiCall = $apiCall . "&";
+			}
+
+			$apiCall = $apiCall . $gK . '=' . $_GET[$gK];
+		}
+		$apiResponse = file_get_contents(opendata.php? . $apiCall, false);
+
+		echo json_encode($apiResponse);
+	}
+?>
+
 <h1>Solar Protocol - Open API Documentation</h1>
 <p>
 	Note: This is the publicly available open-access API. Developers on the network can view the complete API documentation on <a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
@@ -168,7 +186,7 @@ This argument is used in conjunction with any of the above API calls listed abov
 	</ul>
 </p>
 
-<form action="opendata.php" method="GET">
+<form method="GET">
 	<p>Server <input type="text" name="server"></p>
 	Pick 1 of the below fields. See above for possible values:
   <p>Value <input type="text" name="value"> Duration (optional) <input type="text" name="duration"></p>

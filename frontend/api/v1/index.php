@@ -3,6 +3,15 @@
 
 		$apiCall = '';
 
+		$streamContext = stream_context_create(
+		    array('http'=>
+		      array(
+		          //120 seconds
+		          'timeout' => 120,
+		      )
+		    )
+		  );
+
 		foreach(array_keys($_GET) as $gK){
 			if($apiCall != ''){
 				$apiCall = $apiCall . "&";
@@ -12,7 +21,7 @@
 		}
 
 		$apiCall = '/api/v1/opendata.php?' . $apiCall;
-		$apiResponse = file_get_contents($apiCall, false);
+		$apiResponse = file_get_contents($apiCall, false, $streamContext);
 	}
 ?>
 

@@ -27,9 +27,9 @@
 		$apiCall = 'http://' . $_SERVER[SERVER_NAME] . '/api/v1/opendata.php?' . $apiCall;
 		$apiResponse = file_get_contents($apiCall, false, $streamContext);
 
-		if(json_encode($apiResponse) != false || json_encode($apiResponse) != 'false'){
+/*		if(json_encode($apiResponse) != false || json_encode($apiResponse) != 'false'){
 			$apiResponse = json_encode($apiResponse);
-		}
+		}*/
 	}
 ?>
 
@@ -197,7 +197,7 @@ This argument is used in conjunction with any of the above API calls listed abov
 		<li>all - returns the specified value for all servers</li>
 		<li>an integer - the integer corresponds to the order of servers returned from the device list query. The call returns the specified value for the specified server</li>
 		<li>server name without spaces - the name of the server (as listed in the deviceList query) with spaces removed. The call returns the specified value for the specified server. This is not case sensitive.</li>
-		<li>If 'err' is returned it indicates a failed response, likely a timeout due to an offline server. The default timeout is 60 seconds, but the timeout for these server calls is 15 seconds. (The max time a call to 'all' should take is 15 seconds * number of servers.</li>
+		<li>If 'err' is returned it indicates a failed response, likely a timeout due to an offline server. The default timeout is 60 seconds, but the timeout for these server calls is 15 seconds. (The max time a call to 'all' should take is 15 seconds * number of servers. If false is return, it means the cumulative call time exceeded 120 seconds (the maximum time allowed).</li>
 	</ul>
 
 </p>

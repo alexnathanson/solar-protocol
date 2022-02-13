@@ -6,8 +6,9 @@
 		$streamContext = stream_context_create(
 		    array('http'=>
 		      array(
+		      		'method' => 'GET',
 		          //120 seconds
-		          'timeout' => 120,
+		          'timeout' => 120
 		      )
 		    )
 		  );

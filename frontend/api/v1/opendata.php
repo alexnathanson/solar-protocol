@@ -373,7 +373,7 @@ function getServerData(){
     array('http'=>
       array(
           //the default is 60 seconds, we're using 15 seconds
-          'timeout' => 15,
+          'timeout' => 15
       )
     )
   );

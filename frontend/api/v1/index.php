@@ -3,7 +3,7 @@
 
 		$apiCall = '';
 
-		$streamContext = stream_context_create(
+		/*$streamContext = stream_context_create(
 		    array('http'=>
 		      array(
 		      		'method' => 'GET',
@@ -11,7 +11,7 @@
 		          'timeout' => 120
 		      )
 		    )
-		  );
+		  );*/
 
 		foreach(array_keys($_GET) as $gK){
 			if($apiCall != ''){
@@ -21,8 +21,9 @@
 			$apiCall = $apiCall . $gK . "=" . $_GET[$gK];
 		}
 
-		$apiCall = '/api/v1/opendata.php?' . $apiCall;
-		$apiResponse = file_get_contents($apiCall, false, $streamContext);
+		//$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
+		$apiCall = 'http://' . $_SERVER[SERVER_NAME] . '/api/v1/opendata.php?' . $apiCall;
+		$apiResponse = file_get_contents($apiCall/*, false, $streamContext*/);
 	}
 ?>
 

@@ -3,16 +3,6 @@
 
 		$apiCall = '';
 
-		/*$streamContext = stream_context_create(
-		    array('http'=>
-		      array(
-		      		'method' => 'GET',
-		          //120 seconds
-		          'timeout' => 120
-		      )
-		    )
-		  );*/
-
 		foreach(array_keys($_GET) as $gK){
 			if($apiCall != ''){
 				$apiCall = $apiCall . "&";
@@ -23,7 +13,7 @@
 
 		//$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
 		$apiCall = 'http://' . $_SERVER[SERVER_NAME] . '/api/v1/opendata.php?' . $apiCall;
-		$apiResponse = file_get_contents($apiCall/*, false, $streamContext*/);
+		$apiResponse = file_get_contents($apiCall);
 	}
 ?>
 
@@ -36,10 +26,6 @@
 <title>Open API Documentation</title>
 </head>
 <body>
-
-<!--  <script src="apiExplorer.js"></script>  -->
-
-
 
 <h1>Solar Protocol - Open API Documentation</h1>
 <p>
@@ -216,7 +202,8 @@ This argument is used in conjunction with any of the above API calls listed abov
 <h1>API Response</h1>
 <p>
 	API call: <a href="<?php echo $apiCall; ?>" target="_blank"><?php echo $apiCall; ?></a><br>
-	API response:<br>
+	API response (also available in browser console):<br>
+	<?php echo $apiResponse; ?>
 	<script> console.log(<?php echo $apiResponse; ?>)</script>
 
 <!-- <p>

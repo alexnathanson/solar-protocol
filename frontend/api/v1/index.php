@@ -204,7 +204,7 @@ This argument is used in conjunction with any of the above API calls listed abov
 	API call: <a href="<?php echo $apiCall; ?>" target="_blank"><?php echo $apiCall; ?></a><br>
 	API response (also available in browser console):<br>
 	<?php echo $apiResponse; ?>
-	<script> console.log(<?php echo $apiResponse; ?>)</script>
+	<script> console.log(<?php echo json_encode($apiResponse); ?>)</script>
 
 <!-- <p>
 Simple client side Python and JS examples are available in the <a href="https://github.com/alexnathanson/solar-protocol/tree/master/utilities/apiV1-examples" target="_blank">Solar Protocol repository</a>.

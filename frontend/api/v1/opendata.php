@@ -412,7 +412,7 @@ function getServerData(){
   } else {
     //call a single server by name (with spaces removed)
     for ($d = 0; $d < count($contents);$d++){
-      if ($_GET['server'] == str_replace(' ', '', $contents[$d]["name"])){
+      if (strtolower($_GET['server']) == strtolower(str_replace(' ', '', $contents[$d]["name"]))){
         echo getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext);
         break;
       }

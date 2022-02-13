@@ -12,7 +12,7 @@
 		}
 
 		$apiCall = 'opendata.php?' . $apiCall;
-		$apiResponse = file_get_contents($apiCall, false);
+		$apiResponse = file_get_contents($apiCall);
 	}
 ?>
 

@@ -448,3 +448,5 @@ function getContentsErr($dst,$bool, $context){
     return $req;
   }
 }
+
+?>

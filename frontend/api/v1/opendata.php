@@ -411,7 +411,7 @@ function getServerData(){
       array_push($output, $resp);
     }
 
-    echo json_encode($output);
+    echo json_encode($output, JSON_UNESCAPED_SLASHES);
   } 
 }
 

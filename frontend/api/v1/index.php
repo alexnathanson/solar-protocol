@@ -4,7 +4,7 @@
 		$apiCall = '';
 
 		foreach(array_keys($_GET) as $gK){
-			if(isset($_GET[$gK]) && !empty($_GET[$gK]){
+			if(isset($_GET[$gK]) && !empty($_GET[$gK])){
 				if($apiCall != ''){
 					$apiCall = $apiCall . "&";
 				}

@@ -4,11 +4,13 @@
 		$apiCall = '';
 
 		foreach(array_keys($_GET) as $gK){
-			if($apiCall != ''){
-				$apiCall = $apiCall . "&";
-			}
+			if($_GET[$gK] != ''){
+				if($apiCall != ''){
+					$apiCall = $apiCall . "&";
+				}
 
 			$apiCall = $apiCall . $gK . "=" . $_GET[$gK];
+			}
 		}
 
 		//$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
@@ -200,9 +202,9 @@ This argument is used in conjunction with any of the above API calls listed abov
 </form>
 
 <h1>API Response</h1>
-<p>
-	API call: <a href="<?php echo $apiCall; ?>" target="_blank"><?php echo $apiCall; ?></a><br>
-	API response (also available in browser console):<br>
+<h2>API call:</h2>
+	<a href="<?php echo $apiCall; ?>" target="_blank"><?php echo $apiCall; ?></a>
+<h2> API response (also available in browser console):</h2>
 	<?php echo $apiResponse; ?>
 	<script> console.log(<?php echo json_encode($apiResponse); ?>)</script>
 

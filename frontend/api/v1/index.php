@@ -4,7 +4,7 @@
 		$apiCall = '';
 
 		foreach(array_keys($_GET) as $gK){
-			if($apiCall == ''){
+			if($apiCall != ''){
 				$apiCall = $apiCall . "&";
 			}
 
@@ -204,7 +204,7 @@ This argument is used in conjunction with any of the above API calls listed abov
 
 <h1>API Response</h1>
 <p>
-	API call: <?php echo $apiCall; ?>
+	API call: <?php echo $apiCall; ?><br>
 	API response:<br>
 	<?php echo json_encode($apiResponse); ?>
 

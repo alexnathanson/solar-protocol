@@ -16,6 +16,10 @@
 		//$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
 		$apiCall = 'http://' . $_SERVER[SERVER_NAME] . '/api/v1/opendata.php?' . $apiCall;
 		$apiResponse = file_get_contents($apiCall);
+
+		if(json_encode($apiResponse) != false){
+			$apiResponse = json_encode($apiResponse);
+		}
 	}
 ?>
 
@@ -206,7 +210,7 @@ This argument is used in conjunction with any of the above API calls listed abov
 	<a href="<?php echo $apiCall; ?>" target="_blank"><?php echo $apiCall; ?></a>
 <h2> API response (also available in browser console):</h2>
 	<?php echo $apiResponse; ?>
-	<script> console.log(<?php echo json_encode($apiResponse); ?>)</script>
+	<script> console.log(<?php echo $apiResponse; ?>)</script>
 
 <!-- <p>
 Simple client side Python and JS examples are available in the <a href="https://github.com/alexnathanson/solar-protocol/tree/master/utilities/apiV1-examples" target="_blank">Solar Protocol repository</a>.

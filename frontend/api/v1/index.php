@@ -1,3 +1,19 @@
+<?php
+	if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+		$apiCall = '';
+
+		foreach(array_keys($_GET) as $gK){
+			if($apiCall == ''){
+				$apiCall = $apiCall . "&";
+			}
+
+			$apiCall = $apiCall . $gK . "=" . $_GET[$gK];
+		}
+		$apiResponse = file_get_contents('opendata.php?' . $apiCall, false);
+	}
+?>
+
  <!DOCTYPE html>
 <html>
 <head>
@@ -10,23 +26,7 @@
 
 <!--  <script src="apiExplorer.js"></script>  -->
 
-<php?
-	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-		$apiCall = '';
-
-		foreach(array_keys($_GET) as $gK){
-			if($apiCall == ''){
-				$apiCall = $apiCall . "&";
-			}
-
-			$apiCall = $apiCall . $gK . '=' . $_GET[$gK];
-		}
-		$apiResponse = file_get_contents(opendata.php? . $apiCall, false);
-
-		echo json_encode($apiResponse);
-	}
-?>
 
 <h1>Solar Protocol - Open API Documentation</h1>
 <p>
@@ -199,6 +199,9 @@ This argument is used in conjunction with any of the above API calls listed abov
   <p></p>
   <button type="submit">Get remote server data</button>
 </form>
+
+<h1>API Response</h1>
+		<?php echo json_encode($apiResponse); ?>
 
 <!-- <p>
 Simple client side Python and JS examples are available in the <a href="https://github.com/alexnathanson/solar-protocol/tree/master/utilities/apiV1-examples" target="_blank">Solar Protocol repository</a>.

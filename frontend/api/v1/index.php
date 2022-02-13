@@ -1,6 +1,16 @@
 <?php
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
+	  //this sets the timeout for the API calls
+	  $streamContext = stream_context_create(
+	    array('http'=>
+	      array(
+	          //120 seconds
+	          'timeout' => 120
+	      )
+	    )
+	  );
+
 		$apiCall = '';
 
 		foreach(array_keys($_GET) as $gK){
@@ -15,7 +25,7 @@
 
 		//$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
 		$apiCall = 'http://' . $_SERVER[SERVER_NAME] . '/api/v1/opendata.php?' . $apiCall;
-		$apiResponse = file_get_contents($apiCall);
+		$apiResponse = file_get_contents($apiCall, false, $streamContext);
 
 		if(json_encode($apiResponse) != false || json_encode($apiResponse) != 'false'){
 			$apiResponse = json_encode($apiResponse);

@@ -204,8 +204,8 @@ This argument is used in conjunction with any of the above API calls listed abov
 
 <h1>API Response</h1>
 <p>
-	API call: <a href="<?php echo $apiCall; ?>" target="_blank"><?php echo $apiCall; ?></a><br>
-	API response:<br>
+<!-- 	API call: <a href="<?php echo $apiCall; ?>" target="_blank"><?php echo $apiCall; ?></a><br>
+ -->	API response:<br>
 	<script> console.log(<?php echo $apiResponse; ?>)</script>
 
 <!-- <p>

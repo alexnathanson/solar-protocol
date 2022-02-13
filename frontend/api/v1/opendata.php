@@ -218,7 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           "wattage-scaler" => wattageScaler(),
           "pvWatts" => $infoArray["pvWatts"],
           "pvVolts" => $infoArray["pvVolts"]);
-        echo json_encode($infoDump);
+        echo json_encode($infoDump, JSON_UNESCAPED_SLASHES);
       }
 
     } else if (array_key_exists("networkInfo", $_GET)) {

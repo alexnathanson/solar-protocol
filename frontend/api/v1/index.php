@@ -10,7 +10,9 @@
 
 			$apiCall = $apiCall . $gK . "=" . $_GET[$gK];
 		}
-		$apiResponse = file_get_contents('opendata.php?' . $apiCall, false);
+
+		$apiCall = 'opendata.php?' . $apiCall;
+		$apiResponse = file_get_contents($apiCall, false);
 	}
 ?>
 
@@ -201,7 +203,10 @@ This argument is used in conjunction with any of the above API calls listed abov
 </form>
 
 <h1>API Response</h1>
-		<?php echo json_encode($apiResponse); ?>
+<p>
+	API call: <?php echo $apiCall; ?>
+	API response:<br>
+	<?php echo json_encode($apiResponse); ?>
 
 <!-- <p>
 Simple client side Python and JS examples are available in the <a href="https://github.com/alexnathanson/solar-protocol/tree/master/utilities/apiV1-examples" target="_blank">Solar Protocol repository</a>.

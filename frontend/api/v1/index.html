@@ -163,7 +163,7 @@ This argument is used in conjunction with any of the above API calls listed abov
 	<ul>
 		<li>all - returns the specified value for all servers</li>
 		<li>an integer - the integer corresponds to the order of servers returned from the device list query. The call returns the specified value for the specified server</li>
-		<li>If 'err' is returned it indicates a failed response, likely a timeout due to an offline server.</li>
+		<li>If 'err' is returned it indicates a failed response, likely a timeout due to an offline server. The default timeout is 60 seconds, but the timeout for these server calls is 15 seconds.</li>
 	</ul>
 </p>
 

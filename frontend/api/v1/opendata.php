@@ -409,7 +409,15 @@ function getServerData(){
 
     //JSON_UNESCAPED_SLASHES is neccessary for handling the timezones
     echo json_encode($output, JSON_UNESCAPED_SLASHES);
-  } 
+  } else {
+    //call a single server by name (with spaces removed)
+    for ($d = 0; $d < count($contents);$d++){
+      if ($_GET['server'] == str_replace(' ', '', $contents[$d]["name"])){
+        echo getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext);
+        break;
+      }
+    }
+  }
 }
 
 

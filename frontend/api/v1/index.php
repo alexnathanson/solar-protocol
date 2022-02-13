@@ -14,7 +14,7 @@
 		$apiCall = '';
 
 		foreach(array_keys($_GET) as $gK){
-			if(isset($_GET[$gK]) && !empty($_GET[$gK])){
+			if((isset($_GET[$gK]) && !empty($_GET[$gK])) || $_GET[$gK] == '0'){
 				if($apiCall != ''){
 					$apiCall = $apiCall . "&";
 				}
@@ -27,9 +27,6 @@
 		$apiCall = 'http://' . $_SERVER[SERVER_NAME] . '/api/v1/opendata.php?' . $apiCall;
 		$apiResponse = file_get_contents($apiCall, false, $streamContext);
 
-/*		if(json_encode($apiResponse) != false || json_encode($apiResponse) != 'false'){
-			$apiResponse = json_encode($apiResponse);
-		}*/
 	}
 ?>
 

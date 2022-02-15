@@ -237,7 +237,21 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         echo json_encode($output);
 
-        #return the POE logs stored locally for all devices
+      } else if($_GET["networkInfo"] == "tz"){
+
+          $output = [];
+
+          $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+          $contents = json_decode(file_get_contents($fileName),true);
+
+          for ($d = 0; $d < count($contents);$d++){
+            array_push($output,$contents[$d]["tz"]);
+          }
+          echo json_encode($output);
+
+
+      #return the POE logs stored locally for all devices
       } else if($_GET["networkInfo"] == "poe"){
     
         $output = [];

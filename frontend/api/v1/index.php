@@ -171,6 +171,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <p>Possible values:
 	<ul>
 		<li>deviceList - returns a list of the names of servers</li>
+		<li>tz - returns a list of the timezones of each server</li>
 		<li>poe - returns the list of point of entry time stamps by server</li>
 	</ul>
 </p>

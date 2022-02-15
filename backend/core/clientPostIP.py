@@ -143,15 +143,15 @@ def postIt(dstIP,dstData):
 	 	print("An Unknown Error occurred" + repr(err))
 
 #add a boolean back in if the 
-def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC):
+def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC, my_TZ):
 
 	poeData = getPoeLog()
 
 	global newDSTList
 
 	newDSTList = []
-	#all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, poe log
-	myString = "api_key="+str(api_Key)+"&stamp="+str(time.time())+"&ip="+my_IP+"&mac="+my_MAC+"&name="+my_Name+"&log="+','.join(str(pD) for pD in poeData)
+	#all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, timezone, poe log
+	myString = "api_key="+str(api_Key)+"&stamp="+str(time.time())+"&ip="+my_IP+"&mac="+my_MAC+"&name="+my_Name+"&tz=" + my_TZ +"&log="+','.join(str(pD) for pD in poeData)
 
 	print(myString)
 
@@ -211,8 +211,12 @@ def runClientPostIP():
 
 	#writeSelf()
 
+	#get my timezone
+	tz_url = myIP + "/api/v1/opendata.php?systemInfo=tz"
+    myTZ = requests.get(tz_url).text
+
 	dstList = getKeyList('ip')
-	makePosts(dstList,getEnv("API_KEY"), myIP, myName, myMAC)
+	makePosts(dstList,getEnv("API_KEY"), myIP, myName, myMAC, myTZ)
 
 
 def outputToConsole(printThis):

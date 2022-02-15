@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ip = test_input($_POST["ip"]);
     $mac = test_input($_POST["mac"]);
     $name = test_input($_POST["name"]);
+    $tz = test_input($_POST["tz"]);
     $log = explode(',',test_input($_POST["log"]));
     //var_dump($log);
 
@@ -50,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           "ip" => $ip,
           "time stamp" => $stamp,
           "name" => $name,
+          "tz" => $tz,
           "log" => $log
         ]];
     } else {
@@ -60,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data[$i]['ip']= $ip;
             $data[$i]['time stamp']= $stamp;
             $data[$i]['name']= $name;
+            $data[$i]['tz']= $tz;
             $data[$i]['log']=$log;
             $newMac = false;
             break;
@@ -72,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           "ip" => $ip,
           "time stamp" => $stamp,
           "name" => $name,
+          "tz" => $tz,
           "log" => $log
         ];
         array_push($data, $newEntry);

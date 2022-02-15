@@ -230,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
 
-        $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+        $contents = json_decode(file_get_contents($fileName),true);
 
         for ($d = 0; $d < count($contents);$d++){
           array_push($output,$contents[$d]["name"]);
@@ -244,7 +244,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
 
-        $contents = json_decode(file_get_contents($fileName),true); #getFileContents($fileName);
+        $contents = json_decode(file_get_contents($fileName),true);
 
         for ($d = 0; $d < count($contents);$d++){
           array_push($output,$contents[$d]["log"]);
@@ -401,6 +401,7 @@ function getServerData(){
       $resp = getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext);
 
       if(json_decode($resp) != null){
+        error_log('JSON_DECODE not NULL');
         $resp = json_decode($resp);
       }
       //array_push($output, json_decode(getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext)));

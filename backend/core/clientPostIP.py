@@ -213,7 +213,7 @@ def runClientPostIP():
 
 	#get my timezone
 	tz_url = myIP + "/api/v1/opendata.php?systemInfo=tz"
-    myTZ = requests.get(tz_url).text
+	myTZ = requests.get(tz_url).text
 
 	dstList = getKeyList('ip')
 	makePosts(dstList,getEnv("API_KEY"), myIP, myName, myMAC, myTZ)

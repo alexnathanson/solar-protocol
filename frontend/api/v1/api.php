@@ -87,7 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $fp = fopen($fileName, 'w') or die("Error opening output file");
-    fwrite($fp, json_encode($data));
+    //unescape slashes is needed to treat the slashes in the timezone as a normal string
+    fwrite($fp, json_encode($data, JSON_UNESCAPED_SLASHES));
     fclose($fp);
   }
   else {

@@ -171,8 +171,8 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <p>Possible values:
 	<ul>
 		<li>deviceList - returns a list of the names of servers</li>
-		<li>tz - returns a list of the timezones of each server</li>
-		<li>poe - returns the list of point of entry time stamps by server</li>
+		<li>tz - returns a list of the timezones of each server. This is the prefered way to get all the timezones (rather than making a tz call via the server argument)</li>
+		<li>poe - returns the list of point of entry time stamps by server. note that these time stamps are in the local time of their server and haven't been adjusted.</li>
 	</ul>
 </p>
 

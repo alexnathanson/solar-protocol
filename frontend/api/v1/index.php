@@ -54,7 +54,7 @@ There are 2 main types of data this API provides:
 	<li>Charge controller data - This pertains to the PV system, such as solar power production, battery status, etc.</li>
 	<li>System information - This pertains to local server info, such as location and hardware specs.</li>
 </ol>
-By default, these results are queried from the POE, which means the results may change if the POE changes. By using the server argument you can collect data from a specific server or from all the servers in the network. In this API explorer, the results from these API calls are displayed in the browser console.
+By default, these results are queried from the POE, which means the results may change if the POE changes. By using the server argument you can collect data from a specific server or from all the servers in the network. In this API explorer, the results from these API calls are displayed in the browser console. All times are in the timezone for the server that logged that data and have not been adjusted. Use the networkInfo = tz call to get the time zones to make the adjustments.
 
 <h3>Using this API explorer</h3>
 Enter the value you want return in the form provided. The syntax for the call will be show in the browser bar and the results of the call will open up in the browser console. The console can be opened via the browser's developer settings or by pression the Fn and F12 keys simultaniously (works on most browsers).

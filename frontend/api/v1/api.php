@@ -12,7 +12,7 @@ $servername = "localhost";
 // If you change this value, the client keys need to match
 $hash = '$2y$10$mCxhv3NC4/lkSycnD85XLuw/AYBCxw1ElmCqeksR.f88BTZoXXuca';
 
-$api_key= $stamp = $ip = $mac = $name = "";
+$api_key= $stamp = $ip = $mac = $name = $tz = "";
 $log = [];
 
 $ccDir = "/home/pi/solar-protocol/charge-controller/data/";

@@ -212,7 +212,7 @@ def runClientPostIP():
 	#writeSelf()
 
 	#get my timezone
-	tz_url = myIP + "/api/v1/opendata.php?systemInfo=tz"
+	tz_url = "http://localhost" + addPort("httpPort") + "/api/v1/opendata.php?systemInfo=tz"
 	myTZ = requests.get(tz_url).text
 
 	dstList = getKeyList('ip')

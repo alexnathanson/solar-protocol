@@ -2,6 +2,8 @@
 
 The purpose of this is to redirect another url, like www.mygreatproject.com for example, to the proper directory within the server.
 
+It is recommended to follow the below instructions to use different conf files for each redirect, but an example for a single conf file with multiple named configurations is included too. More info about choosing multiple files or just 1 is at http://joabj.com/Writing/Tech/Tuts/Apache/Apache-Subdomains.html
+
 ## Setup
 
 * Create your content and place it the directory you plan to use. For example, `home/pi/local/www/mygreatproject`
@@ -63,3 +65,12 @@ This could be an issue with the DNS registry.
 ### No connection to the main SP site
 
 This hasn't been tested on a server acting as the Solar Protocol PoE. If enabling this makes solarprotocol.net inaccessible, some work around having a catch all virtual server will be necessary.
+
+### including .htaccess files
+
+If you need to use an .htaccess file in the directoy add `AllowOverride All` to the apache2.conf entry for the directory the you created for the virtual host.
+
+`<Directory /home/pi/local/www>`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`AllowOverride All`<br>
+`</Directory>`

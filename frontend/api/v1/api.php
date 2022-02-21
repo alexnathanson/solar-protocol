@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ip = test_input($_POST["ip"]);
     $mac = test_input($_POST["mac"]);
     $name = test_input($_POST["name"]);
-    $tz = test_input($_POST["tz"]);
+    $tz = json_encode(test_input($_POST["tz"]), JSON_UNESCAPED_SLASHES);
     $log = explode(',',test_input($_POST["log"]));
     //var_dump($log);
 

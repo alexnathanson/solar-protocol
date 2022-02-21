@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ip = test_input($_POST["ip"]);
     $mac = test_input($_POST["mac"]);
     $name = test_input($_POST["name"]);
-    $tz = json_encode(test_input($_POST["tz"]), JSON_UNESCAPED_SLASHES);
+    $tz = test_input($_POST["tz"]);
     $log = explode(',',test_input($_POST["log"]));
     //var_dump($log);
 
@@ -82,7 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
 
       //var_dump($data);
-      echo json_encode($data);
+      //unescape slashes is needed to treat the slashes in the timezone as a normal string
+      echo json_encode($data, JSON_UNESCAPED_SLASHES);
     }
 
     $fp = fopen($fileName, 'w') or die("Error opening output file");

@@ -309,7 +309,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           "name" => $nameDump,
           "poe" => $logDump,
           "tz" => $tzDump,
-          "time stamp" => $tsDump);
+          "timestamp" => $tsDump);
 
         echo json_encode($output, JSON_UNESCAPED_SLASHES);
       }

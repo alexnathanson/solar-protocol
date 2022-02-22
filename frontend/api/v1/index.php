@@ -173,7 +173,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 		<li>deviceList - returns a list of the names of servers</li>
 		<li>tz - returns a list of the timezones of each server. This is the prefered way to get all the timezones (rather than making a tz call via the server argument)</li>
 		<li>poe - returns the list of point of entry time stamps by server. note that these time stamps are in the local time of their server and haven't been adjusted.</li>
-		<li>timestamp - returns the time stamp from when the devices most recently posted their data. Note that this time stamp is in epoch time - seconds since epoch in UTC regardless of the server's timezone.</li>
+		<li>timestamp - returns the time stamp from when the devices most recently posted their data. Note that this time stamp is in Unix time - seconds since epoch (1/1/1970) in UTC regardless of the server's timezone.</li>
 		<li>dump - returns an array containing all network info values</li>
 	</ul>
 </p>

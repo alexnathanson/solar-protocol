@@ -48,15 +48,15 @@ The default config file is whichever one is loaded first, which is why the defau
 
 ### Access denied
 
-If you attempt to go to the URL in a browser and get a response that says access denied add these lines to the bottom of the /etc/apache2/apache2.conf file (the path should be your document root).
+If you attempt to go to the URL in a browser and get a response that says access denied, add these lines to either the virtual host conf file or the global apache conf file (/etc/apache2/apache2.conf). 
+
+(the path should be your document root).
 
 `<Directory /home/pi/local/www>`<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
 `</Directory>`
 
-If you are still running into the access denied error, you can try changing the user that owns the directory you are serving the site from. I haven't found this to solve anything, but some instructions for this process have included this step.
-
-See instructions for this at https://ostechnix.com/configure-apache-virtual-hosts-ubuntu-part-1/
+If you are adding them to apache2.conf, its best to place it near the other directory config blocks. If you are adding them to the virtual host conf file it goes within the `<VirtualHost></VirtualHost>` section for your server name. 
 
 ### No connection
 

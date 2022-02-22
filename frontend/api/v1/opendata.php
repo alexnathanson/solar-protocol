@@ -265,6 +265,32 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         echo json_encode($output);
 
+      } else if($_GET["networkInfo"] == "dump"){
+    
+        $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+        $contents = json_decode(file_get_contents($fileName),true);
+
+        $logDump = [];
+        for ($d = 0; $d < count($contents);$d++){
+          array_push($logDump,$contents[$d]["log"]);
+        }
+
+        $nameDump = [];
+        for ($d = 0; $d < count($contents);$d++){
+          array_push($nameDump,$contents[$d]["name"]);
+        }
+
+        $tzDump = [];
+        for ($d = 0; $d < count($contents);$d++){
+          array_push($tzDump,$contents[$d]["tz"]);
+        }
+
+        $output = array(
+          "name" => $nameDump,
+          "poe" => $logDump,
+          "tz" => $tzDump);
+
+        echo json_encode($output, JSON_UNESCAPED_SLASHES);
       }
     }
   } else if(array_key_exists("server", $_GET)){

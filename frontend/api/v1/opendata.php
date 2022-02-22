@@ -302,7 +302,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         $tsDump = [];
         for ($d = 0; $d < count($contents);$d++){
-          array_push($tzDump,$contents[$d]["time stamp"]);
+          array_push($tsDump,$contents[$d]["time stamp"]);
         }
 
         $output = array(

@@ -237,6 +237,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         echo json_encode($output);
 
+      #return the list of time zones of all the servers stored locally
       } else if($_GET["networkInfo"] == "tz"){
 
           $output = [];
@@ -265,6 +266,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         echo json_encode($output);
 
+      #return the timestamp from when the device posted the data to the server
+      } else if($_GET["networkInfo"] == "timestamp"){
+    
+        $output = [];
+
+        $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+        $contents = json_decode(file_get_contents($fileName),true);
+
+        for ($d = 0; $d < count($contents);$d++){
+          array_push($output,$contents[$d]["time stamp"]);
+        }
+        echo json_encode($output);
+
       } else if($_GET["networkInfo"] == "dump"){
     
         $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
@@ -285,10 +300,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           array_push($tzDump,$contents[$d]["tz"]);
         }
 
+        $tsDump = [];
+        for ($d = 0; $d < count($contents);$d++){
+          array_push($tzDump,$contents[$d]["time stamp"]);
+        }
+
         $output = array(
           "name" => $nameDump,
           "poe" => $logDump,
-          "tz" => $tzDump);
+          "tz" => $tzDump,
+          "time stamp" => $tsDump);
 
         echo json_encode($output, JSON_UNESCAPED_SLASHES);
       }

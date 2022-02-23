@@ -94,11 +94,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   else {
     echo "Wrong API Key provided.";
   }
+
 } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
   //read the value of the query string, replace "-" with " "
   //var_dump($_GET);
 
+  //is this still being used??? if not remove it
   //most recent PV Data queries
   if(array_key_exists("value", $_GET)){
     //echo "Key = Value";

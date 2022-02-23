@@ -33,6 +33,7 @@ class SolarProtocol:
 		self.dnsURL = "https://server.solarpowerforartists.com/"
 		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
 		self.MACinterface = "wlan0" #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
+		self.deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
 	#load in data from config file
 	def loadLocalConfigFile(self):
@@ -132,15 +133,14 @@ class SolarProtocol:
 		try:			
 			response = requests.get(url, timeout = 5)
 			print(response.text)		
+			if returnBool:
+				return response.text
 		except requests.exceptions.HTTPError as err:
 			print(err)
 		except requests.exceptions.Timeout as err:
 			print(err)
 		except:
 			print(err)
-
-		if returnBool:
-			return response.text
 
 	#returns the url with parameters for updating the DNS via a GET request
 	def updateDNS(self, ip, key):
@@ -172,3 +172,26 @@ class SolarProtocol:
 	# 		for v in range(len(csvArray[0])):
 	# 			if csvArray[0][v] == chosenDataValue:
 	# 				return csvArray[-1][v]
+
+	'''
+	returns the specified val from the device list file.
+	if the filterBool is true, it filters out the local entry from the returned list.
+	thisVal can be = "ip","mac","time stamp","name","log","tz"
+	'''
+	def getDevVal(self, thisVal, filterBool):
+
+		valList = []
+
+		with open(self.deviceList) as f:
+		  data = json.load(f)
+
+		#print(data)
+
+		for i in range(len(data)):
+			#filter out local device's val by MAC address
+			if not filterBool && str(data[i]['mac']).strip() !=  myMACAddr.strip():
+				valList.append(data[i][thisVal])
+
+		#print(valList)
+
+		return valList

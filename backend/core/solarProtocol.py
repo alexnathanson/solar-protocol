@@ -109,7 +109,7 @@ def localData(localDataFileCsv, chosenDataValue):
 			if csvArray[0][v] == chosenDataValue:
 				return csvArray[-1][v]
 
-#this should be added to class
+#a variation on this was added to the class - replace with that version at some point
 def getIPList(deviceListJson, myMACAddr):
 
 	ipList = []

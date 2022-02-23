@@ -43,6 +43,9 @@ def handleData(ccFiles, macAddr):
 
 	combinedFile = []
 	for f in ccFiles:
+
+		f = json.loads(f)
+
 		fHeaders = f[0]
 
 		f = f.pop(0)

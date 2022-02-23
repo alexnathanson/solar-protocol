@@ -38,10 +38,11 @@ def run():
 		dstRes = SP.getRequest("http://" + dst + endPt, True)
 		print(type(dstRes))
 
-		#remove spaces and make all lower case
-		name = name.replace(" ","").lower()
+		if isinstance(dstRes, str):
+			#remove spaces and make all lower case
+			name = name.replace(" ","").lower()
 
-		handleData(dstRes, name)
+			handleData(dstRes, name)
 
 
 def handleData(ccFiles, name):
@@ -57,7 +58,7 @@ def handleData(ccFiles, name):
 		print(fHeaders)
 
 		print(len(f))
-		f = f.pop(0)
+		f.pop(0)
 		print(len(f))
 		combinedFile.append(f)
 

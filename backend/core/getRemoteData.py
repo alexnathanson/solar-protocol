@@ -28,8 +28,10 @@ def run():
 	endPt = '/api/v1/opendata.php?day=4'
 
 	ipList = SP.getDevVal('ip')
+	print(ipList)
 
 	macList = SP.getDevVal('mac')
+	print(macList)
 
 	for dst, mac in zip(ipList, macList):
 		#print(dst)

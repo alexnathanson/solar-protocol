@@ -23,10 +23,7 @@ def run():
 
 	fileDst = "/home/pi/local/data/"
 
-	logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
-
 	myMAC = SP.getMAC(SP.MACinterface)
-
 
 	endPt = '/api/v1/opendata.php?day=4'
 

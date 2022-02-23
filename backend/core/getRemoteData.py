@@ -35,7 +35,7 @@ def run():
 
 	for dst, mac in zip(ipList, macList):
 		#print(dst)
-		handleData(SP.getData("http://" + dst + endPt, True), mac)
+		handleData(SP.getRequest("http://" + dst + endPt, True), mac)
 
 
 def handleData(ccFiles, macAddr):

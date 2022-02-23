@@ -32,17 +32,21 @@ def run():
 	ipList = SP.getDevVal('ip', False)
 	print(ipList)
 
-	macList = SP.getDevVal('mac', False)
+	nameList = SP.getDevVal('name', False)
 	print(macList)
 
-	for dst, mac in zip(ipList, macList):
+	for dst, name in zip(ipList, macList):
 		#print(dst)
 		dstRes = SP.getRequest("http://" + dst + endPt, True)
 		print(type(dstRes))
-		handleData(dstRes, mac)
+
+		#remove spaces and make all lower case
+		name = name.replace(" ","").lower()
+
+		handleData(dstRes, name)
 
 
-def handleData(ccFiles, macAddr):
+def handleData(ccFiles, name):
 	#strip headers, combine all 4 files into 1, save file
 
 	combinedFile = []
@@ -54,16 +58,17 @@ def handleData(ccFiles, macAddr):
 		fHeaders = f[0]
 		print(fHeaders)
 
-		len(f)
+		print(len(f))
 		f = f.pop(0)
-		len(f)
+		print(len(f))
 		combinedFile.append(f)
 
 	#add headers back in to top
 	combinedFile.insert(0, fHeaders)
 
-	with open("/home/pi/local/data/" + macAddr + '.json', 'w', encoding='utf-8') as f:
-		json.dump(combinedFile, f, ensure_ascii=False, indent=4)
+	with open("/home/pi/local/data/" + name + '.json', 'w', encoding='utf-8') as f:
+		f.write(json.dumps(combinedFile))
+		f.close()
 
 if __name__ == '__main__':
 	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	

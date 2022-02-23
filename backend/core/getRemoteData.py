@@ -53,7 +53,7 @@ def handleData(ccFiles, macAddr):
 	combinedFile.insert(0, fHeaders)
 
 	with open("/home/pi/local/data/" + macAddr + '.json', 'w', encoding='utf-8') as f:
-    	json.dump(combinedFile, f, ensure_ascii=False, indent=4)
+		json.dump(combinedFile, f, ensure_ascii=False, indent=4)
 
 if __name__ == '__main__':
 	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	

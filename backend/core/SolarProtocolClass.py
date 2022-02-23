@@ -132,7 +132,7 @@ class SolarProtocol:
 	def getRequest(self, url, returnBool):
 		try:			
 			response = requests.get(url, timeout = 5)
-			print(response.text)		
+			#print(response.text)		
 			if returnBool:
 				return response.text
 		except requests.exceptions.HTTPError as err:

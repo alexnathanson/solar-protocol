@@ -33,7 +33,7 @@ def run():
 
 	nameList = SP.getDevVal('name', False)
 
-	for dst, name in zip(ipList, macList):
+	for dst, name in zip(ipList, nameList):
 		#print(dst)
 		dstRes = SP.getRequest("http://" + dst + endPt, True)
 		print(type(dstRes))

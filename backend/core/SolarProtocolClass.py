@@ -189,7 +189,7 @@ class SolarProtocol:
 
 		for i in range(len(data)):
 			#filter out local device's val by MAC address
-			if not filterBool and str(data[i]['mac']).strip() !=  myMACAddr.strip():
+			if not filterBool and str(data[i]['mac']).strip() !=  self.getMAC(self.MACinterface).strip():
 				valList.append(data[i][thisVal])
 
 		#print(valList)

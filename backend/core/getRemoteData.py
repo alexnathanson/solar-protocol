@@ -46,13 +46,17 @@ def handleData(ccFiles, macAddr):
 	#strip headers, combine all 4 files into 1, save file
 
 	combinedFile = []
+
+	ccFiles = json.loads(ccFiles)
+
 	for f in ccFiles:
 
-		f = json.loads(f)
-
 		fHeaders = f[0]
+		print(fHeaders)
 
+		len(f)
 		f = f.pop(0)
+		len(f)
 		combinedFile.append(f)
 
 	#add headers back in to top

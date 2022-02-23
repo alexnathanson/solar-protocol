@@ -11,6 +11,8 @@ The purpose of this is minimize the amount of on the fly API calls.
 		4) save file
 '''
 
+import json
+
 def run():
 	print()
 	print("*****Running GET Remote Data script*****")

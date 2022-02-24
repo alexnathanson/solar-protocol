@@ -44,20 +44,17 @@ def run():
 	for dst, name in zip(ipList, nameList):
 		print(name + ": " + dst)
 		if name == myName:
-			print('it me')
-			#this needs to be updated to handled irregular ports...
+			#this probably to be updated to handled irregular ports...
 			dstRes = SP.getRequest("http://localhost" + endPt, True)
 		else:
-			print('not me')
 			dstRes = SP.getRequest("http://" + dst + endPt, True)
-		#print(type(dstRes))
 
 		if isinstance(dstRes, str):
+			print("GET request successful")
 			#remove spaces and make all lower case
 			name = name.replace(" ","").lower()
 
 			handleData(dstRes, name)
-
 
 #repackage data starting from most recent
 def handleData(ccFiles, name):
@@ -72,9 +69,9 @@ def handleData(ccFiles, name):
 		fHeaders = f[0]
 		#print(fHeaders)
 
-		print(len(f))
+		#print(len(f))
 		f.pop(0)
-		print(len(f))
+		#print(len(f))
 
 		for l in reversed(f):
 			combinedFile.append(l)

@@ -43,6 +43,10 @@
 
 <h1>Solar Protocol - Open API Documentation</h1>
 <p>
+	This server is: <?php echo file_get_contents('http://localhost/api/v1/opendata.php?systemInfo=name', false)?>
+</p>
+
+<p>
 	Note: This is the publicly available open-access API. Developers on the network can view the complete API documentation on <a href="https://github.com/alexnathanson/solar-protocol/blob/master/API.md" target="_blank">Github</a>.
 </p>
 

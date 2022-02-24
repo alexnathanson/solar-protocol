@@ -420,7 +420,7 @@ function getFile($fileName){
  * the php7.3-curl package doesn't work on Raspberry Pi for whatever reason
  * if using php8 at somepoint, try cURL,
  * because it allows for me granular control over the request, like timeouts and authentication
-* */
+**/
 
 function getServerCCData(){
 
@@ -460,7 +460,9 @@ function getServerCCData(){
           $resp = 'err';
         }
 
-        array_push($output, $resp);
+        $output[$nameList[$d]] = $resp;
+
+        //array_push($output, $resp);
         
       }
 

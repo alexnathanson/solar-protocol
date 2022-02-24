@@ -11,4 +11,4 @@ sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py
 sudo chmod a+w /home/pi/solar-protocol/frontend/index.html
 sudo chmod +x /home/pi/solar-protocol/utilities/update.sh
 sudo chmod a+w /home/pi/solar-protocol/frontend/images/clock-exhibit.png
-echo "Permissions set for local www directory, local.json, deviceList.json, csv_datalogger.py, and index.html"
+echo "Permissions set for local/www directory, local/data directory, local.json, deviceList.json, csv_datalogger.py, and index.html"

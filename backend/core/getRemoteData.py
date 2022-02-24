@@ -30,24 +30,14 @@ def run():
 	nameList = SP.getDevVal('name', False)
 
 	#get local server name
-	myMAC = SP.getMAC(SP.MACinterface)
+	myMAC = SP.getMAC(SP.MACinterface).strip()
 	macList = SP.getDevVal('mac', False)
 	myName = ''
 
 	for m in range(len(macList)):
-		print(macList[m] + " & my MAC: " + myMAC + "*")
-		print(type(macList[m]))
-		print(type(myMAC))
-		if myMAC.strip() == macList[m].strip():
+		if myMAC == macList[m]:
 			myName = nameList[m]
-			print(myName)
 			break
-
-	print(ipList)
-	print(nameList)
-	print(macList)
-	print(myMAC)
-	print(myName)
 
 	endPt = '/api/v1/opendata.php?day=4'
 

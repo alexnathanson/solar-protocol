@@ -442,11 +442,11 @@ function getServerCCData(){
     if (is_numeric($_GET["server"])){
       
 
-      file_get_contents($dataPath . $nameList[$_GET['server']]);
+      file_get_contents($dataPath . $nameList[$_GET['server']] . '.json');
 
     } else if($_GET["server"] == "all"){
     } else {
-      file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])));
+      file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
     }
 }
 

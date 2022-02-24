@@ -46,7 +46,7 @@ def run():
 			dstRes = SP.getRequest("http://localhost" + endPt, True)
 		else:
 			dstRes = SP.getRequest("http://" + dst + endPt, True)
-		print(type(dstRes))
+		#print(type(dstRes))
 
 		if isinstance(dstRes, str):
 			#remove spaces and make all lower case
@@ -65,7 +65,7 @@ def handleData(ccFiles, name):
 	for f in ccFiles:
 
 		fHeaders = f[0]
-		print(fHeaders)
+		#print(fHeaders)
 
 		print(len(f))
 		f.pop(0)

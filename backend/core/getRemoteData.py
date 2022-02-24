@@ -38,6 +38,10 @@ def run():
 			myName = nameList[m]
 			break
 
+	print(ipList)
+	print(nameList)
+	print(myName)
+	
 	endPt = '/api/v1/opendata.php?day=4'
 
 	for dst, name in zip(ipList, nameList):

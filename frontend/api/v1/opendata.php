@@ -456,8 +456,9 @@ function getServerCCData(){
         if(json_decode($resp) != null){
           error_log('JSON_DECODE not NULL');
           $resp = json_decode($resp);
+          array_push($output, $resp);
         }
-        array_push($output, $resp);
+        
       }
 
 

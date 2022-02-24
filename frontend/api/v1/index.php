@@ -71,7 +71,7 @@ Charge controller data:
 
 <h3>Value</h3>
 <strong>value</strong> returns the specified value from the most recently collected line of data.
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage</a></p>
+<p>Example: <a href="http://solarprotocol.net/api/v1/opendata.php?value=PV-voltage" target="_blank">http://solarprotocol.net/api/v1/opendata.php?value=PV-voltage</a></p>
 <p>Possible values:
 	<ul>
 		<li>PV-current</li>
@@ -93,7 +93,7 @@ Charge controller data:
 </p>
 Optional modifier: <strong>duration</strong> returns the specified value over a given amount of days, from 1 to 7.
 <p>
-Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&duration=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-voltage&duration=2</a>
+Example: <a href="http://solarprotocol.net/api/v1/opendata.php?value=PV-voltage&duration=2" target="_blank">http://solarprotocol.net/api/v1/opendata.php?value=PV-voltage&duration=2</a>
 </p>
 
 <form method="GET">
@@ -105,7 +105,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <h3>Line</h3>
 
 <strong>line</strong> returns a line of data containing all of the possible values from the most recent file
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?line=0" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?line=0</a></p>
+<p>Example: <a href="http://solarprotocol.net/api/v1/opendata.php?line=0" target="_blank">http://solarprotocol.net/api/v1/opendata.php?line=0</a></p>
 <p>Possible values:
 	<ul>
 		<li>len - returns the number of rows in the file</li>
@@ -121,13 +121,13 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <h3>Day</h3>
 
 <strong>day</strong> returns all the data from a specific day or range of days. Note that days may not be consequetive if the server was off for an extended period of time.
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?day=2" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=2</a></p>
+<p>Example: <a href="http://solarprotocol.net/api/v1/opendata.php?day=2" target="_blank">http://solarprotocol.net/api/v1/opendata.php?day=2</a></p>
 <p>Possible values:
 	<ul>
 		<li>[an integer from 1-7] - returns the most recent X number of days of data. 1 returns the most recent day of data, 2 returns the most recent days of data, etc.</li>
 		<li>list - Returns a list of all the available files. Each file represents 1 day of data.</li>
 		<li>len - Return count of all available files. Each file represents 1 day of data.</li>
-		<li>[file name without file type suffix] - Returns all the data from that particular day. Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?day=tracerData2020-05-17" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=tracerData2020-05-17</a></li>
+		<li>[file name without file type suffix] - Returns all the data from that particular day. Example: <a href="http://solarprotocol.net/api/v1/opendata.php?day=tracerData2020-05-17" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?day=tracerData2020-05-17</a></li>
 	</ul>
 </p>
 
@@ -140,7 +140,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <h2>System Info</h2>
 
 <strong>systemInfo</strong> returns information about the system and that server's local variables
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?systemInfo=tz</a></p>
+<p>Example: <a href="http://solarprotocol.net/api/v1/opendata.php?systemInfo=tz" target="_blank">http://solarprotocol.net/api/v1/opendata.php?systemInfo=tz</a></p>
 <p>Possible values:
 	<ul>
 		<li>tz - returns the timezone for the server</li>
@@ -167,7 +167,7 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 <h2>Network Info</h2>
 
 <strong>networkInfo</strong> returns information about the network
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?networkInfo=devices" target="_blank">http://solarprotocol.net/api/v1/chargecontroller.php?networkInfo=devices</a></p>
+<p>Example: <a href="http://solarprotocol.net/api/v1/opendata.php?networkInfo=devices" target="_blank">http://solarprotocol.net/api/v1/opendata.php?networkInfo=devices</a></p>
 <p>Possible values:
 	<ul>
 		<li>deviceList - returns a list of the names of servers</li>
@@ -186,31 +186,26 @@ Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?value=PV-
 
 <h2>Remote Server Data</h2>
 
-<p>
-This argument is used in conjunction with any of the above API calls listed above to query data from a specific server or from all the servers on the network. In practice, to retrieve data from a specific server this will likely be used after a deviceList query.
-</p>
-
-<strong>server</strong> used in combination with any of the above calls returns the call for the specified server
-<p>Example: <a href="http://solarprotocol.net/api/v1/chargecontroller.php?networkInfo=devices" target="_blank">http://solarprotocol.net/api/v1/opendata.php?server=all&value=PV-voltage</a></p>
+<strong>server</strong> returns 4 calendar days worth of data from the specified server.
+<p>Example: <a href="http://solarprotocol.net/api/v1/opendata.php?server=1" target="_blank">http://solarprotocol.net/api/v1/opendata.php?server=1</a></p>
 <p>Possible values:
 	<ul>
 		<li>all - returns the specified value for all servers</li>
 		<li>an integer - the integer corresponds to the order of servers returned from the device list query. The call returns the specified value for the specified server</li>
 		<li>server name without spaces - the name of the server (as listed in the deviceList query) with spaces removed. The call returns the specified value for the specified server. This is not case sensitive.</li>
-		<li>If 'err' is returned it indicates a failed response, likely a timeout due to an offline server. The default timeout is 60 seconds, but the timeout for these server calls is 15 seconds. (The max time a call to 'all' should take is 15 seconds * number of servers. If false is return, it means the cumulative call time exceeded 120 seconds (the maximum time allowed).</li>
+		<li>If 'err' is returned it indicates a failed response, likely because the remote data for that server isn't stored locally. <!-- The default timeout is 60 seconds, but the timeout for these server calls is 15 seconds. (The max time a call to 'all' should take is 15 seconds * number of servers. If false is return, it means the cumulative call time exceeded 120 seconds (the maximum time allowed). --></li>
 	</ul>
 
 </p>
 
 <form method="GET">
 	<p>Server <input type="text" name="server"></p>
-	Pick 1 of the below fields. See above for possible values:
+<!-- 	Pick 1 of the below fields. See above for possible values:
   <p>Value <input type="text" name="value"> Duration (optional) <input type="text" name="duration"></p>
   <p>Line <input type="text" name="line"></p>
 	<p>Day <input type="text" name="day"></p>
  	<p>System Info <input type="text" name="systemInfo"></p>
- 	<p>Network Info <input type="text" name="networkInfo"></p>
-
+ 	<p>Network Info <input type="text" name="networkInfo"></p> -->
 
   <p></p>
   <button type="submit">Get remote server data</button>

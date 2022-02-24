@@ -444,6 +444,23 @@ function getServerCCData(){
       echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json');
 
     } else if($_GET["server"] == "all"){
+
+      $output = [];
+
+      #make API calls
+      for ($d = 0; $d < count($nameList);$d++){
+        //error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
+
+        $resp = file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[d])) . '.json');
+
+        if(json_decode($resp) != null){
+          error_log('JSON_DECODE not NULL');
+          $resp = json_decode($resp);
+        }
+        array_push($output, $resp);
+      }
+
+
     } else {
       echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
     }

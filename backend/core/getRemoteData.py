@@ -30,27 +30,27 @@ def run():
 	nameList = SP.getDevVal('name', False)
 
 	#get local server name
-	myMAC = SP.getMAC(SP.MACinterface)
-	macList = SP.getDevVal('mac', False)
-	myName = ''
-	for m in range(len(macList)):
-		if myMAC == macList[m]:
-			myName = nameList[m]
-			break
+	# myMAC = SP.getMAC(SP.MACinterface)
+	# macList = SP.getDevVal('mac', False)
+	# myName = ''
+	# for m in range(len(macList)):
+	# 	if myMAC == macList[m]:
+	# 		myName = nameList[m]
+	# 		break
 
-	print(ipList)
-	print(nameList)
-	print(myName)
+	# print(ipList)
+	# print(nameList)
+	# print(myName)
 
 	endPt = '/api/v1/opendata.php?day=4'
 
 	for dst, name in zip(ipList, nameList):
 		print(name + ": " + dst)
-		if name == myName:
-			#this needs to be updated to handled irregular ports...
-			dstRes = SP.getRequest("http://localhost" + endPt, True)
-		else:
-			dstRes = SP.getRequest("http://" + dst + endPt, True)
+		# if name == myName:
+		# 	#this needs to be updated to handled irregular ports...
+		# 	dstRes = SP.getRequest("http://localhost" + endPt, True)
+		# else:
+		dstRes = SP.getRequest("http://" + dst + endPt, True)
 		#print(type(dstRes))
 
 		if isinstance(dstRes, str):

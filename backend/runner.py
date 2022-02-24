@@ -7,6 +7,7 @@ This script controls when the other scripts run based on battery status
 '''
 from core import clientPostIP
 from core import solarProtocol
+from core import getRemoteData
 from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 from createHTML import create_html
 from createHTML import viz
@@ -56,6 +57,11 @@ def scriptsToRun():
 		solarProtocol.runSP()
 	except Exception as err:
 		printLoud("solarProtocol.py Exception", err)
+
+	try:
+		getRemoteData.run()
+	except Exception as err:
+		printLoud("getRemoteData.py Exception", err)
 
 	try:
 		viz.main()

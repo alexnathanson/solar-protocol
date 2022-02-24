@@ -512,7 +512,10 @@ function getServerData(){
       if(json_decode($resp) != null){
         error_log('JSON_DECODE not NULL');
         $resp = json_decode($resp);
+      } else {
+        $resp = 'err';
       }
+      
       //array_push($output, json_decode(getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
       array_push($output, $resp);
     }

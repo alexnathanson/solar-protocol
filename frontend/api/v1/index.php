@@ -24,7 +24,8 @@
 		}
 
 		//$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
-		$apiCall = 'http://' . $_SERVER["SERVER_NAME"] . '/api/v1/opendata.php?' . $apiCall;
+/*		$apiCall = 'http://' . $_SERVER["SERVER_NAME"] . '/api/v1/opendata.php?' . $apiCall;*/
+		$apiCall = 'http://localhost/api/v1/opendata.php?' . $apiCall;
 		$apiResponse = file_get_contents($apiCall, false, $streamContext);
 
 	}

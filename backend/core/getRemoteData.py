@@ -34,7 +34,7 @@ def run():
 	macList = SP.getDevVal('mac', False)
 	myName = ''
 	for m in range(len(macList)):
-		print(macList[m])
+		print(macList[m] + "& my MAC: " + myMAC)
 		if myMAC == macList[m]:
 			myName = nameList[m]
 			print(myName)

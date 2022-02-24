@@ -29,7 +29,7 @@ def run():
 	ipList = SP.getDevVal('ip', False)
 	nameList = SP.getDevVal('name', False)
 
-	get local server name
+	#get local server name
 	myMAC = SP.getMAC(SP.MACinterface)
 	macList = SP.getDevVal('mac', False)
 	myName = ''

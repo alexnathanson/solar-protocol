@@ -36,8 +36,9 @@ def run():
 
 	for m in range(len(macList)):
 		print(macList[m] + " & my MAC: " + myMAC + "*")
-		print(type(macList[m]) + " : " + type(myMAC))
-		if myMAC == macList[m]:
+		print(type(macList[m]))
+		print(type(myMAC))
+		if myMAC.strip() == macList[m].strip():
 			myName = nameList[m]
 			print(myName)
 			break

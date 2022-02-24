@@ -75,7 +75,9 @@ def handleData(ccFiles, name):
 		print(len(f))
 		f.pop(0)
 		print(len(f))
-		combinedFile.append(f)
+
+		for l in f:
+			combinedFile.append(l)
 
 	#add headers back in to top
 	combinedFile.insert(0, fHeaders)

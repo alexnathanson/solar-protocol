@@ -21,21 +21,31 @@ def run():
 	#initialize SolarProtocolClass
 	SP = SolarProtocolClass()
 
-	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+	# deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
+	#this is the directory where files are saved to
 	fileDst = "/home/pi/local/data/"
 
+	ipList = SP.getDevVal('ip', False)
+	nameList = SP.getDevVal('name', False)
+
+	#get local server name
 	myMAC = SP.getMAC(SP.MACinterface)
+	macList = SP.getDevVal('mac', False)
+	myName = ''
+	for m in range(len(macList)):
+		if myMAC == macList[m]:
+			myName = nameList[m]
+			break
 
 	endPt = '/api/v1/opendata.php?day=4'
 
-	ipList = SP.getDevVal('ip', False)
-
-	nameList = SP.getDevVal('name', False)
-
 	for dst, name in zip(ipList, nameList):
 		#print(dst)
-		dstRes = SP.getRequest("http://" + dst + endPt, True)
+		if name == myName:
+			dstRes = SP.getRequest("http://localhost" + endPt, True)
+		else:
+			dstRes = SP.getRequest("http://" + dst + endPt, True)
 		print(type(dstRes))
 
 		if isinstance(dstRes, str):

@@ -218,7 +218,6 @@ Example: <a href="http://solarprotocol.net/api/v1/opendata.php?value=PV-voltage&
 
 <h1>API Response</h1>
 <h2>API call:</h2>
-	Internal call: <?php echo $localApiCall; ?><br>
 	<a href="<?php echo $apiCall; ?>" target="_blank"><?php echo $apiCall; ?></a>
 <h2> API response (also available in browser console):</h2>
 	<?php echo $apiResponse; ?>

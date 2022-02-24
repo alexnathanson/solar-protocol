@@ -315,7 +315,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       }
     }
   } else if(array_key_exists("server", $_GET)){
-      getServerData();
+      //getServerData();
+      getServerCCData();
   }
 }
 
@@ -420,6 +421,35 @@ function getFile($fileName){
  * if using php8 at somepoint, try cURL,
  * because it allows for me granular control over the request, like timeouts and authentication
 * */
+
+function getServerCCData(){
+
+    $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
+
+    //should this use the getFileCotnents function?
+    $contents = json_decode(file_get_contents($fileName),true); //retrieve contents of the deviceList file
+    $nameList = [];
+
+    #loop through contents of device list and collect IP addresses
+    for ($d = 0; $d < count($contents);$d++){
+      $aName = strtolower(str_replace(' ', '', $contents[$d]["name"]));
+      array_push($nameList,$aName);
+    }
+
+    $dataPath = "/home/pi/local/data/";
+    chargeControllerData($fileName)
+
+    if (is_numeric($_GET["server"])){
+      
+
+      file_get_contents($dataPath . $nameList[$_GET['server']]);
+
+    } else if($_GET["server"] == "all"){
+    } else {
+      file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])));
+    }
+}
+
 function getServerData(){
 
   $endPoint = assembleGETstring();

@@ -41,12 +41,13 @@ def run():
 	print(ipList)
 	print(nameList)
 	print(myName)
-	
+
 	endPt = '/api/v1/opendata.php?day=4'
 
 	for dst, name in zip(ipList, nameList):
 		print(name + ": " + dst)
 		if name == myName:
+			#this needs to be updated to handled irregular ports...
 			dstRes = SP.getRequest("http://localhost" + endPt, True)
 		else:
 			dstRes = SP.getRequest("http://" + dst + endPt, True)

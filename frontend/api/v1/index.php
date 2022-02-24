@@ -11,21 +11,21 @@
 	    )
 	  );
 
-		$apiCall = '';
+		$apiVals = '';
 
 		foreach(array_keys($_GET) as $gK){
 			if((isset($_GET[$gK]) && !empty($_GET[$gK])) || $_GET[$gK] == '0'){
-				if($apiCall != ''){
-					$apiCall = $apiCall . "&";
+				if($apiVals != ''){
+					$apiVals = $apiVals . "&";
 				}
 
-			$apiCall = $apiCall . $gK . "=" . $_GET[$gK];
+			$apiVals = $apiVals . $gK . "=" . $_GET[$gK];
 			}
 		}
 
 		//$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
-		$apiCall = 'http://' . $_SERVER["SERVER_NAME"] . '/api/v1/opendata.php?' . $apiCall;
-		$localApiCall = 'http://localhost/api/v1/opendata.php?' . $apiCall;
+		$apiCall = 'http://' . $_SERVER["SERVER_NAME"] . '/api/v1/opendata.php?' . $apiVals;
+		$localApiCall = 'http://localhost/api/v1/opendata.php?' . $apiVals;
 		$apiResponse = file_get_contents($localApiCall, false, $streamContext);
 
 	}

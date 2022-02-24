@@ -60,6 +60,7 @@ def run():
 			handleData(dstRes, name)
 
 
+#repackage data starting from most recent
 def handleData(ccFiles, name):
 	#strip headers, combine all 4 files into 1, save file
 
@@ -76,7 +77,7 @@ def handleData(ccFiles, name):
 		f.pop(0)
 		print(len(f))
 
-		for l in f:
+		for l in reversed(f):
 			combinedFile.append(l)
 
 	#add headers back in to top

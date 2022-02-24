@@ -437,7 +437,7 @@ function getServerCCData(){
     }
 
     $dataPath = "/home/pi/local/data/";
-    chargeControllerData($fileName)
+    //chargeControllerData($fileName);
 
     if (is_numeric($_GET["server"])){
       

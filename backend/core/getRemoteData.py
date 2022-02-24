@@ -34,13 +34,14 @@ def run():
 	macList = SP.getDevVal('mac', False)
 	myName = ''
 	for m in range(len(macList)):
-		print(m)
 		if myMAC == macList[m]:
 			myName = nameList[m]
 			break
 
 	print(ipList)
 	print(nameList)
+	print(macList)
+	print(myMAC)
 	print(myName)
 
 	endPt = '/api/v1/opendata.php?day=4'

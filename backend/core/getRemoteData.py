@@ -41,7 +41,7 @@ def run():
 	endPt = '/api/v1/opendata.php?day=4'
 
 	for dst, name in zip(ipList, nameList):
-		#print(dst)
+		print(name + ": " + dst)
 		if name == myName:
 			dstRes = SP.getRequest("http://localhost" + endPt, True)
 		else:

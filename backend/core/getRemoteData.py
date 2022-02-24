@@ -34,8 +34,10 @@ def run():
 	macList = SP.getDevVal('mac', False)
 	myName = ''
 	for m in range(len(macList)):
+		print(macList[m])
 		if myMAC == macList[m]:
 			myName = nameList[m]
+			print(myName)
 			break
 
 	print(ipList)
@@ -53,7 +55,7 @@ def run():
 			#this needs to be updated to handled irregular ports...
 			dstRes = SP.getRequest("http://localhost" + endPt, True)
 		else:
-			print('no me')
+			print('not me')
 			dstRes = SP.getRequest("http://" + dst + endPt, True)
 		#print(type(dstRes))
 

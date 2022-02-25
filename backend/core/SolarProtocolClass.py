@@ -135,6 +135,8 @@ class SolarProtocol:
 			#print(response.text)		
 			if returnBool:
 				return response.text
+			else:
+				print(response.text)
 		except requests.exceptions.HTTPError as err:
 			print(err)
 		except requests.exceptions.Timeout as err:

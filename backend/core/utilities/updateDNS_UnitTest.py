@@ -29,6 +29,6 @@ def testDNS():
 	print("Successfull tests will return Errcount 0 and Done true")
 	print("")
 	
-	SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))))
+	print(SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), True))
 
 testDNS()

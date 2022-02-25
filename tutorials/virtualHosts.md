@@ -24,12 +24,13 @@ Edit the file.
 
 `sudo nano mygreatproject.sun.conf`
 
-Underneath the ServerAdmin line, add the following line (obviously replace mygreatproject.com with your URL)
+Underneath the ServerAdmin line, add the following line (obviously replace mygreatproject.com with your URL)<br>
 `ServerName mygreatproject.com`
 
-If you have any server aliases add them on the next line. If you are not using an alias, then ignore this. `ServerAlias www.mygreatproject.com`
+If you have any server aliases add them on the next line. If you are not using an alias, then ignore this.<br>
+`ServerAlias www.mygreatproject.com`
 
-Change the document root path to the location of your site root directory
+Change the document root path to the location of your site root directory<br>
 `DocumentRoot /home/pi/local/www/`
 
 ### Step 3

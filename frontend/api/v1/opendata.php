@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   //read the value of the query string, replace "-" with " "
   //var_dump($_GET);
 
-  //ignore if the request should be directed to a specific server or all servers
+  //ignore if the request should be directed to a specific server or all servers - REMOVE THIS IF STATEMENT
   if(!array_key_exists("server", $_GET)){
 
     //most recent PV Data queries

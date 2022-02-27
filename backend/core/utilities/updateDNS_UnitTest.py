@@ -1,4 +1,6 @@
 '''
+This script must be run from core directory
+
 Run this script to test that the DNS can be properly pointed to the server.
 
 This only tests that the call to the DNS gateway was successful.

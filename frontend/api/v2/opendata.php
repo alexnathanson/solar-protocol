@@ -72,7 +72,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
          
       }
 
-      echo json_encode($valueTimeSeries);
+
+      $headerOutput = array(
+        "datetime" => $_GET["value"]
+      );
+
+      $vDOutput = array(
+        "headers" => $headerOutput,
+        "data" => $valueTimeSeries
+      );
+
+      echo json_encode($vDOutput);
     } else {
       $readData = chargeControllerData($todayFile);
 

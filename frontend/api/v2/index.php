@@ -41,7 +41,7 @@
 </head>
 <body>
 
-<h1>Solar Protocol - Open API:V1 Documentation</h1>
+<h1>Solar Protocol - Open API:V2 Documentation</h1>
 <p>
 	This server is: <?php echo file_get_contents('http://localhost/api/v1/opendata.php?systemInfo=name', false)?>
 </p>

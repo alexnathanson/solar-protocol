@@ -76,6 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else {
       $readData = chargeControllerData($todayFile);
 
+      $outputVal = '';
+
       if ($readData != FALSE){    
 
         //loop through the header line to find the position of the requested value
@@ -84,14 +86,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
             //scale wattage if required
             if($qValue == 'PV power L' && $scaleIt == true){
-              echo $readData[count($readData)-1][$v] * wattageScaler();
+              $outputVal = $readData[count($readData)-1][$v] * wattageScaler();
             } else { //unscaled wattage
-              echo $readData[count($readData)-1][$v];
+              $outputVal = $readData[count($readData)-1][$v];
             }
             break;
           }
         }
       }
+
+      $vOutput = array(
+        $_GET["value"] => $outputVal
+      );
+
+      echo json_encode($vOutput);
     }  
   }
 

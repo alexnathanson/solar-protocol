@@ -505,7 +505,7 @@ function getServerCCData(){
     if (is_numeric($_GET["server"])){
       
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json');
-      $output = file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json');
+      $output = json_decode(file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json'));
       echo json_encode(array($_GET["server"] =>$output));
     } else if($_GET["server"] == "all"){
 

@@ -141,15 +141,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
   else if (array_key_exists("line", $_GET)) {
     //echo "Key = Line";
-    
+    $outputLine = '';
     $readData = chargeControllerData($todayFile);
 
     if ($readData != FALSE){    
       
       if($_GET["line"] == "len"){//return the number of rows in the file
-        echo (count($readData)-1);
+        $outputLine = (count($readData)-1);
       } else if($_GET["line"] == "head"){//return the CSV data headers
-        echo json_encode($readData[0]);
+        $outputLine = $readData[0];
       } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
         //returns raw line
         //var_dump($readData[count($readData)-1-$_GET["line"]]);
@@ -159,9 +159,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         for ($p = 0; $p<count($readData[0]);$p++){
           $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
         }  
-          $returnJSON = json_encode($returnArray);
-          echo $returnJSON;
+          $outputLine = $returnArray;
       }
+
+      $lOutput = array(
+        $_GET["line"] => $outputLine
+      );
+
+      echo json_encode($lOutput);
     }
     
 

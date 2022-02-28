@@ -154,14 +154,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         //returns raw line
         //var_dump($readData[count($readData)-1-$_GET["line"]]);
 
-/*        $returnArray = array();
-*/        //package line with headers
+        $returnArray = array();
+        //package line with headers
         for ($p = 0; $p<count($readData[0]);$p++){
           //$returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
-          array_push($outputLine, array($readData[0][$p] => $readData[count($readData)-1-$_GET["line"]][$p]));
-
+          array_push($returnArray, array($readData[0][$p] => $readData[count($readData)-1-$_GET["line"]][$p]));
         }  
-         // $outputLine = $returnArray;
+        $outputLine = $returnArray;
       }
 
       $lOutput = array(

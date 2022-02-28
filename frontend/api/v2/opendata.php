@@ -379,7 +379,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     }
   } else if(array_key_exists("server", $_GET)){
-    //getServerData();
     getServerCCData();
   }
 }
@@ -505,8 +504,9 @@ function getServerCCData(){
 
     if (is_numeric($_GET["server"])){
       
-      echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json');
-
+      //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json');
+      $output = file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json');
+      echo json_encode(array($_GET["server"] =>$output));
     } else if($_GET["server"] == "all"){
 
       $output = [];
@@ -530,76 +530,16 @@ function getServerCCData(){
         
       }
 
-      echo json_encode($output);
+      //echo json_encode($output);
+      echo json_encode(array($_GET["server"] =>$output));
 
     } else {
-      echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
+      //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
+      $output = file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' )
+      echo json_encode(array($_GET["server"] =>$output));
     }
+
 }
-
-function getServerData(){
-
-  $endPoint = assembleGETstring();
-  $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";
-
-  //should this use the getFileCotnents function?
-  $contents = json_decode(file_get_contents($fileName),true); //retrieve contents of the deviceList file
-  $ipList = [];
-  
-  //this sets the timeout for the API calls
-  $streamContext = stream_context_create(
-    array('http'=>
-      array(
-          //the default is 60 seconds, we're using 15 seconds
-          'timeout' => 15
-      )
-    )
-  );
-
-  #loop through contents of device list and collect IP addresses
-  for ($d = 0; $d < count($contents);$d++){
-    array_push($ipList,$contents[$d]["ip"]);
-  }
-
-  /**
-   * if a number was passed as the value, make an API call to that specific server
-   * the number is based on the order of the server names returned from the networkInfo=deviceList call
-  **/
-  if (is_numeric($_GET["server"])){
-    echo getContentsErr('http://' . $ipList[$_GET['server']] . $endPoint, false, $streamContext);
-
-  } else if($_GET["server"] == "all"){
-
-    $output = [];
-
-    #make API calls
-    for ($d = 0; $d < count($ipList);$d++){
-      //error_log('API destination: http://' . $ipList[$d] . $endPoint, 0);
-
-      $resp = getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext);
-
-      if(json_decode($resp) != null){
-        error_log('JSON_DECODE not NULL');
-        $resp = json_decode($resp);
-      }
-
-      //array_push($output, json_decode(getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext)));
-      array_push($output, $resp);
-    }
-
-    //JSON_UNESCAPED_SLASHES is neccessary for handling the timezones
-    echo json_encode($output, JSON_UNESCAPED_SLASHES);
-  } else {
-    //call a single server by name (with spaces removed)
-    for ($d = 0; $d < count($contents);$d++){
-      if (strtolower($_GET['server']) == strtolower(str_replace(' ', '', $contents[$d]["name"]))){
-        echo getContentsErr('http://' . $ipList[$d] . $endPoint, false, $streamContext);
-        break;
-      }
-    }
-  }
-}
-
 
 //assemble all of the GET key:value pairs into the end point for the API request
 function assembleGETstring(){

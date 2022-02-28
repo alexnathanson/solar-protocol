@@ -141,7 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
   else if (array_key_exists("line", $_GET)) {
     //echo "Key = Line";
-    $outputLine = '';
     $readData = chargeControllerData($todayFile);
 
     if ($readData != FALSE){    
@@ -165,7 +164,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           $returnArray[$repKey] = $readData[count($readData)-1-$_GET["line"]][$p];
           //array_push($returnArray, array($readData[0][$p] => $readData[count($readData)-1-$_GET["line"]][$p]));
         }  
-        //$outputLine = $returnArray;
 
         $lOutput = array(
           $_GET["line"] => $returnArray
@@ -181,10 +179,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     //echo "Key = File";
 
     if ($_GET["day"] == "list"){//list all charge controller data files
-      echo json_encode(justTracerDataFiles($ccDir));
+
+      echo json_encode(array($_GET["day"] =>justTracerDataFiles($ccDir)));
 
     } else if ($_GET["day"] == "len"){//list all charge controller data files
-      echo count(justTracerDataFiles($ccDir));
+      echo json_encode(array($_GET["day"] =>count(justTracerDataFiles($ccDir))));
 
     } else if (intval($_GET["day"]) >= 1 && intval($_GET["day"]) <= 7){
 

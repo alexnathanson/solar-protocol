@@ -74,8 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
               //skip row 0 which contains the headers
               continue;
             }
-            //$valueTimeSeries[$l[0]]=$l[$valuePosition] * wattageScaler();
-            array_push($valueTimeSeries, array($l[0] => $l[$valuePosition] * wattageScaler()));
+            $valueTimeSeries[$l[0]]=$l[$valuePosition] * wattageScaler();
+            //array_push($valueTimeSeries, array($l[0] => $l[$valuePosition] * wattageScaler()));
 
           }
         } else { //unscaled wattage
@@ -84,13 +84,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
               //skip row 0 which contains the headers
               continue;
             }
-            //$valueTimeSeries[$l[0]]=$l[$valuePosition];
-            array_push($valueTimeSeries, array($l[0] => $l[$valuePosition]));
+            $valueTimeSeries[$l[0]]=$l[$valuePosition];
+            //array_push($valueTimeSeries, array($l[0] => $l[$valuePosition]));
           }
         }
          
       }
-
+/*
+          $output = array(
+        "name" => $nameDump,
+        "poe" => $logDump,
+        "tz" => $tzDump,
+        "timestamp" => $tsDump);*/
 
       $headerOutput = array(
         "datetime" => $_GET["value"]

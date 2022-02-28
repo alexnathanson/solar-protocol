@@ -98,7 +98,13 @@ Charge controller data:
 </p>
 Optional modifier: <strong>duration</strong> returns the specified value over a given amount of days, from 1 to 7.
 <p>
-Example: <a href="http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage&duration=2" target="_blank">http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage&duration=2</a>
+Example: <a href="http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage&duration=2" target="_blank">http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage&duration=2</a><br>
+Response: { header : {datetime : PV-voltage}, data {[...]}}
+</p>
+
+<p>
+Example: http://solarprotocol.net/api/v2/opendata.php?value=PV-current <br>
+Response: { "PV-current": "0.76" }
 </p>
 
 <form method="GET">

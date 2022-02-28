@@ -157,7 +157,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $returnArray = array();
         //package line with headers
         for ($p = 0; $p<count($readData[0]);$p++){
-          $returnArray[$readData[0][$p]] = $readData[count($readData)-1-$_GET["line"]][$p];
+
+          $repKey = str_replace(" ","-",$readData[0][$p]);
+
+          $returnArray[$repKey] = $readData[count($readData)-1-$_GET["line"]][$p];
           //array_push($returnArray, array($readData[0][$p] => $readData[count($readData)-1-$_GET["line"]][$p]));
         }  
         $outputLine = $returnArray;

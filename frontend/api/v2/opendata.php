@@ -90,12 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
          
       }
-/*
-          $output = array(
-        "name" => $nameDump,
-        "poe" => $logDump,
-        "tz" => $tzDump,
-        "timestamp" => $tsDump);*/
 
       $headerOutput = array(
         "datetime" => $_GET["value"]
@@ -199,10 +193,33 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if($f>= count($dirArray)){
           break;
         }
-        array_push($multiDayData, chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]));
+
+        $dData = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
+
+        $allData = [];
+
+        foreach(array_reverse($dData) as $k => $d){
+          if ($k == count($tFile) - 1){
+            //skip row 0 which contains the headers
+            $headerOutput = $d;
+            continue;
+          }
+          //$valueTimeSeries[$d[0]]=$l[$valuePosition];
+          array_push($allData, $d);
+        }
+
+        array_push($multiDayData, $allData);
+
       }
 
-      echo json_encode($multiDayData);
+      $dayOutput = array(
+        "header" => $headerOutput,
+        "data" => $multiDayData
+      );
+
+      echo json_encode($dayOutput);
+
+      //echo json_encode($multiDayData);
 
     } else if(strpos($_GET["day"],'tracerData') !== false){      //get CC data file by file name
       echo json_encode(chargeControllerData($ccDir . $_GET["day"] . '.csv'));

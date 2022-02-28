@@ -67,14 +67,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           $valuePosition++;
         }
 
+
+        array_push($valueTimeSeries, array($valueTimeSeries[$l[0]] => , ));
+
         //scale the wattage if required
         if($qValue == 'PV-power-L' && $scaleIt == true){
           foreach($tFile as $l){
-            $valueTimeSeries[$l[0]]=$l[$valuePosition] * wattageScaler();
+            //$valueTimeSeries[$l[0]]=$l[$valuePosition] * wattageScaler();
+            array_push($valueTimeSeries, array($valueTimeSeries[$l[0]] => $l[$valuePosition] * wattageScaler()));
+
           }
         } else { //unscaled wattage
           foreach($tFile as $l){
-            $valueTimeSeries[$l[0]]=$l[$valuePosition];
+            //$valueTimeSeries[$l[0]]=$l[$valuePosition];
+            array_push($valueTimeSeries, array($valueTimeSeries[$l[0]] => $l[$valuePosition]));
           }
         }
          

@@ -147,9 +147,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if ($readData != FALSE){    
       
       if($_GET["line"] == "len"){//return the number of rows in the file
-        $outputLine = (count($readData)-1);
+        $lOutput = array($_GET["line"] => (count($readData)-1));
       } else if($_GET["line"] == "head"){//return the CSV data headers
-        $outputLine = $readData[0];
+
+        $lOutput = array($_GET["line"] => $readData[0]);
+
       } else if ($_GET["line"] >= 0 && $_GET["line"] < count($readData)){
         //returns raw line
         //var_dump($readData[count($readData)-1-$_GET["line"]]);
@@ -158,17 +160,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         //package line with headers
         for ($p = 0; $p<count($readData[0]);$p++){
 
-          $repKey = json_decode(str_replace(" ","-",$readData[0][$p]));
+          $repKey = str_replace(" ","-",$readData[0][$p]);
 
           $returnArray[$repKey] = $readData[count($readData)-1-$_GET["line"]][$p];
           //array_push($returnArray, array($readData[0][$p] => $readData[count($readData)-1-$_GET["line"]][$p]));
         }  
-        $outputLine = $returnArray;
-      }
+        //$outputLine = $returnArray;
 
-      $lOutput = array(
-        $_GET["line"] => $outputLine
-      );
+        $lOutput = array(
+          $_GET["line"] => $returnArray
+        );
+      }
 
       echo json_encode($lOutput);
     }

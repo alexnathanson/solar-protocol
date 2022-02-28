@@ -535,7 +535,7 @@ function getServerCCData(){
 
     } else {
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
-      $output = file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' )
+      $output = file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
       echo json_encode(array($_GET["server"] =>$output));
     }
 

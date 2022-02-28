@@ -69,8 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         //scale the wattage if required
         if($qValue == 'PV-power-L' && $scaleIt == true){
-          foreach($tFile as $k => $l){
-            if ($k == 0){
+          foreach(array_reverse($tFile) as $k => $l){
+            if ($k == count($tFile) - 1){
               //skip row 0 which contains the headers
               continue;
             }
@@ -79,8 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
           }
         } else { //unscaled wattage
-          foreach($tFile as $k => $l){
-            if ($k == 0){
+          foreach(array_reverse($tFile) as $k => $l){
+            if ($k == count($tFile) - 1){
               //skip row 0 which contains the headers
               continue;
             }

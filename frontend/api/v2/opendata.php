@@ -199,7 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         $allData = [];
         foreach(array_reverse($dData) as $k => $d){
-          if ($k == count($tFile) - 1){
+          if ($k == count($dData) - 1){
             //skip row 0 which contains the headers
             $headerOutput = $d;
             //continue;

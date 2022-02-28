@@ -71,13 +71,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if($qValue == 'PV-power-L' && $scaleIt == true){
           foreach($tFile as $l){
             //$valueTimeSeries[$l[0]]=$l[$valuePosition] * wattageScaler();
-            array_push($valueTimeSeries, array($valueTimeSeries[$l[0]] => $l[$valuePosition] * wattageScaler()));
+            array_push($valueTimeSeries, array($l[0] => $l[$valuePosition] * wattageScaler()));
 
           }
         } else { //unscaled wattage
           foreach($tFile as $l){
             //$valueTimeSeries[$l[0]]=$l[$valuePosition];
-            array_push($valueTimeSeries, array($valueTimeSeries[$l[0]] => $l[$valuePosition]));
+            array_push($valueTimeSeries, array($l[0] => $l[$valuePosition]));
           }
         }
          
@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       $vDOutput = array(
         "header" => $headerOutput,
-        "data" => [$valueTimeSeries]
+        "data" => $valueTimeSeries
       );
 
       echo json_encode($vDOutput);

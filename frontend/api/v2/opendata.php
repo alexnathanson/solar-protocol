@@ -293,7 +293,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       for ($d = 0; $d < count($contents);$d++){
         array_push($output,$contents[$d]["name"]);
       }
-      echo json_encode($output);
+      //echo json_encode($output);
+      echo json_encode(array($_GET["networkInfo"] =>$output));
+
 
     #return the list of time zones of all the servers stored locally
     } else if($_GET["networkInfo"] == "tz"){
@@ -307,7 +309,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         for ($d = 0; $d < count($contents);$d++){
           array_push($output,$contents[$d]["tz"]);
         }
-        echo json_encode($output);
+        //echo json_encode($output);
+        echo json_encode(array($_GET["networkInfo"] =>$output));
 
 
     #return the POE logs stored locally for all devices
@@ -322,7 +325,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       for ($d = 0; $d < count($contents);$d++){
         array_push($output,$contents[$d]["log"]);
       }
-      echo json_encode($output);
+      //echo json_encode($output);
+      echo json_encode(array($_GET["networkInfo"] =>$output));
 
     #return the timestamp from when the device posted the data to the server
     } else if($_GET["networkInfo"] == "timestamp"){
@@ -336,7 +340,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       for ($d = 0; $d < count($contents);$d++){
         array_push($output,$contents[$d]["time stamp"]);
       }
-      echo json_encode($output);
+      //echo json_encode($output);
+      echo json_encode(array($_GET["networkInfo"] =>$output));
 
     } else if($_GET["networkInfo"] == "dump"){
   
@@ -369,7 +374,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         "tz" => $tzDump,
         "timestamp" => $tsDump);
 
-      echo json_encode($output, JSON_UNESCAPED_SLASHES);
+      //echo json_encode($output, JSON_UNESCAPED_SLASHES);
+      echo json_encode(array($_GET["networkInfo"] =>$output), JSON_UNESCAPED_SLASHES);
+
     }
   } else if(array_key_exists("server", $_GET)){
     //getServerData();

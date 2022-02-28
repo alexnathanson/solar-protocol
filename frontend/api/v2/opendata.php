@@ -44,14 +44,22 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       //returns a given value over time
       $valueTimeSeries = [];
 
+      //returns an array of all the file names in the charge controller data directory
       $dirArray = justTracerDataFiles($ccDir);
+
+      //loop through each file name
       for ($f = 0; $f < intval($_GET["duration"]); $f++){
         if($f>= count($dirArray) || $f >= 7){
           break;
         }
+
+        //get 1 file returned as array
         $tFile = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
 
+        //determine the position of the requested value in the array
         $valuePosition = 0;
+
+        //for each row
         foreach($tFile[0] as $k){
           if($k == $qValue){
             break;
@@ -78,8 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       );
 
       $vDOutput = array(
-        "headers" => $headerOutput,
-        "data" => $valueTimeSeries
+        "header" => $headerOutput,
+        "data" => [$valueTimeSeries]
       );
 
       echo json_encode($vDOutput);

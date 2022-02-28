@@ -202,10 +202,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           if ($k == count($tFile) - 1){
             //skip row 0 which contains the headers
             $headerOutput = $d;
-            continue;
+            //continue;
+          } else {
+            //$valueTimeSeries[$d[0]]=$l[$valuePosition];
+            array_push($allData, $d);
           }
-          //$valueTimeSeries[$d[0]]=$l[$valuePosition];
-          array_push($allData, $d);
         }
 
         array_push($multiDayData, $allData);

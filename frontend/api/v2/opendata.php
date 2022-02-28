@@ -187,6 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else if (intval($_GET["day"]) >= 1 && intval($_GET["day"]) <= 7){
 
       $multiDayData = [];
+      $headerOutput = [];
 
       $dirArray = justTracerDataFiles($ccDir);
       for ($f = 0; $f < intval($_GET["day"]); $f++){
@@ -197,7 +198,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $dData = chargeControllerData($ccDir . $dirArray[count($dirArray)-1-$f]);
 
         $allData = [];
-
         foreach(array_reverse($dData) as $k => $d){
           if ($k == count($tFile) - 1){
             //skip row 0 which contains the headers

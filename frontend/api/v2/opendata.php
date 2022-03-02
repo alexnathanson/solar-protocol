@@ -534,13 +534,13 @@ function getServerCCData(){
 
       $noHeadersOutput = removeFirstElement($output);
 
-
-      $sOutput = array(
-        "headers" => $headerOutput,
+      /*$sOutput = array(
+        "header" => $headerOutput,
         "server" => intval($_GET["server"]),
         "data" =>$noHeadersOutput
       );
-      echo json_encode($sOutput);
+      echo json_encode($sOutput);*/
+      echoServer($headerOutput,intval($_GET["server"]),$noHeadersOutput);
 
 
     } else if($_GET["server"] == "all"){
@@ -569,13 +569,14 @@ function getServerCCData(){
         
       }
 
-      $sOutput = array(
-        "headers" => $headerOutput,
+      /*$sOutput = array(
+        "header" => $headerOutput,
         "server" => $_GET["server"],
         "data" => $output
       );
 
-      echo json_encode($sOutput);
+      echo json_encode($sOutput);*/
+      echoServer($headerOutput,$_GET["server"],$output);
 
     } else { //this is for named servers
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
@@ -585,12 +586,7 @@ function getServerCCData(){
 
       $noHeadersOutput = removeFirstElement($output);
 
-      $sOutput = array(
-        "headers" => $headerOutput,
-        "server" => $_GET["server"],
-        "data" =>$noHeadersOutput
-      );
-      echo json_encode($sOutput);
+      echoServer($headerOutput,$_GET["server"],$noHeadersOutput);
     }
 
 }
@@ -609,6 +605,15 @@ function removeFirstElement($anArray){
 
   return $outputArray;
 
+}
+
+function echoServer($h, $s, $d){
+  $output = array(
+    "header" => $h,
+    "server" => $_s,
+    "data" =>$d
+  );
+  echo json_encode($output);
 }
 
 //assemble all of the GET key:value pairs into the end point for the API request

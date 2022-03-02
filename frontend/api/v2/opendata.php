@@ -564,6 +564,11 @@ function getServerCCData(){
         if($resp != null){
           error_log('JSON_DECODE not NULL');
           $resp = json_decode($resp);
+
+          $headerOutput = $resp[0];
+
+          $resp = removeFirstElement($resp);
+
         } else {
           $resp = 'err';
         }
@@ -574,13 +579,10 @@ function getServerCCData(){
         
       }
 
-      $headerOutput = array(
-        "datetime" => $_GET["value"]
-      );
-
       $sOutput = array(
         "headers" => $headerOutput,
-        $_GET["server"] =>$output
+        "server" => $_GET["server"].
+        "data" => $output
       );
 
       echo json_encode($sOutput);
@@ -609,6 +611,22 @@ function getServerCCData(){
       );
       echo json_encode($sOutput);
     }
+
+}
+
+function removeFirstElement($anArray){
+
+  $outputArray = [];
+  foreach($anArray as $k => $d){
+    if ($k == 0){
+      //skip row 0 which contains the headers
+      //$headerOutput = $d;
+      continue;
+    }
+    array_push($outputArray, $d);
+  }
+
+  return $outputArray;
 
 }
 

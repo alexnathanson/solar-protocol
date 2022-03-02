@@ -553,13 +553,29 @@ function getServerCCData(){
         
       }
 
-      //echo json_encode($output);
-      echo json_encode(array($_GET["server"] =>$output));
+      $headerOutput = array(
+        "datetime" => $_GET["value"]
+      );
+
+      $sOutput = array(
+        "headers" => $headerOutput,
+        $_GET["server"] =>$output
+      );
+
+      echo json_encode($sOutput);
 
     } else {
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
       $output = json_decode(file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' ));
-      echo json_encode(array($_GET["server"] =>$output));
+
+
+       $headerOutput = $output[0];
+
+      $sOutput = array(
+        "headers" => $headerOutput,
+        $_GET["server"] =>$output
+      );
+      echo json_encode($sOutput);
     }
 
 }

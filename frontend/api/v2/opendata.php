@@ -530,17 +530,9 @@ function getServerCCData(){
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json');
       $output = json_decode(file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json'));
 
-      $noHeadersOutput = [];
-      foreach($output as $k => $d){
-        if ($k == 0){
-          //skip row 0 which contains the headers
-          $headerOutput = $d;
-          //continue;
-        } else {
-          //$valueTimeSeries[$d[0]]=$l[$valuePosition];
-          array_push($noHeadersOutput, $d);
-        }
-      }
+      $headerOutput = $output[0];
+
+      $noHeadersOutput = removeFirstElement($resp);
 
 
       $sOutput = array(
@@ -574,8 +566,6 @@ function getServerCCData(){
         }
 
         $output[$nameList[$d]] = $resp;
-
-        //array_push($output, $resp);
         
       }
 
@@ -591,18 +581,9 @@ function getServerCCData(){
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
       $output = json_decode(file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' ));
 
-      $noHeadersOutput = [];
-      foreach($output as $k => $d){
-        if ($k == 0){
-          //skip row 0 which contains the headers
-          $headerOutput = $d;
-          //continue;
-        } else {
-          //$valueTimeSeries[$d[0]]=$l[$valuePosition];
-          array_push($noHeadersOutput, $d);
-        }
-      }
+      $headerOutput = $output[0];
 
+      $noHeadersOutput = removeFirstElement($resp);
 
       $sOutput = array(
         "headers" => $headerOutput,

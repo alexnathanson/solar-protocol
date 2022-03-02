@@ -532,7 +532,7 @@ function getServerCCData(){
 
       $headerOutput = $output[0];
 
-      $noHeadersOutput = removeFirstElement($resp);
+      $noHeadersOutput = removeFirstElement($output);
 
 
       $sOutput = array(
@@ -583,7 +583,7 @@ function getServerCCData(){
 
       $headerOutput = $output[0];
 
-      $noHeadersOutput = removeFirstElement($resp);
+      $noHeadersOutput = removeFirstElement($output);
 
       $sOutput = array(
         "headers" => $headerOutput,

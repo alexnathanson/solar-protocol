@@ -569,11 +569,24 @@ function getServerCCData(){
       $output = json_decode(file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' ));
 
 
-       $headerOutput = $output[0];
+       //$headerOutput = $output[0];
+
+        $noHeadersOutput = [];
+        foreach(array_reverse($output) as $k => $d){
+          if ($k == count($output) - 1){
+            //skip row 0 which contains the headers
+            $headerOutput = $d;
+            //continue;
+          } else {
+            //$valueTimeSeries[$d[0]]=$l[$valuePosition];
+            array_push($noHeadersOutput, $d);
+          }
+        }
+
 
       $sOutput = array(
         "headers" => $headerOutput,
-        $_GET["server"] =>$output
+        $_GET["server"] =>$noHeadersOutput
       );
       echo json_encode($sOutput);
     }

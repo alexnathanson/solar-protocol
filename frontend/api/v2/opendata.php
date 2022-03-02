@@ -610,7 +610,7 @@ function removeFirstElement($anArray){
 function echoServer($h, $s, $d){
   $output = array(
     "header" => $h,
-    "server" => $_s,
+    "server" => $s,
     "data" =>$d
   );
   echo json_encode($output);

@@ -529,7 +529,27 @@ function getServerCCData(){
       
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json');
       $output = json_decode(file_get_contents($dataPath . strtolower(str_replace(' ', '', $nameList[$_GET["server"]])) . '.json'));
-      echo json_encode(array($_GET["server"] =>$output));
+
+      $noHeadersOutput = [];
+      foreach($output as $k => $d){
+        if ($k == 0){
+          //skip row 0 which contains the headers
+          $headerOutput = $d;
+          //continue;
+        } else {
+          //$valueTimeSeries[$d[0]]=$l[$valuePosition];
+          array_push($noHeadersOutput, $d);
+        }
+      }
+
+
+      $sOutput = array(
+        "headers" => $headerOutput,
+        $_GET["server"] =>$noHeadersOutput
+      );
+      echo json_encode($sOutput);
+
+
     } else if($_GET["server"] == "all"){
 
       $output = [];
@@ -564,24 +584,21 @@ function getServerCCData(){
 
       echo json_encode($sOutput);
 
-    } else {
+    } else { //this is for named servers
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
       $output = json_decode(file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' ));
 
-
-       //$headerOutput = $output[0];
-
-        $noHeadersOutput = [];
-        foreach($output as $k => $d){
-          if ($k == 0){
-            //skip row 0 which contains the headers
-            $headerOutput = $d;
-            //continue;
-          } else {
-            //$valueTimeSeries[$d[0]]=$l[$valuePosition];
-            array_push($noHeadersOutput, $d);
-          }
+      $noHeadersOutput = [];
+      foreach($output as $k => $d){
+        if ($k == 0){
+          //skip row 0 which contains the headers
+          $headerOutput = $d;
+          //continue;
+        } else {
+          //$valueTimeSeries[$d[0]]=$l[$valuePosition];
+          array_push($noHeadersOutput, $d);
         }
+      }
 
 
       $sOutput = array(

@@ -545,7 +545,8 @@ function getServerCCData(){
 
       $sOutput = array(
         "headers" => $headerOutput,
-        $_GET["server"] =>$noHeadersOutput
+        "server" => $_GET["server"],
+        "data" =>$noHeadersOutput
       );
       echo json_encode($sOutput);
 
@@ -603,7 +604,8 @@ function getServerCCData(){
 
       $sOutput = array(
         "headers" => $headerOutput,
-        $_GET["server"] =>$noHeadersOutput
+        "server" => $_GET["server"],
+        "data" =>$noHeadersOutput
       );
       echo json_encode($sOutput);
     }

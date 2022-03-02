@@ -572,8 +572,8 @@ function getServerCCData(){
        //$headerOutput = $output[0];
 
         $noHeadersOutput = [];
-        foreach(array_reverse($output) as $k => $d){
-          if ($k == count($output) - 1){
+        foreach($output as $k => $d){
+          if ($k == 0){
             //skip row 0 which contains the headers
             $headerOutput = $d;
             //continue;

@@ -581,7 +581,7 @@ function getServerCCData(){
 
       $sOutput = array(
         "headers" => $headerOutput,
-        "server" => $_GET["server"].
+        "server" => $_GET["server"],
         "data" => $output
       );
 

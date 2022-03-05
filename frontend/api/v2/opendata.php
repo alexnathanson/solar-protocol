@@ -592,7 +592,7 @@ function getServerCCData(){
 
       $noHeadersOutput = removeFirstElement($output);
 
-      echoServer($headerOutput,$_GET["server"],$noHeadersOutput, $tzList[$nameList.indexOf($serverStr)]);
+      echoServer($headerOutput,$_GET["server"],$noHeadersOutput, $tzList[3]);
     }
 
 }

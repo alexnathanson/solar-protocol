@@ -518,11 +518,12 @@ function getServerCCData(){
     //should this use the getFileCotnents function?
     $contents = json_decode(file_get_contents($fileName),true); //retrieve contents of the deviceList file
     $nameList = [];
-
-    #loop through contents of device list and collect IP addresses
+    $tzList = [];
+    #loop through contents of device list and collect IP addresses and timezones
     for ($d = 0; $d < count($contents);$d++){
       $aName = strtolower(str_replace(' ', '', $contents[$d]["name"]));
       array_push($nameList,$aName);
+      array_push($tzList,$contents[$d]["tz"]);
     }
 
     $dataPath = "/home/pi/local/data/";
@@ -543,7 +544,7 @@ function getServerCCData(){
         "data" =>$noHeadersOutput
       );
       echo json_encode($sOutput);*/
-      echoServer($headerOutput,intval($_GET["server"]),$noHeadersOutput);
+      echoServer($headerOutput,intval($_GET["server"]),$noHeadersOutput, $tzList[$_GET["server"]]);
 
 
     } else if($_GET["server"] == "all"){
@@ -579,17 +580,19 @@ function getServerCCData(){
       );
 
       echo json_encode($sOutput);*/
-      echoServer($headerOutput,$_GET["server"],$output);
+      echoServer($headerOutput,$_GET["server"],$output, $tzList);
 
     } else { //this is for named servers
+
+      $serverStr = strtolower(str_replace(' ', '', $_GET["server"]));
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
-      $output = json_decode(file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' ));
+      $output = json_decode(file_get_contents($dataPath . $serverStr . '.json' ));
 
       $headerOutput = $output[0];
 
       $noHeadersOutput = removeFirstElement($output);
 
-      echoServer($headerOutput,$_GET["server"],$noHeadersOutput);
+      echoServer($headerOutput,$_GET["server"],$noHeadersOutput, $tzList[$nameList.indexOf($serverStr)]);
     }
 
 }
@@ -610,11 +613,12 @@ function removeFirstElement($anArray){
 
 }
 
-function echoServer($h, $s, $d){
+function echoServer($h, $s, $d, $t){
   $output = array(
     "header" => $h,
     "server" => $s,
-    "data" =>$d
+    "data" =>$d,
+    "timezone" => $t
   );
   echo json_encode($output);
 }

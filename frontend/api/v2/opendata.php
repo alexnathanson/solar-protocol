@@ -97,10 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       $vDOutput = array(
         "header" => $headerOutput,
-        "data" => $valueTimeSeries
+        "data" => $valueTimeSeries,
+        "timezone" =>date_default_timezone_get()
       );
 
-      echo json_encode($vDOutput);
+      echo json_encode($vDOutput, JSON_UNESCAPED_SLASHES);
     } else {
       $readData = chargeControllerData($todayFile);
 
@@ -165,11 +166,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }  
 
         $lOutput = array(
-          $_GET["line"] => $returnArray
+          $_GET["line"] => $returnArray,
+          "timezone" =>date_default_timezone_get()
         );
       }
 
-      echo json_encode($lOutput);
+      echo json_encode($lOutput, JSON_UNESCAPED_SLASHES);
     }
     
 
@@ -215,10 +217,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       $dayOutput = array(
         "header" => $headerOutput,
-        "data" => $multiDayData
+        "data" => $multiDayData,
+        "timezone" =>date_default_timezone_get()
       );
 
-      echo json_encode($dayOutput);
+      echo json_encode($dayOutput, JSON_UNESCAPED_SLASHES);
 
       //echo json_encode($multiDayData);
 

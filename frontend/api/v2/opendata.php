@@ -585,7 +585,7 @@ function getServerCCData(){
     } else { //this is for named servers
 
       $serverStr = strtolower(str_replace(' ', '', $_GET["server"]));
-      console.log($nameList.indexOf($serverStr));
+
       //echo file_get_contents($dataPath . strtolower(str_replace(' ', '', $_GET["server"])) . '.json' );
       $output = json_decode(file_get_contents($dataPath . $serverStr . '.json' ));
 
@@ -593,7 +593,7 @@ function getServerCCData(){
 
       $noHeadersOutput = removeFirstElement($output);
 
-      echoServer($headerOutput,$_GET["server"],$noHeadersOutput, $tzList[3]);
+      echoServer($headerOutput,$_GET["server"],$noHeadersOutput, $tzList[array_search($serverStr), $nameList]);
     }
 
 }

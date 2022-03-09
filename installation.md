@@ -115,8 +115,8 @@ Give Apache/PHP user 'www-data' necessary permissions:
  -->
 
 ### Local
-* Move local directory outside of solar-protocol directory to pi directory  
-`sudo mv /home/pi/solar-protocol/local /home/pi/`
+* Copy local directory outside of solar-protocol directory to pi directory  
+`sudo cp -r /home/pi/solar-protocol/local /home/pi/local`
 * Update the info with your information as needed  
 
 ### Permissions

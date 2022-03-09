@@ -13,9 +13,10 @@ $serverHash = [
   "Hells Gate" => "$2y$10$5/O1zeTvLmxBNIRpmqve5u6x9RmL8JBi./dzgD3mwfudHEBuABFQ6",
   "Chile" => "$2y$10$M3RtM5fYwzUXYQJRx1OGDe9oPSAmnApDPlCWpYCpHXcQixCPVaNge",
   "Caddie" => "$2y$10$157Qs27b4.gUAHlF0o/i5ufIF/tclJ8GitcIQbgeA9t76XYF0S0Ve",
-  "Low Carbon Methods" => "$2y$10$2vFdQ05rQyGFIbY6WjncE.nZgimUEfIoCQKoQmK1qNLSPfc3T2NXy",
+  "Low_Carbon_Methods" => "$2y$10$2vFdQ05rQyGFIbY6WjncE.nZgimUEfIoCQKoQmK1qNLSPfc3T2NXy",
   "Dominica" => "$2y$10$MLdkxh3qzwwU0yucGTBte.964aMIPxRHa4UiH3o0AH67jGk5P5nDu",
-  "Kenya" => "$2y$10$3EuwWV0KuoBhBBJd3Q7uX.2XHNIYZZkn0mpUjXSLHd6vGFlAXhyGe"
+  "Kenya" => "$2y$10$3EuwWV0KuoBhBBJd3Q7uX.2XHNIYZZkn0mpUjXSLHd6vGFlAXhyGe",
+  "Fiber_Fest" => "$2y$10$zSLd.OsDN8L.wt5SHS9pgO0ZDqPFClJLLNs3saE5UKMpVJ3Qw5Qbu"
 ];
 
 //this is the black list. there could potentailly be multiple burned keys from the same server, so another data format might be necessary

@@ -206,14 +206,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $headerOutput = $d;
             //continue;
           } else {
-            //$valueTimeSeries[$d[0]]=$l[$valuePosition];
-            //array_push($allData, $d);
             array_push($multiDayData, $d);
           }
         }
-
-        //array_push($multiDayData, $allData);
-
       }
 
       $dayOutput = array(

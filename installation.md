@@ -139,7 +139,7 @@ All the necessary file and directory permissions can set by running this script:
 * open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
 	* reboot daily `@midnight sudo reboot`
 
-### Troubleshooting  
+### General Troubleshooting  
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  
 * Run `ps -aux` to list running processes  
 * Run `ps -ef | grep .py` to list running python processes

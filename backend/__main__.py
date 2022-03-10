@@ -1,7 +1,10 @@
 
 import runner
+import time
 
-#print("main!")
+print("main - sleeping")
+
+time.sleep(60)
 
 runner.runSP()
 

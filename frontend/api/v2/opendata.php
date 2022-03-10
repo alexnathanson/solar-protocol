@@ -208,13 +208,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           } else {
             //$valueTimeSeries[$d[0]]=$l[$valuePosition];
             //array_push($allData, $d);
-            foreach($d as $l){
-              array_push($allData, $l);
-            }
+            array_push($multiDayData, $d);
           }
         }
 
-        array_push($multiDayData, $allData);
+        //array_push($multiDayData, $allData);
 
       }
 

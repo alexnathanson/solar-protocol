@@ -8,7 +8,11 @@ sudo chmod -R a+w /home/pi/local/data
 sudo chmod a+w /home/pi/solar-protocol/backend/data/deviceList.json
 sudo chmod a+w /home/pi/solar-protocol/backend/data/poe.log
 sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py
-sudo chmod -R +x /home/pi/solar-protocol/backend/
+
+sudo chmod +x /home/pi/solar-protocol/backend/*.py
+sudo chmod +x /home/pi/solar-protocol/backend/createHTML/*.py
+sudo chmod +x /home/pi/solar-protocol/backend/core/*.py
+
 sudo chmod a+w /home/pi/solar-protocol/frontend/index.html
 sudo chmod +x /home/pi/solar-protocol/utilities/update.sh
 sudo chmod a+w /home/pi/solar-protocol/frontend/images/clock-exhibit.png

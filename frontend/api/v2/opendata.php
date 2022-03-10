@@ -207,7 +207,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             //continue;
           } else {
             //$valueTimeSeries[$d[0]]=$l[$valuePosition];
-            array_push($allData, $d);
+            //array_push($allData, $d);
+            foreach($d as $l){
+              array_push($allData, $l);
+            }
           }
         }
 

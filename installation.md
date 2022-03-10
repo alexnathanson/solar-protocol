@@ -139,6 +139,15 @@ All the necessary file and directory permissions can set by running this script:
 * open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
 	* reboot daily `@midnight sudo reboot`
 
+#### Automation Troubleshooting
+
+* Confirm that "Wait for Network at Boot" option is enable. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
+* Confirm 
+* If the backend python scripts wont run from rc.local, you may need to add a delay. This alternative runner
+	* open rc.local `sudo nano /etc/rc.local`  
+		* add this line above "exit 0" `sudo -H -u pi sh /home/pi/solar-protocol/backend/alt-runner.sh > /home/pi/solar-protocol/backend/runner.log 2>&1 &`  
+
+
 ### General Troubleshooting  
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  
 * Run `ps -aux` to list running processes  

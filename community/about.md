@@ -23,7 +23,7 @@ Funding for Solar Protocol has been provided by Eyebeam (2020-2021), Code for Sc
 
 ## Project Organizers/ Leads
 
-Tega Brain, Alex Nathanson (alex@alexnathanson.com), Benedetta Piantella
+Solar Protocol is was created and currently led by Tega Brain, Alex Nathanson (alex@alexnathanson.com), Benedetta Piantella.
 
 ## Server Stewards
 

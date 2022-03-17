@@ -16,7 +16,7 @@ $serverHash = [
   "Low_Carbon_Methods" => "$2y$10$2vFdQ05rQyGFIbY6WjncE.nZgimUEfIoCQKoQmK1qNLSPfc3T2NXy",
   "Dominica" => "$2y$10$MLdkxh3qzwwU0yucGTBte.964aMIPxRHa4UiH3o0AH67jGk5P5nDu",
   "Kenya" => "$2y$10$3EuwWV0KuoBhBBJd3Q7uX.2XHNIYZZkn0mpUjXSLHd6vGFlAXhyGe",
-  "Fiber_Fest" => "$2y$10$zSLd.OsDN8L.wt5SHS9pgO0ZDqPFClJLLNs3saE5UKMpVJ3Qw5Qbu"
+  "Fiber_Fest" => "$2y$10$42gKyu4kJeMnbOn79hJyQOBxE3aqV1OCXSwaWasg1Dvi0goII2fKK"
 ];
 
 //this is the black list. there could potentailly be multiple burned keys from the same server, so another data format might be necessary

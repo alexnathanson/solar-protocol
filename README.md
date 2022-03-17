@@ -24,7 +24,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 
 ## Hardware install notes  
 
-[Notes in a doc here](https://docs.google.com/document/d/1JErF9BTZ0PJqTYizKsbufNywM0OAiGEPdE7eItEyTxQ/edit?usp=sharing)
+[Notes in a doc here](https://docs.google.com/document/d/1hdcTf9xUmsjRPd3waJEkQf1Bjive8Z6RmyWv_p5n8Is/edit)
 
 ## Hardware Troubleshooting & Maintenance
 

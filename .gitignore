@@ -21,4 +21,6 @@ backend/visualization/clock.png
 
 dns-gateway/key.php
 
+/utilities/hostnames.sh
+
 #.spenv

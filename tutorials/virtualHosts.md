@@ -10,7 +10,7 @@ It is recommended to follow the below instructions to use different conf files f
 * Set read permissions for that directory `sudo chmod -R 755 /home/pi/local/www/mygreatproject/`
 * Update the DNS registry accordingly. Note that this is not dynamic so if your public IP changes your connection will be severed, unless you implement a dynamic IP updater.
 
-## Steps
+## Steps to set up new file
 
 ### Step 1
 
@@ -32,6 +32,14 @@ If you have any server aliases add them on the next line. If you are not using a
 
 Change the document root path to the location of your site root directory<br>
 `DocumentRoot /home/pi/local/www/`
+
+## steps to copy existing conf file from repo
+
+## Step 1 & 2
+
+`mv /home/pi/solar-protocol/backend/config-files/solarpunk.solarprotocol.net.conf /etc/apache2/sites-available/`
+
+## Continue... 
 
 ### Step 3
 

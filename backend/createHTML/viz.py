@@ -23,7 +23,7 @@ hours = 72
 ah = (2*Pi)/hours #angle of an hour
 ring_rad = 61 
 radius = 61*10
-start_ring = 1
+start_ring = 0
 
 #Run settings
 local = 1

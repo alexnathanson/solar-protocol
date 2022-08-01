@@ -112,7 +112,7 @@ def setFreq():
 	'''
 		Set how frequent the script should run various functions
 	'''
-	
+
 	#print("setting frequency")
 	
 	#battery percentage
@@ -132,7 +132,7 @@ def setFreq():
 	except:
 	 	lF = 20
 
-	 return lF
+	return lF
 
 def solarScaler():
 	'''

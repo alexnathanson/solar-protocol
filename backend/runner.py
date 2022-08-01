@@ -51,7 +51,7 @@ def runSP():
 
 			timeOfRun = datetime.datetime.now()
 
-			if loopFrequency = 60:
+			if loopFrequency == 60:
 				sM = 0
 			else:
 				sM = 1
@@ -101,11 +101,18 @@ def printLoud(mess, e):
 	print()
 
 def getElapsedTime(oldTime):
+	'''
+		returns elapsed time since oldTime was set
+	'''
 	el = datetime.datetime.now() - oldTime
 	elMin = trunc(el.seconds / 60)
 	return elMin
 
 def setFreq():
+	'''
+		Set how frequent the script should run various functions
+	'''
+	
 	#print("setting frequency")
 	
 	#battery percentage

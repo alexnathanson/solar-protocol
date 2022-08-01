@@ -159,7 +159,7 @@ def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC, my_TZ):
 	postIt('localhost', myString)
 
 	#post to solarprotocol.net
-	postIt('www.solarprotocol.net', myString)
+	postIt('solarprotocol.net', myString)
 
 	for dst in ipList:
 		print("DST: " + dst)

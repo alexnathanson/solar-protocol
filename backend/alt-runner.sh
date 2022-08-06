@@ -5,4 +5,4 @@ echo "alt runner"
 
 sleep 60
 
-sudo python3 /home/pi/solar-protocol/backend
+python3 /home/pi/solar-protocol/backend

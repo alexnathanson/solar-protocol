@@ -22,7 +22,7 @@ if os.environ.get("ENV") == "DEV":
 else:
     path = "/home/pi/solar-protocol/backend"
     rootPath = "/home/pi/"
-    chargecontrollerdata = str(datetime.date.today()) 
+    chargecontrollerdata = "tracerData"+str(datetime.date.today()) 
 
 deviceList = path + "/data/deviceList.json"
 

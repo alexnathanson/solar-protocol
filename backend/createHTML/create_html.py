@@ -1,3 +1,7 @@
+# To run in dev mode from from virtual env:
+# source venv/bin/activate
+# ENV=DEV python3 create_html.py
+
 from collections import UserList
 from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader

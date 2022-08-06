@@ -8,26 +8,20 @@ import requests, json
 import json
 import csv
 import os
-# import viz
 import re
-import ast
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
+if os.environ.get("ENV") == "DEV": 
+    path = ".." 
+    rootPath = "../../../"
+    chargecontrollerdata = "/testtracerdata"
+else:
+    path = "/home/pi/solar-protocol/backend"
+    rootPath = "solar-protocol/home/pi/"
+    chargecontrollerdata = str(datetime.date.today()) 
 
-
-
-#Run settings
-# local = 1
-
-#GLOBALS
-#path is used for paths within the backend directory
-path = "/home/pi/solar-protocol/backend"
-#root path is used for things within the solar-protocol directory
-rootPath = "/home/pi/solar-protocol/"
-
-# if local == 1:
-#     path = ""   
 deviceList = path + "/data/deviceList.json"
+
 dstIP = []
 serverNames = []
 myIP = " "
@@ -92,7 +86,7 @@ def getCC(dst,ccValue):
 def read_csv(): 
     # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
     filename = (
-        rootPath + "/charge-controller/data/tracerData" + str(datetime.date.today()) + ".csv"
+        rootPath + "solar-protocol/charge-controller/data/" + chargecontrollerdata + ".csv"
     )
 
     with open(filename, "r") as data:
@@ -129,7 +123,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     for template_filename, output_filename in pages:
         template_filename = path + "/createHTML/templates/" + template_filename
-        output_filename = rootPath + "/frontend/" + output_filename
+        output_filename = rootPath + "solar-protocol/frontend/" + output_filename
         template_file = open(template_filename).read()
         print("rendering", template_filename)
         print("battery", _data["battery percentage"]*100)
@@ -241,7 +235,7 @@ def get_weather(_local_data):
 
 #get local front end data
 def get_local():
-    filename = "/home/pi/local/local.json"
+    filename = rootPath + "local/local.json"
     with open(filename) as infile:
         local_data = json.load(infile)
     return local_data  # dictionary
@@ -346,7 +340,7 @@ def check_images(server_data):
     for server in server_data:
         filename = server["name"]+".gif"
         filename = filename.replace(" ", "-")
-        fullpath = rootPath + "/frontend/images/servers/" + filename
+        fullpath = rootPath + "solar-protocol/frontend/images/servers/" + filename
         filepath = "images/servers/" + filename
         #print("server:", server)
         if "ip" in server:

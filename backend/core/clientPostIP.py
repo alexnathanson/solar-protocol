@@ -6,10 +6,12 @@ Reads list of destination IPs and posts own IP address to those other devices.
 #these modules are only used by this module within this packages
 #all other modules are imported via __init__
 import re
+from threading import local
 import time
 import requests
 import json
 import subprocess
+import os
 
 consoleOutput = True
 
@@ -18,9 +20,12 @@ headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
-
-localConfig = "/home/pi/local/local.json"
+if os.environ.get("ENV") == "DEV":
+	deviceList = "./tests/devicelist.json"
+	localConfig = "./tests/local.json"
+else:
+	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+	localConfig = "/home/pi/local/local.json"
 
 poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
 

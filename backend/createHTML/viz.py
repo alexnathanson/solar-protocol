@@ -1,13 +1,13 @@
 
 import gizeh as g
 import math
+import os
 
 import pandas as pd
 import json
 import datetime
 from dateutil.relativedelta import relativedelta
 from PIL import Image
-import webcolors
 
 from pytz import timezone
 import pytz
@@ -24,20 +24,14 @@ ah = (2*Pi)/hours #angle of an hour
 ring_rad = 61 
 radius = 61*10
 start_ring = 0
+debug_mode =0
 
-#Run settings
-local = 1
-debug_mode = 0
-
-# path = "/home/pi/solar-protocol/backend"
-# if local == 1:
-#     path = "../"   
-
-rootPath = "/home/pi/solar-protocol"
-
-path = "/home/pi/solar-protocol/backend"
-if local == 0:
-    path = ".."   
+if os.environ.get("ENV") == "DEV":
+    path = ".." 
+    rootPath = "../.."
+else:
+    rootPath = "/home/pi/solar-protocol"
+    path = "/home/pi/solar-protocol/backend"
 
 #Global variables
 deviceList = path + "/data/deviceList.json"
@@ -449,11 +443,9 @@ def main():
     surface.write_to_png(path + "/clock.png")
 
 
-
     background = Image.open(path+"/visualization/3day-diagram-nolabels1.png")
     exhibitionbackground = Image.open(path+"/visualization/3day-diagram-nolabels1-nokey.png")
     foreground = Image.open(path + "/clock.png")
-
 
     mask = Image.open(path+'/visualization/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)

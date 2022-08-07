@@ -1,4 +1,3 @@
-import webcolors
 import gizeh as g
 import math
 import os
@@ -8,6 +7,7 @@ import json
 import datetime
 from dateutil.relativedelta import relativedelta
 from PIL import Image
+import webcolors
 
 from pytz import timezone
 import pytz

@@ -41,4 +41,5 @@ uharfbuzz==0.14.0
 unicodedata2==13.0.0.post2
 urllib3==1.25.9
 virtualenv==20.0.17
+webcolors==1.11.1
 zipp==3.1.0

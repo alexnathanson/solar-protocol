@@ -201,8 +201,7 @@ def runClientPostIP():
 	print("*****Running ClientPostIP script*****")
 	print()
 	
-	#update this with the SP IP site
-	myIP = 	requests.get('http://whatismyip.akamai.com/').text
+	myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
 	print("MY IP: " + myIP)
 
 	#wlan0 might need to be changed to eth0 if using an ethernet cable

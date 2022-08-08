@@ -94,6 +94,10 @@ def scriptsToRun(sMode):
 	except Exception as err:
 		printLoud("create_html Exception", err)
 
+	print()
+	print("Completed run at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+	print()
+
 def printLoud(mess, e):
 	print()
 	print("!!!!! " + mess + " !!!!!")

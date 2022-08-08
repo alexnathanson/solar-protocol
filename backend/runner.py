@@ -70,8 +70,8 @@ def runSP():
 
 def scriptsToRun(sMode):
 	RUN_COUNT = RUN_COUNT + 1
-	
-	print("Run number " + RUN_COUNT + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+
+	print("Run number " + str(RUN_COUNT) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
 
 	try:
 		clientPostIP.runClientPostIP()
@@ -100,7 +100,7 @@ def scriptsToRun(sMode):
 		printLoud("create_html Exception", err)
 
 	print()
-	print("Completed run " + RUN_COUNT + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+	print("Completed run " + str(RUN_COUNT) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
 	print()
 
 def printLoud(mess, e):

@@ -83,7 +83,7 @@ def determineServer(remoteData,localData, SP):
 		#print(SP.myIP)
 		#print(SP.getEnv('DNS_KEY'))
 
-		#getDNS(requests.get('http://whatismyip.akamai.com/').text)
+		#getDNS(requests.get('https://server.solarpowerforartists.com/?myip').text)
 		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
 
 	else:

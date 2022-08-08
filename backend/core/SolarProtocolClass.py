@@ -100,7 +100,7 @@ class SolarProtocol:
 		return mac
 
 	# def getMyIP(self):
-	# 	return requests.get('http://whatismyip.akamai.com/').text
+	# 	return requests.get('https://server.solarpowerforartists.com/?myip').text
 
 	# def postDNS(url):
 	# 	headers = {

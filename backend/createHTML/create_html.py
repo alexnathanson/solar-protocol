@@ -348,7 +348,7 @@ def check_images(server_data):
         filepath = "images/servers/" + filename
         #print("server:", server)
         if "ip" in server:
-            myIP = 	requests.get('http://whatismyip.akamai.com/').text
+            myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
             print("Server IP:", server["ip"])
             print("myIP", myIP)
             if server["ip"] == "localhost": #if it is itself

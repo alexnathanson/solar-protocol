@@ -321,7 +321,7 @@ def main():
     # print("current sys path (viz): " + sys.path)
 
     #Get my ip
-    myIP = 	requests.get('http://whatismyip.akamai.com/').text
+    myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
     # print("MY IP: ", type(myIP))
 
     #Get IPs, using keyword ip

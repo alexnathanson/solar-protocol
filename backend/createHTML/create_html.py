@@ -263,7 +263,7 @@ def get_ips():
     # deviceInfoFile = "/home/pi/solar-protocol/backend/data/deviceList.json"
     # deviceInfo = json.dumps(deviceInfoFile)
     #Get my ip
-    myIP = 	requests.get('http://whatismyip.akamai.com/').text
+    myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
     print("MY IP: ", type(myIP))
 
     #Get IPs, using keyword ip

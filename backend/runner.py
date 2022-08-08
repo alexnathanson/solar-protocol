@@ -25,7 +25,6 @@ import logging
 from math import trunc
 
 SP = SolarProtocolClass()
-RUN_COUNT = 0
 
 def runSP():
 	print("***** Solar Protocol Runner Started ******")
@@ -37,6 +36,8 @@ def runSP():
 
 	timeOfRun = datetime.datetime.now()
 
+	runCount = 1
+
 	#pass the argument "now" to run everything immediately - otherwise sleep for 60 seconds before starting
 	if len(sys.argv) > 1:
 			if sys.argv[1] == "now":
@@ -44,9 +45,11 @@ def runSP():
 	else:
 		time.sleep(60)
 	
-	scriptsToRun(1)
+	scriptsToRun(1, runCount)
 
 	while True:
+
+		runCount = runCount + 1
 
 		# print(datetime.datetime.now().minute)
 		
@@ -59,7 +62,7 @@ def runSP():
 			else:
 				sM = 1
 
-			scriptsToRun(sM)
+			scriptsToRun(sM, runCount)
 
 			loopFrequency = setFreq()
 			print(loopFrequency)
@@ -68,10 +71,9 @@ def runSP():
 		#sleep for 60 seconds
 		time.sleep(60)
 
-def scriptsToRun(sMode):
-	RUN_COUNT = RUN_COUNT + 1
+def scriptsToRun(sMode,rC):
 
-	print("Run number " + str(RUN_COUNT) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+	print("Run number " + str(rC) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
 
 	try:
 		clientPostIP.runClientPostIP()
@@ -100,7 +102,7 @@ def scriptsToRun(sMode):
 		printLoud("create_html Exception", err)
 
 	print()
-	print("Completed run " + str(RUN_COUNT) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+	print("Completed run " + str(rC) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
 	print()
 
 def printLoud(mess, e):

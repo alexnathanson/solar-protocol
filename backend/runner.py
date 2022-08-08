@@ -32,7 +32,7 @@ def runSP():
 	#print(sys.argv)
 
 	loopFrequency = setFreq()
-	print("Loop frequency: " + loopFrequency + " minutes")
+	print("Loop frequency: " + str(loopFrequency) + " minutes")
 	sScaler = solarScaler()
 
 	timeOfRun = datetime.datetime.now()

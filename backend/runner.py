@@ -6,6 +6,8 @@ This script controls when the other scripts run based on battery status and sola
 >30% every 30 minutes
 <= 30% every 60 minutes
 
+pass the argument "now" to run everything immediately - otherwise sleep for 60 seconds before starting
+
 If solar power production is 0 times are doubled.
 If battery percentage is below 30, viz script doesn't run
 
@@ -23,13 +25,14 @@ import logging
 from math import trunc
 
 SP = SolarProtocolClass()
+RUN_COUNT = 0
 
 def runSP():
 	print("***** Solar Protocol Runner Started ******")
 	#print(sys.argv)
 
 	loopFrequency = setFreq()
-	print(loopFrequency)
+	print("Loop frequency: " + loopFrequency + " minutes")
 	sScaler = solarScaler()
 
 	timeOfRun = datetime.datetime.now()
@@ -66,8 +69,10 @@ def runSP():
 		time.sleep(60)
 
 def scriptsToRun(sMode):
-	print("Running at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+	RUN_COUNT = RUN_COUNT + 1
 	
+	print("Run number " + RUN_COUNT + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+
 	try:
 		clientPostIP.runClientPostIP()
 	except Exception as err:
@@ -95,7 +100,7 @@ def scriptsToRun(sMode):
 		printLoud("create_html Exception", err)
 
 	print()
-	print("Completed run at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+	print("Completed run " + RUN_COUNT + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
 	print()
 
 def printLoud(mess, e):

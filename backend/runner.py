@@ -65,7 +65,8 @@ def runSP():
 			scriptsToRun(sM, runCount)
 
 			loopFrequency = setFreq()
-			print(loopFrequency)
+			print("Loop frequency: " + str(loopFrequency) + " minutes")
+
 			sScaler = solarScaler()
 
 		#sleep for 60 seconds

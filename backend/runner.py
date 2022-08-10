@@ -49,8 +49,6 @@ def runSP():
 
 	while True:
 
-		runCount = runCount + 1
-
 		# print(datetime.datetime.now().minute)
 		
 		if getElapsedTime(timeOfRun) % (loopFrequency * sScaler) == 0:
@@ -61,6 +59,8 @@ def runSP():
 				sM = 0
 			else:
 				sM = 1
+
+			runCount = runCount + 1
 
 			scriptsToRun(sM, runCount)
 

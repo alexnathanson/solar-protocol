@@ -1,18 +1,66 @@
-# Installation
+# Software Installation
 
-These are the original installation instructions. The automated installer stuff is untested and should not be used yet.
+This is an untested work in progress. Use the original instructions in the installation.md doc for now.
 
-## Hardware
+## Automated Installation (recommended)
 
-* Solar Charge Controller: We use EPever Tracer2210AN, but any Epever Tracer-AN Series would work.
-* Raspberry Pi 4 (or 3B+)
+1) Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
+	* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations
+	* Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
+	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot` 
 
-### Wiring
-This works with a USB to RS485 converter (ch340T chip model).
-* RJ45 blue => b
-* RJ45 green => a
+2) run installer.sh `sudo sh installer.sh`
 
-## Software
+3) configure server
+
+Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
+  
+* `cd /etc/apache2/sites-available`  
+* `sudo nano 000-default.conf`  
+	* change `DocumentRoot /var/www/` to `DocumentRoot /home/pi/solar-protocol/frontend`  
+* `sudo nano /etc/apache2/apache2.conf`  
+	* add these lines to the file    
+	`<Directory /home/pi/solar-protocol/frontend/>`    
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Options Indexes FollowSymLinks`   
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`AllowOverride All`  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  
+	`</Directory>`  
+* To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
+
+To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
+* then restart `sudo systemctl restart apache2`   
+
+Enable server status interface:
+* edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
+* add these 4 lines to the file directly above `</VirtualHost>`<br>
+`<Location /server-status>`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
+`</Location>`
+* save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
+* once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
+
+4) security settings
+
+### Security
+Recommendations to set up your pi securely   
+* Choose a strong password  
+* Open ports 80 and 22 on your router    
+* Secure pi - here is a guide: https://www.raspberrypi.org/documentation/configuration/security.md  
+    * To use key-based authentication   
+    	* run `install -d -m 700 ~/.ssh`  
+    	(to be performed after downloading the solar-protocol repo) 
+	* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
+    	* set permissions. 
+    		* `sudo chmod 644 ~/.ssh/authorized_keys`  
+			* `sudo chown pi:pi ~/.ssh/authorized_keys`  
+		* test that passwordless key-based authentication works. 
+		* if it works, disable password login  
+			* `sudo nano /etc/ssh/sshd_config`  
+			* change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)  
+
+## Manual Installation 
 
 ### OS
 * Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
@@ -49,7 +97,7 @@ then install numpy and this missing library:
 * `sudo apt-get install libatlas-base-dev`
 
 #### Troubleshooting PIL
-* 'sudo apt install libtiff5'
+* `sudo apt install libtiff5`
 
 #### Further troubleshooting updates and dependencies
 * In some instances it may be necessary to manually change the mirror which determines where apt-get pulls from. Instructions for manually changing the mirror can be found at https://pimylifeup.com/raspbian-repository-mirror/

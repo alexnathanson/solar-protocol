@@ -76,34 +76,50 @@ def scriptsToRun(sMode,rC):
 
 	print("Run number " + str(rC) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
 
+	runReport = "Exceptions: "
+
 	try:
 		clientPostIP.runClientPostIP()
 	except Exception as err:
 		printLoud("clientPostIP.py Exception", err)
+		runReport = runReport + "clientPostIP "
 
 	try:
 		solarProtocol.runSP()
 	except Exception as err:
 		printLoud("solarProtocol.py Exception", err)
+		runReport = runReport + "solarProtocol "
 
 	try:
 		getRemoteData.run()
 	except Exception as err:
 		printLoud("getRemoteData.py Exception", err)
+		runReport = runReport + "getRemoteData "
+
 
 	if sMode != '0':
 		try:
 			viz.main()
 		except Exception as err:
 			printLoud("viz Exception", err)
+			runReport = runReport + "viz "
+
 
 	try:
 		create_html.main()
 	except Exception as err:
 		printLoud("create_html Exception", err)
+		runReport = runReport + "create_html "
+
 
 	print()
 	print("Completed run " + str(rC) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+
+	if runReport != "":
+		print(runReport)
+	else:
+		print(runReport + '0, we good')
+
 	print()
 
 def printLoud(mess, e):

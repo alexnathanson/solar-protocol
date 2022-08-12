@@ -12,9 +12,19 @@ import csv
 import logging
 import requests
 import json
+import sys
 
 #globals
 # SP = 0
+
+if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+	dataRoot = "../../dev-data/"
+	deviceList = dataRoot + "devicelist.json"
+	localConfig = dataRoot + "local.json"
+	poeLog = dataRoot + "poe.log"
+	envVar = "this-will-fail"
+	DEV = True
+else:
 
 consoleOutput = True
 

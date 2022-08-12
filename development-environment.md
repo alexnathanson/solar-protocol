@@ -9,7 +9,7 @@ Scripts that do not require API keys and will run in a local dev environment:
 * viz.py
 * getRemoteData.py
 
-Scripts the require API keys (not currently set up to work in a local dev environment):
+Scripts the require API keys (These will run, but will fail because the API key is real. More work is needed to enable them to safely make test posts with dummy data without it breaker the client.):
 * clientPostIP.py
 * solarProtocol.py
 
@@ -52,10 +52,10 @@ Install the dependencies from our requirements file, which is located in the sol
 
 The DEV file paths are relative so these scripts must be run from their directory.
 
+Note that 'python3' may be 'py', 'python', etc. depending on your OS and environment.
+
 To run in unix/MacOS:
 `ENV=DEV python3 create_html.py`
 
-To run in Windows:
+To run in Windows (this should also work in unix/MacOS):
 `python3 create_html.py DEV`
-
-Note that 'python3' may be 'py', 'python', etc. depending on your OS and environment.

@@ -12,6 +12,7 @@ import requests
 import json
 import subprocess
 import os
+import sys
 
 consoleOutput = True
 
@@ -20,14 +21,18 @@ headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-if os.environ.get("ENV") == "DEV":
-	deviceList = "./tests/devicelist.json"
-	localConfig = "./tests/local.json"
+if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+	dataRoot = "../../dev-data/"
+	deviceList = dataRoot + "devicelist.json"
+	localConfig = dataRoot + "local.json"
+	poeLog = dataRoot + "poe.log"
+	envVar = "this-will-fail" #sys.argv[2]
+	DEV = True
 else:
 	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 	localConfig = "/home/pi/local/local.json"
-
-poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
+	poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
+	DEV = False
 
 newDSTList = []
 runningDSTList = []
@@ -179,14 +184,17 @@ def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC, my_TZ):
 		makePosts(newDSTList, api_Key, my_IP, my_Name, my_MAC, my_TZ)
 
 def getEnv(thisEnv):
-	#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
-	proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
-	e = proc.stdout.read()
-	#convert byte string to string
-	e = e.decode("utf-8") 
-	#remove line breaks
-	e = e.replace("\n", "")
-	return e
+	if not DEV:
+		#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
+		proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
+		e = proc.stdout.read()
+		#convert byte string to string
+		e = e.decode("utf-8") 
+		#remove line breaks
+		e = e.replace("\n", "")
+		return e
+	else:
+		return envVar
 
 def addPort(thisPort):
 	p = getLocalConfig(thisPort)

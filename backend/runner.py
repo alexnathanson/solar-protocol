@@ -115,7 +115,7 @@ def scriptsToRun(sMode,rC):
 	print()
 	print("Completed run " + str(rC) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
 
-	if runReport != "":
+	if runReport != "Exceptions: ":
 		print(runReport)
 	else:
 		print(runReport + '0, we good')

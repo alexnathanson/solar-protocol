@@ -12,6 +12,15 @@ The purpose of this is minimize the amount of on the fly API calls.
 '''
 
 import json
+import os
+import sys
+
+if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+    print('running in dev mode')
+    fileDst = "../../dev-data/temp/"
+else:
+	#this is the directory where files are saved to
+	fileDst = "/home/pi/local/data/"
 
 def run():
 	print()
@@ -22,9 +31,6 @@ def run():
 	SP = SolarProtocolClass()
 
 	# deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
-
-	#this is the directory where files are saved to
-	fileDst = "/home/pi/local/data/"
 
 	ipList = SP.getDevVal('ip', False)
 	nameList = SP.getDevVal('name', False)
@@ -79,7 +85,7 @@ def handleData(ccFiles, name):
 	#add headers back in to top
 	combinedFile.insert(0, fHeaders)
 
-	with open("/home/pi/local/data/" + name + '.json', 'w', encoding='utf-8') as f:
+	with open(fileDst + name + '.json', 'w', encoding='utf-8') as f:
 		f.write(json.dumps(combinedFile))
 		f.close()
 

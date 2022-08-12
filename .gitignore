@@ -5,7 +5,7 @@ venv/
 */venv/*
 env/
 */env/*
-dev-data/temp/*
+#dev-data/temp/*
 
 #this directory is needed, but we just don't want to overwrite it...
 charge-controller/data/

@@ -1,0 +1,1 @@
+This is for downloaded data in a local dev environment. The contents of this directory are ignored.

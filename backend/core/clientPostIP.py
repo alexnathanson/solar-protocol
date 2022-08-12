@@ -22,8 +22,9 @@ headers = {
 }
 
 if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+	print("Dev mode")
 	dataRoot = "../../dev-data/"
-	deviceList = dataRoot + "devicelist.json"
+	deviceList = dataRoot + "deviceList.json"
 	localConfig = dataRoot + "local.json"
 	poeLog = dataRoot + "poe.log"
 	envVar = "this-will-fail" #sys.argv[2]

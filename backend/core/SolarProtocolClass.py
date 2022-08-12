@@ -18,6 +18,8 @@ Refactoring and expansion is required to create additional methods and apply thi
 import requests
 import json
 import subprocess
+import sys
+import os
 
 #confirm class is loaded
 #print('solar protocol class in attendence')
@@ -25,15 +27,23 @@ import subprocess
 
 class SolarProtocol:
 	def __init__(self):
-		self.localConfigFile = "/home/pi/local/local.json"
+		if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+			print('running in dev mode')
+			self.localConfigFile = "../../local/local.json"
+			self.deviceList = "../../dev-data/deviceList.json"
+			self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
+		else:
+			#this is the directory where files are saved to
+			self.localConfigFile = "/home/pi/local/local.json"
+			self.deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+			self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
 		self.localConfigData = dict()
 		self.loadLocalConfigFile()
 		self.myIP = requests.get('https://server.solarpowerforartists.com/?myip').text #we should have our own API endpoint for this...
 		# dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
 		self.dnsURL = "https://server.solarpowerforartists.com/"
-		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
 		self.MACinterface = "wlan0" #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
-		self.deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+
 
 	#load in data from config file
 	def loadLocalConfigFile(self):

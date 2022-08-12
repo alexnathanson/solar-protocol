@@ -4,10 +4,14 @@ Instructions for setting up a local development environment for Solar Protocol
 
 Some of the SP scripts rely on the open API and some require private API access. 
 
-Scripts that do not require API keys:
+Scripts that do not require API keys and will run in a local dev environment:
 * create_html.py
 * viz.py
 * getRemoteData.py
+
+Scripts the require API keys (not currently set up to work in a local dev environment):
+* clientPostIP.py
+* solarProtocol.py
 
 ## Creating and activating the virtual environment
 

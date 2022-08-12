@@ -30,8 +30,6 @@ def run():
 	#initialize SolarProtocolClass
 	SP = SolarProtocolClass()
 
-	# deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
-
 	ipList = SP.getDevVal('ip', False)
 	nameList = SP.getDevVal('name', False)
 
@@ -45,6 +43,7 @@ def run():
 			myName = nameList[m]
 			break
 
+	#This must be V1 else an error occurs - must update the handleData function to use V2
 	endPt = '/api/v1/opendata.php?day=4'
 
 	for dst, name in zip(ipList, nameList):

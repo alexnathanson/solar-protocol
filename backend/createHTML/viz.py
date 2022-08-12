@@ -448,7 +448,7 @@ def main():
     exhibitionbackground = Image.open("viz-assets/3day-diagram-nolabels1-nokey.png")
     foreground = Image.open("viz-assets/clock.png")
 
-    mask = Image.open('/viz-assets/mask5.png').resize(background.size).convert('L')
+    mask = Image.open('viz-assets/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
     #this image goes to the frontend/images directory
     background.save(imgDST + "/clock.png")

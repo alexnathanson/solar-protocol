@@ -50,6 +50,8 @@ Install the dependencies from our requirements file, which is located in the sol
 
 ## Running Scripts
 
+The DEV file paths are relative so these scripts must be run from their directory.
+
 To run in unix/MacOS:
 `ENV=DEV python3 create_html.py`
 

@@ -1,6 +1,6 @@
 # Development environment
 
-Instructions for setting up a local development environment for Solar Protocol
+Instructions for creating and running Solar Protocol scripts from a local development environment.
 
 Some of the SP scripts rely on the open API and some require private API access. 
 
@@ -12,6 +12,11 @@ Scripts that do not require API keys and will run in a local dev environment:
 Scripts the require API keys (not currently set up to work in a local dev environment):
 * clientPostIP.py
 * solarProtocol.py
+
+Static example data for these scripts lives in the dev-data directory. Data/files created from these scripts is saved to the dev-data/temp directory and is ignored from the repo.
+
+Note that Cairo is required for viz.py and this is notoriously difficult to install on Windows.
+
 
 ## Creating and activating the virtual environment
 

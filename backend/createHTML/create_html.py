@@ -237,7 +237,7 @@ def get_ips():
     # deviceInfo = json.dumps(deviceInfoFile)
     #Get my ip
     myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
-    print("MY IP: ", type(myIP))
+    #print("MY IP: ", type(myIP))
 
     #Get IPs, using keyword ip
     dstIP = getDeviceInfo('ip')

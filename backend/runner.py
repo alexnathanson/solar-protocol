@@ -118,7 +118,7 @@ def scriptsToRun(sMode,rC):
 	if runReport != "Exceptions: ":
 		print(runReport)
 	else:
-		print(runReport + '0, we good')
+		print(runReport + '0, all good')
 
 	print()
 

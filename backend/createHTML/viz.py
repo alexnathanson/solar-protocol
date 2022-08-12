@@ -1,6 +1,7 @@
 import gizeh as g
 import math
 import os
+import sys
 
 import pandas as pd
 import json
@@ -26,15 +27,16 @@ radius = 61*10
 start_ring = 0
 debug_mode =0
 
-if os.environ.get("ENV") == "DEV":
+if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
     path = ".." 
     rootPath = "../.."
+    deviceList = rootPath + "/dev-data/deviceList.json"
+    imgDST = rootPath + "/dev-data/temp"
 else:
     rootPath = "/home/pi/solar-protocol"
     path = "/home/pi/solar-protocol/backend"
-
-#Global variables
-deviceList = path + "/data/deviceList.json"
+    deviceList = path + "/data/deviceList.json"
+    imgDST = rootPath + "/frontend/images"
 
 
 energyParam = "PV-current"
@@ -440,25 +442,26 @@ def main():
 
     # Now export the surface
     surface.get_npimage() # returns a (width x height x 3) numpy array
-    surface.write_to_png(path + "/clock.png")
+    surface.write_to_png("viz-assets/clock.png")
 
+    background = Image.open("viz-assets/3day-diagram-nolabels1.png")
+    exhibitionbackground = Image.open("viz-assets/3day-diagram-nolabels1-nokey.png")
+    foreground = Image.open("viz-assets/clock.png")
 
-    background = Image.open(path+"/visualization/3day-diagram-nolabels1.png")
-    exhibitionbackground = Image.open(path+"/visualization/3day-diagram-nolabels1-nokey.png")
-    foreground = Image.open(path + "/clock.png")
-
-    mask = Image.open(path+'/visualization/mask5.png').resize(background.size).convert('L')
+    mask = Image.open('/viz-assets/mask5.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
-    background.save(rootPath+"/frontend/images/clock.png")
+    #this image goes to the frontend/images directory
+    background.save(imgDST + "/clock.png")
 
     exhibitionbackground.paste(foreground, (0, 0), mask)
-    exhibitionbackground.save(rootPath+"/frontend/images/clock-exhibit.png")
+    #this image goes to the frontend/images directory
+    exhibitionbackground.save(imgDST+"/clock-exhibit.png")
 
     # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
     # alphaBlended2.save("clock1.png")
     #archive images
-    archiveImage = Image.open(rootPath+"/frontend/images/clock.png")
-    archiveImage.save(path+'/visualization/archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+    archiveImage = Image.open(imgDST+"/clock.png")
+    archiveImage.save('viz-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
 
 
 if __name__ == "__main__":

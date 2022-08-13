@@ -9,14 +9,13 @@ Scripts that do not require API keys and will run in a local dev environment:
 * viz.py
 * getRemoteData.py
 
-Scripts the require API keys (These will run, but will fail because the API key is real. More work is needed to enable them to safely make test posts with dummy data without it breaker the client.):
+Scripts the require API keys (These will run, but will fail because the API key is fake. More work is needed to enable them to safely make test posts with dummy data without it breaker the client.):
 * clientPostIP.py
 * solarProtocol.py
 
 Static example data for these scripts lives in the dev-data directory. Data/files created from these scripts is saved to the dev-data/temp directory and is ignored from the repo.
 
 Note that Cairo is required for viz.py and this is notoriously difficult to install on Windows.
-
 
 ## Creating and activating the virtual environment
 

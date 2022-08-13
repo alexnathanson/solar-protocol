@@ -26,6 +26,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
     chargecontrollerdata = "testtracerdata"
     templatePath = "templates/"
     outputPath = rootPath + "frontend/"
+    deviceList = rootPath + "/dev-data/deviceList.json"
 else:
     path = "/home/pi/solar-protocol/backend"
     rootPath = "/home/pi/"
@@ -33,8 +34,7 @@ else:
     chargecontrollerdata = "tracerData"+str(datetime.date.today()) 
     templatePath = path + "/createHTML/templates/"
     outputPath = rootPath + "solar-protocol/frontend/" 
-
-deviceList = path + "/data/deviceList.json"
+    deviceList = path + "/data/deviceList.json"
 
 dstIP = []
 serverNames = []

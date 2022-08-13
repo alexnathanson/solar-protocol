@@ -28,7 +28,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
 else:
 	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
-	#envVar = str(SP.getEnv('DNS_KEY'))
+	DEV = False
 
 consoleOutput = True
 

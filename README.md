@@ -28,7 +28,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 
 ## Hardware Troubleshooting & Maintenance
 
-https://github.com/alexnathanson/solar-protocol/blob/master/troubleshooting-and-maintenance.md
+https://github.com/alexnathanson/solar-protocol/blob/master/hardware-troubleshooting-and-maintenance.md
 
 <!-- ### FRONT END
 * Code for an energy responsive front end is in test-site folder

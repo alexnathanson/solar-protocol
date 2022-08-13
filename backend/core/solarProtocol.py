@@ -17,6 +17,9 @@ import sys
 #globals
 # SP = 0
 
+#initialize SolarProtocolClass
+SP = SolarProtocolClass()
+
 if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
 	dataRoot = "../../dev-data/"
 	deviceList = dataRoot + "deviceList.json"
@@ -146,9 +149,6 @@ def runSP():
 	print()
 	print("*****Running Solar Protocol script*****")
 	print()
-
-	#initialize SolarProtocolClass
-	SP = SolarProtocolClass()
 
 	#deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 

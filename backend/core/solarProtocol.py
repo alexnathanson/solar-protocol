@@ -17,8 +17,6 @@ import sys
 #globals
 # SP = 0
 
-#initialize SolarProtocolClass
-SP = SolarProtocolClass()
 
 if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
 	dataRoot = "../../dev-data/"
@@ -30,7 +28,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
 else:
 	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
-	envVar = str(SP.getEnv('DNS_KEY'))
+	#envVar = str(SP.getEnv('DNS_KEY'))
 
 consoleOutput = True
 
@@ -100,8 +98,12 @@ def determineServer(remoteData,localData, SP):
 		#print(SP.getEnv('DNS_KEY'))
 
 		#getDNS(requests.get('https://server.solarpowerforartists.com/?myip').text)
-		#SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
-		SP.getRequest(SP.updateDNS(SP.myIP,envVar), False)
+
+		#if in DEV mode dont try to load DNS key
+		if not DEV:
+			SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
+		else:
+			SP.getRequest(SP.updateDNS(SP.myIP,envVar), False)
 
 	else:
 		print('Not point of entry')
@@ -149,6 +151,9 @@ def runSP():
 	print()
 	print("*****Running Solar Protocol script*****")
 	print()
+
+	#initialize SolarProtocolClass
+	SP = SolarProtocolClass()
 
 	#deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 

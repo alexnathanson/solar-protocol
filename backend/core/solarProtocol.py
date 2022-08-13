@@ -20,12 +20,15 @@ import sys
 if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
 	dataRoot = "../../dev-data/"
 	deviceList = dataRoot + "devicelist.json"
-	localConfig = dataRoot + "local.json"
-	poeLog = dataRoot + "poe.log"
+	#localConfig = dataRoot + "local.json"
+	localDataFile = dataRoot + "testtracerdata.csv"
 	envVar = "this-will-fail"
 	DEV = True
 else:
-
+	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
+	envVar = str(SP.getEnv('DNS_KEY'))
+	
 consoleOutput = True
 
 dnsKey = ''
@@ -94,7 +97,8 @@ def determineServer(remoteData,localData, SP):
 		#print(SP.getEnv('DNS_KEY'))
 
 		#getDNS(requests.get('https://server.solarpowerforartists.com/?myip').text)
-		SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
+		#SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
+		SP.getRequest(SP.updateDNS(SP.myIP,envVar), False)
 
 	else:
 		print('Not point of entry')
@@ -146,11 +150,13 @@ def runSP():
 	#initialize SolarProtocolClass
 	SP = SolarProtocolClass()
 
-	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+	#deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
-	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
+	#localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
 
-	logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
+	#only log when not in developement mode
+	if not DEV:
+		logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
 
 	myMAC = SP.getMAC(SP.MACinterface)
 	#print("my mac: " + myMAC)

@@ -79,8 +79,8 @@ Charge controller data:
 <p>Example: <a href="http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage" target="_blank">http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage</a></p>
 <p>Possible values:
 	<ul>
-		<li>PV-current</li>
-		<li>PV-current</li>
+<!-- 		<li>PV-current</li>-->
+ 		<li>PV-current</li>
 		<li>PV-power-H</li>
 		<li>PV-power-L</li>
 		<li>PV-voltage</li>

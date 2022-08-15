@@ -27,6 +27,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
     templatePath = "templates/"
     outputPath = rootPath + "frontend/"
     deviceList = rootPath + "/dev-data/deviceList.json"
+    imgDST = rootPath + "frontend/images/servers/serverprofile.png"
 else:
     path = "/home/pi/solar-protocol/backend"
     rootPath = "/home/pi/"
@@ -35,6 +36,7 @@ else:
     templatePath = path + "/createHTML/templates/"
     outputPath = rootPath + "solar-protocol/frontend/" 
     deviceList = path + "/data/deviceList.json"
+    imgDST = "home/pi/local/www/serverprofile.gif"
 
 dstIP = []
 serverNames = []
@@ -325,8 +327,9 @@ def check_images(server_data):
             print("Server IP:", server["ip"])
             print("myIP", myIP)
             if server["ip"] == "localhost": #if it is itself
-
-                image_path = "home/pi/local/www/serverprofile.gif"
+                print("*** LOCAL HOST ***")
+                #image_path = "home/pi/local/www/serverprofile.gif"
+                image_path = imgDst
                 #this wont work with irregular ports
                 #image_path = "http://localhost/local/serverprofile.gif"
                 filepath = image_path
@@ -348,9 +351,6 @@ def main():
     print()
     print("***** Running create_html *****")
     print()
-
-    #this is now run via the main runner script
-    #viz.main()
     
     energy_data = read_csv() #get pv data from local csv 
     local_data = get_local() #get local steward data for front end

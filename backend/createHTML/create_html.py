@@ -28,6 +28,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
     outputPath = rootPath + "frontend/"
     deviceList = rootPath + "/dev-data/deviceList.json"
     imgDST = rootPath + "frontend/images/servers/serverprofile.png"
+    localDataSrc = chargeControllerDataPath
 else:
     path = "/home/pi/solar-protocol/backend"
     rootPath = "/home/pi/"
@@ -37,6 +38,7 @@ else:
     outputPath = rootPath + "solar-protocol/frontend/" 
     deviceList = path + "/data/deviceList.json"
     imgDST = "home/pi/local/www/serverprofile.gif"
+    localDataSrc = rootPath + "local/"
 
 dstIP = []
 serverNames = []
@@ -90,6 +92,7 @@ def read_csv():
 
 def render_pages(_local_data, _data, _weather, _server_data):
     print("Battery Percentage:" + str(_data["battery percentage"]))
+
     pages = [
         ("index_template.html", "index.html"),
         ("network_template.html", "network.html"),
@@ -100,41 +103,50 @@ def render_pages(_local_data, _data, _weather, _server_data):
         ("library_template.html", "library.html"),
     ]
 
+    #get the current time
+    time = datetime.datetime.now()
+    time = time.strftime("%I:%M %p")
+
+    #get the timezone
+    try:
+        tz_url = "http://localhost/api/v1/chargecontroller.php?systemInfo=tz"
+        z = requests.get(tz_url) 
+        #for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
+        if z.status == 404:
+            print("TZ 404 error")
+            zone = "TZ n/a"
+        else:
+            zone = z.text
+        #print("ZONE", z.text)
+        zone = zone.replace('/', ' ')
+        print("ZONE", zone)
+    except Exception as e:
+        print("Timezone Exception - TZ n/a")
+        zone = "TZ n/a"
+        #print("TZ na")
+
+    # print("UTC TIME", datetime.datetime.utcnow())
+    #would be nice to swap this out if the via script fails
+    leadImage="images/clock.png"
+
+    #determine mode
+    if((_data["battery percentage"]*100)>30):
+        mode="High res mode"
+    else:
+        mode="Low res mode"
+
+    #loop through all page templates and render them with new data
     for template_filename, output_filename in pages:
         template_filename = templatePath + template_filename #path + "/createHTML/templates/" + template_filename
         output_filename = outputPath + output_filename #rootPath + "solar-protocol/frontend/" + output_filename
         template_file = open(template_filename).read()
         print("rendering", template_filename)
-        print("battery", _data["battery percentage"]*100)
+        #print("battery", _data["battery percentage"]*100)
         #this line was changed last, it was: "/templates/"
         template = Environment(loader=FileSystemLoader(path + "/createHTML/templates/")).from_string(
             template_file
         )
-
         
-        time = datetime.datetime.now()
-        time = time.strftime("%I:%M %p")
-        try:
-            tz_url = "http://localhost/api/v1/chargecontroller.php?systemInfo=tz"
-            z = requests.get(tz_url) 
-            zone = z.text
-            print("ZONE", z.text)
-            zone = zone.replace('/', ' ')
-            print("ZONE", zone)
-        except Exception as e:
-            zone = "TZ n/a"
-            print("TZ na")
-
-        # print("UTC TIME", datetime.datetime.utcnow())
-        #would be nice to swap this out if the via script fails
-        leadImage="images/clock.png"
-        if((_data["battery percentage"]*100)>30):
-            mode="High res mode"
-        else:
-            mode="Low res mode"
-        
-       
-
         # template = Template(template_file)
         rendered_html = template.render(
             time=time,
@@ -214,7 +226,7 @@ def get_weather(_local_data):
 
 #get local front end data
 def get_local():
-    filename = rootPath + "local/local.json"
+    filename = localDataSrc + "local.json"
     with open(filename) as infile:
         local_data = json.load(infile)
     return local_data  # dictionary
@@ -225,7 +237,7 @@ def getDeviceInfo(getKey):
 
     with open(deviceList) as f:
       data = json.load(f)
-      print("Device List data:")
+      #print("Device list data:")
       #print(data)
 
     for i in range(len(data)):

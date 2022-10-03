@@ -31,16 +31,23 @@ Podman and Docker only work on linux, so if we want to run them on macOS, we hav
 
 ## build the base image
 
-This contains a known good version of python and our dependencies
+First, make sure you have the correct ssh keys and podman machine is running
+
+    ssh-agent add ~/.ssh/podman-machine-default
+    podman machine start
+
+Now, build a known good version of python and our dependencies
 
     podman build --file Containerfile --tag solar-protocol
 
-## run a shell
-
-This will start a temporary shell in the known good environment
+Next, start a temporary shell in the known good environment
 
     podman run --rm --interactive --tty \
       --name solar-protocol-dev \
       --mount type=bind,source="$(pwd)",target=/app \
       localhost:solar-protocol \
       /bin/bash
+
+In this container, we can start the server
+
+

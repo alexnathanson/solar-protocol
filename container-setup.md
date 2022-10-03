@@ -13,10 +13,17 @@ Always check [the latest installation docs](https://podman.io/getting-started/in
 ### macOS
 
     brew install podman
-    podman machine init
-    podman machine start
+    podman machine init --volume /Users
 
 > Ignore any `Error: exit status 255` messages
+
+Why the `--volume /Users`?
+
+Podman and Docker only work on linux, so if we want to run them on macOS, we have to start a linux virtual machine. And we first need to mount files from macOS to linux, before we can use them in our containers.
+
+    macOS (host)
+     -> podman machine (linux)
+         -> solar-protocl-dev (container)
 
 ### Windows
 

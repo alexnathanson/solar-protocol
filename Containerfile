@@ -4,10 +4,10 @@ ENV TERM xterm-256color
 # Insall apache and php
 RUN apt update && apt upgrade --yes && apt install apache2 php php-gd --yes
 
-COPY . /solar-protocol
-
+COPY requirements.txt /solar-protocol/requirements.txt
 WORKDIR /solar-protocol
 RUN pip install --no-cache-dir --requirement requirements.txt
+COPY . /solar-protocol
 
 ENV DEV=true
 
@@ -43,6 +43,6 @@ RUN a2enmod headers && a2enmod rewrite
 EXPOSE 80
 
 # Generate frontend (jinja) templates
-RUN python backend/create_html/createHTML.py
+RUN python frontend/create_html/createHTML.py
 
 CMD bash

@@ -1,7 +1,8 @@
 FROM python:3.10
 ENV TERM xterm-256color
 
-RUN apt update && apt upgrade --yes && apt install apache2 php --yes
+# Insall apache and php
+RUN apt update && apt upgrade --yes && apt install apache2 php php-gd --yes
 
 COPY . /solar-protocol
 
@@ -25,9 +26,6 @@ Header set Access-Control-Allow-Origin "*"\
 </Directory>\
 ' /etc/apache2/apache2.conf
 
-# Enable CORS and redirection
-RUN a2enmod headers && a2enmod rewrite && systemctl restart apache2
-
 # Enable server status interface
 RUN sed --in-place \
   --expression='/<\/VirtualHost>/s|^|\
@@ -37,9 +35,10 @@ Require all granted\
 </Location>\
 |' /etc/apache2/sites-enabled/000-default.conf
 
-RUN apt install php7.3-gd --yes && systemctl restart apache2
-
 RUN echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+# Enable CORS and redirection
+RUN a2enmod headers && a2enmod rewrite && service apache2 enable
 
 EXPOSE 80
 

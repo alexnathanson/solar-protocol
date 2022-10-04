@@ -9,7 +9,6 @@ WORKDIR /solar-protocol
 RUN pip install --no-cache-dir --requirement requirements.txt
 COPY . /solar-protocol
 
-ENV DEV=true
 
 # Configure apache2 to use our root directory
 RUN sed --in-place \
@@ -43,6 +42,6 @@ RUN a2enmod headers && a2enmod rewrite
 EXPOSE 80
 
 # Generate frontend (jinja) templates
-RUN python backend/createHTML/create_html.py
+RUN python backend/createHTML/create_html.py DEV
 
 CMD bash

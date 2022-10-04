@@ -43,6 +43,6 @@ RUN a2enmod headers && a2enmod rewrite
 EXPOSE 80
 
 # Generate frontend (jinja) templates
-RUN python frontend/create_html/createHTML.py
+RUN python backend/createHTML/create_html.py
 
 CMD bash

@@ -38,7 +38,7 @@ Require all granted\
 RUN echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Enable CORS and redirection
-RUN a2enmod headers && a2enmod rewrite && service apache2 enable
+RUN a2enmod headers && a2enmod rewrite
 
 EXPOSE 80
 

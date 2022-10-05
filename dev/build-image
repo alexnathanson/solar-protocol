@@ -1,0 +1,6 @@
+#!/bin/bash
+
+podman build \
+  --file Containerfile \
+  --format docker \
+  --tag solar-protocol ..

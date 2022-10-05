@@ -1,3 +1,4 @@
+SHELL ["/bin/bash", "-c"]
 FROM python:3.10
 ENV TERM xterm-256color
 
@@ -9,30 +10,27 @@ WORKDIR /solar-protocol
 RUN pip install --no-cache-dir --requirement requirements.txt
 COPY . /solar-protocol
 
-
 # Configure apache2 to use our root directory
 RUN sed --in-place \
   --expression='s|^DocumentRoot /var/www/|^DocumentRoot /solar-protocol/frontend/|' \
   /etc/apache2/sites-available/000-default.conf
 
-RUN sed --in-place \
-  --expression='$ a/\
-<Directory /solar-protocol/frontend>\
-Options Indexes FollowSymLinks\
-AllowOverride All\
-Require all granted\
-Header set Access-Control-Allow-Origin "*"\
-</Directory>\
-' /etc/apache2/apache2.conf
+RUN echo $'\
+<Directory /solar-protocol/frontend>\n\
+  Options Indexes FollowSymLinks\n\
+  AllowOverride All\n\
+  Require all granted\n\
+  Header set Access-Control-Allow-Origin "*"\n\
+</Directory>\n'\
+>> /etc/apache2/apache2.conf
 
 # Enable server status interface
 RUN sed --in-place \
-  --expression='/<\/VirtualHost>/s|^|\
-<Location /server-status>\
-SetHandler server-status\
-Require all granted\
-</Location>\
-|' /etc/apache2/sites-enabled/000-default.conf
+  --expression='/<\/VirtualHost>/s|^|\n\
+<Location /server-status>\n\
+SetHandler server-status\n\
+Require all granted\n\
+</Location>\n|' /etc/apache2/sites-enabled/000-default.conf
 
 RUN echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 

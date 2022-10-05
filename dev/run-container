@@ -1,0 +1,3 @@
+#!/bin/bash
+
+podman run --name solar-protocol-dev --mount type=bind,src="$(pwd)",target=/solar-protocol --rm --interactive --tty localhost/solar-protocol

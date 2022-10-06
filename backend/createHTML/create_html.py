@@ -16,9 +16,12 @@ import os
 import re
 import sys
 
+os.chdir(sys.path[0]) # if this script is called from a different directory
+DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
+
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
-if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+if DEV:
     print('running in dev mode')
     path = ".." 
     rootPath = "../../"

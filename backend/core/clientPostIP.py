@@ -15,26 +15,25 @@ import subprocess
 import os
 import sys
 
-consoleOutput = True
-
 headers = {
     #'X-Auth-Key': KEY,
     'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+isMain = __name__ == '__main__'
+DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
+
+if DEV:
 	print("Dev mode")
 	dataRoot = "../../dev-data/"
 	deviceList = dataRoot + "deviceList.json"
 	localConfig = dataRoot + "local.json"
 	poeLog = dataRoot + "poe.log"
 	envVar = "this-will-fail" #sys.argv[2]
-	DEV = True
 else:
 	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 	localConfig = "/home/pi/local/local.json"
 	poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
-	DEV = False
 
 newDSTList = []
 runningDSTList = []

@@ -15,7 +15,10 @@ import json
 import os
 import sys
 
-if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+os.chdir(sys.path[0]) # if this script is called from a different directory
+DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
+
+if DEV:
     print('running in dev mode')
     fileDst = "../../dev-data/temp/"
 else:

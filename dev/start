@@ -1,16 +1,12 @@
 #!/bin/bash
 set -e
 
+# make sure script works when called from any directory
+cd "$(dirname "$(readlink -f "$0")")"
+
 echo starting solar-protocol
 
-podman run \
-  --tty \
-  --detach \
-  --replace \
-  --name solar-protocol-dev \
-  --mount type=bind,src="$(pwd)",target=/solar-protocol \
-  --publish 80 \
-  localhost/solar-protocol
+podman-compose --file ./compose.yaml up
 
 port=$(podman port solar-protocol-dev 80)
 echo open http://${server/0.0.0.0//}

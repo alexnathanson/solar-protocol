@@ -24,7 +24,7 @@ These scripts are the client side processes that interact with the API. They ena
 These scripts are run via runner.py
 
 * the templates directory contains template files for all of the pages
-* create_html.py is a static site generator. It updates the page templates (saves them in the frontend directly) and runs the viz.py script
+* create_html.py is a static site generator. It updates the page templates (saves them in the frontend directly)
 * viz.py produces the data visualization of the network featured on the home page
 
 ## Data

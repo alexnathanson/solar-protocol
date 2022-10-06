@@ -27,7 +27,10 @@ radius = 61*10
 start_ring = 0
 debug_mode =0
 
-if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
+os.chdir(sys.path[0]) # if this script is called from a different directory
+DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
+
+if DEV:
     path = ".." 
     rootPath = "../.."
     deviceList = rootPath + "/dev-data/deviceList.json"

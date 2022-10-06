@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+echo building site
+
+podman exec --interactive --tty \
+  dev_solar-protocol_1 \
+  python /solar-protocol/backend/core/getRemoteData.py DEV
+
+podman exec --interactive --tty \
+  dev_solar-protocol_1 \
+  python /solar-protocol/backend/createHTML/viz.py DEV
+
+podman exec --interactive --tty \
+  dev_solar-protocol_1 \
+  python /solar-protocol/backend/createHTML/create_html.py DEV

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  solar-protocol:
+    image: solar-protocol
+    restart: always
+    ports:
+      - 80
+    volumes:
+      - ..:/solar-protocol

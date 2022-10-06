@@ -4,4 +4,4 @@
 # script works from any directory
 cd "$(dirname "$(readlink -f "$0")")"
 
-ls Containerfile | entr -s 'bash build-image && tput bel; tput bel; tput bel'
+ls Containerfile | entr -c -a -s 'bash build-image && tput bel; tput bel; tput bel'

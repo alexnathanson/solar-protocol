@@ -12,10 +12,10 @@ COPY . /solar-protocol
 
 # Configure apache2 to use our root directory
 RUN sed --in-place \
-  --expression='s|^DocumentRoot /var/www/|^DocumentRoot /solar-protocol/frontend/|' \
+  --expression='s|DocumentRoot /var/www/html|DocumentRoot /solar-protocol/frontend|' \
   /etc/apache2/sites-available/000-default.conf
 
-RUN echo $'\
+RUN echo '\
 <Directory /solar-protocol/frontend>\n\
   Options Indexes FollowSymLinks\n\
   AllowOverride All\n\
@@ -42,4 +42,6 @@ EXPOSE 80
 # Generate frontend (jinja) templates
 RUN python backend/createHTML/create_html.py DEV
 
-CMD bash
+RUN apt install neovim --yes
+
+CMD apachectl -D FOREGROUND

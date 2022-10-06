@@ -34,7 +34,8 @@ if DEV:
     path = ".." 
     rootPath = "../.."
     deviceList = rootPath + "/dev-data/deviceList.json"
-    imgDST = rootPath + "/dev-data/temp"
+    #imgDST = rootPath + "/dev-data/temp"
+    imgDST = rootPath + "/frontend/images"
 else:
     rootPath = "/home/pi/solar-protocol"
     path = "/home/pi/solar-protocol/backend"

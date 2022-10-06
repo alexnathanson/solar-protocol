@@ -1,6 +1,6 @@
 # development setup
 
-We use containers because python package management is painful
+We use containers because python package management is painful. These docs are for podman and podman-compose, but it should work the same with docker and docker compose.
 
 ## install container tools
 
@@ -8,22 +8,22 @@ Always check [the latest installation docs](https://podman.io/getting-started/in
 
 ### linux
 
-    sudo apt install podman
+    sudo apt install podman podman-compose
 
 ### macOS
 
-    brew install podman
+    brew install podman podman-compose
     podman machine init --volume /Users
 
 > Ignore any `Error: exit status 255` messages
 
 Why the `--volume /Users`?
 
-Podman and Docker only work on linux, so if we want to run them on macOS, we have to start a linux virtual machine. And we first need to mount files from macOS to linux, before we can use them in our containers.
+Podman (and Docker) require linux to do containerization, so if we want to run them on macOS, we have to start a linux virtual machine. And we first need to mount files from macOS to linux, before we can use them in our containers. This can be done from the commandline or using the Podman Desktop or Docker Desktop guis. Either way, this is what will be happening in the background:
 
     macOS (host)
      -> podman machine (linux)
-         -> solar-protocl-dev (container)
+         -> solar-protocol-dev (container)
 
 ### Windows
 
@@ -38,16 +38,22 @@ First, make sure you have the correct ssh keys and podman machine is running
 
 Now, build a known good version of python and our dependencies
 
-    podman build --file Containerfile --tag solar-protocol
+    bash dev/build
 
-Next, start a temporary shell in the known good environment
+## Run the server
 
-    podman run --rm --interactive --tty \
-      --name solar-protocol-dev \
-      --mount type=bind,source="$(pwd)",target=/app \
-      localhost:solar-protocol \
-      /bin/bash
+This will bring up the server
 
-In this container, we can start the server
+    bash dev/start
 
+Next, regenerate the site
 
+    bash dev/generate
+
+Visit the blank site on http://127.0.0.1:43753
+
+    open http://127.0.0.1:43753
+
+Now, lets generate a fresh version
+
+    bash dev/generate

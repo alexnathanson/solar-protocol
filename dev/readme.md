@@ -1,11 +1,11 @@
-# run-container 
-
-drops you into a fresh shell inside a container from the latest image
-
-# build-image
-
-makes a container image of solar-protocol
-
 # start
+
+starts a container with the latest version
+
+# build
+
+makes a container image 
+
+# watch
 
 rebuilds the image when Containerfile changes

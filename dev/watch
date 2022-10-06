@@ -1,0 +1,7 @@
+#!/bin/bash
+# rebuild the image if the Containerfile changes
+
+# make sure script works when called from any directory
+cd "$(dirname "$(readlink -f "$0")")"
+
+ls Containerfile | entr -c -a -s 'bash build-image && echo container rebuilt; tput bel; tput bel; tput bel'

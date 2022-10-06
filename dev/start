@@ -1,7 +1,16 @@
 #!/bin/bash
-# rebuild the image if the Containerfile changes
+set -e
 
-# script works from any directory
-cd "$(dirname "$(readlink -f "$0")")"
+echo starting solar-protocol
 
-ls Containerfile | entr -c -a -s 'bash build-image && tput bel; tput bel; tput bel'
+podman run \
+  --tty \
+  --detach \
+  --replace \
+  --name solar-protocol-dev \
+  --mount type=bind,src="$(pwd)",target=/solar-protocol \
+  --publish 80 \
+  localhost/solar-protocol
+
+port=$(podman port solar-protocol-dev 80)
+echo open http://${server/0.0.0.0//}

@@ -10,17 +10,17 @@ echo 'Solar Protocol Installer V0.0.1 - NOT TESTED YET!!!'
 #update and upgrade your pi
 
 echo 'updating OS'
-sudo apt-get update
+sudo apt update
 
 echo 'upgrading OS'
-sudo apt-get upgrade
+sudo apt upgrade
 
 ###### REPOSITORY ######
 echo 'cloning repository'
 
 #clone the git hub repository
 cd /home/pi
-git clone http://www.github.com/alexnathanson/solar-protocol
+test -d solar-protocol || git clone http://www.github.com/alexnathanson/solar-protocol
 
 #copy the local directory to outside the repository
 sudo cp -r /home/pi/solar-protocol/local /home/pi/local

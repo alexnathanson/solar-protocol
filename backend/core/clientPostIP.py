@@ -25,7 +25,7 @@ DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
 if DEV:
 	print("Dev mode")
-	dataRoot = "../../dev-data/"
+	dataRoot = "../../dev/data/"
 	deviceList = dataRoot + "deviceList.json"
 	localConfig = dataRoot + "local.json"
 	poeLog = dataRoot + "poe.log"

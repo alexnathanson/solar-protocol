@@ -30,7 +30,7 @@ class SolarProtocol:
 		if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
 			print('running in dev mode')
 			self.localConfigFile = "../../local/local.json"
-			self.deviceList = "../../dev-data/deviceList.json"
+			self.deviceList = "../../dev/data/deviceList.json"
 			self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
 		else:
 			#this is the directory where files are saved to

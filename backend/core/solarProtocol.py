@@ -19,7 +19,7 @@ import sys
 
 
 if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
-	dataRoot = "../../dev-data/"
+	dataRoot = "../../dev/data/"
 	deviceList = dataRoot + "deviceList.json"
 	#localConfig = dataRoot + "local.json"
 	localDataFile = dataRoot + "testtracerdata.csv"

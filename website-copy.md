@@ -1,5 +1,5 @@
-
 # Solar Protocol  
+
 #### *Networking with the sun*  
   
 Solar Protocol is an experimental network of solar powered servers installed at different locations around the world. As the sun rises and sets, each server turns on and off as its solar panel goes into sunlight or darkness. The network hosts the Solar Protocol website and when a request to this site, traffic is directed to whichever server is enjoying the most sunlight at that moment. Different parts of this site are distributed across the network and become available at different times of the day, depending on which server is active.  
@@ -73,5 +73,3 @@ This is work in progress by [Tega Brain](http://tegabrain.com/), [Alex Nathanson
 
 *Prototype servers in Brooklyn:*
 ![prototype servers](images/servers.png)
-
-

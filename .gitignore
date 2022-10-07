@@ -18,19 +18,24 @@ __pycache__
 *.vscode
 
 #this directory is needed, but we just don't want to overwrite it...
-charge-controller/data/
+/charge-controller/data/
 
-dev-data/temp/*
+/dev/data/temp/*
 
-backend/createHTML/local-content.json
-backend/createHTML/local/*
+/backend/createHTML/local-content.json
+/backend/createHTML/local/*
 
-backend/api/v1/deviceList.json
-backend/visualization/clock.png
+/backend/api/v1/deviceList.json
+/backend/visualization/clock.png
 
-backend/createHTML/viz-archive/*
-backend/visualization/archive/*
+/backend/createHTML/viz-archive/*
+/backend/visualization/archive/*
 
-dns-gateway/key.php
+# should these be ignored?
+/frontend/images/clock.png
+/frontend/images/clock-exhibit.png
+/backend/createHTML/viz-assets/clock.png
 
-utilities/hostnames.sh
+/dns-gateway/key.php
+
+/utilities/hostnames.sh

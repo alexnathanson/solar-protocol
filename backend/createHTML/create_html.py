@@ -25,11 +25,11 @@ if DEV:
     print('running in dev mode')
     path = ".." 
     rootPath = "../../"
-    chargeControllerDataPath = rootPath + 'dev-data/'
+    chargeControllerDataPath = rootPath + 'dev/data/'
     chargecontrollerdata = "testtracerdata"
     templatePath = "templates/"
     outputPath = rootPath + "frontend/"
-    deviceList = rootPath + "/dev-data/deviceList.json"
+    deviceList = rootPath + "/dev/data/deviceList.json"
     imgDST = rootPath + "frontend/images/servers/serverprofile.png"
     localDataSrc = chargeControllerDataPath
 else:

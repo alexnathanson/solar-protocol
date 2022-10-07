@@ -1,7 +1,9 @@
 # Solar Protocol
 
 A system for load balancing and serving content based on photovoltaic logic.
+
 =======
+
 A repository in development for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.
 
 Content at <a href="http://www.solarprotocol.net">solarprotocol.net</a> is served by whichever server in our network is in the most sunlight at a given time. (We are basing this off of the solar module wattage.)
@@ -14,21 +16,23 @@ Solar Protocol is an art project exploring the poetics of internet infrastructur
 
 Our work is inspired by the great work done previously by the folks at Low Tech Magazine.
 
-## Installation
+## Documentation
 
-https://github.com/alexnathanson/solar-protocol/blob/master/installation.md
+We have documented as much as possible for anyone to build upon this project.
 
-## API documentation
+For information about the protocol
 
-https://github.com/alexnathanson/solar-protocol/blob/master/API.md
+* [api specification](docs/api.md)
 
-## Hardware install notes  
+If you'd like to build your own server, follow these
 
-[Notes in a doc here](https://docs.google.com/document/d/1hdcTf9xUmsjRPd3waJEkQf1Bjive8Z6RmyWv_p5n8Is/edit)
+* [hardware buildout](https://docs.google.com/document/d/1hdcTf9xUmsjRPd3waJEkQf1Bjive8Z6RmyWv_p5n8Is/edit)
+* [software installation doc](docs/installation.md)
+* [hardware troubleshooting & maintenance](docs/hardware-troubleshooting-and-maintenance.md)
 
-## Hardware Troubleshooting & Maintenance
+To develop and contribute to the codebase
 
-https://github.com/alexnathanson/solar-protocol/blob/master/hardware-troubleshooting-and-maintenance.md
+* [developing docs](docs/developing.md)
 
 <!-- ### FRONT END
 * Code for an energy responsive front end is in test-site folder

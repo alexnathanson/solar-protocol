@@ -1,6 +1,7 @@
 # Solar Protocol API V1
 
 An API for communicating between distributed Raspberry Pis and making system data accessible
+
 * Network communication between servers on the network is done with POST requests via the api.php end point 
 * Retrieving data from charge controllers is done with GET requests via the chargecontroller.php end point.
 

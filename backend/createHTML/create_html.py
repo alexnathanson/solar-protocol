@@ -27,7 +27,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
     templatePath = "templates/"
     outputPath = rootPath + "frontend/"
     deviceList = rootPath + "/dev-data/deviceList.json"
-    imgDST = rootPath + "frontend/images/servers/serverprofile.png"
+    imgDst = rootPath + "frontend/images/servers/serverprofile.png"
     localDataSrc = chargeControllerDataPath
 else:
     path = "/home/pi/solar-protocol/backend"
@@ -37,7 +37,7 @@ else:
     templatePath = path + "/createHTML/templates/"
     outputPath = rootPath + "solar-protocol/frontend/" 
     deviceList = path + "/data/deviceList.json"
-    imgDST = "home/pi/local/www/serverprofile.gif"
+    imgDst = "/home/pi/local/www/serverprofile.gif"
     localDataSrc = rootPath + "local/"
 
 dstIP = []

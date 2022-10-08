@@ -385,7 +385,7 @@ def main():
     #customize inside labels
     server_names = getDeviceInfo('name')
     # print("server names", len(server_names))
-
+    
     # go over ccData for each server
     for i, item in enumerate(ccData):
         if server_names[i] == "pi-a" or server_names[i] == "pi-b" or server_names[i] == "pi-c":

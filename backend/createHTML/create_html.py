@@ -21,24 +21,8 @@ import sys
 os.chdir(sys.path[0]) # if this script is called from a different directory
 DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
-rootPath = "/home/pi/"
-path = "/home/pi/solar-protocol/backend"
-
-if DEV:
-    print('running in dev mode')
-    chargeControllerDataPath = rootPath + 'dev/data/'
-    chargecontrollerdata = "testtracerdata"
-    templatePath = "templates/"
-    outputPath = rootPath + "frontend/"
-    deviceList = rootPath + "/dev/data/deviceList.json"
-    localDataSrc = chargeControllerDataPath
-else:
-    chargeControllerDataPath = rootPath + "solar-protocol/charge-controller/data/"
-    chargecontrollerdata = "tracerData"+str(datetime.date.today()) 
-    templatePath = path + "/createHTML/templates/"
-    outputPath = rootPath + "solar-protocol/frontend/" 
-    deviceList = path + "/data/deviceList.json"
-    localDataSrc = rootPath + "local/"
+root = f'/home/pi/solar-protocol/'
+now = str(datetime.date.today())
 
 dstIP = []
 serverNames = []
@@ -62,11 +46,8 @@ def getCC(dst,ccValue):
 
 #gets power data from charge controller
 def read_csv(): 
-    # filename = "../../charge-controller/data/tracerData2020-09-13.csv"
-    filename = (
-        #rootPath + "solar-protocol/charge-controller/data/" + chargecontrollerdata + ".csv"
-        chargeControllerDataPath + chargecontrollerdata + ".csv"
-    )
+    chargeControllerData = f'{root}/charge-controller/data/tracerData{now}.csv'
+    filename = (chargeControllerData)
 
     with open(filename, "r") as data:
         alllines = [line for line in csv.DictReader(data)]
@@ -90,6 +71,9 @@ def read_csv():
 
 def render_pages(_local_data, _data, _weather, _server_data):
     print("Battery Percentage:" + str(_data["battery percentage"]))
+
+    templatePath = f'{root}/backend/createHTML/templates/'
+    outputPath = f'{root}/frontend'
 
     pages = [
         ("index_template.html", "index.html"),
@@ -135,13 +119,13 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     #loop through all page templates and render them with new data
     for template_filename, output_filename in pages:
-        template_filename = templatePath + template_filename #path + "/createHTML/templates/" + template_filename
-        output_filename = outputPath + output_filename #rootPath + "solar-protocol/frontend/" + output_filename
+        template_filename = templatePath + template_filename
+        output_filename = outputPath + output_filename
         template_file = open(template_filename).read()
         print("rendering", template_filename)
         #print("battery", _data["battery percentage"]*100)
         #this line was changed last, it was: "/templates/"
-        template = Environment(loader=FileSystemLoader(path + "/createHTML/templates/")).from_string(
+        template = Environment(loader=FileSystemLoader(templatePath)).from_string(
             template_file
         )
         
@@ -225,7 +209,7 @@ def get_weather(_local_data):
 
 #get local front end data
 def get_local():
-    filename = localDataSrc + "local.json"
+    filename = f'{root}/local/local.json'
     with open(filename) as infile:
         local_data = json.load(infile)
     return local_data  # dictionary
@@ -233,6 +217,7 @@ def get_local():
 # Get list of IP addresses that the pi can see
 def getDeviceInfo(getKey):
     ipList = []
+    deviceList = f'{root}/backend/data/deviceList.json'
 
     with open(deviceList) as f:
       data = json.load(f)
@@ -323,14 +308,10 @@ def download_file(url, local_filename=None):
     return local_filename
 
 def check_images(server_data):
-    # server_images_paths = glob("../../frontend/images/servers/*.jpg")
-    # server_images_names = [os.path.basename(i) for i in server_images_paths]
-    #server_images_names = server_images_paths.split("/")[-1]
-    # ps.path.basename[image]
     for server in server_data:
         filename = server["name"]+".gif"
         filename = filename.replace(" ", "-")
-        fullpath = rootPath + "solar-protocol/frontend/images/servers/" + filename
+        fullpath = "/home/pi/solar-protocol/frontend/images/servers/" + filename
         filepath = "images/servers/" + filename
         #print("server:", server)
         if "ip" in server:

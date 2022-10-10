@@ -16,14 +16,8 @@ import os
 import sys
 
 os.chdir(sys.path[0]) # if this script is called from a different directory
-DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
-if DEV:
-    print('running in dev mode')
-    fileDst = "../../dev/data/temp/"
-else:
-	#this is the directory where files are saved to
-	fileDst = "/home/pi/local/data/"
+fileDst = "/home/pi/local/data/"
 
 def run():
 	print()

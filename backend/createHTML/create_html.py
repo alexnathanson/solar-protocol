@@ -47,7 +47,7 @@ def getCC(dst,ccValue):
 #gets power data from charge controller
 def read_csv(): 
     if DEV:
-        chargeControllerData = f'{root}/charge-controller/dev/data/tracerDataTest.csv'
+        chargeControllerData = f'{root}/dev/data/tracerDataTest.csv'
     else:
         chargeControllerData = f'{root}/charge-controller/data/tracerData{now}.csv'
     filename = (chargeControllerData)

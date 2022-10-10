@@ -24,16 +24,11 @@ isMain = __name__ == '__main__'
 DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
 if DEV:
-	print("Dev mode")
-	dataRoot = "../../dev/data/"
-	deviceList = dataRoot + "deviceList.json"
-	localConfig = dataRoot + "local.json"
-	poeLog = dataRoot + "poe.log"
-	envVar = "this-will-fail" #sys.argv[2]
-else:
-	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
-	localConfig = "/home/pi/local/local.json"
-	poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
+    print("Dev mode")
+
+poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
+localConfig = "/home/pi/local/local.json"
+deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 
 newDSTList = []
 runningDSTList = []
@@ -185,17 +180,17 @@ def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC, my_TZ):
 		makePosts(newDSTList, api_Key, my_IP, my_Name, my_MAC, my_TZ)
 
 def getEnv(thisEnv):
-	if not DEV:
-		#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
-		proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
-		e = proc.stdout.read()
-		#convert byte string to string
-		e = e.decode("utf-8") 
-		#remove line breaks
-		e = e.replace("\n", "")
-		return e
-	else:
-		return envVar
+    if DEV:
+        return 'this-will-fail'
+
+    #subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
+    proc = subprocess.Popen(['bash','/home/pi/solar-protocol/backend/get_env.sh',thisEnv], stdout=subprocess.PIPE)
+    e = proc.stdout.read()
+    #convert byte string to string
+    e = e.decode("utf-8") 
+    #remove line breaks
+    e = e.replace("\n", "")
+    return e
 
 def addPort(thisPort):
 	p = getLocalConfig(thisPort)

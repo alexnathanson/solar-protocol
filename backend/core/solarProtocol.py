@@ -18,18 +18,15 @@ import sys
 # SP = 0
 
 
-if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
-	dataRoot = "../../dev/data/"
-	deviceList = dataRoot + "deviceList.json"
-	#localConfig = dataRoot + "local.json"
-	localDataFile = dataRoot + "testtracerdata.csv"
-	envVar = "this-will-fail"
-	DEV = True
-else:
-	deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
-	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
-	DEV = False
+DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
+if DEV:
+	localDataFile = "/home/pi/solar-protocol/dev/data/tracerDataTest.csv"
+	envVar = "this-will-fail"
+else:
+	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
+
+deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 consoleOutput = True
 
 dnsKey = ''

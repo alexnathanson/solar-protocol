@@ -6,7 +6,4 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 echo starting solar-protocol
 
-podman-compose --file ./compose.yaml up
-
-port=$(podman port solar-protocol-dev 80)
-echo open http://${server/0.0.0.0//}
+podman-compose up

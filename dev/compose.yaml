@@ -7,4 +7,4 @@ services:
     ports:
       - "127.0.0.1:11221:80"
     volumes:
-      - ..:/solar-protocol
+      - ..:/home/pi/solar-protocol

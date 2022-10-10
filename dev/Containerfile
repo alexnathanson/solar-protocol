@@ -12,11 +12,11 @@ COPY . /home/pi/solar-protocol
 
 # Configure apache2 to use our root directory
 RUN sed --in-place \
-  --expression='s|DocumentRoot /var/www/html|DocumentRoot /solar-protocol/frontend|' \
+  --expression='s|DocumentRoot /var/www/html|DocumentRoot /home/pi/solar-protocol/frontend|' \
   /etc/apache2/sites-available/000-default.conf
 
 RUN echo '\
-<Directory /solar-protocol/frontend>\n\
+<Directory /home/pi/solar-protocol/frontend>\n\
   Options Indexes FollowSymLinks\n\
   AllowOverride All\n\
   Require all granted\n\

@@ -21,7 +21,7 @@ import sys
 os.chdir(sys.path[0]) # if this script is called from a different directory
 DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
-root = f'/home/pi/solar-protocol/'
+root = f'/home/pi/solar-protocol'
 now = str(datetime.date.today())
 
 dstIP = []
@@ -46,7 +46,10 @@ def getCC(dst,ccValue):
 
 #gets power data from charge controller
 def read_csv(): 
-    chargeControllerData = f'{root}/charge-controller/data/tracerData{now}.csv'
+    if DEV:
+        chargeControllerData = f'{root}/charge-controller/dev/data/tracerDataTest.csv'
+    else:
+        chargeControllerData = f'{root}/charge-controller/data/tracerData{now}.csv'
     filename = (chargeControllerData)
 
     with open(filename, "r") as data:

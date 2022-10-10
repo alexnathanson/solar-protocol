@@ -4,7 +4,6 @@ set -e
 echo building image...
 
 podman build \
-  --replace \
   --file Containerfile \
   --format docker \
   --tag solar-protocol ..

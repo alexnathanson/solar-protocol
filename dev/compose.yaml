@@ -4,6 +4,6 @@ services:
     image: solar-protocol
     restart: always
     ports:
-      - 80
+      - "80"
     volumes:
       - ..:/solar-protocol

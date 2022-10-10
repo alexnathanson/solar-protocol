@@ -5,20 +5,21 @@ set -e
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 container=solar-protocol
+root=/home/pi/solar-protocol
 
 data() {
   podman exec --interactive --tty $container \
-    python /solar-protocol/backend/core/getRemoteData.py DEV
+    python $root/backend/core/getRemoteData.py DEV
 }
 
 viz() {
   podman exec --interactive --tty $container \
-    python /solar-protocol/backend/createHTML/viz.py DEV
+    python $root/backend/createHTML/viz.py DEV
 }
 
 html() {
   podman exec --interactive --tty $container \
-    python /solar-protocol/backend/createHTML/create_html.py DEV
+    python $root/backend/createHTML/create_html.py DEV
 }
 
 case $1 in

@@ -5,10 +5,10 @@ ENV TERM xterm-256color
 # Insall apache and php
 RUN apt update && apt upgrade --yes && apt install apache2 php php-gd --yes
 
-COPY requirements.txt /solar-protocol/requirements.txt
-WORKDIR /solar-protocol
+COPY requirements.txt /home/pi/solar-protocol/requirements.txt
+WORKDIR /home/pi/solar-protocol
 RUN pip install --no-cache-dir --requirement requirements.txt
-COPY . /solar-protocol
+COPY . /home/pi/solar-protocol
 
 # Configure apache2 to use our root directory
 RUN sed --in-place \

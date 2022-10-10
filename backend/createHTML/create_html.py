@@ -21,26 +21,23 @@ DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
+rootPath = "/home/pi/"
+path = "/home/pi/solar-protocol/backend"
+
 if DEV:
     print('running in dev mode')
-    path = ".." 
-    rootPath = "../../"
     chargeControllerDataPath = rootPath + 'dev/data/'
     chargecontrollerdata = "testtracerdata"
     templatePath = "templates/"
     outputPath = rootPath + "frontend/"
     deviceList = rootPath + "/dev/data/deviceList.json"
-    imgDST = rootPath + "frontend/images/servers/serverprofile.png"
     localDataSrc = chargeControllerDataPath
 else:
-    path = "/home/pi/solar-protocol/backend"
-    rootPath = "/home/pi/"
     chargeControllerDataPath = rootPath + "solar-protocol/charge-controller/data/"
     chargecontrollerdata = "tracerData"+str(datetime.date.today()) 
     templatePath = path + "/createHTML/templates/"
     outputPath = rootPath + "solar-protocol/frontend/" 
     deviceList = path + "/data/deviceList.json"
-    imgDST = "home/pi/local/www/serverprofile.gif"
     localDataSrc = rootPath + "local/"
 
 dstIP = []
@@ -181,7 +178,8 @@ def render_pages(_local_data, _data, _weather, _server_data):
             zone=zone,
             leadImage=leadImage,
             mode=mode, 
-            servers=_server_data
+            servers=_server_data,
+            dev=' DEV' if DEV else '',
         )
 
         # print(rendered_html)

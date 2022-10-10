@@ -2,18 +2,17 @@
 set -e
 
 # make sure script works when called from any directory
-cd "$(dirname "$(readlink -f "$0")")"
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 echo building site
 
-podman exec --interactive --tty \
-  dev_solar-protocol_1 \
+container=dev_solar-protocol_1
+
+podman exec --interactive --tty $container \
   python /solar-protocol/backend/core/getRemoteData.py DEV
 
-podman exec --interactive --tty \
-  dev_solar-protocol_1 \
+podman exec --interactive --tty $container \
   python /solar-protocol/backend/createHTML/viz.py DEV
 
-podman exec --interactive --tty \
-  dev_solar-protocol_1 \
+podman exec --interactive --tty $container \
   python /solar-protocol/backend/createHTML/create_html.py DEV

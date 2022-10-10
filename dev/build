@@ -2,7 +2,7 @@
 set -e
 
 # make sure script works when called from any directory
-cd "$(dirname "$(readlink -f "$0")")"
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 echo building image...
 

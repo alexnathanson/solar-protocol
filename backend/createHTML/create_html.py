@@ -76,7 +76,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
     print("Battery Percentage:" + str(_data["battery percentage"]))
 
     templatePath = f'{root}/backend/createHTML/templates/'
-    outputPath = f'{root}/frontend'
+    outputPath = f'{root}/frontend/'
 
     pages = [
         ("index_template.html", "index.html"),

@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# make sure script works when called from any directory
+cd "$(dirname "$(readlink -f "$0")")"
+
 echo building site
 
 podman exec --interactive --tty \

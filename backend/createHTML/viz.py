@@ -113,6 +113,10 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
 
     ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
 
+    if ( len(ccDataframe.iloc) == 0 ):
+        print("no iloc data")
+        return
+
     ccDataframe.columns = ccDataframe.iloc[0]
     ccDataframe = ccDataframe.drop(ccDataframe.index[0])
     ccDataframe = ccDataframe.reset_index()

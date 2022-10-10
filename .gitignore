@@ -33,6 +33,7 @@ __pycache__
 
 /frontend/images/clock.png
 /frontend/images/clock-exhibit.png
+/frontend/images/servers/*gif
 /frontend/*html
 /backend/createHTML/viz-assets/clock.png
 

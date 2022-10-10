@@ -39,9 +39,6 @@ RUN a2enmod headers && a2enmod rewrite
 
 EXPOSE 80
 
-# Generate frontend (jinja) templates
-RUN python backend/createHTML/create_html.py DEV
-
 RUN apt install neovim --yes
 
 CMD apachectl -D FOREGROUND

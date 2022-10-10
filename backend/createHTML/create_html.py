@@ -49,9 +49,7 @@ days = 3
 def getCC(dst,ccValue):
     print("GET from " + dst)
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
-        #print("API charge controller data:")
-        #print(x.text)
+        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value=" + ccValue + "&duration=" + str(days), timeout=5)
         return json.loads(x.text)
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -439,17 +437,12 @@ def main():
             item["link"] = serverURL
         item_count += 1
 
-
     #4. get images and 
     print("SERVER DATA!")
     print(server_data)
     check_images(server_data)
-    
-
-
     render_pages(local_data, energy_data, local_weather, server_data)
 
 
 if __name__ == "__main__":
     main()
-

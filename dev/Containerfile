@@ -9,6 +9,7 @@ COPY requirements.txt /home/pi/solar-protocol/requirements.txt
 WORKDIR /home/pi/solar-protocol
 RUN pip install --no-cache-dir --requirement requirements.txt
 COPY . /home/pi/solar-protocol
+COPY ./local /home/pi/local
 
 # Configure apache2 to use our root directory
 RUN sed --in-place \

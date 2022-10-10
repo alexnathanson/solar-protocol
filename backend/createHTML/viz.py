@@ -30,18 +30,8 @@ debug_mode =0
 os.chdir(sys.path[0]) # if this script is called from a different directory
 DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
-if DEV:
-    path = ".." 
-    rootPath = "../.."
-    deviceList = rootPath + "/dev/data/deviceList.json"
-    #imgDST = rootPath + "/dev/data/temp"
-    imgDST = rootPath + "/frontend/images"
-else:
-    rootPath = "/home/pi/solar-protocol"
-    path = "/home/pi/solar-protocol/backend"
-    deviceList = path + "/data/deviceList.json"
-    imgDST = rootPath + "/frontend/images"
-
+deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+imgDST = "/home/pi/solar-protocol/frontend/images"
 
 energyParam = "PV-current"
 ccData = []

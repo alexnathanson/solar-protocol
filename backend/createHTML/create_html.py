@@ -1,7 +1,9 @@
 # To run in dev mode from from virtual env:
-# source venv/bin/activate
-# in unix/MacOS use this => ENV=DEV python3 create_html.py
-# in windows use this => python3 create_html.py DEV
+#
+#     source venv/bin/activate
+#     python3 create_html.py DEV
+
+# jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
 from collections import UserList
 from jinja2 import Template
@@ -18,8 +20,6 @@ import sys
 
 os.chdir(sys.path[0]) # if this script is called from a different directory
 DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
-
-#jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
 rootPath = "/home/pi/"
 path = "/home/pi/solar-protocol/backend"

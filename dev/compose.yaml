@@ -2,8 +2,9 @@ version: '3'
 services:
   solar-protocol:
     image: solar-protocol
+    container_name: solar-protocol
     restart: always
     ports:
-      - "80"
+      - "127.0.0.1:11221:80"
     volumes:
       - ..:/solar-protocol

@@ -31,9 +31,9 @@ __pycache__
 /backend/createHTML/viz-archive/*
 /backend/visualization/archive/*
 
-# should these be ignored?
 /frontend/images/clock.png
 /frontend/images/clock-exhibit.png
+/frontend/*html
 /backend/createHTML/viz-assets/clock.png
 
 /dns-gateway/key.php

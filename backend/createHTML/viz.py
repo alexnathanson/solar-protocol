@@ -53,7 +53,7 @@ surface = g.Surface(width=w, height=h)
 dfPOE = pd.DataFrame(columns = ['device', 'datetime']) 
 
 #Array for server names
-serverNames = ["Server 1", "Server 2"]
+serverNames = []
 
 # -------------- FUNCTIONS --------------------------------------------------------------------------------
 
@@ -63,21 +63,18 @@ def getDeviceInfo(getKey):
 
     with open(deviceList) as f:
       data = json.load(f)
-      print("Device List data:")
-    #   print(data)
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])
 
     return ipList
 
-#Call API for every IP address and get charge controller data 
-def getCC(dst,ccValue):
-    print("GET from " + dst)
+# Call API for every IP address and get charge controller data 
+def getCC(server, ccValue):
+    print("GET from " + server)
+    url = 'http://' + server + "/api/v1/chargecontroller.php?value=" + ccValue + "&duration=" + str(days)
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value="+ccValue + "&duration="+str(days),timeout=5)
-        #print("API charge controller data:")
-        #print(x.text)
+        x = requests.get(url, timeout=5)
         x.json()
         return json.loads(x.text)
     except JSONDecodeError as errj:
@@ -110,23 +107,14 @@ def getSysInfo(dst,k):
 
 #drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
+    ccData = {}
+    datetimes = np.fromiter(list(ccDict.keys()), dtype=str)
+    ccData['datetime'] = datetimes
+    ccData[energy_parameter] = np.fromiter(list(ccDict.values()), dtype=float)
+    ccDataframe = pd.DataFrame.from_dict(ccData)
 
-    ccDataframe = pd.DataFrame.from_dict(ccDict, orient="index")
-
-    if ( len(ccDataframe) == 0 ):
-        print("no data")
-        return
-
-    ccDataframe.columns = ccDataframe.iloc[0]
-    ccDataframe = ccDataframe.drop(ccDataframe.index[0])
-    ccDataframe = ccDataframe.reset_index()
-    ccDataframe.columns = ['datetime',energy_parameter]
-    if (debug_mode):
-        print("ccDataframe.head()")
-        print(ccDataframe.head())
-
-    ccDataframe['datetime'] = ccDataframe['datetime'].astype(str) #convert entire "Dates" Column to string 
-    ccDataframe['datetime']=pd.to_datetime(ccDataframe['datetime']) #convert entire "Dates" Column to datetime format this time 
+    # convert entire "Dates" Column to datetime format this time 
+    ccDataframe['datetime'] = pd.to_datetime(ccDataframe['datetime'])
     
     #shift by TZ
     ccDataframe['timedelta'] = pd.to_timedelta(tzOffset(timeZ, myTimeZone),'h')
@@ -207,11 +195,11 @@ def sortPOE(log, timeZones, myTimeZone):
         #tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=tzOffset(timeZones[l])) #shift by TZ
         tempDF = tempDF.drop(columns=[0])
         tempDF['device'] = l
-        dfPOE = dfPOE.append(tempDF, ignore_index=True)
+        dfPOE = pd.concat([dfPOE, tempDF], ignore_index=True)
         dfPOE.shape
 
     #print(dfPOE.head())
-    dfPOE = dfPOE.sort_values(by='datetime',ascending=False)
+    dfPOE = dfPOE.sort_values(by='datetime', ascending=False)
     #print(dfPOE.head())
 
     #get time now and filter by this time - 72 hours
@@ -346,14 +334,13 @@ def main():
     serverNames = getDeviceInfo('name')
 
     print (dstIP)
-    # print (serverNames)
 
     #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
     myTimeZone = getSysInfo("localhost",'tz')
     # print("My TZ: ", myTimeZone)
 
-    sysC = []
+    colors = []
 
     # dstIP = dstIP[0:1]
 
@@ -364,27 +351,28 @@ def main():
         #     activeIPs.append(i)
         getResult = getCC(i, energyParam)
         if type(getResult) != type(None):
-            ccData.append(getResult)
-        else:
-            ccData.append({"datetime": energyParam})
-        try:
-            tempTZ = getSysInfo(i, 'tz')
-        except: 
-            tempTZ = 'America/New_York' 
+            # remove the header
+            if getResult.pop('datetime', None) == energyParam:
+                ccData.append(getResult)
 
-        if type(tempTZ) != type(None):
-            timeZones.append(tempTZ)
+        try:
+            timezone = getSysInfo(i, 'tz')
+        except: 
+            timezone = 'America/New_York' 
+
+        if type(timezone) != type(None):
+            timeZones.append(timezone)
         else:
             timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
         try:
-            tempC = getSysInfo(i,'color')
+            color = getSysInfo(i, 'color')
         except:
-            tempC = (1,1,1)
+            color = (1,1,1)
         
-        if type(tempC) == type(None) or tempC == '':
-            tempC = (1,1,1)
-        sysC.append(tempC) 
+        if type(color) == type(None) or color == '':
+            color = (1,1,1)
+        colors.append(color)
 
     # print(timeZones)
 
@@ -396,13 +384,10 @@ def main():
 
     # go over ccData for each server
     for i, item in enumerate(ccData):
-        if server_names[i] == "pi-a" or server_names[i] == "pi-b" or server_names[i] == "pi-c":
-            print("Skipping ghost server:" + server_names[i])
-        else:
-            # print name of each server
-            text_curve(i+2, server_names[i], 0, 18, 18)
-            #draw sun data for each server
-            draw_ring(item,i+3, energyParam,timeZones[i], myTimeZone)
+        # print name of each server
+        text_curve(i+2, server_names[i], 0, 18, 18)
+        #draw sun data for each server
+        draw_ring(item, i+3, energyParam, timeZones[i], myTimeZone)
 
 
     #Draw Active Server Rings
@@ -418,28 +403,23 @@ def main():
     if dfPOE.shape[1] > 0:
         #for l, item in enumerate(dfPOE.shape[0]):
         for l in range(dfPOE.shape[0]):
-            if l == 0:
-                # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-                # print( sysC[dfPOE['device'].iloc[l]])
-                # print("First Angle:", dfPOE['angle'].iloc[l])
-                draw_server_arc(dfPOE['device'].iloc[l]+2, 2*Pi, dfPOE['angle'].iloc[l]*(Pi/180), sysC[dfPOE['device'].iloc[l]])
-            else:
-                # print( sysC[dfPOE['device'].iloc[l]])
-                # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
-                # print("ring:", dfPOE['device'].iloc[l])
-                # print("start arc:", dfPOE['angle'].iloc[l])
-                # print("stop arc:", dfPOE['angle'].iloc[l-1])
-                draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1]*Pi/180, dfPOE['angle'].iloc[l]*Pi/180, sysC[dfPOE['device'].iloc[l]])
+            device = dfPOE['device'].iloc[l]
+            ring = device + 2
+            server = colors[device]
+            start_angle = dfPOE['angle'].iloc[l] * Pi / 180
 
+            if l == 0:
+                stop_angle = 2 * Pi
+            else:
+                stop_angle = dfPOE['angle'].iloc[l-1] * Pi / 180
+
+            draw_server_arc(ring, stop_angle, start_angle, server)
 
     # # initialize surface
     # surface = g.Surface(width=w, height=h) # in pixels
 
     # text = g.text("Hello World", fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy=(100,100), angle=Pi/12)
     # text.draw(surface)
-
-
-
 
     # draw_sun(4, w/2, h/2, 20, 0, 0.1) 
     # draw_sun(4, w/2, h/2, 20, 1, 0.5) 
@@ -475,5 +455,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()

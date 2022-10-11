@@ -2,6 +2,7 @@ import gizeh as g
 import math
 import os
 import sys
+import numpy as np
 
 import pandas as pd
 import json
@@ -25,7 +26,7 @@ ah = (2*Pi)/hours #angle of an hour
 ring_rad = 61 
 radius = 61*10
 start_ring = 0
-debug_mode =0
+DEBUG = "DEBUG" in os.environ
 
 os.chdir(sys.path[0]) # if this script is called from a different directory
 
@@ -33,7 +34,7 @@ deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 imgDST = "/home/pi/solar-protocol/frontend/images"
 
 energyParam = "PV-current"
-ccData = []
+ccDicts = []
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
 
 surface = g.Surface(width=w, height=h)
@@ -57,7 +58,7 @@ def getDeviceInfo(getKey):
 
 # Call API for every IP address and get charge controller data 
 def getCC(server, ccValue):
-    print("GET from " + server)
+    print(f'GET {server} {ccValue}')
     url = f'http://{server}/api/v1/chargecontroller.php?value={ccValue}&duration={str(days)}'
     try:
         cc = requests.get(url, timeout=5)
@@ -79,7 +80,7 @@ def getSysInfo(dstIP, key):
     url = f'http://{dstIP}/api/v1/chargecontroller.php?systemInfo={key}'
     try:
         sysinfo = requests.get(url, timeout=5)
-        if (debug_mode):
+        if (DEBUG):
             print(f'{dstIP} {key}: {sysinfo.text}')
         return sysinfo.text
     except requests.exceptions.HTTPError as errh:
@@ -118,7 +119,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
 
     # #correlate sun data wtih colors 
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
-        if (debug_mode):
+        if (DEBUG):
             print("Current: ", current)
         draw_sun(ring_number, i, current) 
 
@@ -327,18 +328,20 @@ def main():
     # dstIP = dstIP[0:1]
 
     #iterate through each device
-    for i in dstIP:
-        #print(i)
-        # if i not in activeIPs:
-        #     activeIPs.append(i)
-        getResult = getCC(i, energyParam)
+    for ip in dstIP:
+        if DEBUG:
+          print(f'getting ccDicts for {ip}')
+
+        getResult = getCC(ip, energyParam)
         if type(getResult) != type(None):
+            header = getResult.pop('datetime', None)
+            expected_header = energyParam.replace('-',' ')
             # remove the header
-            if getResult.pop('datetime', None) == energyParam:
-                ccData.append(getResult)
+            if header == expected_header:
+                ccDicts.append(getResult)
 
         try:
-            timezone = getSysInfo(i, 'tz')
+            timezone = getSysInfo(ip, 'tz')
         except: 
             timezone = 'America/New_York' 
 
@@ -348,7 +351,7 @@ def main():
             timeZones.append('America/New_York')#defaults to NYC time - default to UTC in the future
 
         try:
-            color = getSysInfo(i, 'color')
+            color = getSysInfo(ip, 'color')
         except:
             color = (1,1,1)
         
@@ -361,12 +364,13 @@ def main():
     # customize inside labels
     server_names = getDeviceInfo('name')
 
-    # go over ccData for each server
-    for i, item in enumerate(ccData):
+    # go over ccDicts for each server
+    for i, ccDict in enumerate(ccDicts):
+        print(f'drawing {server_names[i]}')
         # print name of each server
         text_curve(i+2, server_names[i], 0, 18, 18)
-        #draw sun data for each server
-        draw_ring(item, i+3, energyParam, timeZones[i], myTimeZone)
+        # draw sun data for each server
+        draw_ring(ccDict, i+3, energyParam, timeZones[i], myTimeZone)
 
 
     #Draw Active Server Rings

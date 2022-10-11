@@ -19,7 +19,7 @@ import re
 import sys
 
 os.chdir(sys.path[0]) # if this script is called from a different directory
-DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
+DEV = 'DEV' in sys.argv
 
 root = f'/home/pi/solar-protocol'
 now = str(datetime.date.today())

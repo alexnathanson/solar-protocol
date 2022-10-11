@@ -2,6 +2,8 @@
 Every server runs this script.
 Reads list of destination IPs from deviceList.json and posts own IP address + other data
 to those other devices, local host, and solarprotocol.net.
+
+Make sure to add DEV to the command when running in development mode
 '''
 
 #these modules are only used by this module within this packages

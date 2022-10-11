@@ -28,7 +28,6 @@ start_ring = 0
 debug_mode =0
 
 os.chdir(sys.path[0]) # if this script is called from a different directory
-DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
 
 deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
 imgDST = "/home/pi/solar-protocol/frontend/images"

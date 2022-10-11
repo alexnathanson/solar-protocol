@@ -17,8 +17,7 @@ import sys
 #globals
 # SP = 0
 
-
-DEV = os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv
+DEV = 'DEV' in sys.argv
 
 if DEV:
 	localDataFile = "/home/pi/solar-protocol/dev/data/tracerDataTest.csv"
@@ -97,10 +96,10 @@ def determineServer(remoteData,localData, SP):
 		#getDNS(requests.get('https://server.solarpowerforartists.com/?myip').text)
 
 		#if in DEV mode dont try to load DNS key
-		if not DEV:
-			SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
-		else:
+		if DEV:
 			SP.getRequest(SP.updateDNS(SP.myIP,envVar), False)
+		else:
+			SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
 
 	else:
 		print('Not point of entry')

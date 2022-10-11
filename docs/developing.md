@@ -12,15 +12,15 @@ There are three backend scripts that rebuild the static site based on the latest
 
 1. core/getRemoteData
 2. createHTML/viz
-3. createHTML/create_html
+3. createHTML/create_html [DEV]
 
 There are two protocol scripts that require API keys, and will fail in dev.
 More work is needed to enable them to safely make test posts with dummy data without it breaking the client.
 
-1. clientPostIP.py
-2. solarProtocol.py
+1. clientPostIP.py [DEV]
+2. solarProtocol.py [DEV]
 
-All of these scripts should be run with the DEV arg, e.g. `python3 solar-protocol/backend/createHTML/create_html.py DEV`
+All of these scripts with `[DEV]` should be run with the DEV arg, e.g. `python3 solar-protocol/backend/createHTML/create_html.py DEV`. Otherwise they will post data in the real network.
 
 Static example data for these scripts lives in the dev/data/ folder. Data/files created from these scripts is saved to the dev/data/temp folder and is ignored from the repo.
 

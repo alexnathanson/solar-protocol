@@ -9,12 +9,12 @@ root=/home/pi/solar-protocol
 
 data() {
   podman exec --interactive --tty $container \
-    python $root/backend/core/getRemoteData.py DEV
+    python $root/backend/core/getRemoteData.py
 }
 
 viz() {
   podman exec --interactive --tty $container \
-    python $root/backend/createHTML/viz.py DEV
+    python $root/backend/createHTML/viz.py
 }
 
 html() {

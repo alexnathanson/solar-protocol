@@ -20,6 +20,7 @@ import sys
 
 os.chdir(sys.path[0]) # if this script is called from a different directory
 DEV = 'DEV' in sys.argv
+DEBUG = 'DEBUG' in os.environ
 
 root = f'/home/pi/solar-protocol'
 now = str(datetime.date.today())
@@ -30,15 +31,16 @@ myIP = " "
 days = 3
 
 #Call API for every IP address and get charge controller data 
-def getCC(dst,ccValue):
-    print("GET from " + dst)
+def getCC(dstIP, ccValue):
+    print(f'GET {server} {ccValue}')
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?value=" + ccValue + "&duration=" + str(days), timeout=5)
-        return json.loads(x.text)
+        url = f'http://{dstIP}/api/v1/chargecontroller.php?value={ccValue}&duration={str(days)}'
+        response = requests.get(url, timeout=5)
+        return json.loads(response.text)
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
-    except requests.exceptions.ConnectionError as errc:
-        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.ConnectionError:
+        print(f'Timed out connecting to {server}')
     except requests.exceptions.Timeout as errt:
         print("A Timeout Error occurred:" + repr(errt))
     except requests.exceptions.RequestException as err:
@@ -96,7 +98,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
     try:
         tz_url = "http://localhost/api/v1/chargecontroller.php?systemInfo=tz"
         z = requests.get(tz_url) 
-        #for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
+        # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
         if z.status == 404:
             print("TZ 404 error")
             zone = "TZ n/a"
@@ -171,24 +173,20 @@ def render_pages(_local_data, _data, _weather, _server_data):
         open(output_filename, "w").write(rendered_html)
 
 #get weather data
-def get_weather(_local_data):
-    api_key = "24df3e6ca023273cd426f67e7ac06ac9"
+def get_weather(lon, lat, api_key):
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
-    lat = _local_data["lat"]
-    lon = _local_data["long"]
-    complete_url = base_url + "lon=" + lon+  "&lat=" +lat + "&appid=" + api_key 
-    print(complete_url)
+    url = f'{base_url}?lon={lon}&lat={lat}&appid={api_key}'
+    if DEBUG:
+      print(url)
 
-    response = requests.get(complete_url)
-    x = response.json()  
-    y = x["main"] 
-    current_temperature = y["temp"] 
-    current_humidiy = y["humidity"] 
-    z = x["weather"] 
-    weather_description = z[0]["description"] 
+    response = requests.get(url)
+    data = response.json()
+    current_temperature = data["main"]["temp"] 
+    current_humidiy = data["main"]["humidity"] 
+    weather_description = data["weather"][0]["description"] 
 
-    sunrise=datetime.datetime.fromtimestamp(x["sys"]["sunrise"])
-    sunset=datetime.datetime.fromtimestamp(x["sys"]["sunset"])
+    sunrise = datetime.datetime.fromtimestamp(data["sys"]["sunrise"])
+    sunset = datetime.datetime.fromtimestamp(data["sys"]["sunset"])
     sunrise = sunrise.strftime("%I:%M %p")
     sunset = sunset.strftime("%I:%M %p")
 
@@ -201,9 +199,9 @@ def get_weather(_local_data):
                 str(weather_description)) 
    
     output = {
-        "description": x["weather"][0]["description"],
-        "temp": round(x["main"]["temp"]-273.15, 1),
-        "feels_like": round(x["main"]["feels_like"]-273.15, 1),
+        "description": data["weather"][0]["description"],
+        "temp": round(data["main"]["temp"]-273.15, 1),
+        "feels_like": round(data["main"]["feels_like"]-273.15, 1),
         "sunrise": sunrise,
         "sunset": sunset,
     }
@@ -348,9 +346,10 @@ def main():
     print()
     
     energy_data = read_csv() #get pv data from local csv 
-    local_data = get_local() #get local steward data for front end
+    local = get_local() #get local steward data for front end
+    api_key = "24df3e6ca023273cd426f67e7ac06ac9"
     try:
-        local_weather = get_weather(local_data) 
+        local_weather = get_weather(lon=local.lon, lat=local.lat, api_key=api_key)
     except Exception as e:
         print(e)
         local_weather = {
@@ -403,10 +402,12 @@ def main():
         item["status"] = status
         try: 
             time_stamp = getDeviceInfo('time stamp')
-            print("time_stamp!!!!!!!!!!!!!!!!!!!!", time_stamp[item_count])
+            if DEBUG:
+                print("time_stamp!!!!!", time_stamp[item_count])
          
             ftime_stamp = datetime.datetime.fromtimestamp(float(time_stamp[item_count])).strftime("%m/%d/%Y %H:%M:%S")
-            print(ftime_stamp)
+            if DEBUG:
+                print(ftime_stamp)
 
             #time_stamp = ":".join(time_stamp.split(":")[0:-1])
         except Exception as e:

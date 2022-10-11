@@ -363,10 +363,13 @@ def main():
     # go over ccDicts for each server
     for i, ccDict in enumerate(ccDicts):
         print(f'drawing {server_names[i]}')
-        # print name of each server
-        text_curve(i+2, server_names[i], 0, 18, 18)
-        # draw sun data for each server
-        draw_ring(ccDict, i+3, energyParam, timeZones[i], myTimeZone)
+        name = server_names[i]
+        timezone = timeZones[i]
+        if name not in ["pi-a", "pi-b", "pi-c"]:
+            # print name of each server
+            text_curve(i + 2, name, 0, 18, 18)
+            # draw sun data for each server
+            draw_ring(ccDict, i + 3, energyParam, timezone, myTimeZone)
 
 
     #Draw Active Server Rings

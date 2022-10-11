@@ -12,8 +12,8 @@ warn() {
 command -v compare >/dev/null || warn "'compare' command not found, please install imagemagick"
 
 rm -f temp/*
-#bash ../utilities/updateDeviceList.sh
-#bash ../dev/generate data
+bash ../utilities/updateDeviceList.sh
+bash ../dev/generate data
 bash ../dev/generate viz
 
 cp ../backend/createHTML/viz-assets/clock.png temp/actual.png 

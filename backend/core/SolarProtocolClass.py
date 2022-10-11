@@ -29,7 +29,8 @@ class SolarProtocol:
 	def __init__(self):
 		self.localConfigFile = "/home/pi/local/local.json"
 		self.deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
-		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh" #this script retrieves the environmental variables
+        # this script retrieves the environmental variables
+		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh"
 		self.localConfigData = dict()
 		self.loadLocalConfigFile()
 		self.myIP = requests.get('https://server.solarpowerforartists.com/?myip').text #we should have our own API endpoint for this...
@@ -81,7 +82,7 @@ class SolarProtocol:
 		except:
 			return 1
 
-	#runs the environmental variable GET script and returns the specified variable
+	# runs the environmental variable GET script and returns the specified variable
 	def getEnv(self, thisEnv):
 		#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
 		proc = subprocess.Popen(['bash',self.getEnvScriptPath,thisEnv], stdout=subprocess.PIPE)
@@ -92,11 +93,11 @@ class SolarProtocol:
 		e = e.replace("\n", "")
 		return e
 
-	#returns the device's MAC address at the specified interface
-	#this only works with linux
+	# returns the device's MAC address at the specified interface
+	# this only works with linux
 	def getMAC(self, interface):
 		try:
-			mac = open('/sys/class/net/'+ interface +'/address').readline()
+			mac = open(f'/sys/class/net/{interface}/address').readline()
 		except:
 			mac = "00:00:00:00:00:00"
 
@@ -132,14 +133,10 @@ class SolarProtocol:
 	# 	except requests.exceptions.RequestException as err:
 	# 	 	print("An Unknown Error occurred" + repr(err))
 
-	def getRequest(self, url, returnBool):
+	def getRequest(self, url):
 		try:			
 			response = requests.get(url, timeout = 5)
-			#print(response.text)		
-			if returnBool:
-				return response.text
-			else:
-				print(response.text)
+		    return response.text
 		except requests.exceptions.HTTPError as err:
 			print(err)
 		except requests.exceptions.Timeout as err:
@@ -149,56 +146,16 @@ class SolarProtocol:
 
 	#returns the url with parameters for updating the DNS via a GET request
 	def updateDNS(self, ip, key):
-		#print(self.dnsURL + "?ip=" + ip + "&key=" + key)
 		return self.dnsURL + "?ip=" + ip + "&key=" + key
 
-	#returns the url with parameters for retrieving the node black and white lists from the server via a GET request
-	#true = white list
-	#false = black list
-	def getNodeHashList(self, aBoolean):
-		#print(self.dnsURL + "?list=" + aBoolean)
-		return self.dnsURL + "?list=" + aBoolean
-
-	#not tested yet
-	# def chargeControllerData(self, csvFilePath, chosenDataValue):
-
-	# 	csvArray = []
-
-	# 	#get the local PV data
-	# 	with open(csvFilePath, mode='r') as csvfile:
-	# 		localPVData = csv.reader(csvfile)
-
-	# 		for row in localPVData:
-	# 		 	csvArray.append(row)
-
-	# 		#print(csvArray)
-
-	# 		#loop through headers to determine position of value needed
-	# 		for v in range(len(csvArray[0])):
-	# 			if csvArray[0][v] == chosenDataValue:
-	# 				return csvArray[-1][v]
-
 	'''
-	returns the specified val from the device list file.
-	if the filterBool is true, it filters out the local entry from the returned list.
-	thisVal can be = "ip","mac","time stamp","name","log","tz"
+	returns the specified value from the device list file
+	value can be = "ip","mac","time stamp","name","log","tz"
 	'''
-	def getDevVal(self, thisVal, filterBool):
-
-		valList = []
-
+	def getDeviceValues(self, value):
 		with open(self.deviceList) as f:
-		  data = json.load(f)
+		  devices = json.load(f)
 
-		#print(data)
+        values = [device[value] for device in devices]
 
-		for i in range(len(data)):
-			#filter out local device's val by MAC address
-			if filterBool and str(data[i]['mac']).strip() !=  self.getMAC(self.MACinterface).strip():
-				valList.append(data[i][thisVal])
-			else:
-				valList.append(data[i][thisVal])
-
-		#print(valList)
-
-		return valList
+		return values

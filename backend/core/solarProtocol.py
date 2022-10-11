@@ -14,43 +14,44 @@ import requests
 import json
 import sys
 
-#globals
-# SP = 0
-
 DEV = 'DEV' in sys.argv
 
 if DEV:
-	localDataFile = "/home/pi/solar-protocol/dev/data/tracerDataTest.csv"
-	envVar = "this-will-fail"
+	localDataFile = f'/home/pi/solar-protocol/dev/data/tracerDataTest.csv'
 else:
-	localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
-
-deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
-consoleOutput = True
-
-dnsKey = ''
+	localDataFile = f'/home/pi/solar-protocol/charge-controller/data/tracerData{str(datetime.date.today())}.csv'
 
 '''
-possible values for dataValue (use "-" instead of spaces):
-PV current,PV power H,PV power L,PV voltage,
-battery percentage,battery voltage,charge current,
-charge power H,charge power L,date,load current,load power,load voltage,time
-possible values for apiValue include all of the above + scaled-wattage
+apiValue is what we use to determine who should be the point of entry
+
+possible apiValues:
+
+PV-current
+PV-power-H
+PV-power-L
+PV-voltage
+battery-percentage
+battery-voltage
+charge-current
+charge-power-H
+charge-power-L
+date
+load-current
+load-power
+load-voltage
+time
+scaled-wattage
 '''
-#this is the value to be retrieved locally (and then scaled). It could potentially be retrieved via an API call to itself, which might make code cleaner
-dataValue = 'PV power L'
-#this is the key to retrieve from remote devices
 apiValue = 'scaled-wattage'
 
-#return data from a particular server
-# this is redundant with the class... add this error handling to the class?
-def getData(dst, chosenApiValue):
-
+# return data from a particular server
+# maybe this should be moved into the class
+def getData(host, chosenApiValue):
 	try:
-		#returns a single value
-		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+chosenApiValue, timeout = 5)
-		#print(response.text)		
-		#check if the response can be converted to a float
+		# returns a single value
+		url = f'http://{host}/api/v1/chargecontroller.php?value={chosenApiValue}'
+		response = requests.get(url, timeout = 5)
+		# check if the response can be converted to a float
 		return float(response.text)
 	except requests.exceptions.HTTPError as err:
 		print(err)
@@ -61,124 +62,44 @@ def getData(dst, chosenApiValue):
 	except:
 		return -1
 
-def remoteData(dstIPs, chosenApiValue):
-	allData = []
-
-	for dst in dstIPs:
-		#print(dst)
-		allData.append(getData(dst, chosenApiValue))
-
-	# print("ALL DATA:")
-	# print(allData)
-
-	return allData
-	#determineServer(allData)
-
-def determineServer(remoteData,localData, SP):
-
-	thisServer = True
-
-	#print(remotePVData)
-
-	#loop through data from all servers and compare scaled wattage
-	for s in remoteData:
-		if s > localData:
-			thisServer = False
-
-	if thisServer:
+'''
+If this server has the highest value, update DNS to be point of entry
+'''
+def determineServer(apiValues, myValue, SP):
+    if myValue > max(apiValues):
 		print('Point of entry')
 
 		logging.info(datetime.datetime.now())
 		
-		#print(SP.myIP)
-		#print(SP.getEnv('DNS_KEY'))
-
-		#getDNS(requests.get('https://server.solarpowerforartists.com/?myip').text)
-
-		#if in DEV mode dont try to load DNS key
-		if DEV:
-			SP.getRequest(SP.updateDNS(SP.myIP,envVar), False)
-		else:
-			SP.getRequest(SP.updateDNS(SP.myIP,str(SP.getEnv('DNS_KEY'))), False)
-
+		# Do not update DNS if running in DEV
+        key = 'this-will-fail' if DEV else str(SP.getEnv('DNS_KEY'))
+        url = SP.updateDNS(SP.myIP, key)
+        print(SP.getRequest(url))
 	else:
 		print('Not point of entry')
-		#logging.info(datetime.datetime.now())#comment this out after testing
-
-#this should be added to class
-def localData(localDataFileCsv, chosenDataValue):
-
-	csvArray = []
-
-	#get the local PV data
-	with open(localDataFileCsv, mode='r') as csvfile:
-		localPVData = csv.reader(csvfile)
-
-		for row in localPVData:
-		 	csvArray.append(row)
-
-		#print(csvArray)
-
-		#loop through headers to determine position of value needed
-		for v in range(len(csvArray[0])):
-			if csvArray[0][v] == chosenDataValue:
-				return csvArray[-1][v]
-
-#a variation on this was added to the class - replace with that version at some point
-def getIPList(deviceListJson, myMACAddr):
-
-	ipList = []
-
-	with open(deviceListJson) as f:
-	  data = json.load(f)
-
-	#print(data)
-
-	for i in range(len(data)):
-		#filter out local device's mac address
-		if str(data[i]['mac']).strip() !=  myMACAddr.strip():
-			ipList.append(data[i]['ip'])
-
-	print(ipList)
-
-	return ipList
 
 def runSP():
 	print()
-	print("*****Running Solar Protocol script*****")
+	print("***** Running Solar Protocol script *****")
 	print()
 
-	#initialize SolarProtocolClass
 	SP = SolarProtocolClass()
 
-	#deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+    logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
 
-	#localDataFile = "/home/pi/solar-protocol/charge-controller/data/tracerData"+ str(datetime.date.today()) +".csv"
+    # get all ips, mac addresses, and apiValues for devices in the device list
+    ips = SP.getDeviceValues('ip')
+    macs = SP.getDeviceValues('macs')
+	apiValues = [getValue(ip, apiValue) for ip in ips]
 
-	#only log when not in developement mode
-	if not DEV:
-		logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
-
+    # If we are in the device list, check if we should update the point of entry
 	myMAC = SP.getMAC(SP.MACinterface)
-	#print("my mac: " + myMAC)
-
-	localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
-	outputToConsole("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
-	remotePVData = remoteData(getIPList(deviceList, myMAC), apiValue)
-	#print("Remote Voltage: " + remotePVData)
-	determineServer(remotePVData, localPVData, SP)
-
-
-def outputToConsole(printThis):
-	if consoleOutput:
-		print(printThis)
+    if myMAC in macs:
+      myValue = apiValues[macs.index(myMAC)]
+      determineServer(apiValues, myValue, SP)
 
 if __name__ == '__main__':
 	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	
 	runSP()
-
 else:
-	consoleOutput = False
 	from .SolarProtocolClass import SolarProtocol as SolarProtocolClass
-
-

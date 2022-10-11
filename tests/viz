@@ -19,7 +19,7 @@ bash ../dev/generate viz
 cp ../backend/createHTML/viz-assets/clock.png temp/actual.png 
 curl --silent solarprotocol.net/images/clock.png > temp/expected.png
 
-compare -metric AE temp/expected.png temp/actual.png null || {
+compare -metric AE temp/expected.png temp/actual.png /dev/null || {
   compare -compose src temp/expected.png temp/actual.png temp/diff.png
   open temp/diff.png
   echo 1

@@ -1,7 +1,7 @@
 '''
-Every server runs this script.
+Every server runs this script
 This collects the PV data from remote servers via the open data API
-The purpose of this is minimize the amount of on the fly API calls.
+The purpose of this is minimize the amount of on the fly API calls
 '''
 
 '''
@@ -21,74 +21,65 @@ fileDst = "/home/pi/local/data/"
 
 def run():
 	print()
-	print("*****Running GET Remote Data script*****")
+	print("***** Running GET Remote Data script *****")
 	print()
 
 	#initialize SolarProtocolClass
 	SP = SolarProtocolClass()
 
-	ipList = SP.getDevVal('ip', False)
-	nameList = SP.getDevVal('name', False)
+	ips = SP.getDeviceValues('ip')
+	names = SP.getDeviceValues('name')
+	macs = SP.getDeviceValues('mac')
 
 	#get local server name
 	myMAC = SP.getMAC(SP.MACinterface).strip()
-	macList = SP.getDevVal('mac', False)
-	myName = ''
+    myName = ''
 
-	for m in range(len(macList)):
-		if myMAC == macList[m]:
-			myName = nameList[m]
+	for index, mac in enumerate(macs):
+        if myMAC == mac:
+			myName = nameList[index]
 			break
 
-	#This must be V1 else an error occurs - must update the handleData function to use V2
-	endPt = '/api/v1/opendata.php?day=4'
+	# This must be V1 else an error occurs - must update the handleData function to use V2
+	endpoint = '/api/v1/opendata.php?day=4'
 
-	for dst, name in zip(ipList, nameList):
-		print(name + ": " + dst)
+	for ip, name in zip(ips, names):
+		print(name + ": " + ip)
 		if name == myName:
-			#this probably to be updated to handled irregular ports...
-			dstRes = SP.getRequest("http://localhost" + endPt, True)
+			# this probably to be updated to handled irregular ports...
+			data = SP.getRequest(f'http://localhost/{endpoint}', True)
 		else:
-			dstRes = SP.getRequest("http://" + dst + endPt, True)
+			data = SP.getRequest(f'http://{ip}/{endpoint}', True)
 
-		if isinstance(dstRes, str):
+		if isinstance(data, str):
 			print("GET request successful")
-			#remove spaces and make all lower case
-			name = name.replace(" ","").lower()
 
-			handleData(dstRes, name)
+			# remove spaces and make all lower case
+			handleData(data, name.replace(" ","").lower())
 
-#repackage data starting from most recent
+# repackage data starting from most recent
+# strip headers, combine all 4 files into 1, save file
 def handleData(ccFiles, name):
-	#strip headers, combine all 4 files into 1, save file
-
 	combinedFile = []
 
 	ccFiles = json.loads(ccFiles)
 
-	for f in ccFiles:
+	for file in ccFiles:
+		headers = file.pop(0)
 
-		fHeaders = f[0]
-		#print(fHeaders)
-
-		#print(len(f))
-		f.pop(0)
-		#print(len(f))
-
-		for l in reversed(f):
+		for l in reversed(file):
 			combinedFile.append(l)
 
-	#add headers back in to top
-	combinedFile.insert(0, fHeaders)
+	# add headers back
+	combinedFile.insert(0, headers)
 
-	with open(fileDst + name + '.json', 'w', encoding='utf-8') as f:
-		f.write(json.dumps(combinedFile))
-		f.close()
+	with open(fileDst + name + '.json', 'w', encoding='utf-8') as file:
+		file.write(json.dumps(combinedFile))
+		file.close()
 
 if __name__ == '__main__':
 	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	
 	run()
-
 else:
 	consoleOutput = False
 	from .SolarProtocolClass import SolarProtocol as SolarProtocolClass

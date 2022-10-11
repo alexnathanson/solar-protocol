@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+# make sure script works when called from any directory
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+
+rm -f temp/*
+mkdir -p temp
+bash utilities/updateDeviceList.sh
+bash dev/generate data
+bash dev/generate viz
+
+cp backend/createHTML/viz-assets/clock.png > temp/actual.png 
+curl --silent solarprotocol.net/images/clock.png > temp/expected.png
+
+compare -compose src temp/expected.png temp/actual.png temp/diff.png
+open temp/diff.png

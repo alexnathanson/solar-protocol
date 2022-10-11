@@ -70,3 +70,5 @@ We have a few scripts to make it easier to develop. All are based on containers,
 * `dev/build` - makes a container image, with all the dependencies and code to run the solar protocol in a virtual machine
 
 * `dev/start` - starts a virtual machine using the container image
+
+* `tests/viz` - grabs the active visualization and deviceList, generates the viz locally, and shows the difference

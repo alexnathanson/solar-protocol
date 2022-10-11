@@ -40,3 +40,5 @@ __pycache__
 /dns-gateway/key.php
 
 /utilities/hostnames.sh
+
+/tests/temp/*

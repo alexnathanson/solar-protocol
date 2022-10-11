@@ -41,9 +41,6 @@ surface = g.Surface(width=w, height=h)
 # Get list of IP addresses that the pi can see
 dfPOE = pd.DataFrame(columns = ['device', 'datetime']) 
 
-#Array for server names
-serverNames = []
-
 # -------------- FUNCTIONS --------------------------------------------------------------------------------
 
 # Get list of IP addresses that the pi can see
@@ -61,34 +58,34 @@ def getDeviceInfo(getKey):
 # Call API for every IP address and get charge controller data 
 def getCC(server, ccValue):
     print("GET from " + server)
-    url = 'http://' + server + "/api/v1/chargecontroller.php?value=" + ccValue + "&duration=" + str(days)
+    url = f'http://{server}/api/v1/chargecontroller.php?value={ccValue}&duration={str(days)}'
     try:
-        x = requests.get(url, timeout=5)
-        x.json()
-        return json.loads(x.text)
+        cc = requests.get(url, timeout=5)
+        cc.json()
+        return json.loads(cc.text)
     except JSONDecodeError as errj:
         print("A JSON decode error:" + repr(errj))
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
-    except requests.exceptions.ConnectionError as errc:
-        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.ConnectionError:
+        print(f'Timed out connecting to {server}')
     except requests.exceptions.Timeout as errt:
         print("A Timeout Error occurred:" + repr(errt))
     except requests.exceptions.RequestException as err:
         print("An Unknown Error occurred" + repr(err))
 
 #Call API for every IP address and get charge controller data 
-def getSysInfo(dst,k):
+def getSysInfo(dstIP, key):
+    url = f'http://{dstIP}/api/v1/chargecontroller.php?systemInfo={key}'
     try:
-        x = requests.get('http://' + dst + "/api/v1/chargecontroller.php?systemInfo="+k,timeout=5)
+        sysinfo = requests.get(url, timeout=5)
         if (debug_mode):
-            print("API system data:")
-            # print(json.loads(x.text))
-        return x.text
+            print(f'{dstIP} {key}: {sysinfo.text}')
+        return sysinfo.text
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
-    except requests.exceptions.ConnectionError as errc:
-        print("An Error Connecting to the API occurred:" + repr(errc))
+    except requests.exceptions.ConnectionError:
+        print(f'Timed out connecting to {server}')
     except requests.exceptions.Timeout as errt:
         print("A Timeout Error occurred:" + repr(errt))
     except requests.exceptions.RequestException as err:
@@ -299,7 +296,6 @@ def circles(sw, opacity):
  
     
 # -------------- PROGRAM --------------------------------------------------------------------------------
-# -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
     print()
     print("***** Running viz.py ******")
@@ -320,9 +316,6 @@ def main():
             dstIP[index]="localhost"
 
     log = getDeviceInfo('log')
-    serverNames = getDeviceInfo('name')
-
-    print (dstIP)
 
     #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
@@ -363,13 +356,10 @@ def main():
             color = (1,1,1)
         colors.append(color)
 
-    # print(timeZones)
-
     pd.set_option("display.max_rows", None, "display.max_columns", None)
 
-    #customize inside labels
+    # customize inside labels
     server_names = getDeviceInfo('name')
-    # print("server names", len(server_names))
 
     # go over ccData for each server
     for i, item in enumerate(ccData):

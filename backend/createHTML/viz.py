@@ -2,11 +2,10 @@ import gizeh as g
 import math
 import os
 import sys
-import numpy as np
 
 import pandas as pd
 import json
-import datetime
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from PIL import Image
 import webcolors
@@ -95,29 +94,26 @@ def getSysInfo(dstIP, key):
 #drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     ccData = {}
-    datetimes = np.fromiter(list(ccDict.keys()), dtype=str)
-    ccData['datetime'] = datetimes
-    ccData[energy_parameter] = np.fromiter(list(ccDict.values()), dtype=float)
+    ccData['datetime'] = [datetime.strptime(dt, '%Y-%m-%d %H:%M:%S.%f') for dt in ccDict.keys()]
+    ccData[energy_parameter] = [float(energy) for energy in ccDict.values()]
+
     ccDataframe = pd.DataFrame.from_dict(ccData)
 
-    # convert entire "Dates" Column to datetime format this time 
-    ccDataframe['datetime'] = pd.to_datetime(ccDataframe['datetime'])
-    
-    #shift by TZ
+    # shift by TZ
     ccDataframe['timedelta'] = pd.to_timedelta(tzOffset(timeZ, myTimeZone),'h')
-    ccDataframe['datetime'] = ccDataframe['datetime'] + ccDataframe['timedelta'] 
     ccDataframe = ccDataframe.drop(columns=['timedelta'])
     
-    ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
-    ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
+    #replace index with entire "Dates" Column to work with groupby function
+    ccDataframe.index = ccDataframe['datetime']
     ccDataframe = ccDataframe.drop(columns=['datetime'])
-    df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
+
+    #take hourly average of multiple values
+    df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean()
     df_hours = df_hours.tail(72) # last 72 hours
-    #print("DF Hours: ", df_hours)
 
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
-    # #correlate sun data wtih colors 
+    # correlate sun data wtih colors 
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
         if (DEBUG):
             print("Current: ", current)
@@ -190,8 +186,8 @@ def sortPOE(log, timeZones, myTimeZone):
     #print(dfPOE.head())
 
     #get time now and filter by this time - 72 hours
-    startTime = datetime.datetime.now()
-    endTime = datetime.datetime.now() + relativedelta(days=-3) #3 days ago
+    startTime = datetime.now()
+    endTime = datetime.now() + relativedelta(days=-3) #3 days ago
     #print(dfPOE.shape)
     pastSeventyTwoHours = (dfPOE['datetime'] > endTime)
     dfPOE = dfPOE.loc[pastSeventyTwoHours] #filter out everything older than 3 days ago
@@ -220,12 +216,12 @@ def sortPOE(log, timeZones, myTimeZone):
 
 def tzOffset(checkTZ, myTimeZone):
     try:
-        myOffset = datetime.datetime.now(pytz.timezone(myTimeZone)).strftime('%z')
+        myOffset = datetime.now(pytz.timezone(myTimeZone)).strftime('%z')
         myOffset = int(myOffset)
     except: 
         myOffset = 0
     try:
-        theirOffset = datetime.datetime.now(pytz.timezone(checkTZ)).strftime('%z')
+        theirOffset = datetime.now(pytz.timezone(checkTZ)).strftime('%z')
         theirOffset = int(theirOffset)
     except: 
         theirOffset = 0
@@ -434,7 +430,7 @@ def main():
     # alphaBlended2.save("clock1.png")
     #archive images
     archiveImage = Image.open(imgDST+"/clock.png")
-    archiveImage.save('viz-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")) +'.png') #archive plot
+    archiveImage.save('viz-archive/clock-' + str(datetime.now().strftime("%Y-%m-%d %H-%M-%S")) +'.png') #archive plot
 
 
 if __name__ == "__main__":

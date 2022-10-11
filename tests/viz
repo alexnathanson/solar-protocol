@@ -4,14 +4,23 @@ set -e
 # make sure script works when called from any directory
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
-rm -f temp/*
-mkdir -p temp
-bash utilities/updateDeviceList.sh
-bash dev/generate data
-bash dev/generate viz
+warn() {
+  echo $*
+  exit
+}
 
-cp backend/createHTML/viz-assets/clock.png > temp/actual.png 
+command -v compare >/dev/null || warn "'compare' command not found, please install imagemagick"
+
+rm -f temp/*
+bash ../utilities/updateDeviceList.sh
+bash ../dev/generate data
+bash ../dev/generate viz
+
+cp ../backend/createHTML/viz-assets/clock.png temp/actual.png 
 curl --silent solarprotocol.net/images/clock.png > temp/expected.png
 
-compare -compose src temp/expected.png temp/actual.png temp/diff.png
-open temp/diff.png
+compare -metric AE temp/expected.png temp/actual.png null || {
+  compare -compose src temp/expected.png temp/actual.png temp/diff.png
+  open temp/diff.png
+  echo 1
+}

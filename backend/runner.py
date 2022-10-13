@@ -153,15 +153,11 @@ def setFreq():
     Set how frequent the script should run various functions
     """
 
-    # print("setting frequency")
+    url = "http://localhost/api/v2/opendata.php?value=battery-percentage"
 
     # battery percentage
     try:
-        bP = float(
-            SP.getRequest(
-                "http://localhost/api/v2/opendata.php?value=battery-percentage", True
-            )
-        )
+        bP = float(SP.getRequest(url))
 
         if bP > 0.9:
             lF = 10
@@ -186,12 +182,11 @@ def solarScaler():
     between 0 and 6 w it scales between the normal pace and 2x slower
     if 0w (i.e. no sun) the frequency slows down by 2
     """
+    
+    url = "http://localhost/api/v2/opendata.php?value=scaled-wattage"
+
     try:
-        sP = float(
-            SP.getRequest(
-                "http://localhost/api/v2/opendata.php?value=scaled-wattage", True
-            )
-        )
+        sP = float(SP.getRequest(url))
 
         if sP >= 6.0:
             sM = 1

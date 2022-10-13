@@ -48,9 +48,9 @@ def run():
         print(name + ": " + ip)
         if name == myName:
             # this probably to be updated to handled irregular ports...
-            data = SP.getRequest(f"http://localhost/{endpoint}", True)
+            data = SP.getRequest(f"http://localhost/{endpoint}")
         else:
-            data = SP.getRequest(f"http://{ip}/{endpoint}", True)
+            data = SP.getRequest(f"http://{ip}/{endpoint}")
 
         if isinstance(data, str):
             print("GET request successful")

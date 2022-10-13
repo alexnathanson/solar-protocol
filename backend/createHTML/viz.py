@@ -77,12 +77,12 @@ def getCC(server, ccValue):
 
 
 # Call API for every IP address and get charge controller data
-def getSysInfo(dstIP, key):
-    url = f"http://{dstIP}/api/v1/chargecontroller.php?systemInfo={key}"
+def getSysInfo(ip, key):
+    url = f"http://{ip}/api/v1/chargecontroller.php?systemInfo={key}"
     try:
         sysinfo = requests.get(url, timeout=5)
         if DEBUG:
-            print(f"{dstIP} {key}: {sysinfo.text}")
+            print(f"{ip} {key}: {sysinfo.text}")
         return sysinfo.text
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -96,6 +96,11 @@ def getSysInfo(dstIP, key):
 
 # drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
+    if DEBUG:
+        print(f"drawing text curve for {server_no} {message}")
+    if type(ccDict) == type(None):
+        return
+
     ccData = {}
     ccData["datetime"] = [
         datetime.strptime(dt, "%Y-%m-%d %H:%M:%S.%f") for dt in ccDict.keys()
@@ -180,11 +185,11 @@ def draw_server_arc(server_no, start, stop, c):
     circle.draw(surface)
 
 
-def sortPOE(log, timeZones, myTimeZone):
+def sortPOE(logs, timeZones, myTimeZone):
     global dfPOE
-    print(dfPOE.head())
-    for l in range(len(log)):
-        tempDF = pd.DataFrame(log[l])  # convert individual POE lists to dataframe
+    print("dfPOE.head()", dfPOE.head())
+    for i, log in enumerate(logs):
+        tempDF = pd.DataFrame(log)  # convert individual POE lists to dataframe
         tempDF["datetime"] = tempDF[0]
         # print("tempDF['datetime']")
         # print(tempDF['datetime'])
@@ -197,13 +202,13 @@ def sortPOE(log, timeZones, myTimeZone):
         )  # convert entire "Dates" Column to datetime format this time
 
         # shift by TZ
-        tempDF["timedelta"] = pd.to_timedelta(tzOffset(timeZones[l], myTimeZone), "h")
+        tempDF["timedelta"] = pd.to_timedelta(tzOffset(timeZones[i], myTimeZone), "h")
         tempDF["datetime"] = tempDF["datetime"] + tempDF["timedelta"]
         tempDF = tempDF.drop(columns=["timedelta"])
 
         # tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=tzOffset(timeZones[l])) #shift by TZ
         tempDF = tempDF.drop(columns=[0])
-        tempDF["device"] = l
+        tempDF["device"] = i
         dfPOE = pd.concat([dfPOE, tempDF], ignore_index=True)
         dfPOE.shape
 
@@ -238,10 +243,10 @@ def sortPOE(log, timeZones, myTimeZone):
             # print("percent again:", dfPOE['percent'].iloc[t])
             dfPOE.at[t, "angle"] = 360 - ((dfPOE["percent"].iloc[t]) * 360)
             # print("Angle:", dfPOE.at[t,'angle'])
-
-    # print(dfPOE.head())
-    # print(dfPOE.tail())
-
+    
+    if DEBUG:
+        print("head", dfPOE.head())
+        print("tail", dfPOE.tail())
 
 def tzOffset(checkTZ, myTimeZone):
     try:
@@ -265,6 +270,8 @@ def tzOffset(checkTZ, myTimeZone):
 
 
 def text_curve(server_no, message, angle, spacing, ts):
+    if DEBUG:
+        print(f"drawing text curve for {server_no} {message}")
     cr = server_no * ring_rad + (ring_rad / 5) + (ring_rad * start_ring)
     # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
@@ -331,6 +338,42 @@ def circles(sw, opacity):
         circ.draw(surface)
         b = b + ring_rad
 
+def getColor(ip):
+    DEFAULT_COLOR = (1, 1, 1)
+    try:
+        color = getSysInfo(ip, "color")
+    except:
+        return DEFAULT_COLOR
+
+    if type(color) == type(None) or color == "":
+        return DEFAULT_COLOR
+    
+    return color
+
+def getTimezone(ip):
+    # defaults to NYC time - default to UTC in the future
+    DEFAULT_TIMEZONE = "America/New_York"
+    try:
+        timezone = getSysInfo(ip, "tz")
+    except:
+        return DEFAULT_TIMEZONE
+
+    if type(timezone) == type(None):
+        return DEFAULT_TIMEZONE
+
+    return timezone
+
+def getCCDict(ip):
+    DEFAULT_CCDICT = { "datetime": energyParam }
+    ccDict = getCC(ip, energyParam)
+    if type(ccDict) != type(None):
+        # remove the header
+        header = ccDict.pop("datetime", None)
+        expected_header = energyParam.replace("-", " ")
+        if header == expected_header:
+            return ccDict
+        
+        return DEFAULT_CCDICT
 
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
@@ -338,64 +381,25 @@ def main():
     print("***** Running viz.py ******")
     print()
 
-    # print("current sys path (viz): " + sys.path)
-
-    # Get my ip
-    myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
-    # print("MY IP: ", type(myIP))
-
-    # Get IPs, using keyword ip
-    dstIP = getDeviceInfo("ip")
-    for index, item in enumerate(dstIP):
-        # print(item)
-        if item == myIP:
-            # print("Replacing ip of self")
-            dstIP[index] = "localhost"
-
-    log = getDeviceInfo("log")
+    ips = getDeviceInfo("ip")
+    logs = getDeviceInfo("log")
 
     # in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
     myTimeZone = getSysInfo("localhost", "tz")
-    # print("My TZ: ", myTimeZone)
 
     colors = []
 
-    # dstIP = dstIP[0:1]
-
     # iterate through each device
-    for ip in dstIP:
+    for ip in ips:
         if DEBUG:
-            print(f"getting ccDicts for {ip}")
+            print(f"getting data for {ip}")
 
-        getResult = getCC(ip, energyParam)
-        if type(getResult) != type(None):
-            header = getResult.pop("datetime", None)
-            expected_header = energyParam.replace("-", " ")
-            # remove the header
-            if header == expected_header:
-                ccDicts.append(getResult)
+        ccDicts.append(getCCDict(ip))
 
-        try:
-            timezone = getSysInfo(ip, "tz")
-        except:
-            timezone = "America/New_York"
+        timeZones.append(getTimezone(ip))
 
-        if type(timezone) != type(None):
-            timeZones.append(timezone)
-        else:
-            timeZones.append(
-                "America/New_York"
-            )  # defaults to NYC time - default to UTC in the future
-
-        try:
-            color = getSysInfo(ip, "color")
-        except:
-            color = (1, 1, 1)
-
-        if type(color) == type(None) or color == "":
-            color = (1, 1, 1)
-        colors.append(color)
+        colors.append(getColor(ip))
 
     pd.set_option("display.max_rows", None, "display.max_columns", None)
 
@@ -404,17 +408,17 @@ def main():
 
     # go over ccDicts for each server
     for i, ccDict in enumerate(ccDicts):
-        print(f"drawing {server_names[i]}")
         name = server_names[i]
         timezone = timeZones[i]
         if name not in ["pi-a", "pi-b", "pi-c"]:
+            print(f"drawing {name} ({timezone})")
             # print name of each server
             text_curve(i + 2, name, 0, 18, 18)
             # draw sun data for each server
             draw_ring(ccDict, i + 3, energyParam, timezone, myTimeZone)
 
     # Draw Active Server Rings
-    sortPOE(log, timeZones, myTimeZone)
+    sortPOE(logs, timeZones, myTimeZone)
     # print("dfPOE.shape", dfPOE.shape)
     # print(dfPOE)
     # lines(interval in house, stroke weight, opacity)

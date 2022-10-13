@@ -182,7 +182,7 @@ def solarScaler():
     between 0 and 6 w it scales between the normal pace and 2x slower
     if 0w (i.e. no sun) the frequency slows down by 2
     """
-    
+
     url = "http://localhost/api/v2/opendata.php?value=scaled-wattage"
 
     try:

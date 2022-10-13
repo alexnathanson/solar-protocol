@@ -1,35 +1,33 @@
 <?php
-	if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        //this sets the timeout for the API calls
+        $streamContext = stream_context_create(
+            array('http'=>
+              array(
+                  //120 seconds
+                  'timeout' => 120
+              )
+            )
+        );
 
-	  //this sets the timeout for the API calls
-	  $streamContext = stream_context_create(
-	    array('http'=>
-	      array(
-	          //120 seconds
-	          'timeout' => 120
-	      )
-	    )
-	  );
+        $apiVals = '';
 
-		$apiVals = '';
+        foreach (array_keys($_GET) as $gK) {
+            if ((isset($_GET[$gK]) && !empty($_GET[$gK])) || $_GET[$gK] == '0') {
+                if ($apiVals != '') {
+                    $apiVals = $apiVals . "&";
+                }
 
-		foreach(array_keys($_GET) as $gK){
-			if((isset($_GET[$gK]) && !empty($_GET[$gK])) || $_GET[$gK] == '0'){
-				if($apiVals != ''){
-					$apiVals = $apiVals . "&";
-				}
+                $apiVals = $apiVals . $gK . "=" . $_GET[$gK];
+            }
+        }
 
-			$apiVals = $apiVals . $gK . "=" . $_GET[$gK];
-			}
-		}
-
-		//$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
-		$apiCall = 'http://' . $_SERVER["SERVER_NAME"] . '/api/v1/opendata.php?' . $apiVals;
-		$localApiCall = 'http://localhost/api/v1/opendata.php?' . $apiVals;
-		$apiResponse = file_get_contents($localApiCall, false, $streamContext);
-
-	}
-?>
+        //$_SERVER[SERVER_PORT] might need to be used as well for irregular ports
+        $apiCall = 'http://' . $_SERVER["SERVER_NAME"] . '/api/v1/opendata.php?' . $apiVals;
+        $localApiCall = 'http://localhost/api/v1/opendata.php?' . $apiVals;
+        $apiResponse = file_get_contents($localApiCall, false, $streamContext);
+    }
+    ?>
 
  <!DOCTYPE html>
 <html>

@@ -1,9 +1,9 @@
 <?php
   require_once '/home/pi/solar-protocol/backend/protect/protect.php';
-  Protect\with('/home/pi/solar-protocol/backend/protect/form.php','admin');
+  Protect\with('/home/pi/solar-protocol/backend/protect/form.php', 'admin');
 
   require_once '/home/pi/solar-protocol/frontend/admin/settings/upload.php';
-?>
+  ?>
 
 <html>
 <head>
@@ -15,190 +15,188 @@
 <!--THIS PHP CODE IS FOR THE SERVER NAME - REFACTOR NEEDED -->
 <?php
 
-//read local file
-$localFile = '/home/pi/local/local.json';
+  //read local file
+  $localFile = '/home/pi/local/local.json';
 
-$localInfo = json_decode(getFile($localFile), true);
+  $localInfo = json_decode(getFile($localFile), true);
 
-if (isset($localInfo["name"])){
-  $locName = $localInfo["name"];
-} else {
-  $locName = "";
-}
+  if (isset($localInfo["name"])) {
+      $locName = $localInfo["name"];
+  } else {
+      $locName = "";
+  }
 
-?>
+  ?>
 
 <?php
 
-//local www directory
-$localWWW = "/home/pi/local/www/";
+  //local www directory
+  $localWWW = "/home/pi/local/www/";
 
-$deleteStatus = $directoryStatus = "";
+  $deleteStatus = $directoryStatus = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      //var_dump($_POST);
 
-  //var_dump($_POST);
-
-  //make new directory
-  if(isset($_POST['newDirectory']) && isset($_POST['parent'])){
-    if(!is_dir($_POST['parent'] . $_POST['newDirectory'])){
-      mkdir($_POST['parent'] . $_POST['newDirectory']);
-      $directoryStatus .= "<br>New directory created.";
-    } else {
-      $directoryStatus .= "<br>Directory already exists.";
-    }
-  } else if(isset($_POST['newDirectory']) && !isset($_POST['parent'])){
-    $directoryStatus .= "<br>No parent directory selected.";
-  } else if (isset($_POST['type']) && $_POST['type'] == "delete"){//delete file or directory
-    $pK = array_keys($_POST);
-    foreach ($pK as $k => $f){
-      if(strpos($f, "file") !== false){
-        deleteFile($_POST[$f]);
-      } else if (strpos($f, "directory") !== false){
-        deleteDirectory($_POST[$f]);
-      }
-    }
-  } else if (isset($_POST['type']) && $_POST['type'] == "upload"){//upload file
-    $uploadStatus .= "Upload Status:";
-    Upload\uploadIt();
-  }
-}
-
-
-$totalDiskSpace = $availableDiskSpace = $diskUnits = "";
-
-diskSpace("/");
-
-function mapDirectory($mapThis, $count = 0){
-
-  if(is_dir($mapThis)){
-    //echo $count;
-
-    $mappedDirectory = scandir($mapThis);
-
-    $fileNum = 0;
-
-    foreach ($mappedDirectory as $k => $f){
-      if($f != "." && $f != ".."){
-        for($c = 0; $c < $count; $c++){
-          echo "-- ";
-        }
-        $fN = $mapThis.$f;
-       
-        if(!is_dir($fN)){
-          outputCheck("file-".$fileNum, $fN, $fN . " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")");
-        } else if(is_dir($fN)){
-          outputCheck("directory-".$fileNum, $fN, $fN . " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")");
-          mapDirectory($fN."/", $count + 1);
-        } else {
-
-        }
-      }
-      $fileNum++;
-    }
-
-  }
-}
-
-function listDirectories($mapThis, $nameRadio){
-
-  if(is_dir($mapThis)){
-
-    outputRadio($mapThis, $nameRadio);
-    $mappedDirectory = scandir($mapThis);
-
-
-    foreach ($mappedDirectory as $k => $f){
-      if($f != "." && $f != ".."){
-       
-        $fN = $mapThis.$f;
-       
-        if(is_dir($fN)){
-          listDirectories($fN."/", $nameRadio);
-        }
-      }
-    }
-
-  }
-}
-
-function outputCheck($checkName, $checkValue, $checkDisplay){
-  echo "<input type='checkbox' name=" . $checkName . " value=" . $checkValue . ">
-  <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
-}
-
-function outputRadio($radioValue, $rN){
-  echo "<input type='radio' name=" . $rN . " value=" . $radioValue . ">
-  <label for=" . $radioValue . ">" . $radioValue ."</label><br>";
-}
-
-function deleteFile($delThis){
-  if(strpos($delThis, $GLOBALS['localWWW'])!== false){
-      unlink($delThis);
-      $GLOBALS['deleteStatus'] .= "<br>".$delThis . " deleted";
-  }
-}
-
-function deleteDirectory($delThis){
-
-  if(strpos($delThis, $GLOBALS['localWWW'])!==false && is_dir($delThis)){
-
-    $scanDir = scandir($delThis);
-
-    if(!is_null($scanDir)){
-      foreach ($scanDir as $k => $f){
-        if($f != "." && $f != ".."){
-          $fP = $delThis . "/" . $f;
-          if(is_dir($fP)){
-            deleteDirectory($fP);
-          } else if (is_file($fP)){
-            deleteFile($fP);
+      //make new directory
+      if (isset($_POST['newDirectory']) && isset($_POST['parent'])) {
+          if (!is_dir($_POST['parent'] . $_POST['newDirectory'])) {
+              mkdir($_POST['parent'] . $_POST['newDirectory']);
+              $directoryStatus .= "<br>New directory created.";
+          } else {
+              $directoryStatus .= "<br>Directory already exists.";
           }
-        }
+      } elseif (isset($_POST['newDirectory']) && !isset($_POST['parent'])) {
+          $directoryStatus .= "<br>No parent directory selected.";
+      } elseif (isset($_POST['type']) && $_POST['type'] == "delete") {//delete file or directory
+          $pK = array_keys($_POST);
+          foreach ($pK as $k => $f) {
+              if (strpos($f, "file") !== false) {
+                  deleteFile($_POST[$f]);
+              } elseif (strpos($f, "directory") !== false) {
+                  deleteDirectory($_POST[$f]);
+              }
+          }
+      } elseif (isset($_POST['type']) && $_POST['type'] == "upload") {//upload file
+          $uploadStatus .= "Upload Status:";
+          Upload\uploadIt();
       }
-    }
-
-    rmdir($delThis);
-    $GLOBALS['deleteStatus'] .= "<br>".$delThis . " deleted";
   }
-}
-
-function diskSpace($dirSpace){
-  global $totalDiskSpace, $availableDiskSpace, $diskUnits;
-
-  $totalDiskSpace = disk_total_space($dirSpace);
-  $availableDiskSpace = disk_free_space($dirSpace);
-
-  $diskUnits = "bytes";
-  //echo $availableDiskSpace . " / " . $totalDiskSpace; 
-}
 
 
-//from index
-function test_input($data) {
- /* $data = str_replace("\r", " ", $data) //rm line breaks
-  $data = str_replace("\n", " ", $data) //rm line breaks
-  $data = str_replace("  ", " ", $data) //replace double spaces with single space*/
-  $data = str_replace(array("\n", "\r", "  "), ' ', $data);
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+  $totalDiskSpace = $availableDiskSpace = $diskUnits = "";
 
-//from index
-function getFile($fileName){
-  //echo $fileName;
-  try{
-    return file_get_contents($fileName);
+  diskSpace("/");
+
+  function mapDirectory($mapThis, $count = 0)
+  {
+      if (is_dir($mapThis)) {
+          //echo $count;
+
+          $mappedDirectory = scandir($mapThis);
+
+          $fileNum = 0;
+
+          foreach ($mappedDirectory as $k => $f) {
+              if ($f != "." && $f != "..") {
+                  for ($c = 0; $c < $count; $c++) {
+                      echo "-- ";
+                  }
+                  $fN = $mapThis.$f;
+
+                  if (!is_dir($fN)) {
+                      outputCheck("file-".$fileNum, $fN, $fN . " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")");
+                  } elseif (is_dir($fN)) {
+                      outputCheck("directory-".$fileNum, $fN, $fN . " (last modified: ".date("F d Y H:i:s.", filemtime($fN)) . ")");
+                      mapDirectory($fN."/", $count + 1);
+                  } else {
+                  }
+              }
+              $fileNum++;
+          }
+      }
   }
-  catch(Exception $e) {
-    echo $fileName;
-    return FALSE;
-  }
-}
 
-?>
+  function listDirectories($mapThis, $nameRadio)
+  {
+      if (is_dir($mapThis)) {
+          outputRadio($mapThis, $nameRadio);
+          $mappedDirectory = scandir($mapThis);
+
+
+          foreach ($mappedDirectory as $k => $f) {
+              if ($f != "." && $f != "..") {
+                  $fN = $mapThis.$f;
+
+                  if (is_dir($fN)) {
+                      listDirectories($fN."/", $nameRadio);
+                  }
+              }
+          }
+      }
+  }
+
+  function outputCheck($checkName, $checkValue, $checkDisplay)
+  {
+      echo "<input type='checkbox' name=" . $checkName . " value=" . $checkValue . ">
+  <label for=" . $checkValue . ">" . $checkDisplay ."</label><br>";
+  }
+
+  function outputRadio($radioValue, $rN)
+  {
+      echo "<input type='radio' name=" . $rN . " value=" . $radioValue . ">
+  <label for=" . $radioValue . ">" . $radioValue ."</label><br>";
+  }
+
+  function deleteFile($delThis)
+  {
+      if (strpos($delThis, $GLOBALS['localWWW'])!== false) {
+          unlink($delThis);
+          $GLOBALS['deleteStatus'] .= "<br>".$delThis . " deleted";
+      }
+  }
+
+  function deleteDirectory($delThis)
+  {
+      if (strpos($delThis, $GLOBALS['localWWW'])!==false && is_dir($delThis)) {
+          $scanDir = scandir($delThis);
+
+          if (!is_null($scanDir)) {
+              foreach ($scanDir as $k => $f) {
+                  if ($f != "." && $f != "..") {
+                      $fP = $delThis . "/" . $f;
+                      if (is_dir($fP)) {
+                          deleteDirectory($fP);
+                      } elseif (is_file($fP)) {
+                          deleteFile($fP);
+                      }
+                  }
+              }
+          }
+
+          rmdir($delThis);
+          $GLOBALS['deleteStatus'] .= "<br>".$delThis . " deleted";
+      }
+  }
+
+  function diskSpace($dirSpace)
+  {
+      global $totalDiskSpace, $availableDiskSpace, $diskUnits;
+
+      $totalDiskSpace = disk_total_space($dirSpace);
+      $availableDiskSpace = disk_free_space($dirSpace);
+
+      $diskUnits = "bytes";
+      //echo $availableDiskSpace . " / " . $totalDiskSpace;
+  }
+
+
+  //from index
+  function test_input($data)
+  {
+      /* $data = str_replace("\r", " ", $data) //rm line breaks
+       $data = str_replace("\n", " ", $data) //rm line breaks
+       $data = str_replace("  ", " ", $data) //replace double spaces with single space*/
+      $data = str_replace(array("\n", "\r", "  "), ' ', $data);
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+  }
+
+  //from index
+  function getFile($fileName)
+  {
+      //echo $fileName;
+      try {
+          return file_get_contents($fileName);
+      } catch(Exception $e) {
+          echo $fileName;
+          return false;
+      }
+  }
+
+  ?>
 
 <h1><a href="/">Solar Protocol (<?php echo $locName;?>)</a> - Admin Console</h1>
 
@@ -224,7 +222,9 @@ function getFile($fileName){
 
 <div class="basicBox">
 
-<div <?php if($deleteStatus != ""){echo "id='statusBox'";} ?>>
+<div <?php if ($deleteStatus != "") {
+    echo "id='statusBox'";
+} ?>>
   <?php echo $deleteStatus; ?>
 </div>
 
@@ -241,7 +241,9 @@ function getFile($fileName){
 
 <div class="basicBox">
 
-<div <?php if($directoryStatus != ""){echo "id='statusBox'";} ?>>
+<div <?php if ($directoryStatus != "") {
+    echo "id='statusBox'";
+} ?>>
   <?php echo $directoryStatus; ?>
 </div>
 
@@ -258,7 +260,9 @@ function getFile($fileName){
 
 <div class="basicBox">
 
-<div <?php if($uploadStatus != "" && $uploadStatus != "Upload Status"){echo "id='statusBox'";} ?>>
+<div <?php if ($uploadStatus != "" && $uploadStatus != "Upload Status") {
+    echo "id='statusBox'";
+} ?>>
   <?php echo $uploadStatus; ?>
 </div>
 

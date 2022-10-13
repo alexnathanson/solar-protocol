@@ -4,7 +4,7 @@
 <h1><a href="/">Solar Protocol</a></h1>
 
 <form method="POST">
-  <?php if( $_SERVER['REQUEST_METHOD'] == 'POST' ) { ?>
+  <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
     Invalid user name or password
   <?php } ?>
   <p>Username</p>

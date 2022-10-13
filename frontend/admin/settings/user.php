@@ -1,80 +1,78 @@
 <?php
   //password protection
   require_once '/home/pi/solar-protocol/backend/protect/protect.php';
-  Protect\with('/home/pi/solar-protocol/backend/protect/form.php','admin');
+  Protect\with('/home/pi/solar-protocol/backend/protect/form.php', 'admin');
 
 
   $errMsg = "";
 
-  if(isset($_POST['hash']) && isset($_POST['rehash']) && $_POST['hash'] != "" ) {
-
-    if(testInput()){
-      updateUserInfo($_SESSION["username"], password_hash($_POST['hash'], PASSWORD_DEFAULT));
-    }
-  } 
+  if (isset($_POST['hash']) && isset($_POST['rehash']) && $_POST['hash'] != "") {
+      if (testInput()) {
+          updateUserInfo($_SESSION["username"], password_hash($_POST['hash'], PASSWORD_DEFAULT));
+      }
+  }
 
   //read local file to get current server name
   $localFile = '/home/pi/local/local.json';
 
   $localInfo = json_decode(file_get_contents($localFile), true);
 
-  if (isset($localInfo["name"])){
-    $locName = $localInfo["name"];
+  if (isset($localInfo["name"])) {
+      $locName = $localInfo["name"];
   } else {
-    $locName = "";
+      $locName = "";
   }
 
 
-function updateUserInfo($un, $pwHash){
-  global $errMsg;
+  function updateUserInfo($un, $pwHash)
+  {
+      global $errMsg;
 
-  $fileName = '/home/pi/local/access.json';
+      $fileName = '/home/pi/local/access.json';
 
-  try{
-    $f = json_decode(file_get_contents($fileName),true);
-    
-    //var_dump($f);
+      try {
+          $f = json_decode(file_get_contents($fileName), true);
 
-    $f['users'][$un]['hash']=$pwHash;
-    //var_dump($f);
-    file_put_contents($fileName, json_encode($f, JSON_PRETTY_PRINT));
+          //var_dump($f);
 
-    $errMsg = "Password for user <strong>" . $_SESSION["username"] . "</strong> has been successfully changed.<br>";
-  }
-  catch(Exception $e) {
+          $f['users'][$un]['hash']=$pwHash;
+          //var_dump($f);
+          file_put_contents($fileName, json_encode($f, JSON_PRETTY_PRINT));
 
-    $errMsg = "Error";
-
-  }
-}
-
-//what are the criteria to test the password?
-function testInput(){
-  global $errMsg;
-
-  //check that passwords match
-  if($_POST['hash'] != $_POST['rehash']){
-    $errMsg = "Passwords do not match.";
-    return false;
+          $errMsg = "Password for user <strong>" . $_SESSION["username"] . "</strong> has been successfully changed.<br>";
+      } catch(Exception $e) {
+          $errMsg = "Error";
+      }
   }
 
-  //check for white spaces
-  if(strpos($_POST['hash'],' ') !== false){
-    $errMsg = "White space is not allowed.";
-    return false;
+  //what are the criteria to test the password?
+  function testInput()
+  {
+      global $errMsg;
+
+      //check that passwords match
+      if ($_POST['hash'] != $_POST['rehash']) {
+          $errMsg = "Passwords do not match.";
+          return false;
+      }
+
+      //check for white spaces
+      if (strpos($_POST['hash'], ' ') !== false) {
+          $errMsg = "White space is not allowed.";
+          return false;
+      }
+
+      /*check for password strength - something worth considering adding in the future
+        a minimum of 8 characters
+        at least one uppercase letter
+        at least one number (digit)
+        at least one of the following special characters !@#$%^&*-
+      */
+
+      return true;
   }
 
-  /*check for password strength - something worth considering adding in the future
-    a minimum of 8 characters
-    at least one uppercase letter
-    at least one number (digit)
-    at least one of the following special characters !@#$%^&*-
-  */
-
-  return true;
-}
-
-?>
+  ?>
 
 
 <html>

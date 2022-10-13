@@ -1,0 +1,55 @@
+#!/bin/bash
+set -e
+
+# make sure script works when called from any directory
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+
+warn() {
+  echo $*
+  exit
+}
+
+fail() {
+  echo $* >&2
+  exit 1
+}
+
+command -v curl >/dev/null || warn "'curl' command not found, please install"
+
+ENDPOINT="http://127.0.0.1:11221/api/v1/"
+
+api-is-running() {
+  curl --silent "${ENDPOINT}" >/dev/null \
+    || fail "api not found for ${ENDPOINT}, is it running?"
+}
+
+charge-controller-value() {
+  value=${1}
+  expected=${2}
+  actual=$(curl --silent "${ENDPOINT}/opendata.php?value=${value}&DEBUG=true")
+  if [[ "${expected}" != "${actual}" ]]; then
+    printf '\n\t'
+    fail "$value of $actual is not the expected $expected"
+  fi
+}
+
+echo -n "api is up? "
+api-is-running
+echo ✔
+
+echo -n "charge-controller values? "
+charge-controller-value PV-current 0.0
+charge-controller-value PV-power-H 0.0
+charge-controller-value PV-power-L 0.0
+charge-controller-value PV-voltage 0.32
+charge-controller-value battery-percentage 0.49
+charge-controller-value battery-voltage 12.49
+charge-controller-value charge-current ""
+charge-controller-value charge-power-H ""
+charge-controller-value charge-power-L ""
+charge-controller-value load-current 0.21
+charge-controller-value load-power 2.62
+charge-controller-value load-voltage 12.49
+charge-controller-value datetime "2021-02-24 19:59:27.927636"
+charge-controller-value scaled-wattage 0
+echo ✔

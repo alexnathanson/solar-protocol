@@ -1,7 +1,7 @@
 <?php
   require_once '/home/pi/solar-protocol/backend/protect/protect.php';
-  Protect\with('/home/pi/solar-protocol/backend/protect/form.php','admin');
-?>
+  Protect\with('/home/pi/solar-protocol/backend/protect/form.php', 'admin');
+  ?>
 
 <!DOCTYPE html>
 <html>
@@ -19,29 +19,29 @@
 <!--THIS PHP CODE IS FOR THE SERVER NAME - REFACTOR NEEDED -->
 <?php
 
-//read local file
-$localFile = '/home/pi/local/local.json';
+  //read local file
+  $localFile = '/home/pi/local/local.json';
 
-$localInfo = json_decode(getFile($localFile), true);
+  $localInfo = json_decode(getFile($localFile), true);
 
-if (isset($localInfo["name"])){
-  $locName = $localInfo["name"];
-} else {
-  $locName = "";
-}
-
-function getFile($fileName){
-  //echo $fileName;
-  try{
-    return file_get_contents($fileName);
+  if (isset($localInfo["name"])) {
+      $locName = $localInfo["name"];
+  } else {
+      $locName = "";
   }
-  catch(Exception $e) {
-    echo $fileName;
-    return FALSE;
-  }
-}
 
-?>
+  function getFile($fileName)
+  {
+      //echo $fileName;
+      try {
+          return file_get_contents($fileName);
+      } catch(Exception $e) {
+          echo $fileName;
+          return false;
+      }
+  }
+
+  ?>
 
 <h1><a href="/">Solar Protocol (<?php echo $locName;?>)</a> - Admin Console</h1>
 
@@ -51,84 +51,82 @@ function getFile($fileName){
 
 <?php
 
-$fileDate = date("Y-m-d");
+  $fileDate = date("Y-m-d");
 
-if(isset($_GET["date"])){
-  //get the query string
-  $date = htmlspecialchars($_GET["date"]);
+  if (isset($_GET["date"])) {
+      //get the query string
+      $date = htmlspecialchars($_GET["date"]);
 
-  if ($date == 'yesterday'){
-    $fileDate = date("Y-m-") . (date("d")-1);
-  }elseif( $date == 'before'){
-    $fileDate = date("Y-m-") . (date("d")-2);//make a conditional to account for single digit days!!!
+      if ($date == 'yesterday') {
+          $fileDate = date("Y-m-") . (date("d")-1);
+      } elseif ($date == 'before') {
+          $fileDate = date("Y-m-") . (date("d")-2);//make a conditional to account for single digit days!!!
+      }
   }
-}
 
 
-//variables
-$fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
-$rawDataArray = [];
+  //variables
+  $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
+  $rawDataArray = [];
 
-echo "<h2>Local PV Data</h2>";
+  echo "<h2>Local PV Data</h2>";
 
-echo "<p>View: <a href='/admin/local.php?date=today' id='today'>Today</a> | <a href='/admin/local.php?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/admin/local.php?date=before' id='daybefore'>The Day Before</a></p>";
-echo "<h3>File Name:</h3>". $fileName . "<br>";
+  echo "<p>View: <a href='/admin/local.php?date=today' id='today'>Today</a> | <a href='/admin/local.php?date=yesterday' id='yesterday'>Yesterday</a> | <a href='/admin/local.php?date=before' id='daybefore'>The Day Before</a></p>";
+  echo "<h3>File Name:</h3>". $fileName . "<br>";
 
-// current directory
-//echo getcwd() . "\n";
+  // current directory
+  //echo getcwd() . "\n";
 
-// Open the file for reading (from https://phpenthusiast.com/blog/parse-csv-with-php)
-if (($h = fopen("{$fileName}", "r")) !== FALSE) 
-{
-  // Each line in the file is converted into an individual array that we call $data
-  // The items of the array are comma separated
-  while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
+  // Open the file for reading (from https://phpenthusiast.com/blog/parse-csv-with-php)
+  if (($h = fopen("{$fileName}", "r")) !== false) {
+      // Each line in the file is converted into an individual array that we call $data
+      // The items of the array are comma separated
+      while (($data = fgetcsv($h, 1000, ",")) !== false) {
+          // Each individual array is being pushed into the nested array
+          $rawDataArray[] = $data;
+      }
+
+      // Close the file
+      fclose($h);
+  }
+
+  /*
+  // Display the code in a readable format
+  echo "<pre>";
+  var_dump($rawDataArray);
+  echo "</pre>";
+  */
+  /*
+  echo "<h4>Most Recent Data:</h4>";
+  $buildNow = '<table border=1px>';
+  //foreach($rawDataArray as $row)
+
+  //header
   {
-    // Each individual array is being pushed into the nested array
-    $rawDataArray[] = $data;		
+  $buildNow .= '<tr>';
+  foreach($rawDataArray[0] as $item)
+  {
+  $buildNow .= "<td>{$item}</td>";
+  }
+  $buildNow .= '</tr>';
   }
 
-  // Close the file
-  fclose($h);
-}
+  //most recent data
+  $dataCount = count($rawDataArray);
+  $nowRow = $rawDataArray[$dataCount-1];
 
-/*
-// Display the code in a readable format
-echo "<pre>";
-var_dump($rawDataArray);
-echo "</pre>";
-*/
-/*
-echo "<h4>Most Recent Data:</h4>";
-$buildNow = '<table border=1px>';
-//foreach($rawDataArray as $row)
-
-//header
-{
-$buildNow .= '<tr>';
-foreach($rawDataArray[0] as $item)  
-{
-$buildNow .= "<td>{$item}</td>";
-}
-$buildNow .= '</tr>';
-}
-
-//most recent data
-$dataCount = count($rawDataArray);
-$nowRow = $rawDataArray[$dataCount-1];
-
-{
-$buildNow .= '<tr>';
-foreach($nowRow as $item)
-{
-$buildNow .= "<td>{$item}</td>";
-}
-$buildNow .= '</tr>';
-}
-$buildNow .= '</table>';
-echo $buildNow;
-*/
-?>
+  {
+  $buildNow .= '<tr>';
+  foreach($nowRow as $item)
+  {
+  $buildNow .= "<td>{$item}</td>";
+  }
+  $buildNow .= '</tr>';
+  }
+  $buildNow .= '</table>';
+  echo $buildNow;
+  */
+  ?>
 
 <script type="text/javascript">
 	google.charts.load('current', {'packages':['corechart', 'line']});
@@ -269,20 +267,18 @@ echo $buildNow;
 <div id="LOAD_chart" style="width: 1500px; height: 500px"></div>
 
 <?php
-//also from https://phpenthusiast.com/blog/parse-csv-with-php
-$build = '<table border=1px>';
-foreach($rawDataArray as $row)
-{
-$build .= '<tr>';
-foreach($row as $item)
-{
-$build .= "<td>{$item}</td>";
-}
-$build .= '</tr>';
-}
-$build .= '</table>';
-echo $build;
-?>
+  //also from https://phpenthusiast.com/blog/parse-csv-with-php
+  $build = '<table border=1px>';
+  foreach ($rawDataArray as $row) {
+      $build .= '<tr>';
+      foreach ($row as $item) {
+          $build .= "<td>{$item}</td>";
+      }
+      $build .= '</tr>';
+  }
+  $build .= '</table>';
+  echo $build;
+  ?>
 
 </body>
 </html>

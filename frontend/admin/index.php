@@ -1,7 +1,7 @@
 <?php
   require_once '/home/pi/solar-protocol/backend/protect/protect.php';
-  Protect\with('/home/pi/solar-protocol/backend/protect/form.php','admin');
-?>
+  Protect\with('/home/pi/solar-protocol/backend/protect/form.php', 'admin');
+  ?>
 
 <!DOCTYPE html>
 <html>
@@ -17,35 +17,35 @@
 <!--THIS PHP CODE IS FOR THE SERVER NAME - REFACTOR NEEDED -->
 <?php
 
-//read local file
-$localFile = '/home/pi/local/local.json';
+  //read local file
+  $localFile = '/home/pi/local/local.json';
 
-$localInfo = json_decode(getFile($localFile), true);
+  $localInfo = json_decode(getFile($localFile), true);
 
-if (isset($localInfo["name"])){
-  $locName = $localInfo["name"];
-} else {
-  $locName = "";
-}
-
-if (isset($localInfo["httpPort"])){
-  $locPort = $localInfo["httpPort"];
-} else {
-  $locPort = "80";
-}
-
-function getFile($fileName){
-  //echo $fileName;
-  try{
-    return file_get_contents($fileName);
+  if (isset($localInfo["name"])) {
+      $locName = $localInfo["name"];
+  } else {
+      $locName = "";
   }
-  catch(Exception $e) {
-    echo $fileName;
-    return FALSE;
-  }
-}
 
-?>
+  if (isset($localInfo["httpPort"])) {
+      $locPort = $localInfo["httpPort"];
+  } else {
+      $locPort = "80";
+  }
+
+  function getFile($fileName)
+  {
+      //echo $fileName;
+      try {
+          return file_get_contents($fileName);
+      } catch(Exception $e) {
+          echo $fileName;
+          return false;
+      }
+  }
+
+  ?>
 
 <h1><a href="/">Solar Protocol (<?php echo $locName;?>)</a> - Admin Console</h1>
 

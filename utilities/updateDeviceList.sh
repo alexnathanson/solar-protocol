@@ -10,4 +10,4 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 scp solarprotocol.net:~/solar-protocol/backend/data/deviceList.json /dev/stdout \
   | jq >| ../backend/data/deviceList.json
 
-git status -- ../backend/data/deviceList.json
+git status --short

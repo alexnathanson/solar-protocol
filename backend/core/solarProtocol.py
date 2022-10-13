@@ -66,15 +66,15 @@ def getData(host, chosenApiValue):
 If this server has the highest value, update DNS to be point of entry
 '''
 def determineServer(apiValues, myValue, SP):
-    if myValue > max(apiValues):
+	if myValue > max(apiValues):
 		print('Point of entry')
 
 		logging.info(datetime.datetime.now())
 		
 		# Do not update DNS if running in DEV
-        key = 'this-will-fail' if DEV else str(SP.getEnv('DNS_KEY'))
-        url = SP.updateDNS(SP.myIP, key)
-        print(SP.getRequest(url))
+		key = 'this-will-fail' if DEV else str(SP.getEnv('DNS_KEY'))
+		url = SP.updateDNS(SP.myIP, key)
+		print(SP.getRequest(url))
 	else:
 		print('Not point of entry')
 
@@ -85,18 +85,18 @@ def runSP():
 
 	SP = SolarProtocolClass()
 
-    logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
+	logging.basicConfig(filename='/home/pi/solar-protocol/backend/data/poe.log', level=logging.INFO)
 
-    # get all ips, mac addresses, and apiValues for devices in the device list
-    ips = SP.getDeviceValues('ip')
-    macs = SP.getDeviceValues('macs')
+	# get all ips, mac addresses, and apiValues for devices in the device list
+	ips = SP.getDeviceValues('ip')
+	macs = SP.getDeviceValues('macs')
 	apiValues = [getValue(ip, apiValue) for ip in ips]
 
-    # If we are in the device list, check if we should update the point of entry
+	# If we are in the device list, check if we should update the point of entry
 	myMAC = SP.getMAC(SP.MACinterface)
-    if myMAC in macs:
-      myValue = apiValues[macs.index(myMAC)]
-      determineServer(apiValues, myValue, SP)
+	if myMAC in macs:
+	  myValue = apiValues[macs.index(myMAC)]
+	  determineServer(apiValues, myValue, SP)
 
 if __name__ == '__main__':
 	from SolarProtocolClass import SolarProtocol as SolarProtocolClass	

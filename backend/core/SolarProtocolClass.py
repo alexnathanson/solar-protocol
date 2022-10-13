@@ -29,7 +29,7 @@ class SolarProtocol:
 	def __init__(self):
 		self.localConfigFile = "/home/pi/local/local.json"
 		self.deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
-        # this script retrieves the environmental variables
+		# this script retrieves the environmental variables
 		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh"
 		self.localConfigData = dict()
 		self.loadLocalConfigFile()
@@ -47,8 +47,8 @@ class SolarProtocol:
 			with open(self.localConfigFile) as locFile:
 				locData = json.load(locFile)
 				for key, value in locData.items():
-				    #store data
-				    self.localConfigData[key] = value
+					#store data
+					self.localConfigData[key] = value
 		except:
 			print('loadLocalConfigFile error')
 
@@ -136,7 +136,7 @@ class SolarProtocol:
 	def getRequest(self, url):
 		try:			
 			response = requests.get(url, timeout = 5)
-		    return response.text
+			return response.text
 		except requests.exceptions.HTTPError as err:
 			print(err)
 		except requests.exceptions.Timeout as err:
@@ -156,6 +156,6 @@ class SolarProtocol:
 		with open(self.deviceList) as f:
 		  devices = json.load(f)
 
-        values = [device[value] for device in devices]
+		values = [device[value] for device in devices]
 
 		return values

@@ -12,6 +12,6 @@ This will
 
 See the `[tests/temp](./tests/temp)` folder for the results
 
-## api/charge-controller
+## api
 
 This runs api calls against test data to make sure they work as intended

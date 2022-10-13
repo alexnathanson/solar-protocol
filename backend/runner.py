@@ -1,4 +1,4 @@
-'''
+"""
 This script controls when the other scripts run based on battery status and solar power
 >90% every 10 minutes
 >70% & <= 90% every 15 minutes
@@ -11,7 +11,7 @@ pass the argument "now" to run everything immediately - otherwise sleep for 60 s
 If solar power production is 0 times are doubled.
 If battery percentage is below 30, viz script doesn't run
 
-'''
+"""
 from core import clientPostIP
 from core import solarProtocol
 from core import getRemoteData
@@ -26,162 +26,184 @@ from math import trunc
 
 SP = SolarProtocolClass()
 
+
 def runSP():
-	print("***** Solar Protocol Runner Started ******")
-	#print(sys.argv)
+    print("***** Solar Protocol Runner Started ******")
+    # print(sys.argv)
 
-	loopFrequency = setFreq()
-	print("Loop frequency: " + str(loopFrequency) + " minutes")
-	sScaler = solarScaler()
+    loopFrequency = setFreq()
+    print("Loop frequency: " + str(loopFrequency) + " minutes")
+    sScaler = solarScaler()
 
-	timeOfRun = datetime.datetime.now()
+    timeOfRun = datetime.datetime.now()
 
-	runCount = 1
+    runCount = 1
 
-	#pass the argument "now" to run everything immediately - otherwise sleep for 60 seconds before starting
-	if len(sys.argv) > 1:
-			if sys.argv[1] == "now":
-				print("Running now")
-	else:
-		time.sleep(60)
-	
-	scriptsToRun(1, runCount)
+    # pass the argument "now" to run everything immediately - otherwise sleep for 60 seconds before starting
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "now":
+            print("Running now")
+    else:
+        time.sleep(60)
 
-	while True:
+    scriptsToRun(1, runCount)
 
-		# print(datetime.datetime.now().minute)
-		
-		if getElapsedTime(timeOfRun) % (loopFrequency * sScaler) == 0:
+    while True:
 
-			timeOfRun = datetime.datetime.now()
+        # print(datetime.datetime.now().minute)
 
-			if loopFrequency == 60:
-				sM = 0
-			else:
-				sM = 1
+        if getElapsedTime(timeOfRun) % (loopFrequency * sScaler) == 0:
 
-			runCount = runCount + 1
+            timeOfRun = datetime.datetime.now()
 
-			scriptsToRun(sM, runCount)
+            if loopFrequency == 60:
+                sM = 0
+            else:
+                sM = 1
 
-			loopFrequency = setFreq()
-			print("Loop frequency: " + str(loopFrequency) + " minutes")
+            runCount = runCount + 1
 
-			sScaler = solarScaler()
+            scriptsToRun(sM, runCount)
 
-		#sleep for 60 seconds
-		time.sleep(60)
+            loopFrequency = setFreq()
+            print("Loop frequency: " + str(loopFrequency) + " minutes")
 
-def scriptsToRun(sMode,rC):
+            sScaler = solarScaler()
 
-	print("Run number " + str(rC) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
-
-	runReport = "Exceptions: "
-
-	try:
-		clientPostIP.runClientPostIP()
-	except Exception as err:
-		printLoud("clientPostIP.py Exception", err)
-		runReport = runReport + "clientPostIP "
-
-	try:
-		solarProtocol.runSP()
-	except Exception as err:
-		printLoud("solarProtocol.py Exception", err)
-		runReport = runReport + "solarProtocol "
-
-	try:
-		getRemoteData.run()
-	except Exception as err:
-		printLoud("getRemoteData.py Exception", err)
-		runReport = runReport + "getRemoteData "
+        # sleep for 60 seconds
+        time.sleep(60)
 
 
-	if sMode != '0':
-		try:
-			viz.main()
-		except Exception as err:
-			printLoud("viz Exception", err)
-			runReport = runReport + "viz "
+def scriptsToRun(sMode, rC):
 
+    print(
+        "Run number "
+        + str(rC)
+        + " at "
+        + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+    )
 
-	try:
-		create_html.main()
-	except Exception as err:
-		printLoud("create_html Exception", err)
-		runReport = runReport + "create_html "
+    runReport = "Exceptions: "
 
+    try:
+        clientPostIP.runClientPostIP()
+    except Exception as err:
+        printLoud("clientPostIP.py Exception", err)
+        runReport = runReport + "clientPostIP "
 
-	print()
-	print("Completed run " + str(rC) + " at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+    try:
+        solarProtocol.runSP()
+    except Exception as err:
+        printLoud("solarProtocol.py Exception", err)
+        runReport = runReport + "solarProtocol "
 
-	if runReport != "Exceptions: ":
-		print(runReport)
-	else:
-		print(runReport + '0, all good')
+    try:
+        getRemoteData.run()
+    except Exception as err:
+        printLoud("getRemoteData.py Exception", err)
+        runReport = runReport + "getRemoteData "
 
-	print()
+    if sMode != "0":
+        try:
+            viz.main()
+        except Exception as err:
+            printLoud("viz Exception", err)
+            runReport = runReport + "viz "
+
+    try:
+        create_html.main()
+    except Exception as err:
+        printLoud("create_html Exception", err)
+        runReport = runReport + "create_html "
+
+    print()
+    print(
+        "Completed run "
+        + str(rC)
+        + " at "
+        + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+    )
+
+    if runReport != "Exceptions: ":
+        print(runReport)
+    else:
+        print(runReport + "0, all good")
+
+    print()
+
 
 def printLoud(mess, e):
-	print()
-	print("!!!!! " + mess + " !!!!!")
-	print(e)
-	print()
+    print()
+    print("!!!!! " + mess + " !!!!!")
+    print(e)
+    print()
+
 
 def getElapsedTime(oldTime):
-	'''
-		returns elapsed time since oldTime was set
-	'''
-	el = datetime.datetime.now() - oldTime
-	elMin = trunc(el.seconds / 60)
-	return elMin
+    """
+    returns elapsed time since oldTime was set
+    """
+    el = datetime.datetime.now() - oldTime
+    elMin = trunc(el.seconds / 60)
+    return elMin
+
 
 def setFreq():
-	'''
-		Set how frequent the script should run various functions
-	'''
+    """
+    Set how frequent the script should run various functions
+    """
 
-	#print("setting frequency")
-	
-	#battery percentage
-	try:
-		bP =float(SP.getRequest("http://localhost/api/v2/opendata.php?value=battery-percentage", True))
+    # print("setting frequency")
 
-		if bP > .9:
-			lF = 10
-		elif bP > .7:
-			lF = 15
-		elif bP > .5:
-			lF = 20
-		elif bP > .3:
-			lF = 30
-		else:
-			lF = 60
-	except:
-	 	lF = 20
+    # battery percentage
+    try:
+        bP = float(
+            SP.getRequest(
+                "http://localhost/api/v2/opendata.php?value=battery-percentage", True
+            )
+        )
 
-	return lF
+        if bP > 0.9:
+            lF = 10
+        elif bP > 0.7:
+            lF = 15
+        elif bP > 0.5:
+            lF = 20
+        elif bP > 0.3:
+            lF = 30
+        else:
+            lF = 60
+    except:
+        lF = 20
+
+    return lF
+
 
 def solarScaler():
-	'''
-	solar power multiplier
-	above 6 w it runs at the normal pace (the max power draw is about 5w)
-	between 0 and 6 w it scales between the normal pace and 2x slower
-	if 0w (i.e. no sun) the frequency slows down by 2
-	'''
-	try:
-		sP =float(SP.getRequest("http://localhost/api/v2/opendata.php?value=scaled-wattage", True))
+    """
+    solar power multiplier
+    above 6 w it runs at the normal pace (the max power draw is about 5w)
+    between 0 and 6 w it scales between the normal pace and 2x slower
+    if 0w (i.e. no sun) the frequency slows down by 2
+    """
+    try:
+        sP = float(
+            SP.getRequest(
+                "http://localhost/api/v2/opendata.php?value=scaled-wattage", True
+            )
+        )
 
-		if sP >= 6.0:
-			sM = 1
-		elif sP > 0.0:
-			sM = 1 + (1 - (sP /5.0))
-		elif sP == 0.0:
-			sM = 2
-	except:
-	 	sM = 1
+        if sP >= 6.0:
+            sM = 1
+        elif sP > 0.0:
+            sM = 1 + (1 - (sP / 5.0))
+        elif sP == 0.0:
+            sM = 2
+    except:
+        sM = 1
 
-	return sM
+    return sM
 
-if __name__ == '__main__':
-	runSP()
+
+if __name__ == "__main__":
+    runSP()

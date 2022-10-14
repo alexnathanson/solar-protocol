@@ -1,3 +1,4 @@
+a2wsgi==1.6.0
 appdirs==1.4.3
 autopep8==1.5.4
 beautifulsoup4==4.9.1
@@ -8,6 +9,7 @@ cffi==1.14.5
 chardet==3.0.4
 click==7.1.2
 distlib==0.3.0
+fastapi==0.85.0
 filelock==3.0.12
 fonttools==4.20.0
 gizeh==0.1.11

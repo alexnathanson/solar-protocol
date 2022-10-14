@@ -10,3 +10,8 @@ podman build \
   --file Containerfile \
   --format docker \
   --tag solar-protocol ..
+
+podman build \
+  --file Containerfile.dev \
+  --format docker \
+  --tag solar-protocol-dev ..

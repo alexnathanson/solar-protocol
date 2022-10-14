@@ -1,7 +1,9 @@
 """
-Every server runs this script.
-Reads list of destination IPs from deviceList.json and posts own IP address + other data
-to those other devices, local host, and solarprotocol.net.
+Every server runs this script, which posts its own IP address + other data to:
+
+* all devices in deviceList.json
+* localhost
+* solarprotocol.net
 
 Make sure to add DEV to the command when running in development mode
 """
@@ -37,7 +39,6 @@ runningDSTList = []
 
 # this only works with linux
 def getmac(interface):
-
     try:
         mac = open("/sys/class/net/" + interface + "/address").readline()
     except:
@@ -46,68 +47,39 @@ def getmac(interface):
     return mac
 
 
-def getKeyList(getKey):
+def getKeys(key):
+    with open(deviceList) as file:
+        devices = json.load(file)
 
-    ipList = []
-
-    with open(deviceList) as f:
-        data = json.load(f)
-
-    # print(data)
-
-    for i in range(len(data)):
-        ipList.append(data[i][getKey])
-
-    return ipList
+    return devices.map(lambda device: device[key])
 
 
 def getPoeLog():
-    poeData = []
-
     try:
-        poeFile = open(poeLog)
-
-        poeFileLines = poeFile.readlines()
-
-        # read the most recent 216 lines
-        # if it runs solarProtocol.py every 10 minutes it could have up to 432 entries per 72 hours (if it was the POE every time)
-        for l in range(216):
-
-            # print(poeFileLines[l])
-
-            # remove "INFO:root:" from the string and strip spaces
-            poeData.append(poeFileLines[len(poeFileLines) - l - 1][10:-1])
-
-            if l > len(poeFileLines) - 1:
-                break
-
-        poeFile.close()
+        file = open(poeLog)
+        # take the first 216 lines
+        lines = poeFile.readlines()[:216]
+        # if solarProtocol.py runs every 10 minutes, there can be max 432 entries
+        # this would happen if the current server was POE for the entire 72 hours
+        return lines.map(lambda line: line.removeprefix("INFO:root:"))
 
     except:
-        poeData.append(0)
+        return [0]
 
-    return poeData
-
-
-def getLocalConfig(key):
-
-    # load file
+def getLocalKey(key):
     try:
-        # locFile = json.loads(localConfig)
-        with open(localConfig) as locFile:
-            locData = json.load(locFile)
-            # print(locData)
-            # print(locData[key])
-            return locData[key]
+        with open(localConfig) as file:
+            device = json.load(file)
+            return device[key]
 
     except:
-        print("local config file exception with key " + key)
+        print(f"local config file exception with key {key}")
 
         if key == "name":
             return "pi"
-        elif key == "httpPort":
-            return ""
 
+        if key == "httpPort":
+            return ""
 
 def getNewDST(responseList):
     global newDSTList, runningDSTList
@@ -117,12 +89,12 @@ def getNewDST(responseList):
     for r in responseList:
         # print(r['mac'])
 
-        if r["mac"] not in getKeyList("mac"):
+        if r["mac"] not in getKeys("mac"):
             if r["ip"] not in runningDSTList:
                 outputToConsole("new ip: " + r["ip"])
                 newDSTList.append(r["ip"])
                 runningDSTList.append(r["ip"])
-        elif r["ip"] not in getKeyList("ip"):
+        elif r["ip"] not in getKeys("ip"):
             # in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
             if r["ip"] not in runningDSTList:
                 outputToConsole("new ip: " + r["ip"])
@@ -130,25 +102,17 @@ def getNewDST(responseList):
                 runningDSTList.append(r["ip"])
 
 
-def postIt(dstIP, dstData):
+def postIt(ip, params):
+    url = f"http://{ip}/api/v1/api.php"
     try:
-        x = requests.post(
-            "http://" + dstIP + "/api/v1/api.php",
-            headers=headers,
-            data=dstData,
-            timeout=5,
-        )
-        # print("request response!!!")
-        # print(x.text)
-        # print(x.json())
-        if x.ok:
+        response = requests.post(url, headers=headers, params=params, timeout=5)
+        if response.ok:
             try:
-                getNewDST(x.json())
-                print("Post to " + dstIP + " successful")
+                getNewDST(response.json())
+                print(f"Post to {ip} successful")
             except:
-                print("Malformatted response from " + dstIP + ":")
-                print(x.text)
-        # requests.raise_for_status()
+                print(f"Malformatted response from {ip}:")
+                print(response.text)
     except json.decoder.JSONDecodeError as e:
         print("JSON decoding error", e)
     except requests.exceptions.HTTPError as errh:
@@ -162,119 +126,98 @@ def postIt(dstIP, dstData):
 
 
 # add a boolean back in if the
-def makePosts(ipList, api_Key, my_IP, my_Name, my_MAC, my_TZ):
-
+def makePosts(ips, api_Key, my_IP, my_Name, my_MAC, my_TZ):
     poeData = getPoeLog()
 
     global newDSTList
 
     newDSTList = []
-    # all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, timezone, poe log
-    myString = (
-        "api_key="
-        + str(api_Key)
-        + "&stamp="
-        + str(time.time())
-        + "&ip="
-        + my_IP
-        + "&mac="
-        + my_MAC
-        + "&name="
-        + my_Name
-        + "&tz="
-        + my_TZ
-        + "&log="
-        + ",".join(str(pD) for pD in poeData)
-    )
 
-    print(myString)
+    # all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, timezone, poe log
+    params = {
+        'api_key': str(api_key),
+        'stamp': str(time.time()),
+        'ip': my_IP,
+        'mac': my_MAC,
+        'name': my_Name,
+        'tz': my_TZ,
+        'log': ",".join(str(pD) for pD in poeData)
+    }
+
+    if DEBUG:
+      print(params)
 
     # post to self automatically
-    postIt("localhost", myString)
+    postIt("localhost", params)
 
     # post to solarprotocol.net
-    postIt("solarprotocol.net", myString)
+    postIt("solarprotocol.net", params)
 
-    for dst in ipList:
-        print("DST: " + dst)
+    for ip in ips:
+        if DEBUG:
+            print(f"IP: {ip}")
 
-        # postTrue
-        if dst != my_IP:  # does not work when testing only with local network
-            postIt(dst, myString)
+        # does not work when testing only with local network
+        if ip != my_IP:
+            postIt(ip, params)
 
     if len(newDSTList) > 0:
         outputToConsole("New DST list:")
         outputToConsole(newDSTList)
         makePosts(newDSTList, api_Key, my_IP, my_Name, my_MAC, my_TZ)
 
-
-def getEnv(thisEnv):
+def getApiKey():
     if DEV:
         return "this-will-fail"
 
-    # subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
+    # We use get_env which reads from a ~/solar-protocol/.spenv to allow 
+    # stewards to overwrite environment files from a web interface
+
     proc = subprocess.Popen(
-        ["bash", "/home/pi/solar-protocol/backend/get_env.sh", thisEnv],
+        ["bash", "/home/pi/solar-protocol/backend/get_env.sh", "API_KEY"],
         stdout=subprocess.PIPE,
     )
-    e = proc.stdout.read()
+    env = proc.stdout.read()
+
     # convert byte string to string
-    e = e.decode("utf-8")
+    env = env.decode("utf-8")
+
     # remove line breaks
-    e = e.replace("\n", "")
-    return e
-
-
-def addPort(thisPort):
-    p = getLocalConfig(thisPort)
-    outputToConsole(p)
-    if p != "":
-        return ":" + p
-    else:
-        return ""
-
+    env = env.replace("\n", "")
+    return env
 
 def runClientPostIP():
     print()
-    print("*****Running ClientPostIP script*****")
+    print("***** Running ClientPostIP script *****")
     print()
 
     myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
-    print("MY IP: " + myIP)
 
-    # wlan0 might need to be changed to eth0 if using an ethernet cable
-    myMAC = getmac("wlan0")
+    myPort = getLocalKey("httpPort")
 
-    myName = getLocalConfig("name")
-    # myName = myName.lower();#make lower case
-    myName = re.sub(
-        "[^A-Za-z0-9_ ]+", "", myName
-    )  # remove all characters not specified
+    myMAC = getmac("wlan0") # change to eth0 if using an ethernet cable
 
-    myIP += addPort("httpPort")
+    myName = getLocalKey("name")
 
-    # apiKey = getLocalConfig("apiKey") #not in use
-    # apiKey = getEnv("API_KEY")
-
-    # writeSelf()
+    # only allow alphanumeric, space, and _ characters
+    myName = re.sub("[^A-Za-z0-9_ ]+", "", myName)
 
     # get my timezone
-    tz_url = (
-        "http://localhost" + addPort("httpPort") + "/api/v1/opendata.php?systemInfo=tz"
-    )
-    myTZ = requests.get(tz_url).text
+    localHostname = "localhost" if myPort == "" else f"localhost:{myPort}"
+    url = f"http://{localHostname}/api/v1/opendata.php"
+    myTZ = requests.get(url, params={'systemInfo': 'tz'}).text
 
-    dstList = getKeyList("ip")
-    makePosts(dstList, getEnv("API_KEY"), myIP, myName, myMAC, myTZ)
+    ips = getKeys("ip")
+    remoteHostname = myIP if myPort == "" else f"{myIP}:{myPort}"
 
+    apiKey = getApiKey()
+    makePosts(ips, apiKey, remoteHostname, myName, myMAC, myTZ)
 
 def outputToConsole(printThis):
     if consoleOutput:
         print(printThis)
 
-
 if __name__ == "__main__":
     runClientPostIP()
-
 else:
     consoleOutput = False

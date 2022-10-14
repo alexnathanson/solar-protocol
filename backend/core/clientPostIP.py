@@ -64,7 +64,7 @@ def getPoeLog():
         return lines.map(lambda line: line.removeprefix("INFO:root:"))
 
     except:
-        return [0]
+        return []
 
 def getLocalKey(key):
     try:
@@ -80,27 +80,23 @@ def getLocalKey(key):
 
         if key == "httpPort":
             return ""
+'''
+Check if is is a new MAC and post if so
+If MAC exists check if it is a new IP and post if so
+TODO: add timestamp hiearchy here - taking in to account timezones, or using a 24 hour window
+'''
+# TODO: Check that we aren't doing duplicate work.
+# I removed a global for the runningDST list. Seems like a circular dependency? - jedahan
+def getNewDST(responses):
+    global newDSTList
 
-def getNewDST(responseList):
-    global newDSTList, runningDSTList
-    # check if is is a new MAC and post if so
-    # if type(responseList) == list:
-    # if MAC exists check if it is a new IP and post if so (maybe compare time stamps accounting for time zone)
-    for r in responseList:
-        # print(r['mac'])
+    macs = getKeys("mac")
+    ips = getKeys("ip")
 
-        if r["mac"] not in getKeys("mac"):
-            if r["ip"] not in runningDSTList:
-                outputToConsole("new ip: " + r["ip"])
-                newDSTList.append(r["ip"])
-                runningDSTList.append(r["ip"])
-        elif r["ip"] not in getKeys("ip"):
-            # in the future add in a time stamp heirchy here - taking in to account timezones (or use a 24 hours window)
-            if r["ip"] not in runningDSTList:
-                outputToConsole("new ip: " + r["ip"])
-                newDSTList.append(r["ip"])
-                runningDSTList.append(r["ip"])
+    new_ips = responses.filter(lambda response: response["mac"] not in macs or response["ip"] not in ips) 
+    outputToConsole(f"new ips: {new_ips}")
 
+    newDSTList.extend(new_ips)
 
 def postIt(ip, params):
     url = f"http://{ip}/api/v1/api.php"
@@ -127,7 +123,7 @@ def postIt(ip, params):
 
 # add a boolean back in if the
 def makePosts(ips, api_Key, my_IP, my_Name, my_MAC, my_TZ):
-    poeData = getPoeLog()
+    my_PoeLog = ",".join(getPoeLog())
 
     global newDSTList
 
@@ -141,7 +137,7 @@ def makePosts(ips, api_Key, my_IP, my_Name, my_MAC, my_TZ):
         'mac': my_MAC,
         'name': my_Name,
         'tz': my_TZ,
-        'log': ",".join(str(pD) for pD in poeData)
+        'log': my_PoeLog,
     }
 
     if DEBUG:

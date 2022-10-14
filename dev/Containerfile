@@ -44,7 +44,6 @@ RUN sed --in-place \
                 WSGIProcessGroup api\n\
                 WSGIScriptAlias / /home/pi/solar-protocol/backend/api.py\n\
         </Location>\n\n|' /etc/apache2/sites-enabled/000-default.conf
-#
 
 RUN echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 

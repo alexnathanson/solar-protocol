@@ -388,13 +388,10 @@ def main():
     
     # go over ccData for each server
     for i, item in enumerate(ccData):
-        if server_names[i] == "pi-a" or server_names[i] == "pi-b" or server_names[i] == "pi-c":
-            print("Skipping ghost server:" + server_names[i])
-        else:
-            # print name of each server
-            text_curve(i+2, server_names[i], 0, 18, 18)
-            #draw sun data for each server
-            draw_ring(item,i+3, energyParam,timeZones[i], myTimeZone)
+        # print name of each server
+        text_curve(i+2, server_names[i], 0, 18, 18)
+        #draw sun data for each server
+        draw_ring(item,i+3, energyParam,timeZones[i], myTimeZone)
 
 
     #Draw Active Server Rings

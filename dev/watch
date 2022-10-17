@@ -1,7 +1,0 @@
-#!/bin/bash
-# rebuild the image if the Containerfile changes
-
-# make sure script works when called from any directory
-cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
-
-ls Containerfile | entr -c -a -s 'bash build && echo container rebuilt; tput bel; tput bel; tput bel'

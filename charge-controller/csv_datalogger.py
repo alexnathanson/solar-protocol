@@ -7,7 +7,6 @@ import pandas as pd
 import csv
 import os
 
-
 client = ModbusClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
 client.connect()
 
@@ -50,11 +49,7 @@ while True:
 
         # create a new file daily to save data
         # or append if the file already exists
-        fileName = (
-            "/home/pi/solar-protocol/charge-controller/data/tracerData"
-            + str(datetime.date.today())
-            + ".csv"
-        )
+        fileName = f"/data/traces/{str(datetime.date.today())}.csv"
         try:
             with open(fileName) as csvfile:
                 df = pd.read_csv(fileName)
@@ -63,13 +58,12 @@ while True:
         except:
             newDF.to_csv(fileName, sep=",", index=False)
 
-        # print(newDF)
-        print("csv writing: " + str(datetime.datetime.now()))
+        print(f"csv writing: {str(datetime.datetime.now())")
 
     else:
-        print("error: {}".format(result))
+        print(f"error: {result}")
 
-    # runs every x-second
+    # runs every 2 minutes
     sleep(60 * 2)
 
 client.close()

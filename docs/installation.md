@@ -153,12 +153,6 @@ Restart apache
 
     sudo service apache2 restart
 
-<!-- 
-Give Apache/PHP user 'www-data' necessary permissions:
-* Open visudo: `sudo visudo`
-* Add this line to the bottom of the file: `www-data	ALL=NOPASSWD: ALL`
- -->
-
 ### Local
 
 Copy local directory outside of solar-protocol directory to pi directory  
@@ -166,16 +160,6 @@ Copy local directory outside of solar-protocol directory to pi directory
     sudo cp -r /home/pi/solar-protocol/local /home/pi/local
 
 Update the info with your information as needed
-
-### Permissions
-
-All the necessary file and directory permissions can set by running this script: [utilities/setAllPermissions.sh](utilities/setAllPermissions.sh)
-
-**! You must move the local directory to its proper position before setting permissions !**
-
-    bash /home/pi/solar-protocol/utilities/setAllPermissions.sh
-
-If the above command was successful, you do not need to set permissions individually. If it failed or can't be run for some reason you can manually enter the commands listed in the setAllPermissions script.
 
 ### Automation
 
@@ -282,10 +266,6 @@ If you get any errors here, it is likely you have made some local changes to the
     git stash
     git pull
     git stash pop # try and re-apply your local changes. This may break things further. If so, run `git stash` again.
-
-Reapply the permissions
-
-    bash /home/pi/solar-protocol/utilities/setAllPermissions.sh
 
 Update the public keys file on your pi. This is in case there have been changes to the public keys file. This allows some of the Solar Protocol developers access to your pi as needed.
 

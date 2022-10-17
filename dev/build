@@ -4,14 +4,19 @@ set -e
 # make sure script works when called from any directory
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
-echo building image...
+echo building images...
 
 podman build \
-  --file Containerfile \
+  --file ../charge-controller/Containerfile \
   --format docker \
-  --tag solar-protocol ..
+  --tag solar-protocol/charge-controller ..
 
 podman build \
-  --file Containerfile.dev \
+  --file ../api/Containerfile \
   --format docker \
-  --tag solar-protocol-dev ..
+  --tag solar-protocol/api ..
+
+podman build \
+  --file ../protocol/Containerfile \
+  --format docker \
+  --tag solar-protocol/protocol ..

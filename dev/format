@@ -5,4 +5,3 @@ set -e
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 black ../**/**py
-php-cs-fixer fix ../

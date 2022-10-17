@@ -1,0 +1,10 @@
+FROM python:3.10
+
+RUN apt update && apt upgrade --yes
+
+COPY requirements.txt /charge-controller
+WORKDIR /charge-controller
+RUN pip install --no-cache-dir --requirement requirements.txt
+COPY csv_datalogger /charge-controller
+
+CMD python csv_datalogger

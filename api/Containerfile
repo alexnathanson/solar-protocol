@@ -1,0 +1,10 @@
+FROM python:3.10
+
+RUN apt update && apt upgrade --yes
+
+COPY requirements.txt /api/requirements.txt
+WORKDIR /api
+RUN pip install --no-cache-dir --requirement requirements.txt
+COPY . /api
+
+CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]

@@ -1,44 +1,5 @@
-# macOS
-.DS_Store
-
-# sublime text
-*.sublime-workspace
-*.sublime-project
-
-# virtualenv
-venv/
-*/venv/*
-env/
-*/env/*
-
 # python
 __pycache__
 
-# vscode
-*.vscode
-
-#this directory is needed, but we just don't want to overwrite it...
-/charge-controller/data/
-
-/dev/data/temp/*
-
-/backend/createHTML/local-content.json
-/backend/createHTML/local/*
-
-/backend/api/v1/deviceList.json
-/backend/visualization/clock.png
-
-/backend/createHTML/viz-archive/*
-/backend/visualization/archive/*
-
-/frontend/images/clock.png
-/frontend/images/clock-exhibit.png
-/frontend/images/servers/*gif
-/frontend/*html
-/backend/createHTML/viz-assets/clock.png
-
-/dns-gateway/key.php
-
-/utilities/hostnames.sh
-
-/tests/temp/*
+# this directory is needed
+/data/

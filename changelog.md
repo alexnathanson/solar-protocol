@@ -1,5 +1,10 @@
 # Software Update Log
 
+## 10/20/22
+
+Migrated to v3 api built in python
+Switched to containers and podman-compose for managing the software
+
 ## 9/1/21
 
 Cleaned up repository and added documentation

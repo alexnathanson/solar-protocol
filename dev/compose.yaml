@@ -1,18 +1,31 @@
 version: '3'
+
 services:
-  nginx:
-    image: nginx
-    container_name: server
+  charge-controller:
+    image: charge-controller
     restart: always
+    volumes:
+      - data:/data
   api:
     image: nginx
-    container_name: api
     restart: always
-  frontend:
-    image: solar-protocol
-    container_name: solar-protocol-frontend
-    restart: always
-    ports:
-      - "127.0.0.1:11221:80"
     volumes:
-      - ..:/home/pi/solar-protocol
+      - data:/data
+  web:
+    image: nginx
+    restart: always
+    volumes:
+      - data:/data
+      - frontend:/frontend
+      - ./nginx.conf:/etc/nginx/nginx.conf
+  solar-protocol:
+    image: solar-protocol
+    restart: always
+    volumes:
+      - data:/data
+      - frontend:/frontend
+
+volumes:
+  - data
+  - frontend
+

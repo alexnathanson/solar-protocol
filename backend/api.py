@@ -1,17 +1,12 @@
 from fastapi import FastAPI
-from a2wsgi import ASGIMiddleware
-from pydantic import BaseModel
+from typing import Union
 
 app = FastAPI()
 
 @app.get("/")
-async def root():
+def root():
     return {"message": "Hello World 👋"}
 
-@app.post("/items/")
-async def update_device(device: Device):
-    return device
-
-
-# mod_wsgi expects the name 'application' by default
-application = ASGIMiddleware(app)
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}

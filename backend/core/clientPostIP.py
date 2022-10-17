@@ -185,7 +185,7 @@ def getApiKey():
     env = env.replace("\n", "")
     return env
 
-def runClientPostIP():
+def run():
     print()
     print("***** Running ClientPostIP script *****")
     print()
@@ -218,6 +218,6 @@ def outputToConsole(printThis):
         print(printThis)
 
 if __name__ == "__main__":
-    runClientPostIP()
+    run()
 else:
     consoleOutput = False

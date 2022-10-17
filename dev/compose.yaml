@@ -1,8 +1,16 @@
 version: '3'
 services:
-  solar-protocol:
+  nginx:
+    image: nginx
+    container_name: server
+    restart: always
+  api:
+    image: nginx
+    container_name: api
+    restart: always
+  frontend:
     image: solar-protocol
-    container_name: solar-protocol
+    container_name: solar-protocol-frontend
     restart: always
     ports:
       - "127.0.0.1:11221:80"

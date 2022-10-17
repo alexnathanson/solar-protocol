@@ -12,7 +12,7 @@ WORKDIR /home/pi/solar-protocol
 RUN pip install --no-cache-dir --requirement requirements.txt
 COPY . /home/pi/solar-protocol
 COPY ./local /home/pi/local
-COPY ./nginx.conf /etc/nginx/
+COPY ./dev/nginx.conf /etc/nginx/
 
 EXPOSE 80
 

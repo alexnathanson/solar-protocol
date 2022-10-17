@@ -4,7 +4,7 @@ ENV TERM xterm-256color
 
 # Insall apache and php
 RUN apt update && apt upgrade --yes && apt install --yes \
-  apache2 libapache2-mod-wsgi-py3 \
+  nginx \
   php php-gd
 
 COPY requirements.txt /home/pi/solar-protocol/requirements.txt
@@ -12,46 +12,8 @@ WORKDIR /home/pi/solar-protocol
 RUN pip install --no-cache-dir --requirement requirements.txt
 COPY . /home/pi/solar-protocol
 COPY ./local /home/pi/local
-
-# Configure apache2 to use our root directory
-RUN sed --in-place \
-  --expression='s|DocumentRoot /var/www/html|DocumentRoot /home/pi/solar-protocol/frontend|' \
-  /etc/apache2/sites-available/000-default.conf
-
-RUN echo '\
-<Directory /home/pi/solar-protocol/frontend>\n\
-  Options Indexes FollowSymLinks\n\
-  AllowOverride All\n\
-  Require all granted\n\
-  Header set Access-Control-Allow-Origin "*"\n\
-</Directory>\n'\
->> /etc/apache2/apache2.conf
-
-
-# Enable apache server status interface
-RUN sed --in-place \
-  --expression='/<\/VirtualHost>/s|^|\n\
-        <Location /server-status>\n\
-                SetHandler server-status\n\
-                Require all granted\n\
-        </Location>\n\n|' /etc/apache2/sites-enabled/000-default.conf
-
-# Enable api routing
-RUN sed --in-place \
-  --expression='/<\/VirtualHost>/s|^|\n\
-        WSGIDaemonProcess api\n\
-        WSGIProcessGroup api\n\
-        WSGIScriptAlias /api/v3 /home/pi/solar-protocol/backend/api.py\n\
-        \n|' /etc/apache2/sites-enabled/000-default.conf
-
-RUN echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
-
-# Enable CORS, redirection, and wsgi
-RUN a2enmod headers && a2enmod rewrite && a2enmod wsgi
-
-# Optional: Redirect error log to stdout, to make it visible in `docker compose up` output
-RUN ln -sf /dev/stdout /var/log/apache2/error.log
+COPY ./nginx.conf /etc/nginx/
 
 EXPOSE 80
 
-CMD apachectl -D FOREGROUND
+CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]

@@ -25,10 +25,10 @@ headers = {
 }
 
 isMain = __name__ == "__main__"
-DEV = os.environ.get("ENV") == "DEV" or "DEV" in sys.argv
+DEV = "DEV" in sys.argv
 
 if DEV:
-    print("Dev mode")
+    print("DEV mode")
 
 poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
 localConfig = "/home/pi/local/local.json"
@@ -70,6 +70,8 @@ def getLocalKey(key):
     try:
         with open(localConfig) as file:
             device = json.load(file)
+            if DEV:
+                print(device)
             return device[key]
 
     except:
@@ -99,7 +101,7 @@ def getNewDST(responses):
     newDSTList.extend(new_ips)
 
 def postIt(ip, params):
-    url = f"http://{ip}/api/v1/api.php"
+    url = f"http://{ip}/api"
     try:
         response = requests.post(url, headers=headers, params=params, timeout=5)
         if response.ok:
@@ -140,18 +142,19 @@ def makePosts(ips, api_Key, my_IP, my_Name, my_MAC, my_TZ):
         'log': my_PoeLog,
     }
 
-    if DEBUG:
-      print(params)
-
     # post to self automatically
-    postIt("localhost", params)
+    postIt("localhost:11221", params)
+
+    # exit if we are in debug mode
+    if DEV:
+        print(params)
+        return
 
     # post to solarprotocol.net
     postIt("solarprotocol.net", params)
 
     for ip in ips:
-        if DEBUG:
-            print(f"IP: {ip}")
+        print(f"IP: {ip}")
 
         # does not work when testing only with local network
         if ip != my_IP:
@@ -200,10 +203,11 @@ def runClientPostIP():
 
     # get my timezone
     localHostname = "localhost" if myPort == "" else f"localhost:{myPort}"
-    url = f"http://{localHostname}/api/v1/opendata.php"
+    url = f"http://{localHostname}/api"
     myTZ = requests.get(url, params={'systemInfo': 'tz'}).text
 
-    ips = getKeys("ip")
+    #ips = getKeys("ip")
+    ips = ["localhost"]
     remoteHostname = myIP if myPort == "" else f"{myIP}:{myPort}"
 
     apiKey = getApiKey()

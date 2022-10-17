@@ -7,3 +7,5 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 echo starting solar-protocol
 
 podman-compose up
+
+trap "podman-compose down" SIGHUP SIGINT SIGQUIT SIGABRT

@@ -39,11 +39,10 @@ RUN sed --in-place \
 # Enable api routing
 RUN sed --in-place \
   --expression='/<\/VirtualHost>/s|^|\n\
-        <Location /api/v3>\n\
-                WSGIDaemonProcess api\n\
-                WSGIProcessGroup api\n\
-                WSGIScriptAlias / /home/pi/solar-protocol/backend/api.py\n\
-        </Location>\n\n|' /etc/apache2/sites-enabled/000-default.conf
+        WSGIDaemonProcess api\n\
+        WSGIProcessGroup api\n\
+        WSGIScriptAlias /api/v3 /home/pi/solar-protocol/backend/api.py\n\
+        \n|' /etc/apache2/sites-enabled/000-default.conf
 
 RUN echo 'www-data ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 

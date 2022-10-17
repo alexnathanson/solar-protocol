@@ -2,7 +2,12 @@ SHELL ["/bin/bash", "-c"]
 FROM solar-protocol
 ENV TERM xterm-256color
 
-RUN apt update && apt upgrade --yes && apt install curl entr imagemagick jq php-cs-fixer ripgrep --yes
+RUN apt update && apt upgrade --yes && apt install curl entr imagemagick jq ripgrep --yes
 RUN pip3 install --upgrade black
+
+RUN curl \
+  --location https://cs.symfony.com/download/php-cs-fixer-v3.phar \
+  --output /usr/local/bin/php-cs-fixer \
+  && chmod a+x /usr/local/bin/php-cs-fixer
 
 CMD bash dev/test-watch

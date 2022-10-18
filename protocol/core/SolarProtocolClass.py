@@ -28,7 +28,7 @@ import os
 class SolarProtocol:
 	def __init__(self):
 		self.localConfigFile = "/local/local.json"
-		self.deviceList = "/data/deviceList.json"
+		self.devices = "/data/devices.json"
 		# this script retrieves the environmental variables
 		self.getEnvScriptPath = "/solar-protocol/protocol/get_env.sh"
 		self.localConfigData = dict()
@@ -153,7 +153,7 @@ class SolarProtocol:
 	value can be = "ip","mac","time stamp","name","log","tz"
 	'''
 	def getDeviceValues(self, value):
-		with open(self.deviceList) as f:
+		with open(self.devices) as f:
 		  devices = json.load(f)
 
 		values = [device[value] for device in devices]

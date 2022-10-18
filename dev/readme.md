@@ -12,7 +12,7 @@ The solar protocol is supervised by `[protocol/run.py](/protocol/run.py)`. This 
 
 1. clientPostIP
 
-Updates all devices found in devicelist.json with its own device information - `api_key`, `timestamp`, `ip`, `mac`, `name`, `timezone`, and `poelog`.
+Updates all devices found in devices.json with its own device information - `api_key`, `timestamp`, `ip`, `mac`, `name`, `timezone`, and `poelog`.
 
 2. solarProtocol
 

@@ -24,7 +24,7 @@ import json
 import datetime
 from dateutil.parser import parse
 
-deviceList = "/home/pi/solar-protocol/backend/api/v1/deviceList.json"
+deviceList = "/data/devices.json"
 
 log_file_name = "/var/log/apache2/access.log"
 

@@ -29,7 +29,7 @@ These scripts are run via runner.py
 
 ## Data
 
-* deviceList.json stores data received from other devices 
+* devices.json stores data received from other devices 
 
 ## Protect
 

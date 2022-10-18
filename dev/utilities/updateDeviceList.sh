@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# This script grabs deviceList.json from the active server
+# This script grabs devices.json from the active server
 
 set -e
 
@@ -8,6 +8,6 @@ set -e
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 scp solarprotocol.net:~/solar-protocol/backend/data/deviceList.json /dev/stdout \
-  | jq >| ../backend/data/deviceList.json
+  | jq >| ../data/devices.json
 
 git status --short

@@ -2,7 +2,7 @@
 
 //this runs on the POE server - it routes to the steward's device
 
-$deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+$deviceInfoFile = "/data/devices.json";
 //Get device
 $deviceInfo = json_decode(getFile($deviceInfoFile), true);
 

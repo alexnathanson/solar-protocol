@@ -22,7 +22,7 @@ This script queries the PV data from the other devices and determines if the loc
 * this should be set on a cron timer
 * update the subCall to the appropriate DNS updater system being used
 
-### deviceList.json
+### devices.json
 This is where mac, ip, timestamp, and device name info from devices on the network is stored. The file needs to exist, but it can be blank... It isn't completely necessary to prepopulate it with the IP addresses, but if not you will need to manually make Post requests or edit the files locally to start everything up.
 * name and timestamp aren't required, but may be helpful in the future for debugging
 
@@ -30,8 +30,8 @@ format:
 [{"mac":"0","ip":"0.0.0.0","time stamp":"0","name":""},
 {"mac":"1","ip":"1.1.1.1","time stamp":"0","name":""}]
 
-Set file permissions for deviceList.json
-* sudo chmod a+w deviceList.json
+Set file permissions for devices.json
+* sudo chmod a+w devices.json
 
 ### API Key
 The API key should be added to the local.json file

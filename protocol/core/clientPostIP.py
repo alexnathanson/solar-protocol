@@ -1,7 +1,7 @@
 """
 Every server runs this script, which posts its own IP address + other data to:
 
-* all devices in deviceList.json
+* all devices in devices.json
 * localhost
 * solarprotocol.net
 
@@ -30,9 +30,9 @@ DEV = "DEV" in sys.argv
 if DEV:
     print("DEV mode")
 
-poeLog = "/home/pi/solar-protocol/backend/data/poe.log"
+poeLog = "/data/poe.log"
 localConfig = "/home/pi/local/local.json"
-deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+deviceList = "/data/devices.json"
 
 newDSTList = []
 runningDSTList = []

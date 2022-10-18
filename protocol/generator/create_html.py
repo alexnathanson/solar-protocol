@@ -213,12 +213,10 @@ def get_local():
 # Get list of IP addresses that the pi can see
 def getDeviceInfo(getKey):
     ipList = []
-    deviceList = f"/data/deviceList.json"
+    devices = f"/data/devices.json"
 
-    with open(deviceList) as f:
+    with open(devices) as f:
         data = json.load(f)
-        # print("Device list data:")
-        # print(data)
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])
@@ -227,27 +225,13 @@ def getDeviceInfo(getKey):
 
 
 def get_ips():
-    # deviceInfoFile = "/home/pi/solar-protocol/backend/data/deviceList.json"
-    # deviceInfo = json.dumps(deviceInfoFile)
-    # Get my ip
     myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
-    # print("MY IP: ", type(myIP))
 
-    # Get IPs, using keyword ip
-    dstIP = getDeviceInfo("ip")
-    for index, item in enumerate(dstIP):
-        print(item)
-        if item == myIP:
-            print("Replacing ip of self")
-            dstIP[index] = "localhost"
-
-    log = getDeviceInfo("log")
+    ips = getDeviceInfo("ip")
     serverNames = getDeviceInfo("name")
-    print(dstIP)
-    print(serverNames)
-    deviceList_data = dict(zip(serverNames, dstIP))
-    print(deviceList_data)
-    return deviceList_data
+    
+    devices = dict(zip(serverNames, ips))
+    return devices
 
 
 def active_servers(dst):

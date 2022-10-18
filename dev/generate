@@ -8,17 +8,17 @@ container=dev_solar-protocol_1
 
 data() {
   podman exec --interactive --tty $container \
-    python /solar-protocol/core/getRemoteData.py
+    python /solar-protocol/venv/core/getRemoteData.py
 }
 
 viz() {
   podman exec --interactive --tty $container \
-    python /frontend/generate/viz.py
+    python /frontend/venv/generate/viz.py
 }
 
 html() {
   podman exec --interactive --tty $container \
-    python /frontend/generate/create_html.py DEV
+    python /frontend/venv/generate/create_html.py DEV
 }
 
 case $1 in

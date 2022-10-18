@@ -1,6 +1,6 @@
 <?php
 
-$deviceInfoFile = "/home/pi/solar-protocol/backend/api/v1/deviceList.json";
+$deviceInfoFile = "/data/devices.json";
 //Get device
 $deviceInfo = json_decode(getFile($deviceInfoFile), true);
 

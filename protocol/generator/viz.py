@@ -30,7 +30,7 @@ DEBUG = "DEBUG" in os.environ
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
-deviceList = "/data/deviceList.json"
+devices = "/data/devices.json"
 imgDST = "/frontend/images"
 
 energyParam = "PV-current"
@@ -48,7 +48,7 @@ dfPOE = pd.DataFrame(columns=["device", "datetime"])
 def getDeviceInfo(getKey):
     ipList = []
 
-    with open(deviceList) as f:
+    with open(devices) as f:
         data = json.load(f)
 
     for i in range(len(data)):

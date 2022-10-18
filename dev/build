@@ -4,19 +4,15 @@ set -e
 # make sure script works when called from any directory
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
-echo building images...
+build() {
+  image=$1; echo building $image
+  cd ../$image && podman build --tag solar-protocol/$image .
+}
 
-podman build \
-  --file ../charge-controller/Containerfile \
-  --format docker \
-  --tag solar-protocol/charge-controller ..
-
-podman build \
-  --file ../api/Containerfile \
-  --format docker \
-  --tag solar-protocol/api ..
-
-podman build \
-  --file ../protocol/Containerfile \
-  --format docker \
-  --tag solar-protocol/protocol ..
+case $1 in
+  api) build api ;;
+  charge-controller) build charge-controller ;;
+  protocol) build protocol ;;
+  "") build api && build charge-controller && build protocol ;;
+  *) echo "Unknown container image $1, try api, charge-controller, or protocol" ;;
+esac

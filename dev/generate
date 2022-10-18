@@ -23,12 +23,10 @@ html() {
 }
 
 case $1 in
-
   data) data ;;
   viz) viz ;;
   html) html ;;
   "") data && viz && html ;;
   *) echo "Unknown generator $1, try data, viz, or html" ;;
-
 esac
 

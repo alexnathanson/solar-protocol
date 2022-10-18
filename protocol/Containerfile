@@ -1,15 +1,13 @@
-SHELL ["/bin/bash", "-c"]
 FROM python:3.10
-ENV TERM xterm-256color
 
 # Insall apache and php
 RUN apt update && apt upgrade --yes && apt install --yes \
   nginx \
   php php-gd
 
-COPY requirements.txt /home/pi/solar-protocol/requirements.txt
 WORKDIR /home/pi/solar-protocol
-RUN pip install --no-cache-dir --requirement requirements.txt
+COPY requirements.txt .
+RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 COPY . /home/pi/solar-protocol
 COPY ./local /home/pi/local
 COPY ./dev/nginx.conf /etc/nginx/

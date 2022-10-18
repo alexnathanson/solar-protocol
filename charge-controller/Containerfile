@@ -1,10 +1,14 @@
-FROM python:3.10
+FROM python:3.10-slim
 
-RUN apt update && apt upgrade --yes
+RUN apt-get --quiet update && apt-get --quiet upgrade --yes
+ENV TERM=screen-256color
 
-COPY requirements.txt /charge-controller
 WORKDIR /charge-controller
-RUN pip install --no-cache-dir --requirement requirements.txt
-COPY csv_datalogger /charge-controller
+RUN python -m venv /charge-controller/venv
+ENV PATH="/charge-controller/venv/bin:$PATH"
+COPY requirements.txt .
+RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 
+WORKDIR /charge-controller/venv
+COPY csv_datalogger.py .
 CMD python csv_datalogger

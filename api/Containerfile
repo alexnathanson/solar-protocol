@@ -11,4 +11,4 @@ RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 
 WORKDIR /api/venv
 COPY . .
-CMD uvicorn api.main:api --proxy-headers --host 0.0.0.0 --port 80
+CMD uvicorn api:app --proxy-headers --host 0.0.0.0 --port 80

@@ -1,14 +1,16 @@
 # pymodbus code based on the example from http://www.solarpoweredhome.co.uk/
-from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from time import sleep
 import datetime
-import numpy as np
-import pandas as pd
+import pandas
+import random
 import csv
 import os
 import sys
 
 DEV = "DEV" in sys.argv or "DEV" in os.environ
+
+if not DEV:
+  from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 
 def writeOrAppend(dataFrame):
     """
@@ -18,16 +20,16 @@ def writeOrAppend(dataFrame):
     fileName = f"/data/traces/{str(datetime.date.today())}.csv"
     try:
         with open(fileName) as csvfile:
-            df = pd.read_csv(fileName)
-            df = df.append(newDF, ignore_index=True)
-            df.to_csv(fileName, sep=",", index=False)
+            dataframe = pandas.read_csv(fileName)
+            dataframe = dataframe.append(dataFrame, ignore_index=True)
+            dataframe.to_csv(fileName, sep=",", index=False)
     except:
-        newDF.to_csv(fileName, sep=",", index=False)
+        dataFrame.to_csv(fileName, sep=",", index=False)
 
     print(f"csv writing: {str(datetime.datetime.now())}")
 
 def readFromRandom():
-    return pd.DataFrame(
+    return pandas.DataFrame(
         data={
             "datetime": [datetime.datetime.now()],
             "PV voltage": [random.uniform(9,30)],
@@ -66,7 +68,7 @@ def readFromDevice():
 
         batteryPercentage = float(result2.registers[0] / 100.0)
 
-        return pd.DataFrame(
+        return pandas.DataFrame(
             data={
                 "datetime": [datetime.datetime.now()],
                 "PV voltage": [pvVoltage],

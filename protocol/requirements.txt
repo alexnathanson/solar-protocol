@@ -1,5 +1,7 @@
 gizeh
 jinja2
 pandas
+Pillow
 pytz
 requests
+webcolors

@@ -8,6 +8,4 @@ echo starting solar-protocol
 
 podman-compose --env-file env.dev up
 
-down() { podman-compose down; }
-
-trap down SIGHUP SIGINT SIGQUIT SIGABRT
+bash stop

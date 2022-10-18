@@ -2,6 +2,8 @@ version: '3'
 
 services:
   charge-controller:
+    environment:
+      - DEV=${DEV}
     image: solar-protocol/charge-controller
     restart: always
     volumes:

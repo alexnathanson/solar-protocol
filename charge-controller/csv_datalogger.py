@@ -58,7 +58,7 @@ while True:
         except:
             newDF.to_csv(fileName, sep=",", index=False)
 
-        print(f"csv writing: {str(datetime.datetime.now())")
+        print(f"csv writing: {str(datetime.datetime.now())}")
 
     else:
         print(f"error: {result}")

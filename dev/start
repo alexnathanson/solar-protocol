@@ -8,4 +8,6 @@ echo starting solar-protocol
 
 podman-compose up
 
-trap "podman-compose down" SIGHUP SIGINT SIGQUIT SIGABRT
+down() { podman-compose down; }
+
+trap down SIGHUP SIGINT SIGQUIT SIGABRT

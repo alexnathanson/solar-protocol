@@ -11,4 +11,4 @@ RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 
 WORKDIR /charge-controller/venv
 COPY csv_datalogger.py .
-CMD python csv_datalogger
+CMD python csv_datalogger.py

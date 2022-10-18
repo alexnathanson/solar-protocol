@@ -1,17 +1,15 @@
-FROM python:3.10
+FROM python:3.10-slim
 
-# Insall apache and php
-RUN apt update && apt upgrade --yes && apt install --yes \
-  nginx \
-  php php-gd
+RUN apt-get --quiet update && apt-get --quiet upgrade --yes
+ENV TERM=screen-256color
 
-WORKDIR /home/pi/solar-protocol
+WORKDIR /solar-protocol
+RUN python -m venv /solar-protocol/venv
+ENV PATH="/solar-protocol/venv/bin:$PATH"
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
-COPY . /home/pi/solar-protocol
-COPY ./local /home/pi/local
-COPY ./dev/nginx.conf /etc/nginx/
 
-EXPOSE 80
+WORKDIR /solar-protocol/venv
+COPY . .
 
-CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+CMD python runner.py

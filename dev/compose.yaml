@@ -2,12 +2,12 @@ version: '3'
 
 services:
   charge-controller:
-    image: charge-controller
+    image: solar-protocol/charge-controller
     restart: always
     volumes:
       - data:/data
   api:
-    image: nginx
+    image: solar-protocol/api
     restart: always
     volumes:
       - data:/data
@@ -19,13 +19,26 @@ services:
       - frontend:/frontend
       - ./nginx.conf:/etc/nginx/nginx.conf
   solar-protocol:
-    image: solar-protocol
+    image: solar-protocol/protocol
     restart: always
     volumes:
       - data:/data
       - frontend:/frontend
+      - local:/local
 
 volumes:
-  - data
-  - frontend
-
+  data:
+    driver_opts:
+      o: bind
+      type: none
+      device: '${PWD}/../data'
+  frontend:
+    driver_opts:
+      o: bind
+      type: none
+      device: '${PWD}/../frontend'
+  local:
+    driver_opts:
+      o: bind
+      type: none
+      device: '${PWD}/../local'

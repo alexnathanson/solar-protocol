@@ -6,7 +6,7 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 build() {
   image=$1; echo building $image
-  cd ../$image && podman build --tag solar-protocol/$image .
+  cd ../$image && podman build --quiet --tag solar-protocol/$image .
 }
 
 case $1 in

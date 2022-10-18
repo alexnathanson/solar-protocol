@@ -20,6 +20,8 @@ services:
       - data:/data
       - frontend:/frontend
       - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "11221:80"
   solar-protocol:
     image: solar-protocol/protocol
     restart: always

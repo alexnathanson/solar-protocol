@@ -96,7 +96,7 @@ def runScripts(runCount):
     print(f"Completed run {str(runCount)} at {time}")
 
     if len(exceptions) > 0:
-        print("Exceptions:", " ".join(exceptions)
+        print("Exceptions:", " ".join(exceptions))
     else:
         print("Exceptions: 0, all good")
 

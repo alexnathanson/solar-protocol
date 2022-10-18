@@ -21,7 +21,7 @@ def writeOrAppend(dataFrame):
     try:
         with open(fileName) as csvfile:
             dataframe = pandas.read_csv(fileName)
-            dataframe = dataframe.append(dataFrame, ignore_index=True)
+            dataframe = pandas.concat([dataframe, dataFrame], ignore_index=True)
             dataframe.to_csv(fileName, sep=",", index=False)
     except:
         dataFrame.to_csv(fileName, sep=",", index=False)

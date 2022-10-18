@@ -27,10 +27,10 @@ import os
 
 class SolarProtocol:
 	def __init__(self):
-		self.localConfigFile = "/home/pi/local/local.json"
-		self.deviceList = "/home/pi/solar-protocol/backend/data/deviceList.json"
+		self.localConfigFile = "/local/local.json"
+		self.deviceList = "/data/deviceList.json"
 		# this script retrieves the environmental variables
-		self.getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh"
+		self.getEnvScriptPath = "/solar-protocol/protocol/get_env.sh"
 		self.localConfigData = dict()
 		self.loadLocalConfigFile()
 		self.myIP = requests.get('https://server.solarpowerforartists.com/?myip').text #we should have our own API endpoint for this...

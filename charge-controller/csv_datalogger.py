@@ -8,13 +8,13 @@ import csv
 import os
 import sys
 
-DEV = "DEV" in sys.argv
+DEV = "DEV" in sys.argv or "DEV" in os.environ
 
 def writeOrAppend(dataFrame):
-"""
-create a new file daily to save data
-or append if the file already exists
-"""
+    """
+    create a new file daily to save data
+    or append if the file already exists
+    """
     fileName = f"/data/traces/{str(datetime.date.today())}.csv"
     try:
         with open(fileName) as csvfile:

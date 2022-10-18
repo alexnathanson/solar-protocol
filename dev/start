@@ -6,7 +6,7 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 echo starting solar-protocol
 
-podman-compose up
+podman-compose --env-file env.dev up
 
 down() { podman-compose down; }
 

@@ -16,8 +16,8 @@ from core import clientPostIP
 from core import solarProtocol
 from core import getRemoteData
 from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
-from createHTML import create_html
-from createHTML import viz
+from generator import create_html
+from generator import viz
 import datetime
 import time
 import sys
@@ -125,10 +125,10 @@ def getFrequency():
 
     try:
         battery_percentage = float(SP.getRequest(url))
-        return 10 if battery_percentage > 0.9
-        return 15 if battery_percentage > 0.7
-        return 20 if battery_percentage > 0.5
-        return 30 if battery_percentage > 0.3
+        return 10 if battery_percentage > 0.9 else None
+        return 15 if battery_percentage > 0.7 else None
+        return 20 if battery_percentage > 0.5 else None
+        return 30 if battery_percentage > 0.3 else None
         return MAX_FREQUENCY
     except:
         return 20
@@ -145,9 +145,9 @@ def solarScaler():
 
     try:
         scaled_wattage = float(SolarProtocol.getRequest(url))
-        return 1 if scaled_wattage >= 6.0
-        return 1 + (1 - (scaled_wattage / 5.0)) if scaled_wattage >= 0.0
-        return 2 if scaled_wattage == 0.0
+        return 1 if scaled_wattage >= 6.0 else None
+        return 1 + (1 - (scaled_wattage / 5.0)) if scaled_wattage >= 0.0 else None
+        return 2 if scaled_wattage == 0.0 else None
     except:
         return 1
 

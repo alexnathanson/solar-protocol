@@ -1,17 +1,9 @@
-# To run in dev mode from from virtual env:
-#
-#     source venv/bin/activate
-#     python3 create_html.py DEV
-
 # jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
-from collections import UserList
 from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
-from pymodbus.client.sync import ModbusSerialClient as ModbusClient
-from glob import glob
 import datetime
-import requests, json
+import requests
 import json
 import csv
 import os
@@ -22,7 +14,6 @@ os.chdir(sys.path[0])  # if this script is called from a different directory
 DEV = "DEV" in sys.argv
 DEBUG = "DEBUG" in os.environ
 
-root = f"/home/pi/solar-protocol"
 now = str(datetime.date.today())
 
 dstIP = []
@@ -50,9 +41,9 @@ def getCC(dstIP, ccValue):
 # gets power data from charge controller
 def read_csv():
     if DEV:
-        chargeControllerData = f"{root}/dev/data/tracerDataTest.csv"
+        chargeControllerData = f"/data/traces/dev.csv"
     else:
-        chargeControllerData = f"{root}/charge-controller/data/tracerData{now}.csv"
+        chargeControllerData = f"/data/traces/{now}.csv"
     filename = chargeControllerData
 
     with open(filename, "r") as data:
@@ -213,7 +204,7 @@ def get_weather(lon, lat, api_key):
 
 # get local front end data
 def get_local():
-    filename = f"{root}/local/local.json"
+    filename = f"/local/local.json"
     with open(filename) as infile:
         local_data = json.load(infile)
     return local_data  # dictionary

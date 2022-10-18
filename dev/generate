@@ -14,12 +14,12 @@ data() {
 
 viz() {
   podman exec --interactive --tty $container \
-    python $root/backend/createHTML/viz.py
+    python $root/frontend/generate/viz.py
 }
 
 html() {
   podman exec --interactive --tty $container \
-    python $root/backend/createHTML/create_html.py DEV
+    python $root/frontend/generate/create_html.py DEV
 }
 
 case $1 in

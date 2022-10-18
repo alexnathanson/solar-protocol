@@ -1,19 +1,20 @@
-import gizeh as g
+import gizeh
 import math
 import os
 import sys
 
 import pandas as pd
-import json
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+
 from PIL import Image
 import webcolors
 
 from pytz import timezone
-import pytz
 
 import requests
+
+import json
 from json.decoder import JSONDecodeError
 
 w = 1500
@@ -36,7 +37,7 @@ energyParam = "PV-current"
 ccDicts = []
 days = 4  # get 4 days of csv files so we know we definitely get 72 hours of data
 
-surface = g.Surface(width=w, height=h)
+surface = gizeh.Surface(width=w, height=h)
 
 # Get list of IP addresses that the pi can see
 dfPOE = pd.DataFrame(columns=["device", "datetime"])
@@ -138,7 +139,7 @@ def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
 def draw_sun(server_no, hour, alpha):
     a = -Pi / 2 + (hour * ah)
     sw = ring_rad
-    arc = g.arc(
+    arc = gizeh.arc(
         r=server_no * ring_rad - (ring_rad / 2) + (ring_rad * start_ring),
         xy=[w / 2, h / 2],
         a1=a,
@@ -148,7 +149,7 @@ def draw_sun(server_no, hour, alpha):
     )
     arc.draw(surface)
     # DEBUGGING TEXT ON GRAPH
-    # text = g.text(str(alpha), fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy = [w/2+200, h/2])
+    # text = gizeh.text(str(alpha), fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy = [w/2+200, h/2])
     # text = text.rotate(a, center=[w/2, h/2]) # rotation around a center
     # text.draw(surface)
 
@@ -174,7 +175,7 @@ def draw_server_arc(server_no, start, stop, c):
         c = (red, green, blue)
         # print(c)
 
-    circle = g.arc(
+    circle = gizeh.arc(
         r=server_no * ring_rad + (0.5 + start_ring) * ring_rad,
         xy=[w / 2, h / 2],
         a1=stop - Pi / 2,
@@ -250,12 +251,12 @@ def sortPOE(logs, timeZones, myTimeZone):
 
 def tzOffset(checkTZ, myTimeZone):
     try:
-        myOffset = datetime.now(pytz.timezone(myTimeZone)).strftime("%z")
+        myOffset = datetime.now(timezone(myTimeZone)).strftime("%z")
         myOffset = int(myOffset)
     except:
         myOffset = 0
     try:
-        theirOffset = datetime.now(pytz.timezone(checkTZ)).strftime("%z")
+        theirOffset = datetime.now(timezone(checkTZ)).strftime("%z")
         theirOffset = int(theirOffset)
     except:
         theirOffset = 0
@@ -274,7 +275,7 @@ def text_curve(server_no, message, angle, spacing, ts):
         print(f"drawing text curve for {server_no} {message}")
     cr = server_no * ring_rad + (ring_rad / 5) + (ring_rad * start_ring)
     # Start in the center and draw the circle
-    # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
+    # circle = gizeh.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
     # circle.draw(surface)
     # We must keep track of our position along the curve
     arclength = -10
@@ -300,7 +301,7 @@ def text_curve(server_no, message, angle, spacing, ts):
         y = h / 2 + cr * math.sin(theta)
         # Display the character
 
-        text = g.text(
+        text = gizeh.text(
             message[i].capitalize(),
             fontfamily="Georgia",
             fontsize=ts,
@@ -323,7 +324,7 @@ def lines(interval, sw, opacity):
         yc = h / 2 + ring_rad * 2 * math.sin(a)
         x1 = w / 2 + (radius - 10) * math.cos(a)
         y1 = h / 2 + (radius - 10) * math.sin(a)
-        line = g.polyline(
+        line = gizeh.polyline(
             points=[(x1, y1), (xc, yc)], stroke_width=sw, stroke=(1, 1, 1, opacity)
         )
         line.draw(surface)
@@ -334,7 +335,7 @@ def lines(interval, sw, opacity):
 def circles(sw, opacity):
     b = ring_rad * 2
     while b < (radius):
-        circ = g.circle(r=b, xy=[w / 2, h / 2], stroke=(1, 1, 1), stroke_width=1.5)
+        circ = gizeh.circle(r=b, xy=[w / 2, h / 2], stroke=(1, 1, 1), stroke_width=1.5)
         circ.draw(surface)
         b = b + ring_rad
 
@@ -443,9 +444,9 @@ def main():
             draw_server_arc(ring, stop_angle, start_angle, server)
 
     # # initialize surface
-    # surface = g.Surface(width=w, height=h) # in pixels
+    # surface = gizeh.Surface(width=w, height=h) # in pixels
 
-    # text = g.text("Hello World", fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy=(100,100), angle=Pi/12)
+    # text = gizeh.text("Hello World", fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy=(100,100), angle=Pi/12)
     # text.draw(surface)
 
     # draw_sun(4, w/2, h/2, 20, 0, 0.1)

@@ -1,1 +1,5 @@
+gizeh
+jinja2
+pandas
+pytz
 requests

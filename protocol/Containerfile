@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-RUN apt-get --quiet update && apt-get --quiet upgrade --yes
+RUN apt-get --quiet update && apt-get --quiet upgrade --yes && apt-get --quiet install libcairo2
 ENV TERM=screen-256color
 
 WORKDIR /solar-protocol

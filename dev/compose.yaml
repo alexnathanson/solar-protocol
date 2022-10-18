@@ -13,18 +13,21 @@ services:
     restart: always
     volumes:
       - data:/data
+    ports:
+      - 11215:80
   web:
     image: nginx
     restart: always
     volumes:
       - data:/data
       - frontend:/frontend
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "11221:80"
+      - 11221:80
   solar-protocol:
     image: solar-protocol/protocol
     restart: always
+    command: python runner.py now
     volumes:
       - data:/data
       - frontend:/frontend

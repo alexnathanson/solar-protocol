@@ -424,6 +424,7 @@ def main():
     # 4. get images and
     print("SERVER DATA!")
     print(server_data)
+    local_data = get_local()
     check_images(server_data)
     render_pages(local_data, energy_data, local_weather, server_data)
 

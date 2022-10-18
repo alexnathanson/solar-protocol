@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from typing import Union
 
-app = FastAPI()
+app = FastAPI(title="solar-protocol", docs_url="/docs")
 
 @app.get("/")
 def root():

@@ -4,22 +4,21 @@ set -e
 # make sure script works when called from any directory
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
-container=solar-protocol
-root=/home/pi/solar-protocol
+container=dev_solar-protocol_1
 
 data() {
   podman exec --interactive --tty $container \
-    python $root/backend/core/getRemoteData.py
+    python /solar-protocol/core/getRemoteData.py
 }
 
 viz() {
   podman exec --interactive --tty $container \
-    python $root/frontend/generate/viz.py
+    python /frontend/generate/viz.py
 }
 
 html() {
   podman exec --interactive --tty $container \
-    python $root/frontend/generate/create_html.py DEV
+    python /frontend/generate/create_html.py DEV
 }
 
 case $1 in

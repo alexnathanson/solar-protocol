@@ -14,18 +14,15 @@ os.chdir(sys.path[0])  # if this script is called from a different directory
 DEV = "DEV" in sys.argv
 DEBUG = "DEBUG" in os.environ
 
-now = str(datetime.date.today())
-
-dstIP = []
 serverNames = []
 myIP = " "
 days = 3
 
 # Call API for every IP address and get charge controller data
-def getCC(dstIP, ccValue):
+def getCC(server, ccValue):
     print(f"GET {server} {ccValue}")
     try:
-        url = f"http://{dstIP}/api/v1/chargecontroller.php?value={ccValue}&duration={str(days)}"
+        url = f"http://{server}/api/v1/chargecontroller.php?value={ccValue}&duration={str(days)}"
         response = requests.get(url, timeout=5)
         return json.loads(response.text)
     except requests.exceptions.HTTPError as errh:
@@ -40,10 +37,8 @@ def getCC(dstIP, ccValue):
 
 # gets power data from charge controller
 def read_csv():
-    if DEV:
-        chargeControllerData = f"/data/traces/dev.csv"
-    else:
-        chargeControllerData = f"/data/traces/{now}.csv"
+    today = str(datetime.date.today())
+    chargeControllerData = f"/data/traces/{today}.csv"
     filename = chargeControllerData
 
     with open(filename, "r") as data:
@@ -66,7 +61,7 @@ def read_csv():
 
 
 def render_pages(_local_data, _data, _weather, _server_data):
-    print("Battery Percentage:" + str(_data["battery percentage"]))
+    print("Battery Percentage: {str(_data['battery percentage'])}")
 
     templatePath = f"./templates/"
     outputPath = f"/frontend/"
@@ -89,6 +84,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
     try:
         tz_url = "http://localhost/api/v1/chargecontroller.php?systemInfo=tz"
         z = requests.get(tz_url)
+
         # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
         if z.status == 404:
             print("TZ 404 error")
@@ -101,7 +97,6 @@ def render_pages(_local_data, _data, _weather, _server_data):
     except Exception as e:
         print("Timezone Exception - TZ n/a")
         zone = "TZ n/a"
-        # print("TZ na")
 
     # print("UTC TIME", datetime.datetime.utcnow())
     # would be nice to swap this out if the via script fails
@@ -299,10 +294,11 @@ def check_images(server_data):
         fullpath = "/home/pi/solar-protocol/frontend/images/servers/" + filename
         filepath = "images/servers/" + filename
         # print("server:", server)
+        myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
+        print("myIP", myIP)
+
         if "ip" in server:
-            myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
             print("Server IP:", server["ip"])
-            print("myIP", myIP)
             if server["ip"] == "localhost":  # if it is itself
                 print("*** LOCAL HOST ***")
                 # image_path = "home/pi/local/www/serverprofile.gif"

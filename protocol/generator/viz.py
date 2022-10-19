@@ -79,6 +79,8 @@ def getCC(server, ccValue):
 
 # Call API for every IP address and get charge controller data
 def getSysInfo(ip, key):
+    if ip == "localhost":
+        ip = "localhost:11221"
     url = f"http://{ip}/api/v1/chargecontroller.php?systemInfo={key}"
     try:
         sysinfo = requests.get(url, timeout=5)
@@ -88,7 +90,7 @@ def getSysInfo(ip, key):
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError:
-        print(f"Timed out connecting to {server}")
+        print(f"Timed out connecting to {ip}")
     except requests.exceptions.Timeout as errt:
         print("A Timeout Error occurred:" + repr(errt))
     except requests.exceptions.RequestException as err:

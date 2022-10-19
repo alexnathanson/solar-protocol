@@ -1,6 +1,4 @@
-# frontend
-
-
+# solar protocol - protocol
 
 ## Runner
 
@@ -13,7 +11,7 @@ The runner controls when the other scripts are run based on battery status
 
 ## Core
 
-These scripts are the client side processes that interact with the API. They enable devices to pass data around the network. These scripts are run via runner.py
+These scripts are the client side processes that interact with the API. They enable devices to pass data around the network. These scripts are run via run.py
 
 * clientPostIP.py posts local data to the other devices on the network (the calls are managed by the PHP scripts in frontend/api/)
 * solarProtocol.py checks if the local server is the 'point of entry' (poe) for the system and updates the DNS if it is
@@ -21,10 +19,11 @@ These scripts are the client side processes that interact with the API. They ena
 
 ## Create HTML
 
-These scripts are run via runner.py
+These scripts are run via run.py
 
-* the templates directory contains template files for all of the pages
-* create_html.py is a static site generator. It updates the page templates (saves them in the frontend directly)
+The templates directory contains template files for all of the pages
+
+* html.py is a static site generator. It updates the page templates (saves them in the frontend directory)
 * viz.py produces the data visualization of the network featured on the home page
 
 ## Data

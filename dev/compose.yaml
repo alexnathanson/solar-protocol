@@ -1,5 +1,7 @@
 version: '3.7'
 
+name: solar-protocol
+
 services:
   charge-controller:
     environment:
@@ -27,7 +29,7 @@ services:
   solar-protocol:
     image: solar-protocol/protocol
     restart: always
-    command: python runner.py now
+    command: python run.py now
     volumes:
       - data:/data
       - frontend:/frontend

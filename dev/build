@@ -4,15 +4,10 @@ set -e
 # make sure script works when called from any directory
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
-build() {
-  image=$1; echo building $image
-  cd ../$image && podman build --quiet --tag solar-protocol/$image .
-}
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  if [[ "$(podman machine inspect --format {{.State}})" != "running" ]]; then
+    podman machine start
+  fi
+fi
 
-case $1 in
-  api) build api ;;
-  charge-controller) build charge-controller ;;
-  protocol) build protocol ;;
-  "") build api && build charge-controller && build protocol ;;
-  *) echo "Unknown container image $1, try api, charge-controller, or protocol" ;;
-esac
+podman-compose up --build

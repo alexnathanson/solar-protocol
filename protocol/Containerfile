@@ -12,4 +12,4 @@ RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 WORKDIR /solar-protocol/venv
 COPY . .
 
-CMD python runner.py
+CMD python run.py

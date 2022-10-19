@@ -13,12 +13,12 @@ data() {
 
 viz() {
   podman exec --interactive --tty $container \
-    python /solar-protocol/venv/generator/viz.py
+    python /solar-protocol/venv/build/viz.py
 }
 
 html() {
   podman exec --interactive --tty $container \
-    python /solar-protocol/venv/generator/create_html.py DEV
+    python /solar-protocol/venv/build/html.py DEV
 }
 
 case $1 in

@@ -1,5 +1,14 @@
 # python
 __pycache__
 
-# this directory is needed
-/data/
+# downloaded by protocol/core/getRemoteData.py
+data/*json
+
+# created by charge-controller/datalogger.py
+data/traces/*csv
+
+# created by protocol/build/html.py
+frontend/*html
+
+# created by protocol/build/viz.py
+frontend/archive/*png

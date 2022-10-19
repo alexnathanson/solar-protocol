@@ -29,49 +29,20 @@ Configure device with `sudo raspi-config` [raspi-config docs](https://www.raspbe
   * set timezone, and any other necessry configurations
   * Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
 
-Reboot the pi with `sudo reboot`
+Reboot the pi
 
-Update the pi with `sudo apt update && sudo apt full-upgrade)
-
-> Note that `sudo apt-get upgrade` is the "safer" version of full-upgrade that is probably better to use if an upgrade is necessary after Solar Protocol is installed and running in order to avoid problems with dependencies.
+    sudo reboot
 
 ### Code
 
 Download the git repo into /home/pi
 
-    sudo apt install git
+    sudo apt-get install git --yes
     git clone http://www.github.com/alexnathanson/solar-protocol
 
-Install required frontend packages
+Install required dependencies
 
-    sudo apt install libcairo2-dev
-
-Install pip, which manages python packages 
-
-    sudo apt-get install python3-pip
-
-Install required backend python packages
-
-    cd ~/solar-protocol
-    sudo pip3 install --requirement requirements.txt
-
-
-#### Troubleshooting numpy
-If there is an issue with numpy, try the following
-
-    sudo pip3 uninstall numpy
-    sudo apt install libatlas-base-dev
-    sudo pip3 install numpy
-
-#### Troubleshooting PILLOW
-
-If there is an error with pillow, try
-
-    sudo apt install libtiff5
-
-#### Further troubleshooting updates and dependencies
-
-In some instances it may be necessary to manually change the mirror which determines where apt pulls from. Instructions for manually changing the mirror can be found at https://pimylifeup.com/raspbian-repository-mirror/
+    bash /home/pi/solar-protocol/dev/install.sh
 
 ### Security
 
@@ -81,112 +52,13 @@ Recommendations to set up your pi securely
 * Open ports 80 and 22 on your router    
 * Following [the raspberry pi security guide](https://www.raspberrypi.org/documentation/configuration/security.md)
 
-Use key-based authentication:
-
-    install -d -m 700 ~/.ssh
-
-Add our authorized ssh keys
-
-    sudo mv /home/pi/solar-protocol/utilities/authorized_keys /home/pi/.ssh/authorized_keys
-    sudo chmod 644 /home/pi/.ssh/authorized_keys
-    sudo chown pi:pi /home/pi/.ssh/authorized_keys
-
 Test that it works by ssh'ing in from another terminal. If it works, disable password login
 
 **! This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!**
 
-    sed --in-place --expression 's/#PasswordAuthentication yes/PasswordAuthentication no/' \
+    sed --in-place --expression \
+      's/#PasswordAuthentication yes/PasswordAuthentication no/' \
       /etc/ssh/sshd_config
-
-### Server
-
-Install Apache and PHP
-
-    sudo apt install apache2 php --yes
-  
-Change Apache default directory to the frontend directory [src](https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)
-
-    sudo nano /etc/apache2/sites-available/000-default.conf
-  
-change `DocumentRoot /var/www/` to `DocumentRoot /home/pi/solar-protocol/frontend`  
-
-
-Set the directory options
-
-    sudo nano /etc/apache2/apache2.conf
-
-Add these lines to the file    
-
-	<Directory /home/pi/solar-protocol/frontend/>
-	    Options Indexes FollowSymLinks
-	    AllowOverride All
-	    Require all granted
-	    Header set Access-Control-Allow-Origin "*"
-	</Directory>
-
-Activate CORS for apache (needed for admin console)
-
-    sudo a2enmod headers
-
-To allow for htaccess redirect activate this module
-
-    sudo a2enmod rewrite
-
-Enable server status interface
-
-    sudo nano /etc/apache2/sites-enabled/000-default.conf
-
-Add these 4 lines to the file directly above `</VirtualHost>`
-
-    <Location /server-status>
-        SetHandler server-status
-        Require all granted
-    </Location>`
-
-The server status page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
-
-Install PHP graphics library for dithering. Note that the version will need to match your php version.
-
-    sudo apt install php-gd
-
-Restart apache
-
-    sudo service apache2 restart
-
-### Local
-
-Copy local directory outside of solar-protocol directory to pi directory  
-
-    sudo cp -r /home/pi/solar-protocol/local /home/pi/local
-
-Update the info with your information as needed
-
-### Automation
-
-#### Charge controller data logger
-
-Run charge controller data logger on start up [src](https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup)
-
-    sudo nano /etc/rc.local
-
-Add this line above "exit 0"
-
-    sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &
-
-Verify it works after rebooting with `sudo reboot`  
-
-
-#### script runner
-
-The script runner keeps the server up to date with the solar protocol network
-
-    sudo nano /etc/rc.local
-
-Add this line above "exit 0"
-
-    sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/backend > /home/pi/solar-protocol/backend/runner.log 2>&1 &
-
-Verify it works after rebooting with `sudo reboot`  
 
 #### reboot at midnight
 
@@ -201,10 +73,6 @@ Add this line to the bottom to restart the server at midnight
 #### Automation Troubleshooting
 
 - [] Confirm that "Wait for Network at Boot" option in `raspi-config` is enabled. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
-- [] Confirm the python scripts are exectutable
-- [] If you cannot get the backend Python scripts to run from rc.local an alternative runner is provided. Change the rc.local line for the backend scripts to this:
-
-    sudo -H -u pi sh /home/pi/solar-protocol/backend/alt-runner.sh > /home/pi/solar-protocol/backend/runner.log 2>&1 &
 
 ### General Troubleshooting  
 
@@ -212,32 +80,21 @@ Add this line to the bottom to restart the server at midnight
 
     python3 /home/pi/solar-protocol/charge-controller/test.py
 
-- [] List running processes
+- [] List running services
 
-    ps -aux
-
-- [] List running python processes
-
-    ps -ed | grep .py
-
-- [] Confirm all Python scripts use python3  
+    podman-compose --file /home/pi/solar-protocol/dev/compose.yaml ps
 
 - [] If cron logging isn't working, use `sudo crontab -e` instead of `crontab -e`  
 
-- [] Enable PHP error logging (best to only use these during development and revert back for production version)
-
-    sudo nano /etc/php/7.3/apache2/php.ini # The exact path will differ depending on the version of PHP  
-
-Set display_errors and error_reporting as follows:
-
-    display_errors = On
-    error_reporting = E_ALL
-
 - [] Point of contact logging only logs when it is TRUE. Uncomment out the logging for FALSE if you need to test out that it is logging these events.  
 
-- [] Check the last 100 Apache log entries ([documentation on reading logs](https://phoenixnap.com/kb/apache-access-log))
+- [] Check the last 100 nginx log entries 
 	
-    sudo tail -100 /var/log/apache2/access.log
+    sudo tail -100 /var/log/nginx/access.log
+
+- [] Check the last 100 nginx error log entries 
+
+    sudo tail -100 /var/log/nginx/error.log
 
 - [] Check an individual server's status by visiting http://www.solarprotocol.net/server-status
 
@@ -257,7 +114,6 @@ Set display_errors and error_reporting as follows:
 
 Get the latest code
 
- 
     cd /home/pi/solar-protocol
     git pull
 

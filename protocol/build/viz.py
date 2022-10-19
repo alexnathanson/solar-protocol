@@ -21,8 +21,9 @@ w = 1500
 h = 1500
 
 Pi = 3.14159
+Tau = 2 * Pi
 hours = 72
-ah = (2 * Pi) / hours  # angle of an hour
+hour_angle = Tau / hours  # angle of an hour
 ring_rad = 61
 radius = 61 * 10
 start_ring = 0
@@ -31,7 +32,7 @@ DEBUG = "DEBUG" in os.environ
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
 devices = "/data/devices.json"
-imgDST = "/frontend/images"
+imagePath = "/frontend/images"
 
 energyParam = "PV-current"
 ccDicts = []
@@ -39,28 +40,21 @@ days = 4  # get 4 days of csv files so we know we definitely get 72 hours of dat
 
 surface = gizeh.Surface(width=w, height=h)
 
-# Get list of IP addresses that the pi can see
 dfPOE = pd.DataFrame(columns=["device", "datetime"])
 
 # -------------- FUNCTIONS --------------------------------------------------------------------------------
 
-# Get list of IP addresses that the pi can see
-def getDeviceInfo(getKey):
-    ipList = []
+# Get device information
+def getDeviceInfo(key):
+    with open(devices) as file:
+        data = json.load(file)
 
-    with open(devices) as f:
-        data = json.load(f)
-
-    for i in range(len(data)):
-        ipList.append(data[i][getKey])
-
-    return ipList
-
+    return data.map(lambda device: device[key])
 
 # Call API for every IP address and get charge controller data
-def getCC(server, ccValue):
-    print(f"GET {server} {ccValue}")
-    url = f"http://{server}/api/v1/chargecontroller.php?value={ccValue}&duration={str(days)}"
+def getChargeControllerValue(server, value):
+    print(f"GET {server} {value}")
+    url = f"http://{server}/api/v1/chargecontroller.php?value={value}&duration={str(days)}"
     try:
         cc = requests.get(url, timeout=5)
         cc.json()
@@ -78,15 +72,15 @@ def getCC(server, ccValue):
 
 
 # Call API for every IP address and get charge controller data
-def getSysInfo(ip, key):
-    if ip == "localhost":
-        ip = "localhost:11221"
-    url = f"http://{ip}/api/v1/chargecontroller.php?systemInfo={key}"
+def getChargeControllerSystemInfo(server, systemInfo):
+    url = f"http://{server}/api/v1/chargecontroller.php?systemInfo={systemInfo}"
     try:
-        sysinfo = requests.get(url, timeout=5)
-        if DEBUG:
-            print(f"{ip} {key}: {sysinfo.text}")
-        return sysinfo.text
+        systemInfo = requests.get(url, timeout=5)
+        systemInfo = systemInfo.text
+
+        if DEBUG: print(f"{server} {key}: {systemInfo}")
+
+        return systemInfo
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError:
@@ -139,13 +133,13 @@ def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
 
 # draw_sun(ring number, x loc, y loc, stroke weight, _hour, _alpha)
 def draw_sun(server_no, hour, alpha):
-    a = -Pi / 2 + (hour * ah)
+    a = -(Tau / 4) + (hour * hour_angle)
     sw = ring_rad
     arc = gizeh.arc(
         r=server_no * ring_rad - (ring_rad / 2) + (ring_rad * start_ring),
         xy=[w / 2, h / 2],
         a1=a,
-        a2=a + ah,
+        a2=a + hour_angle,
         stroke=(1, 0.84, 0, alpha),
         stroke_width=sw,
     )
@@ -156,53 +150,42 @@ def draw_sun(server_no, hour, alpha):
     # text.draw(surface)
 
 
-# def draw_server_arc(server_no, startAngle, stopAngle, color):
-def draw_server_arc(server_no, start, stop, c):
-    # Start in the center and draw the circle
-    # print("server_no", server_no)
-    # print("ring_rad", ring_rad)
-    # print("stop", stop)
-    # print("start", start)
-    # print("c", c)
-    if c == "Pink":
+def draw_server_arc(serverNumber, startAngle, stopAngle, color):
+    if color == "Pink":
         return False
 
-    if type(c) == type(" "):
-        # print("Name!!", c)
-
-        red, green, blue = webcolors.name_to_rgb(c)
+    # if color is a string, convert it
+    if type(color) == type(" "):
+        red, green, blue = webcolors.name_to_rgb(color)
         red = red / 255.0
         green = green / 255.0
         blue = blue / 255.0
-        c = (red, green, blue)
-        # print(c)
+        color = (red, green, blue)
 
+    # Start in the center and draw the circle
     circle = gizeh.arc(
-        r=server_no * ring_rad + (0.5 + start_ring) * ring_rad,
+        r=serverNumber * ring_rad + (0.5 + start_ring) * ring_rad,
         xy=[w / 2, h / 2],
-        a1=stop - Pi / 2,
-        a2=start - Pi / 2,
-        stroke=c,
+        a1=stopAngle - Tau / 4,
+        a2=startAngle - Tau / 4,
+        stroke=color,
         stroke_width=15,
     )
     circle.draw(surface)
 
-
 def sortPOE(logs, timeZones, myTimeZone):
     global dfPOE
-    print("dfPOE.head()", dfPOE.head())
+    if DEBUG:
+      print("dfPOE.head()", dfPOE.head())
     for i, log in enumerate(logs):
         tempDF = pd.DataFrame(log)  # convert individual POE lists to dataframe
         tempDF["datetime"] = tempDF[0]
-        # print("tempDF['datetime']")
-        # print(tempDF['datetime'])
-        tempDF["datetime"] = tempDF["datetime"].astype(
-            str
-        )  # convert entire "Dates" Column to string
 
-        tempDF["datetime"] = pd.to_datetime(
-            tempDF["datetime"], errors="coerce"
-        )  # convert entire "Dates" Column to datetime format this time
+        # convert "Dates" Column to string
+        tempDF["datetime"] = tempDF["datetime"].astype(str)
+
+        # convert "Dates" Column to datetime format
+        tempDF["datetime"] = pd.to_datetime(tempDF["datetime"], errors="coerce")  
 
         # shift by TZ
         tempDF["timedelta"] = pd.to_timedelta(tzOffset(timeZones[i], myTimeZone), "h")
@@ -215,37 +198,30 @@ def sortPOE(logs, timeZones, myTimeZone):
         dfPOE = pd.concat([dfPOE, tempDF], ignore_index=True)
         dfPOE.shape
 
-    # print(dfPOE.head())
     dfPOE = dfPOE.sort_values(by="datetime", ascending=False)
-    # print(dfPOE.head())
 
     # get time now and filter by this time - 72 hours
     startTime = datetime.now()
     endTime = datetime.now() + relativedelta(days=-3)  # 3 days ago
-    # print(dfPOE.shape)
-    pastSeventyTwoHours = dfPOE["datetime"] > endTime
-    dfPOE = dfPOE.loc[
-        pastSeventyTwoHours
-    ]  # filter out everything older than 3 days ago
-    dfPOE = dfPOE.reset_index()
-    # dfPOE = dfPOE.drop(columns=[0])
 
-    # print(dfPOE.shape)
+    pastSeventyTwoHours = dfPOE["datetime"] > endTime
+    # filter out everything older than 3 days ago
+    dfPOE = dfPOE.loc[pastSeventyTwoHours]
+    dfPOE = dfPOE.reset_index()
 
     dfPOE["percent"] = 0.0
     dfPOE["angle"] = 0
 
     if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[0]):
-            # print("start time:", startTime)
-            # print("next time:", dfPOE['datetime'].iloc[t])
-            minPast = ((startTime - dfPOE["datetime"].iloc[t]).total_seconds()) / 60
-            # print("minutes since start:", minPast)
-            # print("percent of the time:", minPast/(hours*60))
-            dfPOE.at[t, "percent"] = minPast / (hours * 60)
-            # print("percent again:", dfPOE['percent'].iloc[t])
-            dfPOE.at[t, "angle"] = 360 - ((dfPOE["percent"].iloc[t]) * 360)
-            # print("Angle:", dfPOE.at[t,'angle'])
+            nextTime = dfPOE['datetime'].iloc[t]
+            minPast = ((startTime - nextTime).total_seconds()) / 60
+
+            percentTime = minPast / (hours * 60)
+            dfPOE.at[t, "percent"] = percentTime
+
+            percent = dfPOE['percent'].iloc[t]
+            dfPOE.at[t, "angle"] = 360 - (percent * 360)
     
     if DEBUG:
         print("head", dfPOE.head())
@@ -257,25 +233,23 @@ def tzOffset(checkTZ, myTimeZone):
         myOffset = int(myOffset)
     except:
         myOffset = 0
+
     try:
         theirOffset = datetime.now(timezone(checkTZ)).strftime("%z")
         theirOffset = int(theirOffset)
     except:
         theirOffset = 0
-    offsetDir = 0
-    if myOffset > theirOffset:
-        offsetDir = 1
-    else:
-        offsetDir = -1
-    return offsetDir * (
-        abs((int(myOffset) / 100) - (int(theirOffset) / 100))
-    )  # this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
 
+    # this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
+    offsetHours = abs((int(myOffset) / 100) - (int(theirOffset) / 100))
+    offsetDirection = 1 if myOffset > theirOffset else -1
+    return offsetDirection * offsetHours
 
-def text_curve(server_no, message, angle, spacing, ts):
+def text_curve(serverNumber, message, angle, spacing, fontsize):
     if DEBUG:
-        print(f"drawing text curve for {server_no} {message}")
-    cr = server_no * ring_rad + (ring_rad / 5) + (ring_rad * start_ring)
+        print(f"drawing text curve for {serverNumber} {message}")
+    cr = serverNumber * ring_rad + (ring_rad / 5) + (ring_rad * start_ring)
+
     # Start in the center and draw the circle
     # circle = gizeh.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
     # circle.draw(surface)
@@ -285,61 +259,56 @@ def text_curve(server_no, message, angle, spacing, ts):
     for i in reversed(range(len(message))):
         currentChar = message[i]
 
-        # print(message[i])
         # guessing the width of each char
-
         # Each box is centered so we move half the width
         arclength = arclength - spacing / 2
-        # print("arclength")
-        # print(arclength)
+
         # Angle in radians is the arclength divided by the radius
-        # Starting on the left side of the circle by adding PI
-        theta = (-1 / 2 * Pi) + arclength / cr + angle
-        # print("theta")
-        # print(theta)
+
+        # Starting on the left side of the circle by adding one full turn
+        theta = (-1 / Tau) + (arclength / cr) + angle
+
         # Polar to cartesian coordinate conversion
         # add 250 so that the origin translates to center of screen, then add coords
         x = w / 2 + cr * math.cos(theta)
         y = h / 2 + cr * math.sin(theta)
-        # Display the character
 
+        # Display the character
         text = gizeh.text(
             message[i].capitalize(),
             fontfamily="Georgia",
-            fontsize=ts,
+            fontsize=fontsize,
             fill=(1, 1, 1),
             xy=[x, y],
         )
-        text = text.rotate(theta + (Pi / 2), center=[x, y])  # rotation around a center
+        text = text.rotate(theta + (Tau / 4), center=[x, y])  # rotation around a center
         text.draw(surface)
         # popMatrix()
+
         # Move halfway again
         arclength -= spacing / 2
 
-
-def lines(interval, sw, opacity):
+def lines(interval, stroke_width, opacity):
     # for loop for lines
-    a = -(Pi / 2)
-    interval = (interval / 72) * 2 * Pi
-    while a < (Pi * 2 - (Pi / 2)):
-        xc = w / 2 + ring_rad * 2 * math.cos(a)
-        yc = h / 2 + ring_rad * 2 * math.sin(a)
-        x1 = w / 2 + (radius - 10) * math.cos(a)
-        y1 = h / 2 + (radius - 10) * math.sin(a)
+    angle = -(Tau / 4)
+    interval = (interval / 72) * Tau
+    while angle < (Tau - (Tau / 4)):
+        xc = w / 2 + ring_rad * 2 * math.cos(angle)
+        yc = h / 2 + ring_rad * 2 * math.sin(angle)
+        x1 = w / 2 + (radius - 10) * math.cos(angle)
+        y1 = h / 2 + (radius - 10) * math.sin(angle)
         line = gizeh.polyline(
-            points=[(x1, y1), (xc, yc)], stroke_width=sw, stroke=(1, 1, 1, opacity)
+            points=[(x1, y1), (xc, yc)], stroke_width=stroke_width, stroke=(1, 1, 1, opacity)
         )
         line.draw(surface)
-        a = a + interval
-    # print("finished drawing lines")
+        angle = angle + interval
 
-
-def circles(sw, opacity):
-    b = ring_rad * 2
-    while b < (radius):
-        circ = gizeh.circle(r=b, xy=[w / 2, h / 2], stroke=(1, 1, 1), stroke_width=1.5)
-        circ.draw(surface)
-        b = b + ring_rad
+def circles():
+    r = ring_rad * 2
+    while r < radius:
+        circle = gizeh.circle(r=r, xy=[w / 2, h / 2], stroke=(1, 1, 1), stroke_width=1.5)
+        circle.draw(surface)
+        r = r + ring_rad
 
 def getColor(ip):
     DEFAULT_COLOR = (1, 1, 1)
@@ -366,17 +335,17 @@ def getTimezone(ip):
 
     return timezone
 
-def getCCDict(ip):
-    DEFAULT_CCDICT = { "datetime": energyParam }
-    ccDict = getCC(ip, energyParam)
-    if type(ccDict) != type(None):
+def getEnergyFor(ip):
+    energyValues = getChargeControllerValue(ip, energyParam)
+
+    if type(energyValues) != type(None):
         # remove the header
-        header = ccDict.pop("datetime", None)
+        header = energyValues.pop("datetime", None)
         expected_header = energyParam.replace("-", " ")
         if header == expected_header:
-            return ccDict
+            return energyValues
         
-        return DEFAULT_CCDICT
+    return { "datetime": energyParam }
 
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
@@ -398,7 +367,7 @@ def main():
         if DEBUG:
             print(f"getting data for {ip}")
 
-        ccDicts.append(getCCDict(ip))
+        energyValues.append(getEnergyValuesFor(ip))
 
         timeZones.append(getTimezone(ip))
 
@@ -410,80 +379,59 @@ def main():
     server_names = getDeviceInfo("name")
 
     # go over ccDicts for each server
-    for i, ccDict in enumerate(ccDicts):
+    for i, energyValue in enumerate(energyValues):
         name = server_names[i]
         timezone = timeZones[i]
-        if name not in ["pi-a", "pi-b", "pi-c"]:
-            print(f"drawing {name} ({timezone})")
-            # print name of each server
-            text_curve(i + 2, name, 0, 18, 18)
-            # draw sun data for each server
-            draw_ring(ccDict, i + 3, energyParam, timezone, myTimeZone)
+        print(f"drawing {name} ({timezone})")
+        # print name of each server
+        text_curve(i + 2, name, 0, 18, 18)
+        # draw sun data for each server
+        draw_ring(energyValue, i + 3, energyParam, timezone, myTimeZone)
 
     # Draw Active Server Rings
     sortPOE(logs, timeZones, myTimeZone)
-    # print("dfPOE.shape", dfPOE.shape)
-    # print(dfPOE)
-    # lines(interval in house, stroke weight, opacity)
-    lines(2, 1, 0.2)
-    lines(12, 1.5, 1)
-    circles(1.5, 1)
-    # draw_server_arc(0, 0, Pi, (1,0,0))
+
+    lines(interval=2, stroke_width=1, opacity=0.2)
+    lines(interval=12, stroke_width=1.5, opacity=1)
+    circles()
 
     if dfPOE.shape[1] > 0:
-        # for l, item in enumerate(dfPOE.shape[0]):
-        for l in range(dfPOE.shape[0]):
-            device = dfPOE["device"].iloc[l]
+        for i in range(dfPOE.shape[0]):
+            device = dfPOE["device"].iloc[i]
             ring = device + 2
-            server = colors[device]
-            start_angle = dfPOE["angle"].iloc[l] * Pi / 180
+            color = colors[device]
+            startDegrees = 360 if i == 0 else dfPOE["angle"].iloc[i-1]
+            startAngle = startDegrees * Tau / 360
+            stopAngle = dfPOE["angle"].iloc[i] * Tau / 360
 
-            if l == 0:
-                stop_angle = 2 * Pi
-            else:
-                stop_angle = dfPOE["angle"].iloc[l - 1] * Pi / 180
+            draw_server_arc(serverNumber=ring, startAngle, stopAngle, color)
 
-            draw_server_arc(ring, stop_angle, start_angle, server)
+    # setup file paths
+    clockPath = f"{imagePath}/clock.png"
+    exhibitPath = f"{imagePath}/clock-exhibit.png"
+    now = str(datetime.now().strftime("%Y-%m-%d %H-%M-%S"))
+    arhivePath = f"{imagePath}/archive/clock-{now}.png"
 
-    # # initialize surface
-    # surface = gizeh.Surface(width=w, height=h) # in pixels
-
-    # text = gizeh.text("Hello World", fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy=(100,100), angle=Pi/12)
-    # text.draw(surface)
-
-    # draw_sun(4, w/2, h/2, 20, 0, 0.1)
-    # draw_sun(4, w/2, h/2, 20, 1, 0.5)
-    # draw_sun(4, w/2, h/2, 20, 2, 1)
-
-    # #def text_curve(cr, message, angle, spacing, ts):
-    # text_curve(100, "Server 1", 0, 0, 40)
-
-    # draw_server_arc(2, 0, 3*Pi/2, (1,0,0))
-
-    # Now export the surface
-    surface.get_npimage()  # returns a (width x height x 3) numpy array
+    # export the clock surface
+    surface.get_npimage() # returns a (width x height x 3) numpy array
     surface.write_to_png("assets/clock.png")
 
     background = Image.open("assets/3day-diagram-with-key.png")
     exhibitionbackground = Image.open("assets/3day-diagram.png")
     foreground = Image.open("assets/clock.png")
-
     mask = Image.open("assets/mask.png").resize(background.size).convert("L")
+
+    # create the website clock
     background.paste(foreground, (0, 0), mask)
-    # this image goes to the frontend/images directory
-    background.save(imgDST + "/clock.png")
+    background.save(clockPath)
 
+    # create the exhibition clock
     exhibitionbackground.paste(foreground, (0, 0), mask)
-    # this image goes to the frontend/images directory
-    exhibitionbackground.save(imgDST + "/clock-exhibit.png")
+    exhibitionbackground.save(exhibitPath)
 
-    # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
-    # alphaBlended2.save("clock1.png")
-    # archive images
-    now = str(datetime.now().strftime("%Y-%m-%d %H-%M-%S"))
-    archiveImage = Image.open(imgDST + "/clock.png")
-    archiveImage.save(f"archive/clock-{now}.png")
-
+    # copy the current clock to the archive
+    archiveImage = Image.open(clockPath)
+    archiveImage.save(archivePath)
 
 if __name__ == "__main__":
     main()

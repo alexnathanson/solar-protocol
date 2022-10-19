@@ -63,17 +63,17 @@ def read_csv():
 def render_pages(_local_data, _data, _weather, _server_data):
     print("Battery Percentage: {str(_data['battery percentage'])}")
 
-    templatePath = f"./templates/"
-    outputPath = f"/frontend/"
+    templatePath = f"./templates"
+    outputPath = f"/frontend"
 
     pages = [
-        ("index_template.html", "index.html"),
-        ("network_template.html", "network.html"),
-        ("call_template.html", "call.html"),
-        ("documentation_template.html", "documentation.html"),
-        ("solar-web_template.html", "solar-web.html"),
-        ("manifesto_template.html", "manifesto.html"),
-        ("library_template.html", "library.html"),
+        "index.html",
+        "network.html",
+        "call.html",
+        "documentation.html",
+        "solar-web.html",
+        "manifesto.html",
+        "library.html",
     ]
 
     # get the current time
@@ -109,12 +109,12 @@ def render_pages(_local_data, _data, _weather, _server_data):
         mode = "Low res mode"
 
     # loop through all page templates and render them with new data
-    for template_filename, output_filename in pages:
-        template_filename = templatePath + template_filename
-        output_filename = outputPath + output_filename
+    for page in pages:
+        template_filename = f"{templatePath}/{filename}"
+        output_filename = f"{outputPath}/{filename}"
         template_file = open(template_filename).read()
         print("rendering", template_filename)
-        # print("battery", _data["battery percentage"]*100)
+
         # this line was changed last, it was: "/templates/"
         template = Environment(loader=FileSystemLoader(templatePath)).from_string(
             template_file

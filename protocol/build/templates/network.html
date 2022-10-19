@@ -1,10 +1,7 @@
-{% extends "base-template.html" %} 
+{% extends "base.html" %} 
 {% block content %}
 {% if batteryPercentage >= 30 %}
-
     <img class="full-col" src="images/full-map.png" />
-    
-
 {% else %}
 {% endif %}
   <div class="onecol-text">
@@ -26,11 +23,7 @@
           <p><i>About:</i> {{item.description}}</p>
           <p><i>Link: </i>{{item.link}} </p> 
       </div>
-      {% endfor %}
-
-
-
+    {% endfor %}
     </div>
   </div>
 {% endblock %}
-

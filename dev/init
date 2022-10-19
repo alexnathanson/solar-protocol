@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+set -u
+
+# make sure script works when called from any directory
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+
+require() {
+  command -v $1 >/dev/null 2>&1 || brew install $1
+}
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  command -v podman >/dev/null 2>&1 || brew install podman
+  command -v podman-compose >/dev/null 2>&1 || brew install podman-compose
+
+  podman machine inspect >/dev/null 2>&1 || {
+    podman machine init --volume /Users
+  }
+
+  if [[ "$(podman machine inspect --format {{.State}})" != "running" ]]; then
+    podman machine start
+  fi
+elif [[ "$(uname -s)" == "Linux" ]]; then
+  command -v podman >/dev/null || sudo apt-get install --yes podman podman-compose
+else
+  echo "init script only supports linux and macOS" >&2
+  exit 1
+fi
+

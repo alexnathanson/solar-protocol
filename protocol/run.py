@@ -12,21 +12,17 @@ pass the argument "now" to run everything immediately
 If the photovoltaic wattage is below 6W, run half as often
 If battery percentage is below 30%, viz script doesn't run
 """
-from core import clientPostIP
-from core import solarProtocol
-from core import getRemoteData
-from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
-from generator import create_html
-from generator import viz
-import datetime
-import time
-import sys
-import logging
-from math import trunc
 
-SolarProtocol = SolarProtocolClass()
+from build import html, viz
+from core import clientPostIP, solarProtocol, getRemoteData
+from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
+from time import sleep
+from math import trunc
+import datetime
+import sys
 
 MAX_FREQUENCY = 60
+SolarProtocol = SolarProtocolClass()
 
 def run():
     print("***** Solar Protocol Runner Started ******")
@@ -36,7 +32,7 @@ def run():
     if len(sys.argv) > 1 and sys.argv[1] == "now":
         print("Running now")
     else:
-        time.sleep(60)
+        sleep(60)
 
     while True:
         if runCount == 0 or getElapsedTime(timeOfRun) % (loopFrequency * scaler) == 0:
@@ -48,7 +44,7 @@ def run():
             loopFrequency = getFrequency()
             print(f"Loop frequency: {str(loopFrequency)} minutes")
             scaler = solarScaler()
-        time.sleep(60)
+        sleep(60)
 
 def runScripts(runCount):
     time = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
@@ -86,10 +82,10 @@ def runScripts(runCount):
             exceptions.append("viz")
 
     try:
-        create_html.main()
+        html.main()
     except Exception as err:
-        printLoud("create_html Exception", err)
-        exceptions.append("create_html")
+        printLoud("html Exception", err)
+        exceptions.append("html")
 
     print()
     time = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")

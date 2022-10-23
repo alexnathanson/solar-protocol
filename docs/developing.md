@@ -47,9 +47,9 @@ Updates the clock visualizations. This only runs if the device has 30% or more b
 
 Regenerates the website with the latest data.
 
-### 2. charge-controller service
+### 2. datalogger service
 
-The charge controller service periodically reads the charge controller and saves a log for the other scripts. In DEV mode, makes up fake data.
+The datalogger service periodically reads the charge controller and saves a log for the other scripts. In DEV mode, makes up fake data.
 
 ### 3. api service
 

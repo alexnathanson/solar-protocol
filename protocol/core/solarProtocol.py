@@ -17,9 +17,7 @@ import sys
 DEV = 'DEV' in sys.argv
 
 if DEV:
-	localDataFile = f'/home/pi/solar-protocol/dev/data/tracerDataTest.csv'
-else:
-	localDataFile = f'/home/pi/solar-protocol/charge-controller/data/tracerData{str(datetime.date.today())}.csv'
+	localDataFile = f'/home/pi/solar-protocol/data/traces/{datetime.date.today()}.csv'
 
 '''
 apiValue is what we use to determine who should be the point of entry

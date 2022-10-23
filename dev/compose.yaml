@@ -3,38 +3,38 @@ version: '3.7'
 name: solar-protocol
 
 services:
-  charge-controller:
-    image: solar-protocol/charge-controller
-    build: ../charge-controller
-    restart: always
+  datalogger:
+    image: solar-protocol/datalogger
+    build: ../datalogger
+    restart: on-failure[99]
     volumes:
       - data:/data
   api:
     image: solar-protocol/api
     build: ../api
-    restart: always
+    restart: on-failure[99]
     volumes:
       - data:/data
     ports:
       - 11215:80
+  protocol:
+    image: solar-protocol/protocol
+    build: ../protocol
+    restart: on-failure[99]
+    command: python run.py now
+    volumes:
+      - data:/data
+      - frontend:/frontend
+      - local:/local
   web:
     image: nginx
-    restart: always
+    restart: on-failure[99]
     volumes:
       - data:/data
       - frontend:/frontend
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - 11221:80
-  solar-protocol:
-    image: solar-protocol/protocol
-    build: ../protocol
-    restart: always
-    command: python run.py now
-    volumes:
-      - data:/data
-      - frontend:/frontend
-      - local:/local
 
 volumes:
   data:

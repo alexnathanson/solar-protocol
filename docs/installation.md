@@ -78,7 +78,7 @@ Add this line to the bottom to restart the server at midnight
 
 - [] Test the connection between the pi and charge controller
 
-    python3 /home/pi/solar-protocol/charge-controller/test.py
+    python3 /home/pi/solar-protocol/dev/test-charge-controller-connection.py
 
 - [] List running services
 

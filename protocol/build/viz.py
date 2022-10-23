@@ -49,7 +49,9 @@ def getDeviceInfo(key):
     with open(devices) as file:
         data = json.load(file)
 
-    return data.map(lambda device: device[key])
+    deviceInfo = data.map(lambda device: device[key])
+    print(deviceInfo)
+    return deviceInfo
 
 # Call API for every IP address and get charge controller data
 def getChargeControllerValue(server, value):

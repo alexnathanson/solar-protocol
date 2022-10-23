@@ -4,8 +4,8 @@ RUN apt-get --quiet update && apt-get --quiet upgrade --yes
 ENV TERM=screen-256color
 
 WORKDIR /api
-RUN python -m venv /charge-controller/venv
-ENV PATH="/charge-controller/venv/bin:$PATH"
+RUN python -m venv /datalogger/venv
+ENV PATH="/datalogger/venv/bin:$PATH"
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 

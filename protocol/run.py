@@ -24,6 +24,7 @@ import sys
 MAX_FREQUENCY = 60
 SolarProtocol = SolarProtocolClass()
 
+
 def run():
     print("***** Solar Protocol Runner Started ******")
 
@@ -45,6 +46,7 @@ def run():
             print(f"Loop frequency: {str(loopFrequency)} minutes")
             scaler = solarScaler()
         sleep(60)
+
 
 def runScripts(runCount):
     time = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
@@ -98,11 +100,13 @@ def runScripts(runCount):
 
     print()
 
+
 def printLoud(mess, e):
     print()
     print(f"!!!!! {mess} !!!!!")
     print(e)
     print()
+
 
 def getElapsedTime(oldTime):
     """
@@ -111,6 +115,7 @@ def getElapsedTime(oldTime):
     elapsed = datetime.datetime.now() - oldTime
     elapsedMin = trunc(elapsed.seconds / 60)
     return elapsedMin
+
 
 def getFrequency():
     """
@@ -129,6 +134,7 @@ def getFrequency():
     except:
         return 20
 
+
 def solarScaler():
     """
     solar power multiplier
@@ -146,6 +152,7 @@ def solarScaler():
         return 2 if scaled_wattage == 0.0 else None
     except:
         return 1
+
 
 if __name__ == "__main__":
     run()

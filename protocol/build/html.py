@@ -59,6 +59,7 @@ def read_csv():
     line["battery percentage"] = float(line["battery percentage"])
     return line
 
+
 def render_pages(_local_data, _data, _weather, _server_data):
     print("Battery Percentage: {str(_data['battery percentage'])}")
 
@@ -223,7 +224,7 @@ def get_ips():
 
     ips = getDeviceInfo("ip")
     serverNames = getDeviceInfo("name")
-    
+
     devices = dict(zip(serverNames, ips))
     return devices
 

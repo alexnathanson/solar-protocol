@@ -3,12 +3,12 @@ FROM python:3.10-slim
 RUN apt-get --quiet update && apt-get --quiet upgrade --yes
 ENV TERM=screen-256color
 
-WORKDIR /charge-controller
-RUN python -m venv /charge-controller/venv
-ENV PATH="/charge-controller/venv/bin:$PATH"
+WORKDIR /datalogger
+RUN python -m venv /datalogger/venv
+ENV PATH="/datalogger/venv/bin:$PATH"
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 
-WORKDIR /charge-controller/venv
+WORKDIR /datalogger/venv
 COPY csv_datalogger.py .
 CMD python csv_datalogger.py

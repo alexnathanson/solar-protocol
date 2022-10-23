@@ -4,14 +4,16 @@ name: solar-protocol
 
 services:
   charge-controller:
+    image: solar-protocol/charge-controller
+    build: ../charge-controller
     environment:
       - DEV=${DEV}
-    image: solar-protocol/charge-controller
     restart: always
     volumes:
       - data:/data
   api:
     image: solar-protocol/api
+    build: ../api
     restart: always
     volumes:
       - data:/data
@@ -28,6 +30,7 @@ services:
       - 11221:80
   solar-protocol:
     image: solar-protocol/protocol
+    build: ../protocol
     restart: always
     command: python run.py now
     volumes:

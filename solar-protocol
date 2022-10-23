@@ -1,0 +1,130 @@
+#!/bin/bash
+set -e
+
+help() {
+  cat << HELP
+solar-protocol v1
+
+  # build a known good version of python and our dependencies
+
+  ./solar-protocol build
+
+  # start the server
+
+  ./solar-protocol up
+
+  # check the api logs
+
+  ./solar-protocol logs api
+
+  # start the server in dev mode - will reload the api on file changes
+
+  ./solar-protocol dev
+
+  # restart the datalogger
+
+  ./solar-protocol restart datalogger
+
+  # stop the server
+
+  ./solar-protocol down
+
+HELP
+}
+
+compose() {
+  podman-compose --file dev/compose.yaml $*
+}
+
+down() {
+  compose down
+}
+
+up() {
+  compose up
+}
+
+restart() {
+  shift
+  containers=${*:-api datalogger protocol web}
+  compose restart $containers
+}
+
+logs() {
+  shift
+  container=${*:-protocol}
+  compose logs $container
+}
+
+build() {
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    if [[ "$(podman machine inspect --format {{.State}})" != "running" ]]; then
+      podman machine start
+    fi
+  fi
+
+  compose build
+}
+
+dev() {
+  compose --file dev/dev.compose.yaml up
+}
+
+format() {
+  black **/**py
+}
+
+generate() {
+  podman-compose --file dev/compose.yaml --file dev/dev.compose.yaml \
+    exec --interactive --tty protocol \
+    python /solar-protocol/venv/core/getRemoteData.py
+
+  podman-compose --file dev/compose.yaml --file dev/dev.compose.yaml \
+    exec --interactive --tty protocol \
+    python /solar-protocol/venv/build/viz.py
+
+  podman-compose --file dev/compose.yaml --file dev/dev.compose.yaml \
+    exec --interactive --tty protocol \
+    python /solar-protocol/venv/build/html.py DEV
+}
+
+init() {
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    command -v podman >/dev/null 2>&1 || brew install podman
+    command -v podman-compose >/dev/null 2>&1 || brew install podman-compose
+
+    podman machine inspect >/dev/null 2>&1 || {
+      podman machine init --volume /Users
+    }
+
+    if [[ "$(podman machine inspect --format {{.State}})" != "running" ]]; then
+      podman machine start
+    fi
+  elif [[ "$(uname -s)" == "Linux" ]]; then
+    command -v podman >/dev/null || sudo apt-get install --yes podman podman-compose
+  else
+    echo See the official windows install docs to install podman and podman-compose
+    echo
+    echo https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md
+  fi
+
+  command -v podman >/dev/null 2>&1 && command -v podman-compose >/dev/null 2>&1 \
+    && echo podman and podman-compose found, init complete!
+}
+
+command=$1
+shift
+
+case $command in
+  up) up ;;
+  down) down ;;
+  restart) restart ;;
+  logs) logs ;;
+  init) init ;;
+  build) build ;;
+  dev) dev ;;
+  open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
+  format) format ;;
+  *) help ;;
+esac
+

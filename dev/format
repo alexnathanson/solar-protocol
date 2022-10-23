@@ -1,7 +1,0 @@
-#!/bin/bash
-set -e
-
-# make sure script works when called from any directory
-cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
-
-black ../**/**py

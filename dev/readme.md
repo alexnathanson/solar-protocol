@@ -45,67 +45,35 @@ This is an nginx proxy that serves up the static files made by the solar-protoco
 
 ## getting started - install instructions
 
-Always check [the latest podman installation docs](https://podman.io/getting-started/installation), but as a nicety, try this:
+All commands are kept in the `solar-protocol` so everyone can stay up-to-date with installing, debugging, and developing the protocol. If you'd like to install the script, just add it to your terminal path:
 
-### linux
+    test ~/.bashrc && echo export PATH="\$PATH:$PWD" >> ~/.bashrc
+    test ~/.zshrc && echo export PATH="\$PATH:$PWD" >> ~/.zshrc
 
-    sudo apt install podman podman-compose
+Now open a new terminal, and check that the help works:
 
-### macOS
+    solar-protocol help
 
-    brew install podman podman-compose
-    podman machine init --volume /Users
+### Install dependencies
 
-> Ignore any `Error: exit status 255` messages
-
-Why the `--volume /Users`?
-
-Podman (and Docker) require linux to do containerization, so if we want to run them on macOS, we have to start a linux virtual machine. And we first need to mount files from macOS to linux, before we can use them in our containers. This can be done from the commandline or using the Podman Desktop or Docker Desktop guis. Either way, this is what will be happening in the background:
-
-    macOS (host)
-     -> podman machine (linux)
-         -> solar-protocol-dev (container)
-
-### Windows
-
-See [the official windows install docs](https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md)
+    solar-protocol init
 
 ## build the base image
 
-First, make sure you have the correct ssh keys and podman machine is running
-
-> Note: On macOS you may want to `ssh-add ~/.ssh/podman-machine-default`
-
-    podman machine start
-
-Now, build a known good version of python and our dependencies
-
-    bash dev/build
+    solar-protocol build
 
 ## Run the server
 
-This will bring up the server
+This will bring up the server in development mode
 
-    bash dev/start
+    solar-protocol dev
 
-Next, regenerate the site
+Next, generate the initial static site
 
-    bash dev/generate
+    solar-protocol generate
 
 Visit the blank site on http://127.0.0.1:11221
 
-    open http://127.0.0.1:11221
-
-Now, lets generate a fresh version of the website
-
-    bash dev/generate
+    solar-protocol open
 
 Congrats! You should see the pizza rat server!
-
-## development scripts
-
-We have a few scripts to make it easier to develop. All are based on containers, using podman to maintain images.
-
-* `dev/build` - makes a container image, with all the dependencies and code to run the solar protocol in a virtual machine
-
-* `dev/start` - starts a virtual machine using the container image

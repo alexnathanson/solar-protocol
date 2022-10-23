@@ -6,6 +6,6 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 echo starting solar-protocol
 
-podman-compose --env-file env.dev up
+podman-compose --file compose.yaml --file dev.compose.yaml up
 
 bash stop

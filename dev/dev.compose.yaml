@@ -1,0 +1,18 @@
+version: '3.7'
+
+name: solar-protocol
+
+services:
+  charge-controller:
+    environment:
+      - DEV=true
+    volumes:
+      - ../charge-controller:/charge-controller/venv
+  api:
+    image: solar-protocol/api
+    volumes:
+      - ../api:/api/venv
+  solar-protocol:
+    command: python run.py now
+    volumes:
+      - ../protocol:/protocol/venv

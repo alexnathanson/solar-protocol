@@ -6,8 +6,6 @@ services:
   charge-controller:
     image: solar-protocol/charge-controller
     build: ../charge-controller
-    environment:
-      - DEV=${DEV}
     restart: always
     volumes:
       - data:/data

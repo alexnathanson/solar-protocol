@@ -404,7 +404,7 @@ def main():
             startAngle = startDegrees * Tau / 360
             stopAngle = dfPOE["angle"].iloc[i] * Tau / 360
 
-            draw_server_arc(serverNumber=ring, startAngle, stopAngle, color)
+            draw_server_arc(serverNumber=ring, startAngle=startAngle, stopAngle=stopAngle, color=color)
 
     # setup file paths
     clockPath = f"{imagePath}/clock.png"

@@ -33,7 +33,7 @@ HELP
 }
 
 compose() {
-  podman-compose --file dev/compose.yaml $*
+  podman-compose $*
 }
 
 down() {
@@ -67,7 +67,7 @@ build() {
 }
 
 dev() {
-  compose --file dev/dev.compose.yaml up
+  compose --file compose.yaml --file dev/dev.compose.yaml up
 }
 
 format() {

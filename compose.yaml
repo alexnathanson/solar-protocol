@@ -1,26 +1,24 @@
-version: '3.7'
-
 name: solar-protocol
 
 services:
   datalogger:
     image: solar-protocol/datalogger
-    build: ../datalogger
-    restart: on-failure[99]
+    build: ./datalogger
+    restart: unless-stopped
     volumes:
       - data:/data
   api:
     image: solar-protocol/api
-    build: ../api
-    restart: on-failure[99]
+    build: ./api
+    restart: unless-stopped
     volumes:
       - data:/data
     ports:
       - 11215:80
   protocol:
     image: solar-protocol/protocol
-    build: ../protocol
-    restart: on-failure[99]
+    build: ./protocol
+    restart: unless-stopped
     command: python run.py now
     volumes:
       - data:/data
@@ -28,11 +26,11 @@ services:
       - local:/local
   web:
     image: nginx
-    restart: on-failure[99]
+    restart: unless-stopped
     volumes:
       - data:/data
       - frontend:/frontend
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./dev/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - 11221:80
 
@@ -41,14 +39,14 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: '${PWD}/../data'
+      device: '${PWD}/data'
   frontend:
     driver_opts:
       o: bind
       type: none
-      device: '${PWD}/../frontend'
+      device: '${PWD}/frontend'
   local:
     driver_opts:
       o: bind
       type: none
-      device: '${PWD}/../local'
+      device: '${PWD}/local'

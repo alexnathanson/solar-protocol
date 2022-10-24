@@ -7,35 +7,42 @@ prompt() {
     || exit 1
 }
 
+Clear='\033[0m' # No Color
+Green='\033[0;32m'
+Blue='\033[0;34m'
+
 help() {
+  echo -e "$(
   cat << HELP
-  solar-protocol
-  commandline tool to help manage your server
 
-  start the server:
+  ☀️ solar-protocol - commandline tool to help manage your server
 
-    solar-protocol up
+  ${Green}start the server:
 
-  check the api logs:
+    ${Blue}solar-protocol up
 
-    solar-protocol logs api
+  ${Green}check the api logs:
 
-  start in dev mode with live code reloading:
+    ${Blue}solar-protocol logs api
 
-    solar-protocol dev
+  ${Green}start in dev mode with live code reloading:
 
-  restart the datalogger:
+    ${Blue}solar-protocol dev
 
-    solar-protocol restart datalogger
+  ${Green}restart the datalogger:
 
-  stop the server:
+    ${Blue}solar-protocol restart datalogger
 
-    solar-protocol down
+  ${Green}stop the server:
 
-  open a shell in the datalogger container
+    ${Blue}solar-protocol down
 
-    solar-protocol shell datalogger
+  ${Green}open a shell in the datalogger container
+
+    ${Blue}solar-protocol shell datalogger${Clear}
 HELP
+)"
+  exit
 }
 
 compose() {

@@ -1,8 +1,11 @@
 import csv
+import json
+import os
+import sys
+
 from datetime import date
 from enum import Enum
 from typing import Union
-import sys
 
 from fastapi import FastAPI
 
@@ -66,24 +69,30 @@ class SIValue(str, Enum):
 app = FastAPI(title="solar-protocol", docs_url="/api/docs")
 
 def getTimezone():
-    return os.environ['TZ'] or "America/New_Yorks"
+    return os.environ['TZ'] if "TZ" in os.environ else "America/New_Yorks"
 
 def getWattageScale():
     pvWatts = getLocal("pvWatts")
-    return 1 if pvWatts == None else (50.0 / pvWatts)
+    if pvWatts != None and pvWatts != "":
+        return 50.0 / float(pvWatts)
+
+    return 1
 
 def getLocal(key: Union[str, None]):
     filename = f"/local/local.json"
 
     with open(filename, "r") as jsonfile:
-        localData = json.loads(jsonfile)
+        localData = json.load(jsonfile)
 
     if key == None:
-        safe_data = { safe_key: localData[safe_key] for safe_key in safe_keys }
+        safe_data = { key: getLocal(key) for key in safe_keys }
         safe_data["timezone"] = getTimezone()
         safe_data["wattage-scale"] = getWattageScale()
         return safe_data
         
+    if key == "color":
+        return localData["bgColor"]
+
     return localData[key]
 
 @app.get("/api")

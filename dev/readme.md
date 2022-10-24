@@ -47,6 +47,12 @@ This is an nginx proxy that serves up the static files made by the solar-protoco
 
 All commands are kept in the `solar-protocol` so everyone can stay up-to-date with installing, debugging, and developing the protocol.
 
+### Clone this code in your home directory
+
+    sudo apt-get install --yes git
+    git clone https://github.com/alexnathanson/solar-protocol.git
+    cd solar-protocol
+
 ### Install dependencies
 
     ./solar-protocol init

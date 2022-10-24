@@ -41,7 +41,7 @@ down() {
 }
 
 up() {
-  compose up
+  compose up --build $*
 }
 
 restart() {
@@ -67,7 +67,7 @@ build() {
 }
 
 dev() {
-  compose --file compose.yaml --file dev/dev.compose.yaml up
+  compose --file compose.yaml --file dev/dev.compose.yaml up --build
 }
 
 format() {

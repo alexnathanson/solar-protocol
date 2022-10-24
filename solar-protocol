@@ -127,7 +127,14 @@ init() {
       podman machine start
     fi
   elif [[ "$(uname -s)" == "Linux" ]]; then
-    command -v podman >/dev/null || sudo apt-get install --yes podman podman-compose
+    command -v podman >/dev/null || sudo apt-get install --yes podman
+    command -v pip >/dev/null || sudo apt install --yes python3-pip
+    command -v podman-compose >/dev/null || pip install podman-compose
+
+    grep --quiet '/home/pi/.local/bin' /home/pi/.bashrc \
+      || echo 'export PATH=$PATH:/home/pi/.local/bin' >> /home/pi/.bashrc
+
+    . /home/pi/.bashrc
   else
     echo See the official windows install docs to install podman and podman-compose
     echo

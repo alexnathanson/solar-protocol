@@ -1,9 +1,9 @@
 import csv
+import datetime
 import json
 import os
 import sys
 
-from datetime import date
 from enum import Enum
 from typing import Union
 
@@ -108,28 +108,38 @@ def systemInfoValue(value: Union[SIValue, None] = None):
             return getLocal(value)
 
 @app.get("/api/charge-controller")
-def read_value(value: Union[CCValue, None] = None):
-    filename = f"/data/traces/{date.today()}.csv"
+def read_value(value: Union[CCValue, None] = None, days: Union[int, None] = None):
+    filepath = "/data/traces"
+    today = datetime.date.today()
+
+    if days == None:
+        dates = [ today ]
+    else:
+        dates = [ today - datetime.timedelta(days=days) for days in range(days) ]
 
     rows = []
+    for day in dates:
+        try:
+            with open(f"{filepath}/{day}.csv", "r") as csvfile:
+                reader = csv.DictReader(csvfile, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames)
+                for row in reader:
+                    rows.append(row)
+        except FileNotFoundError:
+            continue # its okay if we are missing data
 
-    with open(filename, "r") as csvfile:
-        reader = csv.DictReader(csvfile, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames)
-        for row in reader:
-            rows.append(row)
+    # first filter on # of days
+    if days == None:
+        data = [ row ]
+    else:
+        n_days_ago = datetime.datetime.today() - datetime.timedelta(days=days)
+        data = [ row for row in rows if datetime.datetime.fromtimestamp(row["timestamp"]) > n_days_ago ]
 
-    if value == None:
-        return row
+    # then enrich with the scaled wattage
+    wattageScale = getWattageScale()
+    dataWithWattage = [ row | { "scaled wattage": row[CCValue.PV_power_L] * wattageScale } for row in data ]
 
-    if value == "scaled wattage":
-        return row[CCValue.PV_Power_L] * getWattageScale()
+    # then filter on key
+    if value != None:
+        return [ row[value] for row in dataWithWattage ]
 
-    return row[value]
-
-    # return rows
-    # print(csv, file=sys.stderr)
-    # return ["assassin", "cleric", "druid", "fighter", "illusionist",
-    #        "magic_user", "thief", "paladin", "ranger"]
-
-    # line = read_csv()
-    # print(line[-1])
+    return dataWithWattage

@@ -45,26 +45,17 @@ This is an nginx proxy that serves up the static files made by the solar-protoco
 
 ## getting started - install instructions
 
-All commands are kept in the `solar-protocol` so everyone can stay up-to-date with installing, debugging, and developing the protocol. If you'd like to install the script, just add it to your terminal path:
-
-    test ~/.bashrc && echo export PATH="\$PATH:$PWD" >> ~/.bashrc
-    test ~/.zshrc && echo export PATH="\$PATH:$PWD" >> ~/.zshrc
-
-Now open a new terminal, and check that the help works:
-
-    solar-protocol help
+All commands are kept in the `solar-protocol` so everyone can stay up-to-date with installing, debugging, and developing the protocol.
 
 ### Install dependencies
 
-    solar-protocol init
+    ./solar-protocol init
 
-## build the base image
+Once dependencies are installed, you can use the 'solar-protocol' command without the `./` prefix
 
-    solar-protocol build
+    solar-protocol help
 
-## Run the server
-
-This will bring up the server in development mode
+Run the server - this will bring it up in development mode, which will have live code reloading, and not post information to the live network.
 
     solar-protocol dev
 

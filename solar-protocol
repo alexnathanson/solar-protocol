@@ -1,38 +1,40 @@
 #!/bin/bash
 set -e
 
+prompt() {
+  read -p "$* (y/N)" confirm && \
+    [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
+    || exit 1
+}
+
 help() {
   cat << HELP
-solar-protocol v1
+  solar-protocol
+  commandline tool to help manage your server
 
-  # build a known good version of python and our dependencies
+  start the server:
 
-  ./solar-protocol build
+    solar-protocol up
 
-  # start the server
+  check the api logs:
 
-  ./solar-protocol up
+    solar-protocol logs api
 
-  # check the api logs
+  start in dev mode with live code reloading:
 
-  ./solar-protocol logs api
+    solar-protocol dev
 
-  # start the server in dev mode - will reload the api on file changes
+  restart the datalogger:
 
-  ./solar-protocol dev
+    solar-protocol restart datalogger
 
-  # restart the datalogger
+  stop the server:
 
-  ./solar-protocol restart datalogger
+    solar-protocol down
 
-  # stop the server
+  open a shell in the datalogger container
 
-  ./solar-protocol down
-
-  # open a shell in the datalogger container
-
-  ./solar-protocol shell datalogger
-
+    solar-protocol shell datalogger
 HELP
 }
 
@@ -55,7 +57,7 @@ restart() {
 
 logs() {
   container=${1:-protocol}
-  echo compose logs $container
+  compose logs $container
 }
 
 build() {
@@ -115,9 +117,23 @@ init() {
     echo https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md
   fi
 
+  if [[ -f ~/.bashrc ]]; then
+    if ! grep --quiet solar-protocol ~/.bashrc; then
+      prompt "Add solar-protocol to bash PATH?" && echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
+    fi
+  fi
+
+  if [[ -f ~/.zshrc ]]; then
+    if ! grep --quiet solar-protocol ~/.zshrc; then
+      prompt "Add solar-protocol to zsh PATH?" && echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
+    fi
+  fi
+
   command -v podman >/dev/null 2>&1 && command -v podman-compose >/dev/null 2>&1 \
     && echo podman and podman-compose found, init complete!
 }
+
+[[ -z "$1" ]] && help
 
 command=$1
 shift
@@ -133,6 +149,7 @@ case $command in
   dev) dev ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) format ;;
+  "") help ;;
   *) help ;;
 esac
 

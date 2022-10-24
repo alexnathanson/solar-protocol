@@ -29,6 +29,10 @@ solar-protocol v1
 
   ./solar-protocol down
 
+  # open a shell in the datalogger container
+
+  ./solar-protocol shell datalogger
+
 HELP
 }
 
@@ -45,15 +49,13 @@ up() {
 }
 
 restart() {
-  shift
   containers=${*:-api datalogger protocol web}
   compose restart $containers
 }
 
 logs() {
-  shift
-  container=${*:-protocol}
-  compose logs $container
+  container=${1:-protocol}
+  echo compose logs $container
 }
 
 build() {
@@ -88,6 +90,11 @@ generate() {
     python /solar-protocol/venv/build/html.py DEV
 }
 
+shell() {
+  container=${1:-protocol}
+  compose exec $container /bin/bash
+}
+
 init() {
   if [[ "$(uname -s)" == "Darwin" ]]; then
     command -v podman >/dev/null 2>&1 || brew install podman
@@ -118,10 +125,11 @@ shift
 case $command in
   up) up ;;
   down) down ;;
-  restart) restart ;;
-  logs) logs ;;
+  restart) restart $* ;;
+  logs) logs $* ;;
   init) init ;;
-  build) build ;;
+  build) build $*;;
+  shell) shell ;;
   dev) dev ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) format ;;

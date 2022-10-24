@@ -6,6 +6,7 @@ import sys
 
 from fastapi import FastAPI
 
+# header for datalogger csv
 fieldnames = [
     "timestamp",
     "PV voltage",
@@ -22,6 +23,18 @@ fieldnames = [
     "battery percentage",
 ]
 
+# safelist of keys we can share from local.json
+safe_keys = [
+    "color",
+    "name",
+    "description",
+    "location",
+    "city",
+    "country",
+    "pvWatts",
+    "pvVolts"
+]
+
 class CCValue(str, Enum):
     PV_voltage = "PV voltage"
     PV_current = "PV current"
@@ -35,19 +48,58 @@ class CCValue(str, Enum):
     load_current = "load current"
     load_power = "load power"
     battery_percentage = "battery percentage"
+    scaled_wattage = "scaled wattage"
+
+
+class SIValue(str, Enum):
+    tz = "tz"
+    color = "color"
+    description = "description"
+    name = "name"
+    location = "location"
+    city = "city"
+    country = "country"
+    pvWatts = "pvWatts"
+    pvVolts = "pvVolts"
 
 
 app = FastAPI(title="solar-protocol", docs_url="/api/docs")
 
+def getTimezone():
+    return os.environ['TZ'] or "America/New_Yorks"
+
+def getWattageScale():
+    pvWatts = getLocal("pvWatts")
+    return 1 if pvWatts == None else (50.0 / pvWatts)
+
+def getLocal(key: Union[str, None]):
+    filename = f"/local/local.json"
+
+    with open(filename, "r") as jsonfile:
+        localData = json.loads(jsonfile)
+
+    if key == None:
+        safe_data = { safe_key: localData[safe_key] for safe_key in safe_keys }
+        safe_data["timezone"] = getTimezone()
+        safe_data["wattage-scale"] = getWattageScale()
+        return safe_data
+        
+    return localData[key]
 
 @app.get("/api")
 def root():
     return {"message": "Hello World 👋"}
 
+@app.get("/api/system-info")
+def systemInfoValue(value: Union[SIValue, None] = None):
+    match value:
+        case SIValue.tz:
+            return getTimezone()
+        case _:
+            return getLocal(value)
 
 @app.get("/api/charge-controller")
 def read_value(value: Union[CCValue, None] = None):
-
     filename = f"/data/traces/{date.today()}.csv"
 
     rows = []
@@ -59,6 +111,9 @@ def read_value(value: Union[CCValue, None] = None):
 
     if value == None:
         return row
+
+    if value == "scaled wattage":
+        return row[CCValue.PV_Power_L] * getWattageScale()
 
     return row[value]
 

@@ -13,6 +13,7 @@ services:
     restart: unless-stopped
     volumes:
       - data:/data
+      - local:/local
     ports:
       - 11215:80
   protocol:

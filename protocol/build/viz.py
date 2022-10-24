@@ -54,9 +54,9 @@ def getDeviceInfo(key):
     return deviceInfo
 
 # Call API for every IP address and get charge controller data
-def getChargeControllerValue(server, value):
+def getChargeControllerValues(server, value):
     print(f"GET {server} {value}")
-    url = f"http://{server}/api/v1/chargecontroller.php?value={value}&duration={str(days)}"
+    url = f"http://{server}/api/charge-controller?value={value}&duration={days)}"
     try:
         cc = requests.get(url, timeout=5)
         cc.json()
@@ -74,8 +74,8 @@ def getChargeControllerValue(server, value):
 
 
 # Call API for every IP address and get charge controller data
-def getChargeControllerSystemInfo(server, systemInfo):
-    url = f"http://{server}/api/v1/chargecontroller.php?systemInfo={systemInfo}"
+def getSystemInfoValue(server, systemInfo):
+    url = f"http://{server}/api/system-info?value={systemInfo}"
     try:
         systemInfo = requests.get(url, timeout=5)
         systemInfo = systemInfo.text
@@ -338,16 +338,12 @@ def getTimezone(ip):
     return timezone
 
 def getEnergyFor(ip):
-    energyValues = getChargeControllerValue(ip, energyParam)
+    energyValues = getChargeControllerValues(ip, energyParam)
 
-    if type(energyValues) != type(None):
-        # remove the header
-        header = energyValues.pop("datetime", None)
-        expected_header = energyParam.replace("-", " ")
-        if header == expected_header:
-            return energyValues
-        
-    return { "datetime": energyParam }
+    if type(energyValues) == type(None):
+        return []
+
+    return energyValues
 
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():

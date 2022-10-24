@@ -29,6 +29,10 @@ help() {
 
     ${Blue}solar-protocol dev
 
+  ${Green}check status of the containers:
+
+    ${Blue}solar-protocol status
+
   ${Green}restart the datalogger:
 
     ${Blue}solar-protocol restart datalogger
@@ -37,34 +41,43 @@ help() {
 
     ${Blue}solar-protocol down
 
-  ${Green}open a shell in the datalogger container
+  ${Green}open a shell in the protocol container:
 
-    ${Blue}solar-protocol shell datalogger${Clear}
+    ${Blue}solar-protocol shell protocol${Clear}
 HELP
 )"
   exit
 }
 
 compose() {
-  podman-compose $*
+  podman-compose --file compose.yaml $*
+}
+
+compose-dev() {
+  compose --file dev/compose.yaml $*
 }
 
 down() {
   compose down
+  compose-dev down
 }
 
 up() {
   compose up --build $*
 }
 
+status() {
+  compose-dev ps
+}
+
 restart() {
   containers=${*:-api datalogger protocol web}
-  compose restart $containers
+  compose-dev restart $containers
 }
 
 logs() {
   container=${1:-protocol}
-  compose logs $container
+  compose-dev logs $container
 }
 
 build() {
@@ -78,7 +91,7 @@ build() {
 }
 
 dev() {
-  compose --file compose.yaml --file dev/dev.compose.yaml up --build
+  compose-dev up --build
 }
 
 format() {
@@ -86,22 +99,19 @@ format() {
 }
 
 generate() {
-  podman-compose --file dev/compose.yaml --file dev/dev.compose.yaml \
-    exec --interactive --tty protocol \
+  compose-dev exec protocol \
     python /solar-protocol/venv/core/getRemoteData.py
 
-  podman-compose --file dev/compose.yaml --file dev/dev.compose.yaml \
-    exec --interactive --tty protocol \
+  compose-dev exec protocol \
     python /solar-protocol/venv/build/viz.py
 
-  podman-compose --file dev/compose.yaml --file dev/dev.compose.yaml \
-    exec --interactive --tty protocol \
+  compose-dev exec protocol \
     python /solar-protocol/venv/build/html.py DEV
 }
 
 shell() {
   container=${1:-protocol}
-  compose exec $container /bin/bash
+  compose-dev exec $container /bin/bash
 }
 
 init() {
@@ -156,6 +166,7 @@ case $command in
   dev) dev ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) format ;;
+  status) status $* ;;
   "") help ;;
   *) help ;;
 esac

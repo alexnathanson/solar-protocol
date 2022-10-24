@@ -58,8 +58,8 @@ compose-dev() {
 }
 
 down() {
-  compose down
-  compose-dev down
+  compose down $*
+  compose-dev down $*
 }
 
 up() {
@@ -157,7 +157,7 @@ shift
 
 case $command in
   up) up ;;
-  down) down ;;
+  down) down $* ;;
   restart) restart $* ;;
   logs) logs $* ;;
   init) init ;;

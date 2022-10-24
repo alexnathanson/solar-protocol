@@ -67,23 +67,26 @@ This is a growing global collaborative project and there are many ways to contri
 ### File descriptions
 
 #### documentation
+
 readme.md              - you are reading this!
 changelog.md           - major updates are shared here
 project-description.md - what this whole thing is about
 
-     docs/ - how to develop the software and network
-community/ - history and current status of community events and stewardship
- hardware/ - how to build your own node
-tutorials/ - additional support for installation and usage of the Solar Protocol network
-  website/ - detailed project history and motivation
+          docs/    how to develop the software and network
+     community/    history and current status of community events and stewardship
+      hardware/    how to build your own node
+     tutorials/    additional support for installation and usage of the Solar Protocol network
+       website/    detailed project history and motivation
 
 #### service code
-dev/               - tools for development and running code
-api/               - api
-protocol/          - the code for having a server participate in the network 
-charge-controller/ - logs charge controller information
+
+           dev/    tools for development and running code
+           api/    api
+      protocol/    the code for having a server participate in the network 
+    datalogger/    logs charge controller information
 
 #### data directories - generated files go here
-    data/ - folder where the point-of-entry log
-frontend/ - static website
-   local/ - local configuration - server name, images, description
+
+          data/    folder where the point-of-entry log
+      frontend/    static website
+         local/    local configuration - server name, images, description

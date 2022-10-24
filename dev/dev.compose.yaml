@@ -7,13 +7,13 @@ services:
     environment:
       - DEV=true
     volumes:
-      - ../datalogger:/datalogger/venv
+      - ./datalogger:/datalogger/venv
   api:
     image: solar-protocol/api
     volumes:
-      - ../api:/api/venv
+      - ./api:/api/venv
     command: uvicorn api:app --proxy-headers --host 0.0.0.0 --port 80 --reload
   protocol:
     command: python run.py now
     volumes:
-      - ../protocol:/protocol/venv
+      - ./protocol:/protocol/venv

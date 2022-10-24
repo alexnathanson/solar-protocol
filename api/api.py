@@ -6,6 +6,21 @@ import sys
 
 from fastapi import FastAPI
 
+fieldnames = [
+    "timestamp",
+    "PV voltage",
+    "PV current",
+    "PV power L",
+    "PV power H",
+    "battery voltage",
+    "battery current",
+    "battery power L",
+    "battery power H",
+    "load voltage",
+    "load current",
+    "load power",
+    "battery percentage",
+]
 
 class CCValue(str, Enum):
     PV_voltage = "PV voltage"
@@ -38,14 +53,14 @@ def read_value(value: Union[CCValue, None] = None):
     rows = []
 
     with open(filename, "r") as csvfile:
-        reader = csv.DictReader(csvfile, quoting=csv.QUOTE_NONNUMERIC)
+        reader = csv.DictReader(csvfile, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames)
         for row in reader:
             rows.append(row)
 
     if value == None:
-        return rows
+        return row
 
-    return rows[value]
+    return row[value]
 
     # return rows
     # print(csv, file=sys.stderr)

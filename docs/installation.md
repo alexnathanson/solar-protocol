@@ -82,7 +82,7 @@ Add this line to the bottom to restart the server at midnight
 
 - [] List running services
 
-    podman-compose --file /home/pi/solar-protocol/dev/compose.yaml ps
+    ./solar-protocol status
 
 - [] If cron logging isn't working, use `sudo crontab -e` instead of `crontab -e`  
 

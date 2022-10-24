@@ -13,7 +13,13 @@ Helpful scripts for developing are in the dev/ folder.
 
 ## Services
 
-There are 4 services that make up the entire protocol. `podman-compose --file dev/compose.yaml ps` should show something like this:
+There are 4 services that make up the entire protocol. `./solar-protocol status` should show something like this:
+
+    CONTAINER ID  IMAGE                                       COMMAND               CREATED        STATUS                             PORTS                  NAMES
+    239ae01f12a5  localhost/solar-protocol/datalogger:latest  /bin/sh -c python...  5 minutes ago  Exited (1) Less than a second ago                         solar-protocol_datalogger_1
+    d94bd414c5f8  localhost/solar-protocol/api:latest         uvicorn api:app -...  5 minutes ago  Up 4 minutes ago                   0.0.0.0:11215->80/tcp  solar-protocol_api_1
+    438b0c5c552d  localhost/solar-protocol/protocol:latest    python run.py now     4 minutes ago  Up 4 minutes ago                                          solar-protocol_protocol_1
+    887fc54be131  docker.io/library/nginx:latest              nginx -g daemon o...  4 minutes ago  Up 4 minutes ago                   0.0.0.0:11221->80/tcp  solar-protocol_web_1
 
 ### 1. protocol service
 

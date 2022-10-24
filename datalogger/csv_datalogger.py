@@ -1,5 +1,5 @@
 # pymodbus code based on the example from http://www.solarpoweredhome.co.uk/
-from time import sleep
+import time
 import datetime
 import random
 import csv
@@ -9,7 +9,7 @@ import sys
 DEV = "DEV" in sys.argv or "DEV" in os.environ
 
 fieldnames = [
-    "datetime",
+    "timestamp",
     "PV voltage",
     "PV current",
     "PV power L",
@@ -75,8 +75,9 @@ def readFromDevice():
     registers = controller.registers.map(toPercent)
 
     data = dict(zip(fieldnames, registers[0:10]))
-    data["datetime"] = datetime.datetime.now()
+    data["timestamp"] = time.time()
     data["battery percentage"] = toPercent(battery)
+    return data
 
 
 if not DEV:
@@ -89,6 +90,6 @@ while True:
     writeOrAppend(read())
 
     # runs every 2 minutes
-    sleep(60 * 2)
+    time.sleep(60 * 2)
 
 client.close()

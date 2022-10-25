@@ -1,7 +1,8 @@
 FROM docker.io/library/python:3.10-slim
 
 RUN apt-get --quiet update && apt-get --quiet upgrade --yes && apt-get --quiet install \
-  build-essential libcairo2 libffi-dev --yes
+  build-essential libcairo2 libffi-dev \
+  libjpeg-dev zlib1g zlib1g-dev --yes
 ENV TERM=screen-256color
 
 WORKDIR /solar-protocol

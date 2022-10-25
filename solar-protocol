@@ -1,10 +1,15 @@
 #!/bin/bash
 set -e
 
+unattended=$(echo $* | grep --quiet -- '--yes' && echo yes || true)
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+
 prompt() {
-  read -p "$* (y/N)" confirm && \
-    [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
-    || exit 1
+  if [[ "$unattended" != "yes" ]]; then
+    read -p "$* (y/N)" confirm && \
+      [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
+      || exit 1
+  fi
 }
 
 Clear='\033[0m' # No Color
@@ -127,14 +132,22 @@ init() {
       podman machine start
     fi
   elif [[ "$(uname -s)" == "Linux" ]]; then
-    command -v podman >/dev/null || sudo apt-get install --yes podman
-    command -v pip >/dev/null || sudo apt install --yes python3-pip
-    command -v podman-compose >/dev/null || pip install podman-compose
+    if command -v lsb_release >/dev/null; then
+      if lsb_release -a | grep --quiet 'Debian\|Ubuntu'; then
+        command -v podman >/dev/null || sudo apt-get install --yes podman
+        command -v pip >/dev/null || sudo apt install --yes python3-pip
+        command -v podman-compose >/dev/null || pip install podman-compose
 
-    grep --quiet '/home/pi/.local/bin' /home/pi/.bashrc \
-      || echo 'export PATH=$PATH:/home/pi/.local/bin' >> /home/pi/.bashrc
+      grep --quiet '/home/pi/.local/bin' /home/pi/.bashrc \
+        || echo 'export PATH=$PATH:/home/pi/.local/bin' >> /home/pi/.bashrc
 
-    . /home/pi/.bashrc
+      . /home/pi/.bashrc
+    fi
+  elif command -v raspi-config >/dev/null; then
+    if grep --quiet 'bookworm\|testing' /etc/apt/sources.list; then
+    else
+      prompt "Upgrade Raspberry Pi OS to bookworm?" 
+    fi
   else
     echo See the official windows install docs to install podman and podman-compose
     echo

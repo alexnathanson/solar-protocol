@@ -1,27 +1,23 @@
 #!/bin/bash
 unattended=$(echo "$@" | grep --quiet -- '--yes' && echo yes)
-
+command=${1:-help}
+shift
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 set -e
 
-cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
-
-prompt() {
-  if [[ "$unattended" != "yes" ]]; then
-    read -p -r "$* (y/N)" confirm && \
-      [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
-      || exit 1
-  fi
-}
-
-Clear='\033[0m' # No Color
-Green='\033[0;32m'
-Blue='\033[0;34m'
-
 help() {
+  Clear='\033[0m'
+  Green='\033[0;32m'
+  Blue='\033[0;34m'
+
   echo -e "$(
   cat << HELP
 
   ☀️ solar-protocol - commandline tool to help manage your server
+
+  ${Green}install system dependencies:
+
+    ${Blue}solar-protocol init
 
   ${Green}start the server:
 
@@ -51,37 +47,7 @@ help() {
 
     ${Blue}solar-protocol shell protocol${Clear}
 HELP
-)"
-  exit
-}
-
-compose() {
-  podman-compose --file compose.yaml "$@"
-}
-
-compose-dev() {
-  compose --file dev/compose.yaml "$@"
-}
-
-down() {
-  compose down "$@"
-  compose-dev down "$@"
-}
-
-up() {
-  compose up --build "$@"
-}
-
-status() {
-  compose-dev ps
-}
-
-restart() {
-  compose-dev restart "${*:-api datalogger protocol web}"
-}
-
-logs() {
-  compose-dev logs "${1:-protocol}"
+  )"
 }
 
 build() {
@@ -94,14 +60,6 @@ build() {
   compose build "$@"
 }
 
-dev() {
-  compose-dev up --build
-}
-
-format() {
-  black ./**/**py
-}
-
 generate() {
   compose-dev exec protocol \
     python /solar-protocol/venv/core/getRemoteData.py
@@ -111,10 +69,6 @@ generate() {
 
   compose-dev exec protocol \
     python /solar-protocol/venv/build/html.py DEV
-}
-
-shell() {
-  compose-dev exec "${1:-protocol}" /bin/bash
 }
 
 init() {
@@ -175,23 +129,33 @@ init() {
     && echo podman and podman-compose found, init complete!
 }
 
-[[ -z "$1" ]] && help
 
-command=$1
-shift
+prompt() {
+  if [[ "$unattended" != "yes" ]]; then
+    read -p -r "$* (y/N)" confirm && \
+      [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
+      || exit 1
+  fi
+}
+
+compose() { podman-compose --file compose.yaml "$@"; }
+
+compose-dev() { compose --file dev/compose.yaml "$@"; }
 
 case $command in
-  up) up "$@" ;;
-  down) down "$@" ;;
-  restart) restart "$@" ;;
-  logs) logs "$@" ;;
-  init) init ;;
+  up) compose up --build "$@" ;;
+  down) compose down "$@"; compose-dev down "$@" ;;
+  status) compose-dev ps ;;
+  restart) compose-dev restart "${*:-api datalogger protocol web}" ;;
+  logs) compose-dev logs "${1:-protocol}" ;;
   build) build "$@" ;;
-  shell) shell "$@" ;;
-  dev) dev ;;
+  shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
+  dev) compose-dev up --build ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
-  format) format ;;
-  status) status "$@" ;;
+  format) black ./**/**py ;;
+  init) init ;;
+  generate) generate ;;
+  help) help ;;
   "") help ;;
   *) help ;;
 esac

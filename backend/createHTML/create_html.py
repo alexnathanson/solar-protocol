@@ -101,6 +101,8 @@ def render_pages(_local_data, _data, _weather, _server_data):
         ("solar-web_template.html", "solar-web.html"),
         ("manifesto_template.html", "manifesto.html"),
         ("library_template.html", "library.html"),
+        ("learn_template.html", "learn.html"),
+        ("site_template.html", "site-guide.html"),
     ]
 
     #get the current time

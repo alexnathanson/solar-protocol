@@ -183,14 +183,48 @@ main {
 }
 
 .twocol-text {
-  padding: calc(var(--vertical-padding) * 3) var(--horizontal-text-padding);
-  line-height: var(--line-height);
-  background-color: var(--text-background);
-  color: black;
-  column-count: 2;
-  column-gap: 20px;
-  border-top: 0.5px solid rgb(73, 72, 72);
-  border-bottom: 0.5px solid rgb(73, 72, 72);
+  width: auto;
+  height: auto;
+  font-size: smaller;
+  padding: var(--vertical-padding) 10px 10px var(--horizontal-text-padding);
+
+  display: grid;
+  grid-template-columns: 250px auto;
+  row-gap: 10px;
+}
+
+.col1 {
+  position: relative;
+  height: 250px;
+  width: 250px;
+  border: 1px dashed black;
+  padding: 10px;
+  background-color: #fff;
+  border-right: none;
+}
+
+a.col2:hover {
+  background-color: lightgray;
+}
+
+.col1text {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  background: black;
+  color: white;
+  width: 90%;
+}
+
+.col2 {
+  padding-left: 20px;
+  position: relative;
+  height: 250px;
+
+  border: 1px dashed black;
+  border-left: none;
+  padding: 10px;
+  background-color: #fff;
 }
 
 .title-text {
@@ -407,9 +441,10 @@ h5 {
 
 /*Right titles in sidebar*/
 h6 {
-  padding: var(--vertical-padding) var(--horizontal-padding);
-  font-size: 24px;
-  font-weight: normal;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border-bottom: solid 1px gray;
 }
 
 hr {
@@ -572,17 +607,6 @@ section {
 @media (max-width: 1070px) {
   header h1 {
     font-size: 3em;
-  }
-
-  .twocol-text {
-    padding: calc(var(--vertical-padding) * 3) var(--horizontal-text-padding);
-    line-height: 1.3;
-    color: var(--textcolor);
-    background-color: var(--bgcolor);
-    column-count: 1;
-    column-gap: 20px;
-    border-top: 0.5px solid rgb(73, 72, 72);
-    border-bottom: 0.5px solid rgb(73, 72, 72);
   }
 
   .onecol-text {

@@ -92,7 +92,7 @@ build() {
     fi
   fi
 
-  compose build
+  compose build $*
 }
 
 dev() {

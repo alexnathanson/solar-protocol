@@ -297,37 +297,19 @@ li {
   line-height: calc(var(--text-size) * 1.4);
   border-top: 1px solid white;
 }
-td,
-th {
+table.side td,
+table.side th {
   /* border: 1px solid #999; */
   padding: 0.3rem;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   line-height: 1.1em;
 }
-td {
+table.side td {
   width: 50%;
 }
-table {
+table.side {
   width: 100%;
-}
-
-#library { 
-
-  color:red;
-
-}
-
-#library td{ 
-
-  width: 70%;  
-  background: rgb(240,240,240);
-  vertical-align: top;
-}
-
-#library th{ 
-  border: gray; 
-  background: rgb(240,240,240);
 }
 
 .clr {
@@ -348,6 +330,12 @@ table {
   border-left: 0.5px solid rgb(73, 72, 72);
   padding: 0;
   margin: 0;
+}
+
+.full-col-padding {
+  border-left: 0.5px solid rgb(73, 72, 72);
+  margin: 0;
+  padding: 0 var(--horizontal-padding);
 }
 
 .page-text p:first-child {
@@ -453,12 +441,11 @@ section {
   padding: var(--vertical-padding) 0px;
 }
 
-.server-box{
+.server-box {
   /* border: solid 1px black; */
   padding: none;
   border: black 1px solid;
   margin: 20px 0px;
-
 }
 
 .server-box::after {
@@ -467,39 +454,36 @@ section {
   display: table;
 }
 
-.server-box p{
+.server-box p {
   margin: 0px;
-  font-size: calc(var(--text-size)*1);
+  font-size: calc(var(--text-size) * 1);
   vertical-align: top;
   padding: 3px 10px;
 }
 
-.server-box h3{
+.server-box h3 {
   /* padding: var(--vertical-padding) var(--horizontal-padding); */
   padding: 5px 10px;
   background-color: black;
   color: white;
-  font-size: calc(var(--text-size)*1.2);
+  font-size: calc(var(--text-size) * 1.2);
   background-color: rgba(0, 0, 0);
   line-height: 1.1em;
   font-style: italic;
-  
 }
-.server-box table{
+.server-box table {
   margin: 0px;
-  font-size: calc(var(--text-size)*1);
+  font-size: calc(var(--text-size) * 1);
   vertical-align: top;
-  
 }
-.server-box td{
+.server-box td {
   padding: 5px 5px;
 }
 
-.server-box img{
-  float:  right;
+.server-box img {
+  float: right;
   width: 50%;
 }
-
 
 .lowres {
   /* position:absolute; */
@@ -508,6 +492,81 @@ section {
   padding: 3px;
   z-index: 100;
   /* height: 20px; */
+}
+
+#library {
+  display: block;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#library tr {
+  height: 48px;
+}
+
+#library tbody tr:hover {
+  background-color: #e4e4e4;
+}
+
+#library thead * {
+  text-transform: uppercase;
+  border-radius: 0.25em;
+}
+
+#library td {
+  padding-left: 10px;
+  padding-right: 40px;
+  border-top: 1px solid black;
+  vertical-align: top;
+  background-color: rgba(153, 152, 152, 0.2);
+  font-size: smaller;
+  /* border-bottom: solid black 1px; */
+}
+
+#library tbody td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.update {
+  padding-left: 120px;
+  text-indent: -120px;
+}
+
+.read-more-state {
+  display: none;
+}
+
+.read-more-target {
+  opacity: 0;
+  max-height: 0;
+  font-size: 0;
+  transition: 0.1s linear;
+}
+
+.read-more-state:checked ~ .read-more-wrap .read-more-target {
+  opacity: 1;
+  font-size: inherit;
+  max-height: 999em;
+}
+
+.read-more-state ~ .read-more-trigger:before {
+  content: "Show more";
+}
+
+.read-more-state:checked ~ .read-more-trigger:before {
+  content: "Show less";
+}
+
+.read-more-trigger {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 0.5em;
+  color: #666;
+  font-size: 0.9em;
+  line-height: 2;
+  border: 1px solid #ddd;
+  border-radius: 0.25em;
 }
 
 @media (max-width: 1070px) {
@@ -549,7 +608,6 @@ section {
     border: solid 0.5px rgb(40, 40, 40);
     background-color: rgb(10, 10, 10);
   }
-  
 }
 .network-box {
   padding: 10px;
@@ -596,11 +654,10 @@ section {
     width: calc(var(--nav-width) * 1.6);
     /* padding: var(--vertical-padding) calc(var(--horizontal-padding) * 2)
       var(--vertical-padding) var(--horizontal-padding); */
-      font-size: var(--text-size);
-      height: 100vh;
-      /* padding-right: 25px;
+    font-size: var(--text-size);
+    height: 100vh;
+    /* padding-right: 25px;
       padding-left:5px; */
-    
   }
 
   .container {

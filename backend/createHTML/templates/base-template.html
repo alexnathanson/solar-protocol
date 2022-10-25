@@ -20,23 +20,20 @@
           header {color: black; }
           {% endif %}
           a:hover { color: {{bgColor}} };
-
-
     </style>
   </head>
-    <body>
-      <div class="container">
-
-        <nav>
+  <body>
+    <div class="container">
+      <nav>
           <ul class="no-bullets">
             <li><a href="index.html">Home</a> •</li>
             <li><a href="manifesto.html">Manifesto</a> •</li>
             <li><a href="documentation.html">Tech</a> •</li>
             <li><a href="library.html">Library</a></li>
           </ul>
-        </nav>
+      </nav>
   {% if batteryPercentage >= 30 %}
-      <header
+    <header
       style="background-image: linear-gradient(
       to top,
       {{bgColor}},
@@ -48,21 +45,15 @@
     color: white;"
     >
   {% else %}
-  <!-- <header
-  style="background-image: linear-gradient(
-  to top,
-  {{bgColor}},
-  {{bgColor}},
-  white,
-  white
-);"> -->
+
 <header style="background-color: white;">
   {% endif %}
   {% if batteryPercentage >= 30 %}
 
   {% else %}
   <div class="lowres" style="background-color: {{bgColor}};">
-    SERVER BATTERY LEVEL LOW<br>YOU ARE VIEWING THIS SITE IN LOW RES MODE</div>
+    SERVER BATTERY LEVEL LOW<br>YOU ARE VIEWING THIS SITE IN LOW RES MODE
+  </div>
   {% endif %}
         <div class="sub-heading">
           <h1><a href="index.html">Solar Protocol</a></h1>
@@ -72,8 +63,8 @@
 
             
           </p>
-          <p>
-            <table>
+
+            <table class="side">
               <tr>
                 <td>Server Battery:</td>
                 <td>
@@ -91,9 +82,9 @@
                 <td>{{time}} in {{zone}}</td>    
               </tr>
           </table>
-        </p>
-        </div>
-          <div class="row">
+        </div> <!-- end of subheading -->
+
+         <div class="row">
           <h5>ACTIVE SERVER</h5>
           <div class="side-box">
             <p><i>Name:</i> {{name}}</p>
@@ -105,27 +96,8 @@
             </div>
             {% else %}
             {% endif %}
-
-
-        <!-- <div class="row">
-  
-          <div class="side-box">
-            <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}, {{country}}</p>
-          </div>
-
-          <div class="fill">
-            <h4></h4>
-            {% if batteryPercentage >= 30 %}
-            <img src="images/server.gif" />
-            {% else %}
-            {% endif %}
-            <div class="clr"></div>
-          </div>
-        </div>
-        <div class="row"> -->
-        </div>
-      </div>
+            </div>
+          </div> <!-- end of row -->
       <div class="row">
           <h5>SERVER STEWARD</h5>
           <div class="side-box">
@@ -137,103 +109,98 @@
             <p>About your server steward:</p>
             <p>{{description}}</p>
           </div>
-        </div>
-        <div class="row">
-        <h5>PLACE</h5>  
-        <div class="side-box">
-        <p>
-        <table>
-          <tr>
-            <td>City:</td>
-            <td>{{city}}</td>         
-          </tr>
-          <tr>
-            <td>Country:</td>
-            <td>{{country}}</td>           
-          </tr>
-          <tr>
-            <td>Local time:</td>
-            <td>{{time}}</td>          
-          </tr>
-          <tr>
-            <td>Weather:</td>
-            <td>{{weather}}</td>           
-          </tr>
-          <tr>
-            <td>Temp:</td>
-            <td>{{temp}} &#176; C</td>           
-          </tr>
-          <tr>
-            <td>Feels like:</td>
-            <td>{{feelsLike}} &#176; C</td>           
-          </tr>
-          <tr>
-            <td>Sunrise:</td>
-            <td>{{sunrise}}</td>       
-          </tr>
-          <tr>
-            <td>Sunset:</td>
-            <td>{{sunset}}</td>
-          </tr> 
-      </table>
-    </p>  
-  </div>
-</div>
-<div class="row">
-          <h5>ENERGY</h5>
-          <div class="side-box">
-        <p>
-          <table>
-            <tr>
-              <td>Battery Level:</td>
-              <td>   
-                {{batteryPercentage}}%
-              </td>
-             
-            </tr>
-            <tr>
-              <td>Battery Voltage:</td>
-              
-              <td>{{batteryVoltage}} volts</td>
-             
-            </tr>
-            <tr>
-              <td>PV Power:</td>
-              <td>{{solarPowerL}} watts</td>            
-            </tr>
-            <tr>
-              <td>PV Voltage:</td>
-              <td>{{solarVoltage}} volts</td>           
-            </tr>
-            <tr>
-              <td>PV Current:</td>
-              <td>{{solarCurrent}} amps</td>             
-            </tr>
-            <tr>
-              <td>Load Power:</td>
-              <td>{{loadPower}} watts</td>           
-            </tr>
-            <tr>
-              <td>Load Voltage:</td>
-              <td>{{loadVoltage}} volts</td>            
-            </tr>
-            <tr>
-              <td>Load Current:</td>
-              <td>{{loadCurrent}} amps</td>
-            </tr>
-        </table>
-      </p>
-
-    </div>
-     
+        </div>  <!-- end of row -->
+                <div class="row">
+                <h5>PLACE</h5>  
+                <div class="side-box">
+                    <table>
+                      <tr>
+                        <td>City:</td>
+                        <td>{{city}}</td>         
+                      </tr>
+                      <tr>
+                        <td>Country:</td>
+                        <td>{{country}}</td>           
+                      </tr>
+                      <tr>
+                        <td>Local time:</td>
+                        <td>{{time}}</td>          
+                      </tr>
+                      <tr>
+                        <td>Weather:</td>
+                        <td>{{weather}}</td>           
+                      </tr>
+                      <tr>
+                        <td>Temp:</td>
+                        <td>{{temp}} &#176; C</td>           
+                      </tr>
+                      <tr>
+                        <td>Feels like:</td>
+                        <td>{{feelsLike}} &#176; C</td>           
+                      </tr>
+                      <tr>
+                        <td>Sunrise:</td>
+                        <td>{{sunrise}}</td>       
+                      </tr>
+                      <tr>
+                        <td>Sunset:</td>
+                        <td>{{sunset}}</td>
+                      </tr> 
+                    </table>
+                  </div>
+        </div> <!-- end of row -->
+            <div class="row">
+                  <h5>ENERGY</h5>
+                  <div class="side-box">
+                  <table>
+                    <tr>
+                      <td>Battery Level:</td>
+                      <td>   
+                        {{batteryPercentage}}%
+                      </td>
+                    
+                    </tr>
+                    <tr>
+                      <td>Battery Voltage:</td>
+                      
+                      <td>{{batteryVoltage}} volts</td>
+                    
+                    </tr>
+                    <tr>
+                      <td>PV Power:</td>
+                      <td>{{solarPowerL}} watts</td>            
+                    </tr>
+                    <tr>
+                      <td>PV Voltage:</td>
+                      <td>{{solarVoltage}} volts</td>           
+                    </tr>
+                    <tr>
+                      <td>PV Current:</td>
+                      <td>{{solarCurrent}} amps</td>             
+                    </tr>
+                    <tr>
+                      <td>Load Power:</td>
+                      <td>{{loadPower}} watts</td>           
+                    </tr>
+                    <tr>
+                      <td>Load Voltage:</td>
+                      <td>{{loadVoltage}} volts</td>            
+                    </tr>
+                    <tr>
+                      <td>Load Current:</td>
+                      <td>{{loadCurrent}} amps</td>
+                    </tr>
+                </table>
+              </div>
+            </div> <!-- end of row -->
       </header>
       {% if batteryPercentage >= 30 %}
       <main>
       {% else %}
       <main style="padding-top: 20px;">
-        {% endif %}
-        
-        {% block content %}{% endblock %}</main>
-    </div>
+        {% endif %}   
+        {% block content %}{% endblock %}
+      </main>
+    </div> <!-- end of container -->
   </body>
 </html>

@@ -10,7 +10,7 @@ COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 
 WORKDIR /local
-COPY ../local/local.json .
+COPY ./local/local.json .
 
 WORKDIR /api/venv
 COPY . .

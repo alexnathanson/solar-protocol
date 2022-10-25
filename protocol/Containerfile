@@ -6,6 +6,7 @@ ENV TERM=screen-256color
 WORKDIR /solar-protocol
 RUN python -m venv /solar-protocol/venv
 ENV PATH="/solar-protocol/venv/bin:$PATH"
+RUN pip install --quiet --no-cache-dir wheel
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 

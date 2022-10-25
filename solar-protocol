@@ -1,7 +1,8 @@
 #!/bin/bash
+unattended=$(echo "$@" | grep --quiet -- '--yes' && echo yes)
+
 set -e
 
-unattended=$(echo "$@" | grep --quiet -- '--yes' && echo yes)
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 
 prompt() {

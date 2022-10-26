@@ -35,7 +35,7 @@ def run():
             myName = nameList[index]
             break
 
-    endpoint = "/api/charge?days=4"
+    endpoint = "api/charge?days=4"
 
     for ip, name in zip(ips, names):
         print(f"{name}: {ip}")

@@ -102,7 +102,6 @@ def render_pages(_local_data, _data, _weather, _server_data):
         ("manifesto_template.html", "manifesto.html"),
         ("library_template.html", "library.html"),
         ("guides_template.html", "guides.html"),
-        ("guides_template.html", "site-guide.html"),
     ]
 
     #get the current time

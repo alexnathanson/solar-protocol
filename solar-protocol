@@ -50,14 +50,12 @@ HELP
   )"
 }
 
-build() {
+machine() {
   if [[ "$(uname -s)" == "Darwin" ]]; then
     if [[ "$(podman machine inspect --format '{{.State}}')" != "running" ]]; then
       podman machine start
     fi
   fi
-
-  compose build "$@"
 }
 
 generate() {
@@ -138,17 +136,17 @@ prompt() {
   fi
 }
 
-compose() { podman-compose --file compose.yaml "$@"; }
+compose() { machine; podman-compose --file compose.yaml "$@"; }
 
-compose-dev() { compose --file dev/compose.yaml "$@"; }
+compose-dev() { machine; compose --file dev/compose.yaml "$@"; }
 
 case $command in
-  up) compose up --build "$@" ;;
+  up) compose up "$@" ;;
   down) compose down "$@"; compose-dev down "$@" ;;
   status) compose-dev ps ;;
   restart) compose-dev restart "${*:-api datalogger protocol web}" ;;
   logs) compose-dev logs "${1:-protocol}" ;;
-  build) build "$@" ;;
+  build) compose build "$@" ;;
   shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
   dev) compose-dev up --build ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;

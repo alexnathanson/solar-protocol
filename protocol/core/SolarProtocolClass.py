@@ -103,36 +103,6 @@ class SolarProtocol:
 
 		return mac
 
-	# def getMyIP(self):
-	# 	return requests.get('https://server.solarpowerforartists.com/?myip').text
-
-	# def postDNS(url):
-	# 	headers = {
-	# 	    #'X-Auth-Key': KEY,
-	# 	    'Content-Type': 'application/x-www-form-urlencoded',
-	# 	}
-	# 	dstData = "ip="+ dstIP +"&key="+str(getEnv('DNS_KEY'))
-	# 	try:
-	# 		x = requests.post(url, headers=headers,data = dstData, timeout=5)
-	# 		print(x.text)
-	# 		#print(x.json())
-	# 		if x.ok:
-	# 			try:
-	# 				print("Post to " + dstIP+ " successful")
-	# 			except:
-	# 				print(x.text)
-	# 		#requests.raise_for_status()
-	# 	except json.decoder.JSONDecodeError as e:
-	# 		print("JSON decoding error", e)
-	# 	except requests.exceptions.HTTPError as errh:
-	# 	 	print("An Http Error occurred:" + repr(errh))
-	# 	except requests.exceptions.ConnectionError as errc:
-	# 		print("An Error Connecting to the API occurred:" + repr(errc))
-	# 	except requests.exceptions.Timeout as errt:
-	# 	 	print("A Timeout Error occurred:" + repr(errt))
-	# 	except requests.exceptions.RequestException as err:
-	# 	 	print("An Unknown Error occurred" + repr(err))
-
 	def getRequest(self, url):
 		try:			
 			response = requests.get(url, timeout = 5)

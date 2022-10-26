@@ -6,7 +6,6 @@ If the local device is producing the most power, it becomes the Point of Entry (
 Otherwise, the script changes nothing.
 '''
 import os
-import fileinput
 import datetime
 import csv
 import logging

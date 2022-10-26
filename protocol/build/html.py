@@ -19,10 +19,10 @@ myIP = " "
 days = 3
 
 # Call API for every IP address and get charge controller data
-def getCC(server, ccValue):
-    print(f"GET {server} {ccValue}")
+def getCC(server, key):
+    print(f"GET {server} {key}")
     try:
-        url = f"http://{server}/api/v1/chargecontroller.php?value={ccValue}&duration={str(days)}"
+        url = f"http://{server}/api/charge?key={key}&days={days}"
         response = requests.get(url, timeout=5)
         return json.loads(response.text)
     except requests.exceptions.HTTPError as errh:
@@ -82,16 +82,16 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     # get the timezone
     try:
-        tz_url = "http://localhost/api/v1/chargecontroller.php?systemInfo=tz"
-        z = requests.get(tz_url)
+        tz_url = "http://localhost/api/system?key=tz"
+        response = requests.get(tz_url)
 
         # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
-        if z.status == 404:
+        if response.status == 404:
             print("TZ 404 error")
             zone = "TZ n/a"
         else:
-            zone = z.text
-        # print("ZONE", z.text)
+            zone = response.text
+
         zone = zone.replace("/", " ")
         print("ZONE", zone)
     except Exception as e:
@@ -243,12 +243,11 @@ def active_servers(dst):
 
 
 # Call API for every IP address and get charge controller data
-def get_pv_value(dst):
+def get_pv_value(ip):
     try:
-        x = requests.get(
-            "http://" + dst + "/api/v1/api.php?value=PV-voltage", timeout=5
-        )
-        return x.text
+        response = requests.get(f"http://{ip}/api/charge", params={ "value": "PV-voltage" }, timeout=5)
+        [ latest ] = response.json
+        return latest.pop()["PV voltage"]
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError as errc:
@@ -260,11 +259,11 @@ def get_pv_value(dst):
 
 
 # return data from a particular server
-def getAPIData(apiEndPoint, dst):
+def getSystem(ip):
     try:
         # returns a single value
-        response = requests.get("http://" + dst + "/api/v1/" + apiEndPoint, timeout=5)
-        return response.text
+        response = requests.get("http://{ip}/api/system", timeout=5)
+        return response.json
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError as errc:
@@ -350,27 +349,25 @@ def main():
     # 2 Collect data from all the difference servers on the network
     server_data = []
 
-    for key, value in deviceList_data.items():
+    for key, ip in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
-            sInfo = json.loads(
-                getAPIData("chargecontroller.php?systemInfo=dump", value)
-            )
+            [ system ] = getSystem(ip)
             # the above returns a dictionary containing all of the above system info
             # as documented here: http://solarprotocol.net/api/v1/
             # pvVoltage is a constant that is rated for the module.
-            sInfo["ip"] = value
+            system["ip"] = ip
             # print("#2")
             # print(sInfo)
             # print(type(sInfo))
-            server_data.append(sInfo)
+            server_data.append(system)
 
         except Exception as e:
             print(e)
             # reformat page so offline servers dont actually need this blank data?
             server_data.append(
                 {
-                    "ip": value,
+                    "ip": ip,
                     "name": key,
                     "description": "",
                     "city": "",

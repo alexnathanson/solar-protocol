@@ -116,15 +116,15 @@ class SolarProtocol:
 
 	#returns the url with parameters for updating the DNS via a GET request
 	def updateDNS(self, ip, key):
-		return self.dnsURL + "?ip=" + ip + "&key=" + key
+		return f"{self.dnsURL}?ip={ip}&key={key}"
 
 	'''
 	returns the specified value from the device list file
 	value can be = "ip","mac","time stamp","name","log","tz"
 	'''
 	def getDeviceValues(self, value):
-		with open(self.devices) as f:
-		  devices = json.load(f)
+		with open(self.devices) as file:
+		  devices = json.load(file)
 
 		values = [device[value] for device in devices]
 

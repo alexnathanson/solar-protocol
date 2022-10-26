@@ -60,7 +60,7 @@
           <h1><a href="index.html">Solar Protocol</a></h1>
           <p>A naturally intelligent network.</p>
           <p>
-            This website is hosted across a network of solar powered servers and is sent to you from whichever server is receiving the most sunshine.
+            This website is hosted across a network of solar powered servers and is sent to you from whichever server is in the most sunshine.
           </p>
           <p>
             Presently you are on a server called {{name}} that is located in {{location}},
@@ -81,10 +81,10 @@
         </div> <!-- end of subheading -->
 
          <div class="row">
-          <h5>ACTIVE SERVER</h5>
+          <h5>SERVER INFORMATION</h5>
           <div class="side-box">
             <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}</p>
+            <p><i>Location:</i> {{location}}, {{country}}.</p>
             <p><i>Steward: </i>{{description}}</p>
             {% if batteryPercentage >= 30 %}
             <div class="fill">

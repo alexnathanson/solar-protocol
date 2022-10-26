@@ -61,8 +61,11 @@
           <p>A naturally intelligent network.</p>
           <p>
             This website is hosted across a network of solar powered servers and is sent to you from wherever there is the most sunshine.
+          </p>
+          <p>
+            Presently you are on a server called {{name}} that is located in {{location}},
+            {{city}} as this is the server receiving the most sunshine, and producing the most energy in the network at the moment.
 
-            
           </p>
 
             <table class="side">
@@ -73,10 +76,6 @@
                   <span style="width: {{batteryPercentage}}%">{{batteryPercentage}}%</span>
                   </div>
                 </td>
-              </tr>
-              <tr>
-                <td>Site Render Status:</td>
-                <td>{{mode}}</td>
               </tr>
               <tr>
                 <td>Last update:</td>
@@ -90,6 +89,7 @@
           <div class="side-box">
             <p><i>Name:</i> {{name}}</p>
             <p><i>Location:</i> {{location}}</p>
+            <p><i>Steward: </i>{{description}}</p>
             {% if batteryPercentage >= 30 %}
             <div class="fill">
               <img src="local/serverprofile.gif" />
@@ -99,18 +99,9 @@
             {% endif %}
             </div>
           </div> <!-- end of row -->
-      <div class="row">
-          <h5>SERVER STEWARD</h5>
-          <div class="side-box">
-        <p>
-              Presently you are on a server called {{name}} that is located in {{location}},
-              {{city}} as this is the server receiving the most sunshine in our network at the moment.
 
-            </p><br>
-            <p>About your server steward:</p>
-            <p>{{description}}</p>
-          </div>
-        </div>  <!-- end of row -->
+         
+
                 <div class="row">
                 <h5>PLACE</h5>  
                 <div class="side-box">

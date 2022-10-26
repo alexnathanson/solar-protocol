@@ -23,6 +23,7 @@
 body {
   margin: 0;
   background-color: black;
+  font-size: calc(var(--text-size) * 1.2);
 }
 
 .meter {
@@ -113,14 +114,6 @@ nav a:hover {
 
 header {
   border-right: 2px solid rgb(27, 27, 27);
-  /* background-image: linear-gradient(
-    to top,
-    var(--b),
-    var(--b),
-    rgb(100, 100, 100),
-    black,
-    black
-  ); */
   display: var(--text-size);
   width: var(--header-width);
   margin: 0px;
@@ -182,16 +175,22 @@ main {
   border-top: 0.5px solid rgb(73, 72, 72);
 }
 
+.guides {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  column-gap: var(--horizontal-text-padding);
+  padding-left: var(--horizontal-text-padding);
+  padding-right: calc(2 * var(--horizontal-text-padding));
+  padding-bottom: var(--horizontal-text-padding);
+  row-gap: var(--vertical-padding);
+}
+
 .twocol-text {
-  width: auto;
-  height: auto;
   font-size: smaller;
-  padding: var(--vertical-padding) var(--horizontal-text-padding) 10px
-    var(--horizontal-text-padding);
 
   display: grid;
-  grid-template-columns: 250px auto;
-  row-gap: 10px;
+  grid-template-columns: 50% 50%;
+  row-gap: var(--horizontal-text-padding);
 }
 
 .col1 {
@@ -205,7 +204,8 @@ main {
 }
 
 a.col2:hover {
-  background-color: black;
+  background-color: gray;
+  color: white;
 }
 
 .col1text {
@@ -218,9 +218,10 @@ a.col2:hover {
 }
 
 .col2 {
-  padding-left: 20px;
+  /* padding-left: 20px; */
   position: relative;
-  height: 250px;
+  /* height: 250px; */
+  width: 100%;
   border: 1px dashed black;
   border-left: none;
   padding: 10px;
@@ -323,6 +324,7 @@ li.server-meter {
 li {
   line-height: 1.5em;
 }
+
 .side-box {
   padding: var(--vertical-padding) 0px var(--vertical-padding) 0px;
   /* background-color: var(--bgcolor); */
@@ -331,17 +333,21 @@ li {
   line-height: calc(var(--text-size) * 1.4);
   border-top: 1px solid white;
 }
+
 table.side td,
 table.side th {
   /* border: 1px solid #999; */
+  font-size: calc(var(--text-size) * 0.8);
   padding: 0.3rem;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   line-height: 1.1em;
 }
+
 table.side td {
   width: 50%;
 }
+
 table.side {
   width: 100%;
 }
@@ -383,7 +389,6 @@ img {
 }
 
 p {
-  font-size: calc(var(--text-size) * 1.2);
   orphans: 3;
   widows: 3;
 }
@@ -632,14 +637,28 @@ section {
     border: solid 0.5px rgb(40, 40, 40);
     background-color: rgb(10, 10, 10);
   }
+
+  .col2 {
+  }
+
+  .col1 {
+    position: relative;
+    height: 100%;
+    width: auto;
+  }
+
+  .guides {
+    grid-template-columns: 100%;
+  }
 }
+
 .network-box {
   padding: 10px;
   border: 2px solid black;
   margin-top: 10px;
   margin-bottom: 10px;
   float: left;
-  background-color: ;
+  background-color: gray;
   width: 100%;
 }
 
@@ -673,6 +692,9 @@ section {
     font-size: smaller;
   }
   li {
+    font-size: smaller;
+  }
+  .update {
     font-size: smaller;
   }
 
@@ -710,16 +732,12 @@ section {
     border: solid 0.5px rgb(40, 40, 40);
     background-color: rgb(10, 10, 10);
   }
-  .col1 {
+  /* .col1 {
     height: 200px;
     width: 200px;
-  }
-
-  .col2 {
-    height: 200px;
-  }
+  } */
 
   .twocol-text {
-    grid-template-columns: 200px auto;
+    grid-template-columns: auto auto;
   }
 }

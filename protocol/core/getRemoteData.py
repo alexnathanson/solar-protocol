@@ -1,15 +1,12 @@
 """
 Every server runs this script
-This collects the photovoltaic data from remote servers via the open data API
+This collects the photovoltaic data from remote servers via the /charge api endpoint
 The purpose of this is minimize the amount of on the fly API calls
 """
 
-"""
-1) loop through network devices
-	2) get most recent 4 files, if call is successful:
-		3) strip headers and merge into 1 file organized by time (scale by tz???)
-		4) save file
-"""
+# FIXME: I think this was broken - the server i called did not return 4 separate files
+# so i think the strip header, reverse and concat didn't do anything?
+# regardless, i think the server should just do that concatenation for us
 
 import json
 import os
@@ -38,13 +35,12 @@ def run():
             myName = nameList[index]
             break
 
-    # This must be V1 else an error occurs - must update the handleData function to use V2
-    endpoint = "/api/v1/opendata.php?day=4"
+    endpoint = "/api/charge?days=4"
 
     for ip, name in zip(ips, names):
-        print(name + ": " + ip)
+        print(f"{name}: {ip}")
         if name == myName:
-            # this probably to be updated to handled irregular ports...
+            # TODO: Fix this to work with ports other than 80
             data = SP.getRequest(f"http://localhost/{endpoint}")
         else:
             data = SP.getRequest(f"http://{ip}/{endpoint}")
@@ -52,29 +48,10 @@ def run():
         if isinstance(data, str):
             print("GET request successful")
 
-            # remove spaces and make all lower case
-            handleData(data, name.replace(" ", "").lower())
-
-
-# repackage data starting from most recent
-# strip headers, combine all 4 files into 1, save file
-def handleData(ccFiles, name):
-    combinedFile = []
-
-    ccFiles = json.loads(ccFiles)
-
-    for file in ccFiles:
-        headers = file.pop(0)
-
-        for l in reversed(file):
-            combinedFile.append(l)
-
-    # add headers back
-    combinedFile.insert(0, headers)
-
-    with open(f"/data/{name}.json", "w", encoding="utf-8") as file:
-        file.write(json.dumps(combinedFile))
-        file.close()
+            filename = name.replace(" ", "-").lower()
+            with open(f"/data/{filename}.json", "w", encoding="utf-8") as file:
+                file.write(data)
+                file.close()
 
 
 if __name__ == "__main__":

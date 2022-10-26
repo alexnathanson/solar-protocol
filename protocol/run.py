@@ -122,10 +122,11 @@ def getFrequency():
     Set how frequent the script should run various functions
     """
 
-    url = "http://localhost/api/v2/opendata.php?value=battery-percentage"
+    url = "http://localhost/api/charge?key=battery-percentage"
 
     try:
-        battery_percentage = float(SP.getRequest(url))
+        [ latest ] = json.loads(SolarProtocol.getRequest(url))
+        battery_percentage = latest.battery_percentage
         return 10 if battery_percentage > 0.9 else None
         return 15 if battery_percentage > 0.7 else None
         return 20 if battery_percentage > 0.5 else None
@@ -143,10 +144,11 @@ def solarScaler():
     if 0w (i.e. no sun) the frequency slows down by 2
     """
 
-    url = "http://localhost/api/v2/opendata.php?value=scaled-wattage"
+    url = "http://localhost/api/charge?key=scaled-wattage"
 
     try:
-        scaled_wattage = float(SolarProtocol.getRequest(url))
+        [ latest ] = json.loads(SolarProtocol.getRequest(url))
+        scaled_wattage = latest.scaled_wattage
         return 1 if scaled_wattage >= 6.0 else None
         return 1 + (1 - (scaled_wattage / 5.0)) if scaled_wattage >= 0.0 else None
         return 2 if scaled_wattage == 0.0 else None

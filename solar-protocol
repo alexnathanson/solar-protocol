@@ -88,7 +88,7 @@ init() {
         command -v podman-compose >/dev/null || sudo apt-get install --yes podman-compose
     else
       prompt "Upgrade Raspberry Pi OS to bookworm?" 
-      sed --in-place --expression 's/buster/bookworm/g' /etc/apt/sources.list
+      sudo sed --in-place --expression 's/buster/bookworm/g' /etc/apt/sources.list
       sudo apt-get full-upgrade --yes
       # Fix a bug with dhcpcd5 in raspberry pi OS
       waitfile="/etc/systemd/system/dhcpcd.service.d/wait.conf"

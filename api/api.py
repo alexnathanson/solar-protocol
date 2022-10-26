@@ -38,7 +38,7 @@ safe_keys = [
     "pvVolts"
 ]
 
-class CCValue(str, Enum):
+class ChargeKeys(str, Enum):
     PV_voltage = "PV voltage"
     PV_current = "PV current"
     PV_power_L = "PV power L"
@@ -125,39 +125,47 @@ def system(key: Union[SystemKeys, None] = None):
 
     return getLocal(key)
 
+@app.get("/api/charge/{day}")
+def getChargeForDay(day: str, key: Union[ChargeKeys, None] = None):
+    return charge(days=[day], key=key)
+
 @app.get("/api/charge")
-def charge(value: Union[CCValue, None] = None, days: Union[int, None] = None):
-    filepath = "/data/traces"
+def getCharge(days: Union[int, None] = None, key: Union[ChargeKeys, None] = None):
     today = datetime.date.today()
 
     if days == None:
-        dates = [ today ]
-    else:
-        dates = [ today - datetime.timedelta(days=days) for days in range(days) ]
+        return charge(days, key=key)
+
+    return charge(days=[ today - datetime.timedelta(days=days) for days in range(days)], key=key)
+
+def charge(days: Union[list[str], None] = None, key: Union[ChargeKeys, None] = None):
+    filepath = "/data/traces"
 
     rows = []
-    for day in dates:
+    if days == None:
+        dates = [ datetime.date.today() ]
+    else:
+        dates = days
+
+    for date in dates:
         try:
-            with open(f"{filepath}/{day}.csv", "r") as csvfile:
+            with open(f"{filepath}/{date}.csv", "r") as csvfile:
                 reader = csv.DictReader(csvfile, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames)
                 for row in reader:
                     rows.append(row)
         except FileNotFoundError:
             continue # its okay if we are missing data
 
-    # first filter on # of days
+    # only show most recent chage if no days passed
     if days == None:
-        data = [ row ]
-    else:
-        n_days_ago = datetime.datetime.today() - datetime.timedelta(days=days)
-        data = [ row for row in rows if datetime.datetime.fromtimestamp(row["timestamp"]) > n_days_ago ]
+        rows = [ rows[-1] ]
 
-    # then enrich with the scaled wattage
+    # enrich with the scaled wattage
     wattageScale = getWattageScale()
-    dataWithWattage = [ row | { "scaled wattage": row[CCValue.PV_power_L] * wattageScale } for row in data ]
+    dataWithWattage = [ row | { "scaled wattage": row[ChargeKeys.PV_power_L] * wattageScale } for row in rows ]
 
     # then filter on key
-    if value != None:
-        return [ row[value] for row in dataWithWattage ]
+    if key != None:
+        return [ row[key] for row in dataWithWattage ]
 
     return dataWithWattage

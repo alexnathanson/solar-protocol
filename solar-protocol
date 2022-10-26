@@ -89,6 +89,7 @@ init() {
     else
       prompt "Upgrade Raspberry Pi OS to bookworm?" 
       sudo sed --in-place --expression 's/buster/bookworm/g' /etc/apt/sources.list
+      sudo sed --in-place --expression 's/bullseye/bookworm/g' /etc/apt/sources.list
       sudo apt-get update
       sudo apt-get full-upgrade --yes
       # Fix a bug with dhcpcd5 in raspberry pi OS

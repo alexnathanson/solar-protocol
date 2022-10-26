@@ -56,7 +56,7 @@ def getDeviceInfo(key):
 # Call API for every IP address and get charge controller data
 def getChargeControllerValues(server, value):
     print(f"GET {server} {value}")
-    url = f"http://{server}/api/charge-controller?value={value}&duration={days)}"
+    url = f"http://{server}/api/charge-controller?value={value}&duration={days}"
     try:
         cc = requests.get(url, timeout=5)
         cc.json()

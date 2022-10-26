@@ -131,7 +131,7 @@ init() {
 
 prompt() {
   if [[ "$unattended" != "yes" ]]; then
-    read -p -r "$* (y/N)" confirm && \
+    read -r -p "$* (y/N)" confirm && \
       [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
       || exit 1
   fi

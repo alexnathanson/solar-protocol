@@ -2,7 +2,7 @@
   {
     "mac": "dc:a6:32:31:82:94",
     "ip": "72.229.231.127",
-    "time stamp": "1665683645.3203902",
+    "timestamp": "1665683645.3203902",
     "name": "Hells Gate",
     "log": [
       "2022-10-13 13:33:46.891736",
@@ -227,7 +227,7 @@
   {
     "mac": "dc:a6:32:c9:1b:63",
     "ip": "76.69.51.161",
-    "time stamp": "1665683298.8416638",
+    "timestamp": "1665683298.8416638",
     "name": "Low Carbon Methods",
     "tz": "America/New_York",
     "log": [
@@ -452,7 +452,7 @@
   {
     "mac": "dc:a6:32:a6:23:26",
     "ip": "197.248.41.65",
-    "time stamp": "1665521062.2702956",
+    "timestamp": "1665521062.2702956",
     "name": "SolarPower for Hackers",
     "tz": "Africa/Khartoum",
     "log": [
@@ -677,7 +677,7 @@
   {
     "mac": "dc:a6:32:ef:13:19",
     "ip": "130.58.84.100",
-    "time stamp": "1665684294.5345204",
+    "timestamp": "1665684294.5345204",
     "name": "Swarthmore Solar",
     "tz": "America/New_York",
     "log": [
@@ -902,7 +902,7 @@
   {
     "mac": "b8:27:eb:8b:da:33",
     "ip": "199.170.132.86",
-    "time stamp": "1665419291.0383978",
+    "timestamp": "1665419291.0383978",
     "name": "Gilgamesh Zone",
     "tz": "America/New_York",
     "log": [

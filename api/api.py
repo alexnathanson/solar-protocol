@@ -99,23 +99,23 @@ def getLocal(key: Union[SystemKeys, None]):
 def root():
     return {"message": "Hello World 👋"}
 
-class NetworkKeys(str, Enum):
+class DeviceKeys(str, Enum):
     tz = "tz"
     name = "name"
     log = "log"
     timestamp = "timestamp"
 
-@app.get("/api/network")
-def network(key: Union[NetworkKeys, None] = None):
+@app.get("/api/devices")
+def devices(key: Union[DeviceKeys, None] = None):
     filename = f"/data/devices.json"
 
     with open(filename, "r") as jsonfile:
         devices = json.load(jsonfile)
 
     if key == None:
-        return devices.map(lambda device: { key: device[key] for key in NetworkKeys })
+        return [{ key: device[key] for key in DeviceKeys } for device in devices]
 
-    return devices.map(lambda device: { key: device[key] })
+    return [{ key: device[key] } for device in devices]
 
 
 @app.get("/api/system")

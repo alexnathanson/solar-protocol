@@ -166,6 +166,6 @@ def charge(days: Union[list[str], None] = None, key: Union[ChargeKeys, None] = N
 
     # then filter on key
     if key != None:
-        return [ row[key] for row in dataWithWattage ]
+        return [ { key: row[key], "timestamp": row["timestamp"] } for row in dataWithWattage ]
 
     return dataWithWattage

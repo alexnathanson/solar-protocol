@@ -81,15 +81,8 @@ init() {
     if [[ "$(podman machine inspect --format '{{.State}}')" != "running" ]]; then
       podman machine start
     fi
-  elif [[ "$(uname -s)" == "Linux" ]]; then
-    if command -v lsb_release >/dev/null; then
-      if lsb_release -a | grep --quiet 'Debian\|Ubuntu'; then
-        command -v podman >/dev/null || sudo apt-get install --yes podman
-        command -v pip >/dev/null || sudo apt-get install --yes python3-pip
-        command -v podman-compose >/dev/null || pip install podman-compose
-      fi
-    fi
   elif command -v raspi-config >/dev/null; then
+    # raspberry pi
     if grep --quiet 'bookworm\|testing' /etc/apt/sources.list; then
         command -v podman >/dev/null || sudo apt-get install --yes podman
         command -v podman-compose >/dev/null || sudo apt-get install --yes podman-compose
@@ -104,6 +97,14 @@ init() {
       fi
       prompt "Upgrade to bookworm finished. Reboot?"
       sudo reboot
+    fi
+  elif [[ "$(uname -s)" == "Linux" ]]; then
+    if command -v lsb_release >/dev/null; then
+      if lsb_release -a | grep --quiet 'Debian\|Ubuntu'; then
+        command -v podman >/dev/null || sudo apt-get install --yes podman
+        command -v pip >/dev/null || sudo apt-get install --yes python3-pip
+        command -v podman-compose >/dev/null || pip install podman-compose
+      fi
     fi
   else
     echo See the official windows install docs to install podman and podman-compose

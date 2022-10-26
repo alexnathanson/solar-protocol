@@ -54,7 +54,7 @@ class CCValue(str, Enum):
     scaled_wattage = "scaled wattage"
 
 
-class SIValue(str, Enum):
+class SystemKeys(str, Enum):
     tz = "tz"
     color = "color"
     description = "description"
@@ -78,7 +78,7 @@ def getWattageScale():
 
     return 1
 
-def getLocal(key: Union[str, None]):
+def getLocal(key: Union[SystemKeys, None]):
     filename = f"/local/local.json"
 
     with open(filename, "r") as jsonfile:
@@ -99,16 +99,34 @@ def getLocal(key: Union[str, None]):
 def root():
     return {"message": "Hello World 👋"}
 
-@app.get("/api/system-info")
-def systemInfoValue(value: Union[SIValue, None] = None):
-    match value:
-        case SIValue.tz:
-            return getTimezone()
-        case _:
-            return getLocal(value)
+class NetworkKeys(str, Enum):
+    tz = "tz"
+    name = "name"
+    log = "log"
+    timestamp = "timestamp"
 
-@app.get("/api/charge-controller")
-def read_value(value: Union[CCValue, None] = None, days: Union[int, None] = None):
+@app.get("/api/network")
+def network(key: Union[NetworkKeys, None] = None):
+    filename = f"/data/devices.json"
+
+    with open(filename, "r") as jsonfile:
+        devices = json.load(jsonfile)
+
+    if key == None:
+        return devices.map(lambda device: { key: device[key] for key in NetworkKeys })
+
+    return devices.map(lambda device: { key: device[key] })
+
+
+@app.get("/api/system")
+def system(key: Union[SystemKeys, None] = None):
+    if key == SystemKeys.tz:
+        return getTimezone()
+
+    return getLocal(key)
+
+@app.get("/api/charge")
+def charge(value: Union[CCValue, None] = None, days: Union[int, None] = None):
     filepath = "/data/traces"
     today = datetime.date.today()
 

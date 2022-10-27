@@ -16,3 +16,7 @@
 	color: red;
 	border: 5px solid red;
 }
+
+input:invalid {
+	border: 2px dashed red;
+}  

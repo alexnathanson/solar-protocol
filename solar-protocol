@@ -1,9 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+if [[ "${TRACE-0}" == "1" ]]; then set -o xtrace; fi
+
 unattended=$(echo "$@" | grep --quiet -- '--yes' && echo yes)
-command=${1:-help}
+command="${1-help}"
 shift
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
-set -e
+
+set -o errexit
+set -o nounset
 
 help() {
   Clear='\033[0m'
@@ -156,8 +161,6 @@ case $command in
   format) black ./**/**py ;;
   init) init ;;
   generate) generate ;;
-  help) help ;;
-  "") help ;;
   *) help ;;
 esac
 

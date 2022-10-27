@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+  <head>
+    <title>Solar Server</title>
+  </head>
+
+  <body>
+
+  <h1><a href="/">Solar Protocol (<span class=name></span>)</a> - Admin Console</h1>
+
+  <span>
+    Logged in as <a href="/admin/settings/user.html"><span class=username></span></a>
+    <a href="?logout">(Logout)</a>
+  </span>
+
+  <p>
+    <a href=/admin>Network Status</a> |
+    <a href=/admin/local>Local Data</a> |
+    <a href=/admin/settings>Settings</a> |
+    <a href=/admin/settings/local">Local Content</a>
+  </p>
+
+  <h2>Network Status</h2>
+
+  <div id="serverList"><h3>Online Servers:</h3></div>
+
+  <div id="pointOfEntryViz"><h3>Point of Entry History ASCII Viz:</h3></div>
+
+  <div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
+
+  <script>
+    getRequest(`/api/system`, response => {
+      const system = JSON.parse(response) 
+      console.log(system)
+
+      const usernames = Array.from(document.getElementsByClassName('username'))
+      const names = Array.from(document.getElementsByClassName('name'))
+      usernames.forEach(element => element.innerHTML = 'admin')
+      names.forEach(element => element.innerHTML = sytem.name)
+    })
+
+    getRequest(`/api/devices`, response => {
+      devices = JSON.parse(response)
+
+      devices.forEach(device => {
+        getRequest(`http://{device.ip}/api/charge`, charge => {
+    console.log(charge)
+        })
+      })
+    })
+
+
+    function getRequest(ip, callback) {
+      const xhttp = new XMLHttpRequest()
+      xhttp.onreadystatechange = function() {
+        if(dstNum && typeof dstNum === "number") {
+          if (this.readyState == 4 && this.status == 200) {
+            callback(this.responseText, dst, dstNum)
+          } else if (this.readyState == 4) {
+            callback(this.statusText, dst, dstNum)
+          }
+        } else {
+           if (this.readyState == 4 && this.status == 200) {
+            callback(this.responseText, dst)
+          } else if (this.readyState == 4) {
+            callback(this.statusText, dst)
+          }
+        }
+       
+      }
+      xhttp.open("GET", dst, true)
+      xhttp.send()
+    }
+
+    function sortPoeLog(response){
+      console.log(JSON.parse(response));
+      jsonPoe = JSON.parse(response);
+
+      let justPoeLog = []
+
+      let storePos = [];//store the position for that particular log
+
+      //get just the logs
+      for (let p = 0; p < jsonPoe.length;p++){
+        justPoeLog.push(jsonPoe[p]["log"]);   
+        storePos[p] = 0; 
+      }
+
+      let outputPoeLog = [];
+
+      for (let p = 0; p < 100;p++){
+
+        //get next items from logs
+        let tempPos = [];
+        let sorted = [];
+        for (let l = 0; l < storePos.length;l++){
+          tempPos[l] = justPoeLog[l][storePos[l]];
+          sorted[l] = justPoeLog[l][storePos[l]];
+        }
+
+        //sort in decending order
+        sorted.sort(function(a,b){
+              // Turn strings into date
+              return new Date(b) - new Date(a);
+            });
+
+        //compare the sorted value to the unsorted list
+        for (let x = 0; x < tempPos.length; x++){
+          if (sorted[0] == tempPos[x]){
+            //add new value to list only if it has changed...
+            if(outputPoeLog.length == 0){
+              outputPoeLog[outputPoeLog.length] = [justPoeLog[x][storePos[x]],x];
+            } else if(outputPoeLog[outputPoeLog.length-1][1] != x){
+              outputPoeLog[outputPoeLog.length] = [justPoeLog[x][storePos[x]],x];
+            }
+            storePos[x]++;
+            break;
+          }
+        }
+      }
+
+      //console.log(outputPoeLog);
+
+      displayPOE(outputPoeLog);
+
+      asciiPoeViz(outputPoeLog)
+    } 
+
+    function displayPOE(poeArray){
+      let poeID = document.getElementById('pointOfEntry');
+
+      let para = document.createElement('p');
+
+      for (let l = 0; l < poeArray.length;l++){
+        let node = document.createTextNode(poeArray[l][0] + " " + jsonPoe[poeArray[l][1]]['name']);
+        para.appendChild(node);
+        para.appendChild(document.createElement('br'));//dont use a variable here, because then it will treat it as the same thing and only append it once, pushing it to the end of the p
+      }
+
+      poeID.appendChild(para);
+    }
+
+    function asciiPoeViz(poeArray){
+      let poeID = document.getElementById('pointOfEntryViz');
+
+      //an array of all the server names that were PoE
+      let poeNames = [];
+      let poeNumbers = [];
+      //an array of all the ascii lines by device
+      let poeStrings = [];
+
+      let countSpaces = 0;
+
+      let spaceChar = "_";
+
+      for (let l = 0; l < poeArray.length;l++){
+        //console.log(poeArray[l]);
+        //check if it is a new name
+        if (!poeNumbers.includes(poeArray[l][1])){
+          //if its a new name, add the name
+          poeNumbers.push(poeArray[l][1]);
+          poeNames.push(jsonPoe[poeArray[l][1]]['name']);
+
+          let newString = '';
+          //back fill this new entry with blank spaces
+          for(let s = 0; s < countSpaces;s++){
+            newString += spaceChar;
+          }
+          newString += poeArray[l][1];
+          poeStrings.push(newString);
+
+          //add a space to all other entries
+          for(let s = 0;s< poeStrings.length-1;s++){
+            poeStrings[s] += spaceChar;
+          }
+
+        } else {
+          //get position of name
+          for(let n = 0; n < poeNumbers.length;n++){
+            if(poeArray[l][1] == poeNumbers[n]){
+              poeStrings[n] += poeNumbers[n];
+            } else {
+              poeStrings[n] += spaceChar;
+            }
+          }
+        }
+        countSpaces ++;
+      }
+
+      let sT = document.createElement("table"); 
+      sT.style.width = '100%';
+      sT.setAttribute('border', '1');
+      let tbdy = document.createElement('tbody');
+      let tr = document.createElement('tr');
+      let tdNames = document.createElement('td');
+
+      for(let s = 0; s < poeStrings.length;s ++){
+        let nameLine = document.createTextNode(poeNames[s]);
+        tdNames.appendChild(nameLine);
+        tdNames.appendChild(document.createElement('br'))
+      }
+
+      let tdData = document.createElement('td');
+
+      //let para = document.createElement('p');
+      for(let s = 0; s < poeStrings.length;s ++){
+        let asciiLine = document.createTextNode(poeStrings[s]);
+        tdData.appendChild(asciiLine);
+        tdData.appendChild(document.createElement('br'))
+      }
+      //poeID.appendChild(para);
+      
+      tr.appendChild(tdNames);
+      tr.appendChild(tdData);
+
+      tbdy.appendChild(tr);
+      poeID.appendChild(tbdy);
+    }
+
+    function populate(server) {
+      const serverList = document.getElementById('serverList')
+
+      function header(server) {
+        const h3 = document.createElement('h3')
+        h3.textContent = `Server: ${server.name}`
+
+        const a = document.createElement('a')
+        a.href = `http://${server.ip}`
+        a.target = '_blank'
+
+        const link = document.createTextNode(server.ip)
+        a.appendChild(link)
+        h3.appendChild(a)
+        return h3
+      }
+
+      const serverInfo = document.createElement('div')
+      serverInfo.id = server.ip
+      serverInfo.appendChild(header(server))
+      serverInfo.appendChild(table(server))
+      serverInfo.appendChild(status(server))
+
+      serverList.appendChild(serverInfo)
+
+      getRequest(`http://${server.ip}/api/status`, populateStatus)
+    }
+
+    function status(server) {
+      serverStatus = document.createElement('p')
+      serverStatus.className = 'status'
+      return serverStatus
+    }
+
+    function populateStatus(status) {
+      const serverInfo = document.getElementById(status.ip)
+      const serverStatus = serverInfo.getElementsByClassName('status')[0]
+      const statusText = document.createTextNode(
+        Object.entries(status).map(entries => entries.join(": ")).join(" | ")
+      )
+      serverStatus.appendChild(statusText)
+    }
+
+    function createTable(jsonData){
+      const table = document.createElement("table")
+      table.style.width = '100%'
+      table.setAttribute('border', '1')
+
+      const tbody = document.createElement('tbody')
+
+      const tr = document.createElement('tr')
+      Object.keys(jsonData).forEach(key => addToRow(key, tr))
+      tbody.appendChild(tr)
+
+      const tr = document.createElement('tr')
+      Object.values(jsonData).forEach(value => addToRow(value, tr))
+      tbody.appendChild(tr)
+
+      function addToRow(text, tr) {
+        const td = document.createElement('td')
+        const text = document.createTextNode(text)
+        td.appendChild(text)
+        tr.appendChild(td)
+      }
+
+      table.appendChild(tbody)
+
+      return table
+    }
+
+  </script>
+  </body>

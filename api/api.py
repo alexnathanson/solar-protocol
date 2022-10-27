@@ -9,6 +9,8 @@ from typing import Union
 
 from fastapi import FastAPI
 
+import requests
+
 # header for datalogger csv
 fieldnames = [
     "timestamp",
@@ -104,6 +106,22 @@ class DeviceKeys(str, Enum):
     name = "name"
     log = "log"
     timestamp = "timestamp"
+
+@app.get("/api/status")
+def devices():
+    response = requests("/status")
+    status = response.text.split("\n")
+    stats = status[2]
+    [accepts, handled, reqs] = status.split(' ')
+
+    return {
+            "uptime": "todo",
+            "rps": "todo",
+            "accepts": accepts,
+            "handled": handled,
+            "requests": reqs,
+            "cpu load": "todo",
+    }
 
 @app.get("/api/devices")
 def devices(key: Union[DeviceKeys, None] = None):

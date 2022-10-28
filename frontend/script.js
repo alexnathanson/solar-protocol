@@ -14,7 +14,7 @@ function formatRow(row) {
   //create theader
   if (row.num === 0) {
     rowHTML += "<tr>";
-    for (var i = 0; i < row.labels.length; i++) {
+    for (var i = 0; i < row.labels.length - 1; i++) {
       rowHTML += "<td>" + row.labels[i] + "</td>";
     }
     rowHTML += "</tr>";
@@ -23,22 +23,22 @@ function formatRow(row) {
   //create tbody
   else {
     rowHTML += "<tr>";
-    for (var i = 0; i < row.cellsArray.length; i++) {
+    for (var i = 0; i < row.cellsArray.length - 1; i++) {
       if (row.labels[i] === "Item") {
-        rowHTML +=
-          '<td class="url"><a href="' +
-          row.cellsArray[i] +
-          '" target="_blank">' +
-          row.cellsArray[i] +
-          "</a></td>";
+        rowHTML += '<td class="item">' + row.cellsArray[i] + "</td>";
       } else if (row.labels[i] === "Author") {
         rowHTML += '<td class="author">' + row.cellsArray[i] + "</td>";
       } else if (row.labels[i] === "year") {
         rowHTML += '<td class="time">' + row.cellsArray[i] + "</td>";
+      } else if (row.labels[i] === "Title") {
+        rowHTML +=
+          '<td class="title"><a href="' +
+          row.cellsArray[i + 2] +
+          '" target="_blank">' +
+          row.cellsArray[i] +
+          "</a></td>";
       } else if (row.labels[i] === "Description") {
         rowHTML += '<td class="description">' + row.cellsArray[i] + "</td>";
-      } else if (row.labels[i] === "Location") {
-        rowHTML += '<td class="location">' + row.cellsArray[i] + "</td>";
       } else {
         rowHTML += "<td>" + row.cellsArray[i] + "</td>";
       }

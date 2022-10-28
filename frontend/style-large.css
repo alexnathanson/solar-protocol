@@ -195,8 +195,8 @@ main {
 
 .col1 {
   position: relative;
-  height: 250px;
-  width: 250px;
+  height: auto;
+  width: auto;
   border: 1px dashed black;
   padding: 10px;
   background-color: #fff;
@@ -555,7 +555,8 @@ section {
 
 #library td {
   padding-left: 10px;
-  padding-right: 40px;
+  padding-right: 18px;
+  padding-top: 5px;
   border-top: 1px solid black;
   vertical-align: top;
   background-color: rgba(153, 152, 152, 0.2);
@@ -607,6 +608,14 @@ section {
   line-height: 2;
   border: 1px solid #ddd;
   border-radius: 0.25em;
+}
+.library {
+  padding-left: var(--horizontal-text-padding);
+  padding-right: var(--horizontal-text-padding);
+}
+#library {
+  font-size: smaller;
+  width: 100%;
 }
 
 @media (max-width: 1070px) {
@@ -732,12 +741,32 @@ section {
     border: solid 0.5px rgb(40, 40, 40);
     background-color: rgb(10, 10, 10);
   }
-  /* .col1 {
-    height: 200px;
-    width: 200px;
-  } */
 
   .twocol-text {
     grid-template-columns: auto auto;
+  }
+
+  /* .energy {
+    display: none;
+  } */
+
+  .place {
+    display: none;
+  }
+
+  .library {
+    padding-left: var(--horizontal-padding);
+  }
+
+  #library td {
+    padding-left: 8px;
+    padding-right: 12px;
+  }
+  td.description {
+    display: none;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    visibility: collapse;
   }
 }

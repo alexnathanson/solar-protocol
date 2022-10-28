@@ -1,0 +1,56 @@
+# API v3 changelog
+
+What happens when the gateway goes down?
+
+## general
+
+I think I got 90% of the same functionality in 149 line python script as the 369 php script.
+
+### renames
+charge-controller => /charge
+networkInfo => /devices # we should change devices.json and this endpoint to be the same
+systemInfo => /system
+server-status => /status # could be server? overloaded term. maybe device
+
+normalized all responses to be arrays (even if 1 item)
+
+deprecated `time` and just using unix epoch `timestamp`
+deprecated response `timezone` since all times in unix epoch / UTC
+  - viz/html will need to convert to local at build-time
+
+removed headers for now - move towards 'self-describing data' - see charge controller returns
+
+### endpoint changes
+
+/charge?days={int}&key={pv-wattage|pv-current...|etc..}
+/charge/2022-14-12?key={pv-wattage}
+  implemented scaled wattage
+  implemented `day` path (`/charge/2022-14-24`)
+  implemented `days` and `key` params
+  renamed `duration` => `days` only supports number, no other arguments
+  deprecated 'tracerData' option for `day`
+  deprecated 'list' option for `day` (no code seemed to use it)
+  deprecated 'line' option for `day` (no code seemed to use it)
+  deprecated 'duration' (no code seemed to use it)
+
+/system
+  always return a list, even for one item
+  deprecated `dump` arg, empty value will work like `dump` used to
+  
+/devices
+  "time stamp" => 'timestamp'
+
+/server
+  unimplemented - lets talk about this - maybe we can make a subsite/page that lets you go directly to different servers by IP address instead of proxying information. Unless proxying is the cool part.
+  How does this work with the gateway?
+
+/status
+  initial implementation - nginx has different info. if uptime is useful we should add that
+
+/ip
+  moved from gateway to api!
+  need to check that we hash the same way as before
+
+/myip
+  moved from gateway to api!
+  TODO: should we remove server. prefix, for getting ip address?

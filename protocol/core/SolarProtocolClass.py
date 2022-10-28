@@ -33,16 +33,13 @@ class SolarProtocol:
 		self.getEnvScriptPath = "/solar-protocol/protocol/get_env.sh"
 		self.localConfigData = dict()
 		self.loadLocalConfigFile()
-		self.myIP = requests.get('https://server.solarpowerforartists.com/?myip').text #we should have our own API endpoint for this...
+        self.myIP = requests.get('http://localhost:11221/api/myip').text
 		# dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
 		self.dnsURL = "https://server.solarpowerforartists.com/"
-		self.MACinterface = "wlan0" #this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
+		self.MACinterface = "wlan0" # this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 
-
-	#load in data from config file
+	# load in data from config file
 	def loadLocalConfigFile(self):
-		#print('loading config file...')
-		#load file
 		try:
 			with open(self.localConfigFile) as locFile:
 				locData = json.load(locFile)

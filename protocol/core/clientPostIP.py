@@ -190,7 +190,8 @@ def run():
     print("***** Running ClientPostIP script *****")
     print()
 
-    myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
+    # FIXME: should we remove server. to make fully p2p?
+    myIP = requests.get("https://server.solarpowerforartists.com/api/myip").text
 
     myPort = getLocalKey("httpPort")
 

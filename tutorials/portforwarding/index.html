@@ -1,42 +1,37 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-<title>Solar Protocol</title>
-</head>
-<body>
+  <head>
+    <title>Solar Protocol</title>
+  </head>
 
-<h1 id="test-result">Testing...</h1>
+  <body>
+    <h1 id="test-result">Testing...</h1>
+    <p>
+      Remember you must access this page from a different network than the one that your server is running on for it to be a valid test. If your test is invalid, it means that your server is running, but you are on the same network as your server. Try accessing this page from another network. The easiest way to do this is often from your smart phone on the cellular data network with wifi turned off.
+    </p>
 
-<p>
-Remember you must access this page from a different network than the one that your server is running on for it to be a valid test. If your test is invalid, it means that your server is running, but you are on the same network as your server. Try accessing this page from another network. The easiest way to do this is often from your smart phone on the cellular data network with wifi turned off.
-</p>
+  <script>
+    console.log("browser location: " + location.host)
 
-<script>
+    const Http = new XMLHttpRequest()
+    // FIXME: Should we remove the server. and be fully p2p?
+    const url='https://server.solarpowerforartists.com/api/myip'
+    Http.open("GET", url)
+    Http.send()
 
-lh = location.host
+    // TODO: check if this will work without the default ports
+    Http.onreadystatechange = (e) => {
+      const tr = document.getElementById("test-result")
 
-console.log("browser location: " + location.host)
+      console.log("response: " + Http.responseText)
 
-const Http = new XMLHttpRequest();
-const url='https://server.solarpowerforartists.com/?myip';
-Http.open("GET", url);
-Http.send();
+      if( location.host.includes(Http.responseText) || location.host.includes("localhost")){
+        tr.innerHTML = "Invalid test - Your server is running, but you are on the same network as your server."
+      } else {
+        tr.innerHTML = "Congratulations, your server is running and the port forwarding test works!"
+      }
+    }
+  </script>
 
-Http.onreadystatechange = (e) => {
-  //will this work without the default ports???
-
-  let tr = document.getElementById("test-result")
-
-  console.log("response: " + Http.responseText)
-
-  if( !lh.includes(Http.responseText) && !lh.includes("localhost")){
-    tr.innerHTML = "Congratulations, your server is running and the port forwarding test works!"
-  } else {
-    tr.innerHTML = "Invalid test - Your server is running, but you are on the same network as your server."
-  }
-}
-
-</script>
-
-</body>
+  </body>
 </html> 

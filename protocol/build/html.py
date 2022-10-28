@@ -220,7 +220,8 @@ def getDeviceInfo(getKey):
 
 
 def get_ips():
-    myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
+    # FIXME: should we remove the server. and be fully p2p?
+    myIP = requests.get("https://server.solarpowerforartists.com/api/myip").text
 
     ips = getDeviceInfo("ip")
     serverNames = getDeviceInfo("name")
@@ -293,21 +294,20 @@ def check_images(server_data):
         fullpath = "/home/pi/solar-protocol/frontend/images/servers/" + filename
         filepath = "images/servers/" + filename
         # print("server:", server)
-        myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
+        myIP = requests.get("https://server.solarpowerforartists.com/api/myip").text
         print("myIP", myIP)
 
         if "ip" in server:
             print("Server IP:", server["ip"])
             if server["ip"] == "localhost":  # if it is itself
                 print("*** LOCAL HOST ***")
-                # image_path = "home/pi/local/www/serverprofile.gif"
+                # TODO: make this work with irregular ports
                 image_path = imgDst
-                # this wont work with irregular ports
-                # image_path = "http://localhost/local/serverprofile.gif"
                 filepath = image_path
             elif os.path.exists(fullpath):  # else if the image is in the folder
-                print("Got image for", server["name"])
-            else:  # else download image using api and save it to the folder: "../../frontend/images/servers/"
+                print("Got image for " + server["name"])
+            else:
+                # else download image using api and save it to the folder: "../../frontend/images/servers/"
                 image_path = "http://" + server["ip"] + "/local/serverprofile.gif"
                 try:
                     download_file(image_path, fullpath)

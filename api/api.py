@@ -7,7 +7,7 @@ import sys
 from enum import Enum
 from typing import Union
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 
 import requests
 
@@ -71,7 +71,7 @@ class SystemKeys(str, Enum):
 app = FastAPI(title="solar-protocol", docs_url="/api/docs")
 
 def getTimezone():
-    return os.environ['TZ'] if "TZ" in os.environ else "America/New_Yorks"
+    return os.environ['TZ'] if "TZ" in os.environ else "America/New_York"
 
 def getWattageScale():
     pvWatts = getLocal("pvWatts")
@@ -187,3 +187,67 @@ def charge(days: Union[list[str], None] = None, key: Union[ChargeKeys, None] = N
         return [ { key: row[key], "timestamp": row["timestamp"] } for row in dataWithWattage ]
 
     return dataWithWattage
+
+# X-Real-Ip is set in the nginx config
+@app.get("/api/myip")
+def getChargeForDay(x_real_ip: str | None = Header(default=None))
+    return x_real_ip
+
+def getDNSKey():
+    filename = f"/data/dnskey.txt"
+
+    with open(filename, "r") as dnskeyfile:
+        return readline()
+
+@app.get("/api/allowlist")
+def allowlist():
+    # TODO: swtich to file
+    return {
+        "Hells Gate": "$2y$10$5/O1zeTvLmxBNIRpmqve5u6x9RmL8JBi./dzgD3mwfudHEBuABFQ6",
+        "Chile": "$2y$10$M3RtM5fYwzUXYQJRx1OGDe9oPSAmnApDPlCWpYCpHXcQixCPVaNge",
+        "Caddie": "$2y$10$157Qs27b4.gUAHlF0o/i5ufIF/tclJ8GitcIQbgeA9t76XYF0S0Ve",
+        "Low_Carbon_Methods": "$2y$10$2vFdQ05rQyGFIbY6WjncE.nZgimUEfIoCQKoQmK1qNLSPfc3T2NXy",
+        "Dominica": "$2y$10$MLdkxh3qzwwU0yucGTBte.964aMIPxRHa4UiH3o0AH67jGk5P5nDu",
+        "Kenya": "$2y$10$3EuwWV0KuoBhBBJd3Q7uX.2XHNIYZZkn0mpUjXSLHd6vGFlAXhyGe",
+        "Fiber_Fest": "$2y$10$42gKyu4kJeMnbOn79hJyQOBxE3aqV1OCXSwaWasg1Dvi0goII2fKK",
+        "Swarthmore ": "$2y$10$43RlEFdYJqqc5Odvnr.ol.pbJ0A.p7td3rIzz4Z3V56KpQ0cLogJe"
+    }
+
+@app.get("/api/blocklist")
+def blocklist():
+    # TODO: switch to file
+    # TODO: extend to support multiple burned keys from the same server
+    return {
+        "Tega": "",
+        "SPfA": "$2y$10$8jr3efgV3/N2RosUY0cH1edYXYcYNE4Iwi6RHqYwyupnccYVX9f5.",
+        "Beijing": "$2y$10$0uZh7HjT27KTN5uszOCuxe6yhEWbWxzX/i/ZY1vIfZg1xqfNgshmS"
+    }
+
+@app.post("/api/ip")
+def updateDNS(key: str, ip: str):
+    name = verifyPasswordAndReturnName(key)
+
+    params = {
+        host: '@',
+        domain: 'solarprotocol.net',
+        password: key,
+        ip: ip
+    }
+
+    response = request.get("https://dynamicdns.park-your-domain.com/update", params=params)
+    if response.status == 200:
+        updatePoeLog(name, ip)
+
+def verifyPasswordAndReturnName(key: str):
+    for name, hash in allowList():
+        if key == hash:
+            return name
+
+    raise Exception('Incorrect password')
+
+def updatePoeLog(name: str, ip: str):
+    fileName = f"/data/dns.log"
+
+    with open(fileName, "a", newline="") as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=[name, ip])
+        writer.writerow([name, ip])

@@ -33,7 +33,7 @@ function formatRow(row) {
       } else if (row.labels[i] === "Title") {
         rowHTML +=
           '<td class="title"><a href="' +
-          row.cellsArray[i + 2] +
+          row.cellsArray[i + 4] +
           '" target="_blank">' +
           row.cellsArray[i] +
           "</a></td>";

@@ -534,26 +534,26 @@ section {
   /* height: 20px; */
 }
 
-#library {
+.library {
   display: block;
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-#library tr {
+.library tr {
   height: 48px;
 }
 
-#library tbody tr:hover {
+.library tbody tr:hover {
   background-color: #e4e4e4;
 }
 
-#library thead * {
+.library thead * {
   text-transform: uppercase;
   border-radius: 0.25em;
 }
 
-#library td {
+.library td {
   padding-left: 10px;
   padding-right: 18px;
   padding-top: 5px;
@@ -564,7 +564,7 @@ section {
   /* border-bottom: solid black 1px; */
 }
 
-#library tbody td {
+.library tbody td {
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -613,7 +613,7 @@ section {
   padding-left: var(--horizontal-text-padding);
   padding-right: var(--horizontal-text-padding);
 }
-#library {
+.library {
   font-size: smaller;
   width: 100%;
 }
@@ -758,9 +758,9 @@ section {
     padding-left: var(--horizontal-padding);
   }
 
-  #library td {
-    padding-left: 8px;
-    padding-right: 12px;
+  .library td {
+    padding-left: 5px;
+    padding-right: 8px;
   }
   td.description {
     display: none;

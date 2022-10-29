@@ -618,6 +618,10 @@ section {
   width: 100%;
 }
 
+.button {
+  color: black;
+}
+
 @media (max-width: 1070px) {
   header h1 {
     font-size: 3em;

@@ -21,7 +21,7 @@ def determineServer(allValues, myValue, solarProtocol):
 		logging.info(datetime.datetime.now())
 		
 		# Do not update DNS if running in DEV
-		key = 'this-will-fail' if DEV else str(solarProtocol.getEnv('DNS_KEY'))
+		key = 'this-will-fail' if DEV else str(solarProtocol.getSecret('dnsKey'))
 		url = solarProtocol.updateDNS(solarProtocol.myIP, key)
 		print(solarProtocol.getRequest(url))
 	else:

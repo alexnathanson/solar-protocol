@@ -169,21 +169,11 @@ def getApiKey():
     if DEV:
         return "this-will-fail"
 
-    # We use get_env which reads from a ~/solar-protocol/.spenv to allow 
-    # stewards to overwrite environment files from a web interface
+    secretsFilepath = f"/local/secrets.json"
+    with open(secretsFilepath) as secretsfile:
+        secrets = json.load(secretsFile)
 
-    proc = subprocess.Popen(
-        ["bash", "/home/pi/solar-protocol/backend/get_env.sh", "API_KEY"],
-        stdout=subprocess.PIPE,
-    )
-    env = proc.stdout.read()
-
-    # convert byte string to string
-    env = env.decode("utf-8")
-
-    # remove line breaks
-    env = env.replace("\n", "")
-    return env
+    return secrets['apiKey']
 
 def run():
     print()

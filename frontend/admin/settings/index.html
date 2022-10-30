@@ -31,6 +31,22 @@
 })
 </script>
 
+<script>
+  async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message)
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
+    const hashArray = Array.from(new Uint8Array(hashBuffer))
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+    return hashHex
+  }
+
+  function submitHashedValue(form) {
+    const value = form['value']
+    value.value = sha256(value.value)
+    return true
+  }
+</script>
+
 <form method="post" id="updateLocalInfo" action="/api/local">
   <p>Name <input type="text" name="name"></p>
 
@@ -68,33 +84,37 @@
   <!--should this float left?-->
   <div style="width:50%">
     <!--display thumbnail image-->
-    <img src="/local/serverprofile.gif" style="border: 2px solid black;width:150px; height:auto;">
+    <img src="/local/serverprofile.gif" style="border: 2px solid black; width: 150px; height: auto;">
   </div>
 </div>
 
 <div class="dangerBox">
   <h3>Network Info</h3>
-  <form method="POST" onsubmit="return confirm('Are you sure you want to change the http port?');">
-    <input type="hidden" name="key" value="form"/>
-    <p>http port <input type="text" name="httpPort" value="<?php if (isset($httpPort)) {
-        echo $httpPort;
-    }?>"><span class="error" style="color:red"> <?php echo $httpErr;?></span></p>
-    <button type="submit">Update Http Port</button>
+  <form method="POST" action="/api/local" onsubmit="return confirm('Are you sure you want to change the http port?');">
+    <input type=hidden name=key value=httpPort />
+    <p>http port <input type=text name=httpPort><span class=error style="color:red" id=httpPortError></span></p>
+    <button type=submit>Update Http Port</button>
   </form>
 </div>
 
 <div class="dangerBox">
   <h3>Security & Access Keys - Danger Zone!</h3>
-  <form method="POST" onsubmit="return confirm('Are you sure you want to change the API key?');">
-    <input type="hidden" name="key" value="form"/>
-    <p>Network API key <input type="text" name="apiKey" value=""><span class="error" style="color:red"> <?php echo $apiErr;?></span></p>
-    <button type="submit">Update API Key</button>
+  <form method="POST" action=/api/secret onsubmit="return submitHashedValue(this) && confirm('Are you sure you want to change the API key?');">
+    <input type=hidden name=key value=apiKey />
+    <p>
+      Network API key <input type=text name=value>
+      <span class=error style="color:red" id=apiKeyError></span>
+    </p>
+    <button type=submit>Update API Key</button>
   </form>
 
-  <form method="POST" onsubmit="return confirm('Are you sure you want to change the DNS password?');">
-    <input type="hidden" name="key" value="form"/>
-    <p>DNS Gateway Password <input type="text" name="dnsPW" value=""><span class="error" style="color:red"> <?php echo $dnsErr;?></span></p>
-    <button type="submit">Update DNS Gateway Password</button>
+  <form method="POST" action=/api/secret onsubmit="return submitHashedValue(this) && confirm('Are you sure you want to change the DNS password?');">
+    <input type=hidden name=key value=dnsPassword />
+    <p>
+      DNS Gateway Password <input type=text name=value>
+      <span class="error" style="color:red" id=dnsPasswordError></span>
+    </p>
+    <button type=submit>Update DNS Gateway Password</button>
   </form>
 </div>
 

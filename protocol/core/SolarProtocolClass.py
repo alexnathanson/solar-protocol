@@ -30,7 +30,6 @@ class SolarProtocol:
 		self.localConfigFile = "/local/local.json"
 		self.devices = "/data/devices.json"
 		# this script retrieves the environmental variables
-		self.getEnvScriptPath = "/solar-protocol/protocol/get_env.sh"
 		self.localConfigData = dict()
 		self.loadLocalConfigFile()
         self.myIP = requests.get('http://localhost:11221/api/myip').text
@@ -80,15 +79,12 @@ class SolarProtocol:
 			return 1
 
 	# runs the environmental variable GET script and returns the specified variable
-	def getEnv(self, thisEnv):
-		#subprocess.Popen('. ./home/pi/solar-protocol/backend/get_env.sh', shell=true)
-		proc = subprocess.Popen(['bash',self.getEnvScriptPath,thisEnv], stdout=subprocess.PIPE)
-		e = proc.stdout.read()
-		#convert byte string to string
-		e = e.decode("utf-8") 
-		#remove line breaks
-		e = e.replace("\n", "")
-		return e
+	def getSecret(self, secretKey):
+        secretsFilepath = f"/local/secrets.json"
+        with open(secretsFilepath) as secretsFile:
+            secrets = json.load(secrets)
+
+        return secrets[secretKey]
 
 	# returns the device's MAC address at the specified interface
 	# this only works with linux

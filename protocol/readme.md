@@ -34,13 +34,3 @@ The templates directory contains template files for all of the pages
 
 * these scripts are the login pages for the admin console on the site
 
-## Visualization
-
-## get_env & set_env
-
-* these scripts enable setting and getting passwords
-
-## To do
-
-Make use of the class' state now that they are all run from one script
-Clean up SP and CP scripts...

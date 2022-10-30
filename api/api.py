@@ -287,7 +287,7 @@ def getLocal(key: Union[SystemKeys, None]):
 
 
 @app.post("/api/local")
-def updateProfileImage(
+def updateLocal(
     name: Union[str, None] = Form(),
     description: Union[str, None] = Form(),
     location: Union[str, None] = Form(),
@@ -297,6 +297,7 @@ def updateProfileImage(
     lon: Union[str, None] = Form(),
     pvWatts: Union[str, None] = Form(),
     pvVolts: Union[str, None] = Form(),
+    httpPort: Union[str, None] = Form(),
 ):
     formData = {
         "name": name,
@@ -308,6 +309,7 @@ def updateProfileImage(
         "lon": lon,
         "pvWatts": pvWatts,
         "pvVolts": pvVolts,
+        "httpPort": httpPort,
     }
 
     # filter out empty or none
@@ -322,140 +324,37 @@ def updateProfileImage(
     with open(filename, "w") as localfile:
         json.dump(local, localfile)
 
-    def frontend_admin_settings():
-        return true
+    return local
 
+class SecretKey(str, Enum):
+    apiKey = "apiKey"
+    dnsPassword = "dnsPassword"
 
-# <?php
-#  //read local file
-#  $localFile = '/home/pi/local/local.json';
-#  $imgDir = '/home/pi/local/www/';
-#
-#  $spenv = '/home/pi/local/.spenv';
-#
-#  $localInfo = json_decode(getFile($localFile), true);
-#
-#  $apiErr = $dnsErr = $httpErr = "";
-#
-#  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-#      if (isset($_POST['key']) && $_POST['key'] == "form") {
-#          //handle the form data
-#
-#          for ($k = 0; $k < count(array_keys($_POST));$k++) {
-#              //echo array_keys($_POST)[$k];
-#
-#              if (isset($_POST['apiKey'])) {
-#                  if (empty($_POST['apiKey'])) {
-#                      $apiErr = "No data entered.";
-#                  } else {
-#                      //$localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
-#                      setEnv('API_KEY', $_POST['apiKey']);
-#                      //echo('API key received');
-#                  }
-#              } elseif (isset($_POST['dnsPW'])) {
-#                  if (empty($_POST['dnsPW'])) {
-#                      $dnsErr = "No data entered.";
-#                  } else {
-#                      //$localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
-#                      setEnv('DNS_KEY', $_POST['dnsPW']);
-#                      //echo('DNS key received');
-#                  }
-#              } elseif (isset($_POST['httpPort'])) {
-#                  if (! is_numeric($_POST['httpPort']) || strpos($_POST['httpPort'], '.')) {
-#                      $httpErr = "Port value is not an integer.";
-#                  } else {
-#                      $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
-#                  }
-#              } else {
-#                  $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
-#              }
-#          }
-#
-#          file_put_contents($localFile, json_encode($localInfo, JSON_PRETTY_PRINT));
-#      } elseif (isset($_POST['key']) && $_POST['key'] == "file") {
-#          //handle the file
-#          //echo "file";
-#          Upload\uploadIt();
-#      }
-#  }
-#
-#  if (isset($localInfo["httpPort"])) {
-#      $httpPort = $localInfo["httpPort"];
-#  } else {
-#      $httpPort = "80"; //display default port if no custom port info is found
-#  }
-#
-#  //front end form for https needed
-#  /*if (isset($localInfo["httpsPort"])){
-#    $httpPort = $localInfo["httpsPort"];
-#  }*/
-#
-#  function test_input($data)
-#  {
-#      /* $data = str_replace("\r", " ", $data) //rm line breaks
-#       $data = str_replace("\n", " ", $data) //rm line breaks
-#       $data = str_replace("  ", " ", $data) //replace double spaces with single space*/
-#      $data = str_replace(array("\n", "\r", "  "), ' ', $data);
-#      $data = trim($data);
-#      $data = stripslashes($data);
-#      $data = htmlspecialchars($data);
-#      return $data;
-#  }
-#
-#  //add in a validation test?
-#  /*function testAPIkey($data){
-#    echo !empty($data);
-#    if(!empty($data)){
-#      return true;
-#    } else {
-#      return false;
-#    }
-#  }*/
-#
-#  function getFile($fileName)
-#  {
-#      //echo $fileName;
-#      try {
-#          return file_get_contents($fileName);
-#      } catch(Exception $e) {
-#          echo $fileName;
-#          return false;
-#      }
-#  }
-#
-#  function setEnv($envKey, $envVal)
-#  {
-#      global $spenv;
-#      //test inputs
-#      $envKey = test_input($envKey);
-#      $envVal = test_input($envVal);
-#
-#      /*  $execCmd = escapeshellcmd("bash /home/pi/solar-protocol/backend/set_env.sh \"${envKey}\" \"${envVal}\"");
-#
-#        exec($execCmd, $shOutput);
-#
-#        var_dump($shOutput);*/
-#      if (file_exists($spenv)) {
-#          //read in file
-#          $envVar = file($spenv);
-#
-#          //var_dump($envVar);
-#
-#          $newEnv = fopen($spenv, "w");
-#
-#          for ($l = 0; $l < count($envVar); $l++) {
-#              if (strpos($envVar[$l], "export {$envKey}=") === false && $envVar[$l] !== "" && $envVar[$l] !== "\n") {
-#                  fwrite($newEnv, $envVar[$l]);
-#              }
-#          }
-#
-#          fwrite($newEnv, "export {$envKey}={$envVal}\n");
-#          fclose($newEnv);
-#      } else {
-#          $output = "export {$envKey}={$envVal}\n";
-#          /*    echo $output;*/
-#          $newEnv = fopen($spenv, "w");
-#          fwrite($newEnv, $output);
-#          fclose($newEnv);
-#      }
-# }
+@app.post("/api/secret")
+def setEnv(key: SecretKey, value: str):
+    if not isHash(value):
+        raise Error(f"Secret value for `{key}` not a valid hash") 
+
+    if value == hash(""):
+        raise Error(f"Secret value for `{key}` is empty, will not continue")
+
+    if value in top_500_password_hashes:
+        raise Error(f"Secret value for `{key}` is in top 500 passwords, please choose another")
+
+    secretsFilepath = f"/local/secrets.json"
+    if os.path.exists(secretsFilePath):
+        with open(secretsFilepath, "r") as secretsFile:
+            secrets = json.load(secretsFile)
+    else:
+        secrets = {
+            SecretKey.apiKey: "",
+            SecreyKey.dnsPassword: "",
+        }
+
+    secrets[key] = value
+
+    with open(secretsFilepath, "w") as secretsFile:
+        json.dump(secrets, secretsFile)
+
+    with open(secretsFilePath, "r") as secretsFile:
+        return json.load(secretsFile)

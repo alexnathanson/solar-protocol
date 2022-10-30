@@ -327,7 +327,7 @@ def circles():
 def getColor(ip):
     DEFAULT_COLOR = (1, 1, 1)
     try:
-        color = getSysInfo(ip, "color")
+        color = getSystemInfoValue(ip, "color")
     except:
         return DEFAULT_COLOR
 
@@ -341,7 +341,7 @@ def getTimezone(ip):
     # defaults to NYC time - default to UTC in the future
     DEFAULT_TIMEZONE = "America/New_York"
     try:
-        timezone = getSysInfo(ip, "tz")
+        timezone = getSystemInfoValue(ip, "tz")
     except:
         return DEFAULT_TIMEZONE
 
@@ -371,7 +371,7 @@ def main():
 
     # in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
-    myTimeZone = getSysInfo("localhost", "tz")
+    myTimeZone = getSystemInfoValue("localhost", "tz")
 
     colors = []
 

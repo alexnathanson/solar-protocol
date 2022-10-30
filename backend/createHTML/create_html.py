@@ -27,7 +27,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
     templatePath = "templates/"
     outputPath = rootPath + "frontend/"
     deviceList = rootPath + "/dev-data/deviceList.json"
-    imgDST = rootPath + "frontend/images/servers/serverprofile.png"
+    imgDst = rootPath + "frontend/images/servers/serverprofile.png"
     localDataSrc = chargeControllerDataPath
 else:
     path = "/home/pi/solar-protocol/backend"
@@ -37,7 +37,7 @@ else:
     templatePath = path + "/createHTML/templates/"
     outputPath = rootPath + "solar-protocol/frontend/" 
     deviceList = path + "/data/deviceList.json"
-    imgDST = "home/pi/local/www/serverprofile.gif"
+    imgDst = "/home/pi/local/www/serverprofile.gif"
     localDataSrc = rootPath + "local/"
 
 dstIP = []
@@ -101,6 +101,8 @@ def render_pages(_local_data, _data, _weather, _server_data):
         ("solar-web_template.html", "solar-web.html"),
         ("manifesto_template.html", "manifesto.html"),
         ("library_template.html", "library.html"),
+        ("guides_template.html", "guides.html"),
+         ("site_guide_template.html", "site-guide.html"),
     ]
 
     #get the current time

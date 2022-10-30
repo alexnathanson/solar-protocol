@@ -16,6 +16,8 @@ charge-controller/data/
 /backend/createHTML/local/*
 /backend/createHTML/viz-html/*
 
+/frontend/images/clock.png
+
 backend/api/v1/deviceList.json
 backend/visualization/clock.png
 

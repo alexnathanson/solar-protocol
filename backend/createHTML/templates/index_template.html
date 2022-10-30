@@ -1,99 +1,268 @@
-{% extends "base-template.html" %} {% block content %}
-{% if batteryPercentage >= 30 %}
-  <div class="title-text">
-    <div class="full-width-image">
-      <img src="{{leadImage}}" />
-    </div>
+{% extends "base-template.html" %} {% block content %} {% if batteryPercentage
+>= 30 %}
+<div class="title-text">
+  <div class="full-width-image">
+    <img src="{{leadImage}}" />
   </div>
-  <div class="onecol-text">
-    <div class="caption">
-      Each ring of the diagram represents a server in the network. Sunlight levels are shown in yellow. The
-      colored bars represent which server has been the active server in the network over the past 72 hours.
-      <hr />
-    </div>
-  </div>
-{% else %}
-{% endif %}
+</div>
 <div class="onecol-text">
-    <h3>About</h3>
-    <p>
-      Solar Protocol is a web platform hosted across a network of solar-powered servers set 
-      up in different locations around the world. A solar-powered server is a computer that is 
-      powered by a solar panel and a small battery. Each server can only offer intermittent connectivity 
-      that is dependent on available sunshine, the length of day and local weather conditions. When 
-      connected as a network, the servers coordinate to serve a website from whichever of them is 
-      enjoying the most sunshine at the time.  
-    </p>
-    <p>
-      With servers located in different time zones, seasons and weather systems, 
-      the network directs internet traffic to wherever the sun is shining. 
-      When your browser makes a request to see this website, it is sent 
-      to whichever server in the network is generating the most energy. For example, 
-      right now you are seeing the version of this website that is hosted on {{name}} server located in {{location}} where it is {{time}} and the weather is {{weather}}.
-    </p>
-    <p>
-      The Solar Protocol network explores the sun’s interaction with Earth as a form of logic that shapes the daily behaviors, seasonal activities and the decision making of almost all life forms. Solar Protocol honors this natural logic, exploring it as a form of intelligence that is used to automate decisions in a digital network.
-    </p>
-    <h4>How does it work?</h4>
-    <p>
-      A solar panel recharges a battery that provides energy for a small computer set up at each project location around the world. As the sun rises and sets, each server becomes active or inactive as its solar panel goes into sunlight or darkness. Traffic is redirected between servers depending on where there is the most light.
+  <div class="caption">
+    Each ring of the diagram represents a server in the network. Sunlight levels
+    are shown in yellow. The colored bars represent which server has been the
+    active server in the network over the past 72 hours.
+    <hr />
+  </div>
+</div>
+{% else %} {% endif %}
+<div class="onecol-text">
+  <!-- News -------------------------------------------------->
 
-    </p>
-    <p>
-      Solar Protocol uses everyday internet technologies like the Domain Network Service (DNS) protocol, a decentralized system that associates a URL address to the IP address of a server. In short, DNS is the system that dictates the path between client and server. For large-scale, high volume web services that use multiple servers hosted in different locations, the DNS protocol typically directs network traffic to whichever server gives the quickest response time. For example, when making a Google search, your request would be sent to whichever Google server responds the quickest which is usually the server that is the closest geographically. This prioritizes speed over all other factors that determine how a network operates, a characteristic that is prevalent in much digital culture. 
-    </p>
+  <h3>News</h3>
+  <input type="checkbox" class="read-more-state" id="post-1" />
+  <div class="read-more-wrap">
+    <div class="update">
+      Aug 2022 → Join us for a Solar Protocol Hackathon on August 13 online.
+      <a
+        href="https://www.eventbrite.com/e/solar-protocol-hackathon-tickets-383526487047"
+        target="blank"
+      >
+        Register for the details here.
+      </a>
+    </div>
+
+    <div class="update">
+      July 2022 → We're super happy to welcome a new steward at Swarthmore
+      College, Pennsylvania. Big thanks to Pixel who has is maintaining a Solar
+      Protocol server there.
+    </div>
+
+    <div class="update">
+      June 2022 → In late June you will find us at the Limits Conference, where
+      we will present on the design approach behind the Solar Protocol project,
+      what we are calling energy-centered design. In our paper, we ask what
+      would UX design, ICT and the internet look like, if their energy
+      implications were considered in how they are designed and operated?
+      <a
+        href="https://computingwithinlimits.org/2022/papers/limits22-final-Brain.pdf"
+        target="blank"
+      >
+        Read it here.
+      </a>
+    </div>
+
+    <div class="update">
+      June 2022 → For the past few months, we've been working on developing and
+      hosting a site for the
+      <a href="http://solarpunk.solarprotocol.net/">
+        Solar Punk storytelling Contest
+      </a>
+      organized by the XR Wordsmiths of Extinction Rebellion. The gorgeous site
+      was designed by Theresa Merchant.
+    </div>
+
+    <span class="read-more-target">
+      <div class="update">
+        Mar 2022 → This March, members of the Solar Protocol team virtually
+        attended
+        <a
+          href="https://www.fiber-space.nl/project/natural-intelligence/"
+          target="blank"
+        >
+          Fiber Festival
+        </a>
+        in the Netherlands, and ran a hybrid workshop on the question of
+        ‘natural intelligence’.
+      </div>
+
+      <div class="update">
+        Jan 2022 → We are thrilled to have received a
+        <a
+          href="https://foundation.mozilla.org/en/blog/10-projects-rethinking-data-stewardship-announcing-mozillas-latest-creative-media-awards/"
+          target="blank"
+        >
+          Mozilla Creative Media award
+        </a>
+        in 2022. This will fund further development of the Solar Protocol
+        software, the development of educational resources on low power web
+        development and experimental projects to host on the platform.
+      </div>
+    </span>
   </div>
 
+  <label for="post-1" class="read-more-trigger"></label>
+  <hr />
+  <!-- About -------------------------------------------------->
+
+  <h3>About</h3>
+  <p>
+    Solar Protocol is a web platform hosted across a network of solar-powered
+    servers set up in different locations around the world. A solar-powered
+    server is a computer that is powered by a solar panel and a small battery.
+    Each server can only offer intermittent connectivity that is dependent on
+    available sunshine, the length of day and local weather conditions. When
+    connected as a network, the servers coordinate to serve a website from
+    whichever of them is enjoying the most sunshine at the time.
+  </p>
+  <p>
+    With servers located in different time zones, seasons and weather systems,
+    the network directs internet traffic to wherever the sun is shining. When
+    your browser makes a request to see this website, it is sent to whichever
+    server in the network is generating the most energy. For example, right now
+    you are seeing the version of this website that is hosted on {{name}} server
+    located in {{location}} where it is {{time}} and the weather is {{weather}}.
+  </p>
+  <p>
+    The Solar Protocol network explores the sun’s interaction with Earth as a
+    form of logic that shapes the daily behaviors, seasonal activities and the
+    decision making of almost all life forms. Solar Protocol honors this natural
+    logic, exploring it as a form of intelligence that is used to automate
+    decisions in a digital network.
+  </p>
+  <h4>How does it work?</h4>
+  <p>
+    A solar panel recharges a battery that provides energy for a small computer
+    set up at each project location around the world. As the sun rises and sets,
+    each server becomes active or inactive as its solar panel goes into sunlight
+    or darkness. Traffic is redirected between servers depending on where there
+    is the most light.
+  </p>
+  <p>
+    Solar Protocol uses everyday internet technologies like the Domain Network
+    Service (DNS) protocol, a decentralized system that associates a URL address
+    to the IP address of a server. In short, DNS is the system that dictates the
+    path between client and server. For large-scale, high volume web services
+    that use multiple servers hosted in different locations, the DNS protocol
+    typically directs network traffic to whichever server gives the quickest
+    response time. For example, when making a Google search, your request would
+    be sent to whichever Google server responds the quickest which is usually
+    the server that is the closest geographically. This prioritizes speed over
+    all other factors that determine how a network operates, a characteristic
+    that is prevalent in much digital culture.
+  </p>
+</div>
+<!-- end onecol-text -->
 {% if batteryPercentage >= 30 %}
-  <img class="full-col" src="images/earth-sun.gif" />
-  <div class="onecol-text">
+<img class="full-col" src="images/earth-sun.gif" />
+<div class="onecol-text">
   <div class="caption">
     The position of sun relative to earth produces the routing logic of the
     network.
   </div>
 </div>
-{% else %}
-{% endif %}
-  <div class="onecol-text">
-    <p>
-      But it doesn’t have to work this way. Instead, the Solar Protocol network is built with a different logic based on the sun, automatically directing traffic to whichever server is generating the most solar energy at the time of the request. Decisions about where to move computational activity in the network are made according to where there is the most naturally available energy, rather than according to what would produce the quickest results for the user. In other words, in Solar Protocol, the distribution of sunshine (and therefore energy) across the planet determines the path from client to server. 
-    </p>
-
-    <h4>Why does the appearance of this website change from time to time?</h4>
-    <p>
-      Right now this website is being delivered to you from the {{name}} server located in {{location}}. This website may look different depending on which server is displaying this website. That’s because the people stewarding each server can  choose to customize their local version of this website. These variations in design and content are visible when their server is the active server.
-    </p>
-    <p>
-      The appearance of this website is also energy responsive. Our software changes the styling and resolution of the media on this website according to how much energy is stored in the battery of the active server. This means it may look different at different times of the day or depending on the seasons of the year. If the battery level at the active server is low, this website is displayed in low resolution mode, without images. This reduces the size of the page and therefore the energy required to send it to people who are looking at it on the internet. If more stored energy is available, the site will appear at a higher resolution with heavier media such as images and graphics. 
-    </p>
-    <p>
-      Occasionally the website may go down if there is insufficient energy stored at all of the servers. As our network grows and we set up more servers in more time zones and climates, this should happen less and less (and if you’re interested in setting one up, <a href="/call.html">read more here</a>). It’s always sunny somewhere! 
-    </p>
-    <h4>Credits</h4>
-    <p>
-      Solar Protocol is led by
-      <a href="http://tegabrain.com/">Tega Brain</a>,
-      <a href="https://alexnathanson.com/">Alex Nathanson</a> and
-      <a href="https://engineering.nyu.edu/faculty/benedetta-piantella"
-        >Benedetta Piantella</a
-      >. 
-    </p>
-    <h4>Special thanks</h4>
-    <p>
-      We wish to thank all of the server stewards and everyone who has supported our progress with advice and feedback including <a href="https://www.annepasek.com/">Anne Pasek</a>, <a href="https://www.caddiebrain.com/">Caddie Brain</a>, Brendan Phelan, John Samoza, Camilo Rodriguez Beltran, Daniel Ñuñez, Alejandro Rebolledo, Graham Wilfred Jnr, Tim Chatwin, Bridgit Chappell, Baoyang Chen, Denzel J. Wamburu, Cyrus K, Chris Stone, Jesse Li, Zoë Horsten and Jarl Schulp. Thank you to Taeyoon Choi, Crystal Chen, <a href="https://lav.io/">Sam Lavigne</a>, Dan Phiffer, Mitchell
-      Whitelaw, <a href="https://unoseistres.com/">Sharon De La Cruz</a> and the staff and fellows at <a href="https://www.eyebeam.org/">Eyebeam for your advice and support</a>.
-    </p>
+{% else %} {% endif %}
+<div class="onecol-text">
+  <p>
+    But it doesn’t have to work this way. Instead, the Solar Protocol network is
+    built with a different logic based on the sun, automatically directing
+    traffic to whichever server is generating the most solar energy at the time
+    of the request. Decisions about where to move computational activity in the
+    network are made according to where there is the most naturally available
+    energy, rather than according to what would produce the quickest results for
+    the user. In other words, in Solar Protocol, the distribution of sunshine
+    (and therefore energy) across the planet determines the path from client to
+    server.
   </p>
-   <p>This project is supported by:</p> 
-    <ul>
-      <li> <a href="https://foundation.mozilla.org/en/blog/10-projects-rethinking-data-stewardship-announcing-mozillas-latest-creative-media-awards/" target="_blank">Mozilla's Creative Media Award</a></li>
-      <li>
-        The <a href="https://www.eyebeam.org/rapidresponse/" target="_blank">Eyebeam Rapid Response</a>
-        for a Better Digital Future program
-      </li>
-      <li><a href="https://incubator.codeforscience.org/" target="_blank">Code for Science & Society's Digital Infrastructure Incubator</a></li> 
-    </p>
-  </ul>
-  </div>
-{% endblock %}
 
+  <h4>Why does the appearance of this website change from time to time?</h4>
+  <p>
+    Right now this website is being delivered to you from the {{name}} server
+    located in {{location}}. This website may look different depending on which
+    server is displaying this website. That’s because the people stewarding each
+    server can choose to customize their local version of this website. These
+    variations in design and content are visible when their server is the active
+    server.
+  </p>
+  <p>
+    The appearance of this website is also energy responsive. Our software
+    changes the styling and resolution of the media on this website according to
+    how much energy is stored in the battery of the active server. This means it
+    may look different at different times of the day or depending on the seasons
+    of the year. If the battery level at the active server is low, this website
+    is displayed in low resolution mode, without images. This reduces the size
+    of the page and therefore the energy required to send it to people who are
+    looking at it on the internet. If more stored energy is available, the site
+    will appear at a higher resolution with heavier media such as images and
+    graphics.
+  </p>
+  <p>
+    Occasionally the website may go down if there is insufficient energy stored
+    at all of the servers. As our network grows and we set up more servers in
+    more time zones and climates, this should happen less and less (and if
+    you’re interested in setting one up,
+    <a href="/call.html">read more here</a>
+    ). It’s always sunny somewhere!
+  </p>
+  <hr />
+  <!-- Network -------------------------------------------------->
+
+  <h3>Network</h3>
+</div>
+<img class="full-col" src="images/full-map.jpeg" />
+<div class="onecol-text">
+  <div class="caption">Server locations as of October 2022.</div>
+  <p>
+    The Solar Protocol project is maintained by a community of volunteers around
+    the world who have set up servers in different locations and timezones. If
+    you are interested in hosting a server, please see our
+    <a href="call.html">call for stewards</a>
+    and read the FAQ closely. It can be suprisingly difficult to find an
+    appropriate and secure location for the server.
+  </p>
+  <hr />
+  <!-- Credits -------------------------------------------------->
+
+  <h3>Credits</h3>
+  <p>
+    Solar Protocol is led by
+    <a href="http://tegabrain.com/">Tega Brain</a>
+    ,
+    <a href="https://alexnathanson.com/">Alex Nathanson</a>
+    and
+    <a href="https://engineering.nyu.edu/faculty/benedetta-piantella">
+      Benedetta Piantella.
+    </a>
+  </p>
+  <h4>Special thanks</h4>
+  <p>
+    We wish to thank all of the server stewards and everyone who has supported
+    our progress with advice and feedback including
+    <a href="https://www.annepasek.com/">Anne Pasek</a>
+    ,
+    <a href="https://www.caddiebrain.com/">Caddie Brain</a>
+    , Brendan Phelan, John Samoza, Camilo Rodriguez Beltran, Daniel Ñuñez,
+    Alejandro Rebolledo, Graham Wilfred Jnr, Tim Chatwin, Bridgit Chappell,
+    Baoyang Chen, Denzel J. Wamburu, Cyrus K, Chris Stone, Jesse Li, Zoë Horsten
+    and Jarl Schulp. Thank you to Taeyoon Choi, Crystal Chen,
+    <a href="https://lav.io/">Sam Lavigne</a>
+    , Dan Phiffer, Mitchell Whitelaw,
+    <a href="https://unoseistres.com/">Sharon De La Cruz</a>
+    and the staff and fellows at
+    <a href="https://www.eyebeam.org/">Eyebeam for your advice and support</a>
+    .
+  </p>
+
+  <p>This project is supported by:</p>
+  <ul>
+    <li>
+      <a
+        href="https://foundation.mozilla.org/en/blog/10-projects-rethinking-data-stewardship-announcing-mozillas-latest-creative-media-awards/"
+        target="_blank"
+      >
+        Mozilla's Creative Media Award
+      </a>
+    </li>
+    <li>
+      The
+      <a href="https://www.eyebeam.org/rapidresponse/" target="_blank">
+        Eyebeam Rapid Response
+      </a>
+      for a Better Digital Future program
+    </li>
+    <li>
+      <a href="https://incubator.codeforscience.org/" target="_blank">
+        Code for Science & Society's Digital Infrastructure Incubator
+      </a>
+    </li>
+  </ul>
+</div>
+{% endblock %}

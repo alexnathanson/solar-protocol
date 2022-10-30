@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style-large.css" />
+    <link rel="stylesheet" href="style-large.css?v=1" />
     <title>Solar Protocol</title>
     <meta name="author" content=" Tega Brain, Alex Nathanson and Benedetta Piantella." />
     <meta name="twitter:card" content="summary_large_image" />
@@ -12,7 +12,7 @@
     <meta name="twitter:image" content="images/full-images/logo.gif" />
     <meta property="og:title" content="Solar Protocol" />
     <meta property="og:image" content="images/full-images/logo.gif" />
-    <link rel="icon" href="favicon.png" />
+    <link rel="icon" href="images/favicon.png" />
     <style>
           {% if batteryPercentage >= 30 %}
           {% else %}
@@ -20,24 +20,21 @@
           header {color: black; }
           {% endif %}
           a:hover { color: {{bgColor}} };
-
-
     </style>
   </head>
-    <body>
-      <div class="container">
-
-        <nav>
+  <body>
+    <div class="container">
+      <nav>
           <ul class="no-bullets">
             <li><a href="index.html">Home</a> •</li>
-            <li><a href="network.html">Network</a> •</li>
             <li><a href="manifesto.html">Manifesto</a> •</li>
             <li><a href="documentation.html">Tech</a> •</li>
+            <li><a href="guides.html">Guides</a> •</li>
             <li><a href="library.html">Library</a></li>
           </ul>
-        </nav>
+      </nav>
   {% if batteryPercentage >= 30 %}
-      <header
+    <header
       style="background-image: linear-gradient(
       to top,
       {{bgColor}},
@@ -49,32 +46,29 @@
     color: white;"
     >
   {% else %}
-  <!-- <header
-  style="background-image: linear-gradient(
-  to top,
-  {{bgColor}},
-  {{bgColor}},
-  white,
-  white
-);"> -->
+
 <header style="background-color: white;">
   {% endif %}
   {% if batteryPercentage >= 30 %}
 
   {% else %}
   <div class="lowres" style="background-color: {{bgColor}};">
-    SERVER BATTERY LEVEL LOW<br>YOU ARE VIEWING THIS SITE IN LOW RES MODE</div>
+    SERVER BATTERY LEVEL LOW<br>YOU ARE VIEWING THIS SITE IN LOW RES MODE
+  </div>
   {% endif %}
         <div class="sub-heading">
           <h1><a href="index.html">Solar Protocol</a></h1>
           <p>A naturally intelligent network.</p>
           <p>
-            This website is hosted across a network of solar powered servers and is sent to you from wherever there is the most sunshine.
-
-            
+            This website is hosted across a network of solar powered servers and is sent to you from whichever server is in the most sunshine.
           </p>
           <p>
-            <table>
+            Presently you are on a server called {{name}} that is located in {{location}},
+            {{city}}, {{country}}.
+
+          </p>
+
+            <table class="side">
               <tr>
                 <td>Server Battery:</td>
                 <td>
@@ -83,22 +77,15 @@
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td>Site Render Status:</td>
-                <td>{{mode}}</td>
-              </tr>
-              <tr>
-                <td>Last update:</td>
-                <td>{{time}} in {{zone}}</td>    
-              </tr>
           </table>
-        </p>
-        </div>
-          <div class="row">
-          <h5>ACTIVE SERVER</h5>
+        </div> <!-- end of subheading -->
+
+         <div class="row">
+          <h5>SERVER INFORMATION</h5>
           <div class="side-box">
             <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}</p>
+            <p><i>Location:</i> {{location}}, {{country}}.</p>
+            <p><i>Steward: </i>{{description}}</p>
             {% if batteryPercentage >= 30 %}
             <div class="fill">
               <img src="local/serverprofile.gif" />
@@ -106,135 +93,105 @@
             </div>
             {% else %}
             {% endif %}
+            </div>
+          </div> <!-- end of row -->
 
+         
 
-        <!-- <div class="row">
-  
-          <div class="side-box">
-            <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}, {{country}}</p>
-          </div>
-
-          <div class="fill">
-            <h4></h4>
-            {% if batteryPercentage >= 30 %}
-            <img src="images/server.gif" />
-            {% else %}
-            {% endif %}
-            <div class="clr"></div>
-          </div>
-        </div>
-        <div class="row"> -->
-        </div>
-      </div>
-      <div class="row">
-          <h5>SERVER STEWARD</h5>
-          <div class="side-box">
-        <p>
-              Presently you are on a server called {{name}} that is located in {{location}},
-              {{city}} as this is the server receiving the most sunshine in our network at the moment.
-
-            </p><br>
-            <p>About your server steward:</p>
-            <p>{{description}}</p>
-          </div>
-        </div>
         <div class="row">
-        <h5>PLACE</h5>  
-        <div class="side-box">
-        <p>
-        <table>
-          <tr>
-            <td>City:</td>
-            <td>{{city}}</td>         
-          </tr>
-          <tr>
-            <td>Country:</td>
-            <td>{{country}}</td>           
-          </tr>
-          <tr>
-            <td>Local time:</td>
-            <td>{{time}}</td>          
-          </tr>
-          <tr>
-            <td>Weather:</td>
-            <td>{{weather}}</td>           
-          </tr>
-          <tr>
-            <td>Temp:</td>
-            <td>{{temp}} &#176; C</td>           
-          </tr>
-          <tr>
-            <td>Feels like:</td>
-            <td>{{feelsLike}} &#176; C</td>           
-          </tr>
-          <tr>
-            <td>Sunrise:</td>
-            <td>{{sunrise}}</td>       
-          </tr>
-          <tr>
-            <td>Sunset:</td>
-            <td>{{sunset}}</td>
-          </tr> 
-      </table>
-    </p>  
-  </div>
-</div>
-<div class="row">
-          <h5>ENERGY</h5>
-          <div class="side-box">
-        <p>
-          <table>
-            <tr>
-              <td>Battery Level:</td>
-              <td>   
-                {{batteryPercentage}}%
-              </td>
-             
-            </tr>
-            <tr>
-              <td>Battery Voltage:</td>
+                <h5>PLACE</h5>  
               
-              <td>{{batteryVoltage}} volts</td>
-             
-            </tr>
-            <tr>
-              <td>PV Power:</td>
-              <td>{{solarPowerL}} watts</td>            
-            </tr>
-            <tr>
-              <td>PV Voltage:</td>
-              <td>{{solarVoltage}} volts</td>           
-            </tr>
-            <tr>
-              <td>PV Current:</td>
-              <td>{{solarCurrent}} amps</td>             
-            </tr>
-            <tr>
-              <td>Load Power:</td>
-              <td>{{loadPower}} watts</td>           
-            </tr>
-            <tr>
-              <td>Load Voltage:</td>
-              <td>{{loadVoltage}} volts</td>            
-            </tr>
-            <tr>
-              <td>Load Current:</td>
-              <td>{{loadCurrent}} amps</td>
-            </tr>
-        </table>
-      </p>
-
-    </div>
-     
+                    <table class="side">
+                      <tr>
+                        <td>City:</td>
+                        <td>{{city}}</td>         
+                      </tr>
+                      <tr>
+                        <td>Country:</td>
+                        <td>{{country}}</td>           
+                      </tr>
+                      <tr>
+                        <td>Local time:</td>
+                        <td>{{time}}</td>          
+                      </tr>
+                      <tr>
+                        <td>Weather:</td>
+                        <td>{{weather}}</td>           
+                      </tr>
+                      <tr>
+                        <td>Temp:</td>
+                        <td>{{temp}} &#176; C</td>           
+                      </tr>
+                      <tr>
+                        <td>Feels like:</td>
+                        <td>{{feelsLike}} &#176; C</td>           
+                      </tr>
+                      <tr>
+                        <td>Sunrise:</td>
+                        <td>{{sunrise}}</td>       
+                      </tr>
+                      <tr>
+                        <td>Sunset:</td>
+                        <td>{{sunset}}</td>
+                      </tr> 
+                    </table>
+ 
+        </div> <!-- end of row -->
+            <div class="row">
+                  <h5>ENERGY</h5>
+                  
+                  <table class=side>
+                    <tr>
+                      <td>Last update:</td>
+                      <td>{{time}} in {{zone}}</td>    
+                    </tr>
+                    <tr>
+                      <td>Battery Level:</td>
+                      <td>   
+                        {{batteryPercentage}}%
+                      </td>
+                    
+                    </tr>
+                    <tr>
+                      <td>Battery Voltage:</td>
+                      
+                      <td>{{batteryVoltage}} volts</td>
+                    
+                    </tr>
+                    <tr>
+                      <td>PV Power:</td>
+                      <td>{{solarPowerL}} watts</td>            
+                    </tr>
+                    <tr>
+                      <td>PV Voltage:</td>
+                      <td>{{solarVoltage}} volts</td>           
+                    </tr>
+                    <tr>
+                      <td>PV Current:</td>
+                      <td>{{solarCurrent}} amps</td>             
+                    </tr>
+                    <tr>
+                      <td>Load Power:</td>
+                      <td>{{loadPower}} watts</td>           
+                    </tr>
+                    <tr>
+                      <td>Load Voltage:</td>
+                      <td>{{loadVoltage}} volts</td>            
+                    </tr>
+                    <tr>
+                      <td>Load Current:</td>
+                      <td>{{loadCurrent}} amps</td>
+                    </tr>
+                </table>
+            </div> <!-- end of row -->
       </header>
       {% if batteryPercentage >= 30 %}
       <main>
       {% else %}
       <main style="padding-top: 20px;">
-        {% endif %}
-        
-        {% block content %}{% endblock %}</main>
-    </div>
+        {% endif %}   
+        {% block content %}{% endblock %}
+      </main>
+    </div> <!-- end of container -->
   </body>
 </html>

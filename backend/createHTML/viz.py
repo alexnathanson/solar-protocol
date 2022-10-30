@@ -337,7 +337,7 @@ def main():
     log = getDeviceInfo('log')
     serverNames = getDeviceInfo('name')
 
-    # print (dstIP)
+    print (dstIP)
     # print (serverNames)
 
     #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
@@ -385,10 +385,9 @@ def main():
     #customize inside labels
     server_names = getDeviceInfo('name')
     # print("server names", len(server_names))
-
+    
     # go over ccData for each server
     for i, item in enumerate(ccData):
-
         # print name of each server
         text_curve(i+2, server_names[i], 0, 18, 18)
         #draw sun data for each server

@@ -1,136 +1,895 @@
 {% extends "base-template.html" %} {% block content %}
-<div class="onecol-text">
-  <h3>Solar Protocol Library</h3>
-  <h4>Texts on Culture and Energy</h4>
-  <ul>
-    <li>
-      Timothy Mitchell.
-      <a href="https://www.versobooks.com/books/1020-carbon-democracy" target="_blank" >Carbon Democracy</a
-      >(2011).
-  
-    </li>
-    <li>
-      Georges Bataille. <a href="https://en.wikipedia.org/wiki/The_Accursed_Share"
-         target="_blank">The Accursed Share.</a
-      > (1949).
-    </li>
-    <li>
-      Robin Wall Kimmerer.
-      <a href="https://milkweed.org/book/braiding-sweetgrass"
-          target="_blank" >Braiding Sweetgrass Indigenous Wisdom, Scientific Knowledge and the
-        Teachings of Plants</a
-      >
-      (2014).
-    </li>
-    <li>Barry Lord. Art and Energy (2014).</li>
-    <li>
-      <a href="https://branch.climateaction.tech/about/" target="_blank">Branch Magazine</a>
-    </li>
-    <li>
-      Anne Pasek.
-      <a href="https://estsjournal.org/index.php/ests/article/view/363"
-        target="_blank">Low-Carbon Research: Building a Greener and More Inclusive Academy</a
-      > (2020).
-    </li>
-    <li>Alex Nathanson. <a href="https://www.routledge.com/A-History-of-Solar-Power-Art-and-Design/Nathanson/p/book/9780367465681" target="_blank">A History of Solar Power Art and Design</a> (2021).
-    </li>
-  </ul>
-  <h4>Projects on Digital Culture and Energy</h4>
-  <ul>
-    <li>Low Tech Magazine. 
-      <a href="https://solar.lowtechmagazine.com/" target="_blank">Solar Powered Website</a> (2019).
-    </li>
-    <li>Daniel Parnitzke.
-      <a href="http://pleasureinscarcity.com" target="_blank">Finding Pleasure in Scarcity</a> (2020).
-    </li>
-    <li>Joana Moll. 
-      <a href="https://www.janavirgin.com/AMZ/" target="_blank"
-        >Hidden Life of the Amazon User</a
-      >
-      (2019).
-    </li>
-    <li>Alex Nathanson.
-      <a href="https://www.solarpowerforartists.com/" target="_blank"
-        >Solar Power for Artists</a> (2018).
-    </li>
-    <li>Julian
-      Oliver.
-      <a href="https://julianoliver.com/output/harvest" target="_blank">Harvest</a> (2018).
-    </li>
-    <li> Joana Moll. 
-      <a href="http://www.janavirgin.com/CO2/" target="_blank">CO2GLE </a>(2014).
-    </li>
-    
-  </ul>
-  <h4>Low Carbon Computing Resources</h4>
-  <ul>
-    <li>100 rabbits. 
-      <a href="https://100r.co/site/home.html" target="_blank"
-        >Light weight computational tools</a
-      >
-    </li>
-    <li>
-      <a href="https://principles.green/" target="_blank"
-        >Principles of Sustainable Software Engineering</a
-      >
-    </li>
-    <li>
-      <a href="https://climatestrike.software/" target="_blank">Climate Strike Software</a>.
-    </li>
-    <li>
-      <a href="https://www.websitecarbon.com/how-does-it-work/" target="_blank"
-        >Website Carbon Calculator</a
-      >.
-    </li>
-  </ul>
 
-  <h4>Projects on Redesigning Networks</h4>
-  <ul>
-    <li>
-      <a href="https://areyoubeingserved.constantvzw.org/Summit_afterlife.xhtml" target="_blank"
-        >A Feminist Server Manifesto 0.01</a
-      >
-    </li>
-    <li>Darius
-      Kazemi. 
-      <a href="https://runyourown.social/" target="_blank">Run your own social</a>.
-    </li>
-    <li>Taeyoon Choi.
-      <a href="http://taeyoonchoi.com/soft-care/distributed-web-of-care/" target="_blank"
-        >Distributed Web of Care</a
-      >.
-    </li>
-  </ul>
-  <h4>Ruminations on the Sun</h4>
-  <ul>
-    <li>
-      Susan Schuppli
-      <a
-        href="https://susanschuppli.com/misc/can-the-sun-lie/" target="_blank"
-        >Can the Sun Lie</a
-      >
-      (2014).
-    </li>
-    <li>Boris Groys
-      <a href="https://aerocene.org/newspaper-groys/" target="_blank"
-        >On the Political Influence of the Sun</a
-      >
-      (2016).
-    </li>
-    <li>
-      Nicole Starosielski.
-      <a
-        href="https://read.dukeupress.edu/south-atlantic-quarterly/article-abstract/120/1/13/167501/Beyond-the-SunEmbedded-Solarities-and-Agricultural?redirectedFrom=fulltext" target="_blank"
-        >Beyond the Sun: Embedded Solarities and Agricultural Practice</a
-      >
-      (2020).
-    </li>
-  </ul>
+<div class="library">
+  <h3>Solar Protocol Library</h3>
+  <button onclick="window.location.href='library.html#ecology'">
+    Texts on Ecology, Energy and Culture
+  </button>
+  <button onclick="window.location.href='library.html#energy'">
+    Projects on Energy and Digital Culture
+  </button>
+  <button onclick="window.location.href='library.html#resources'">
+    Resources on Low Carbon Computing
+  </button>
+  <button onclick="window.location.href='library.html#networks'">
+    Redesigning Networks and Platforms
+  </button>
+  <button onclick="window.location.href='library.html#solar'">
+    Ruminations on the Sun
+  </button>
+  <br />
+  <br />
+  <h4 id="ecology">Texts on Ecology, Energy and Culture</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>2011</td>
+        <td class="title">
+          <a
+            href="https://libgen.rocks/ads.php?md5=40d6d3397dbd42eb9a477a47a71ecce8"
+            target="_blank"
+          >
+            Carbon Democracy
+          </a>
+        </td>
+        <td class="author">Timothy Mitchell</td>
+        <td class="description">
+          Book how energy systems foster certain political arrangements.
+          Particularly interesting discussion on how the conditions of coal
+          mining produced opportunties for worker organizing.
+        </td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>1988</td>
+        <td class="title">
+          <a
+            href="https://libgen.rocks/ads.php?md5=023b0199d7e4762fd5c0f519f128d85b"
+            target="_blank"
+          >
+            The Accursed Share: An Essay on General Economy
+          </a>
+        </td>
+        <td class="author">Georges Bataille</td>
+        <td class="description">Classic text theorizing excess.</td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>2014</td>
+        <td class="title">
+          <a
+            href="https://milkweed.org/book/braiding-sweetgrasshttps://milkweed.org/book/braiding-sweetgrass"
+            target="_blank"
+          >
+            Braiding Sweetgrass Indigenous Wisdom, Scientific Knowledge and the
+            Teachings of Plants
+          </a>
+        </td>
+        <td class="author">Robin Wall Kimmerer</td>
+        <td class="description">
+          Kimmerer brings indigenous plant knowledge into diaglogue with western
+          science. Her discussion of the honorable harvest, an indigenous
+          environmental management protocol, is of particular inspiration to
+          Solar Protocol.
+        </td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>2020</td>
+        <td class="title">
+          <a
+            href="https://estsjournal.org/index.php/ests/article/view/363https://estsjournal.org/index.php/ests/article/view/363"
+            target="_blank"
+          >
+            Low-Carbon Research: Building a Greener and More Inclusive Academy
+          </a>
+        </td>
+        <td class="author">Anne Pasek</td>
+        <td class="description">
+          A paper exploring how developing low carbon practices in academic
+          research is an opportunity to produce knowledge in new ways.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td class="title">
+          <a
+            href="https://www.routledge.com/A-History-of-Solar-Power-Art-and-Design/Nathanson/p/book/9780367465681"
+            target="_blank"
+          >
+            A History of Solar Power Art and Design
+          </a>
+        </td>
+        <td class="author">Alex Nathanson</td>
+        <td class="description">
+          Written by one of the Solar Protocol collective, this book does a deep
+          dive into art and design practices that explore solar power as medium.
+        </td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>2014</td>
+        <td class="title">
+          <a
+            href="https://www.lord.ca/resources/books/art-energyhttps://www.lord.ca/resources/books/art-energy"
+            target="_blank"
+          >
+            Art &amp; Energy: How Culture Changes
+          </a>
+        </td>
+        <td class="author">Barry Lord</td>
+        <td class="description">
+          Stewardship of the earth and the body is the cutting-edge culture in
+          the arts and in our lives that accompanies the new renewable energy
+          sources. It must do battle with the culture of consumption that was
+          brought to us by our still dominant energy sources, oil and gas.
+        </td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>2018</td>
+        <td class="title">
+          <a
+            href="https://www.annualreviews.org/doi/10.1146/annurev-environ-102017-025941https://www.annualreviews.org/doi/10.1146/annurev-environ-102017-025941"
+            target="_blank"
+          >
+            Research On Degrowth
+          </a>
+        </td>
+        <td class="author">
+          Giorgos Kallis, Vasilis Kostakis, Steffen Lange, Barbara Muraca, Susan
+          Paulson and Matthias Schmelzer
+        </td>
+        <td class="description">
+          Scholars and activists mobilize increasingly the term degrowth when
+          producing knowledge critical of the ideology and costs of growth-based
+          development. Degrowth signals a radical political and economic
+          reorganization leading to reduced resource and energy use.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="title">
+          <a href="https://emergencemagazine.org/" target="_blank">
+            Emergence Magazine
+          </a>
+        </td>
+        <td class="author"></td>
+        <td class="description">
+          Emergence publishes both online an in annual print edition a
+          collection of essays, interviews, poems, adapted multimedia stories,
+          and photo essays curated around a specific theme.
+        </td>
+        <td class="item">Magazine</td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <h4 id="energy">Projects on Energy and Digital Culture</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>2014</td>
+        <td class="title">
+          <a href="http://www.janavirgin.com/CO2/" target="_blank">CO2GLE</a>
+        </td>
+        <td class="author">Joana Moll</td>
+        <td class="description">
+          CO2GLE is a real-time, net-based installation that displays the amount
+          of CO2 emitted on each second thanks to the global visits to
+          Google.com. What is the material impact of communications through the
+          Internet?
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td>2017</td>
+        <td class="title">
+          <a href="https://julianoliver.com/projects/harvest/" target="_blank">
+            Harvest
+          </a>
+        </td>
+        <td class="author">Julian Oliver</td>
+        <td class="description">
+          Wind energy used to mine cryptocurrency to fund climate research.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td>2018</td>
+        <td class="title">
+          <a
+            href="https://solar.lowtechmagazine.com/about.html"
+            target="_blank"
+          >
+            Solar Low Tech Magazine
+          </a>
+        </td>
+        <td class="author">Kris De Decker</td>
+        <td class="description">
+          This website is a solar-powered, self-hosted version of Low-tech
+          Magazine. It has been designed to radically reduce the energy use
+          associated with accessing its content.
+        </td>
+        <td class="item">Website</td>
+      </tr>
+      <tr>
+        <td>2018</td>
+        <td class="title">
+          <a href="https://www.solarpowerforartists.com/" target="_blank">
+            Solar Power For Artists
+          </a>
+        </td>
+        <td class="author">Alex Nathanson</td>
+        <td class="description">
+          Solar Power for Artists is a design studio and education platform
+          focused on both creative and traditional applications of sustainable
+          energy, particularly photovoltaic solar power.
+        </td>
+        <td class="item">Website</td>
+      </tr>
+      <tr>
+        <td>2019</td>
+        <td class="title">
+          <a href="https://www.janavirgin.com/AMZ/" target="_blank">
+            The Hidden Life of an Amazon User
+          </a>
+        </td>
+        <td class="author">Joana Moll</td>
+        <td class="description">
+          This project narrates the journey I undertook inside the intricate
+          labyrinth of interfaces and code that make the purchase of Jeff
+          Bezos’s book possible.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td>2020</td>
+        <td class="title">
+          <a
+            href="https://danielparnitzke.de/project/pleasureinscarcity"
+            target="_blank"
+          >
+            Finding Pleasure in Scarcity
+          </a>
+        </td>
+        <td class="author">Daniel Parnitzke</td>
+        <td class="description">
+          This website is hosted on a server that is locally powered through an
+          off-the-grid solar system with its own energy storage. The website
+          content is accessible as long as the system is able to provide
+          sufficient power. The server is located in Xirocourt, France.
+        </td>
+        <td class="item">Website</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="title">
+          <a href="https://branch.climateaction.tech/about/" target="_blank">
+            Branch Magazine
+          </a>
+        </td>
+        <td class="author"></td>
+        <td class="description">
+          Online magazine about sustainable web practices.
+        </td>
+        <td class="item">Magazine</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td class="title">
+          <a href="http://lowcarbonmethods.com/local/zine.html" target="_blank">
+            Solar-Powered Media
+          </a>
+        </td>
+        <td class="author">Anne Pasek, Benedetta Piantella</td>
+        <td class="description">
+          This is a zine about building your own solar-powered digital media
+          storage infrastructure and sharing it online with the rest of the
+          world. It includes instructions and suggestions about the hardware and
+          software this task requires, as well as ideas and directions for the
+          kinds of applications and aesthetics that seem to work best with such
+          systems.
+        </td>
+        <td class="item">Zine</td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <h4 id="computing">Texts on Computing, Carbon and Energy</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>2010</td>
+        <td class="title">
+          <a
+            href="https://doi.org/10.1016/j.jclepro.2010.01.014"
+            target="_blank"
+          >
+            Crisis or opportunity? Economic degrowth for social equity and
+            ecological sustainability
+          </a>
+        </td>
+        <td class="author">
+          François Schneider, Giorgos Kallis, Joan Martinez-Alier
+        </td>
+        <td class="description">
+          This article reviews the burgeoning emerging literature on sustainable
+          degrowth. This is defined as an equitable downscaling of production
+          and consumption that increases human well-being and enhances
+          ecological conditions at the local and global level, in the short and
+          long term.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2012</td>
+        <td class="title">
+          <a
+            href="https://dl.acm.org/doi/10.1145/2208828.2208833"
+            target="_blank"
+          >
+            An Intermittent Energy Internet Architecture
+          </a>
+        </td>
+        <td class="author">
+          Barath Raghavan, David Irwin, Jeannie Albrecht, Justin Ma, Adam Streed
+        </td>
+        <td class="description">
+          In this paper the authors examine how to re-design the Internet for an
+          energy-constrained future powered by diffuse, intermittent, and
+          expensive power sources. They consider the types of constraints this
+          might place upon the Internet architecture and the manner in which
+          important network components can function in this new environment.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2015</td>
+        <td class="title">
+          <a
+            href="https://firstmonday.org/ojs/index.php/fm/article/view/6128/4847https://firstmonday.org/ojs/index.php/fm/article/view/6128/4847"
+            target="_blank"
+          >
+            Information systems for the age of consequences
+          </a>
+        </td>
+        <td class="author">M. Six Silberman</td>
+        <td class="description">
+          This paper discusses what kinds of computer information systems might
+          be of broad social value in the context of the increasingly severe
+          ecological and social consequences of economic growth, and how they
+          might be built and maintained.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2016</td>
+        <td class="title">
+          <a
+            href="https://dl.acm.org/doi/10.1145/2926676.2926685https://dl.acm.org/doi/10.1145/2926676.2926685"
+            target="_blank"
+          >
+            Macroscopically sustainable networking: on internet quines
+          </a>
+        </td>
+        <td class="author">Barath Raghavan, Shaddi Hasan</td>
+        <td class="description">
+          In this paper the authors introduce the concept of an Internet quine,
+          a metaphor that represents a collection of devices, protocols,
+          manufacturing facilities, software tools, and other related components
+          that is self-bootstrapping and capable of being used (by engineers or
+          autonomously) to reproduce itself and all the needed components of the
+          Internet.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2018</td>
+        <td class="title">
+          <a
+            href="https://dl.acm.org/doi/10.1145/3183582https://dl.acm.org/doi/10.1145/3183582"
+            target="_blank"
+          >
+            Computing Within Limits
+          </a>
+        </td>
+        <td class="author">
+          Bonnie Nardi, Bill Tomlinson, Donald J. Patterson, Jay Chen, Daniel
+          Pargman, Barath Raghavan, Birgit Penzenstadler
+        </td>
+        <td class="description">
+          The future of computing research relies on addressing an array of
+          limitations on a planetary scale.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2020</td>
+        <td class="title">
+          <a
+            href="https://dl.acm.org/doi/abs/10.1145/3334480.3383155"
+            target="_blank"
+          >
+            Solar-Powered Server: Designing for a More Energy Positive Internet
+          </a>
+        </td>
+        <td class="author">
+          Benedetta Piantella, Alex Nathanson, Tega Brain, Keita Ohshiro
+        </td>
+        <td class="description">
+          The Solar-Powered Server is as a system designed to more deeply
+          investigate the power consumption of our online actions and compare
+          different design elements and choices, while experimenting with the
+          intrinsic qualities of renewable energy sources in order to create
+          more resource-efficient content, to make information storage more
+          accessible under low resource conditions and foster more energy
+          positive behaviors.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2020</td>
+        <td class="title">
+          <a href="https://rachelyhe.webflow.io/green-design" target="_blank">
+            Green Design Guidelines
+          </a>
+        </td>
+        <td class="author">Rachel He</td>
+        <td class="description">
+          Green Design is a resource of guidelines and best practices for a
+          low-tech, energy efficient, and environmentally sustainable internet.
+        </td>
+        <td class="item">Website</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td class="title">
+          <a
+            href="https://abookapart.com/products/sustainable-web-design"
+            target="_blank"
+          >
+            Sustainable Web Design
+          </a>
+        </td>
+        <td class="author">Tom Greenwood</td>
+        <td class="description">
+          This is a practical path to faster, more carbon-efficient websites.
+        </td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td class="title">
+          <a
+            href="https://computingwithinlimits.org/2021/papers/limits21-abbing.pdf"
+            target="_blank"
+          >
+            This is a solar-powered website, which means it sometimes goes
+            offline’: a design inquiry into degrowth and ICT.
+          </a>
+        </td>
+        <td class="author">RR Abbing</td>
+        <td class="description">
+          Roel Roscam Abbing's conference paper describes the design rationale
+          behind Low-tech Magazine’s solar powered website. Its a good
+          discussino of how degrowth design principles can be applied to UX and
+          ITC.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td class="title">
+          <a
+            href="https://computingwithinlimits.org/2021/papers/limits21-sutherland.pdf"
+            target="_blank"
+          >
+            Design Aspirations for Energy Autarkic Information Systems in a
+            Future with Limits
+          </a>
+        </td>
+        <td class="author">Brian Sutherland</td>
+        <td class="description">
+          This is an discusses a number of past solar-powered information system
+          designs, comparing them with contemporary solar autarkic prototypes
+          (like Solar Protocol), reflecting on their actors, their histories and
+          their socialtechnical trajectories. Sutherland defines an information
+          system as energy autarkic "if its operation is integrally sustained by
+          an ambient energy source, typically renewable, for long periods of
+          time."
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td class="title">
+          <a
+            href="https://computingwithinlimits.org/2022/papers/limits22-final-Sutherland.pdfhttps://computingwithinlimits.org/2022/papers/limits22-final-Sutherland.pdf"
+            target="_blank"
+          >
+            Strategies for Degrowth Computing
+          </a>
+        </td>
+        <td class="author">Brian Sutherland</td>
+        <td class="description">
+          This paper looks at 1) the concept of resource reduction and scarcity
+          in the economy, degrowth, applied to the rendering of computing and
+          information services, “degrowth computing” and identifies some
+          strategies. It 2) explores some degrowth concepts around energy
+          autarky with a Raspberry Pi, with some further thoughts about
+          consumption within the research frames of the Limits community
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td class="title">
+          <a
+            href="https://computingwithinlimits.org/2022/papers/limits22-final-Brain.pdf"
+            target="_blank"
+          >
+            Solar Protocol  Exploring Energy-Centered Design
+          </a>
+        </td>
+        <td class="author">Tega Brain, Alex Nathanson, Benedetta Piantella</td>
+        <td class="description">
+          We wrote a paper describing the design decisions behind Solar Protocol
+          and how it explores what we call energy-centered design, or how
+          digital experiences should be designed in ways that include their
+          energy implications.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <h4 id="resources">Resources on Low Carbon Computing</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td class="title">
+          <a
+            href="https://www.websitecarbon.com/how-does-it-work/"
+            target="_blank"
+          >
+            Website Carbon Calculator
+          </a>
+        </td>
+        <td class="description">
+          Calculating the carbon emissions of website is somewhat of a
+          challenge, but we have been working for many years to develop and
+          refine a methodology for this purpose. Our hope is that this will help
+          raise awareness and encourage more eco-friendly approaches to be
+          adopted throughout the web design industry.
+        </td>
+        <td class="item">Web Tool</td>
+      </tr>
+      <tr>
+        <td class="title">
+          <a href="https://climatestrike.software" target="_blank">
+            Climate Strike Software
+          </a>
+        </td>
+        <td class="description">
+          Climate Strike Software is software that uses the Climate Strike
+          License, a software license that developers can use to prohibit the
+          use of their code by applications or companies that threaten to
+          accelerate climate change through fossil fuel extraction.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td class="title">
+          <a href="https://principles.green/" target="_blank">
+            Principles of Green Software Engineering
+          </a>
+        </td>
+        <td class="description">
+          The Principles of Sustainable Green Software Engineering are a core
+          set of competencies needed to define, build and run green software
+          applications.
+        </td>
+        <td class="item">Website</td>
+      </tr>
+      <tr>
+        <td class="title">
+          <a href="https://100r.co/site/about_us.html" target="_blank">
+            Hundred Rabbits
+          </a>
+        </td>
+        <td class="description">
+          Hundred Rabbits is a small artist collective that explores the planned
+          failability of modern technology at the bounds of the hyper-connected
+          world. They research and test low-tech solutions and document their
+          findings with the hope of building a more resilient future. All from a
+          10 meter vessel called pino.
+        </td>
+        <td class="item">Community</td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <h4 id="networks">Redesigning Networks and Platforms</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>2017</td>
+        <td class="title">
+          <a href="https://slownet.work/" target="_blank">Slow Net</a>
+        </td>
+        <td class="author">Beverly Chou</td>
+        <td class="description">
+          Slownet resists surveillance by slowing down the internet. A quote
+          from slownet.work: "Because real-time collection of data is enabled by
+          fast Internet speeds, one form of resistance could involve co-opting a
+          tactic from labor unions called the slowdown strike, in which workers
+          deliberately reduce their productivity. Slow Net, aims to utilize this
+          strategy of purposeful inefficiency in three pieces." Those three
+          pieces are a zine (you must turn off wifi to read it); an online
+          messaging application, "slow chat"; and a "slow router".
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="title"><a href="" target="_blank">Varia.zone</a></td>
+        <td class="author"></td>
+        <td class="description">
+          miscellaneous (Gouwstraat 3, Rotterdam) is a space for developing
+          collective approaches to everyday technology. miscellaneous members
+          maintain and facilitate a collective infrastructure to generate
+          questions, opinions, adjustments, help and action. We use free
+          software, organize events and collaborate in different constellations.
+        </td>
+        <td class="item">Community</td>
+      </tr>
+      <tr>
+        <td>2018</td>
+        <td class="title">
+          <a href="" target="_blank">Distributed Web of Care</a>
+        </td>
+        <td class="author">Taeyoon Choi</td>
+        <td class="description">
+          The Distributed Web of Care (DWC) is a research initiative on
+          communication infrastructure, exploring the Distributed Web as a
+          peer-to-peer, alternative web which prioritizes collective agency and
+          individual ownership of data and code. Through collaborations with
+          artists, engineers, social scientists and community organizers, DWC
+          imagines distributed networks as a form of interdependence and
+          stewardship, in critical opposition to the networks that dominate the
+          world today.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td>2018</td>
+        <td class="title">
+          <a href="" target="_blank">Run Your Own Social</a>
+        </td>
+        <td class="author">Darius Kazemi</td>
+        <td class="description">
+          This document exists to lay out some general principles of running a
+          small social network site. These principles are related to community
+          building more than they are related to specific technologies. This is
+          because the big problems with social network sites are not technical:
+          the problems are social problems related to things like policy,
+          values, and power.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="title">
+          <a href="" target="_blank">
+            A Transversal Network of Feminist Servers
+          </a>
+        </td>
+        <td class="author"></td>
+        <td class="description">
+          In pursuit of an intersectional, feminist, and ecological impetus, ‘A
+          Transversal Network of Feminist Servers’ (ATNOFS) is a collaborative
+          project that aims to explore alternative engagements with digital
+          tools and platforms.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="title">
+          <a href="" target="_blank">Anarchaserver</a>
+        </td>
+        <td class="author"></td>
+        <td class="description">
+          Anarchaserver is a feminist server which aim is to develop autonomous
+          infrastructure on the Internet for feminists projects.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td class="title"><a href="" target="_blank">Feral Web</a></td>
+        <td class="author">Austin W. Smith</td>
+        <td class="description">
+          Imagine a node online like a field of switches blown by grass, lifted
+          by tides, respiring like an organism. Access to feral.earth is
+          determined by climate and ecological data at server site in realtime.
+          Turns out the world always already was an internet, and websites are
+          just kites.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td>2018</td>
+        <td class="title">
+          <a
+            href="https://rd.springer.com/chapter/10.1007/978-3-319-66592-4_13"
+            target="_blank"
+          >
+            The Organic Internet: Building Communications Networks from the
+            Grassroots
+          </a>
+        </td>
+        <td class="author">Panayotis Antoniadis</td>
+        <td class="description">
+          This paper explores community networks that empower citizens to build
+          their own local networks from the bottom up in the context of a wider
+          vision of sustainable living in an energy-limited world.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <h4 id="solar">Ruminations on the Sun and Solar Power</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td>2020</td>
+        <td class="title">
+          <a
+            href="https://read.dukeupress.edu/south-atlantic-quarterly/article/120/1/13/167501/Beyond-the-SunEmbedded-Solarities-and-Agricultural"
+            target="_blank"
+          >
+            Beyond the Sun: Embedded Solarities and Agricultural Practice
+          </a>
+        </td>
+        <td class="author">Nicole Starosielski.</td>
+        <td class="description">
+          This text discusses solarity beyond the sun and what the author calls
+          embedded solarities, the manifestations of being solar in social
+          practice, infrastructural assemblages, and human and non-human life.
+        </td>
+        <td class="item">Paper</td>
+      </tr>
+      <tr>
+        <td>2016</td>
+        <td class="title">
+          <a href="https://aerocene.org/newspaper-groys/" target="_blank">
+            On the Political Influence of the Sun
+          </a>
+        </td>
+        <td class="author">Boris Groys</td>
+        <td class="description">
+          Groys looks at the influence of Russian historian and biologist
+          Alexander Chizhevsky, who, in the 920s and 1930s, offered an
+          interpretation world history as defined by the activity of the Sun.
+          Chizhevsky inspired Bataille and his work on solar myth.
+        </td>
+        <td class="item">Essay</td>
+      </tr>
+      <tr>
+        <td>2013</td>
+        <td class="title">
+          <a href="https://susanschuppli.com/CAN-THE-SUN-LIE" target="_blank">
+            Can The Sun Lie?
+          </a>
+        </td>
+        <td class="author">Susan Schuppli</td>
+        <td class="description">
+          The video sets out to explore the emergence of a new visual regime
+          brought about by climate change as well as the dispute between lay
+          knowledge and scientific expertise that subsequently arose at COP15
+          with regards to this solar dispute.
+        </td>
+        <td class="item">Project</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td class="title">
+          <a href="https://thesolarbiennale.com/" target="_blank">
+            The Solar Biennale
+          </a>
+        </td>
+        <td class="author"></td>
+        <td class="description">
+          A new and inclusive perspective on the energy of the sun through many
+          programs
+        </td>
+        <td class="item">Event</td>
+      </tr>
+      <tr>
+        <td>1964</td>
+        <td class="title">
+          <a href="" target="_blank">Direct Use of the Sun's Energy</a>
+        </td>
+        <td class="author">Farrington Daniels</td>
+        <td class="description">
+          Solar energy: collectors of solar radiation, cooking and heating
+          water, agricultural and industrial drying, storage of heat, solar
+          furnaces and engines, cooling and refrigeration, photochemical
+          conversion, and many other uses.
+        </td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td class="title">
+          <a
+            href="https://manifold.umn.edu/read/solarities/section/710e425f-e782-4f65-8dee-d1de60790bb3"
+            target="_blank"
+          >
+            Solarities, Seeking Energy Justice
+          </a>
+        </td>
+        <td class="author">After Oil Collective</td>
+        <td class="description">
+          Solarities considers the possibilities of organizing societies and
+          economies around solar energy, and the challenges of a just and
+          equitable transition away from fossil fuels.
+        </td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td class="title">
+          <a
+            href="https://www.professores.uff.br/ricardobasbaum/wp-content/uploads/sites/164/2022/05/timofeeva-oxana-solar-politics.pdf"
+            target="_blank"
+          >
+            Solar Politics
+          </a>
+        </td>
+        <td class="author">Oxana Timofeeva</td>
+        <td class="description">
+          The sun, which, since Antiquity, has played an essential role in our
+          utopian imaginations, is the ultimate source of energy, both
+          productive and destructive. According to Georges Bataille, its
+          infinite generosity can be taken as the model for human societies,
+          which suggests an alternative to the capitalist economy with its
+          infinite expansion, colonization, and disastrous consequences on the
+          cosmic scale.
+        </td>
+        <td class="item">Book</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td class="title">
+          <a href="https://escholarship.org/uc/item/0t25r3z8" target="_blank">
+            Energy Trajectories and Solar Energy Imaginaries of the Maasai
+          </a>
+        </td>
+        <td class="author">Turner Adornetto</td>
+        <td class="description">
+          Through unstructured interviews with Maasai herders, city-dwellers of
+          Arusha, Tanzania, and representatives from foreign solar energy firms,
+          this paper explores how the Maasai reconfigure incoming solar energy
+          devices through locally generated knowledges, philosophies, and
+          technologies in calculated efforts to chart their own futures.
+        </td>
+        <td class="item">Journal Article</td>
+      </tr>
+    </tbody>
+  </table>
   <p>
-    Contribute a resource to the library by
-    <a href="https://airtable.com/shrBMAbdOEzAh1VDn" target="_blank">filling this form.</a>
-    <br>
-<br>
+    Suggest a resource to the library by
+    <a href="https://airtable.com/shrBMAbdOEzAh1VDn" target="_blank">
+      filling this form.
+    </a>
+    <br />
+    <br />
   </p>
 </div>
 

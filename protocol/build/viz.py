@@ -372,6 +372,7 @@ def main():
     # in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
     myTimeZone = getSystemInfoValue("localhost:11221", "tz")
+    energyValues = []
 
     colors = []
 

@@ -381,7 +381,7 @@ def main():
         if DEBUG:
             print(f"getting data for {ip}")
 
-        energyValues.append(getEnergyValuesFor(ip))
+        energyValues.append(getEnergyFor(ip))
 
         timeZones.append(getTimezone(ip))
 

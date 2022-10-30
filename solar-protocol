@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+
 if [[ "${TRACE-0}" == "1" ]]; then set -o xtrace; fi
 
 unattended=$(echo "$@" | grep --quiet -- '--yes' && echo yes)
@@ -53,6 +53,17 @@ help() {
     ${Blue}solar-protocol shell protocol${Clear}
 HELP
   )"
+}
+
+generate() {
+  compose-dev exec protocol \
+    python /solar-protocol/venv/core/getRemoteData.py
+
+  compose-dev exec protocol \
+    python /solar-protocol/venv/build/viz.py
+
+  compose-dev exec protocol \
+    python /solar-protocol/venv/build/html.py DEV
 }
 
 machine() {
@@ -144,6 +155,7 @@ case $command in
   dev) compose-dev up --build ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) shopt -s globstar; black -- **/**.py ;;
+  generate) generate ;;
   init) init ;;
   *) help ;;
 esac

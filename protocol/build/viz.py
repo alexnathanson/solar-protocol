@@ -49,7 +49,7 @@ def getDeviceInfo(key):
     with open(devices) as file:
         data = json.load(file)
 
-    deviceInfo = data.map(lambda device: device[key])
+    deviceInfo = [device[key] for device in data]
     print(deviceInfo)
     return deviceInfo
 

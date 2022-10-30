@@ -326,20 +326,24 @@ def updateLocal(
 
     return local
 
+
 class SecretKey(str, Enum):
     apiKey = "apiKey"
     dnsPassword = "dnsPassword"
 
+
 @app.post("/api/secret")
 def setEnv(key: SecretKey, value: str):
     if not isHash(value):
-        raise Error(f"Secret value for `{key}` not a valid hash") 
+        raise Error(f"Secret value for `{key}` not a valid hash")
 
     if value == hash(""):
         raise Error(f"Secret value for `{key}` is empty, will not continue")
 
     if value in top_500_password_hashes:
-        raise Error(f"Secret value for `{key}` is in top 500 passwords, please choose another")
+        raise Error(
+            f"Secret value for `{key}` is in top 500 passwords, please choose another"
+        )
 
     secretsFilepath = f"/local/secrets.json"
     if os.path.exists(secretsFilePath):

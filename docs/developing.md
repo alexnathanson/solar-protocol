@@ -6,10 +6,10 @@ Helpful scripts for developing are in the dev/ folder.
 
 ## Quick Start
 
-    bash dev/init  # asks to install podman, podman-compose, and necessary dependencies
-    bash dev/build # builds the container images
-    bash dev/start # starts the server
-    open http://127.0.0.1:11221
+    ./solar-protocol init  # asks to install podman, podman-compose, and necessary dependencies
+    solar-protocol build   # builds the containers
+    solar-protocol up      # starts the server
+    solar-protocol open    # opens the local server
 
 ## Services
 
@@ -72,57 +72,53 @@ This is an nginx proxy that serves up the static files made by the solar-protoco
 
 Always check [the latest podman installation docs](https://podman.io/getting-started/installation), but as a nicety, try this:
 
-#### linux
-
-    sudo apt install podman podman-compose
-
 #### Windows
 
 See [the official windows install docs](https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md)
 
-#### macOS
+### Installing solar-protocol
 
-    brew install podman podman-compose
-    podman machine init --volume /Users
+All commands are kept in the `solar-protocol` so everyone can stay up-to-date with installing, debugging, and developing the protocol.
 
-> Ignore any `Error: exit status 255` messages
+### Clone this code in your home directory
 
-Why the `--volume /Users`?
+Install git. For example, on linux:
 
-Podman (and Docker) require linux to do containerization, so if we want to run them on macOS, we have to start a linux virtual machine. And we first need to mount files from macOS to linux, before we can use them in our containers. This can be done from the commandline or using the Podman Desktop or Docker Desktop guis. Either way, this is what will be happening in the background:
+    sudo apt-get install --yes git
 
-    macOS (host)
-     -> podman machine (linux host)
-         -> solar-protocol-dev (container)
+    git clone --branch api-migration-huge-refactor https://github.com/jedahan/solar-protocol.git
+    cd solar-protocol
 
-### Run the services
+Add solar-protocol script to your commandline PATH
+
+    ./solar-protocol init
 
 Build the base images
 
-    bash dev/build
+    solar-protocol build
 
 This will bring up the server
 
-    bash dev/start
-
-Next, regenerate the viz and website site
-
-    bash dev/generate
+    solar-protocol dev
 
 Visit the blank site on http://127.0.0.1:11221
 
-    open http://127.0.0.1:11221
-
-Now, lets generate a fresh version of the website
-
-    bash dev/generate
+    solar-protocol open
 
 Congrats! You should see the pizza rat server!
 
 ## Troubleshooting
 
-Backend core logs are located in the /solar-protocol/protocol/runner.log
+To view backend protocol logs
 
-Nginx logs are located in /var/log/nginx/error.log
+   solar-protocol logs protocol
+
+To view web server logs
+
+   solar-protocol logs web
+
+To view api logs
+
+   solar-protocol logs api
 
 Sharing these logs will make it easier for people to help

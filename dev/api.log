@@ -2,12 +2,9 @@
 
 What happens when the gateway goes down?
 
-## general
-
-I think I got 90% of the same functionality in 300 line python script as ~600 php script.
-
 ### renames
 charge-controller => /charge
+TODO: change back to charge-controller
 networkInfo => /devices # we should change devices.json and this endpoint to be the same
 systemInfo => /system
 server-status => /status # could be server? overloaded term. maybe device
@@ -18,20 +15,63 @@ deprecated `time` and just using unix epoch `timestamp`
 deprecated response `timezone` since all times in unix epoch / UTC
   - viz/html will need to convert to local at build-time
 
+[ {commonStrings: ['pv-watts', 'description'], data: [ [13.2, c[1]], [9.2, 'my server' ] } ]
+ => 
+  [
+    { 'pv-watts': 13.2, 'description': 'my server' },
+    { 'pv-watts': 9.2, 'description': 'my server' },
+  ]
+
+TODO: run a workshop with this format?
+
 removed headers for now - move towards 'self-describing data' - see charge controller returns
 
 ### endpoint changes
 
-/charge?days={int}&key={pv-wattage|pv-current...|etc..}
-/charge/2022-14-12?key={pv-wattage}
+/charge-controller
+  latest [ ]
+
+/charge-controller?days={int}&key={pv-wattage|pv-current...|etc..}
+
+/charge-controller/2022-14-12?key={pv-wattage}[&line=999999]
   implemented scaled wattage
   implemented `day` path (`/charge/2022-14-24`)
   implemented `days` and `key` params
   renamed `duration` => `days` only supports number, no other arguments
   deprecated 'tracerData' option for `day`
   deprecated 'list' option for `day` (no code seemed to use it)
+    # TODO: list of filenames is useful as teaching aid, re-add (/charge-controller/list?)
   deprecated 'line' option for `day` (no code seemed to use it)
-  deprecated 'duration' (no code seemed to use it)
+    # TODO: line from filename is useful as teaching aid, re-add (/charge-controller/line?)
+    # TODO: Run Workshop, keeping in mind the pains of discovery and learning
+    #   minimize the amount of programming needed to get the stuff they need
+    #   example: if we pass metadata 'lines' in the response, they dont need to run .length in a console
+    #
+    # VALUES/FEEDBACK:
+    #   the less the client is doing, the more the sun is being used
+    #   the more server-side, even if its less efficient, the better
+  [
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  { pv-wattage: 123, timestamp: 123567772.1625 },
+  ]
+  ^
+  /charge-controller?&line=12
+
+  before- 
+    request(http..line=12).then(response => console.log(response))
+
+  after-
+    request(http.........).then(response => console.log(response[12]))
 
 /system
   always return a list, even for one item

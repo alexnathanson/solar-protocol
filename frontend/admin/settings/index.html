@@ -108,7 +108,7 @@
     <button type=submit>Update API Key</button>
   </form>
 
-  <form method="POST" action=/api/secret onsubmit="return submitHashedValue(this) && confirm('Are you sure you want to change the DNS password?');">
+  <form method="POST" action=/api/secret onsubmit="confirm('Are you sure you want to change the DNS password?');">
     <input type=hidden name=key value=dnsPassword />
     <p>
       DNS Gateway Password <input type=text name=value>

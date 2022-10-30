@@ -88,7 +88,7 @@ def getSystemInfoValue(server, systemInfo):
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
     except requests.exceptions.ConnectionError:
-        print(f"Timed out connecting to {ip}")
+        print(f"Timed out connecting to {server}")
     except requests.exceptions.Timeout as errt:
         print("A Timeout Error occurred:" + repr(errt))
     except requests.exceptions.RequestException as err:
@@ -371,7 +371,7 @@ def main():
 
     # in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
-    myTimeZone = getSystemInfoValue("localhost", "tz")
+    myTimeZone = getSystemInfoValue("localhost:11221", "tz")
 
     colors = []
 

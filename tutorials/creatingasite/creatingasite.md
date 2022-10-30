@@ -1,4 +1,4 @@
-#Hosting a Website on Solar Protocol
+# Hosting a Website on Solar Protocol
 
 There are two ways to host a site on Solar Protocol: 
 

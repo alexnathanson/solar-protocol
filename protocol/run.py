@@ -125,7 +125,7 @@ def getFrequency():
     url = "http://localhost/api/charge?key=battery-percentage"
 
     try:
-        [ latest ] = json.loads(SolarProtocol.getRequest(url))
+        [latest] = json.loads(SolarProtocol.getRequest(url))
         battery_percentage = latest.battery_percentage
         return 10 if battery_percentage > 0.9 else None
         return 15 if battery_percentage > 0.7 else None
@@ -147,7 +147,7 @@ def solarScaler():
     url = "http://localhost/api/charge?key=scaled-wattage"
 
     try:
-        [ latest ] = json.loads(SolarProtocol.getRequest(url))
+        [latest] = json.loads(SolarProtocol.getRequest(url))
         scaled_wattage = latest.scaled_wattage
         return 1 if scaled_wattage >= 6.0 else None
         return 1 + (1 - (scaled_wattage / 5.0)) if scaled_wattage >= 0.0 else None

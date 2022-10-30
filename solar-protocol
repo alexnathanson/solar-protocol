@@ -63,17 +63,6 @@ machine() {
   fi
 }
 
-generate() {
-  compose-dev exec protocol \
-    python /solar-protocol/venv/core/getRemoteData.py
-
-  compose-dev exec protocol \
-    python /solar-protocol/venv/build/viz.py
-
-  compose-dev exec protocol \
-    python /solar-protocol/venv/build/html.py DEV
-}
-
 init() {
   if [[ "$(uname -s)" == "Darwin" ]]; then
     command -v podman >/dev/null 2>&1 || brew install podman
@@ -154,9 +143,8 @@ case $command in
   shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
   dev) compose-dev up --build ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
-  format) black ./**/**py ;;
+  format) black -- **/**py ;;
   init) init ;;
-  generate) generate ;;
   *) help ;;
 esac
 

@@ -17,8 +17,8 @@ You can also publish a website on the Solar Protocol platform, even if you aren'
 
 Tools needed:
 
-* An editor like [VSCode](https://code.visualstudio.com/) 
-* How to set up your workspace in VSCode editor
+* An editor like [VSCode](https://code.visualstudio.com/)   
+* How to set up your workspace in VSCode editor    
 
 ## Basics
 #### Files
@@ -28,8 +28,8 @@ Create a file called index.html. This is the file that will contain the structur
 #### HTML Tags
 HTML is a markup language that tells a browser how to structure a webpage. 
 HTML is written with tags that look like this: 
-`<h1>This is an h1 element, enclosed in opening and closing p tags.</h1>`
-`<p>This is a paragraph element, enclosed in opening and closing p tags.</p>`
+`<h1>This is an h1 element, enclosed in opening and closing p tags.</h1>`   
+`<p>This is a paragraph element, enclosed in opening and closing p tags.</p>`   
 
 #### HTML Document
 
@@ -40,11 +40,11 @@ Everything in the body tag will show up on the page itself.
 `<!DOCTYPE html>`  
 &nbsp;&nbsp;&nbsp;&nbsp;`<html>`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<head>`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<title>My new website.</title>`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<title>My new website.</title>`   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<link rel="stylesheet" href="style.css" />`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`</head>`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<body>` 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<p>This is a paragraph element, enclosed in opening and closing p tags.</p>` 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`</head>`   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<body>`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<p>This is a paragraph element, enclosed in opening and closing p tags.</p>`   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`</body>`   
 &nbsp;&nbsp;&nbsp;&nbsp;`</html>`
 

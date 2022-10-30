@@ -14,6 +14,7 @@ import sys
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
+
 def run():
     print()
     print("***** Running GET Remote Data script *****")

@@ -143,7 +143,7 @@ case $command in
   shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
   dev) compose-dev up --build ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
-  format) black -- **/**py ;;
+  format) shopt -s globstar; black -- **/**.py ;;
   init) init ;;
   *) help ;;
 esac

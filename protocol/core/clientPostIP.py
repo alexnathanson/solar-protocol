@@ -66,6 +66,7 @@ def getPoeLog():
     except:
         return []
 
+
 def getLocalKey(key):
     try:
         with open(localConfig) as file:
@@ -82,11 +83,13 @@ def getLocalKey(key):
 
         if key == "httpPort":
             return ""
-'''
+
+
+"""
 Check if is is a new MAC and post if so
 If MAC exists check if it is a new IP and post if so
 TODO: add timestamp hiearchy here - taking in to account timezones, or using a 24 hour window
-'''
+"""
 # TODO: Check that we aren't doing duplicate work.
 # I removed a global for the runningDST list. Seems like a circular dependency? - jedahan
 def getNewDST(responses):
@@ -95,10 +98,13 @@ def getNewDST(responses):
     macs = getKeys("mac")
     ips = getKeys("ip")
 
-    new_ips = responses.filter(lambda response: response["mac"] not in macs or response["ip"] not in ips) 
+    new_ips = responses.filter(
+        lambda response: response["mac"] not in macs or response["ip"] not in ips
+    )
     outputToConsole(f"new ips: {new_ips}")
 
     newDSTList.extend(new_ips)
+
 
 def postIt(ip, params):
     url = f"http://{ip}/api"
@@ -133,13 +139,13 @@ def makePosts(ips, api_Key, my_IP, my_Name, my_MAC, my_TZ):
 
     # all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, timezone, poe log
     params = {
-        'api_key': str(api_key),
-        'stamp': str(time.time()),
-        'ip': my_IP,
-        'mac': my_MAC,
-        'name': my_Name,
-        'tz': my_TZ,
-        'log': my_PoeLog,
+        "api_key": str(api_key),
+        "stamp": str(time.time()),
+        "ip": my_IP,
+        "mac": my_MAC,
+        "name": my_Name,
+        "tz": my_TZ,
+        "log": my_PoeLog,
     }
 
     # post to self automatically
@@ -165,6 +171,7 @@ def makePosts(ips, api_Key, my_IP, my_Name, my_MAC, my_TZ):
         outputToConsole(newDSTList)
         makePosts(newDSTList, api_Key, my_IP, my_Name, my_MAC, my_TZ)
 
+
 def getApiKey():
     if DEV:
         return "this-will-fail"
@@ -173,7 +180,8 @@ def getApiKey():
     with open(secretsFilepath) as secretsfile:
         secrets = json.load(secretsFile)
 
-    return secrets['apiKey']
+    return secrets["apiKey"]
+
 
 def run():
     print()
@@ -185,7 +193,7 @@ def run():
 
     myPort = getLocalKey("httpPort")
 
-    myMAC = getmac("wlan0") # change to eth0 if using an ethernet cable
+    myMAC = getmac("wlan0")  # change to eth0 if using an ethernet cable
 
     myName = getLocalKey("name")
 
@@ -195,18 +203,20 @@ def run():
     # get my timezone
     localHostname = "localhost" if myPort == "" else f"localhost:{myPort}"
     url = f"http://{localHostname}/api"
-    myTZ = requests.get(url, params={'systemInfo': 'tz'}).text
+    myTZ = requests.get(url, params={"systemInfo": "tz"}).text
 
-    #ips = getKeys("ip")
+    # ips = getKeys("ip")
     ips = ["localhost"]
     remoteHostname = myIP if myPort == "" else f"{myIP}:{myPort}"
 
     apiKey = getApiKey()
     makePosts(ips, apiKey, remoteHostname, myName, myMAC, myTZ)
 
+
 def outputToConsole(printThis):
     if consoleOutput:
         print(printThis)
+
 
 if __name__ == "__main__":
     run()

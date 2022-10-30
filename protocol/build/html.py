@@ -246,8 +246,10 @@ def active_servers(dst):
 # Call API for every IP address and get charge controller data
 def get_pv_value(ip):
     try:
-        response = requests.get(f"http://{ip}/api/charge", params={ "value": "PV-voltage" }, timeout=5)
-        [ latest ] = response.json
+        response = requests.get(
+            f"http://{ip}/api/charge", params={"value": "PV-voltage"}, timeout=5
+        )
+        [latest] = response.json
         return latest.pop()["PV voltage"]
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -352,7 +354,7 @@ def main():
     for key, ip in deviceList_data.items():
         try:
             # item["ip"] = value #add IPs to server data
-            [ system ] = getSystem(ip)
+            [system] = getSystem(ip)
             # the above returns a dictionary containing all of the above system info
             # as documented here: http://solarprotocol.net/api/v1/
             # pvVoltage is a constant that is rated for the module.

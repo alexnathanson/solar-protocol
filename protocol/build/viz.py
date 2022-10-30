@@ -53,6 +53,7 @@ def getDeviceInfo(key):
     print(deviceInfo)
     return deviceInfo
 
+
 # Call API for every IP address and get charge controller data
 def getChargeControllerValues(server, value):
     print(f"GET {server} {value}")
@@ -80,7 +81,8 @@ def getSystemInfoValue(server, systemInfo):
         systemInfo = requests.get(url, timeout=5)
         systemInfo = systemInfo.text
 
-        if DEBUG: print(f"{server} {key}: {systemInfo}")
+        if DEBUG:
+            print(f"{server} {key}: {systemInfo}")
 
         return systemInfo
     except requests.exceptions.HTTPError as errh:
@@ -175,10 +177,11 @@ def draw_server_arc(serverNumber, startAngle, stopAngle, color):
     )
     circle.draw(surface)
 
+
 def sortPOE(logs, timeZones, myTimeZone):
     global dfPOE
     if DEBUG:
-      print("dfPOE.head()", dfPOE.head())
+        print("dfPOE.head()", dfPOE.head())
     for i, log in enumerate(logs):
         tempDF = pd.DataFrame(log)  # convert individual POE lists to dataframe
         tempDF["datetime"] = tempDF[0]
@@ -187,7 +190,7 @@ def sortPOE(logs, timeZones, myTimeZone):
         tempDF["datetime"] = tempDF["datetime"].astype(str)
 
         # convert "Dates" Column to datetime format
-        tempDF["datetime"] = pd.to_datetime(tempDF["datetime"], errors="coerce")  
+        tempDF["datetime"] = pd.to_datetime(tempDF["datetime"], errors="coerce")
 
         # shift by TZ
         tempDF["timedelta"] = pd.to_timedelta(tzOffset(timeZones[i], myTimeZone), "h")
@@ -216,18 +219,19 @@ def sortPOE(logs, timeZones, myTimeZone):
 
     if dfPOE.shape[0] > 0:
         for t in range(dfPOE.shape[0]):
-            nextTime = dfPOE['datetime'].iloc[t]
+            nextTime = dfPOE["datetime"].iloc[t]
             minPast = ((startTime - nextTime).total_seconds()) / 60
 
             percentTime = minPast / (hours * 60)
             dfPOE.at[t, "percent"] = percentTime
 
-            percent = dfPOE['percent'].iloc[t]
+            percent = dfPOE["percent"].iloc[t]
             dfPOE.at[t, "angle"] = 360 - (percent * 360)
-    
+
     if DEBUG:
         print("head", dfPOE.head())
         print("tail", dfPOE.tail())
+
 
 def tzOffset(checkTZ, myTimeZone):
     try:
@@ -246,6 +250,7 @@ def tzOffset(checkTZ, myTimeZone):
     offsetHours = abs((int(myOffset) / 100) - (int(theirOffset) / 100))
     offsetDirection = 1 if myOffset > theirOffset else -1
     return offsetDirection * offsetHours
+
 
 def text_curve(serverNumber, message, angle, spacing, fontsize):
     if DEBUG:
@@ -290,6 +295,7 @@ def text_curve(serverNumber, message, angle, spacing, fontsize):
         # Move halfway again
         arclength -= spacing / 2
 
+
 def lines(interval, stroke_width, opacity):
     # for loop for lines
     angle = -(Tau / 4)
@@ -300,17 +306,23 @@ def lines(interval, stroke_width, opacity):
         x1 = w / 2 + (radius - 10) * math.cos(angle)
         y1 = h / 2 + (radius - 10) * math.sin(angle)
         line = gizeh.polyline(
-            points=[(x1, y1), (xc, yc)], stroke_width=stroke_width, stroke=(1, 1, 1, opacity)
+            points=[(x1, y1), (xc, yc)],
+            stroke_width=stroke_width,
+            stroke=(1, 1, 1, opacity),
         )
         line.draw(surface)
         angle = angle + interval
 
+
 def circles():
     r = ring_rad * 2
     while r < radius:
-        circle = gizeh.circle(r=r, xy=[w / 2, h / 2], stroke=(1, 1, 1), stroke_width=1.5)
+        circle = gizeh.circle(
+            r=r, xy=[w / 2, h / 2], stroke=(1, 1, 1), stroke_width=1.5
+        )
         circle.draw(surface)
         r = r + ring_rad
+
 
 def getColor(ip):
     DEFAULT_COLOR = (1, 1, 1)
@@ -321,8 +333,9 @@ def getColor(ip):
 
     if type(color) == type(None) or color == "":
         return DEFAULT_COLOR
-    
+
     return color
+
 
 def getTimezone(ip):
     # defaults to NYC time - default to UTC in the future
@@ -337,6 +350,7 @@ def getTimezone(ip):
 
     return timezone
 
+
 def getEnergyFor(ip):
     energyValues = getChargeControllerValues(ip, energyParam)
 
@@ -344,6 +358,7 @@ def getEnergyFor(ip):
         return []
 
     return energyValues
+
 
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
@@ -398,11 +413,16 @@ def main():
             device = dfPOE["device"].iloc[i]
             ring = device + 2
             color = colors[device]
-            startDegrees = 360 if i == 0 else dfPOE["angle"].iloc[i-1]
+            startDegrees = 360 if i == 0 else dfPOE["angle"].iloc[i - 1]
             startAngle = startDegrees * Tau / 360
             stopAngle = dfPOE["angle"].iloc[i] * Tau / 360
 
-            draw_server_arc(serverNumber=ring, startAngle=startAngle, stopAngle=stopAngle, color=color)
+            draw_server_arc(
+                serverNumber=ring,
+                startAngle=startAngle,
+                stopAngle=stopAngle,
+                color=color,
+            )
 
     # setup file paths
     clockPath = f"{imagePath}/clock.png"
@@ -411,7 +431,7 @@ def main():
     arhivePath = f"{imagePath}/archive/clock-{now}.png"
 
     # export the clock surface
-    surface.get_npimage() # returns a (width x height x 3) numpy array
+    surface.get_npimage()  # returns a (width x height x 3) numpy array
     surface.write_to_png("assets/clock.png")
 
     background = Image.open("assets/3day-diagram-with-key.png")
@@ -430,6 +450,7 @@ def main():
     # copy the current clock to the archive
     archiveImage = Image.open(clockPath)
     archiveImage.save(archivePath)
+
 
 if __name__ == "__main__":
     main()

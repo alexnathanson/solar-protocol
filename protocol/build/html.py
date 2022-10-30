@@ -221,7 +221,7 @@ def getDeviceInfo(getKey):
 
 def get_ips():
     # FIXME: should we remove the server. and be fully p2p?
-    myIP = requests.get("https://server.solarpowerforartists.com/api/myip").text
+    myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
 
     ips = getDeviceInfo("ip")
     serverNames = getDeviceInfo("name")
@@ -296,7 +296,7 @@ def check_images(server_data):
         fullpath = "/home/pi/solar-protocol/frontend/images/servers/" + filename
         filepath = "images/servers/" + filename
         # print("server:", server)
-        myIP = requests.get("https://server.solarpowerforartists.com/api/myip").text
+        myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
         print("myIP", myIP)
 
         if "ip" in server:

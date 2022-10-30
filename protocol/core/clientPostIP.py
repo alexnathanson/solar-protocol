@@ -189,7 +189,7 @@ def run():
     print()
 
     # FIXME: should we remove server. to make fully p2p?
-    myIP = requests.get("https://server.solarpowerforartists.com/api/myip").text
+    myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
 
     myPort = getLocalKey("httpPort")
 

@@ -106,7 +106,7 @@ class SolarProtocol:
         except requests.exceptions.Timeout as err:
             print(err)
         except:
-            print(err)
+            print("error")
 
     # returns the url with parameters for updating the DNS via a GET request
     def updateDNS(self, ip, key):

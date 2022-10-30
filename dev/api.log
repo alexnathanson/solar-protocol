@@ -4,7 +4,7 @@ What happens when the gateway goes down?
 
 ## general
 
-I think I got 90% of the same functionality in 149 line python script as the 369 php script.
+I think I got 90% of the same functionality in 300 line python script as ~600 php script.
 
 ### renames
 charge-controller => /charge
@@ -54,3 +54,8 @@ removed headers for now - move towards 'self-describing data' - see charge contr
 /myip
   moved from gateway to api!
   TODO: should we remove server. prefix, for getting ip address?
+
+/secrets
+  changed from bash environment .spenv to /local/secrets.json
+  no more worrying eval / parsing in bash
+  TODO: need migration plan for existing files

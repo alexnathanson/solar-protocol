@@ -32,7 +32,7 @@
       devices = JSON.parse(response)
 
       devices.forEach(device => {
-        getRequest(`http://{device.ip}/api/charge`, (charge, error) => {
+        getRequest(`http://{device.ip}/api/charge-controller`, (charge, error) => {
           console.log(charge, error)
         })
       })

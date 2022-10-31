@@ -40,11 +40,7 @@ def run():
 
     for ip, name in zip(ips, names):
         print(f"{name}: {ip}")
-        if name == myName:
-            # TODO: Fix this to work with ports other than 80
-            data = SP.getRequest(f"http://localhost/{endpoint}")
-        else:
-            data = SP.getRequest(f"http://{ip}/{endpoint}")
+        data = SP.getRequest(f"http://{ip}/{endpoint}")
 
         if isinstance(data, str):
             print("GET request successful")

@@ -22,7 +22,7 @@ days = 3
 def getCC(server, key):
     print(f"GET {server} {key}")
     try:
-        url = f"http://{server}/api/charge?key={key}&days={days}"
+        url = f"http://{server}/api/charge-controller?key={key}&days={days}"
         response = requests.get(url, timeout=5)
         return json.loads(response.text)
     except requests.exceptions.HTTPError as errh:
@@ -247,7 +247,7 @@ def active_servers(dst):
 def get_pv_value(ip):
     try:
         response = requests.get(
-            f"http://{ip}/api/charge", params={"value": "PV-voltage"}, timeout=5
+            f"http://{ip}/api/charge-controller", params={"value": "PV-voltage"}, timeout=5
         )
         [latest] = response.json
         return latest.pop()["PV voltage"]

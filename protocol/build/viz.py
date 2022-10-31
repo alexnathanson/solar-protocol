@@ -34,7 +34,7 @@ os.chdir(sys.path[0])  # if this script is called from a different directory
 devices = "/data/devices.json"
 imagePath = "/frontend/images"
 
-energyParam = "PV-current"
+energyParam = "PV current"
 ccDicts = []
 days = 4  # get 4 days of csv files so we know we definitely get 72 hours of data
 
@@ -371,7 +371,7 @@ def main():
 
     # in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
-    myTimeZone = getSystemInfoValue("localhost:11221", "tz")
+    myTimeZone = getSystemInfoValue("127.0.0.1:11221", "tz")
     energyValues = []
 
     colors = []

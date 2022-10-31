@@ -21,14 +21,14 @@ def run():
     print()
 
     # initialize SolarProtocolClass
-    SP = SolarProtocolClass()
+    solarProtocol = SolarProtocolClass()
 
-    ips = SP.getDeviceValues("ip")
-    names = SP.getDeviceValues("name")
-    macs = SP.getDeviceValues("mac")
+    ips = solarProtocol.getDeviceValues("ip")
+    names = solarProtocol.getDeviceValues("name")
+    macs = solarProtocol.getDeviceValues("mac")
 
     # get local server name
-    myMAC = SP.getMAC(SP.MACinterface).strip()
+    myMAC = solarProtocol.getMAC(solarProtocol.MACinterface).strip()
     myName = ""
 
     for index, mac in enumerate(macs):

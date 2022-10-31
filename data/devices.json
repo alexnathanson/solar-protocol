@@ -1,8 +1,9 @@
 [
   {
     "mac": "dc:a6:32:31:82:94",
-    "ip": "127.0.0.1:11221",
+    "ip": "api",
     "timestamp": "1665683645.3203902",
-    "name": "Local Dev Server"
+    "name": "Local Dev Server",
+    "log": []
   }
 ]

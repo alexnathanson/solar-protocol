@@ -55,15 +55,14 @@ HELP
   )"
 }
 
+exec() {
+  compose-dev exec protocol "$@"
+}
+
 generate() {
-  compose-dev exec protocol \
-    python /solar-protocol/venv/core/getRemoteData.py
-
-  compose-dev exec protocol \
-    python /solar-protocol/venv/build/viz.py
-
-  compose-dev exec protocol \
-    python /solar-protocol/venv/build/html.py DEV
+  exec python /solar-protocol/venv/core/getRemoteData.py
+  exec python /solar-protocol/venv/build/viz.py
+  exec python /solar-protocol/venv/build/html.py DEV
 }
 
 machine() {
@@ -166,6 +165,7 @@ case $command in
   dev) compose-dev up --build ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) shopt -s globstar; black -- **/**.py ;;
+  exec) exec "$@" ;;
   generate) generate ;;
   init) init ;;
   *) help ;;

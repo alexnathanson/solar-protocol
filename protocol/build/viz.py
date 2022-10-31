@@ -55,11 +55,12 @@ def getDeviceInfo(key):
 
 
 # Call API for every IP address and get charge controller data
-def getChargeControllerValues(server, value):
-    print(f"GET {server} {value}")
-    url = f"http://{server}/api/charge-controller?value={value}&duration={days}"
+def getChargeControllerValues(server):
+    print(f"GET {server} charge-controller {energyParam} {days}")
+    url = f"http://{server}/api/charge-controller"
+    params = { "key": energyParam, "days": days }
     try:
-        cc = requests.get(url, timeout=5)
+        cc = requests.get(url, params, timeout=5)
         cc.json()
         return json.loads(cc.text)
     except JSONDecodeError as errj:
@@ -104,9 +105,9 @@ def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
 
     ccData = {}
     ccData["datetime"] = [
-        datetime.strptime(dt, "%Y-%m-%d %H:%M:%S.%f") for dt in ccDict.keys()
+        datetime.fromtimestamp(entry["timestamp"]) for entry in ccDict
     ]
-    ccData[energy_parameter] = [float(energy) for energy in ccDict.values()]
+    ccData[energy_parameter] = [entry[energy_parameter] for entry in ccDict]
 
     ccDataframe = pd.DataFrame.from_dict(ccData)
 
@@ -352,7 +353,7 @@ def getTimezone(ip):
 
 
 def getEnergyFor(ip):
-    energyValues = getChargeControllerValues(ip, energyParam)
+    energyValues = getChargeControllerValues(ip)
 
     if type(energyValues) == type(None):
         return []

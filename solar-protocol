@@ -117,13 +117,24 @@ init() {
 
   if [[ -f ~/.bashrc ]]; then
     if ! grep --quiet solar-protocol ~/.bashrc; then
-      prompt "Add solar-protocol to bash PATH?" && echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
+      prompt "Add solar-protocol to bash?" && echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
     fi
   fi
 
   if [[ -f ~/.zshrc ]]; then
-    if ! grep --quiet solar-protocol ~/.zshrc; then
-      prompt "Add solar-protocol to zsh PATH?" && echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
+    if grep --quiet solar-protocol ~/.zshrc; then
+      echo "solar-protocl found in zsh, skipping install"
+    else
+      if prompt "Add solar-protocol to zsh?"; then
+        if grep --quiet compinit ~/.zshrc; then
+          tmpfile=$(mktemp)
+          awk "!found && /compinit/ { print \"fpath=($PWD\/dev \$fpath)\"; found=1 } 1" ~/.zshrc > $tmpfile
+          mv $tmpfile ~/.zshrc
+        else
+	        echo "fpath=($PWD\/dev \$fpath); compinit\"" >> ~/.zshrc
+        fi
+        echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
+      fi
     fi
   fi
 

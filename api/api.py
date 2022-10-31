@@ -134,12 +134,12 @@ def system(key: Union[SystemKeys, None] = None):
     return getLocal(key)
 
 
-@app.get("/api/charge/{day}")
+@app.get("/api/charge-controller/{day}")
 def getChargeForDay(day: str, key: Union[ChargeKeys, None] = None):
     return charge(days=[day], key=key)
 
 
-@app.get("/api/charge")
+@app.get("/api/charge-controller")
 def getCharge(days: Union[int, None] = None, key: Union[ChargeKeys, None] = None):
     today = datetime.date.today()
 

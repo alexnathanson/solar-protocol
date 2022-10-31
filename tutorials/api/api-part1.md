@@ -4,6 +4,11 @@ The Solar Protocol open API V2 is intended to allow anyone to get data from the 
 
 It is a public, free, keyless service that enables GET requests for various pieces of data about specific servers and network activity.
 
+This tutorial is meant to be used in conjunction with the API explorer, which can be found at http://solarprotocol.net/api/v2/
+. The structure of this tutorial mirrors flow of the API explorer. When you use the form fields provided, API responses are displayed in a relatively user friendly way in the browser console.
+
+The API explorer includes example calls as well, which you can also use with whatever tool or language of you are confortable with, such as cURL, Javascript, python, etc.
+
 ### What is an API?
 
 API stands for application protocol interface. It is a protocol that facilitates transferring data between pieces of software.
@@ -23,8 +28,6 @@ Solar Protocol is in a constant state of evolution and development. We are a ver
 Open the Solar Protocol API V2 explorer in a browser of your choosing.
 
 http://solarprotocol.net/api/v2/
-
-The structure of this tutorial mirrors the API explorer. Feel free to just use the form fields built in to the explorer or use the example API calls with any tool or language of your choosing, such as cURL, Javascript, python, etc.
 
 If using the explorer, the results of the call will be displayed in the browser console. The console can be opened via the browser's developer settings or by pression the Fn and F12 keys simultaniously (works on most browsers).
 

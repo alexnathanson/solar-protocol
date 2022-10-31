@@ -2,6 +2,9 @@
 
 The Solar Protocol API is intended to allow anyone to get data from the network for educational or artistic purposes.
 
+The data describing each server comes from the server's charge controller which is a device that connects the battery with the solar panel and the computer. The charge controller measures several parameters for each system. These are:
+
+
 Needed:
 basic command line for CURL
 js

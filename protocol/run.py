@@ -63,7 +63,7 @@ def runScripts(runCount):
         printLoud("publishDevice.py Exception", err)
         exceptions.append("publishDevice")
 
-    # why do we run solarProtocol before getRemoteData?
+    # QUESTION: Why do we run solarProtocol before getRemoteData?
     try:
         solarProtocol.run()
     except Exception as err:

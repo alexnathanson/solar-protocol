@@ -171,7 +171,7 @@ def getDevice():
 
 def run():
     print()
-    print("***** Running ClientPostIP script *****")
+    print("***** Running PublishDevice script *****")
     print()
 
     apiKey = getApiKey()

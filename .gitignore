@@ -12,3 +12,6 @@ frontend/*html
 
 # created by protocol/build/viz.py
 frontend/archive/*png
+
+# do not commit changes to secrets
+local/secrets.json

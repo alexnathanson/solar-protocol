@@ -12,7 +12,6 @@ import sys
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 DEV = "DEV" in sys.argv
-DEBUG = "DEBUG" in os.environ
 
 serverNames = []
 myIP = " "
@@ -163,7 +162,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 def get_weather(lon, lat, api_key):
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     url = f"{base_url}?lon={lon}&lat={lat}&appid={api_key}"
-    if DEBUG:
+    if DEV:
         print(url)
 
     response = requests.get(url)
@@ -392,13 +391,13 @@ def main():
         item["status"] = status
         try:
             time_stamp = getDeviceInfo("time stamp")
-            if DEBUG:
+            if DEV:
                 print("time_stamp!!!!!", time_stamp[item_count])
 
             ftime_stamp = datetime.datetime.fromtimestamp(
                 float(time_stamp[item_count])
             ).strftime("%m/%d/%Y %H:%M:%S")
-            if DEBUG:
+            if DEV:
                 print(ftime_stamp)
 
             # time_stamp = ":".join(time_stamp.split(":")[0:-1])

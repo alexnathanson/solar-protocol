@@ -27,7 +27,7 @@ hour_angle = Tau / hours  # angle of an hour
 ring_rad = 61
 radius = 61 * 10
 start_ring = 0
-DEBUG = "DEBUG" in os.environ
+DEV = "DEV" in sys.argv
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
@@ -76,13 +76,14 @@ def getChargeControllerValues(server):
 
 
 # Call API for every IP address and get charge controller data
-def getSystemInfoValue(server, systemInfo):
-    url = f"http://{server}/api/system-info?value={systemInfo}"
+def getSystem(server, key):
+    url = f"http://{server}/api/system"
+    params = { "key": key }
     try:
-        systemInfo = requests.get(url, timeout=5)
+        systemInfo = requests.get(url=url, params=params, timeout=5)
         systemInfo = systemInfo.text
 
-        if DEBUG:
+        if DEV:
             print(f"{server} {key}: {systemInfo}")
 
         return systemInfo
@@ -98,7 +99,7 @@ def getSystemInfoValue(server, systemInfo):
 
 # drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
-    if DEBUG:
+    if DEV:
         print(f"drawing text curve for {server_no} {message}")
     if type(ccDict) == type(None):
         return
@@ -129,7 +130,7 @@ def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
 
     # correlate sun data wtih colors
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
-        if DEBUG:
+        if DEV:
             print("Current: ", current)
         draw_sun(ring_number, i, current)
 
@@ -181,7 +182,7 @@ def draw_server_arc(serverNumber, startAngle, stopAngle, color):
 
 def sortPOE(logs, timeZones, myTimeZone):
     global dfPOE
-    if DEBUG:
+    if DEV:
         print("dfPOE.head()", dfPOE.head())
     for i, log in enumerate(logs):
         tempDF = pd.DataFrame(log)  # convert individual POE lists to dataframe
@@ -229,7 +230,7 @@ def sortPOE(logs, timeZones, myTimeZone):
             percent = dfPOE["percent"].iloc[t]
             dfPOE.at[t, "angle"] = 360 - (percent * 360)
 
-    if DEBUG:
+    if DEV:
         print("head", dfPOE.head())
         print("tail", dfPOE.tail())
 
@@ -254,7 +255,7 @@ def tzOffset(checkTZ, myTimeZone):
 
 
 def text_curve(serverNumber, message, angle, spacing, fontsize):
-    if DEBUG:
+    if DEV:
         print(f"drawing text curve for {serverNumber} {message}")
     cr = serverNumber * ring_rad + (ring_rad / 5) + (ring_rad * start_ring)
 
@@ -328,7 +329,7 @@ def circles():
 def getColor(ip):
     DEFAULT_COLOR = (1, 1, 1)
     try:
-        color = getSystemInfoValue(ip, "color")
+        color = getSystem(ip, "color")
     except:
         return DEFAULT_COLOR
 
@@ -342,7 +343,7 @@ def getTimezone(ip):
     # defaults to NYC time - default to UTC in the future
     DEFAULT_TIMEZONE = "America/New_York"
     try:
-        timezone = getSystemInfoValue(ip, "tz")
+        timezone = getSystem(ip, "tz")
     except:
         return DEFAULT_TIMEZONE
 
@@ -372,14 +373,14 @@ def main():
 
     # in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
-    myTimeZone = getSystemInfoValue("127.0.0.1:11221", "tz")
+    myTimeZone = getSystem("127.0.0.1:11221", "tz")
     energyValues = []
 
     colors = []
 
     # iterate through each device
     for ip in ips:
-        if DEBUG:
+        if DEV:
             print(f"getting data for {ip}")
 
         energyValues.append(getEnergyFor(ip))

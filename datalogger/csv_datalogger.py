@@ -6,7 +6,7 @@ import csv
 import os
 import sys
 
-DEV = "DEV" in sys.argv or "DEV" in os.environ
+DEV = "DEV" in sys.argv
 
 fieldnames = [
     "timestamp",

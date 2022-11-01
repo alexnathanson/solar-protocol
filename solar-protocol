@@ -160,7 +160,7 @@ bcrypt() { htpasswd -bnBC 10 "" $1 | tr -d ':\n'; }
 
 case $command in
   up) compose up "$@" ;;
-  down) compose down "$@"; compose-dev down "$@" ;;
+  down) compose down "$@" ;;
   status) compose-dev ps ;;
   restart) compose-dev restart "${*:-api datalogger protocol web}" ;;
   logs) compose-dev logs "${1:-protocol}" ;;

@@ -5,9 +5,9 @@
   "city": "A city",
   "country": "A country",
   "lat": "40.65 N",
-  "long": "73.94 W",
-  "bgColor" : "Olive",
-  "font" : "Monaco",
-  "pvWatts":"",
-  "pvVolts":""
+  "lon": "73.94 W",
+  "bgColor": "Olive",
+  "font": "Monaco",
+  "pvWatts": "100",
+  "pvVolts": "12"
 }

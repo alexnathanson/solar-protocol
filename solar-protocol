@@ -59,10 +59,22 @@ compose-exec() {
   compose-dev exec protocol "$@"
 }
 
-generate() {
-  compose-exec python /solar-protocol/venv/core/getRemoteData.py "$@"
+build-viz() {
   compose-exec python /solar-protocol/venv/build/viz.py "$@"
+}
+
+build-html() {
   compose-exec python /solar-protocol/venv/build/html.py "$@"
+}
+
+get-remote-data() {
+  compose-exec python /solar-protocol/venv/core/getRemoteData.py "$@"
+}
+
+generate() {
+  get-remote-data "$@"
+  build-viz "$@"
+  build-html "$@"
 }
 
 machine() {
@@ -172,6 +184,9 @@ case $command in
   exec) compose-exec "$@" ;;
   generate) generate "$@" ;;
   password) password ;;
+  get-remote-data) get-remote-data "$@" ;;
+  build-viz) build-viz "$@" ;;
+  build-html) build-html "$@" ;;
   hash) bcrypt "$1" ;;
   keygen) pass=$(password); echo password: $pass; echo hash: $(bcrypt $pass) ;;
   init) init ;;

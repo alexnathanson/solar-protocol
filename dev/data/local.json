@@ -5,7 +5,7 @@
   "city": "NYC baby!",
   "country": "JFK Terminal 4",
   "lat": "40.65 N",
-  "long": "73.94 W",
+  "lon": "73.94 W",
   "bgColor" : "Olive",
   "font" : "Monaco",
   "pvWatts":"100",

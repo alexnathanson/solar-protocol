@@ -17,6 +17,10 @@ serverNames = []
 myIP = " "
 days = 3
 
+def debug(thing):
+    if DEV:
+        print(thing)
+
 # Call API for every IP address and get charge controller data
 def getCC(server, key):
     print(f"GET {server} {key}")
@@ -40,27 +44,33 @@ def read_csv():
     chargeControllerData = f"/data/traces/{today}.csv"
     filename = chargeControllerData
 
+    fieldnames = [
+        "timestamp",
+        "PV voltage",
+        "PV current",
+        "PV power L",
+        "PV power H",
+        "battery voltage",
+        "battery current",
+        "battery power L",
+        "battery power H",
+        "load voltage",
+        "load current",
+        "load power",
+        "battery percentage",
+    ]
+
     with open(filename, "r") as data:
-        alllines = [line for line in csv.DictReader(data)]
+        alllines = [line for line in csv.DictReader(data, fieldnames=fieldnames)]
 
     line = alllines[-1]
-    line["PV voltage"] = float(line["PV voltage"])
-    line["PV current"] = float(line["PV current"])
-    line["PV power L"] = float(line["PV power L"])
-    line["PV power H"] = float(line["PV power H"])
-    line["battery voltage"] = float(line["battery voltage"])
-    line["battery current"] = float(line["battery current"])
-    line["battery power L"] = float(line["battery power L"])
-    line["battery power H"] = float(line["battery power H"])
-    line["load voltage"] = float(line["load voltage"])
-    line["load current"] = float(line["load current"])
-    line["load power"] = float(line["load power"])
-    line["battery percentage"] = float(line["battery percentage"])
+
     return line
 
 
 def render_pages(_local_data, _data, _weather, _server_data):
-    print("Battery Percentage: {str(_data['battery percentage'])}")
+    debug(_data)
+    debug(_local_data)
 
     templatePath = f"./templates"
     outputPath = f"/frontend"
@@ -81,8 +91,8 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     # get the timezone
     try:
-        tz_url = "http://localhost/api/system?key=tz"
-        response = requests.get(tz_url)
+        url = "http://localhost:11221/api/system"
+        response = requests.get(url=url, params={"key": "tz"})
 
         # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
         if response.status == 404:
@@ -139,7 +149,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
             city=_local_data["city"],
             country=_local_data["country"],
             lat=_local_data["lat"],
-            long=_local_data["long"],
+            lon=_local_data["lon"],
             bgColor=_local_data["bgColor"],
             font=_local_data["font"],
             weather=_weather["description"],
@@ -159,16 +169,14 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
 
 # get weather data
-def get_weather(lon, lat, api_key):
-    base_url = "http://api.openweathermap.org/data/2.5/weather?"
-    url = f"{base_url}?lon={lon}&lat={lat}&appid={api_key}"
-    if DEV:
-        print(url)
+def get_weather(lon, lat, apiKey):
+    url = "http://api.openweathermap.org/data/2.5/weather"
+    params = { "lon": lon, "lat": lat, "appid": apiKey }
 
-    response = requests.get(url)
+    response = requests.get(url=url, params=params)
     data = response.json()
     current_temperature = data["main"]["temp"]
-    current_humidiy = data["main"]["humidity"]
+    current_humidity = data["main"]["humidity"]
     weather_description = data["weather"][0]["description"]
 
     sunrise = datetime.datetime.fromtimestamp(data["sys"]["sunrise"])
@@ -176,14 +184,9 @@ def get_weather(lon, lat, api_key):
     sunrise = sunrise.strftime("%I:%M %p")
     sunset = sunset.strftime("%I:%M %p")
 
-    print(
-        " Temperature (in kelvin unit) = "
-        + str(current_temperature)
-        + "\n humidity (in percentage) = "
-        + str(current_humidiy)
-        + "\n description = "
-        + str(weather_description)
-    )
+    print(" Temperature (in kelvin unit) = {current_temperature}")
+    print(" humidity (in percentage) = {current_humidity}")
+    print(" description = {weather_description}")
 
     output = {
         "description": data["weather"][0]["description"],
@@ -199,9 +202,9 @@ def get_weather(lon, lat, api_key):
 # get local front end data
 def get_local():
     filename = f"/local/local.json"
-    with open(filename) as infile:
-        local_data = json.load(infile)
-    return local_data  # dictionary
+    with open(filename) as localfile:
+        localdata = json.load(localfile)
+    return localdata
 
 
 # Get list of IP addresses that the pi can see
@@ -309,7 +312,7 @@ def check_images(server_data):
                 print("Got image for " + server["name"])
             else:
                 # else download image using api and save it to the folder: "../../frontend/images/servers/"
-                image_path = "http://" + server["ip"] + "/local/serverprofile.gif"
+                image_path = f"http://{server['ip']}/local/serverprofile.gif"
                 try:
                     download_file(image_path, fullpath)
                     print("image_path", image_path)
@@ -318,15 +321,18 @@ def check_images(server_data):
                     print(server["name"], ": Offline. Can't get image")
             server["image_path"] = filepath
 
-
 def main():
 
     print()
-    print("***** Running create_html *****")
+    print("***** Running html.py *****")
     print()
 
     energy_data = read_csv()  # get pv data from local csv
+    debug(energy_data)
+
     local = get_local()  # get local steward data for front end
+    debug(local)
+
     api_key = "24df3e6ca023273cd426f67e7ac06ac9"
     try:
         local_weather = get_weather(lon=local.lon, lat=local.lat, api_key=api_key)
@@ -415,9 +421,9 @@ def main():
             item["link"] = serverURL
         item_count += 1
 
-    # 4. get images and
-    print("SERVER DATA!")
-    print(server_data)
+    # 4. get images and ???
+    debug("SERVER DATA:")
+    debug(server_data)
     local_data = get_local()
     check_images(server_data)
     render_pages(local_data, energy_data, local_weather, server_data)

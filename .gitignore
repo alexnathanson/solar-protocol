@@ -10,10 +10,11 @@ data/traces/*csv
 
 # created by protocol/core/getRemoteData.py
 data/*json
+data/poe.log
 
 # created by protocol/build/html.py
 frontend/*html
 
 # created by protocol/build/viz.py
 frontend/archive/*png
-
+frontend/images/archive/*png

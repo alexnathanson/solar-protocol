@@ -1,0 +1,47 @@
+_solar-protocol() {
+    local current_context="$current_context" state line
+    typeset -A opt_args
+
+    local -a options
+    options=(
+      build:"build fresh images for one or all of the services"
+      dev:"run the services in development mode (fake datalogger)"
+      down:"stop running solar-protocol"
+      format:"format the code"
+      generate:"generate a fresh version of the website"
+      help:"show the help"
+      init:"install dependencies for this script"
+      logs:"show logs for one of the services"
+      open:"open the local website"
+      restart:"restart solar-protcol"
+      shell:"open a shell in one of the running services"
+      status:"show what services are running"
+      up:"start running solar-protocol service"
+    )
+
+    local -a services
+    services=(
+      api:"api service"
+      datalogger:"datalogger service"
+      protocol:"protocol service"
+      web:"web service"
+    )
+
+    _arguments -s -S \
+      '(-): :->command'                       \
+      '(-)*:: :->service-argument'          \
+      && return 0;
+
+    case $state in
+        (command)
+            _describe 'commands' options ;;
+        (service-argument)
+            case $words[1] in
+                build|logs|shell|stop|restart)
+                    _describe 'service' services
+                    ;;
+            esac
+    esac
+}
+
+compdef '_solar-protocol' solar-protocol

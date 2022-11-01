@@ -10,9 +10,9 @@ This manages POST requests on the server
 
 * POST requests allow other devices on the network to update the IP list to account for dynamic IP issues
 
-### clientPostIP.py
+### publishDevice.py
 
-This script updates the IPs on the other devices on the network
+This script announces the current device information to the other devices on the network
 
 * this should be set on a cron timer
 

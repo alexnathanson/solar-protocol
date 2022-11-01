@@ -26,7 +26,7 @@ There are 4 services that make up the entire protocol. `./solar-protocol status`
 
 The solar protocol is supervised by `[protocol/run.py](/protocol/run.py)`. This runner runs a number of other scripts, depending on the current solar and battery conditions.
 
-This includes two protocol scripts that manage the peer-to-peer network - `clientPostIP.py`, and `solarProtocol.py`.
+This includes two protocol scripts that manage the peer-to-peer network - `publishDevice.py`, and `solarProtocol.py`.
 
 > Note: More work is needed to enable the protocol scripts to safely make test posts with dummy data without it breaking the client.
 
@@ -34,7 +34,7 @@ There are three scripts that rebuild the static site based on the latest data - 
 
 All of these scripts with should be run with the DEV arg, e.g. `python3 solar-protocol/protocol/build/html.py DEV`. Otherwise they will post data in the real network.
 
-1. clientPostIP
+1. publishDevice
 
 Updates all devices found in devices.json with its own device information - `api_key`, `timestamp`, `ip`, `mac`, `name`, `timezone`, and `poelog`.
 

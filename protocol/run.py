@@ -14,7 +14,7 @@ If battery percentage is below 30%, viz script doesn't run
 """
 
 from build import html, viz
-from core import clientPostIP, solarProtocol, getRemoteData
+from core import publishDevice, solarProtocol, getRemoteData
 from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 from time import sleep
 from math import trunc
@@ -58,10 +58,10 @@ def runScripts(runCount):
     exceptions = []
 
     try:
-        clientPostIP.run()
+        publishDevice.run()
     except Exception as err:
-        printLoud("clientPostIP.py Exception", err)
-        exceptions.append("clientPostIP")
+        printLoud("publishDevice.py Exception", err)
+        exceptions.append("publishDevice")
 
     # why do we run solarProtocol before getRemoteData?
     try:

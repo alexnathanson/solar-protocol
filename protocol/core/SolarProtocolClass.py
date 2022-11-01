@@ -12,7 +12,7 @@ retrieving live and historic data from charge controller
 load and retrieve deviceList file
 
 currently this class only handles some new functionality for solarProtocol.py.
-Refactoring and expansion is required to create additional methods and apply this to clientPostIP.py too
+Refactoring and expansion is required to create additional methods and apply this to publishDevice.py too
 """
 
 import requests

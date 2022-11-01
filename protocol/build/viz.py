@@ -50,7 +50,6 @@ def getDeviceInfo(key):
         data = json.load(file)
 
     deviceInfo = [device[key] for device in data]
-    print(deviceInfo)
     return deviceInfo
 
 
@@ -100,7 +99,7 @@ def getSystem(server, key):
 # drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
     if DEV:
-        print(f"drawing text curve for {ring_number} {message}")
+        print(f"drawing text curve for {ring_number}")
     if type(ccDict) == type(None):
         return
 
@@ -182,8 +181,7 @@ def draw_server_arc(serverNumber, startAngle, stopAngle, color):
 
 def sortPOE(logs, timeZones, myTimeZone):
     global dfPOE
-    if DEV:
-        print("dfPOE.head()", dfPOE.head())
+
     for i, log in enumerate(logs):
         tempDF = pd.DataFrame(log)  # convert individual POE lists to dataframe
         tempDF["datetime"] = tempDF[0]
@@ -431,7 +429,7 @@ def main():
     clockPath = f"{imagePath}/clock.png"
     exhibitPath = f"{imagePath}/clock-exhibit.png"
     now = str(datetime.now().strftime("%Y-%m-%d %H-%M-%S"))
-    arhivePath = f"{imagePath}/archive/clock-{now}.png"
+    archivePath = f"{imagePath}/archive/clock-{now}.png"
 
     # export the clock surface
     surface.get_npimage()  # returns a (width x height x 3) numpy array

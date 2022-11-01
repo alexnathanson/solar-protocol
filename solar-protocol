@@ -55,14 +55,14 @@ HELP
   )"
 }
 
-exec() {
+compose-exec() {
   compose-dev exec protocol "$@"
 }
 
 generate() {
-  exec python /solar-protocol/venv/core/getRemoteData.py
-  exec python /solar-protocol/venv/build/viz.py
-  exec python /solar-protocol/venv/build/html.py DEV
+  compose-exec python /solar-protocol/venv/core/getRemoteData.py "$@"
+  compose-exec python /solar-protocol/venv/build/viz.py "$@"
+  compose-exec python /solar-protocol/venv/build/html.py "$@"
 }
 
 machine() {
@@ -162,7 +162,7 @@ case $command in
   up) compose up "$@" ;;
   down) compose down "$@" ;;
   status) compose-dev ps ;;
-  restart) compose-dev restart "${*:-api datalogger protocol web}" ;;
+  restart) compose-dev restart "${@:-api datalogger protocol web}" ;;
   logs) compose-dev logs "${1:-protocol}" ;;
   build) compose build "$@" ;;
   shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
@@ -170,7 +170,7 @@ case $command in
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) shopt -s globstar; black -- **/**.py ;;
   exec) exec "$@" ;;
-  generate) generate ;;
+  generate) generate "$@" ;;
   password) password ;;
   hash) bcrypt "$1" ;;
   keygen) pass=$(password); echo password: $pass; echo hash: $(bcrypt $pass) ;;

@@ -1,9 +1,8 @@
-FROM docker.io/library/python:3.10-slim
+FROM localhost/solar-protocol/base:latest
 
-RUN apt-get --quiet update && apt-get --quiet upgrade --yes && apt-get --quiet install \
+RUN apt-get --quiet install \
   build-essential libcairo2 libffi-dev \
   libjpeg-dev zlib1g zlib1g-dev --yes
-ENV TERM=screen-256color
 
 WORKDIR /solar-protocol
 RUN python -m venv /solar-protocol/venv
@@ -11,8 +10,7 @@ ENV PATH="/solar-protocol/venv/bin:$PATH"
 RUN pip install --quiet --no-cache-dir wheel
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
-COPY ../common/secrets .
-RUN pip install ./secrets
+RUN pip install /common
 
 WORKDIR /solar-protocol/venv
 COPY . .

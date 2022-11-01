@@ -3,14 +3,15 @@ name: solar-protocol
 services:
   datalogger:
     image: localhost/solar-protocol/datalogger
-    build: ./datalogger
+    build: datalogger
     restart: unless-stopped
     volumes:
       - data:/data
   api:
     image: localhost/solar-protocol/api
-    build: ./api
+    build: api
     restart: unless-stopped
+
     volumes:
       - data:/data
       - local:/local
@@ -18,7 +19,7 @@ services:
       - 11215:80
   protocol:
     image: localhost/solar-protocol/protocol
-    build: ./protocol
+    build: protocol
     restart: unless-stopped
     command: python run.py now
     volumes:

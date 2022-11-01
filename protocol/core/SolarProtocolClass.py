@@ -21,10 +21,6 @@ import subprocess
 import sys
 import os
 
-# confirm class is loaded
-# print('solar protocol class in attendence')
-
-
 class SolarProtocol:
     def __init__(self):
         self.localConfigFile = "/local/local.json"
@@ -78,14 +74,6 @@ class SolarProtocol:
             return 50.0 / float(self.localConfigData["pvWatts"])
         except:
             return 1
-
-    # runs the environmental variable GET script and returns the specified variable
-    def getSecret(self, secretKey):
-        secretsFilepath = f"/local/secrets.json"
-        with open(secretsFilepath, "r") as secretsFile:
-            secrets = json.load(secrets)
-
-        return secrets[secretKey]
 
     # returns the device's MAC address at the specified interface
     # this only works with linux

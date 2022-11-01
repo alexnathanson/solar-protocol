@@ -19,6 +19,8 @@ import subprocess
 import os
 import sys
 
+from secrets import getSecret, SecretKey
+
 
 DEV = "DEV" in sys.argv
 
@@ -135,11 +137,7 @@ def getApiKey():
     if DEV:
         return "this-will-fail"
 
-    secretsFilepath = f"/local/secrets.json"
-    with open(secretsFilepath) as secretsFile:
-        secrets = json.load(secretsFile)
-
-    return secrets["apiKey"]
+    return getSecret(SecretKey.apiKey)
 
 def getDevice():
     # FIXME: should we remove server. to make fully p2p?

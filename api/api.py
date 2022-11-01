@@ -8,6 +8,7 @@ from enum import Enum
 from typing import Union
 
 from fastapi import FastAPI, Header, Form
+from secrets import getSecret, SecretKeys
 
 import requests
 
@@ -124,7 +125,7 @@ def updateDevice(
     apiKey: str = Form()
     ):
 
-    if apiKey != getSecret(SecretKeys.apiKey):
+    if apiKey != getSecret(SecretKey.apiKey):
         raise Error('Invalid apiKey for this server')
 
     formData = {
@@ -368,11 +369,6 @@ def updateLocal(
         json.dump(local, localfile)
 
     return local
-
-
-class SecretKey(str, Enum):
-    apiKey = "apiKey"
-    dnsPassword = "dnsPassword"
 
 
 @app.post("/api/secret")

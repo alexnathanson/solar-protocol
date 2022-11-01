@@ -10,6 +10,8 @@ import os
 import re
 import sys
 
+from secrets import getSecret, SecretKey
+
 os.chdir(sys.path[0])  # if this script is called from a different directory
 DEV = "DEV" in sys.argv
 
@@ -17,16 +19,18 @@ serverNames = []
 myIP = " "
 days = 3
 
-def debug(thing):
+def debug(thing, tag = None):
     if DEV:
+        print(tag)
         print(thing)
 
 # Call API for every IP address and get charge controller data
 def getCC(server, key):
     print(f"GET {server} {key}")
     try:
-        url = f"http://{server}/api/charge-controller?key={key}&days={days}"
-        response = requests.get(url, timeout=5)
+        url = f"http://{server}/api/charge-controller"
+        params = { "key": key, "days": days }
+        response = requests.get(url=url, params=params, timeout=5)
         return json.loads(response.text)
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -91,7 +95,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     # get the timezone
     try:
-        url = "http://localhost:11221/api/system"
+        url = "http://{_server_data['ip']}/api/system"
         response = requests.get(url=url, params={"key": "tz"})
 
         # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
@@ -169,9 +173,9 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
 
 # get weather data
-def get_weather(lon, lat, apiKey):
+def get_weather(lon, lat, appid):
     url = "http://api.openweathermap.org/data/2.5/weather"
-    params = { "lon": lon, "lat": lat, "appid": apiKey }
+    params = { "lon": lon, "lat": lat, "appid": appid }
 
     response = requests.get(url=url, params=params)
     data = response.json()
@@ -328,14 +332,14 @@ def main():
     print()
 
     energy_data = read_csv()  # get pv data from local csv
-    debug(energy_data)
+    debug(energy_data, "energy")
 
     local = get_local()  # get local steward data for front end
-    debug(local)
+    debug(local, "local")
 
-    api_key = "24df3e6ca023273cd426f67e7ac06ac9"
+    appid = getSecret(SecretKey.appid)
     try:
-        local_weather = get_weather(lon=local.lon, lat=local.lat, api_key=api_key)
+        local_weather = get_weather(lon=local["lon"], lat=local["lat"], appid=appid)
     except Exception as e:
         print(e)
         local_weather = {
@@ -348,10 +352,9 @@ def main():
 
     # 1. get IP list of addresses
     deviceList_data = get_ips()
+
     # creates deviceList_data
-    print("#1")
-    print(deviceList_data)
-    print(deviceList_data.items())
+    debug(deviceList_data)
 
     # 2 Collect data from all the difference servers on the network
     server_data = []
@@ -371,7 +374,7 @@ def main():
 
         except Exception as e:
             print(e)
-            # reformat page so offline servers dont actually need this blank data?
+            # FIXME: reformat page so offline servers dont actually need this blank data
             server_data.append(
                 {
                     "ip": ip,
@@ -425,6 +428,7 @@ def main():
     debug("SERVER DATA:")
     debug(server_data)
     local_data = get_local()
+    debug(local_data)
     check_images(server_data)
     render_pages(local_data, energy_data, local_weather, server_data)
 

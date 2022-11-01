@@ -8,6 +8,8 @@ RUN python -m venv /datalogger/venv
 ENV PATH="/datalogger/venv/bin:$PATH"
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
+COPY ../common/secrets .
+RUN pip install ./secrets
 
 WORKDIR /api/venv
 COPY . .

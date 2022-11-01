@@ -154,6 +154,10 @@ compose() { machine; podman-compose --file compose.yaml "$@"; }
 
 compose-dev() { machine; compose --file dev/compose.yaml "$@"; }
 
+password() { openssl rand -hex 8; }
+
+bcrypt() { htpasswd -bnBC 10 "" $1 | tr -d ':\n'; }
+
 case $command in
   up) compose up "$@" ;;
   down) compose down "$@"; compose-dev down "$@" ;;
@@ -167,6 +171,9 @@ case $command in
   format) shopt -s globstar; black -- **/**.py ;;
   exec) exec "$@" ;;
   generate) generate ;;
+  password) password ;;
+  hash) bcrypt "$1" ;;
+  keygen) pass=$(password); echo password: $pass; echo hash: $(bcrypt $pass) ;;
   init) init ;;
   *) help ;;
 esac

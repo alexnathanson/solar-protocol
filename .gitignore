@@ -1,11 +1,15 @@
 # python
 __pycache__
+*pyc
 
-# downloaded by protocol/core/getRemoteData.py
-data/*json
+# do not commit changes to secrets
+local/secrets.json
 
-# created by charge-controller/datalogger.py
+# created by datalogger/csv_datalogger.py
 data/traces/*csv
+
+# created by protocol/core/getRemoteData.py
+data/*json
 
 # created by protocol/build/html.py
 frontend/*html
@@ -13,5 +17,3 @@ frontend/*html
 # created by protocol/build/viz.py
 frontend/archive/*png
 
-# do not commit changes to secrets
-local/secrets.json

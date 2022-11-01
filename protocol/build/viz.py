@@ -100,7 +100,7 @@ def getSystem(server, key):
 # drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
     if DEV:
-        print(f"drawing text curve for {server_no} {message}")
+        print(f"drawing text curve for {ring_number} {message}")
     if type(ccDict) == type(None):
         return
 

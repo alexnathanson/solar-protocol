@@ -428,7 +428,7 @@ def main():
     # setup file paths
     clockPath = f"{imagePath}/clock.png"
     exhibitPath = f"{imagePath}/clock-exhibit.png"
-    now = str(datetime.now().strftime("%Y-%m-%d %H-%M-%S"))
+    now = str(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     archivePath = f"{imagePath}/archive/clock-{now}.png"
 
     # export the clock surface

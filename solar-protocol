@@ -169,7 +169,7 @@ case $command in
   dev) compose-dev up --build --detach ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) shopt -s globstar; black -- **/**.py ;;
-  exec) exec "$@" ;;
+  exec) compose-exec "$@" ;;
   generate) generate "$@" ;;
   password) password ;;
   hash) bcrypt "$1" ;;

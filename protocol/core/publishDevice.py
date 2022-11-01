@@ -136,7 +136,7 @@ def getApiKey():
         return "this-will-fail"
 
     secretsFilepath = f"/local/secrets.json"
-    with open(secretsFilepath) as secretsfile:
+    with open(secretsFilepath) as secretsFile:
         secrets = json.load(secretsFile)
 
     return secrets["apiKey"]

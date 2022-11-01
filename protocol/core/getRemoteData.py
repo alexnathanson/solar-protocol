@@ -36,11 +36,12 @@ def run():
             myName = nameList[index]
             break
 
-    endpoint = "api/charge?days=4"
-
     for ip, name in zip(ips, names):
         print(f"{name}: {ip}")
-        data = SP.getRequest(f"http://{ip}/{endpoint}")
+        if ip == "127.0.0.1:11221":
+            data = solarProtocol.getRequest(f"http://api/api/charge-controller?days=4")
+        else:
+            data = solarProtocol.getRequest(f"http://{ip}/api/charge-controller?days=4")
 
         if isinstance(data, str):
             print("GET request successful")

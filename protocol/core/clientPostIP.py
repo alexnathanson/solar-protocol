@@ -19,40 +19,32 @@ import subprocess
 import os
 import sys
 
-headers = {
-    #'X-Auth-Key': KEY,
-    "Content-Type": "application/x-www-form-urlencoded",
-}
 
-isMain = __name__ == "__main__"
 DEV = "DEV" in sys.argv
 
 if DEV:
     print("DEV mode")
 
 poeLog = "/data/poe.log"
-localConfig = "/home/pi/local/local.json"
+localConfig = "/local/local.json"
 deviceList = "/data/devices.json"
 
-newDSTList = []
-runningDSTList = []
-
 # this only works with linux
-def getmac(interface):
+# FIXME: there is a problem using 00:00 as a duplicate identifier
+def getmac(interface: str = "wlan0"):
     try:
-        mac = open("/sys/class/net/" + interface + "/address").readline()
+        mac = open(f"/sys/class/net/{interface}/address").readline()
     except:
         mac = "00:00:00:00:00:00"
 
     return mac
 
 
-def getKeys(key):
+def getDevices(key: str):
     with open(deviceList) as file:
         devices = json.load(file)
 
-    return devices.map(lambda device: device[key])
-
+    return [ device[key] for device in devices ]
 
 def getPoeLog():
     try:
@@ -61,58 +53,56 @@ def getPoeLog():
         lines = poeFile.readlines()[:216]
         # if solarProtocol.py runs every 10 minutes, there can be max 432 entries
         # this would happen if the current server was POE for the entire 72 hours
-        return lines.map(lambda line: line.removeprefix("INFO:root:"))
+        poeLog = [ line.removeprefix("INFO:root:") for line in lines ]
+        return ",".join(poeLog) 
 
     except:
-        return []
+        return ""
 
-
-def getLocalKey(key):
+def getLocal(key):
     try:
         with open(localConfig) as file:
             device = json.load(file)
-            if DEV:
-                print(device)
             return device[key]
 
     except:
         print(f"local config file exception with key {key}")
 
-        if key == "name":
-            return "pi"
-
-        if key == "httpPort":
-            return ""
-
-
 """
-Check if is is a new MAC and post if so
-If MAC exists check if it is a new IP and post if so
-TODO: add timestamp hiearchy here - taking in to account timezones, or using a 24 hour window
+For every device in our local devices.json, ask for their device lists
+FIXME: lets discuss exactly how chatty this is
 """
-# TODO: Check that we aren't doing duplicate work.
-# I removed a global for the runningDST list. Seems like a circular dependency? - jedahan
-def getNewDST(responses):
-    global newDSTList
+def discoverIps():
+    ips = getDevices("ip")
+    macs = getDevices("macs")
 
-    macs = getKeys("mac")
-    ips = getKeys("ip")
+    all_devices = []
 
-    new_ips = responses.filter(
-        lambda response: response["mac"] not in macs or response["ip"] not in ips
-    )
-    outputToConsole(f"new ips: {new_ips}")
+    for ip in ips:
+        devices = requests.get(f"http://{ip}/api/devices").json()
+        all_devices.append(devices)
 
-    newDSTList.extend(new_ips)
+    all_macs = { device["mac"] for device in all_devices }
+    local_macs = { macs }
 
+    new_macs = all_macs - local_macs
+    new_devices = { all_devices.filter(lambda device: device["mac"] in new_macs) }
 
-def postIt(ip, params):
-    url = f"http://{ip}/api"
+    if DEV:
+        outputToConsole(f"new ips: {[ device['ip'] for device in new_devices ]}")
+
+    discoveredIps = [device["ip"] for device in newDevices]
+
+    return discoveredIps
+
+def postDevice(ip, params):
+    url = f"http://{ip}/api/device"
+    headers = { "Content-Type": "application/x-www-form-urlencoded" }
+
     try:
-        response = requests.post(url, headers=headers, params=params, timeout=5)
+        response = requests.post(url=url, headers=headers, params=params, timeout=5)
         if response.ok:
             try:
-                getNewDST(response.json())
                 print(f"Post to {ip} successful")
             except:
                 print(f"Malformatted response from {ip}:")
@@ -129,48 +119,17 @@ def postIt(ip, params):
         print("An Unknown Error occurred" + repr(err))
 
 
-# add a boolean back in if the
-def makePosts(ips, api_Key, my_IP, my_Name, my_MAC, my_TZ):
-    my_PoeLog = ",".join(getPoeLog())
-
-    global newDSTList
-
-    newDSTList = []
-
-    # all content that the server is posting. API key, timestamp for time of moment, extrenal ip, mac address, name, timezone, poe log
-    params = {
-        "api_key": str(api_key),
-        "stamp": str(time.time()),
-        "ip": my_IP,
-        "mac": my_MAC,
-        "name": my_Name,
-        "tz": my_TZ,
-        "log": my_PoeLog,
+def publishDevice(ips, device, log):
+    metadata = {
+        "apiKey": getApiKey(),
+        "timestamp": time.now(),
     }
 
-    # post to self automatically
-    postIt("localhost:11221", params)
-
-    # exit if we are in debug mode
-    if DEV:
-        print(params)
-        return
-
-    # post to solarprotocol.net
-    postIt("solarprotocol.net", params)
+    params = device | log | metadata
 
     for ip in ips:
         print(f"IP: {ip}")
-
-        # does not work when testing only with local network
-        if ip != my_IP:
-            postIt(ip, params)
-
-    if len(newDSTList) > 0:
-        outputToConsole("New DST list:")
-        outputToConsole(newDSTList)
-        makePosts(newDSTList, api_Key, my_IP, my_Name, my_MAC, my_TZ)
-
+        postDevice(ip, params)
 
 def getApiKey():
     if DEV:
@@ -182,41 +141,63 @@ def getApiKey():
 
     return secrets["apiKey"]
 
+def getDevice():
+    # FIXME: should we remove server. to make fully p2p?
+    ip = requests.get("https://server.solarpowerforartists.com/?myip").text
+    httpPort = getLocal("httpPort") or "80"
+    MAC = getmac("wlan0")  # change to eth0 if using an ethernet cable
+
+    name = getLocal("name")
+    # only allow alphanumeric, space, and _ characters
+    name = re.sub("[^A-Za-z0-9_ ]+", "", name)
+
+    # get my timezone
+    tz = requests.get(f"http://localhost:{httpPort}/system", params={"key": "tz"}).text
+
+    device = {
+        "api_key": str(api_key),
+        "stamp": str(time.time()),
+    }
+
+    return {
+        "ip": ip,
+        "httpPort": myHttpPort,
+        "mac": mac,
+        "name": name,
+        "tz": tz,
+        "log": log,
+    }
+
 
 def run():
     print()
     print("***** Running ClientPostIP script *****")
     print()
 
-    # FIXME: should we remove server. to make fully p2p?
-    myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
-
-    myPort = getLocalKey("httpPort")
-
-    myMAC = getmac("wlan0")  # change to eth0 if using an ethernet cable
-
-    myName = getLocalKey("name")
-
-    # only allow alphanumeric, space, and _ characters
-    myName = re.sub("[^A-Za-z0-9_ ]+", "", myName)
-
-    # get my timezone
-    localHostname = "localhost" if myPort == "" else f"localhost:{myPort}"
-    url = f"http://{localHostname}/api"
-    myTZ = requests.get(url, params={"systemInfo": "tz"}).text
-
-    # ips = getKeys("ip")
-    ips = ["localhost"]
-    remoteHostname = myIP if myPort == "" else f"{myIP}:{myPort}"
-
     apiKey = getApiKey()
-    makePosts(ips, apiKey, remoteHostname, myName, myMAC, myTZ)
+    device = getDevice()
+
+    knownIps = getDevices("ip")
+    selfIp = "localhost:11221"
+    activeIp = "solarprotocol.net"
+    discoveredIps = discoverIps()
+
+    # post to self
+    publishDevice([selfIp], apiKey, device)
+
+    # post to solarprotocol.net
+    publishDevice([activeIp], apiKey, device)
+
+    # post to known ips
+    publishDevice(knownIps, apiKey, device)
+
+    # post to discovered ips
+    publishDevice(discoveredIps, apiKey, device)
 
 
-def outputToConsole(printThis):
+def outputToConsole(message):
     if consoleOutput:
-        print(printThis)
-
+        print(message)
 
 if __name__ == "__main__":
     run()

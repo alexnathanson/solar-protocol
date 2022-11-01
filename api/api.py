@@ -88,16 +88,16 @@ def getWattageScale():
 def root():
     return {"message": "Hello World 👋"}
 
-
 class DeviceKeys(str, Enum):
     tz = "tz"
     name = "name"
     log = "log"
     timestamp = "timestamp"
-
+    ip = "ip"
+    httpPort = "httpPort"
 
 @app.get("/api/status")
-def devices():
+def status():
     response = requests("/status")
     status = response.text.split("\n")
     stats = status[2]
@@ -112,6 +112,49 @@ def devices():
         "cpu load": "todo",
     }
 
+@app.post("/api/device")
+def updateDevice(
+    tz: Union[str, None] = Form(),
+    mac: Union[str, None] = Form(),
+    name: Union[str, None] = Form(),
+    log: Union[str, None] = Form(),
+    ip: Union[str, None] = Form(),
+    httpPort: Union[str, None] = Form(),
+    timestamp: Union[float, None] = Form(),
+    apiKey: str = Form()
+    ):
+
+    if apiKey != getSecret(SecretKeys.apiKey):
+        raise Error('Invalid apiKey for this server')
+
+    formData = {
+        "tz": tz,
+        "mac": mac,
+        "name": name,
+        "log": log,
+        "ip": ip,
+        "httpPort": httpPort,
+        "timestamp": timestamp,
+    }
+    postedDevice = {key: value for (key, value) in formData.items() if value}
+
+    filename = f"/data/devices.json"
+
+    with open(filename, "r") as devicesfile:
+        devices = json.load(devicesfile)
+
+    device = devices.find(lambda device: device["mac"] == mac)
+    if device is None:
+        devices.append(postedDevice)
+    else:
+        device.update(postedDevice)
+
+    with open(filename, "w") as devicesfile:
+        json.dump(devices, devicesfile)
+
+    device = devices.find(lambda device: device["mac"] == mac)
+
+    return device
 
 @app.get("/api/devices")
 def devices(key: Union[DeviceKeys, None] = None):

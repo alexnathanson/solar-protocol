@@ -1,8 +1,8 @@
 FROM localhost/solar-protocol/base:latest
 
 WORKDIR /api
-RUN python -m venv /datalogger/venv
-ENV PATH="/datalogger/venv/bin:$PATH"
+RUN python -m venv /api/venv
+ENV PATH="/api/venv/bin:$PATH"
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 RUN pip install /common

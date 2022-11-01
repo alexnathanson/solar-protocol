@@ -10,7 +10,7 @@ import os
 import re
 import sys
 
-from secrets import getSecret, SecretKey
+from solar_secrets import getSecret, SecretKey
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 DEV = "DEV" in sys.argv

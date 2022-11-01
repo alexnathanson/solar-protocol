@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Union
 
 from fastapi import FastAPI, Header, Form
-from secrets import getSecret, SecretKeys
+from solar_secrets import getSecret, SecretKeys
 
 import requests
 

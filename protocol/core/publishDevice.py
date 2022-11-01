@@ -19,7 +19,7 @@ import subprocess
 import os
 import sys
 
-from secrets import getSecret, SecretKey
+from solar_secrets import getSecret, SecretKey
 
 
 DEV = "DEV" in sys.argv

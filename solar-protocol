@@ -184,7 +184,7 @@ case $command in
   logs) compose-dev logs "${@:-protocol}" ;;
   build) compose build "$@" ;;
   shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
-  dev) compose-dev up --build --detach ;;
+  dev) compose-dev up ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) shopt -s globstar; black -- **/**.py ;;
   exec) compose-exec "$@" ;;

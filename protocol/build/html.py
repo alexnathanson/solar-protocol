@@ -52,7 +52,8 @@ def read_csv():
     filename = chargeControllerData
 
     with open(filename, "r") as data:
-        alllines = [line for line in csv.DictReader(data, fieldnames=fieldnames)]
+        reader = csv.DictReader(data, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames)
+        alllines = [line for line in reader]
 
     line = alllines[-1]
 
@@ -261,7 +262,7 @@ def get_pv_value(ip):
 def getSystem(ip):
     try:
         # returns a single value
-        response = requests.get("http://{ip}/api/system", timeout=5)
+        response = requests.get(f"http://{ip}/api/system", timeout=5)
         return response.json
     except requests.exceptions.HTTPError as errh:
         print("An Http Error occurred:" + repr(errh))
@@ -296,14 +297,14 @@ def check_images(server_data):
         print("myIP", myIP)
 
         if "ip" in server:
-            print("Server IP:", server["ip"])
+            debug(server["ip"], "server ip")
             if server["ip"] == "localhost":  # if it is itself
                 print("*** LOCAL HOST ***")
                 # TODO: make this work with irregular ports
                 image_path = imgDst
                 filepath = image_path
             elif os.path.exists(fullpath):  # else if the image is in the folder
-                print("Got image for " + server["name"])
+                print(f"Got image for {server['name']}")
             else:
                 # else download image using api and save it to the folder: "../../frontend/images/servers/"
                 image_path = f"http://{server['ip']}/serverprofile.gif"
@@ -345,7 +346,7 @@ def main():
     deviceList_data = get_ips()
 
     # creates deviceList_data
-    debug(deviceList_data)
+    debug(deviceList_data, "deviceList_data")
 
     # 2 Collect data from all the difference servers on the network
     server_data = []
@@ -416,10 +417,9 @@ def main():
         item_count += 1
 
     # 4. get images and ???
-    debug("SERVER DATA:")
-    debug(server_data)
+    debug(server_data, "server_data")
     local_data = get_local()
-    debug(local_data)
+    debug(local_data, "local_data")
     check_images(server_data)
     render_pages(local_data, energy_data, local_weather, server_data)
 

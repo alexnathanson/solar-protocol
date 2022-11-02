@@ -14,7 +14,6 @@ services:
     image: localhost/solar-protocol/api
     build: api
     restart: unless-stopped
-
     volumes:
       - data:/data
       - local:/local

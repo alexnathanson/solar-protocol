@@ -149,8 +149,7 @@ init() {
     fi
   fi
 
-  command -v podman >/dev/null 2>&1 && command -v podman-compose >/dev/null 2>&1 \
-    && echo podman and podman-compose found, init complete!
+  command -v podman >/dev/null 2>&1 && command -v podman-compose >/dev/null 2>&1
 }
 
 
@@ -170,12 +169,19 @@ password() { openssl rand -hex 8; }
 
 bcrypt() { htpasswd -bnBC 10 "" $1 | tr -d ':\n'; }
 
+reset() {
+  compose down
+  podman machine stop
+  podman machine rm podman-machine-default
+  init
+}
+
 case $command in
   up) compose up "$@" ;;
   down) compose down "$@" ;;
   status) compose-dev ps ;;
   restart) compose-dev restart "${@:-api datalogger protocol web}" ;;
-  logs) compose-dev logs "${1:-protocol}" ;;
+  logs) compose-dev logs "${@:-protocol}" ;;
   build) compose build "$@" ;;
   shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
   dev) compose-dev up --build --detach ;;
@@ -189,6 +195,7 @@ case $command in
   build-viz) build-viz "$@" ;;
   build-html) build-html "$@" ;;
   hash) bcrypt "$1" ;;
+  reset) reset ;;
   keygen) pass=$(password); echo password: $pass; echo hash: $(bcrypt $pass) ;;
   init) init ;;
   *) help ;;

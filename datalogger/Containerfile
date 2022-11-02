@@ -3,10 +3,12 @@ FROM localhost/solar-protocol/base:latest
 WORKDIR /datalogger
 RUN python -m venv /datalogger/venv
 ENV PATH="/datalogger/venv/bin:$PATH"
+
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
-RUN pip install /common
+RUN pip install --quiet --no-cache-dir /common
 
 WORKDIR /datalogger/venv
 COPY csv_datalogger.py .
+
 CMD python csv_datalogger.py

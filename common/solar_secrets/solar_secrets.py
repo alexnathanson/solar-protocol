@@ -3,16 +3,16 @@ from enum import Enum
 
 secretsFilepath = f"/local/secrets.json"
 
+class SecretKey(str, Enum):
+    apiKey = "apiKey"
+    dnsPassword = "dnsPassword"
+    appid = "appid"
+
 defaultSecrets = {
     SecretKey.apiKey: "",
     SecreyKey.dnsPassword: "",
     SecreyKey.appid: "",
 }
-
-class SecretKey(str, Enum):
-    apiKey = "apiKey"
-    dnsPassword = "dnsPassword"
-    appid = "appid"
 
 def getSecrets():
     with open(secretsFilepath, "r") as secretsFile:

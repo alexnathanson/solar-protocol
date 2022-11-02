@@ -2,6 +2,7 @@ import json
 from enum import Enum
 from typing import Union
 
+
 class SecretKey(str, Enum):
     apiKey = "apiKey"
     dnsPassword = "dnsPassword"
@@ -12,6 +13,7 @@ def getSecret(secretKey: SecretKey):
     secretsFilepath = f"/local/secrets.json"
     with open(secretsFilepath, "r") as secretsFile:
         secrets = json.load(secrets)
+
 
 def setSecret(secretKey: SecretKey, value: str = ""):
     secretsFilepath = f"/local/secrets.json"
@@ -31,5 +33,5 @@ def setSecret(secretKey: SecretKey, value: str = ""):
 
     with open(secretsFilePath, "r") as secretsFile:
         secrets = json.load(secretsFile)
-    
+
     return secrets[key]

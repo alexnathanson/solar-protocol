@@ -10,7 +10,7 @@ import os
 import re
 import sys
 
-from solar_secrets import solar_secrets
+from solar_secrets import getSecret, SecretKey
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 DEV = "DEV" in sys.argv
@@ -342,7 +342,7 @@ def main():
     local = get_local()  # get local steward data for front end
     debug(local, "local")
 
-    appid = solar_secrets.getSecret(solar_secrets.SecretKey.appid)
+    appid = getSecret(SecretKey.appid)
     try:
         local_weather = get_weather(lon=local["lon"], lat=local["lat"], appid=appid)
     except Exception as e:

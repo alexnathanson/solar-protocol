@@ -8,9 +8,10 @@ Otherwise, the script changes nothing.
 import datetime
 import logging
 import sys
-from solar_secrets import solar_secrets
+from solar_secrets import getSecret, SecretKey
 
 DEV = "DEV" in sys.argv
+
 
 def determineServer(allValues, myValue, solarProtocol):
     """
@@ -22,8 +23,8 @@ def determineServer(allValues, myValue, solarProtocol):
         logging.info(datetime.datetime.now())
 
         # Do not update DNS if running in DEV
-        secretkey = solar_secrets.SecretKey.dnsPassword
-        key = "this-will-fail" if DEV else solar_secrets.getSecret(secretkey)
+        secretkey = SecretKey.dnsPassword
+        key = "this-will-fail" if DEV else getSecret(secretkey)
         url = solarProtocol.updateDNS(solarProtocol.myIP, key)
         print(solarProtocol.getRequest(url))
     else:

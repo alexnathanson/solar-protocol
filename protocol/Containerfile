@@ -1,18 +1,23 @@
-FROM localhost/solar-protocol/base:latest
+FROM localhost/solar-protocol/base:latest AS builder
+RUN apt-get --quiet update && apt-get --quiet upgrade --yes
 
 RUN apt-get --quiet install \
   build-essential libcairo2 libffi-dev \
   libjpeg-dev zlib1g zlib1g-dev --yes
 
 WORKDIR /solar-protocol
-RUN python -m venv /solar-protocol/venv
-ENV PATH="/solar-protocol/venv/bin:$PATH"
-RUN pip install --quiet --no-cache-dir wheel
+RUN python -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
-RUN pip install /common
+RUN pip install --quiet --no-cache-dir /common
 
-WORKDIR /solar-protocol/venv
+FROM localhost/solar-protocol/base:latest
+COPY --from=builder /venv /venv
+ENV PATH="/venv/bin:$PATH"
+
+WORKDIR /solar-protocol
 COPY . .
 
 CMD python run.py

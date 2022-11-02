@@ -1,4 +1,5 @@
 FROM localhost/solar-protocol/base:latest AS builder
+RUN apt-get --quiet update && apt-get --quiet upgrade --yes
 
 WORKDIR /api
 RUN python -m venv /venv

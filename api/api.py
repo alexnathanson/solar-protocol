@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Union
 
 from fastapi import FastAPI, Header, Form
-from solar_secrets import getSecret, SecretKeys
+from solar_secrets import solar_secrets
 
 import requests
 
@@ -128,7 +128,7 @@ def updateDevice(
     apiKey: str = Form(),
 ):
 
-    if apiKey != getSecret(SecretKey.apiKey):
+    if apiKey != solar_secrets.getSecret(solar_secrets.SecretKey.apiKey):
         raise Error("Invalid apiKey for this server")
 
     formData = {
@@ -362,7 +362,7 @@ def updateLocal(
 
 
 @app.post("/api/secret")
-def setEnv(key: SecretKey, value: str):
+def setEnv(key: solar_secrets.SecretKey, value: str):
     if not isHash(value):
         raise Error(f"Secret value for `{key}` not a valid hash")
 
@@ -374,20 +374,4 @@ def setEnv(key: SecretKey, value: str):
             f"Secret value for `{key}` is in top 500 passwords, please choose another"
         )
 
-    secretsFilepath = f"/local/secrets.json"
-    if os.path.exists(secretsFilePath):
-        with open(secretsFilepath, "r") as secretsFile:
-            secrets = json.load(secretsFile)
-    else:
-        secrets = {
-            SecretKey.apiKey: "",
-            SecreyKey.dnsPassword: "",
-        }
-
-    secrets[key] = value
-
-    with open(secretsFilepath, "w") as secretsFile:
-        json.dump(secrets, secretsFile)
-
-    with open(secretsFilePath, "r") as secretsFile:
-        return json.load(secretsFile)
+    return solar_secrets.setSecret(key, value)

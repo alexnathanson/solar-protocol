@@ -19,8 +19,7 @@ import subprocess
 import os
 import sys
 
-from solar_secrets import getSecret, SecretKey
-
+from solar_secrets import solar_secrets
 
 DEV = "DEV" in sys.argv
 
@@ -144,7 +143,7 @@ def getApiKey():
     if DEV:
         return "this-will-fail"
 
-    return getSecret(SecretKey.apiKey)
+    return solar_secrets.getSecret(solar_secrets.SecretKey.apiKey)
 
 
 def getDevice():

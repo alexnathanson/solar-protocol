@@ -8,22 +8,22 @@ Otherwise, the script changes nothing.
 import datetime
 import logging
 import sys
+from solar_secrets import solar_secrets
 
 DEV = "DEV" in sys.argv
 
-"""
-If this server has the highest value, update DNS to be point of entry
-"""
-
-
 def determineServer(allValues, myValue, solarProtocol):
+    """
+    If this server has the highest value, update DNS to be point of entry
+    """
     if myValue > max(allValues):
         print("Point of entry")
 
         logging.info(datetime.datetime.now())
 
         # Do not update DNS if running in DEV
-        key = "this-will-fail" if DEV else str(solarProtocol.getSecret("dnsKey"))
+        secretkey = solar_secrets.SecretKey.dnsPassword
+        key = "this-will-fail" if DEV else solar_secrets.getSecret(secretkey)
         url = solarProtocol.updateDNS(solarProtocol.myIP, key)
         print(solarProtocol.getRequest(url))
     else:

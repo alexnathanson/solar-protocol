@@ -179,7 +179,7 @@ reset() {
 case $command in
   up) compose up "$@" ;;
   down) compose down "$@" ;;
-  status) compose-dev ps ;;
+  status) compose-dev ps 2>/dev/null ;;
   restart) compose-dev restart "${@:-api datalogger protocol web}" ;;
   logs) compose-dev logs "${@:-protocol}" ;;
   build) compose build "$@" ;;

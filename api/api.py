@@ -89,6 +89,7 @@ def getWattageScale():
 def root():
     return {"message": "Hello World 👋"}
 
+
 class DeviceKeys(str, Enum):
     tz = "tz"
     name = "name"
@@ -96,6 +97,7 @@ class DeviceKeys(str, Enum):
     timestamp = "timestamp"
     ip = "ip"
     httpPort = "httpPort"
+
 
 @app.get("/api/status")
 def status():
@@ -113,6 +115,7 @@ def status():
         "cpu load": "todo",
     }
 
+
 @app.post("/api/device")
 def updateDevice(
     tz: Union[str, None] = Form(),
@@ -122,11 +125,11 @@ def updateDevice(
     ip: Union[str, None] = Form(),
     httpPort: Union[str, None] = Form(),
     timestamp: Union[float, None] = Form(),
-    apiKey: str = Form()
-    ):
+    apiKey: str = Form(),
+):
 
     if apiKey != getSecret(SecretKey.apiKey):
-        raise Error('Invalid apiKey for this server')
+        raise Error("Invalid apiKey for this server")
 
     formData = {
         "tz": tz,
@@ -156,6 +159,7 @@ def updateDevice(
     device = devices.find(lambda device: device["mac"] == mac)
 
     return device
+
 
 @app.get("/api/devices")
 def devices(key: Union[DeviceKeys, None] = None):
@@ -253,10 +257,12 @@ def allowlist():
     with open("/data/allowlist.json") as allowlistfile:
         return json.load(allowlistfile)
 
+
 @app.get("/api/blocklist")
 def blocklist():
     with open("/data/blocklist.json") as blocklistfile:
         return json.load(blocklistfile)
+
 
 @app.post("/api/ip")
 def updateDNS(key: str, ip: str):

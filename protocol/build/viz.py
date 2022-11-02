@@ -57,7 +57,7 @@ def getDeviceInfo(key):
 def getChargeControllerValues(server):
     print(f"GET {server} charge-controller {energyParam} {days}")
     url = f"http://{server}/api/charge-controller"
-    params = { "key": energyParam, "days": days }
+    params = {"key": energyParam, "days": days}
     try:
         cc = requests.get(url, params, timeout=5)
         cc.json()
@@ -77,7 +77,7 @@ def getChargeControllerValues(server):
 # Call API for every IP address and get charge controller data
 def getSystem(server, key):
     url = f"http://{server}/api/system"
-    params = { "key": key }
+    params = {"key": key}
     try:
         systemInfo = requests.get(url=url, params=params, timeout=5)
         systemInfo = systemInfo.text

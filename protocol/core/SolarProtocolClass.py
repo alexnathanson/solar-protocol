@@ -21,6 +21,7 @@ import subprocess
 import sys
 import os
 
+
 class SolarProtocol:
     def __init__(self):
         self.localConfigFile = "/local/local.json"

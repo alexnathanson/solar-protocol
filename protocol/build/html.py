@@ -19,17 +19,19 @@ serverNames = []
 myIP = " "
 days = 3
 
-def debug(thing, tag = None):
+
+def debug(thing, tag=None):
     if DEV:
         print(tag)
         print(thing)
+
 
 # Call API for every IP address and get charge controller data
 def getCC(server, key):
     print(f"GET {server} {key}")
     try:
         url = f"http://{server}/api/charge-controller"
-        params = { "key": key, "days": days }
+        params = {"key": key, "days": days}
         response = requests.get(url=url, params=params, timeout=5)
         return json.loads(response.text)
     except requests.exceptions.HTTPError as errh:
@@ -175,7 +177,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 # get weather data
 def get_weather(lon, lat, appid):
     url = "http://api.openweathermap.org/data/2.5/weather"
-    params = { "lon": lon, "lat": lat, "appid": appid }
+    params = {"lon": lon, "lat": lat, "appid": appid}
 
     response = requests.get(url=url, params=params)
     data = response.json()
@@ -253,7 +255,9 @@ def active_servers(dst):
 def get_pv_value(ip):
     try:
         response = requests.get(
-            f"http://{ip}/api/charge-controller", params={"value": "PV-voltage"}, timeout=5
+            f"http://{ip}/api/charge-controller",
+            params={"value": "PV-voltage"},
+            timeout=5,
         )
         [latest] = response.json
         return latest.pop()["PV voltage"]
@@ -324,6 +328,7 @@ def check_images(server_data):
                 except Exception as e:
                     print(server["name"], ": Offline. Can't get image")
             server["image_path"] = filepath
+
 
 def main():
 

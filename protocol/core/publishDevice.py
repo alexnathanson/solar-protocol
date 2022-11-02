@@ -46,7 +46,8 @@ def getDevices(key: str):
     with open(deviceList) as file:
         devices = json.load(file)
 
-    return [ device[key] for device in devices ]
+    return [device[key] for device in devices]
+
 
 def getPoeLog():
     try:
@@ -55,11 +56,12 @@ def getPoeLog():
         lines = poeFile.readlines()[:216]
         # if solarProtocol.py runs every 10 minutes, there can be max 432 entries
         # this would happen if the current server was POE for the entire 72 hours
-        poeLog = [ line.removeprefix("INFO:root:") for line in lines ]
-        return ",".join(poeLog) 
+        poeLog = [line.removeprefix("INFO:root:") for line in lines]
+        return ",".join(poeLog)
 
     except:
         return ""
+
 
 def getLocal(key):
     try:
@@ -70,10 +72,13 @@ def getLocal(key):
     except:
         print(f"local config file exception with key {key}")
 
+
 """
 For every device in our local devices.json, ask for their device lists
 FIXME: lets discuss exactly how chatty this is
 """
+
+
 def discoverIps():
     ips = getDevices("ip")
     macs = getDevices("macs")
@@ -84,11 +89,11 @@ def discoverIps():
         devices = requests.get(f"http://{ip}/api/devices").json()
         all_devices.append(devices)
 
-    all_macs = { device["mac"] for device in all_devices }
-    local_macs = { macs }
+    all_macs = {device["mac"] for device in all_devices}
+    local_macs = {macs}
 
     new_macs = all_macs - local_macs
-    new_devices = { all_devices.filter(lambda device: device["mac"] in new_macs) }
+    new_devices = {all_devices.filter(lambda device: device["mac"] in new_macs)}
 
     if DEV:
         outputToConsole(f"new ips: {[ device['ip'] for device in new_devices ]}")
@@ -97,9 +102,10 @@ def discoverIps():
 
     return discoveredIps
 
+
 def postDevice(ip, params):
     url = f"http://{ip}/api/device"
-    headers = { "Content-Type": "application/x-www-form-urlencoded" }
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
     try:
         response = requests.post(url=url, headers=headers, params=params, timeout=5)
@@ -133,11 +139,13 @@ def publishDevice(ips, device, log):
         print(f"IP: {ip}")
         postDevice(ip, params)
 
+
 def getApiKey():
     if DEV:
         return "this-will-fail"
 
     return getSecret(SecretKey.apiKey)
+
 
 def getDevice():
     # FIXME: should we remove server. to make fully p2p?
@@ -196,6 +204,7 @@ def run():
 def outputToConsole(message):
     if consoleOutput:
         print(message)
+
 
 if __name__ == "__main__":
     run()

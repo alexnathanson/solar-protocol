@@ -1,12 +1,12 @@
 import json
-from enum import Enum
+from enum import StrEnum, auto
 
 secretsFilepath = f"/local/secrets.json"
 
-class SecretKey(str, Enum):
-    apiKey = "apiKey"
-    dnsPassword = "dnsPassword"
-    appid = "appid"
+class SecretKey(StrEnum):
+    apiKey = auto()
+    dnsPassword = auto()
+    appid = auto()
 
 defaultSecrets = {
     SecretKey.apiKey: "",

@@ -1,4 +1,5 @@
 import json
+from enum import Enum
 
 
 class SecretKey(str, Enum):

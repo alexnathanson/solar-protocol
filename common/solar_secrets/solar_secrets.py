@@ -10,8 +10,8 @@ class SecretKey(str, Enum):
 
 defaultSecrets = {
     SecretKey.apiKey: "",
-    SecreyKey.dnsPassword: "",
-    SecreyKey.appid: "",
+    SecretKey.dnsPassword: "",
+    SecretKey.appid: "",
 }
 
 def getSecrets():

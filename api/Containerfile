@@ -1,14 +1,18 @@
-FROM localhost/solar-protocol/base:latest
+FROM localhost/solar-protocol/base:latest AS builder
 
 WORKDIR /api
-RUN python -m venv /api/venv
-ENV PATH="/api/venv/bin:$PATH"
+RUN python -m venv /venv
+ENV PATH="/venv/bin:$PATH"
 
 COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 RUN pip install --quiet --no-cache-dir /common
 
-WORKDIR /api/venv
+FROM localhost/solar-protocol/base:latest
+COPY --from=builder /venv /venv
+ENV PATH="/venv/bin:$PATH"
+
+WORKDIR /api
 COPY . .
 
 CMD python -m uvicorn api:app --proxy-headers --host 0.0.0.0 --port 80

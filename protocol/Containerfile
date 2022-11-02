@@ -13,7 +13,7 @@ RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 RUN pip install --quiet --no-cache-dir /common
 
 FROM localhost/solar-protocol/base:latest
-RUN apt-get --quiet install libcairo2 zlib1g --yes
+RUN apt-get --quiet update && apt-get --quiet install libcairo2 zlib1g --yes
 COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:$PATH"
 

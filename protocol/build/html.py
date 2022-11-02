@@ -82,7 +82,8 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     # get the timezone
     try:
-        url = "http://{_server_data['ip']}/api/system"
+        ip = _server_data['ip']
+        url = f"http://{ip}/api/system"
         response = requests.get(url=url, params={"key": "tz"})
 
         # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
@@ -305,7 +306,7 @@ def check_images(server_data):
                 print("Got image for " + server["name"])
             else:
                 # else download image using api and save it to the folder: "../../frontend/images/servers/"
-                image_path = f"http://{server['ip']}/local/serverprofile.gif"
+                image_path = f"http://{server['ip']}/serverprofile.gif"
                 try:
                     download_file(image_path, fullpath)
                     print("image_path", image_path)

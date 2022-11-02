@@ -1,37 +1,33 @@
 import json
 from enum import Enum
-from typing import Union
 
+secretsFilepath = f"/local/secrets.json"
+
+defaultSecrets = {
+    SecretKey.apiKey: "",
+    SecreyKey.dnsPassword: "",
+    SecreyKey.appid: "",
+}
 
 class SecretKey(str, Enum):
     apiKey = "apiKey"
     dnsPassword = "dnsPassword"
     appid = "appid"
 
+def getSecrets():
+    with open(secretsFilepath, "r") as secretsFile:
+        return json.load(secrets)
+
 
 def getSecret(secretKey: SecretKey):
-    secretsFilepath = f"/local/secrets.json"
-    with open(secretsFilepath, "r") as secretsFile:
-        secrets = json.load(secrets)
+    secrets = getSecrets() or defaultSecrets
+    return secrets[secretKey]
 
 
 def setSecret(secretKey: SecretKey, value: str = ""):
-    secretsFilepath = f"/local/secrets.json"
-    if os.path.exists(secretsFilePath):
-        with open(secretsFilepath, "r") as secretsFile:
-            secrets = json.load(secretsFile)
-    else:
-        secrets = {
-            SecretKey.apiKey: "",
-            SecreyKey.dnsPassword: "",
-        }
+    secrets = getSecrets() or defaultSecrets | { secretKey: value }
 
-    secrets[key] = value
+    with open(secretsFilepath, "w") as secretsFilepath:
+        json.dump(secrets, secretsFilepath)
 
-    with open(secretsFilepath, "w") as secretsFile:
-        json.dump(secrets, secretsFile)
-
-    with open(secretsFilePath, "r") as secretsFile:
-        secrets = json.load(secretsFile)
-
-    return secrets[key]
+    return getSecret(key)

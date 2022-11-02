@@ -16,7 +16,7 @@ defaultSecrets = {
 
 def getSecrets():
     with open(secretsFilepath, "r") as secretsFile:
-        return json.load(secrets)
+        return json.load(secretsFile)
 
 
 def getSecret(secretKey: SecretKey):
@@ -27,7 +27,7 @@ def getSecret(secretKey: SecretKey):
 def setSecret(secretKey: SecretKey, value: str = ""):
     secrets = getSecrets() or defaultSecrets | { secretKey: value }
 
-    with open(secretsFilepath, "w") as secretsFilepath:
-        json.dump(secrets, secretsFilepath)
+    with open(secretsFilepath, "w") as secretsFile:
+        json.dump(secrets, secretsFile)
 
     return getSecret(key)

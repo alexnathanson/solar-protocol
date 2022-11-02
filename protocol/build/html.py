@@ -11,6 +11,7 @@ import re
 import sys
 
 from solar_secrets import getSecret, SecretKey
+from solar_common import fieldnames
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 DEV = "DEV" in sys.argv
@@ -49,22 +50,6 @@ def read_csv():
     today = str(datetime.date.today())
     chargeControllerData = f"/data/traces/{today}.csv"
     filename = chargeControllerData
-
-    fieldnames = [
-        "timestamp",
-        "PV voltage",
-        "PV current",
-        "PV power L",
-        "PV power H",
-        "battery voltage",
-        "battery current",
-        "battery power L",
-        "battery power H",
-        "load voltage",
-        "load current",
-        "load power",
-        "battery percentage",
-    ]
 
     with open(filename, "r") as data:
         alllines = [line for line in csv.DictReader(data, fieldnames=fieldnames)]

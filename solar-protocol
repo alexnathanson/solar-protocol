@@ -182,6 +182,7 @@ case $command in
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) shopt -s globstar; black -- **/**.py ;;
   exec) compose-exec "$@" ;;
+  run) compose run "$@" ;;
   generate) generate "$@" ;;
   password) password ;;
   get-remote-data) get-remote-data "$@" ;;

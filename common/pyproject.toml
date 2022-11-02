@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "solar_secrets"
+name = "solar_protocol"
 version = "0.0.1"
 authors = [
   { name="Jonathan Dahan", email="python@jonathan.is" },

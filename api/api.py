@@ -9,25 +9,8 @@ from typing import Union
 
 from fastapi import FastAPI, Header, Form
 from solar_secrets import getSecret, setSecret, SecretKey
-
+from solar_common import fieldnames
 import requests
-
-# header for datalogger csv
-fieldnames = [
-    "timestamp",
-    "PV voltage",
-    "PV current",
-    "PV power L",
-    "PV power H",
-    "battery voltage",
-    "battery current",
-    "battery power L",
-    "battery power H",
-    "load voltage",
-    "load current",
-    "load power",
-    "battery percentage",
-]
 
 # safelist of keys we can share from local.json
 safe_keys = [

@@ -5,24 +5,9 @@ import random
 import csv
 import os
 import sys
+from solar_common import fieldnames
 
 DEV = "DEV" in sys.argv
-
-fieldnames = [
-    "timestamp",
-    "PV voltage",
-    "PV current",
-    "PV power L",
-    "PV power H",
-    "battery voltage",
-    "battery current",
-    "battery power L",
-    "battery power H",
-    "load voltage",
-    "load current",
-    "load power",
-    "battery percentage",
-]
 
 if not DEV:
     from pymodbus.client.sync import ModbusSerialClient as ModbusClient

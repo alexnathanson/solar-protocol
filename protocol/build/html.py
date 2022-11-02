@@ -23,7 +23,7 @@ days = 3
 
 def debug(thing, tag=None):
     if DEV:
-        print(tag)
+        print(f"# {tag}")
         print(thing)
 
 
@@ -60,8 +60,8 @@ def read_csv():
 
 
 def render_pages(_local_data, _data, _weather, _server_data):
-    debug(_data)
-    debug(_local_data)
+    debug(_data, "_data")
+    debug(_local_data, "_local_data")
 
     templatePath = f"./templates"
     outputPath = f"/frontend"

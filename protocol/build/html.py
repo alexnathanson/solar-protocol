@@ -344,7 +344,7 @@ def makeLinkFor(name: str, status: str):
     return serverURL
 
 
-def getServerDataFor(ip: str):
+def getServerDataFor(ip: str, name: str):
     try:
         [system] = getSystem(ip)
         debug(system)

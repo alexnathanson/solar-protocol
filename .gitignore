@@ -18,3 +18,5 @@ frontend/*html
 # created by protocol/build/viz.py
 frontend/archive/*png
 frontend/images/archive/*png
+frontend/images/clock.png
+frontend/images/clock-exhibit.png

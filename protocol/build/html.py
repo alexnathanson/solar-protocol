@@ -196,8 +196,7 @@ def get_weather(lon, lat, appid):
 def get_local():
     filename = f"/local/local.json"
     with open(filename) as localfile:
-        localdata = json.load(localfile)
-    return localdata
+        return json.load(localfile)
 
 
 # Get list of IP addresses that the pi can see
@@ -316,25 +315,56 @@ def check_images(server_data):
                     print(server["name"], ": Offline. Can't get image")
             server["image_path"] = filepath
 
+def getFormattedTimestampFor(itemNumber):
+    try:
+        timestamps = getDeviceInfo("timestamp")
+        timestamp = timestamps[itemNumber]
+        debug(timestamp, "timestamp")
 
-def main():
+        formattedTimestamp = datetime.datetime.fromtimestamp(timestamp).strftime("%m/%d/%Y %H:%M:%S")
+        debug(formattedTimestamp, "formattedTimestamp")
+        return formattedTimestamp
 
-    print()
-    print("***** Running html.py *****")
-    print()
+    except Exception:
+       return "N/A"
 
-    energy_data = read_csv()  # get pv data from local csv
-    debug(energy_data, "energy")
 
-    local = get_local()  # get local steward data for front end
-    debug(local, "local")
+def makeLinkFor(name: str, status: str):
+    # make lower case, remove spaces, remove nonstandard characters
+    sanitizedName = re.sub("[^A-Za-z0-9-_]+", "", item["name"].lower().replace(" ", ""))
+    serverURL = f"http://solarprotocol.net/network/{sanitizedName}"
+    if status == "online":
+        return f"<a href='{serverURL}'>{serverURL}</a>"
 
+    return serverURL
+
+def getServerDataFor(ip: str):
+    try:
+        [system] = getSystem(ip)
+        debug(system)
+        system["ip"] = ip
+        return system
+
+    except Exception as exception:
+        print(exception)
+        # FIXME: reformat page so offline servers dont actually need this blank data
+        return {
+            "ip": ip,
+            "name": name,
+            "description": "",
+            "city": "",
+            "location": "",
+            "country": "",
+        }
+
+def getLocalWeatherFor(lon, lat):
     appid = getSecret(SecretKey.appid)
     try:
-        local_weather = get_weather(lon=local["lon"], lat=local["lat"], appid=appid)
-    except Exception as e:
-        print(e)
-        local_weather = {
+        local_weather = get_weather(lon=lon, lat=lat, appid=appid)
+        return local_weather
+    except Exception as exception:
+        print(exception)
+        return {
             "description": "n/a",
             "temp": "n/a",
             "feels_like": "n/a",
@@ -342,85 +372,35 @@ def main():
             "sunset": "n/a",
         }
 
+def main():
+
+    print()
+    print("***** Running html.py *****")
+    print()
+
     # 1. get IP list of addresses
     deviceList_data = get_ips()
-
-    # creates deviceList_data
     debug(deviceList_data, "deviceList_data")
 
     # 2 Collect data from all the difference servers on the network
-    server_data = []
-
-    for key, ip in deviceList_data.items():
-        try:
-            # item["ip"] = value #add IPs to server data
-            [system] = getSystem(ip)
-            # the above returns a dictionary containing all of the above system info
-            # as documented here: http://solarprotocol.net/api/v1/
-            # pvVoltage is a constant that is rated for the module.
-            system["ip"] = ip
-            # print("#2")
-            # print(sInfo)
-            # print(type(sInfo))
-            server_data.append(system)
-
-        except Exception as e:
-            print(e)
-            # FIXME: reformat page so offline servers dont actually need this blank data
-            server_data.append(
-                {
-                    "ip": ip,
-                    "name": key,
-                    "description": "",
-                    "city": "",
-                    "location": "",
-                    "country": "",
-                }
-            )
+    server_data = [ getServerDataFor(name, ip) for name, ip in deviceList_data.items() ]
 
     # 3. get solar data and add it to server_data
-    item_count = 0
-    for item in server_data:
-        try:
-            solar_data = get_pv_value(item["ip"])
-            # the above calls the api again. This returns the live PV voltage.
-            status = "online"
-        except Exception as e:
-            solar_data = None
-            status = "offline"
-        item["solar_voltage"] = solar_data
-        item["status"] = status
-        try:
-            time_stamp = getDeviceInfo("time stamp")
-            if DEV:
-                print("time_stamp!!!!!", time_stamp[item_count])
+    for itemNumber, item in enumerate(server_data):
+        item["solar_voltage"] = get_pv_value(item["ip"])
+        item["status"] = "offline" if item["solar_voltage"] == None else "online"
+        item["timestamp"] = getFormattedTimestampFor(itemNumber)
+        item["link"] = makeLinkFor(item["name"])
 
-            ftime_stamp = datetime.datetime.fromtimestamp(
-                float(time_stamp[item_count])
-            ).strftime("%m/%d/%Y %H:%M:%S")
-            if DEV:
-                print(ftime_stamp)
-
-            # time_stamp = ":".join(time_stamp.split(":")[0:-1])
-        except Exception as e:
-            ftime_stamp = "N/A"
-        item["time_stamp"] = ftime_stamp
-
-        # make lower case, remove spaces, remove nonstandard characters
-        serverURL = "http://solarprotocol.net/network/" + re.sub(
-            "[^A-Za-z0-9-_]+", "", item["name"].lower().replace(" ", "")
-        )
-        if status == "online":
-            item["link"] = "<a href='" + serverURL + "'>" + serverURL + "</a>"
-        else:
-            item["link"] = serverURL
-        item_count += 1
-
-    # 4. get images and ???
+    # 4. get images and render pages
     debug(server_data, "server_data")
     local_data = get_local()
     debug(local_data, "local_data")
     check_images(server_data)
+    energy_data = read_csv()  # get pv data from local csv
+    debug(energy_data, "energy")
+    local_weather = getLocalWeatherFor(local_data["lon"], local_data["lat"])
+
     render_pages(local_data, energy_data, local_weather, server_data)
 
 

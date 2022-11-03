@@ -114,8 +114,8 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     # loop through all page templates and render them with new data
     for page in pages:
-        template_filename = f"{templatePath}/{filename}"
-        output_filename = f"{outputPath}/{filename}"
+        template_filename = f"{templatePath}/{page}"
+        output_filename = f"{outputPath}/{page}"
         template_file = open(template_filename).read()
         print("rendering", template_filename)
 
@@ -291,8 +291,8 @@ def check_images(server_data):
     for server in server_data:
         filename = server["name"] + ".gif"
         filename = filename.replace(" ", "-")
-        fullpath = "/home/pi/solar-protocol/frontend/images/servers/" + filename
-        filepath = "images/servers/" + filename
+        fullpath = "/frontend/images/servers/{filename}"
+        filepath = "images/servers/{filename}"
         # print("server:", server)
         myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
         print("myIP", myIP)

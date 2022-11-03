@@ -52,7 +52,9 @@ def read_csv():
     filename = chargeControllerData
 
     with open(filename, "r") as data:
-        reader = csv.DictReader(data, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames)
+        reader = csv.DictReader(
+            data, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames
+        )
         alllines = [line for line in reader]
 
     line = alllines[-1]
@@ -83,7 +85,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     # get the timezone
     try:
-        ip = _server_data['ip']
+        ip = _server_data["ip"]
         url = f"http://{ip}/api/system"
         response = requests.get(url=url, params={"key": "tz"})
 
@@ -315,18 +317,21 @@ def check_images(server_data):
                     print(server["name"], ": Offline. Can't get image")
             server["image_path"] = filepath
 
+
 def getFormattedTimestampFor(itemNumber):
     try:
         timestamps = getDeviceInfo("timestamp")
         timestamp = timestamps[itemNumber]
         debug(timestamp, "timestamp")
 
-        formattedTimestamp = datetime.datetime.fromtimestamp(timestamp).strftime("%m/%d/%Y %H:%M:%S")
+        formattedTimestamp = datetime.datetime.fromtimestamp(timestamp).strftime(
+            "%m/%d/%Y %H:%M:%S"
+        )
         debug(formattedTimestamp, "formattedTimestamp")
         return formattedTimestamp
 
     except Exception:
-       return "N/A"
+        return "N/A"
 
 
 def makeLinkFor(name: str, status: str):
@@ -337,6 +342,7 @@ def makeLinkFor(name: str, status: str):
         return f"<a href='{serverURL}'>{serverURL}</a>"
 
     return serverURL
+
 
 def getServerDataFor(ip: str):
     try:
@@ -357,6 +363,7 @@ def getServerDataFor(ip: str):
             "country": "",
         }
 
+
 def getLocalWeatherFor(lon, lat):
     appid = getSecret(SecretKey.appid)
     try:
@@ -372,6 +379,7 @@ def getLocalWeatherFor(lon, lat):
             "sunset": "n/a",
         }
 
+
 def main():
 
     print()
@@ -383,7 +391,7 @@ def main():
     debug(deviceList_data, "deviceList_data")
 
     # 2 Collect data from all the difference servers on the network
-    server_data = [ getServerDataFor(name, ip) for name, ip in deviceList_data.items() ]
+    server_data = [getServerDataFor(name, ip) for name, ip in deviceList_data.items()]
 
     # 3. get solar data and add it to server_data
     for itemNumber, item in enumerate(server_data):

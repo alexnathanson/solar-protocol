@@ -15,9 +15,10 @@
     <a href="/admin">Network Activity</a> |
     <a href="/admin/local">Local Data</a> |
     <a href="/admin/settings">Settings</a> |
-    <a href="/admin/settings/local.php">Local Content</a>
+    <a href="/admin/settings/local">Local Content</a>
   </p>
 
+<!--
 <?php
 
   $fileDate = date("Y-m-d");
@@ -32,7 +33,6 @@
           $fileDate = date("Y-m-") . (date("d")-2);//make a conditional to account for single digit days!!!
       }
   }
-
 
   //variables
   $fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
@@ -96,6 +96,8 @@
   echo $buildNow;
   */
   ?>
+
+-->
 
 <script type="text/javascript">
 	google.charts.load('current', {'packages':['corechart', 'line']});

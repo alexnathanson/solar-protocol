@@ -336,12 +336,13 @@ def getFormattedTimestampFor(itemNumber):
 
 def makeLinkFor(name: str, status: str):
     # make lower case, remove spaces, remove nonstandard characters
-    sanitizedName = re.sub("[^A-Za-z0-9-_]+", "", item["name"].lower().replace(" ", ""))
+    lowercaseNospace = name.lower().replace(" ", "")
+    sanitizedName = re.sub("[^A-Za-z0-9-_]+", "", lowercaseNospace)
     serverURL = f"http://solarprotocol.net/network/{sanitizedName}"
-    if status == "online":
-        return f"<a href='{serverURL}'>{serverURL}</a>"
+    if status == "offline":
+        return serverURL
 
-    return serverURL
+    return f"<a href='{serverURL}'>{serverURL}</a>"
 
 
 def getServerDataFor(ip: str, name: str):
@@ -398,7 +399,7 @@ def main():
         item["solar_voltage"] = get_pv_value(item["ip"])
         item["status"] = "offline" if item["solar_voltage"] == None else "online"
         item["timestamp"] = getFormattedTimestampFor(itemNumber)
-        item["link"] = makeLinkFor(item["name"])
+        item["link"] = makeLinkFor(item["name"], item["status"])
 
     # 4. get images and render pages
     debug(server_data, "server_data")

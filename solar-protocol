@@ -153,6 +153,12 @@ reset() {
   install
 }
 
+format() {
+  shopt -s globstar
+  black -- **/**.py
+  tidy -i -m -w 160 -ashtml -utf8 **/**.html
+}
+
 case $command in
   up) compose up "$@" ;;
   down) compose down "$@" ;;
@@ -163,7 +169,7 @@ case $command in
   shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
   dev) compose-dev up ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
-  format) shopt -s globstar; black -- **/**.py ;;
+  format) format ;;
   exec) compose-exec "$@" ;;
   run) compose run "$@" ;;
   generate) generate "$@" ;;

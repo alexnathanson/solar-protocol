@@ -9,7 +9,7 @@ import requests, sys
 
 [ip, key, value] = sys.argv
 
-print (ip, key, value)
+print(ip, key, value)
 
 url = ""
 
@@ -21,7 +21,7 @@ charge power H,charge power L,date,load current,load power,load voltage,time
 """
 
 url = f"http://{ip}/api/charge-controller"
-params = { key: value }
+params = {key: value}
 
 response = requests.get(url=url, params=params).text
 print(response)

@@ -1,29 +1,26 @@
-{% extends "base.html" %} 
-{% block content %}
-{% if batteryPercentage >= 30 %}
-    <img class="full-col" src="images/full-map.png" />
-{% else %}
-{% endif %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title></title>
+</head>
+<body>
+  {% extends "base.html" %} {% block content %} {% if batteryPercentage &gt;= 30 %} <img class="full-col" src="images/full-map.png"> {% else %} {% endif %}
   <div class="onecol-text">
     <h3>Network</h3>
-    <p>
-      We are currently setting up servers in different locations around the world
-      and are seeking more stewards in different time zones and continents. If you
-      are interested in hosting a server, please see our
-      <a href="call.html">call for stewards</a>.
-    </p>
+    <p>We are currently setting up servers in different locations around the world and are seeking more stewards in different time zones and continents. If you
+    are interested in hosting a server, please see our <a href="call.html">call for stewards</a>.</p>
     <h4>Servers in the Network</h4>
     <div class="network-overview">
-    {% for item in servers %}
+      {% for item in servers %}
       <div class="server-box">
-        <h3>{{item.name}}, {{item.location}}, {{item.country}}</h3>
-          <img src={{item.image_path}}>
-          <p><i>Server status:</i> {{item.status}}</p>
-          <p><i>Last check-in:</i> {{item.timestamp}} </p>
-          <p><i>About:</i> {{item.description}}</p>
-          <p><i>Link: </i>{{item.link}} </p> 
-      </div>
-    {% endfor %}
+        <h3>{{item.name}}, {{item.location}}, {{item.country}}</h3><img src="{{item.image_path}}">
+        <p><i>Server status:</i> {{item.status}}</p>
+        <p><i>Last check-in:</i> {{item.timestamp}}</p>
+        <p><i>About:</i> {{item.description}}</p>
+        <p><i>Link:</i> {{item.link}}</p>
+      </div>{% endfor %}
     </div>
-  </div>
-{% endblock %}
+  </div>{% endblock %}
+</body>
+</html>

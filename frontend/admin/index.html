@@ -1,32 +1,23 @@
 <!DOCTYPE html>
-  <head>
-    <title>Solar Server</title>
-  </head>
-
-  <body>
-
-  <h1><a href="/">Solar Protocol (<span class=name></span>)</a> - Admin Console</h1>
-
-  <span>
-    Logged in as <a href="/admin/settings/user.html"><span class=username></span></a>
-    <a href="?logout">(Logout)</a>
-  </span>
-
-  <p>
-    <a href=/admin>Network Status</a> |
-    <a href=/admin/local>Local Data</a> |
-    <a href=/admin/settings>Settings</a> |
-    <a href=/admin/settings/local">Local Content</a>
-  </p>
-
+<html>
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>Solar Server</title>
+</head>
+<body>
+  <h1><a href="/">Solar Protocol ()</a> - Admin Console</h1><span>Logged in as <a href="/admin/settings/user.html"></a> <a href="?logout">(Logout)</a></span>
+  <p><a href="/admin">Network Status</a> | <a href="/admin/local">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href=
+  "/admin/settings/local&quot;">Local Content</a></p>
   <h2>Network Status</h2>
-
-  <div id="serverList"><h3>Online Servers:</h3></div>
-
-  <div id="pointOfEntryViz"><h3>Point of Entry History ASCII Viz:</h3></div>
-
-  <div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
-
+  <div id="serverList">
+    <h3>Online Servers:</h3>
+  </div>
+  <div id="pointOfEntryViz">
+    <h3>Point of Entry History ASCII Viz:</h3>
+  </div>
+  <div id="pointOfEntry">
+    <h3>Point of Entry History:</h3>
+  </div>
   <script>
     getRequest(`/api/devices`, response => {
       devices = JSON.parse(response)
@@ -231,7 +222,7 @@
       return table
     }
 
-  </script>
-
-  <script src=/js/names.js></script>
-  </body>
+  </script> 
+  <script src="/js/names.js"></script>
+</body>
+</html>

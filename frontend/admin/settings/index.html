@@ -1,25 +1,17 @@
+<!DOCTYPE html>
 <html>
 <head>
-   <link rel="stylesheet" href="../admin.css">
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <link rel="stylesheet" href="../admin.css">
+  <title></title>
 </head>
 <body>
-
-<h1><a href="/">Solar Protocol (<span class="name"></span>)</a> - Admin Console</h1>
-
-<span>Logged in as <a href="/admin/settings/user.html"><span class="username"></span></a> <a href="?logout">(Logout)</a></span>
-
-<p>
-  <a href="/admin">Network Activity</a> |
-  <a href="/admin/local.html">Local Data</a> |
-  <a href="/admin/settings">Settings</a> |
-  <a href="/admin/settings/local.html">Local Content</a>
-</p>
-
-<h2>Local Settings</h2>
-
-<h3>Info</h3>
-
-<script>
+  <h1><a href="/">Solar Protocol ()</a> - Admin Console</h1><span>Logged in as <a href="/admin/settings/user.html"></a> <a href="?logout">(Logout)</a></span>
+  <p><a href="/admin">Network Activity</a> | <a href="/admin/local.html">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href=
+  "/admin/settings/local.html">Local Content</a></p>
+  <h2>Local Settings</h2>
+  <h3>Info</h3>
+  <script>
   // Fill out existing local.json data
   getRequest(`/api/local`, response => {
   const local = JSON.parse(response) 
@@ -28,10 +20,11 @@
     const elements = Array.from(document.querySelector(`form[name=updateLocalInfo] input[name=${key}]`))
     elements.forEach(element => element.value == local[key])
   })
-})
-</script>
+  })
+  </script> 
+  <script>
 
-<script>
+
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message)
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
@@ -45,79 +38,54 @@
     value.value = sha256(value.value)
     return true
   }
-</script>
-
-<form method="post" id="updateLocalInfo" action="/api/local">
-  <p>Name <input type="text" name="name"></p>
-
-  <p>
-    Description (500 characters max)<br>
-    <textarea name="description" id="descriptionText" rows="5" cols="33" form="updateLocalInfo" maxlength="500"></textarea>
-  </p>
-
-  <p>Location <input type="text" name="location"></p>
-  <p>City <input type="text" name="city"></p>
-  <p>Country <input type="text" name="country"></p>
-  <p>Latitude <input type="text" name="lat"></p>
-  <p>Longitude <input type="text" name="lon"></p>
-  <p>PV Module Wattage <input type="text" name="pvWatts"></p>
-  <p>PV Module Voltage <input type="text" name="pvVolts"></p>
-  <p></p>
-  <button type="submit">Update</button>
-</form>
-
-<div class="basicBox">
-  <h3>Server Profile Photo</h3>
-  <div style="width: 50%">
-    <p>
-      This image will be saved as serverprofile.gif and appear on solar protocol pages when your server is the point of entry. The maximum individual image files size is TBD.
-      <br>The image file type must be a gif. It it recommended that you dither the image prior to uploading.
-    </p>
-    <form action="/api/profile" method="post" enctype="multipart/form-data">
-      Select image to upload:
-      <p>
-      <input type="file" name="fileToUpload" id="fileToUpload">
-    </p>
-      <input type="submit" value="Upload Image" name="submit">
+  </script>
+  <form method="post" id="updateLocalInfo" action="/api/local" name="updateLocalInfo">
+    <p>Name <input type="text" name="name"></p>
+    <p>Description (500 characters max)<br>
+    <textarea name="description" id="descriptionText" rows="5" cols="33" form="updateLocalInfo" maxlength="500"></textarea></p>
+    <p>Location <input type="text" name="location"></p>
+    <p>City <input type="text" name="city"></p>
+    <p>Country <input type="text" name="country"></p>
+    <p>Latitude <input type="text" name="lat"></p>
+    <p>Longitude <input type="text" name="lon"></p>
+    <p>PV Module Wattage <input type="text" name="pvWatts"></p>
+    <p>PV Module Voltage <input type="text" name="pvVolts"></p><button type="submit">Update</button>
+  </form>
+  <div class="basicBox">
+    <h3>Server Profile Photo</h3>
+    <div style="width: 50%">
+      <p>This image will be saved as serverprofile.gif and appear on solar protocol pages when your server is the point of entry. The maximum individual image
+      files size is TBD.<br>
+      The image file type must be a gif. It it recommended that you dither the image prior to uploading.</p>
+      <form action="/api/profile" method="post" enctype="multipart/form-data">
+        Select image to upload:
+        <p><input type="file" name="fileToUpload" id="fileToUpload"></p><input type="submit" value="Upload Image" name="submit">
+      </form>
+    </div><!--should this float left?-->
+    <div style="width:50%"><!--display thumbnail image-->
+    <img src="/serverprofile.gif" style="border: 2px solid black; width: 150px; height: auto;"></div>
+  </div>
+  <div class="dangerBox">
+    <h3>Network Info</h3>
+    <form method="post" action="/api/local" onsubmit="return confirm('Are you sure you want to change the http port?');">
+      <input type="hidden" name="key" value="httpPort">
+      <p>http port <input type="text" name="httpPort"><span class="error" style="color:red" id="httpPortError"></span></p><button type="submit">Update Http
+      Port</button>
     </form>
   </div>
-  <!--should this float left?-->
-  <div style="width:50%">
-    <!--display thumbnail image-->
-    <img src="/serverprofile.gif" style="border: 2px solid black; width: 150px; height: auto;">
+  <div class="dangerBox">
+    <h3>Security & Access Keys - Danger Zone!</h3>
+    <form method="post" action="/api/secret" onsubmit="return submitHashedValue(this) &amp;&amp; confirm('Are you sure you want to change the API key?');">
+      <input type="hidden" name="key" value="apiKey">
+      <p>Network API key <input type="text" name="value"> <span class="error" style="color:red" id="apiKeyError"></span></p><button type="submit">Update API
+      Key</button>
+    </form>
+    <form method="post" action="/api/secret" onsubmit="confirm('Are you sure you want to change the DNS password?');">
+      <input type="hidden" name="key" value="dnsPassword">
+      <p>DNS Gateway Password <input type="text" name="value"> <span class="error" style="color:red" id="dnsPasswordError"></span></p><button type=
+      "submit">Update DNS Gateway Password</button>
+    </form>
   </div>
-</div>
-
-<div class="dangerBox">
-  <h3>Network Info</h3>
-  <form method="POST" action="/api/local" onsubmit="return confirm('Are you sure you want to change the http port?');">
-    <input type=hidden name=key value=httpPort />
-    <p>http port <input type=text name=httpPort><span class=error style="color:red" id=httpPortError></span></p>
-    <button type=submit>Update Http Port</button>
-  </form>
-</div>
-
-<div class="dangerBox">
-  <h3>Security & Access Keys - Danger Zone!</h3>
-  <form method="POST" action=/api/secret onsubmit="return submitHashedValue(this) && confirm('Are you sure you want to change the API key?');">
-    <input type=hidden name=key value=apiKey />
-    <p>
-      Network API key <input type=text name=value>
-      <span class=error style="color:red" id=apiKeyError></span>
-    </p>
-    <button type=submit>Update API Key</button>
-  </form>
-
-  <form method="POST" action=/api/secret onsubmit="confirm('Are you sure you want to change the DNS password?');">
-    <input type=hidden name=key value=dnsPassword />
-    <p>
-      DNS Gateway Password <input type=text name=value>
-      <span class="error" style="color:red" id=dnsPasswordError></span>
-    </p>
-    <button type=submit>Update DNS Gateway Password</button>
-  </form>
-</div>
-
-<script src="/js/names.js"></script>
+  <script src="/js/names.js"></script>
 </body>
 </html>

@@ -20,37 +20,14 @@ help() {
 
   ☀️ solar-protocol - commandline tool to help manage your server
 
-  ${Green}install system dependencies:
-
-    ${Blue}solar-protocol init
-
-  ${Green}start the server:
-
-    ${Blue}solar-protocol up
-
-  ${Green}check the api logs:
-
-    ${Blue}solar-protocol logs api
-
-  ${Green}start in dev mode with live code reloading:
-
-    ${Blue}solar-protocol dev
-
-  ${Green}check status of the containers:
-
-    ${Blue}solar-protocol status
-
-  ${Green}restart the datalogger:
-
-    ${Blue}solar-protocol restart datalogger
-
-  ${Green}stop the server:
-
-    ${Blue}solar-protocol down
-
-  ${Green}open a shell in the protocol container:
-
-    ${Blue}solar-protocol shell protocol${Clear}
+    ${Blue}solar-protocol install${Clear}            install dependencies to build and run solar-protocol
+    ${Blue}solar-protocol up${Clear}                 start all the services in production mode
+    ${Blue}solar-protocol logs api${Clear}           show api logs
+    ${Blue}solar-protocol dev${Clear}                start in dev mode with live code reloading
+    ${Blue}solar-protocol status${Clear}             check status of the containers
+    ${Blue}solar-protocol restart datalogger${Clear} restart the datalogger
+    ${Blue}solar-protocol down${Clear}               stop all services
+    ${Blue}solar-protocol shell protocol${Clear}     open a shell in the protocol container
 HELP
   )"
 }
@@ -85,7 +62,7 @@ machine() {
   fi
 }
 
-init() {
+install() {
   if [[ "$(uname -s)" == "Darwin" ]]; then
     command -v podman >/dev/null 2>&1 || brew install podman
     command -v podman-compose >/dev/null 2>&1 || brew install podman-compose
@@ -173,7 +150,7 @@ reset() {
   compose down
   podman machine stop
   podman machine rm podman-machine-default
-  init
+  install
 }
 
 case $command in
@@ -197,7 +174,7 @@ case $command in
   hash) bcrypt "$1" ;;
   reset) reset ;;
   keygen) pass=$(password); echo password: $pass; echo hash: $(bcrypt $pass) ;;
-  init) init ;;
+  install) install ;;
   *) help ;;
 esac
 

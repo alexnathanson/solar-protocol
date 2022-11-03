@@ -4,7 +4,7 @@ RUN apt-get --quiet update && apt-get --quiet upgrade --yes
 RUN apt-get --quiet install build-essential \
   libffi-dev libjpeg-dev zlib1g-dev --yes
 
-WORKDIR /solar-protocol
+WORKDIR /protocol
 RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
@@ -17,7 +17,7 @@ RUN apt-get --quiet update && apt-get --quiet install libcairo2 zlib1g --yes
 COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:$PATH"
 
-WORKDIR /solar-protocol
+WORKDIR /protocol
 COPY . .
 
 CMD python run.py

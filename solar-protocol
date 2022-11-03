@@ -60,15 +60,15 @@ compose-exec() {
 }
 
 build-viz() {
-  compose-exec python /solar-protocol/build/viz.py "$@"
+  compose-exec python /protocol/build/viz.py "$@"
 }
 
 build-html() {
-  compose-exec python /solar-protocol/build/html.py "$@"
+  compose-exec python /protocol/build/html.py "$@"
 }
 
 get-remote-data() {
-  compose-exec python /solar-protocol/core/getRemoteData.py "$@"
+  compose-exec python /protocol/core/getRemoteData.py "$@"
 }
 
 generate() {

@@ -200,7 +200,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
                 solarPowerL="n/a",
                 solarPowerH="n/a",
                 batteryVoltage="n/a",
-                batteryPercentage="n/a",
+                batteryPercentage=50,
                 batterCurrent="n/a",
                 loadVoltage="n/a",
                 loadCurrent="n/a",

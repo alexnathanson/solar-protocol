@@ -193,7 +193,38 @@ def render_pages(_local_data, _data, _weather, _server_data):
                 servers=_server_data
             )
         except:
-            print("Got no energy data.")
+            rendered_html = template.render(
+                time=time,
+                solarVoltage= "n/a",
+                solarCurrent="n/a",
+                solarPowerL="n/a",
+                solarPowerH="n/a",
+                batteryVoltage="n/a",
+                batteryPercentage="n/a",
+                batterCurrent="n/a",
+                loadVoltage="n/a",
+                loadCurrent="n/a",
+                loadPower="n/a",
+                name=_local_data["name"],
+                #url=_local_data["url"],
+                description=_local_data["description"],
+                location=_local_data["location"],
+                city=_local_data["city"],
+                country=_local_data["country"],
+                lat=_local_data["lat"],
+                long=_local_data["long"],
+                bgColor=_local_data["bgColor"],
+                font=_local_data["font"],
+                weather=_weather["description"],
+                temp=_weather["temp"],
+                feelsLike=_weather["feels_like"],
+                sunrise=_weather["sunrise"],
+                sunset=_weather["sunset"],
+                zone=zone,
+                leadImage=leadImage,
+                mode=mode, 
+                servers=_server_data
+            )
 
         # print(rendered_html)
         open(output_filename, "w").write(rendered_html)

@@ -138,10 +138,13 @@ def render_pages(_local_data, _data, _weather, _server_data):
     leadImage="images/clock.png"
 
     #determine mode
-    if((_data["battery percentage"]*100)>30):
+    try:
+        if((_data["battery percentage"]*100)>30):
+            mode="High res mode"
+        else:
+            mode="Low res mode"
+    except: 
         mode="High res mode"
-    else:
-        mode="Low res mode"
 
     #loop through all page templates and render them with new data
     for template_filename, output_filename in pages:

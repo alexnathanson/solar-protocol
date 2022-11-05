@@ -94,7 +94,10 @@ def read_csv():
 
 
 def render_pages(_local_data, _data, _weather, _server_data):
-    print("Battery Percentage:" + str(_data["battery percentage"]))
+    try:
+        print("Battery Percentage:" + str(_data["battery percentage"]))
+    except:
+        print("No energy data received.")
 
     pages = [
         ("index_template.html", "index.html"),
@@ -152,39 +155,42 @@ def render_pages(_local_data, _data, _weather, _server_data):
             template_file
         )
         
-        # template = Template(template_file)
-        rendered_html = template.render(
-            time=time,
-            solarVoltage=_data["PV voltage"],
-            solarCurrent=_data["PV current"],
-            solarPowerL=_data["PV power L"],
-            solarPowerH=_data["PV power H"],
-            batteryVoltage=_data["battery voltage"],
-            batteryPercentage=round(_data["battery percentage"]*100, 1),
-            batterCurrent=_data["battery current"],
-            loadVoltage=_data["load voltage"],
-            loadCurrent=_data["load current"],
-            loadPower=_data["load power"],
-            name=_local_data["name"],
-            #url=_local_data["url"],
-            description=_local_data["description"],
-            location=_local_data["location"],
-            city=_local_data["city"],
-            country=_local_data["country"],
-            lat=_local_data["lat"],
-            long=_local_data["long"],
-            bgColor=_local_data["bgColor"],
-            font=_local_data["font"],
-            weather=_weather["description"],
-            temp=_weather["temp"],
-            feelsLike=_weather["feels_like"],
-            sunrise=_weather["sunrise"],
-            sunset=_weather["sunset"],
-            zone=zone,
-            leadImage=leadImage,
-            mode=mode, 
-            servers=_server_data
-        )
+        try:
+            # template = Template(template_file)
+            rendered_html = template.render(
+                time=time,
+                solarVoltage=_data["PV voltage"],
+                solarCurrent=_data["PV current"],
+                solarPowerL=_data["PV power L"],
+                solarPowerH=_data["PV power H"],
+                batteryVoltage=_data["battery voltage"],
+                batteryPercentage=round(_data["battery percentage"]*100, 1),
+                batterCurrent=_data["battery current"],
+                loadVoltage=_data["load voltage"],
+                loadCurrent=_data["load current"],
+                loadPower=_data["load power"],
+                name=_local_data["name"],
+                #url=_local_data["url"],
+                description=_local_data["description"],
+                location=_local_data["location"],
+                city=_local_data["city"],
+                country=_local_data["country"],
+                lat=_local_data["lat"],
+                long=_local_data["long"],
+                bgColor=_local_data["bgColor"],
+                font=_local_data["font"],
+                weather=_weather["description"],
+                temp=_weather["temp"],
+                feelsLike=_weather["feels_like"],
+                sunrise=_weather["sunrise"],
+                sunset=_weather["sunset"],
+                zone=zone,
+                leadImage=leadImage,
+                mode=mode, 
+                servers=_server_data
+            )
+        except:
+            print("Got no energy data.")
 
         # print(rendered_html)
         open(output_filename, "w").write(rendered_html)

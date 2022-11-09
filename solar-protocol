@@ -90,7 +90,7 @@ install() {
       if ! grep --quiet --extended-regexp "^ExecStart=$(which dhcpcd) -q -w$" $waitfile; then
         sudo sed --in-place --expression "s|ExecStart=.*w$|ExecStart=$(which dhcpcd) -q -w|" $waitfile
       fi
-      prompt "Upgrade to bookworm finished. Reboot?"
+      prompt "Upgrade to bookworm finished. Make sure to rerun solar-protocol install after reboot. Reboot?"
       sudo reboot
     fi
   elif [[ "$(uname -s)" == "Linux" ]]; then

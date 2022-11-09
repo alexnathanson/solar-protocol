@@ -162,7 +162,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         except:
             rendered_html = template.render(
                 time=time,
-                solarVoltage= "n/a",
+                solarVoltage="n/a",
                 solarCurrent="n/a",
                 solarPowerL="n/a",
                 solarPowerH="n/a",
@@ -188,7 +188,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
                 sunset=_weather["sunset"],
                 zone=zone,
                 leadImage=leadImage,
-                mode=mode, 
+                mode=mode,
                 servers=_server_data,
                 dev="",
             )

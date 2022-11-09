@@ -41,8 +41,9 @@ Projects can also be hosted on the Solar Protocol software platform, that is dis
 
 ---
 ![Image of solar data from each server](images/seasonal-latitude-positioning.png)
-*Servers across different latitudes will have different light levels and energy resources in different seasons.*
 ---
+*Servers across different latitudes will have different light levels and energy resources in different seasons.*
+
 
 
 

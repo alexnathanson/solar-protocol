@@ -33,8 +33,9 @@ Projects can also be hosted on the Solar Protocol software platform, that is dis
 ## Consider Daily and Seasonal Changes across the Network
 
 <kbd>
-![Image of solar daily change of longitude](images/daily-longitude-positioning.png)
+  <img src="images/daily-longitude-positioning.png" alt="Image of solar daily change of longitude">
 </kbd>
+
 *Servers across different longitudes will have light at different times of the day.*
 
 <br/><br/><br/><br/>
@@ -42,6 +43,7 @@ Projects can also be hosted on the Solar Protocol software platform, that is dis
 <kbd>
   <img src="images/seasonal-latitude-positioning.png" alt="Image of solar data from each server">
 </kbd>
+
 *Servers across different latitudes will have different light levels and energy resources in different seasons.*
 
 

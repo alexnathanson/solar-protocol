@@ -20,14 +20,15 @@ help() {
 
   ☀️ solar-protocol - commandline tool to help manage your server
 
-    ${Blue}solar-protocol install${Clear}            install dependencies to build and run solar-protocol
-    ${Blue}solar-protocol up${Clear}                 start all the services in production mode
-    ${Blue}solar-protocol logs api${Clear}           show api logs
-    ${Blue}solar-protocol dev${Clear}                start in dev mode with live code reloading
-    ${Blue}solar-protocol status${Clear}             check status of the containers
-    ${Blue}solar-protocol restart datalogger${Clear} restart the datalogger
-    ${Blue}solar-protocol down${Clear}               stop all services
-    ${Blue}solar-protocol shell protocol${Clear}     open a shell in the protocol container
+    ${Blue}solar-protocol install${Clear}               install dependencies to build and run solar-protocol
+    ${Blue}solar-protocol up${Clear}                    start all the services in production mode
+    ${Blue}solar-protocol logs api${Clear}              show api logs
+    ${Blue}solar-protocol dev${Clear}                   start in dev mode with live code reloading
+    ${Blue}solar-protocol status${Clear}                check status of the containers
+    ${Blue}solar-protocol restart datalogger${Clear}    restart the datalogger
+    ${Blue}solar-protocol down${Clear}                  stop all services
+    ${Blue}solar-protocol shell protocol${Clear}        open a shell in the protocol container
+    ${Blue}solar-protocol update-dns [password]${Clear} update the dns for solarprotocol.net
 HELP
   )"
 }
@@ -60,6 +61,30 @@ machine() {
       podman machine start
     fi
   fi
+}
+
+update-dns() {
+  LOGFILE=/var/log/namecheap.log
+  HOST=@
+  DOMAIN=solarprotocol.net
+  PASSWORD=$1
+  DDNS=https://dynamicdns.park-your-domain.com
+
+  # Get current time
+  TIME=$(date +%Y-%m-%d:%H:%M)
+  echo "TIME: $TIME"
+
+  # Get current IP
+  IP=$(curl --insecure --silent "${DDNS}/getip")
+  echo "IP: $IP"
+
+  # Update Namecheap DDNS
+  RESPONSE=$(curl --insecure --silent "${DDNS}/update?host=${HOST}&domain=${DOMAIN}&password=${PASSWORD}&ip=${IP}")
+  echo "RESPONSE: "
+  echo $RESPONSE
+
+  # Log the time and IP
+  echo "$TIME - $IP" >> $LOGFILE
 }
 
 install() {
@@ -174,6 +199,7 @@ case $command in
   run) compose run "$@" ;;
   generate) generate "$@" ;;
   password) password ;;
+  update-dns) update-dns "$@" ;;
   get-remote-data) get-remote-data "$@" ;;
   build-viz) build-viz "$@" ;;
   build-html) build-html "$@" ;;

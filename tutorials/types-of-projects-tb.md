@@ -33,7 +33,7 @@ Solar data and change of active server over a 72 hour period.
 
 ![Image of solar daily change of longitude](images/daily-longitude-positioning.png)
 *Servers across different longitudes will have light at different times of the day.*
-
+<br/><br/><br/><br/>
 
 
 ![Image of solar data from each server](images/seasonal-latitude-positioning.png)

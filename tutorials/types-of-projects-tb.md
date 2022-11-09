@@ -24,24 +24,24 @@ One example of a single server project is the Low Carbon Methods website. Low Ca
 ## Network Projects – projects hosted across the network
 
 Projects can also be hosted on the Solar Protocol software platform, that is distributed across all the servers in the network. The location where the project is hosted will change throughout the day and season. Like the Solar Protocol website, the project will therefore be served from whereever there is the most sunshine in the network at the time. This option is best for projects that need to be reliabily available with minimum downtime, or that seek to explore the Solar Protocol network behaviors (the way the site is served from different places at different times of the day or season). These works may still use data from the API, for example, querying how much power is being generated or used at a particular moment, at a particualar server.
+<br/><br/>
 
 ![Image of solar data from each server](images/poe-graph-green.png)
 *Solar data and change of active server over a 72 hour period.*
 <br/><br/>
 
 ## Consider Daily and Seasonal Changes across the Network
+
+
+![Image of solar daily change of longitude](images/daily-longitude-positioning.png)
+---
 *Servers across different longitudes will have light at different times of the day.*
 
----
-![Image of solar daily change of longitude](images/daily-longitude-positioning.png)
-
----
 <br/><br/><br/><br/>
-*Servers across different latitudes will have different light levels and energy resources in different seasons.*
 
 ---
 ![Image of solar data from each server](images/seasonal-latitude-positioning.png)
-
+*Servers across different latitudes will have different light levels and energy resources in different seasons.*
 ---
 
 

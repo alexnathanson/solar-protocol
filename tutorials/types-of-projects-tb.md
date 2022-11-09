@@ -27,16 +27,18 @@ Projects can also be hosted on the Solar Protocol software platform, that is dis
 
 ![Image of solar data from each server](images/poe-graph-green.png)
 Solar data and change of active server over a 72 hour period.
-
+<br/><br/>
 
 ## Consider Daily and Seasonal Changes across the Network
 ---
 ![Image of solar daily change of longitude](images/daily-longitude-positioning.png)
+---
 *Servers across different longitudes will have light at different times of the day.*
 <br/><br/><br/><br/>
 
 ---
 ![Image of solar data from each server](images/seasonal-latitude-positioning.png)
+---
 *Servers across different latitudes will have different light levels and energy resources in different seasons.*
 
 

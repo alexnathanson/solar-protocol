@@ -18,4 +18,6 @@ If the server determines that it should be the active server, it then updates th
 
 The DNS system is like an automated phone book for the internet. It associates a URL with a server location and it enables your browser to get the content you expect when you go to a particular website. When you go to a website, behind the scenes, your browser checks the DNS records to find the site's location before requesting its content and displaying it for you.
 
+![Diagram of the solar protocol system](images/Earth-Sun-Black.png) 
+
 If the server determines that it is not the active server because another server on the network is producing more power than it is, it does nothing. This helps avoid conflicts between servers. Also, because each server has the autonomy to make this decision on its own, the system can continue to function even if many servers are offline and this makes it resilient.

@@ -1,0 +1,77 @@
+{% extends "base-template.html" %} {% block content %}
+<div class="onecol-text">
+  <h3>Guides</h3>
+</div>
+<div class="guides">
+  <!-- Guide 1 -------------------------------------------->
+  <div class="twocol-text">
+    <a class="col1" href="site-guide.html">
+      <img src="images/learn/server.jpg" />
+    </a>
+    <a class="col2" href="site-guide.html">
+      <h6>Scoping a site</h6>
+      <p>What do you need to install a small scale solar system?</p>
+    </a>
+  </div>
+  <!-- Guide 2 -------------------------------------------->
+
+  <div class="twocol-text">
+    <a
+      class="col1"
+      href="https://docs.google.com/document/d/e/2PACX-1vQuEFoQmvCF-1YzIU38Zr6bWkbFQ65YRmF-m1Ban6A0fkVssv8d6r1-D6ghI9N4S3y1as-l3ciM_Atw/pub"
+    >
+      <img src="images/learn/production2.png" />
+    </a>
+    <a
+      class="col2"
+      href="https://docs.google.com/document/d/e/2PACX-1vQuEFoQmvCF-1YzIU38Zr6bWkbFQ65YRmF-m1Ban6A0fkVssv8d6r1-D6ghI9N4S3y1as-l3ciM_Atw/pub"
+    >
+      <h6>Assembling a server</h6>
+      <p>
+        What parts do you need? This guide outlines the design and method of
+        assembling a server.
+      </p>
+    </a>
+  </div>
+  <!-- Guide 3 -------------------------------------------->
+
+  <div class="twocol-text">
+    <a
+      class="col1"
+      href="https://github.com/alexnathanson/solar-protocol/tree/master/tutorials/portforwarding"
+    >
+      <img src="images/learn/router.png" />
+      <!-- <div class="col1text">Scoping a site for a server</div> -->
+    </a>
+    <a
+      class="col2"
+      href="https://github.com/alexnathanson/solar-protocol/tree/master/tutorials/portforwarding"
+    >
+      <h6>Port Forwarding</h6>
+      <p>
+        Once you have a server assembled and installed, this guide steps through
+        how to set up your local router so your server can connect.
+      </p>
+    </a>
+  </div>
+  <!-- Guide 4 -------------------------------------------->
+  <div class="twocol-text">
+    <a
+      class="col1"
+      href="https://github.com/alexnathanson/solar-protocol/blob/master/hardware-troubleshooting-and-maintenance.md"
+    >
+      <img src="images/learn/port.png" />
+    </a>
+    <a
+      class="col2"
+      href="https://github.com/alexnathanson/solar-protocol/blob/master/hardware-troubleshooting-and-maintenance.md"
+    >
+      <h6>Troubleshooting and Maintenance</h6>
+      <p>
+        A guide to debugging some of the problems you might have with your site,
+        server or connectivity.
+      </p>
+    </a>
+  </div>
+</div>
+{% endblock %}

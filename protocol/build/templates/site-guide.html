@@ -1,0 +1,61 @@
+{% extends "base-template.html" %} {% block content %}
+<div class="onecol-text">
+  <h3>What do you need to install a small scale solar system?</h3>
+  <p>
+    A server takes care, maitenance and stewardship as well as specific physical
+    conditions and network connectivity.
+  </p>
+  <h5>What sort of site do you need for a small scale solar system?</h5>
+
+  <ul>
+    <li>
+      To install a system you will need a safe and accessible outdoor area that
+      is exposed to direct sunlight for at least 4 hours per day (this means a
+      spot that is free from obstructions/shadows and ideally facing the
+      equator)
+    </li>
+    <li>
+      The solar panel needs to be safely secured to a wall, pole or rooftop so
+      it doesn't blow away or get stolen
+    </li>
+  </ul>
+  <h5>
+    I have a site that could work, how should the solar panel be positioned?
+  </h5>
+  <p>
+    The ideal module tilt for averaging PV production over the year is generally
+    at the angle of latitude facing the equator. The ideal orientation for the
+    PV module in the northern hemisphere is facing south. For example, NYC is at
+    41 degrees north so an optimal tilt will be at 41 degrees facing south. The
+    ideal orientation in the southern hemisphere will be northern facing at
+    latitude tilt. Above 23 degrees north the sun will always be to the south
+    and below 23 degrees south the sun will always be to the north. In the
+    tropics, between 23 degrees north and 23 degrees south, the sun will travel
+    on both the north and south sides of the installation, so shading from both
+    directions must be taken into consideration. Avoid obstructions that will
+    shade the module particularly between 9am and 3pm.
+  </p>
+  <p>
+    Vertical mounting, i.e. 90 degree tilt, or flat mounting, i.e. 0 degree
+    tilt, is acceptable if need be but may cause decreased efficiency depending
+    on the latitude.
+  </p>
+  <p>
+    Of course it is still possible to install a module even if you don't have
+    the ideal way of tilting and orientating it. Your system will just produce a
+    bit less energy if the orientation is not ideal.
+  </p>
+  <h5>What sort of connectivity do you need to run a server?</h5>
+  <ul>
+    <li>
+      The server needs Internet access either via ethernet cable or wifi
+      (minimum network speed: 25mb/s up & 25mb/s down)
+    </li>
+    <li>
+      You need to be able to set up port forwarding for both http (port 80) and
+      ssh (port 20) with your Internet Service Provider to serve the solar
+      protocol network publically
+    </li>
+  </ul>
+</div>
+{% endblock %}

@@ -1,16 +1,16 @@
 # What kind of projects can run on Solar Protocol?
 
-Solar Protocol can provide solar powered, community-owned server space for web projects and it gives open access to the solar energy data from all the server's in the network. This data is made available via the system's open API.
+Solar Protocol can provide solar powered, community-owned server space for web projects and it gives open access to the solar energy data from all the server's in the network via the system's open API.
 
-Projects that utilize and experiment with Solar Protocol energy data (from the API) could be created and hosted independently from the Solar Protocol platform or they could be hosted on it. The API is open and so projects hosted elsewere would require no support from the Solar Protocol team. Projects that are to be hosted on the Solar Protocol platform and servers, require various levels of collaboration. [i think this last bit could be clarified a bit. does the person need to apply to server space etc]
+Projects that utilize and experiment with Solar Protocol energy data (from the API) could be created and hosted anywhere on the web, or they could be hosted on Solar Protocol servers. The API is open and so projects hosted elsewere would require no support from the Solar Protocol team. Projects that are to be hosted on the Solar Protocol platform and servers, require various levels of collaboration. [i think this last bit could be clarified a bit. does the person need to apply to server space etc]
 
-This guide describes some different types of projects that could be developed with Solar Protocol, categorizing them as: external (projects using solar protocol data but are hosted elsewhere), single server (projects are hosted on a single solar server and that may also experiment with that server's local energy data), or network (projects that are hosted on the Solar Protocol platform, and get served with it from whereever there is sun in the network).
+This guide describes some different types of projects that could be developed with Solar Protocol, categorizing them as: external (projects using solar protocol data but are hosted elsewhere), single server (projects are hosted on a single solar server and that may also experiment with that server's local energy data), or network (projects that are hosted on the Solar Protocol software platform, and that therefore get served with it from whereever there is sun in the network).
 
 ## External Projects
 
-External projects are purely client side projects. These project use the publicly available open API (insert link to API tutorial) to get data from Solar Protocol and do something with it. Because these projects can run anywhere and because our API is open, you do not need to coordinate with or get permission from us (though we'd love to learn about them). Client side projects could, however, also be hosted on a single server or along with the Solar Protocol platform (see below).
+External projects are purely client side projects that use the publicly available open API (insert link to API tutorial) to get data from Solar Protocol and do something with it. Because these projects can be hosted anywhere and because our API is open, you do not need to coordinate with or get permission from us (though we'd love to learn about them). Client side projects could, however, also be hosted on a single solar server or on the Solar Protocol software platform (see below).
 
-To learn more about developing an external project, check out the API tutorial.
+To develop an external project, check out the API tutorial.
 
 ## Single Server Projects [or projects hosted on one server]
 
@@ -20,4 +20,4 @@ One example of a single server project is the Low Carbon Methods website. Low Ca
 
 ## Network Projects [or projects hosted across the network]
 
-Projects can also be hosted across the Solar Protocol network and will therefore be served from whereever there is the most sunshine in the network at the time. A project may need to be reliability available with minimum downtime, or it might seek to explore the Solar Protocol network behaviors (the way the site is served from different places at different times of the day or season). These may still explore data from the API.
+Projects can also be hosted on the Solar Protocol software platform, that is distributed across all the servers in the network. The location hosting the project will change throughout the day and season and will therefore be served from whereever there is the most sunshine in the network at the time. This options is best for projects that need to be reliabily available with minimum downtime, or that seek to explore the Solar Protocol network behaviors (the way the site is served from different places at different times of the day or season). These may still use data from the API, for example, querying how much power is being generated or used at a particular moment.

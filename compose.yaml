@@ -29,7 +29,7 @@ services:
       - frontend:/frontend
       - local:/local
   web:
-    image: nginx
+    image: docker.io/library/nginx
     restart: unless-stopped
     volumes:
       - data:/data

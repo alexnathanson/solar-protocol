@@ -64,8 +64,8 @@ machine() {
 }
 
 update-dns() {
-  LOGFILE=/var/log/namecheap.log
-  HOST=@
+  LOGFILE=namecheap.log
+  HOST=beta
   DOMAIN=solarprotocol.net
   PASSWORD=$1
   DDNS=https://dynamicdns.park-your-domain.com

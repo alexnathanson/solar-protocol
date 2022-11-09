@@ -251,7 +251,7 @@ def blocklist():
 def updateDNS(key: str, ip: str):
     name = verifyPasswordAndReturnName(key)
 
-    params = {host: "@", domain: "solarprotocol.net", password: key, ip: ip}
+    params = {host: "beta", domain: "solarprotocol.net", password: key, ip: ip}
 
     response = request.get(
         "https://dynamicdns.park-your-domain.com/update", params=params

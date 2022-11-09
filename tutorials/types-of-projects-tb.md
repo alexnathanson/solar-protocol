@@ -18,6 +18,11 @@ A single server project is a project that runs on a specific Solar Protocol serv
 
 One example of a single server project is the Low Carbon Methods website. Low Carbon Methods is a lab at Trent University and so it was important that the site is hosted at that location, the website is also an exploration of intermittency and uses energy-centered design principles to communicate energetic aspects of the server.
 
+![Solar movement at New York City](https://player.vimeo.com/video/769130258)
+This video shows the path of the sun over New York City in August.
+
 ## Network Projects – projects hosted across the network
 
 Projects can also be hosted on the Solar Protocol software platform, that is distributed across all the servers in the network. The location where the project is hosted will change throughout the day and season. Like the Solar Protocol website, the project will therefore be served from whereever there is the most sunshine in the network at the time. This option is best for projects that need to be reliabily available with minimum downtime, or that seek to explore the Solar Protocol network behaviors (the way the site is served from different places at different times of the day or season). These works may still use data from the API, for example, querying how much power is being generated or used at a particular moment, at a particualar server.
+
+![Image of solar data from each server](images/poe-graph.png)

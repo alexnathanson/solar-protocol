@@ -1,6 +1,8 @@
 # How does Solar Protocol work?
 
-Solar Protocol relies on a network of small solar powered servers, that are stewarded by volunteers around the world. Each server generates its own energy supply from a solar panel, and is connected to the other solar servers in the network via its internet connection. The Solar Protocol website is collectively served from this network of servers. A copy of it is saved on each server. When a browser makes a request for the site, it is sent out from whichever server is in the most sunlight at a given time. This server is called the active server. Each of the servers communicates with one another and compares their energy data to determine which one is receiving the most sunlight. This process is broken down in more detail below.
+Solar Protocol relies on a network of small solar powered servers, that are stewarded by volunteers around the world. Each server generates its own energy supply from a solar panel, and is connected to the other solar servers in the network via its internet connection. The Solar Protocol website is collectively served from this network of servers. A copy of the website is saved on each server and then when a browser makes a request for the site, the website is sent out from whichever server is in the most sunlight at a given time. This server is called the active server. Each of the servers communicates with one another and compares their energy data to determine which one is receiving the most sunlight and therefore generating the most energy at any given time. This process is broken down in more detail below. 
+
+The graph below shows the 
 
 ## Collecting Electrical Data
 

@@ -30,16 +30,19 @@ Projects can also be hosted on the Solar Protocol software platform, that is dis
 <br/><br/>
 
 ## Consider Daily and Seasonal Changes across the Network
+*Servers across different longitudes will have light at different times of the day.*
+
 ---
 ![Image of solar daily change of longitude](images/daily-longitude-positioning.png)
+
 ---
-*Servers across different longitudes will have light at different times of the day.*
 <br/><br/><br/><br/>
+*Servers across different latitudes will have different light levels and energy resources in different seasons.*
 
 ---
 ![Image of solar data from each server](images/seasonal-latitude-positioning.png)
+
 ---
-*Servers across different latitudes will have different light levels and energy resources in different seasons.*
 
 
 

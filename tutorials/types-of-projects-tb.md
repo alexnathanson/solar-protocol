@@ -12,12 +12,12 @@ External projects are purely client side projects that use the publicly availabl
 
 To develop an external project, check out the API tutorial.
 
-## Single Server Projects [or projects hosted on one server]
+## Single Server Projects – projects hosted on one server
 
 A single server project is a project that runs on a specific Solar Protocol server. In addition to the open API, these projects make use of something specific to the server they are running on. There are a number of technical and conceptual reasons a project might need to run on a specific Solar Protocol server. For example, it might require additional types of data that aren't available on the public API or it might be engaging with the specific place, geographic location, materiality, or intermittency of the server itself.
 
 One example of a single server project is the Low Carbon Methods website. Low Carbon Methods is a lab at Trent University and so it was important that the site is hosted at that location, the website is also an exploration of intermittency and uses energy-centered design principles to communicate energetic aspects of the server.
 
-## Network Projects [or projects hosted across the network]
+## Network Projects – projects hosted across the network
 
 Projects can also be hosted on the Solar Protocol software platform, that is distributed across all the servers in the network. The location hosting the project will change throughout the day and season and will therefore be served from whereever there is the most sunshine in the network at the time. This options is best for projects that need to be reliabily available with minimum downtime, or that seek to explore the Solar Protocol network behaviors (the way the site is served from different places at different times of the day or season). These may still use data from the API, for example, querying how much power is being generated or used at a particular moment.

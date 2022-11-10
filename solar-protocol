@@ -233,7 +233,7 @@ install-systemd() {
       podman generate systemd --new --files --name $servicename
     fi
     systemctl --user daemon-reload
-    if [[ systemctl --user is-active $servicename == "inactive" ]]; then
+    if ! systemctl --user is-active $servicename; then
       systemctl --user enable $servicename
       systemctl --user start $servicename
     fi

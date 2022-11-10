@@ -10,6 +10,10 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 set -o errexit
 set -o nounset
 
+exists() {
+  command -v "$@" >/dev/null 2>&1
+}
+
 help() {
   Clear='\033[0m'
   Green='\033[0;32m'
@@ -89,17 +93,17 @@ update-dns() {
 
 install() {
   if [[ "$(uname -s)" == "Darwin" ]]; then
-    command -v podman >/dev/null 2>&1 || brew install podman
-    command -v podman-compose >/dev/null 2>&1 || brew install podman-compose
+    exists podman podman-compose || brew install podman podman-compose
 
-    podman machine inspect >/dev/null 2>&1 || {
-      podman machine init --volume /Users
-    }
+    podman machine inspect >/dev/null 2>&1 || podman machine init --volume /Users
 
     if [[ "$(podman machine inspect --format '{{.State}}')" != "running" ]]; then
       podman machine start
     fi
-  elif command -v raspi-config >/dev/null; then
+    return
+  fi
+
+  if exists raspi-config; then
     libcontainerslist=/etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list
     if test ! -f $libcontainerslist; then
       sudo mkdir -p /etc/apt/keyrings
@@ -133,18 +137,24 @@ install() {
     fi
 
     # install podman and podman-compose if needed
-    if ! command -v podman podman-compose; then
+    if ! exists podman podman-compose; then
       sudo apt-get update
       sudo apt-get install --yes podman podman-compose
     fi
 
     # install systemd
     install-systemd
-  elif [[ "$(uname -s)" == "Linux" ]]; then
-    command -v podman >/dev/null || sudo apt-get install --yes podman
-    command -v pip >/dev/null || sudo apt-get install --yes python3-pip
-    command -v podman-compose >/dev/null || pip install podman-compose
-  else
+    return
+  fi
+
+  if [[ "$(uname -s)" == "Linux" ]]; then
+    exists podman || sudo apt-get install --yes podman
+    exists pip || sudo apt-get install --yes python3-pip
+    exists podman-compose || pip install podman-compose
+    return
+  fi
+
+  if grep -qi microsoft /proc/version; then
     echo See the official windows install docs to install podman and podman-compose
     echo
     echo https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md
@@ -173,7 +183,7 @@ install() {
     fi
   fi
 
-  command -v podman >/dev/null 2>&1 && command -v podman-compose >/dev/null 2>&1
+  exists podman podman-compose
 }
 
 

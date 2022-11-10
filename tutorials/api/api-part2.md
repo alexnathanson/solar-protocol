@@ -27,7 +27,7 @@ First, lets make a call to the API to retrieve the battery voltage and do someth
 
 You can find the code for this example in the example1 directory
 
-To do that, we use this call `http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage`
+To do get the battery voltage data, we use this call: `http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage`
 
 This will return an object that looks like this: `{ "battery-voltage": "12.69" }` Of course the number value will be different depending on the status at the moment you make the call.
 
@@ -37,17 +37,21 @@ We'll use this call to get the name: `http://solarprotocol.net/api/v2/opendata.p
 
 The response to this call looks like this: `{ name: "Solar-Power for Hackers" }`
 
-In order to display updated data every 5 minutes we'll make both of these API calls again.
+In order to display updated data every 5 minutes we'll make both of these API calls again. Everytime it updates or you refresh the page you may see the server name and voltage amount change.
 
-`if(time >= 60*5){`
- `loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData);`
- `loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName);`
-`}`
+`if(time >= 60*5){`<br>
+ `loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData);`<br>
+ `loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName);`<br>
+`}`<br>
+
+Experiment with changing the type of data you are requesting. For example, if you want PV voltage you should use this API call: `http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage`
 
 <br><br>
 ![Screenshot of example 1](../images/api-example1.png)
 *Screenshot of API tutorial example 1.*
 <br><br>
+
+### Trouble shooting example 1
 
 ## Example Project 2: Data Viz
 

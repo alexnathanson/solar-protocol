@@ -139,9 +139,7 @@ install() {
     fi
 
     # install systemd
-    if ! test -f $HOME/.config.systemd/user/*solar-protocol*.service; then
-      install-systemd
-    fi
+    install-systemd
   elif [[ "$(uname -s)" == "Linux" ]]; then
     command -v podman >/dev/null || sudo apt-get install --yes podman
     command -v pip >/dev/null || sudo apt-get install --yes python3-pip
@@ -214,7 +212,10 @@ build() {
 }
 
 install-systemd() {
-  cd $HOME/.config/systemd/user
+  servicedir=$HOME/.config/systemd/user
+  if test -d $servicedir; then return; fi
+  mkdir -p $servicedir
+  cd $servicedir
   podman generate systemd --new --files --name solar-protocol
   systemctl --user daemon-reload
   systemctl --user start solar-protocol.service

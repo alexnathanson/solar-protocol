@@ -39,12 +39,10 @@ The response to this call looks like this: `{ name: "Solar-Power for Hackers" }`
 
 In order to display updated data every 5 minutes we'll make both of these API calls again.
 
-`if(time >= 60*5){
-
- loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData); 
-
- loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName); 
-}`
+`if(time >= 60*5){`
+ `loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData);`
+ `loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName);`
+`}`
 
 <br><br>
 ![Screenshot of example 1](../images/api-example1.png)

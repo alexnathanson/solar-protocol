@@ -92,6 +92,7 @@ update-dns() {
 }
 
 install() {
+  # macOS requires a vm
   if [[ "$(uname -s)" == "Darwin" ]]; then
     exists podman podman-compose || brew install podman podman-compose
 
@@ -103,6 +104,7 @@ install() {
     return
   fi
 
+  # raspberry pi - requires debian bookworm + opensuse kubic packages
   if exists raspi-config; then
     libcontainerslist=/etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list
     if test ! -f $libcontainerslist; then
@@ -223,14 +225,19 @@ build() {
 
 install-systemd() {
   servicedir=$HOME/.config/systemd/user
-  if test -d $servicedir; then return; fi
   mkdir -p $servicedir
   cd $servicedir
-  podman generate systemd --new --files --name solar-protocol
-  systemctl --user daemon-reload
-  systemctl --user start solar-protocol.service
-  systemctl --user is-active solar-protocol.service
-  systemctl --user enable solar-protocol.service
+  for service in datalogger api protocol web; do
+    servicename=solar-protocol_${service}_1
+    if ! -f ${servicename}.service; then
+      podman generate systemd --new --files --name $servicename
+    fi
+    systemctl --user daemon-reload
+    if ! systemctl --user is-active $servicename; then
+      systemctl --user enable $servicename
+      systemctl --user start $servicename
+    fi
+  done
 }
 
 case $command in

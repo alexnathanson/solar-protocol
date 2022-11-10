@@ -104,6 +104,7 @@ install() {
     if grep --quiet 'bookworm\|testing' /etc/apt/sources.list; then
         command -v podman >/dev/null || sudo apt-get install --yes podman
         command -v podman-compose >/dev/null || sudo apt-get install --yes podman-compose
+        install-systemd
     else
       prompt "Upgrade Raspberry Pi OS to bookworm?" 
       sudo sed --in-place --expression 's/buster/bookworm/g' /etc/apt/sources.list
@@ -189,6 +190,15 @@ build() {
   compose build "$@"
 }
 
+install-systemd() {
+  cd $HOME/.config/systemd/user
+  podman generate systemd --new --files --name solar-protocol
+  systemctl --user daemon-reload
+  systemctl --user start solar-protocol.service
+  systemctl --user is-active solar-protocol.service
+  systemctl --user enable solar-protocol.service
+}
+
 case $command in
   up) compose up "$@" ;;
   down) compose down "$@" ;;
@@ -209,6 +219,7 @@ case $command in
   build-viz) build-viz "$@" ;;
   build-html) build-html "$@" ;;
   hash) bcrypt "$1" ;;
+  install-systemd) install-systemd ;;
   reset) reset ;;
   keygen) pass=$(password); echo password: $pass; echo hash: $(bcrypt $pass) ;;
   install) install ;;

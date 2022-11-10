@@ -228,14 +228,15 @@ install-systemd() {
   mkdir -p $servicedir
   cd $servicedir
   for service in datalogger api protocol web; do
-    servicename=container-solar-protocol_${service}_1
-    if ! test -f ${servicename}.service; then
+    servicename=solar-protocol_${service}_1
+    filename=container-$servicename.service
+    if ! test -f $filename; then
       podman generate systemd --new --files --name $servicename
     fi
     systemctl --user daemon-reload
-    if ! systemctl --user is-active $servicename; then
-      systemctl --user enable $servicename
-      systemctl --user start $servicename
+    if ! systemctl --user is-active $filename; then
+      systemctl --user enable $filename
+      systemctl --user start $filename
     fi
   done
 }

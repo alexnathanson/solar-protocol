@@ -229,7 +229,7 @@ install-systemd() {
   cd $servicedir
   for service in datalogger api protocol web; do
     servicename=solar-protocol_${service}_1
-    if ! -f ${servicename}.service; then
+    if ! test -f ${servicename}.service; then
       podman generate systemd --new --files --name $servicename
     fi
     systemctl --user daemon-reload

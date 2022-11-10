@@ -6,7 +6,7 @@ This guide describes some different types of projects that could be developed wi
 
 Projects that utilize and experiment with Solar Protocol energy data from the API could be created and hosted anywhere on the web. The API is open so these types of projects do not need to be hosted directly on a Solar Protocol server and do not require any support from the Solar Protocol team. For this reason we call these types of projects 'External Projects'. Projects that are to be hosted on the Solar Protocol platform and servers, i.e. single server or network projects, require various levels of collaboration and support from the Solar Protocol team.  Opportunities for single server and network projects are typically available based on specific calls for work or collaboration that we put out periodically.
 
-For reasons that will be clear as you read on, external projects are the simplest to produce, single server projects are a little more complicated, and network projects can potentially get very complex.
+External projects are the simplest to produce, single server projects are a little more complicated, and network projects can potentially get very complex.
 
 ## Types of Projects
 

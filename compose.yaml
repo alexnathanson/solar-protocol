@@ -2,7 +2,7 @@ name: solar-protocol
 
 services:
   common:
-    image: localhost/solar-protocol/base
+    image: localhost/solar-protocol/base:beta
     build: common
   datalogger:
     image: localhost/solar-protocol/datalogger

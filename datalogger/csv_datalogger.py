@@ -10,7 +10,7 @@ from solar_common import fieldnames
 DEV = "DEV" in sys.argv
 
 if not DEV:
-    from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+    from pymodbus.client import ModbusSerialClient
 
 
 def writeOrAppend(row):
@@ -66,7 +66,7 @@ def readFromDevice():
 
 
 if not DEV:
-    client = ModbusClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
+    client = ModbusSerialClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
     client.connect()
 
 while True:

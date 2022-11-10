@@ -53,6 +53,9 @@ Experiment with changing the type of data you are requesting. For example, if yo
 
 ### Trouble shooting example 1
 
+* If you are having trouble getting example 1 to load, the most likely culprit is the local server. Make sure you are in the tutorials/api/example1 directory when you launch the server. If you are in a different directory you will need to navigate to the correct directory.
+* If the example isn't retrieving data, confirm http://solarprotocol.net is online by opening up the main page in a web browser. You can also try make a get request directly in the browser to confirm the system is running http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage
+
 ## Example Project 2: Data Viz
 
 First, lets make some calls to the API and draw the data.

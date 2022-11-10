@@ -21,14 +21,24 @@ In order to run the examples, you will need to run a local server on your machin
     * If the server is running properly you should see something like this in the terminal Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
     * In a browser, go to http://localhost:8000/
 
-## Example Project 1: Data Viz
+## Example Project 1: Hello Solar Protocol API!
+
+First, lets make a call to the API to retrieve the battery voltage and something visual with it.
+
+To do that, we use this call `http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage`
+
+This will return an object that looks like this: `{ "battery-voltage": "12.69" }` Of course the number value will be different depending on the status at the moment you make the call.
+
+![Screenshot of example 1](images/api-example1.png)
+*Screenshot of API tutorial example 1.*
+
+## Example Project 2: Data Viz
 
 First, lets make some calls to the API and draw the data.
 
 This project visualizes Solar Protocol data.
 
 
-
-## Example Project 2: Image Manipulation
+## Example Project 3: Image Manipulation
 
 This project uses the Solar Protocol network activity to manipulate an image.

@@ -1,125 +1,71 @@
-//Getting 3 days of data from active server
-//Preview data at http://solarprotocol.net/api/v1/
+//The script retrieves  the most recent PV power data from active server and prints the text on the screen
 
-//Set margins for the graph
-let yMargin = 50;
-let xMargin = 50;
+//reference: https://p5js.org/reference/#/p5/text
 
-let pd, ph = 0;
-let v =0;
-let colors;
-let c=0; //color counter
+let value = "Battery Voltage: ";
 
-let dates = [];
-let params = [];
+//variable to store the data we request from the API
+let pvData = 0.0;
 
 function setup() {
+  //set the drawing canvas
   createCanvas(windowWidth, windowHeight);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?day=3', gotCCData); 
 
-  // Offline data
-  //loadJSON('../../data/2-ccData-3days.json', gotCCData); 
+  //make an asyncronous API call
+  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotCCData); 
 
-  background(210);
-  strokeWeight(0.5);
+
+  //set the font family
   textFont('Times');
-  textSize(12);
- 
-  colors = ["aqua", "blue", "red", "green", "yellow", "pink", "orange", "purple", "brown", "orangered", "violet", "white"];
 
-  noLoop(); //no need to loop draw
+  //align the text in the vertical and horrizontal center
+  textAlign(CENTER, CENTER);
+
+  //set text border weight
+  strokeWeight(3)
 }
 
 function draw() {
-  drawAxes();
+  let time = millis()/1000;
+
+  //get a float between 0.0-1.0
+  timeScalar = (sin(time)+1)*.5;
+  //console.log(timeScalar);
+
+  //set the background color
+  background(timeScalar*255,255-(timeScalar*255),200+(timeScalar*55));
+
+  //translate the origin point
+  translate((timeScalar*windowWidth), (time*100)%windowHeight);
+
+/*  rectangle(-300,-300,300,300);
+*/
+  //rotate the canvas
+  rotate(timeScalar * TWO_PI);
+
+  //this is the interior text color
+  fill(timeScalar*255,time%255,255-(time%255));
+
+  //this is the text border color
+  stroke(0);
+
+  //set text size
+  textSize((time%60)+10);
+
+  //write the text to the screen
+  text(value + pvData, 0,0);
+
 }
 
 function gotCCData(tempData){
-  // console.log(Object.keys(tempData.data));
-
-  params = tempData["header"];
-  //put data into a 2d array called data
-  let data = tempData["data"];
-  print("params: "+params.length);
-  print("timestamps: "+data.length);
-  //print(data[1813][12]);
-
-   // put dates into their own array 
-  for(let i=0; i< data.length; i++){
-    dates.push(dayjs(data[i][0]));
-
-  }
-
-  // // draw data sending name and data array as arguments
-  let parameterName;
-  let maxYvalue=0;
-  for(let i=1; i<data[0].length; i++){ //for each parameter  
-    let values = [];
-    parameterName = params[i];
-    for(let j=0; j< data.length; j++){  //for each timestamp     
-      // print("i:"+i);
-      // print("j:"+j);
-      if(float(data[j][i]) > maxYvalue){
-        maxYvalue = float(data[j][i]);
-      }
-      values.push(float(data[j][i])); //put values into values array
-
-    }
-
-    // print(parameterName);
-    // print(dates);
-    // print(values);
-    drawCCData(parameterName, dates, values, maxYvalue);  //draw in data for that parameter
-  }
+  //the raw data response
+  console.log(tempData);
+  //get an array with the different keys in the API response
+  resKeys = Object.keys(tempData);
+  console.log(resKeys);
   
-}
+  //get the data corresponding to the key we want
+  pvData = tempData[resKeys[0]];
+  console.log(pvData);
 
-function drawCCData(_name, _dates, _data, _maxY){
-  //print(_dates[0].unix());
-  
-  //find minimum and maximum time stamps
-
-  let minUnix = min(_dates.map(item => item.unix()));
-  //print(minUnix);
-  let maxUnix = max(_dates.map(item => item.unix()));
-  //print(maxUnix);
-
-  let px = xMargin;
-  let py = height-yMargin;
-  //graph data 
-  for(let i=0; i<_data.length; i++){
-    //get y coordinates of points by remapping the values to the y axis
-    let y = map(_data[i], 0, _maxY, height - yMargin, 0 + yMargin);
-    //get x coordinates of points by remapping the dates to the x axix
-    let x = map(_dates[i].unix(), minUnix, maxUnix, xMargin, width - xMargin);
-    if(i%100==0){
-      noStroke();
-      fill(0);
-      text(_dates[i].format('MMM D'), x, height - yMargin + 15);
-    }
-    //set color
-    stroke(colors[c]);
-    fill(colors[c]);
-
-    //draw data
-
-    ellipse(x, y, 2, 2);
-
-  }
-
-  rect(xMargin+100*v, height-20, 10, 10);
-  stroke(0);
-  fill(0);
-  text(_name, xMargin+20+100*v, height-10);
-  v++; //shift over label 
-  c++; //move to next
-
-}
-
-
-function drawAxes(){
-    //draw axes
-    stroke(0,0,0);
-    line(0 + xMargin, height - yMargin, 0 + xMargin, 0 + yMargin); // y axis
-    line(0 + xMargin, height - yMargin, width - xMargin, height - yMargin); //x axis
 }

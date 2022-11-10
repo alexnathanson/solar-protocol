@@ -23,14 +23,33 @@ In order to run the examples, you will need to run a local server on your machin
 
 ## Example Project 1: Hello Solar Protocol API!
 
-First, lets make a call to the API to retrieve the battery voltage and something visual with it.
+First, lets make a call to the API to retrieve the battery voltage and do something visual with it.
+
+You can find the code for this example in the example1 directory
 
 To do that, we use this call `http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage`
 
 This will return an object that looks like this: `{ "battery-voltage": "12.69" }` Of course the number value will be different depending on the status at the moment you make the call.
 
-![Screenshot of example 1](images/api-example1.png)
+The data we get comes from the active server. This means that if the server changes, because the sun conditions change, the data will be different. To demonstrate this, we are also going to request the server name from the API.
+
+We'll use this call to get the name: `http://solarprotocol.net/api/v2/opendata.php?systemInfo=name`. 
+
+The response to this call looks like this: `{ name: "Solar-Power for Hackers" }`
+
+In order to display updated data every 5 minutes we'll make both of these API calls again.
+
+`if(time >= 60*5){
+
+ loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData); 
+
+ loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName); 
+}`
+
+<br><br>
+![Screenshot of example 1](../images/api-example1.png)
 *Screenshot of API tutorial example 1.*
+<br><br>
 
 ## Example Project 2: Data Viz
 

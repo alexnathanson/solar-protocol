@@ -6,14 +6,17 @@ let value = "Battery Voltage: ";
 
 //variable to store the data we request from the API
 let pvData = 0.0;
+let serverName = '';
 
 function setup() {
   //set the drawing canvas
   createCanvas(windowWidth, windowHeight);
 
-  //make an asyncronous API call
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotCCData); 
+  //make an asyncronous API call to get the battery voltage
+  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData); 
 
+  //make an asyncronous API call to get the name of the server
+  loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName); 
 
   //set the font family
   textFont('Times');
@@ -35,8 +38,16 @@ function draw() {
   //set the background color
   background(timeScalar*255,255-(timeScalar*255),200+(timeScalar*55));
 
+
+  //set text size
+  textSize(24);
+  //write the server name to the screen
+  text("Active Server: " + serverName, 250,50);
+
   //translate the origin point
   translate((timeScalar*windowWidth), (time*100)%windowHeight);
+
+
 
 /*  rectangle(-300,-300,300,300);
 */
@@ -55,9 +66,19 @@ function draw() {
   //write the text to the screen
   text(value + pvData, 0,0);
 
+  //every 5 minutes call the API again to update the data
+  if(time >= 60*5){
+
+    //make an asyncronous API call to get the battery voltage
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData); 
+
+    //make an asyncronous API call to get the name of the server
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName); 
+  }
+
 }
 
-function gotCCData(tempData){
+function gotBatData(tempData){
   //the raw data response
   console.log(tempData);
   //get an array with the different keys in the API response
@@ -67,5 +88,18 @@ function gotCCData(tempData){
   //get the data corresponding to the key we want
   pvData = tempData[resKeys[0]];
   console.log(pvData);
+
+}
+
+function gotName(tempData){
+  //the raw data response
+  console.log(tempData);
+  //get an array with the different keys in the API response
+  resKeys = Object.keys(tempData);
+  console.log(resKeys);
+  
+  //get the data corresponding to the key we want
+  serverName = tempData[resKeys[0]];
+  console.log(serverName);
 
 }

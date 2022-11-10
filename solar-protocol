@@ -100,12 +100,24 @@ install() {
       podman machine start
     fi
   elif command -v raspi-config >/dev/null; then
-    # raspberry pi
-    if grep --quiet 'bookworm\|testing' /etc/apt/sources.list; then
-        command -v podman >/dev/null || sudo apt-get install --yes podman
-        command -v podman-compose >/dev/null || sudo apt-get install --yes podman-compose
-        install-systemd
-    else
+    libcontainerslist=/etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list
+    if test ! -f $libcontainerslist; then
+      sudo mkdir -p /etc/apt/keyrings
+      base=https://download.opensuse.org/repositories
+      repo=devel:kubic:libcontainers:unstable/Debian_Testing/
+      keyring=/etc/apt/keyrings/devel_kubic_libcontainers_unstable.gpg
+      arch=$(dpkg --print-architecture)
+
+      curl --fail --silent --show-error --location "${base}/${repo}/Release.key" \
+        | gpg --dearmor \
+        | sudo tee $keyring > /dev/null
+
+      echo "deb [arch=$arch signed-by=$keyring]\n${base}/${repo} /" \
+        | sudo tee $libcontainerslist > /dev/null
+    fi
+
+    # upgrade to bookworm if we aren't already on it
+    if ! grep --quiet 'bookworm\|testing' /etc/apt/sources.list; then
       prompt "Upgrade Raspberry Pi OS to bookworm?" 
       sudo sed --in-place --expression 's/buster/bookworm/g' /etc/apt/sources.list
       sudo sed --in-place --expression 's/bullseye/bookworm/g' /etc/apt/sources.list
@@ -118,6 +130,17 @@ install() {
       fi
       prompt "Upgrade to bookworm finished. Make sure to rerun solar-protocol install after reboot. Reboot?"
       sudo reboot
+    fi
+
+    # install podman and podman-compose if needed
+    if ! command -v podman podman-compose; then
+      sudo apt-get update
+      sudo apt-get install --yes podman podman-compose
+    fi
+
+    # install systemd
+    if ! test -f $HOME/.config.systemd/user/*solar-protocol*.service; then
+      install-systemd
     fi
   elif [[ "$(uname -s)" == "Linux" ]]; then
     command -v podman >/dev/null || sudo apt-get install --yes podman

@@ -119,7 +119,7 @@ install() {
   if [[ "$(uname -s)" == "Darwin" ]]; then
     exists podman podman-compose || brew install podman podman-compose
 
-    podman machine inspect >/dev/null 2>&1 || podman machine init --volume /Users
+    podman machine inspect >/dev/null 2>&1 || podman machine init
 
     if [[ "$(podman machine inspect --format '{{.State}}')" != "running" ]]; then
       podman machine start

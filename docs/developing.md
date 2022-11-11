@@ -6,11 +6,11 @@ Helpful scripts for developing are in the dev/ folder.
 
 ## Quick Start
 
-    ./solar-protocol init   # asks to install podman, podman-compose, and necessary dependencies
-    solar-protocol build    # builds the containers
-    solar-protocol dev      # starts the server
-    solar-protocol generate # generates static site
-    solar-protocol open     # opens the local server
+    ./solar-protocol install # asks to install podman, podman-compose, and necessary dependencies
+    solar-protocol build     # builds the containers
+    solar-protocol dev       # starts the server
+    solar-protocol generate  # generates static site
+    solar-protocol open      # opens the local server
 
 ## Services
 

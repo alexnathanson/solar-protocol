@@ -99,7 +99,9 @@ class SolarProtocol:
 
     # updates dns by posting to self
     def updateDNS(self, ip, key):
-        return requests.post(url=f"{self.dnsURL}/api", params={"ip": ip, "key": key}).text
+        return requests.post(
+            url=f"{self.dnsURL}/api", params={"ip": ip, "key": key}
+        ).text
 
     """
 	returns the specified value from the device list file

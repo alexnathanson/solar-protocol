@@ -118,6 +118,7 @@ install() {
   # macOS requires a vm
   if [[ "$(uname -s)" == "Darwin" ]]; then
     exists podman podman-compose || brew install podman podman-compose
+    brew upgrade podman podman-compose
 
     podman machine inspect >/dev/null 2>&1 || podman machine init
 

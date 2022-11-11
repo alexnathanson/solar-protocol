@@ -16,7 +16,6 @@ exists() {
 
 help() {
   Clear='\033[0m'
-  Green='\033[0;32m'
   Blue='\033[0;34m'
 
   echo -e "$(
@@ -85,7 +84,7 @@ update-dns() {
   # Update Namecheap DDNS
   RESPONSE=$(curl --insecure --silent "${DDNS}/update?host=${HOST}&domain=${DOMAIN}&password=${PASSWORD}&ip=${IP}")
   echo "RESPONSE: "
-  echo $RESPONSE
+  echo "$RESPONSE"
 
   # Log the time and IP
   echo "$TIME - $IP" >> $LOGFILE
@@ -121,6 +120,8 @@ install() {
       echo "deb [arch=$arch signed-by=$keyring]\n${base}/${repo} /" \
         | sudo tee $libcontainerslist > /dev/null
     fi
+    
+    self="${BASH_SOURCE[0]}"
 
     # upgrade to bookworm if we aren't already on it
     if ! grep --quiet 'bookworm\|testing' /etc/apt/sources.list; then
@@ -134,7 +135,11 @@ install() {
       if ! grep --quiet --extended-regexp "^ExecStart=$(which dhcpcd) -q -w$" $waitfile; then
         sudo sed --in-place --expression "s|ExecStart=.*w$|ExecStart=$(which dhcpcd) -q -w|" $waitfile
       fi
-      prompt "Upgrade to bookworm finished. Make sure to rerun solar-protocol install after reboot. Reboot?"
+      
+      if ! grep --quiet 'solar-protocol' /etc/rc.local; then
+        sudo sed --in-place --expression "s|exit 0|${self} install\nexit 0|" /etc/rc.local
+      fi
+      prompt "OS upgrade finished, reboot now to complete installation?"
       sudo reboot
     fi
 
@@ -146,6 +151,12 @@ install() {
 
     # install systemd
     install-systemd
+
+    # cleanup if we are on the 
+    if grep --quiet 'solar-protocol' /etc/rc.local; then
+      sudo sed --in-place --expression "|${self} install|d" /etc/rc.local
+    fi
+
     return
   fi
 
@@ -175,8 +186,8 @@ install() {
       if prompt "Add solar-protocol to zsh?"; then
         if grep --quiet compinit ~/.zshrc; then
           tmpfile=$(mktemp)
-          awk "!found && /compinit/ { print \"fpath=($PWD\/dev \$fpath)\"; found=1 } 1" ~/.zshrc > $tmpfile
-          mv $tmpfile ~/.zshrc
+          awk "!found && /compinit/ { print \"fpath=($PWD\/dev \$fpath)\"; found=1 } 1" ~/.zshrc > "$tmpfile"
+          mv "$tmpfile" ~/.zshrc
         else
 	        echo "fpath=($PWD\/dev \$fpath); compinit\"" >> ~/.zshrc
         fi
@@ -203,7 +214,7 @@ compose-dev() { machine; compose --file dev/compose.yaml "$@"; }
 
 password() { openssl rand -hex 8; }
 
-bcrypt() { htpasswd -bnBC 10 "" $1 | tr -d ':\n'; }
+bcrypt() { htpasswd -bnBC 10 "" "$1" | tr -d ':\n'; }
 
 reset() {
   compose down
@@ -215,7 +226,8 @@ reset() {
 format() {
   shopt -s globstar
   black -- **/**.py
-  tidy -i -m -w 160 -ashtml -utf8 **/**.html
+  shellcheck solar-protocol
+  tidy -i -m -w 160 -ashtml -utf8 -- **/**.html
 }
 
 build() {
@@ -225,8 +237,8 @@ build() {
 
 install-systemd() {
   servicedir=$HOME/.config/systemd/user
-  mkdir -p $servicedir
-  cd $servicedir
+  mkdir -p "$servicedir"
+  cd "$servicedir"
   for service in datalogger api protocol web; do
     servicename=solar-protocol_${service}_1
     filename=container-$servicename.service
@@ -263,7 +275,7 @@ case $command in
   hash) bcrypt "$1" ;;
   install-systemd) install-systemd ;;
   reset) reset ;;
-  keygen) pass=$(password); echo password: $pass; echo hash: $(bcrypt $pass) ;;
+  keygen) pass=$(password); echo "password: $pass"; echo hash: "$(bcrypt $pass)" ;;
   install) install ;;
   *) help ;;
 esac

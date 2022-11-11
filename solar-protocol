@@ -105,6 +105,9 @@ install() {
 
   # raspberry pi - requires debian bookworm + opensuse kubic packages
   if exists raspi-config; then
+    # upgrade to latest stable distribution
+    sudo apt dist-upgrade --yes
+
     libcontainerslist=/etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list
     if test ! -f $libcontainerslist; then
       sudo mkdir -p /etc/apt/keyrings

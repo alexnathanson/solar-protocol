@@ -101,5 +101,9 @@ We will do this by calling the location of the server with this command: `http:/
 
 We then compare the location to the previous location. If the location hasn't changed, we distort the existing data. If it has changed, we add a new image.
 
+<br><br>
+![Screenshot of example 3](../images/api-example3.png)
+*Screenshot of API tutorial example 3.*
+<br><br>
 
 <!-- ## Example Project 4: Drawing Machine -->

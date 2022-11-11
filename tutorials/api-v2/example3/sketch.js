@@ -97,7 +97,7 @@ function gotObj(o,q){
   loadImage('http://127.0.0.1:5000'+dst, img => {
     img.mask(mask);
 
-    img.filter(ERODE);
+    //img.filter(ERODE);
     image(img, iX, iY);
   });
 

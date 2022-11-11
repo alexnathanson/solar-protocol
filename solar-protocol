@@ -226,6 +226,7 @@ reset() {
   podman machine stop
   podman machine rm podman-machine-default
   install
+  podman machine start
 }
 
 format() {

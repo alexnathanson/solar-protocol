@@ -29,9 +29,9 @@ class SolarProtocol:
         # this script retrieves the environmental variables
         self.localConfigData = dict()
         self.loadLocalConfigFile()
-        self.myIP = requests.get("http://server.solarpowerforartists.com/?myip").text
+        self.myIP = requests.get("http://beta.solarprotocol.net/api/myip").text
         # dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
-        self.dnsURL = "https://server.solarpowerforartists.com/"
+        self.dnsURL = "https://beta.solarprotocol.net/"
         self.MACinterface = "wlan0"  # this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 
     # load in data from config file
@@ -97,9 +97,9 @@ class SolarProtocol:
         except err:
             print(err)
 
-    # returns the url with parameters for updating the DNS via a GET request
+    # updates dns by posting to self
     def updateDNS(self, ip, key):
-        return f"{self.dnsURL}?ip={ip}&key={key}"
+        return requests.post(url=f"{self.dnsURL}/api", params={"ip": ip, "key": key}).text
 
     """
 	returns the specified value from the device list file

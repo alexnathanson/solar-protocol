@@ -25,8 +25,8 @@ def determineServer(allValues, myValue, solarProtocol):
         # Do not update DNS if running in DEV
         secretkey = SecretKey.dnsPassword
         key = "this-will-fail" if DEV else getSecret(secretkey)
-        url = solarProtocol.updateDNS(solarProtocol.myIP, key)
-        print(solarProtocol.getRequest(url))
+        result = solarProtocol.updateDNS(solarProtocol.myIP, key)
+        print(result)
     else:
         print("Not point of entry")
 

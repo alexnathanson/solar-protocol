@@ -258,6 +258,7 @@ def updateDNS(key: str, ip: str):
     )
     if response.status == 200:
         updatePoeLog(name, ip)
+    return response
 
 
 def verifyPasswordAndReturnName(key: str):

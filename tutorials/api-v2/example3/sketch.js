@@ -8,15 +8,41 @@ let nextTime = 0;
 let searchTerms = ['location','city','name', 'country'];
 let searchLength = searchTerms.length
 
+let mask;
+
 function setup() {
   //set the drawing canvas
   createCanvas(windowWidth, windowHeight);
 
   //make an asyncronous API call to get the server's location
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=location', gotLocation); 
+  //loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=location', gotLocation); 
 
   background(random(100)+155, random(100)+155,random(100)+155); 
 
+  imageMode(CENTER);
+
+  //create vignette alpha mask
+  mask = createImage(300, 300);
+  let border = 100;
+  mask.loadPixels();
+  for (let x = 0; x < mask.width; x++) {
+    for (let y = 0; y < mask.height; y++) {
+      let d = map(dist(x, y, mask.width/2,mask.height/2),0,dist(border, border, mask.width/2,mask.height/2),255,0);
+      //if(d< border){
+      mask.set(x, y, [0, 0, 0, d]);
+      /*} else {
+        mask.set(x, y, [0, 0, 0, 0]);
+      }*/
+
+
+      //add some noise
+      /*if(random()>0.80){
+        mask.set(x, y, [0, 0, 0, 0]);
+      }*/
+      
+    }
+  }
+  mask.updatePixels();
 }
 
 function draw() {
@@ -65,13 +91,17 @@ function gotObj(o,q){
   let dst = o['primaryImageSmall'].replace('https://images.metmuseum.org','')
   //console.log(dst)
 
-  let iX = int(random(windowWidth-100));
-  let iY =  int(random(windowHeight/2));
+  let iX = int(random(600)-300)+(windowWidth*.5);
+  let iY =  int(random(600)-300)+(windowHeight*.5);
 
   loadImage('http://127.0.0.1:5000'+dst, img => {
+    img.mask(mask);
+
+    img.filter(ERODE);
     image(img, iX, iY);
   });
 
-  text(q,iX,iY);
+  //loadPixels();
+  //text(q,iX,iY);
   
 }

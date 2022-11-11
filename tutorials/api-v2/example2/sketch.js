@@ -1,5 +1,5 @@
 //Getting 3 days of data from active server
-//Preview data at http://solarprotocol.net/api/v1/
+//Preview data at http://solarprotocol.net/api/v2/
 
 //Set margins for the graph
 let yMargin = 50;
@@ -13,38 +13,54 @@ let c=0; //color counter
 let dates = [];
 let params = [];
 
+//these are the colors for our graph
+colors = ["aqua", "blue", "red", "green", "yellow", "pink", "orange", "purple", "brown", "orangered", "violet", "white"];
+
 function setup() {
+  //this sets out canvas to the full dimensions of our browser window
   createCanvas(windowWidth, windowHeight);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?day=3', gotCCData); 
 
-  // Offline data
-  //loadJSON('../../data/2-ccData-3days.json', gotCCData); 
+  //this makes the GET request to the API
+  //comment this out to use the offline data
+  loadJSON('http://solarprotocol.net/api/v2/opendata.php?day=3', gotData); 
 
+  // Offline data - note that this path assumes your root directory is api-v2.
+  //  comment this in to use
+  // loadJSON('data/day3.json', gotData); 
+
+  //this sets the background color
   background(210);
+
+  //this sets the stroke thickness
   strokeWeight(0.5);
+
+  //this sets the font style
   textFont('Times');
   textSize(12);
- 
-  colors = ["aqua", "blue", "red", "green", "yellow", "pink", "orange", "purple", "brown", "orangered", "violet", "white"];
 
-  noLoop(); //no need to loop draw
+  //in P5.JS the draw function will automatically loop, unless noLoop() is called
+  noLoop();
 }
 
 function draw() {
   drawAxes();
 }
 
-function gotCCData(tempData){
-  // console.log(Object.keys(tempData.data));
+//this is the callback that is run after our data is retrieved.
+function gotData(tempData){
+  //print out the raw data
+  console.log(tempData)
 
   params = tempData["header"];
+  print("params: "+params.length);
+
   //put data into a 2d array called data
   let data = tempData["data"];
-  print("params: "+params.length);
-  print("timestamps: "+data.length);
-  //print(data[1813][12]);
 
-   // put dates into their own array 
+  //this tells us how much data we have. each piece of data represents one moment in time from our solar power system. 
+  print("timestamps: "+data.length);
+
+  // put dates into their own array 
   for(let i=0; i< data.length; i++){
     dates.push(dayjs(data[i][0]));
 
@@ -66,15 +82,12 @@ function gotCCData(tempData){
 
     }
 
-    // print(parameterName);
-    // print(dates);
-    // print(values);
-    drawCCData(parameterName, dates, values, maxYvalue);  //draw in data for that parameter
+    drawData(parameterName, dates, values, maxYvalue);  //draw in data for that parameter
   }
   
 }
 
-function drawCCData(_name, _dates, _data, _maxY){
+function drawData(_name, _dates, _data, _maxY){
   //print(_dates[0].unix());
   
   //find minimum and maximum time stamps
@@ -102,7 +115,6 @@ function drawCCData(_name, _dates, _data, _maxY){
     fill(colors[c]);
 
     //draw data
-
     ellipse(x, y, 2, 2);
 
   }

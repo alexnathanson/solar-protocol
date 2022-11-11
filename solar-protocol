@@ -107,7 +107,7 @@ install() {
           awk "!found && /compinit/ { print \"fpath=($PWD\/dev \$fpath)\"; found=1 } 1" ~/.zshrc > "$tmpfile"
           mv "$tmpfile" ~/.zshrc
         else
-	        echo "fpath=($PWD\/dev \$fpath); compinit\"" >> ~/.zshrc
+	        echo "fpath=($PWD\/dev \$fpath); compinit" >> ~/.zshrc
         fi
         echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
       fi

@@ -99,7 +99,7 @@ install() {
 
   if [[ -f ~/.zshrc ]]; then
     if grep --quiet solar-protocol ~/.zshrc; then
-      echo "solar-protocl found in zsh, skipping install"
+      echo "solar-protocol found in zsh, skipping install"
     else
       if prompt "Add solar-protocol to zsh?"; then
         if grep --quiet compinit ~/.zshrc; then
@@ -107,7 +107,8 @@ install() {
           awk "!found && /compinit/ { print \"fpath=($PWD\/dev \$fpath)\"; found=1 } 1" ~/.zshrc > "$tmpfile"
           mv "$tmpfile" ~/.zshrc
         else
-	        echo "fpath=($PWD\/dev \$fpath); compinit" >> ~/.zshrc
+          echo "fpath=($PWD\/dev \$fpath)" >> ~/.zshrc
+          echo "autoload -Uz compinit && compinit" >> ~/.zshrc
         fi
         echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
       fi

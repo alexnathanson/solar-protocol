@@ -9,10 +9,6 @@ If you are a steward of a server, you can host a site on your specific server. T
 
 You can also publish a website on the Solar Protocol platform, even if you aren't stewarding a server. The platform is served from different servers in the network depending on which is generating the most energy at the time. This gives the platform more uptime than if it were hosted on a single server.
 
-## How to request a SP website
-
-## How to upload your site
-
 ## Intro to coding a website
 
 Tools needed:

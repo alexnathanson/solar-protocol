@@ -108,8 +108,13 @@ def render_pages(_local_data, _data, _weather, _server_data):
         ("manifesto_template.html", "manifesto.html"),
         ("library_template.html", "library.html"),
         ("guides_template.html", "guides.html"),
-         ("site_guide_template.html", "site-guide.html"),
-    ]
+         ("guide_site_template.html", "guide-site.html"),
+          ("guide_api1_template.html", "guide-api1.html"),
+           ("guide_api2_template.html", "guide-api2.html"),
+           ("guide_howitworks_template.html", "guide-howitworks.html"),
+           ("guide_portforward_template.html", "guide-portforward.html"),
+           ("guide_troubleshooting_template.html", "guide-troubleshooting.html"),
+               ]
 
     #get the current time
     time = datetime.datetime.now()

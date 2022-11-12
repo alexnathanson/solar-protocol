@@ -1,77 +1,64 @@
 {% extends "base-template.html" %} {% block content %}
 <div class="onecol-text">
-  <h3>Guides</h3>
-</div>
-<div class="guides">
-  <!-- Guide 1 -------------------------------------------->
-  <div class="twocol-text">
-    <a class="col1" href="site-guide.html">
-      <img src="images/learn/server.jpg" />
-    </a>
-    <a class="col2" href="site-guide.html">
-      <h6>Scoping a site</h6>
-      <p>What do you need to install a small scale solar system?</p>
-    </a>
-  </div>
-  <!-- Guide 2 -------------------------------------------->
+  <h2>Guides</h2>
+  <br />
+  <h6>Background</h6>
 
-  <div class="twocol-text">
-    <a
-      class="col1"
-      href="https://docs.google.com/document/d/e/2PACX-1vQuEFoQmvCF-1YzIU38Zr6bWkbFQ65YRmF-m1Ban6A0fkVssv8d6r1-D6ghI9N4S3y1as-l3ciM_Atw/pub"
-    >
-      <img src="images/learn/production2.png" />
-    </a>
-    <a
-      class="col2"
-      href="https://docs.google.com/document/d/e/2PACX-1vQuEFoQmvCF-1YzIU38Zr6bWkbFQ65YRmF-m1Ban6A0fkVssv8d6r1-D6ghI9N4S3y1as-l3ciM_Atw/pub"
-    >
-      <h6>Assembling a server</h6>
-      <p>
-        What parts do you need? This guide outlines the design and method of
-        assembling a server.
-      </p>
-    </a>
-  </div>
-  <!-- Guide 3 -------------------------------------------->
+  <ul>
+    <li>
+      <a href="guide-howitworks.html"></a>
+      How does the Solar Protocol system work?
+    </li>
+  </ul>
+  <br />
+  <h6>Developing Projects and Hosting Sites</h6>
+  <ul>
+    <li>
+      <a href="guide-projects.html">
+        What kind of projects can run on Solar Protocol?
+      </a>
+    </li>
+    <li>Hosting a site on Solar Protocol</li>
 
-  <div class="twocol-text">
-    <a
-      class="col1"
-      href="https://github.com/alexnathanson/solar-protocol/tree/master/tutorials/portforwarding"
-    >
-      <img src="images/learn/router.png" />
-      <!-- <div class="col1text">Scoping a site for a server</div> -->
-    </a>
-    <a
-      class="col2"
-      href="https://github.com/alexnathanson/solar-protocol/tree/master/tutorials/portforwarding"
-    >
-      <h6>Port Forwarding</h6>
-      <p>
-        Once you have a server assembled and installed, this guide steps through
-        how to set up your local router so your server can connect.
-      </p>
-    </a>
-  </div>
-  <!-- Guide 4 -------------------------------------------->
-  <div class="twocol-text">
-    <a
-      class="col1"
-      href="https://github.com/alexnathanson/solar-protocol/blob/master/hardware-troubleshooting-and-maintenance.md"
-    >
-      <img src="images/learn/port.png" />
-    </a>
-    <a
-      class="col2"
-      href="https://github.com/alexnathanson/solar-protocol/blob/master/hardware-troubleshooting-and-maintenance.md"
-    >
-      <h6>Troubleshooting and Maintenance</h6>
-      <p>
-        A guide to debugging some of the problems you might have with your site,
-        server or connectivity.
-      </p>
-    </a>
-  </div>
+    <li>
+      <a href="guide-api1.html">Working with the Solar Protocol API Part 1</a>
+    </li>
+    <li>
+      <a href="guide-api2.html">Working with the Solar Protocol API Part 2</a>
+    </li>
+  </ul>
+  <br />
+  <h6>Guides for Stewards</h6>
+  <h5>Getting A Server Setup</h5>
+  <ul>
+    <li>
+      <a href="guide-site.html">
+        Scoping a site: What do you need to install a small scale solar system?
+      </a>
+    </li>
+    <li>
+      <a href="guide-portforward.html">
+        Setting up your local router so your server can join the Solar Protocol
+        network.
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://docs.google.com/document/d/e/2PACX-1vQuEFoQmvCF-1YzIU38Zr6bWkbFQ65YRmF-m1Ban6A0fkVssv8d6r1-D6ghI9N4S3y1as-l3ciM_Atw/pub"
+      >
+        Assembling a server: Parts list, design and method of assembling a
+        server.
+      </a>
+    </li>
+  </ul>
+  <h5>Maintenance and Troubleshooting</h5>
+  <ul>
+    <li>
+      <a href="guide-troubleshooting.html">
+        Maintenance & Troubleshooting: What to check when the server doesn’t
+        seem to be running as expected?
+      </a>
+    </li>
+  </ul>
 </div>
 {% endblock %}

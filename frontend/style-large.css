@@ -169,6 +169,7 @@ main {
   color: black;
   background-color: var(--text-background);
   margin: 0;
+  overflow-y: hidden;
 }
 
 .line {
@@ -421,6 +422,7 @@ h1 a {
 
 h2 {
   font-size: 33px;
+  padding: 20px 0px 10px 0px;
 }
 
 h3 {
@@ -441,7 +443,7 @@ h4 {
 h5 {
   font-size: calc(var(--text-size) * 1.2);
   font-style: oblique;
-  padding: var(--vertical-padding) 0px;
+  padding: 20px 0px 0px 0px;
 }
 
 /*Right titles in sidebar*/
@@ -479,6 +481,13 @@ section {
   font-style: oblique;
 
   padding: var(--vertical-padding) 0px;
+}
+
+.caption2 {
+  font-size: calc(var(--text-size) * 0.9);
+  font-style: oblique;
+
+  padding: 0px;
 }
 
 .server-box {
@@ -622,6 +631,11 @@ section {
   color: black;
 }
 
+code {
+  font-size: 15px;
+  background-color: white;
+}
+
 @media (max-width: 1070px) {
   header h1 {
     font-size: 3em;
@@ -630,6 +644,7 @@ section {
   .onecol-text {
     padding: var(--vertical-padding) calc(var(--horizontal-text-padding) * 1)
       var(--vertical-padding) var(--horizontal-text-padding);
+    overflow-y: hidden;
   }
 
   ul.serverdata-left {
@@ -673,6 +688,14 @@ section {
   float: left;
   background-color: gray;
   width: 100%;
+}
+
+.back {
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 50px 0px;
+  border-top: 1px solid;
+  padding: 10px 0px 30px 0px;
 }
 
 @media (max-width: 650px) {

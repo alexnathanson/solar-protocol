@@ -1,0 +1,130 @@
+{% extends "base-template.html" %} {% block content %} <
+<div class="onecol-text">
+  <br />
+  <h6>GUIDE: Guides for Stewards</h6>
+  <h2>Troubleshooting &amp; Maintenance</h2>
+  <h3>Best Practices</h3>
+  <h4>Siting PV Module</h4>
+  <ul>
+    <li>
+      The ideal module tilt for averaging PV production over the year is
+      generally at the angle of latitude facing the equator. The ideal
+      orientation for the PV module in the northern hemisphere is facing south.
+      For example, NYC is at 41 degrees north so an optimal tilt will be at 41
+      degrees facing south. The ideal orientation in the southern hemisphere
+      will be northern facing at latitude tilt. Above 23 degrees north the sun
+      will always be to the south and below 23 degrees south the sun will always
+      be to the north. In the tropics, between 23 degrees north and 23 degrees
+      south, the sun will travel on both the north and south sides of the
+      installation, so shading from both directions must be taken into
+      consideration.
+    </li>
+    <li>
+      Avoid obstructions that will shade the module particularly between 9am and
+      3pm.
+    </li>
+    <li>
+      Vertical mounting, i.e. 90 degree tilt, or flat mounting, i.e. 0 degree
+      tilt, is acceptable if need be but may cause decreased efficiency
+      depending on the latitude.
+    </li>
+  </ul>
+  <h4>Batteries</h4>
+  <ul>
+    <li>
+      Never mix batteries of different types, sizes, manufactures, or ages/
+      level of pre-existing use in the same circuit.
+    </li>
+    <li>Measure battery voltage with a multimeter prior to connecting it.</li>
+    <li>
+      A 12V sealed lead acid battery should read be between 12V and 13V. Closer
+      to 12V it is about at 50%, which is the lowest it should be. Closer to 13V
+      it is near 100%. Between 11V and 12V it has been depleted below the
+      recommended depth of discharge. Under 11V it can be considered completely
+      dead - you can use a grid powered battery charger to attempt to revive.
+    </li>
+    <li>
+      Sealed lead acid batteries typically last 3-5 years, depending on how it
+      was used and the environment it was in. If the battery is older than 3
+      years consider replacing it.
+    </li>
+    <li>
+      Batteries types all have specific appropriate level of depth of discharge
+      (DoD). This means that it shouldn&rsquo;t be depleted below this
+      threshold. For lead acid batteries, the DoD is 50%.
+    </li>
+  </ul>
+  <h4>Wiring Order</h4>
+  <p>
+    Never have the PV module connected to the charge controller without the
+    battery. It is always a good idea to measure the voltage of all components
+    prior to connecting them.
+  </p>
+  <ul>
+    <li>To install, connect the battery first, then connect the PV module</li>
+    <li>To deinstall, disconnect the PV module first, then the battery</li>
+    <li>
+      The charge controller should turn on and function with only the battery
+      connected
+    </li>
+  </ul>
+  <h4>Internet Connectivity</h4>
+  <p>Speed Test (https://www.speedtest.net/apps/cli)</p>
+  <ul>
+    <li>To install run this commmand:</li>
+    <li><code>sudo pip3 install speedtest-cli</code></li>
+    <li>
+      Can also be installed with
+      <code>sudo apt install speedtest-cli</code>
+      if preferred, but if installed via pip it can also be run from python.
+    </li>
+    <li>
+      To run:
+      <code>speedtest</code>
+    </li>
+  </ul>
+  <h3>Problem Identification</h3>
+  <h4>No output</h4>
+  <ul>
+    <li>Check charge controller output settings</li>
+    <li>Measure output voltage with multimeter</li>
+    <li>Check OCPD</li>
+  </ul>
+  <h4>Unstable output</h4>
+  <ul>
+    <li>Check battery health</li>
+    <li>
+      If battery voltage is below 12V, battery is too small for load and/or not
+      enough sun for an extended period of time
+    </li>
+    <li>
+      Solution: Disconnect/turn off load and wait for a sunny day for it to
+      recharge
+    </li>
+  </ul>
+  <h4>Battery doesn&rsquo;t hold charge</h4>
+  <ul>
+    <li>If battery is older than 3 years old, consider replacing battery</li>
+  </ul>
+  <h4>Depleted battery</h4>
+  <ul>
+    <li>
+      If the current from the PV module is lower than the current draw of the
+      server, the battery will never full charge.
+    </li>
+  </ul>
+  <h4>Battery doesn&rsquo;t charge / PV current is very low</h4>
+  <ul>
+    <li>
+      Check solar panel function with a multimeter. Run these two tests:
+      https://www.renogy.com/blog/how-to-troubleshoot-your-solar-panels/
+    </li>
+  </ul>
+  <h2>Troubleshooting By Graph</h2>
+  <h4>Battery percentage drops off quickly once PV voltage drops</h4>
+  <ul>
+    <li>Likely old or damaged battery</li>
+  </ul>
+  <a class="back" href="guides.html">Back to guides</a>
+</div>
+{% endblock %}

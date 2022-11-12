@@ -1,0 +1,281 @@
+{% extends "base-template.html" %} {% block content %}
+<div class="onecol-text">
+  <br />
+  <h6>GUIDE: Developing Projects and Hosting Sites</h6>
+  <h2>Working with the API V2 - Part 1</h2>
+  <p>
+    The Solar Protocol open API V2 is intended to allow anyone to get data from
+    the network for educational, research, or artistic purposes.
+  </p>
+  <p>
+    It is a public, free, keyless service that enables GET requests for various
+    pieces of data about specific servers and network activity.
+  </p>
+  <p>
+    This tutorial is meant to be used in conjunction with the API explorer,
+    which can be found at
+    <code>http://solarprotocol.net/api/v2/</code>
+    . The structure of this tutorial mirrors the flow of the API explorer. When
+    you use the form fields provided, API responses are displayed in a
+    relatively user friendly way in the browser console.
+  </p>
+  <p>
+    The API explorer includes example calls as well, which you can also use with
+    whatever tool or language of you are confortable with, such as cURL,
+    Javascript, python, etc.
+  </p>
+  <h3>What is an API?</h3>
+  <p>
+    API stands for application protocol interface. It is a protocol that
+    facilitates transferring data between pieces of software.
+  </p>
+  <h3>Our API V2</h3>
+  <p>
+    The structure of our API is relatively simple, but because it can provide a
+    lot of different types of data in different formats and because of the
+    complex environmentally dependent nature of the Solar Protocol project it
+    can seem overwhelming.
+  </p>
+  <p>
+    Our public API V2 only responds to GET requests at this endpoint:
+    <code>http://solarprotocol.net/api/v2/opendata.php</code>
+    . To get specific types of data, URI parameters are used.
+  </p>
+  <h3>Support</h3>
+  <p>
+    Solar Protocol is in a constant state of evolution and development. We are a
+    very small team of volunteers with sporadic grant funding and limited
+    capacity for tech support, but we do our best to answer questions.
+    Currently, the best way to have questions answered is by submitting a issue
+    on Github. We also teach workshops on Solar Protocol in person and remotely.
+  </p>
+  <h2>Exploring the API</h2>
+  <p>Open the Solar Protocol API V2 explorer in a browser of your choosing.</p>
+  <code>http://solarprotocol.net/api/v2/</code>
+  <p>
+    If using the explorer, the results of the call will be displayed in the
+    browser console. The console can be opened via the browser&rsquo;s developer
+    settings or by pression the Fn and F12 keys simultaniously (works on most
+    browsers).
+  </p>
+  <p>
+    Both the API responses and the API explorer page are served from whichever
+    server in the Solar Protocol network is currently the active server. The
+    active server changes as the available sunlight in a given location changes.
+    (To learn more about what the active server is, check out the &lsquo;How It
+    Works&rsquo; tutorial.) [link needed] The data returned from the API
+    pertains to the active server only. This means that if you make 2 identical
+    API calls you could get different results if the server has changed between
+    calls. This is an important thing to keep in mind for future trouble
+    shooting. Calls to other servers in the system are possible and are
+    explained below.
+  </p>
+  <p>
+    Note: In older versions of this project the terms &ldquo;primary
+    server&rdquo; or &ldquo;point of entry (POE)&rdquo; were used interchangably
+    with &ldquo;active server&rdquo; and you may still come across that older
+    terminology in some documentation.)
+  </p>
+  <p>
+    The kinds of API data available are characterized by 4 types, charge
+    controller data, system info, network info, and remote server data. We'll go
+    through all 4 types; starting with the smallest piece of Solar Protocol, the
+    individual server, and expanding out to the entire network.
+  </p>
+  <h3>Charge Controller Data</h3>
+  <p>
+    Charge controller data is the electrical data that the solar power system's
+    charge controller provides. The charge controller ensures that the battery
+    is safely charged. The specific charge controller we use has a protocol that
+    allows the server to communicate with it.
+  </p>
+  <p>
+    This data covers solar production, battery status, and electrical load info.
+    When this data is archived all of the follow values are stored as 1 line in
+    a CSV file by day.
+  </p>
+  <ul>
+    <li>PV-current</li>
+    <li>PV-power-H</li>
+    <li>PV-power-L</li>
+    <li>PV-voltage</li>
+    <li>battery-percentage</li>
+    <li>battery-voltage</li>
+    <li>charge-current</li>
+    <li>charge-power-H</li>
+    <li>charge-power-L</li>
+    <li>load-current</li>
+    <li>load-power</li>
+    <li>load-voltage</li>
+    <li>datetime</li>
+  </ul>
+  <h4>Value</h4>
+  <p>
+    We can call for an individual
+    <strong>value</strong>
+    , which returns only 1 value from the most recent charge controller data.
+    The value call also allows us to get the scaled-wattage of the PV module
+    (note that this value isn&rsquo;t available in line or day calls, only value
+    calls)
+  </p>
+  <p><strong>Let&rsquo;s make our first API call!</strong></p>
+  <p>
+    We're going to request the PV voltage from the API. This request is
+    structured like this:
+  </p>
+  <code>http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage</code>
+
+  <h4>Value &amp; Duration</h4>
+  <p>
+    This will give you these same individual pieces of data over a particular
+    length of time. This is made available to minimize parsing that is required
+    if you request an entire day of data for example.
+  </p>
+  <p>A durational value request is structured like this:</p>
+  <code>
+    http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage&amp;duration=2
+  </code>
+
+  <h4>Line</h4>
+  <p>
+    Each line contains all the possible values for a particular time. Lines are
+    only available for the current calendar day. Remember, these calls are
+    coming from the active server, so the calendar day refers to the local time
+    for that server. If you are not sure what the local server date is, see the
+    system API calls below.
+  </p>
+  <p>
+    The amount of lines that are available depends on how many times the server
+    has collected data that day. To find out you can use the &lsquo;len&rsquo;
+    value, like this:
+  </p>
+  <code>http://solarprotocol.net/api/v2/opendata.php?line=len</code>
+  <p>Using a integer value will return that particular line.</p>
+  <code>http://solarprotocol.net/api/v2/opendata.php?line=10</code>
+
+  <h4>Day</h4>
+  <p>
+    Day returns an entire calendar day&rsquo;s worth of lines i.e. all the data
+    collected on a particular date.
+  </p>
+  <p>
+    You can pass it an integer from 1 to 7. This will return X number of days of
+    past day. So 1 returns the most recent day of data, 2 returns the most
+    recent 2 days of data, etc.
+  </p>
+  <p>
+    List returns a list of all the available files. Each file represents 1 day
+    of data.
+  </p>
+  <p>Example:</p>
+  <code>http://solarprotocol.net/api/v2/chargecontroller.php?day=list</code>
+
+  <p>
+    Len returns a count of all available files. Each file represents 1 day of
+    data.
+  </p>
+  <p>Example:</p>
+  <code>http://solarprotocol.net/api/v2/chargecontroller.php?day=len</code>
+
+  <p>
+    You can also request a specific date by passing the name of the file without
+    the file type suffix.
+  </p>
+  <p>Example:</p>
+  <code>
+    http://solarprotocol.net/api/v2/chargecontroller.php?day=tracerData2020-05-17
+  </code>
+  <h3>System Info</h3>
+  <p>
+    System info provides details about the active server, such as location and
+    hardware specs.
+  </p>
+  <p>Here's an example call:</p>
+  <code>http://solarprotocol.net/api/v2/opendata.php?systemInfo=tz</code>
+  <p>These are the possible values you can request:</p>
+  <ul>
+    <li>tz - returns the timezone for the server</li>
+    <li>color - returns the color that was set by the steward</li>
+    <li>
+      description - returns the description of the server that was set by the
+      steward
+    </li>
+    <li>name - returns the name for the server</li>
+    <li>location - returns the location</li>
+    <li>city - returns the city the server is located in</li>
+    <li>country - returns the country the server is located in</li>
+    <li>
+      wattage-scaler -returns the scaler value based on a standard of a 50 watt
+      module
+    </li>
+    <li>pvWatts -returns the wattage of the module</li>
+    <li>pvVoltage - returns the voltage of the module</li>
+    <li>dump - returns a dictionary containing all of the above system info</li>
+  </ul>
+  <h3>Network Info</h3>
+  <p>
+    Network info returns information other servers on the network and some
+    network activity.
+  </p>
+  <p>Example:</p>
+  <code>http://solarprotocol.net/api/v2/opendata.php?networkInfo=devices</code>
+
+  <p>Possible values:</p>
+  <ul>
+    <li>deviceList - returns a list of the names of servers</li>
+
+    <li>
+      tz - returns a list of the timezones of each server. This is the prefered
+      way to get all the timezones (rather than making a tz call via the server
+      argument)
+    </li>
+    <li>
+      poe - returns the list of point of entry time stamps by server. note that
+      these time stamps are in the local time of their server and haven't been
+      adjusted.
+    </li>
+    <li>
+      timestamp - returns the time stamp from when the devices most recently
+      posted their data. Note that this time stamp is in Unix time - seconds
+      since epoch (1/1/1970) in UTC regardless of the server's timezone.
+    </li>
+    <li>dump - returns an array containing all network info values</li>
+  </ul>
+  <h3>Remote Server Data</h3>
+  <p>
+    As mentioned at the beginning of this tutorial, API responses are queried
+    from the active server. This means the results may change if the light
+    conditions change. However, by using the server argument you can collect
+    data from a specific server or from all the servers in the network by name
+  </p>
+  <p>
+    Note that all times are in the timezone for the server that logged that data
+    and have not been adjusted. Use the networkInfo = tz call to get the time
+    zones to make the adjustments.
+  </p>
+  <p>Example:</p>
+  <code>http://solarprotocol.net/api/v2/opendata.php?server=1</code>
+  <p>Possible values:</p>
+  <ul>
+    <li>all - returns the specified value for all servers</li>
+    <li>
+      an integer - the integer corresponds to the order of servers returned from
+      the device list query. The call returns the specified value for the
+      specified server
+    </li>
+    <li>
+      server name without spaces - the name of the server (as listed in the
+      deviceList query) with spaces removed. The call returns the specified
+      value for the specified server. This is not case sensitive.
+    </li>
+    <li>
+      If 'err' is returned it indicates a failed response, likely because the
+      remote data for that server isn't stored locally.
+    </li>
+  </ul>
+  <!-- # V3
+
+/api/docs -->
+  <a class="back" href="guides.html">Back to guides</a>
+</div>
+{% endblock %}

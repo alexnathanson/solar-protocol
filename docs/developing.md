@@ -71,7 +71,11 @@ This is an nginx proxy that serves up the static files made by the solar-protoco
 
 ### Setup podman and podman-compose
 
-Always check [the latest podman installation docs](https://podman.io/getting-started/installation), but as a nicety, try this:
+Always check [the latest podman installation docs](https://podman.io/getting-started/installation).
+
+We require podman-compose 1.0.4, which may not be packaged for your os. In that case, install the development version:
+
+    pip3 install https://github.com/containers/podman-compose/archive/devel.tar.gz
 
 #### Windows
 
@@ -92,7 +96,7 @@ Install git. For example, on linux:
 
 Add solar-protocol script to your commandline PATH
 
-    ./solar-protocol init
+    ./solar-protocol install
 
 Build the base images
 

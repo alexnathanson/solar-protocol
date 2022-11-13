@@ -145,7 +145,7 @@ install() {
         | gpg --dearmor \
         | sudo tee $keyring > /dev/null
 
-      echo "deb [arch=$arch signed-by=$keyring] ${base}/${repo} /" | sudo tee $libcontainers >/dev/null
+      echo "deb [arch=$arch signed-by=$keyring] ${base}/${repo} /" | sudo tee $libcontainerslist >/dev/null
     fi
     
     self="${BASH_SOURCE[0]}"

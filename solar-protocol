@@ -150,8 +150,9 @@ install() {
     
     self="${BASH_SOURCE[0]}"
 
-    # upgrade to bookworm if we aren't already on it
-    if ! grep --quiet 'bookworm\|testing' /etc/apt/sources.list; then
+    # upgrade bullseye to bookworm if we aren't already on it
+    codename=$(lsb_release -c -s)
+    if [[ $codename == 'bullseye' ]]; then
       prompt "Upgrade Raspberry Pi OS to bookworm?" 
       sudo sed --in-place --expression 's/bullseye/bookworm/g' /etc/apt/sources.list
       sudo apt-get update

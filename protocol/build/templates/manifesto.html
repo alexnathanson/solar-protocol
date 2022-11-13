@@ -5,9 +5,9 @@
   <title></title>
 </head>
 <body>
-  {% extends "base.html" %} {% block content %} {% if batteryPercentage &gt;= 30 %} <img class="full-col" src="images/earth.gif"> {% else %} {% endif %}
+	{% extends "base.html" %} {% block content %} {% if batteryPercentage >= 30 %} <img class="full-col" src="images/earth.gif"> {% else %} {% endif %}
   <div class="onecol-text">
-    {% if batteryPercentage &gt;= 30 %}
+	  {% if batteryPercentage >= 30 %}
     <div class="caption">
       Illustration from <i>Astronomy</i> by Jean Rambosson, 1875.
       <hr>

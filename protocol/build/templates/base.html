@@ -44,7 +44,7 @@
           <a href="library.html">Library</a>
         </li>
       </ul>
-    </nav>{% if batteryPercentage &gt;= 30 %}
+    </nav>{% if batteryPercentage >= 30 %}
     <header style="background-image: linear-gradient( to top, {{bgColor}}, {{bgColor}}, rgb(100, 100, 100), black, black ); color: white;">
       {% else %} <!-- <header
   style="background-image: linear-gradient(
@@ -55,7 +55,7 @@
   white
 );"> -->
       <header style="background-color: white;">
-        {% endif %} {% if batteryPercentage &gt;= 30 %} {% else %}
+        {% endif %} {% if batteryPercentage >= 30 %} {% else %}
         <div class="lowres" style="background-color: {{bgColor}};">
           SERVER BATTERY LEVEL LOW<br>
           YOU ARE VIEWING THIS SITE IN LOW RES MODE
@@ -87,7 +87,7 @@
           <h5>ACTIVE SERVER</h5>
           <div class="side-box">
             <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}</p>{% if batteryPercentage &gt;= 30 %}
+            <p><i>Location:</i> {{location}}</p>{% if batteryPercentage >= 30 %}
             <div class="fill">
               <img src="/serverprofile.gif">
               <div class="clr"></div>
@@ -197,7 +197,7 @@
             </table>
           </div>
         </div>
-      </header>{% if batteryPercentage &gt;= 30 %}
+      </header>{% if batteryPercentage >= 30 %}
       <main>
         {% else %}
         <main style="padding-top: 20px;">

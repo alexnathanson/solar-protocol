@@ -401,11 +401,7 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
-  color: grey;
-}
-/* visited link */
-a:visited {
+  text-decoration: none;
   color: grey;
 }
 

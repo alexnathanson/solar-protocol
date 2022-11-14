@@ -1,5 +1,4 @@
-{% extends "base-template.html" %} {% block content %} {% if batteryPercentage
->= 30 %}
+{% extends "base-template.html" %} {% block content %}
 <div class="title-text">
   <div class="full-width-image">
     <img src="images/clock1.png" />
@@ -13,13 +12,23 @@
     <hr />
   </div>
 </div>
-{% else %} {% endif %}
+
 <div class="onecol-text">
   <!-- News -------------------------------------------------->
 
   <h3>News</h3>
   <input type="checkbox" class="read-more-state" id="post-1" />
   <div class="read-more-wrap">
+    <div class="update">
+      November 2022 → Open call for projects and texts for online exhibition on
+      Solar Protocol in 2023. Read
+      <a href="call.html">the call here</a>
+      , and join our
+      <a href="https://solarprotocol-opencall.eventbrite.com">
+        Q and A session on Friday November 18th 12.30–1.30EST
+      </a>
+      to find out more.
+    </div>
     <div class="update">
       Aug 2022 → Join us for a Solar Protocol Hackathon on August 13 online.
       <a
@@ -29,15 +38,7 @@
         Register for the details here.
       </a>
     </div>
-    <div class="update">
-      November 2022 → Open call for projects and texts for online exhibition on
-      Solar Protocol in 2023. See
-      <a href="call.html">the call here</a>
-      , or join out Q and A session on
-      <a href="https://solarprotocol-opencall.eventbrite.com">
-        Friday November 18th 12.30–1.30EST.
-      </a>
-    </div>
+
     <div class="update">
       July 2022 → We're super happy to welcome a new steward at Swarthmore
       College, Pennsylvania. Big thanks to Pixel who has is maintaining a Solar

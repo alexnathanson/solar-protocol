@@ -20,7 +20,7 @@
     <meta property="og:image" content="images/full-images/logo.gif" />
     <link rel="icon" href="images/favicon.png" />
     <style>
-      a:hover {
+      a {
         color: Olive;
       }
     </style>
@@ -206,276 +206,236 @@
       </header>
 
       <main>
+        <!-- <img class="full-col" src="images/VI-Celestial-Objects-black2.png" /> -->
+        <img class="full-col" src="images/VI-Celestial-Objects-black2.png" />
+        <marquee behavior="alternate">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfizPTThgc4z3XvqClf5foE2PD9mafyERwn1DjDEOA8Bz1tOQ/viewform?usp=sf_link"
+          >
+            → APPLY HERE BY DEC 4TH ←
+          </a>
+        </marquee>
         <div class="onecol-text">
-          <br />
-          <h6>GUIDE: Developing Projects and Hosting Sites</h6>
-          <h2>Working with the API V2 - Part 2</h2>
-          <h3>What can you do with this API?</h3>
+          <h3>Call for Projects and Texts for Solar Protocol</h3>
+
+          <h3>About Solar Protocol</h3>
           <p>
-            Now that you know what kinds of data you can retrieve with API and
-            how to interact with it, lets look at some example projects.
+            Solar Protocol is an artwork in the form of a collaborative network
+            of solar-powered web servers that collectively hosts this web
+            platform. It is an experiment in community-run planetary-scale
+            computing as well as functioning as a kind of virtual artist-run
+            space.
           </p>
-          <p>The four examples we&rsquo;ll look at below are:</p>
-          <ol>
-            <li>making simple API calls</li>
-            <li>making larger API calls and graphing time-series data</li>
-            <li>API Exquisite Corpse</li>
-          </ol>
+
           <p>
-            These examples use P5.JS, mostly because its a convienant and
-            accessible way to start making visual things with a common
-            programming language (Javascript).
+            Over the past 18 months, we have worked with collaborators around
+            the world to set up custom solar-powered servers in different
+            locations. Currently we have people stewarding servers in New York
+            City and Philadelphia in the USA, Trent in Canada, Alice Springs in
+            Australia, Santiago in Chile, Amsterdam in the Netherlands, and
+            Nairobi in Kenya. Connected as a network, the servers then host the
+            Solar Protocol web platform and when a request is made for the site,
+            it is served from whichever server is in the most sunshine, and
+            therefore generating the most energy in the network.
           </p>
-          <p>You can learn more about P5.JS at https://p5js.org/.</p>
-          <h4>Set up</h4>
+
           <p>
-            In order to run the examples, you will need to run a local server on
-            your machine and one of the simplest ways to do this is with Python.
-            Python is generally pre-installed on Macs, but Windows users will
-            need to download it. You will need to use command line/ terminal.
+            We use the path of the sun and the weather conditions at each server
+            location to program how the network operates. To put this another
+            way, the system uses the environment to automate decisions and
+            distribute computational work to wherever there is the most
+            naturally occurring energy in the network. Decisions like where
+            internet traffic is sent and what content is displayed on the site,
+            are therefore automated according to an environmental logic derived
+            from the season, the time of day and weather conditions across the
+            network.
+          </p>
+
+          <p>
+            The project also responds to the growing energy demands of the cloud
+            and online media by advocating for and exploring what low carbon
+            internet infrastructure and user experience (UX) design could look
+            like. Although work on this project is ongoing, as a fully realized
+            implementation of a distributed, community-owned web hosting system,
+            powered by renewables, it currently provides solar-powered web
+            hosting for stewards, powering several websites including sites for
+            the Low Carbon Research Methods group at Trent University, and the
+            <a href="http://solarpunk.solarprotocol.net/">
+              Extinction Rebellion Solarpunk Storytelling Showcase
+            </a>
+            .
+          </p>
+          <p>
+            You can read more about the project on the website, in this paper we
+            wrote for the
+            <a
+              href="https://computingwithinlimits.org/2022/papers/limits22-final-Brain.pdf"
+            >
+              LIMITS 2022
+            </a>
+            conference, or you can explore the solar data produced by each
+            server that is made available through the
+            <a href="https://solarprotocol.net/api/v2">project API.</a>
+          </p>
+          <h3>What sort of projects and writing we want to support.</h3>
+          <p>
+            We want to support online artworks or critical and creative texts
+            exploring the themes of Solar Protocol for publication/exhibition on
+            our platform in March of 2023. We are seeking proposals for new
+            work, or proposals to show existing projects or texts that engage
+            with one or more of the following themes:
+          </p>
+
+          <p>
+            <b>
+              Design and exploration with diverse forms of intelligence that go
+              beyond existing forms of AI.
+            </b>
+            The history of AI has been characterized by shifting definitions of
+            what counts as intelligence, but that since the enlightenment been
+            dominated by human and statistical and machine driven perspectives.
+            What should count as intelligence? In Solar Protocol, decisions in
+            infrastructure are automated according to environmental limits and
+            logics rather than those derived from statistical models and
+            historic datasets. The decision about which server to use to serve
+            the website is made by the sun rather than by a model or by a human.
+            So the environment itself is positioned as an intelligent agent. How
+            else might environmental limits and logics be explored as
+            intelligent?
+          </p>
+          <p>
+            <b>Low Carbon cultural practices.</b>
+            How can we do cultural and artistic work in low carbon ways? What
+            are aesthetic forms that explore data/energy limits provide
+            productive and generative creative constraints. What tools could or
+            should exist for low energy environments or to support low carbon
+            work? What might a low carbon, low data or low energy social network
+            look like?
+          </p>
+          <p>
+            <b>The qualities of solar power.</b>
+            What are characteristics and politics of coupling technologies with
+            the sun and solar-power? We are interested in philosophical, ethical
+            and existential perspectives on intermittency, the cyclical nature
+            (daily and annual) of solar energy and on time as a system of
+            experiencing the rotation of the earth.
+          </p>
+          <p>
+            <b>Energy-centered design.</b>
+            How do we move from UX to EX, or from user experience to energy
+            experience? What does UX and web design look like when it is engaged
+            with its energy use or energy sources. See our prompts for an energy
+            centered design in this paper.
+          </p>
+          <p>
+            <b>
+              The care, labor and maintenance required to keep infrastructure
+              working.
+            </b>
+            Our servers often go down due to stewards needing to move house,
+            connectivity issues, changes in ISPs, water leaks and so forth. What
+            does it take to keep websites up?
+          </p>
+          <p>
+            <b>Planetary scale participatory practice.</b>
+            We are interested in reflections or experiments in networked
+            collaboration, this could include connecting with or working with a
+            server steward.
+          </p>
+          <p><b>Politics of decentralized, DIY networks.</b></p>
+
+          <p>
+            Projects must be html (+css and/or javascript) websites. They might
+            respond to the energy data generated across the network that can be
+            accessed via our API:
+            <a href="http://solarprotocol.net/api/v2/">
+              http://solarprotocol.net/api/v2/
+            </a>
+          </p>
+          <p>
+            To learn more, see
+            <a href="guides.html">our guides</a>
+            about developing projects for the Solar Protocol platform, or attend
+            our
+            <a href="https://solarprotocol-opencall.eventbrite.com">
+              Q and A session on Friday November 18th 12.30–1.30EST.
+            </a>
+          </p>
+
+          <h3>What sort of support can we provide?</h3>
+          <p>
+            We estimate we can provide the following support for several
+            contributions in the following categories. These figures will vary
+            depending on how many projects we publish.
           </p>
           <ul>
-            <li>
-              To check if you already have Python installed and the version,
-              open terminal and type
-              <code>python --version</code>
-              . If its not installed, install python.
-            </li>
-            <li>Navigate to the directory that contains your HTML file.</li>
-            <li>
-              Different OS and command line interfaces use slightly different
-              syntax. It is easy to find an introduction to command line for
-              your specific OS by searching online. To run the serrver, all you
-              need to know is how to move around the directory structure. The
-              command to change directory used by most, if not all, systems is
-              <code>cd</code>
-              +
-              <code>name of the directory</code>
-              or
-              <code>cd ..</code>
-              to move up in the directory stucture. It may also be useful to
-              list the contents of the directory.
-              <code>dir</code>
-              works in windows.
-              <code>ls</code>
-              will lists the contents for Mac.
-            </li>
-            <li>
-              Run the below code based on which version of python you are using.
-              _ Python 3
-              <code>python -m http.server</code>
-              _ Python 2
-              <code>python -m SimpleHTTPServer</code>
-            </li>
-            <li>
-              If the server is running properly you should see something like
-              this in the terminal Serving HTTP on 0.0.0.0 port 8000
-              (http://0.0.0.0:8000/) &hellip;
-            </li>
-            <li>In a browser, go to http://localhost:8000/</li>
+            <li>$1000-1500 artist fee for the development of a new work</li>
+            <li>$200 exhibition fee for the exhibition of existing work</li>
+            <li>$1000 honorarium for a new text (2000-4000 words)</li>
+            <li>$200 honorarium for republishing an existing text.</li>
           </ul>
-          <h3>Example Project 1: Hello Solar Protocol API!</h3>
           <p>
-            First, lets make a call to the API to retrieve the battery voltage
-            and do something visual with it.
+            We will provide editorial support for texts and development support
+            to implement the online artworks on the Solar Protocol platform.
           </p>
-          <p>
-            You can find the code for this example in the example1 directory
-          </p>
-          <p>To do get the battery voltage data, we use this call:</p>
-          <code>
-            http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage
-          </code>
-          <p>This will return an object that looks like this:</p>
-          <code>{ "battery-voltage": "12.69" }</code>
-          <p>
-            Of course the number value will be different depending on the status
-            at the moment you make the call.
-          </p>
-          <p>
-            The data we get comes from the active server. This means that if the
-            server changes, because the sun conditions change, the data will be
-            different. To demonstrate this, we are also going to request the
-            server name from the API.
-          </p>
-          <p>We&rsquo;ll use this call to get the name:</p>
-          <code>
-            http://solarprotocol.net/api/v2/opendata.php?systemInfo=name
-          </code>
-          .
-          <p>The response to this call looks like this:</p>
-          <code>{ name: "Solar-Power for Hackers" }</code>
-          <p>
-            In order to display updated data every 5 minutes we&rsquo;ll make
-            both of these API calls again. Everytime it updates or you refresh
-            the page you may see the server name and voltage amount change.
-          </p>
-          <p>
-            <code>if(time &gt;= 60*5){</code>
-            <br />
-            <code>
-              loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage',
-              gotBatData);
-            </code>
-            <br />
-            <code>
-              loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name',
-              gotName);
-            </code>
-            <br />
-            <code>}</code>
-            <br />
-          </p>
-          <p>
-            Experiment with changing the type of data you are requesting. For
-            example, if you want PV voltage you should use this API call:
-          </p>
-          <code>
-            http://solarprotocol.net/api/v2/opendata.php?value=PV-voltage
-          </code>
-          <p>
-            <br />
-            <br />
-            <img
-              alt="Screenshot of example 1"
-              src="images/guides/api-example1.png"
-            />
-            <em>Screenshot of API tutorial example 1.</em>
-            <br />
-            <br />
-          </p>
-          <h4>Trouble shooting example 1</h4>
+          <h3>Timeline</h3>
           <ul>
             <li>
-              If you are having trouble getting example 1 to load in a browser,
-              the most likely culprit is the local server.
+              November 18th, 12.30–1.30pm. Q&A with Solar Protocol team about
+              the open call.
+              <a href="https://solarprotocol-opencall.eventbrite.com">
+                Register here.
+              </a>
             </li>
             <li>
-              Make sure you are in the tutorials/api/example1 directory when you
-              launch the server. If you are in a different directory you will
-              need to navigate to the correct directory.
+              December 4th: Submissions due via
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfizPTThgc4z3XvqClf5foE2PD9mafyERwn1DjDEOA8Bz1tOQ/viewform?usp=sf_link"
+              >
+                the application form.
+              </a>
             </li>
-            <li>Also, make sure you are going to the correct port.</li>
+            <li>December 12th: Awardees announced.</li>
+            <li>February 3rd: Project delivery.</li>
+            <li>March 2023: Project launch.</li>
             <li>
-              Use the console in the browser&rsquo;s development tools to view
-              error messages.
-            </li>
-            <li>
-              If the example is running but isn&rsquo;t retrieving data, confirm
-              http://solarprotocol.net is online by opening up the main page in
-              a web browser. You can also try make a get request directly in the
-              browser to confirm the system is running by going to this URL:
-              <code>
-                http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage
-              </code>
+              Week of March 6th: Online launch event with all participants.
             </li>
           </ul>
-          <h3>Example Project 2: Data Viz</h3>
-          <p>
-            Now that you know how to make API calls, lets request a more
-            significant amount of time-series data and graph it.
-          </p>
-          <p>
-            For this example, we are making 1 API call which will return the 3
-            most recent calendar days worth of data. This means it will return
-            all the data from today, yesterday, and the day before. Note that
-            this corresponds to the server&rsquo;s local time, which is not
-            necessarily your time (unless you happen to be in the same time zone
-            as the server that is responding to you.)
-          </p>
-          <p>The call to get this data is:</p>
-          <code>http://solarprotocol.net/api/v2/opendata.php?day=3</code>
+          <h3>Deliverables:</h3>
 
+          <ul>
+            <li>Attendance at kick off meeting</li>
+            <li>
+              Mid-project check, either via Zoom or email in early January.
+            </li>
+            <li>Attendance and presentation in final online launch event</li>
+            <li>
+              If you are submitting an existing artwork, we will ask you to
+              contribute a short text describing it, the rationale behind it or
+              the process of its making. (250-400 words).
+            </li>
+          </ul>
+        </div>
+        <img class="full-col" src="images/VI-Celestial-Objects-black1.png" />
+        <div class="onecol-text">
           <p>
-            When the script is run, the API call and some styling commands are
-            made in the setup function. Immediately after that the axis for the
-            graph are drawn.
+            * Note on becoming a server steward: At the moment we do not have
+            the resources to support the onboarding of new stewards as we are a
+            small team, but if you want to learn more about this, please see
+            this guide on becoming a server steward.
           </p>
           <p>
-            Once the API returns a response, that data sent to the
-            <code>gotData()</code>
-            function. Our API call will return an object with 3 elements: the
-            timezone for the server and 2 arrays containing the headers and the
-            actual data we want to display, respectively. The
-            <code>gotData()</code>
-            function parses the data and puts it in the format we want to
-            visualize it. Then it is passed on to the
-            <code>drawData()</code>
-            function which scales the data to fit our canvas and draws it to the
-            screen. It also uses the header array to draw labels.
-          </p>
-          <h3>Example Project 3: API Exquisite Corpse</h3>
-          <p>
-            This project uses the Solar Protocol network activity to manipulate
-            an image and create an emergent/collaborative illustration, in a
-            similar way as the game Exquisite Corpse. Exquisite Corpse is
-            collaborative drawing game that was popular with surrealist artists
-            in the 1920s. The rules of the game are that each person is to add
-            to a drawing without seeing any of the previous work. One person
-            starts a drawing and then folds the paper over so only the bottom
-            edge of the drawing is visible. The next person continues the
-            illustration starting from the small bit that is visible from the
-            previous person&rsquo;s work. This continues until the paper is
-            full. The result is often a silly grotesque creation.
+            Thanks to
+            <a href="http://taeyoonchoi.com/">Taeyoon Choi</a>
+            for providing feedback on this open call.
           </p>
           <p>
-            In our version, we&rsquo;ll be making an emergent collage. Every
-            time the active server changes, the illustration will be ammended
-            with an image relating to the location of the new server. To do
-            this, we&rsquo;ll be using the MET Museums Art Collection API. Their
-            API is nice for this because its completely open access and
-            doesn&rsquo;t require you to register. You don&rsquo;t necessarily
-            need to dig in to their API documentation, but if you&rsquo;re
-            curious about how it works and want to remix this example you can
-            find their docs at https://metmuseum.github.io/.
+            This project is a work in progress, for occasional updates join our
+            <a href="https://tinyletter.com/Solar-Protocol">
+              project newsletter.
+            </a>
           </p>
-          <p>
-            However, the MET doesn&rsquo;t enable CORS on their server, which
-            means we need to use a proxy server to be able to retrieve the
-            images.
-          </p>
-          <h4>Python Proxy Server with Flask</h4>
-          <p>install pip install flask:</p>
-          <code>pip install flask</code>
-          <p>install flask_cors:</p>
-          <code>pip install flask_cors</code>
-
-          <p>navigate to the</p>
-          <code>example3</code>
-          <p>directory and start the server with this code:</p>
-          <code>flask --app simpleFlaskProxy run</code>
-
-          <h4>Javascript</h4>
-          <p>
-            Note that you still need to spin up a normal Python server, like you
-            did for the other 2 examples for this to work.
-          </p>
-          <p>
-            We will do this by calling the location of the server with this
-            command:
-          </p>
-          <code>
-            http://solarprotocol.net/api/v2/opendata.php?systemInfo=location
-          </code>
-
-          <p>
-            We then compare the location to the previous location. If the
-            location hasn&rsquo;t changed, we distort the existing data. If it
-            has changed, we add a new image.
-          </p>
-          <p>
-            <br />
-            <br />
-            <img
-              alt="Screenshot of example 3"
-              src="images/guides/api-example3.png"
-            />
-            <em>Screenshot of API tutorial example 3.</em>
-            <br />
-            <br />
-          </p>
-          <!-- ## Example Project 4: Drawing Machine -->
-          <a class="back" href="guides.html">Back to guides</a>
         </div>
       </main>
     </div>

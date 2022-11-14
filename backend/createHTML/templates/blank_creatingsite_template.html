@@ -1,0 +1,136 @@
+{% extends "base-template.html" %} {% block content %}
+<div class="onecol-text">
+  <h2>Hosting a Website on Solar Protocol</h2>
+  <p>There are two ways to host a site on Solar Protocol:</p>
+  <h5>1: On a specific server</h5>
+  <p>
+    If you are a steward of a server, you can host a site on your specific
+    server. This means that your site may be intermittant, where if your server
+    runs out of power or gets disconnected from the internet, your website will
+    go down.
+  </p>
+  <h5>2: On the Solar Protocol Platform</h5>
+  <p>
+    You can also publish a website on the Solar Protocol platform, even if you
+    aren&rsquo;t stewarding a server. The platform is served from different
+    servers in the network depending on which is generating the most energy at
+    the time. This gives the platform more uptime than if it were hosted on a
+    single server.
+  </p>
+  <h3>Intro to coding a website</h3>
+  <p>Tools needed:</p>
+  <ul>
+    <li>
+      An editor like
+      <a href="https://code.visualstudio.com/">VSCode</a>
+    </li>
+    <li>How to set up your workspace in VSCode editor</li>
+  </ul>
+  <h3>Basics</h3>
+  <h5>Files</h5>
+  <p>
+    Create a file called index.html. This is the file that will contain the
+    structure and content of your webpage. Create a file and call is style.css.
+    This file will define the style (color, font, size) of the elements on your
+    page.
+  </p>
+  <h5>HTML Tags</h5>
+  <p>
+    HTML is a markup language that tells a browser how to structure a webpage.
+    HTML is written with tags that look like this:
+    <code>
+      &lt;h1&gt;This is an h1 element, enclosed in opening and closing p
+      tags.&lt;/h1&gt;
+    </code>
+    <br />
+    <code>
+      &lt;p&gt;This is a paragraph element, enclosed in opening and closing p
+      tags.&lt;/p&gt;
+    </code>
+  </p>
+  <h5>HTML Document</h5>
+  <p>
+    HTML pages are defined as is shown below. The
+    <code>&lt;!DOCTYPE html&gt;</code>
+    and
+    <code>&lt;html&gt;</code>
+    tags tell the browser it is reading at html page. Everything in the head
+    tags is metadata and won&rsquo;t show up on the page. The title element will
+    show up on the tabs in the browser. This is also where to link the css file.
+  </p>
+  <p>Everything in the body tag will show up on the page itself.</p>
+  <p>
+    <code>&lt;!DOCTYPE html&gt;</code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <code>&lt;html&gt;</code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <code>&lt;head&gt;</code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <code>&lt;title&gt;My new website.&lt;/title&gt;</code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <code>&lt;link rel="stylesheet" href="style.css" /&gt;</code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <code>&lt;/head&gt;</code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <code>&lt;body&gt;</code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <code>
+      &lt;p&gt;This is a paragraph element, enclosed in opening and closing p
+      tags.&lt;/p&gt;
+    </code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <code>&lt;/body&gt;</code>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <code>&lt;/html&gt;</code>
+  </p>
+  <h5>CSS</h5>
+  <p>
+    CSS stands for cascading style sheet and this a file where the style of the
+    page is defined. This is where you set things like color, fonts and size of
+    elements on the page.
+  </p>
+  <p>
+    HTML defines the structure and css defines the style. The block of code
+    below, sets the text in the h1 element to be black and the p element to be
+    red.
+  </p>
+  <p>
+    <code>h1 { color: black; }</code>
+    <br />
+    <code>p { color: red; }</code>
+  </p>
+  <h6>Further tutorials on web dev:</h6>
+  <ul>
+    <li>
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Dealing_with_files"
+      >
+        Dealing with Files
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics"
+      >
+        HTML Basics
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics"
+      >
+        CSS Basics
+      </a>
+    </li>
+  </ul>
+</div>
+{% endblock %}

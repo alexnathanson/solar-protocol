@@ -162,6 +162,8 @@ main {
   border-radius: 4px;
 }
 
+/* MAIN BODY STYLING ------------------------------------------------*/
+
 .onecol-text {
   padding: 0px calc(var(--horizontal-text-padding) * 10) 0px
     var(--horizontal-text-padding);
@@ -244,15 +246,14 @@ a.col2:hover {
 }
 
 header img {
-  /* border: 1px solid white; */
   width: 39%;
   float: left;
   margin: 5%;
 }
 
-.row {
-  /* padding-bottom: 20px; */
+/* SIDEBAR BODY STYLING -------------------------------------------*/
 
+.row {
   margin-top: 20px;
   padding: 0px var(--horizontal-padding);
 }
@@ -395,12 +396,12 @@ p {
 }
 
 a {
-  color: gray;
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 
 a:hover {
   text-decoration: none;
+  color: grey;
 }
 
 h1,
@@ -636,6 +637,11 @@ code {
   background-color: white;
 }
 
+marquee {
+  background-color: white;
+  padding: 10px 0px;
+}
+
 @media (max-width: 1070px) {
   header h1 {
     font-size: 3em;
@@ -698,6 +704,8 @@ code {
   padding: 10px 0px 30px 0px;
 }
 
+/* ---------------------MOBILE--------------------------------- */
+
 @media (max-width: 650px) {
   header {
     position: static;
@@ -740,8 +748,6 @@ code {
 
   nav {
     width: calc(var(--nav-width) * 1.6);
-    /* padding: var(--vertical-padding) calc(var(--horizontal-padding) * 2)
-      var(--vertical-padding) var(--horizontal-padding); */
     font-size: var(--text-size);
     height: 100vh;
     /* padding-right: 25px;

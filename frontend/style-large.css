@@ -396,13 +396,12 @@ p {
 }
 
 a {
-  /* text-decoration: none; */
+  color: grey;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: none;
-  color: grey;
 }
 
 h1,

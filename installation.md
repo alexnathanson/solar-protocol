@@ -105,7 +105,7 @@ Enable server status interface:
 * once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
 
 Install PHP graphics library for dithering. Note that the version will need to match your php version.
-* `sudo apt-get install php7.3-gd`
+* `sudo apt-get install php7.4-gd`
 * `sudo systemctl restart apache2`   
 <!-- 
 Give Apache/PHP user 'www-data' necessary permissions:

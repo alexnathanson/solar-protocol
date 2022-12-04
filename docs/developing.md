@@ -16,7 +16,7 @@ If this is the first time you are using containers, we recommend installing [Pod
 
 ## Services
 
-There are 4 services that make up the entire protocol. `./solar-protocol status` should show something like this:
+There are 4 services that make up the entire protocol. `solar-protocol status` should show something like this:
 
     CONTAINER ID  IMAGE                                       COMMAND               CREATED        STATUS                             PORTS                  NAMES
     239ae01f12a5  localhost/solar-protocol/datalogger:beta  /bin/sh -c python...  5 minutes ago  Exited (1) Less than a second ago                         solar-protocol_datalogger_1

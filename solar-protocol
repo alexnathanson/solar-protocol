@@ -228,6 +228,9 @@ reset() {
   podman machine start
 }
 
+# Since we have multiple collaborators, its useful to have all the tabs and spaces align
+# Run format before making a pull request to help us all focus on the code changes, and
+# not the formatting
 format() {
   shopt -s globstar
   black -- **/**.py
@@ -235,11 +238,17 @@ format() {
   tidy -i -m -w 160 -ashtml -utf8 -- **/**.html
 }
 
+# Before we can run any of the services (web, api, protocol, datalogger), we
+# need to build a system 'image', which contains a snapshot of the current code
+# and dependencies.
 build() {
   podman image exists localhost/solar-protocol/base:beta || compose build common
   compose build "$@"
 }
 
+# SystemD is how linux systems run services
+# A service is just any software that you want to run every time the system is on
+# Raspberry Pis use linux, so this will make sure solar protocol is installed and running at boot
 install-systemd() {
   servicedir=$HOME/.config/systemd/user
   mkdir -p "$servicedir"

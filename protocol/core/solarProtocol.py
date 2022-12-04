@@ -10,6 +10,7 @@ import logging
 import sys
 from solar_secrets import getSecret, SecretKey
 
+
 def determineServer(allValues, myValue, solarProtocol):
     """
     If this server has the highest value, update DNS to be point of entry

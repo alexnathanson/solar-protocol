@@ -21,8 +21,8 @@ days = 3
 
 
 def debug(thing, tag=None):
-   print(f"# {tag}")
-   print(thing)
+    print(f"# {tag}")
+    print(thing)
 
 
 # Call API for every IP address and get charge controller data

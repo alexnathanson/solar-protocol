@@ -190,7 +190,7 @@ install() {
   if [[ "$(uname -s)" == "Linux" ]]; then
     exists podman || sudo apt-get install --yes podman
     exists pip || sudo apt-get install --yes python3-pip
-    exists podman-compose || pip install podman-compose
+    exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
     return
   fi
 

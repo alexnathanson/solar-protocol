@@ -4,6 +4,8 @@ Instructions for developing the Solar Protocol
 
 Helpful scripts for developing are in the dev/ folder.
 
+If this is the first time you are using containers, we recommend installing [Podman Desktop](https://podman-desktop.io) to see whats going on.
+
 ## Quick Start
 
     ./solar-protocol install # asks to install podman, podman-compose, and necessary dependencies

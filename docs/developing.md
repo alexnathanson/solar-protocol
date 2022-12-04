@@ -34,8 +34,6 @@ This includes two protocol scripts that manage the peer-to-peer network - `publi
 
 There are three scripts that rebuild the static site based on the latest data - `core/getRemoteData.py`, `build/viz.py`, and `build/html.py`.
 
-All of these scripts with should be run with the DEV arg, e.g. `python3 solar-protocol/protocol/build/html.py DEV`. Otherwise they will post data in the real network.
-
 1. publishDevice
 
 Updates all devices found in devices.json with its own device information - `api_key`, `timestamp`, `ip`, `mac`, `name`, `timezone`, and `poelog`.
@@ -58,7 +56,7 @@ Regenerates the website with the latest data.
 
 ### 2. datalogger service
 
-The datalogger service periodically reads the charge controller and saves a log for the other scripts. In DEV mode, makes up fake data.
+The datalogger service periodically reads the charge controller and saves a log for the other scripts. If it is not running on a raspberry pi, it fakes data. 
 
 ### 3. api service
 

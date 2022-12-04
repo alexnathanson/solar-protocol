@@ -4,8 +4,6 @@ Every server runs this script, which posts its own IP address + other data to:
 * all devices in devices.json
 * localhost
 * solarprotocol.net
-
-Make sure to add DEV to the command when running in development mode
 """
 
 # these modules are only used by this module within this packages
@@ -20,11 +18,6 @@ import os
 import sys
 
 from solar_secrets import getSecret, SecretKey
-
-DEV = "DEV" in sys.argv
-
-if DEV:
-    print("DEV mode")
 
 poeLog = "/data/poe.log"
 localConfig = "/local/local.json"
@@ -94,8 +87,7 @@ def discoverIps():
     new_macs = all_macs - local_macs
     new_devices = {all_devices.filter(lambda device: device["mac"] in new_macs)}
 
-    if DEV:
-        outputToConsole(f"new ips: {[ device['ip'] for device in new_devices ]}")
+    outputToConsole(f"new ips: {[ device['ip'] for device in new_devices ]}")
 
     discoveredIps = [device["ip"] for device in newDevices]
 
@@ -140,8 +132,7 @@ def publishDevice(ips, device, log):
 
 
 def getApiKey():
-    if DEV:
-        return "this-will-fail"
+    return "this-will-fail"
 
     return getSecret(SecretKey.apiKey)
 

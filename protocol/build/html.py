@@ -14,7 +14,6 @@ from solar_secrets import getSecret, SecretKey
 from solar_common import fieldnames
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
-DEV = "DEV" in sys.argv
 
 serverNames = []
 myIP = " "
@@ -22,9 +21,8 @@ days = 3
 
 
 def debug(thing, tag=None):
-    if DEV:
-        print(f"# {tag}")
-        print(thing)
+   print(f"# {tag}")
+   print(thing)
 
 
 # Call API for every IP address and get charge controller data
@@ -157,7 +155,6 @@ def render_pages(_local_data, _data, _weather, _server_data):
                 leadImage=leadImage,
                 mode=mode,
                 servers=_server_data,
-                dev=" DEV" if DEV else "",
             )
         except:
             rendered_html = template.render(

@@ -36,10 +36,6 @@ HELP
   )"
 }
 
-compose-exec() {
-  compose-dev exec protocol "$@"
-}
-
 build-viz() {
   compose-exec python /protocol/build/viz.py "$@"
 }
@@ -214,8 +210,6 @@ prompt() {
 
 compose() { machine; podman-compose --file compose.yaml "$@"; }
 
-compose-dev() { machine; compose --file dev/compose.yaml "$@"; }
-
 password() { openssl rand -hex 8; }
 
 bcrypt() { htpasswd -bnBC 10 "" "$1" | tr -d ':\n'; }
@@ -270,12 +264,11 @@ install-systemd() {
 case $command in
   up|start) compose up "$@" ;;
   down|stop) compose down "$@" ;;
-  status) compose-dev ps 2>/dev/null ;;
-  restart) compose-dev restart "${@:-api datalogger protocol web}" ;;
-  logs) compose-dev logs "${@:-protocol}" ;;
+  status) compose ps 2>/dev/null ;;
+  restart) compose restart "${@:-api datalogger protocol web}" ;;
+  logs) compose logs "${@:-protocol}" ;;
   build) build "$@" ;;
-  shell) compose-dev exec "${1:-protocol}" /bin/bash ;;
-  dev) compose-dev up ;;
+  shell) compose exec "${1:-protocol}" /bin/bash ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) format ;;
   exec) compose-exec "$@" ;;

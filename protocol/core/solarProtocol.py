@@ -10,9 +10,6 @@ import logging
 import sys
 from solar_secrets import getSecret, SecretKey
 
-DEV = "DEV" in sys.argv
-
-
 def determineServer(allValues, myValue, solarProtocol):
     """
     If this server has the highest value, update DNS to be point of entry
@@ -22,9 +19,8 @@ def determineServer(allValues, myValue, solarProtocol):
 
         logging.info(datetime.datetime.now())
 
-        # Do not update DNS if running in DEV
         secretkey = SecretKey.dnsPassword
-        key = "this-will-fail" if DEV else getSecret(secretkey)
+        key = getSecret(secretkey)
         result = solarProtocol.updateDNS(solarProtocol.myIP, key)
         print(result)
     else:

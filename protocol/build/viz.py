@@ -27,7 +27,6 @@ hour_angle = Tau / hours  # angle of an hour
 ring_rad = 61
 radius = 61 * 10
 start_ring = 0
-DEV = "DEV" in sys.argv
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
@@ -82,8 +81,7 @@ def getSystem(server, key):
         systemInfo = requests.get(url=url, params=params, timeout=5)
         systemInfo = systemInfo.text
 
-        if DEV:
-            print(f"{server} {key}: {systemInfo}")
+        print(f"{server} {key}: {systemInfo}")
 
         return systemInfo
     except requests.exceptions.HTTPError as errh:
@@ -98,8 +96,7 @@ def getSystem(server, key):
 
 # drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
-    if DEV:
-        print(f"drawing text curve for {ring_number}")
+    print(f"drawing text curve for {ring_number}")
     if type(ccDict) == type(None):
         return
 
@@ -129,8 +126,7 @@ def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
 
     # correlate sun data wtih colors
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
-        if DEV:
-            print("Current: ", current)
+        print("Current: ", current)
         draw_sun(ring_number, i, current)
 
     return df_hours
@@ -228,9 +224,8 @@ def sortPOE(logs, timeZones, myTimeZone):
             percent = dfPOE["percent"].iloc[t]
             dfPOE.at[t, "angle"] = 360 - (percent * 360)
 
-    if DEV:
-        print("head", dfPOE.head())
-        print("tail", dfPOE.tail())
+    print("head", dfPOE.head())
+    print("tail", dfPOE.tail())
 
 
 def tzOffset(checkTZ, myTimeZone):
@@ -253,8 +248,7 @@ def tzOffset(checkTZ, myTimeZone):
 
 
 def text_curve(serverNumber, message, angle, spacing, fontsize):
-    if DEV:
-        print(f"drawing text curve for {serverNumber} {message}")
+    print(f"drawing text curve for {serverNumber} {message}")
     cr = serverNumber * ring_rad + (ring_rad / 5) + (ring_rad * start_ring)
 
     # Start in the center and draw the circle
@@ -378,8 +372,7 @@ def main():
 
     # iterate through each device
     for ip in ips:
-        if DEV:
-            print(f"getting data for {ip}")
+        print(f"getting data for {ip}")
 
         energyValues.append(getEnergyFor(ip))
 

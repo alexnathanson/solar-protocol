@@ -31,7 +31,7 @@ class SolarProtocol:
         self.loadLocalConfigFile()
         self.myIP = requests.get("http://api/api/myip").text
         # dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
-        self.dnsURL = "https://beta.solarprotocol.net/"
+        self.dnsURL = "https://api/"
         self.MACinterface = "wlan0"  # this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 
     # load in data from config file

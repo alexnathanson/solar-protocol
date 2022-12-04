@@ -26,7 +26,7 @@ help() {
     ${Blue}solar-protocol install${Clear}               install dependencies to build and run solar-protocol
     ${Blue}solar-protocol up${Clear}                    start all the services in production mode
     ${Blue}solar-protocol logs api${Clear}              show api logs
-    ${Blue}solar-protocol dev${Clear}                   start in dev mode with live code reloading
+    ${Blue}solar-protocol start${Clear}                 start the protocol
     ${Blue}solar-protocol status${Clear}                check status of the containers
     ${Blue}solar-protocol restart datalogger${Clear}    restart the datalogger
     ${Blue}solar-protocol down${Clear}                  stop all services

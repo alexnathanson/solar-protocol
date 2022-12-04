@@ -3,11 +3,6 @@ version: '3.7'
 name: solar-protocol
 
 services:
-  datalogger:
-    restart: on-failure
-    command: python csv_datalogger.py DEV
-    volumes:
-      - ./datalogger:/datalogger
   api:
     restart: on-failure
     volumes:

@@ -23,6 +23,7 @@ import requests
 import json
 import datetime
 from dateutil.parser import parse
+from logging import debug, error, info
 
 deviceList = "/data/devices.json"
 
@@ -61,7 +62,7 @@ def parseLogFile(logfile):
     spDevices = []
     exDevices = []
 
-    print(type(logfile))
+    debug(type(logfile))
 
     # firstLine = ''
     # lastLine = ''
@@ -91,11 +92,6 @@ def parseLogFile(logfile):
                     exDevices.append(line_dict)
 
         # lastLine = line
-
-    # print("FIRST LINE OF LOG FILE:")
-    # print(firstLine)
-    # print("LAST LINE OF LOG FILE:")
-    # print(lastLine)
 
     # all time unique SP hosts
     spHosts = {}
@@ -222,8 +218,7 @@ def parseServerStatus(autoStatus):
         else:
             statusDict["URL"] = line.replace("\n", "").strip()
 
-    # print("server status")
-    # print(statusDict.keys())
+    debug("server status", statusDict.keys())
 
     return statusDict
 
@@ -233,21 +228,18 @@ def getRequest(url):
         response = requests.get(url, timeout=5)
         return response.text
     except requests.exceptions.HTTPError as err:
-        print(err)
+        error(err)
     except requests.exceptions.Timeout as err:
-        print(err)
+        error(err)
     except requests.exceptions.RequestException as err:
-        print(err)
+        error(err)
 
 
 def getKeyList(getKey):
-
     ipList = []
 
     with open(deviceList) as f:
         data = json.load(f)
-
-    # print(data)
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])
@@ -256,40 +248,30 @@ def getKeyList(getKey):
 
 
 def writeReport(fReport):
-
-    f = open(json_file_name, "w")
-
-    json.dump(fReport, f)
-
-    f.close()
-
-
-# with open(csv_file_name, 'w') as out:
-#     csv_out=csv.writer(out)
-# csv_out.writerow(['server built', 'current time','server uptime', 'total requesting hosts', 'total requesting hosts excluding SP devices','7 day total requesting hosts', '7 day total requesting hosts excluding SP devices'])
+    with open(json_file_name, "w") as reportFile:
+        json.dump(fReport, reportFile)
 
 
 if __name__ == "__main__":
-
     # get current server status
-    # DOES THIS NEED TO PULL PORT???
+    # FIXME: DOES THIS NEED TO PULL PORT???
     serverStatus = getRequest("http://localhost/server-status?auto")
     serverStatDict = parseServerStatus(serverStatus)
-    print(serverStatDict)
+    info(serverStatDict)
 
     try:
         infile = open(log_file_name, "r")
     except IOError:
-        print("You must specify a valid file to parse")
-        print(__doc__)
+        error("You must specify a valid file to parse")
+        error(__doc__)
 
     logDict = parseLogFile(infile)
-    print(logDict)
+    info(logDict)
 
     # merge dictionaries into the final report
     finalReport = {**serverStatDict, **logDict}
-    print("***FINAL REPORT***")
-    print(finalReport)
+    info("***FINAL REPORT***")
+    info(finalReport)
     writeReport(finalReport)
 
     infile.close()

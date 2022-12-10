@@ -6,7 +6,7 @@ If the local device is producing the most power, it becomes the Point of Entry (
 Otherwise, the script changes nothing.
 """
 import datetime
-import logging
+from logging import info
 import sys
 from solar_secrets import getSecret, SecretKey
 
@@ -16,16 +16,14 @@ def determineServer(allValues, myValue, solarProtocol):
     If this server has the highest value, update DNS to be point of entry
     """
     if myValue > max(allValues):
-        print("Point of entry")
-
-        logging.info(datetime.datetime.now())
+        info("Point of entry", datetime.datetime.now())
 
         secretkey = SecretKey.dnsPassword
         key = getSecret(secretkey)
         result = solarProtocol.updateDNS(solarProtocol.myIP, key)
-        print(result)
+        info(result)
     else:
-        print("Not point of entry")
+        info("Not point of entry")
 
 
 def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
@@ -37,9 +35,9 @@ def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
 
 
 def run():
-    print()
-    print("***** Running Solar Protocol script *****")
-    print()
+    info()
+    info("***** Running Solar Protocol script *****")
+    info()
 
     solarProtocol = SolarProtocolClass()
 

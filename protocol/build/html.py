@@ -10,6 +10,8 @@ import os
 import re
 import sys
 
+from logging import info, debug, error
+
 from solar_secrets import getSecret, SecretKey
 from solar_common import fieldnames
 
@@ -20,27 +22,22 @@ myIP = " "
 days = 3
 
 
-def debug(thing, tag=None):
-    print(f"# {tag}")
-    print(thing)
-
-
 # Call API for every IP address and get charge controller data
 def getCC(server, key):
-    print(f"GET {server} {key}")
+    info(f"GET {server} {key}")
     try:
         url = f"http://{server}/api/charge-controller"
         params = {"key": key, "days": days}
         response = requests.get(url=url, params=params, timeout=5)
         return json.loads(response.text)
-    except requests.exceptions.HTTPError as errh:
-        print("An Http Error occurred:" + repr(errh))
+    except requests.exceptions.HTTPError as err:
+        error(f"An Http Error occurred: {repr(err)}")
     except requests.exceptions.ConnectionError:
-        print(f"Timed out connecting to {server}")
-    except requests.exceptions.Timeout as errt:
-        print("A Timeout Error occurred:" + repr(errt))
+        error(f"ConnectionError to {server}")
+    except requests.exceptions.Timeout as err:
+        error(f"TimeoutError: {repr(err)}")
     except requests.exceptions.RequestException as err:
-        print("An Unknown Error occurred" + repr(err))
+        error(f"An Unknown Error occurred {repr(err)}")
 
 
 # gets power data from charge controller
@@ -91,18 +88,17 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
         # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
         if response.status == 404:
-            print("TZ 404 error")
+            error("TZ 404 error")
             zone = "TZ n/a"
         else:
             zone = response.text
 
         zone = zone.replace("/", " ")
-        print("ZONE", zone)
+        info("ZONE", zone)
     except Exception as e:
-        print("Timezone Exception - TZ n/a")
+        error("Timezone Exception - TZ n/a")
         zone = "TZ n/a"
 
-    # print("UTC TIME", datetime.datetime.utcnow())
     # would be nice to swap this out if the via script fails
     leadImage = "images/clock.png"
 
@@ -117,7 +113,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         template_filename = f"{templatePath}/{page}"
         output_filename = f"{outputPath}/{page}"
         template_file = open(template_filename).read()
-        print("rendering", template_filename)
+        info("rendering", template_filename)
 
         # this line was changed last, it was: "/templates/"
         template = Environment(loader=FileSystemLoader(templatePath)).from_string(
@@ -190,7 +186,6 @@ def render_pages(_local_data, _data, _weather, _server_data):
                 dev="",
             )
 
-        # print(rendered_html)
         open(output_filename, "w").write(rendered_html)
 
 
@@ -210,9 +205,9 @@ def get_weather(lon, lat, appid):
     sunrise = sunrise.strftime("%I:%M %p")
     sunset = sunset.strftime("%I:%M %p")
 
-    print(" Temperature (in kelvin unit) = {current_temperature}")
-    print(" humidity (in percentage) = {current_humidity}")
-    print(" description = {weather_description}")
+    info(" Temperature (in kelvin unit) = {current_temperature}")
+    info(" humidity (in percentage) = {current_humidity}")
+    info(" description = {weather_description}")
 
     output = {
         "description": data["weather"][0]["description"],
@@ -257,17 +252,17 @@ def get_ips():
     return devices
 
 
-def active_servers(dst):
+def active_servers(ip):
     try:
-        x = requests.get("http://" + dst + "/local", timeout=5)
-    except requests.exceptions.HTTPError as errh:
-        print("An Http Error occurred:" + repr(errh))
-    except requests.exceptions.ConnectionError as errc:
-        print("An Error Connecting to the API occurred:" + repr(errc))
-    except requests.exceptions.Timeout as errt:
-        print("A Timeout Error occurred:" + repr(errt))
+        x = requests.get(f"http://{ip}/local", timeout=5)
+    except requests.exceptions.HTTPError as err:
+        error(f"An Http Error occurred: {repr(err)}")
+    except requests.exceptions.ConnectionError as err:
+        error(f"An Error Connecting to the API occurred: {repr(err)}")
+    except requests.exceptions.Timeout as err:
+        error(f"A Timeout Error occurred: {repr(err)}")
     except requests.exceptions.RequestException as err:
-        print("An Unknown Error occurred" + repr(err))
+        error(f"An Unknown Error occurred: {repr(err)}")
 
 
 # Call API for every IP address and get charge controller data
@@ -280,14 +275,14 @@ def get_pv_value(ip):
         )
         [latest] = response.json
         return latest.pop()["PV voltage"]
-    except requests.exceptions.HTTPError as errh:
-        print("An Http Error occurred:" + repr(errh))
-    except requests.exceptions.ConnectionError as errc:
-        print("An Error Connecting to the API occurred:" + repr(errc))
-    except requests.exceptions.Timeout as errt:
-        print("A Timeout Error occurred:" + repr(errt))
+    except requests.exceptions.HTTPError as err:
+        error(f"An Http Error occurred: {repr(err)}")
+    except requests.exceptions.ConnectionError as err:
+        error(f"An Error Connecting to the API occurred: {repr(err)}")
+    except requests.exceptions.Timeout as err:
+        error(f"A Timeout Error occurred: {repr(err)}")
     except requests.exceptions.RequestException as err:
-        print("An Unknown Error occurred" + repr(err))
+        error(f"An Unknown Error occurred: {repr(err)}")
 
 
 # return data from a particular server
@@ -297,13 +292,13 @@ def getSystem(ip):
         response = requests.get(f"http://{ip}/api/system", timeout=5)
         return response.json
     except requests.exceptions.HTTPError as errh:
-        print("An Http Error occurred:" + repr(errh))
+        error(f"An Http Error occurred: {repr(errh)}")
     except requests.exceptions.ConnectionError as errc:
-        print("An Error Connecting to the API occurred:" + repr(errc))
+        error(f"An Error Connecting to the API occurred: {repr(errc)}")
     except requests.exceptions.Timeout as errt:
-        print("A Timeout Error occurred:" + repr(errt))
+        error(f"A Timeout Error occurred: {repr(errt)}")
     except requests.exceptions.RequestException as err:
-        print("An Unknown Error occurred" + repr(err))
+        error(f"An Unknown Error occurred: {repr(err)}")
 
 
 def download_file(url, local_filename=None):
@@ -324,28 +319,31 @@ def check_images(server_data):
         filename = filename.replace(" ", "-")
         fullpath = "/frontend/images/servers/{filename}"
         filepath = "images/servers/{filename}"
-        # print("server:", server)
+
         myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
-        print("myIP", myIP)
+        debug("myIP", myIP)
 
         if "ip" in server:
-            debug(server["ip"], "server ip")
-            if server["ip"] == "localhost":  # if it is itself
-                print("*** LOCAL HOST ***")
+            ip = server["ip"]
+            name = server["name"]
+            debug(f"server {name}: {ip}")
+
+            if ip == "localhost":  # if it is itself
+                info("*** LOCAL HOST ***")
                 # TODO: make this work with irregular ports
                 image_path = imgDst
                 filepath = image_path
             elif os.path.exists(fullpath):  # else if the image is in the folder
-                print(f"Got image for {server['name']}")
+                info(f"Got image for {name}")
             else:
                 # else download image using api and save it to the folder: "../../frontend/images/servers/"
-                image_path = f"http://{server['ip']}/serverprofile.gif"
+                image_path = f"http://{ip}/serverprofile.gif"
                 try:
                     download_file(image_path, fullpath)
-                    print("image_path", image_path)
-                    print("local_path", fullpath)
+                    debug("image_path", image_path)
+                    debug("local_path", fullpath)
                 except Exception as e:
-                    print(server["name"], ": Offline. Can't get image")
+                    error(f"{name}: Offline. Can't get image")
             server["image_path"] = filepath
 
 
@@ -384,7 +382,8 @@ def getServerDataFor(ip: str, name: str):
         return system
 
     except Exception as exception:
-        print(exception)
+        error(exception)
+
         # FIXME: reformat page so offline servers dont actually need this blank data
         return {
             "ip": ip,
@@ -402,7 +401,7 @@ def getLocalWeatherFor(lon, lat):
         local_weather = get_weather(lon=lon, lat=lat, appid=appid)
         return local_weather
     except Exception as exception:
-        print(exception)
+        info(exception)
         return {
             "description": "n/a",
             "temp": "n/a",
@@ -414,9 +413,9 @@ def getLocalWeatherFor(lon, lat):
 
 def main():
 
-    print()
-    print("***** Running html.py *****")
-    print()
+    info()
+    info("***** Running html.py *****")
+    info()
 
     # 1. get IP list of addresses
     deviceList_data = get_ips()

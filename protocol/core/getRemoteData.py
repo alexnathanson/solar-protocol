@@ -11,14 +11,15 @@ The purpose of this is minimize the amount of on the fly API calls
 import json
 import os
 import sys
+from logging import info
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
 
 def run():
-    print()
-    print("***** Running GET Remote Data script *****")
-    print()
+    info()
+    info("***** Running GET Remote Data script *****")
+    info()
 
     # initialize SolarProtocolClass
     solarProtocol = SolarProtocolClass()
@@ -37,14 +38,14 @@ def run():
             break
 
     for ip, name in zip(ips, names):
-        print(f"{name}: {ip}")
+        info(f"{name}: {ip}")
         if ip == "127.0.0.1:11221":
             data = solarProtocol.getRequest(f"http://api/api/charge-controller?days=4")
         else:
             data = solarProtocol.getRequest(f"http://{ip}/api/charge-controller?days=4")
 
         if isinstance(data, str):
-            print("GET request successful")
+            info("GET request successful")
 
             filename = name.replace(" ", "-").lower()
             with open(f"/data/{filename}.json", "w", encoding="utf-8") as file:

@@ -6,10 +6,11 @@ clientGet-example.py ip key value
 """
 
 import requests, sys
+from logging import info
 
 [ip, key, value] = sys.argv
 
-print(ip, key, value)
+info(ip, key, value)
 
 url = ""
 
@@ -24,4 +25,4 @@ url = f"http://{ip}/api/charge-controller"
 params = {key: value}
 
 response = requests.get(url=url, params=params).text
-print(response)
+info(response)

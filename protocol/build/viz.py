@@ -17,6 +17,8 @@ import requests
 import json
 from json.decoder import JSONDecodeError
 
+from logging import debug, error, info
+
 w = 1500
 h = 1500
 
@@ -54,23 +56,23 @@ def getDeviceInfo(key):
 
 # Call API for every IP address and get charge controller data
 def getChargeControllerValues(server):
-    print(f"GET {server} charge-controller {energyParam} {days}")
+    info(f"GET {server} charge-controller {energyParam} {days}")
     url = f"http://{server}/api/charge-controller"
     params = {"key": energyParam, "days": days}
     try:
         cc = requests.get(url, params, timeout=5)
         cc.json()
         return json.loads(cc.text)
-    except JSONDecodeError as errj:
-        print("A JSON decode error:" + repr(errj))
-    except requests.exceptions.HTTPError as errh:
-        print("An Http Error occurred:" + repr(errh))
+    except JSONDecodeError as err:
+        error(f"A JSON decode error: {repr(err)}")
+    except requests.exceptions.HTTPError as err:
+        error(f"An Http Error occurred: {repr(err)}")
     except requests.exceptions.ConnectionError:
-        print(f"Timed out connecting to {server}")
-    except requests.exceptions.Timeout as errt:
-        print("A Timeout Error occurred:" + repr(errt))
+        error(f"Connection error to: {server}")
+    except requests.exceptions.Timeout as err:
+        error(f"A Timeout Error occurred: {repr(err)}")
     except requests.exceptions.RequestException as err:
-        print("An Unknown Error occurred" + repr(err))
+        error(f"An Unknown Error occurred: {repr(err)}")
 
 
 # Call API for every IP address and get charge controller data
@@ -81,22 +83,22 @@ def getSystem(server, key):
         systemInfo = requests.get(url=url, params=params, timeout=5)
         systemInfo = systemInfo.text
 
-        print(f"{server} {key}: {systemInfo}")
+        info(f"{server} {key}: {systemInfo}")
 
         return systemInfo
-    except requests.exceptions.HTTPError as errh:
-        print("An Http Error occurred:" + repr(errh))
+    except requests.exceptions.HTTPError as err:
+        error(f"An Http Error occurred: {repr(err)}")
     except requests.exceptions.ConnectionError:
-        print(f"Timed out connecting to {server}")
+        error(f"Timed out connecting to {server}")
     except requests.exceptions.Timeout as errt:
-        print("A Timeout Error occurred:" + repr(errt))
+        error(f"A Timeout Error occurred: {repr(errt)}")
     except requests.exceptions.RequestException as err:
-        print("An Unknown Error occurred" + repr(err))
+        error(f"An Unknown Error occurred {repr(err)}")
 
 
 # drawing the sunshine data (yellow)
 def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
-    print(f"drawing text curve for {ring_number}")
+    info(f"drawing text curve for {ring_number}")
     if type(ccDict) == type(None):
         return
 
@@ -126,7 +128,7 @@ def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
 
     # correlate sun data wtih colors
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
-        print("Current: ", current)
+        info(f"Current: {current}")
         draw_sun(ring_number, i, current)
 
     return df_hours
@@ -224,8 +226,8 @@ def sortPOE(logs, timeZones, myTimeZone):
             percent = dfPOE["percent"].iloc[t]
             dfPOE.at[t, "angle"] = 360 - (percent * 360)
 
-    print("head", dfPOE.head())
-    print("tail", dfPOE.tail())
+    debug("head", dfPOE.head())
+    debug("tail", dfPOE.tail())
 
 
 def tzOffset(checkTZ, myTimeZone):
@@ -248,7 +250,7 @@ def tzOffset(checkTZ, myTimeZone):
 
 
 def text_curve(serverNumber, message, angle, spacing, fontsize):
-    print(f"drawing text curve for {serverNumber} {message}")
+    info(f"drawing text curve for {serverNumber} {message}")
     cr = serverNumber * ring_rad + (ring_rad / 5) + (ring_rad * start_ring)
 
     # Start in the center and draw the circle
@@ -356,9 +358,9 @@ def getEnergyFor(ip):
 
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
-    print()
-    print("***** Running viz.py ******")
-    print()
+    info()
+    info("***** Running viz.py ******")
+    info()
 
     ips = getDeviceInfo("ip")
     logs = getDeviceInfo("log")
@@ -372,7 +374,7 @@ def main():
 
     # iterate through each device
     for ip in ips:
-        print(f"getting data for {ip}")
+        info(f"getting data for {ip}")
 
         energyValues.append(getEnergyFor(ip))
 
@@ -389,7 +391,7 @@ def main():
     for i, energyValue in enumerate(energyValues):
         name = server_names[i]
         timezone = timeZones[i]
-        print(f"drawing {name} ({timezone})")
+        info(f"drawing {name} ({timezone})")
         # print name of each server
         text_curve(i + 2, name, 0, 18, 18)
         # draw sun data for each server

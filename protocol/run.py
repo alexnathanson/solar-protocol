@@ -20,20 +20,22 @@ from time import sleep
 from math import trunc
 import datetime
 import sys
+from logging import info, debug, error
 
 MAX_FREQUENCY = 60
 SolarProtocol = SolarProtocolClass()
-
+one_minute_in_seconds = 60
 
 def run():
-    print("***** Solar Protocol Runner Started ******")
+    info("***** Solar Protocol Runner Started ******")
 
     runCount = 0
 
-    if len(sys.argv) > 1 and sys.argv[1] == "now":
-        print("Running now")
-    else:
-        sleep(60)
+    run_now = len(sys.argv) > 1 and sys.argv[1] == "now"
+    delay_seconds = 0 if run_now else one_minute_in_seconds
+
+    info("Sleeping {seconds} seconds")
+    sleep(seconds)
 
     while True:
         if runCount == 0 or getElapsedTime(timeOfRun) % (loopFrequency * scaler) == 0:
@@ -43,14 +45,14 @@ def run():
             runScripts(runCount)
 
             loopFrequency = getFrequency()
-            print(f"Loop frequency: {str(loopFrequency)} minutes")
+            info(f"Loop frequency: {str(loopFrequency)} minutes")
             scaler = solarScaler()
-        sleep(60)
+        sleep(one_minute_in_seconds)
 
 
 def runScripts(runCount):
     time = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-    print(f"Run number {runCount} at {time}")
+    debug(f"Run number {runCount} at {time}")
 
     # if we are on low power
     skipViz = getFrequency == MAX_FREQUENCY
@@ -60,52 +62,42 @@ def runScripts(runCount):
     try:
         publishDevice.run()
     except Exception as err:
-        printLoud("publishDevice.py Exception", err)
+        error("publishDevice.py Exception", err)
         exceptions.append("publishDevice")
 
     # QUESTION: Why do we run solarProtocol before getRemoteData?
     try:
         solarProtocol.run()
     except Exception as err:
-        printLoud("solarProtocol.py Exception", err)
+        error("solarProtocol.py Exception", err)
         exceptions.append("solarProtocol")
 
     try:
         getRemoteData.run()
     except Exception as err:
-        printLoud("getRemoteData.py Exception", err)
+        error("getRemoteData.py Exception", err)
         exceptions.append("getRemoteData")
 
     if not skipViz:
         try:
             viz.main()
         except Exception as err:
-            printLoud("viz Exception", err)
+            error("viz Exception", err)
             exceptions.append("viz")
 
     try:
         html.main()
     except Exception as err:
-        printLoud("html Exception", err)
+        error("html Exception", err)
         exceptions.append("html")
 
-    print()
     time = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-    print(f"Completed run {str(runCount)} at {time}")
+    info(f"Completed run {str(runCount)} at {time}")
 
     if len(exceptions) > 0:
-        print("Exceptions:", " ".join(exceptions))
+        error("Exceptions:", " ".join(exceptions))
     else:
-        print("Exceptions: 0, all good")
-
-    print()
-
-
-def printLoud(mess, e):
-    print()
-    print(f"!!!!! {mess} !!!!!")
-    print(e)
-    print()
+        info("Exceptions: 0, all good")
 
 
 def getElapsedTime(oldTime):

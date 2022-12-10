@@ -20,7 +20,7 @@ import json
 import subprocess
 import sys
 import os
-
+from logging import debug, error, info
 
 class SolarProtocol:
     def __init__(self):
@@ -43,7 +43,7 @@ class SolarProtocol:
                     # store data
                     self.localConfigData[key] = value
         except:
-            print("loadLocalConfigFile error")
+            error("loadLocalConfigFile error")
 
     # return the config dictionary
     def getLocalConfigData(self):
@@ -55,7 +55,7 @@ class SolarProtocol:
         try:
             return self.localConfigData[key]
         except:
-            print("getLocalConfig error")
+            error("getLocalConfig error")
 
             if key == "name":
                 return "pi"
@@ -91,11 +91,11 @@ class SolarProtocol:
             response = requests.get(url, timeout=5)
             return response.text
         except requests.exceptions.HTTPError as err:
-            print(err)
+            error(err)
         except requests.exceptions.Timeout as err:
-            print(err)
+            error(err)
         except err:
-            print(err)
+            error(err)
 
     # updates dns by posting to self
     def updateDNS(self, ip, key):

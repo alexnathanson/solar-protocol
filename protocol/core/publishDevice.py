@@ -16,6 +16,7 @@ import json
 import subprocess
 import os
 import sys
+from logging import error, info
 
 from solar_secrets import getSecret, SecretKey
 
@@ -62,7 +63,7 @@ def getLocal(key):
             return device[key]
 
     except:
-        print(f"local config file exception with key {key}")
+        error(f"local config file exception with key {key}")
 
 
 """
@@ -101,21 +102,19 @@ def postDevice(ip, params):
     try:
         response = requests.post(url=url, headers=headers, params=params, timeout=5)
         if response.ok:
-            try:
-                print(f"Post to {ip} successful")
-            except:
-                print(f"Malformatted response from {ip}:")
-                print(response.text)
-    except json.decoder.JSONDecodeError as e:
-        print("JSON decoding error", e)
-    except requests.exceptions.HTTPError as errh:
-        print("An Http Error occurred:" + repr(errh))
-    except requests.exceptions.ConnectionError as errc:
-        print("An Error Connecting to the API occurred:" + repr(errc))
-    except requests.exceptions.Timeout as errt:
-        print("A Timeout Error occurred:" + repr(errt))
+            info(f"Post to {ip} successful")
+        else:
+            error(f"Malformatted response from {ip}", response.text)
+    except json.decoder.JSONDecodeError as err:
+        error(f"JSON decoding error", err)
+    except requests.exceptions.HTTPError as err:
+        error(f"An Http Error occurred: {repr(err)}")
+    except requests.exceptions.ConnectionError as err:
+        error(f"An Error Connecting to the API occurred: {repr(err)}")
+    except requests.exceptions.Timeout as err:
+        error(f"A Timeout Error occurred: {repr(err)}")
     except requests.exceptions.RequestException as err:
-        print("An Unknown Error occurred" + repr(err))
+        error(f"An Unknown Error occurred: {repr(err)}")
 
 
 def publishDevice(ips, device, log):
@@ -127,7 +126,7 @@ def publishDevice(ips, device, log):
     params = device | log | metadata
 
     for ip in ips:
-        print(f"IP: {ip}")
+        info(f"IP: {ip}")
         postDevice(ip, params)
 
 
@@ -166,9 +165,9 @@ def getDevice():
 
 
 def run():
-    print()
-    print("***** Running PublishDevice script *****")
-    print()
+    info()
+    info("***** Running PublishDevice script *****")
+    info()
 
     apiKey = getApiKey()
     device = getDevice()
@@ -193,7 +192,7 @@ def run():
 
 def outputToConsole(message):
     if consoleOutput:
-        print(message)
+        info(message)
 
 
 if __name__ == "__main__":

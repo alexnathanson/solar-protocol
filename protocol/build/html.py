@@ -258,10 +258,8 @@ def get_pv_value(ip):
             timeout=5,
         )
         if response.status_code == 200:
-            info(response.json)
-            info(response.text)
-            [latest] = response.json
-            return latest.pop()["PV voltage"]
+            [latest] = response.json()
+            return latest["PV voltage"]
     except requests.exceptions.HTTPError:
         error(f"Http Error")
     except requests.exceptions.ConnectionError:
@@ -277,14 +275,14 @@ def getSystem(ip):
     try:
         # returns a single value
         response = requests.get(f"http://{ip}/api/system", timeout=5)
-        return response.json
+        return response.json()
     except requests.exceptions.HTTPError:
         exception(f"HTTP Error")
     except requests.exceptions.ConnectionError:
         exception(f"Connection Error")
-    except requests.exceptions.Timeout as errt:
+    except requests.exceptions.Timeout:
         exception(f"Timeout")
-    except requests.exceptions.RequestException as err:
+    except requests.exceptions.RequestException:
         exception(f"Request Error")
 
 

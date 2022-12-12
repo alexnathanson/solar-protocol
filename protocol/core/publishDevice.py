@@ -16,7 +16,7 @@ import json
 import subprocess
 import os
 import sys
-from logging import error, info
+from logging import error, exception, info
 
 from solar_secrets import getSecret, SecretKey
 
@@ -62,9 +62,8 @@ def getLocal(key):
             device = json.load(file)
             return device[key]
 
-    except err:
-        error(f"local config file exception with key {key}")
-        error(err)
+    except:
+        exception(f"local config file exception with key {key}")
 
 
 """
@@ -105,17 +104,17 @@ def postDevice(ip, params):
         if response.ok:
             info(f"Post to {ip} successful")
         else:
-            error(f"Malformatted response from {ip}", response.text)
-    except json.decoder.JSONDecodeError as err:
-        error(f"JSON decoding error", err)
-    except requests.exceptions.HTTPError as err:
-        error(f"An Http Error occurred: {repr(err)}")
-    except requests.exceptions.ConnectionError as err:
-        error(f"An Error Connecting to the API occurred: {repr(err)}")
-    except requests.exceptions.Timeout as err:
-        error(f"A Timeout Error occurred: {repr(err)}")
-    except requests.exceptions.RequestException as err:
-        error(f"An Unknown Error occurred: {repr(err)}")
+            error(f"Malformatted response from {ip}: {response.text}")
+    except json.decoder.JSONDecodeError:
+        exception(f"JSON Decode Error")
+    except requests.exceptions.HTTPError:
+        exception(f"Http Error")
+    except requests.exceptions.ConnectionError:
+        exception(f"Connection Error")
+    except requests.exceptions.Timeout:
+        exception(f"Timeout")
+    except requests.exceptions.RequestException:
+        exception(f"Request Error")
 
 
 def publishDevice(ips, device, log):

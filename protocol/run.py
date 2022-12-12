@@ -20,7 +20,7 @@ from time import sleep
 from math import trunc
 import datetime
 import sys
-from logging import info, debug, error
+from logging import info, debug, error, exception
 
 SolarProtocol = SolarProtocolClass()
 
@@ -63,41 +63,42 @@ def runScripts(runCount):
 
     try:
         publishDevice.run()
-    except Exception as err:
-        error("publishDevice.py Exception", err)
+    except Exception:
+        exception("publishDevice exception")
         exceptions.append("publishDevice")
 
     # QUESTION: Why do we run solarProtocol before getRemoteData?
     try:
         solarProtocol.run()
-    except Exception as err:
-        error("solarProtocol.py Exception", err)
+    except Exception:
+        exception("solarProtocol exception")
         exceptions.append("solarProtocol")
 
     try:
         getRemoteData.run()
-    except Exception as err:
-        error("getRemoteData.py Exception", err)
+    except Exception:
+        exception("getRemoteData exception")
         exceptions.append("getRemoteData")
 
     if not skipViz:
         try:
             viz.main()
-        except Exception as err:
-            error("viz Exception", err)
+        except Exception:
+            exception("viz exception")
             exceptions.append("viz")
 
     try:
         html.main()
-    except Exception as err:
-        error("html Exception", err)
+    except Exception:
+        exception("html exception")
         exceptions.append("html")
 
     time = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
     info(f"Completed run {str(runCount)} at {time}")
 
     if len(exceptions) > 0:
-        error("Exceptions:", " ".join(exceptions))
+        exceptionString = " ".join(exceptions)
+        error(f"Exceptions: {exceptionString}")
     else:
         info("Exceptions: 0, all good")
 

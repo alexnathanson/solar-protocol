@@ -16,7 +16,7 @@ def determineServer(allValues, myValue):
     If this server has the highest value, update DNS to be point of entry
     """
     if myValue > max(allValues):
-        info("Point of entry", datetime.datetime.now())
+        info(f"Point of entry {datetime.datetime.now()}")
 
         # TODO: allow overwriting host and domain in local.json
         result = updateDNS()

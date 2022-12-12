@@ -10,7 +10,7 @@ import os
 import re
 import sys
 
-from logging import info, debug, error
+from logging import info, debug, error, exception
 
 from solar_secrets import getSecret, SecretKey
 from solar_common import fieldnames
@@ -29,14 +29,14 @@ def getCC(server, key):
         params = {"key": key, "days": days}
         response = requests.get(url=url, params=params, timeout=5)
         return json.loads(response.text)
-    except requests.exceptions.HTTPError as err:
-        error(f"An Http Error occurred: {repr(err)}")
+    except requests.exceptions.HTTPError:
+        exception(f"Http Error")
     except requests.exceptions.ConnectionError:
-        error(f"ConnectionError to {server}")
-    except requests.exceptions.Timeout as err:
-        error(f"TimeoutError: {repr(err)}")
-    except requests.exceptions.RequestException as err:
-        error(f"An Unknown Error occurred {repr(err)}")
+        exception(f"ConnectionError to {server}")
+    except requests.exceptions.Timeout:
+        exception(f"Timeout")
+    except requests.exceptions.RequestException:
+        exception(f"Request Error")
 
 
 # gets power data from charge controller
@@ -93,7 +93,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
             zone = response.text
 
         zone = zone.replace("/", " ")
-        info("ZONE", zone)
+        info(f"ZONE {zone}")
     except Exception as e:
         error("Timezone Exception - TZ n/a")
         zone = "TZ n/a"
@@ -112,7 +112,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         template_filename = f"{templatePath}/{page}"
         output_filename = f"{outputPath}/{page}"
         template_file = open(template_filename).read()
-        info("rendering", template_filename)
+        info(f"rendering {template_filename}")
 
         # this line was changed last, it was: "/templates/"
         template = Environment(loader=FileSystemLoader(templatePath)).from_string(
@@ -258,14 +258,14 @@ def get_pv_value(ip):
         )
         [latest] = response.json
         return latest.pop()["PV voltage"]
-    except requests.exceptions.HTTPError as err:
-        error(f"An Http Error occurred: {repr(err)}")
-    except requests.exceptions.ConnectionError as err:
-        error(f"An Error Connecting to the API occurred: {repr(err)}")
-    except requests.exceptions.Timeout as err:
-        error(f"A Timeout Error occurred: {repr(err)}")
-    except requests.exceptions.RequestException as err:
-        error(f"An Unknown Error occurred: {repr(err)}")
+    except requests.exceptions.HTTPError:
+        error(f"Http Error")
+    except requests.exceptions.ConnectionError:
+        error(f"Connection Error")
+    except requests.exceptions.Timeout:
+        error(f"Timeout")
+    except requests.exceptions.RequestException:
+        error(f"Request Error")
 
 
 # return data from a particular server
@@ -274,14 +274,14 @@ def getSystem(ip):
         # returns a single value
         response = requests.get(f"http://{ip}/api/system", timeout=5)
         return response.json
-    except requests.exceptions.HTTPError as errh:
-        error(f"An Http Error occurred: {repr(errh)}")
-    except requests.exceptions.ConnectionError as errc:
-        error(f"An Error Connecting to the API occurred: {repr(errc)}")
+    except requests.exceptions.HTTPError:
+        exception(f"HTTP Error")
+    except requests.exceptions.ConnectionError:
+        exception(f"Connection Error")
     except requests.exceptions.Timeout as errt:
-        error(f"A Timeout Error occurred: {repr(errt)}")
+        exception(f"Timeout")
     except requests.exceptions.RequestException as err:
-        error(f"An Unknown Error occurred: {repr(err)}")
+        exception(f"Request Error")
 
 
 def download_file(url, local_filename=None):

@@ -17,7 +17,7 @@ import requests
 import json
 from json.decoder import JSONDecodeError
 
-from logging import debug, error, info
+from logging import debug, info
 
 w = 1500
 h = 1500
@@ -63,16 +63,16 @@ def getChargeControllerValues(server):
         cc = requests.get(url, params, timeout=5)
         cc.json()
         return json.loads(cc.text)
-    except JSONDecodeError as err:
-        error(f"A JSON decode error: {repr(err)}")
-    except requests.exceptions.HTTPError as err:
-        error(f"An Http Error occurred: {repr(err)}")
+    except JSONDecodeError:
+        exception(f"JSON Decode Rrror")
+    except requests.exceptions.HTTPError:
+        exception(f"Http Error")
     except requests.exceptions.ConnectionError:
-        error(f"Connection error to: {server}")
-    except requests.exceptions.Timeout as err:
-        error(f"A Timeout Error occurred: {repr(err)}")
-    except requests.exceptions.RequestException as err:
-        error(f"An Unknown Error occurred: {repr(err)}")
+        exception(f"Connection Error to {server}")
+    except requests.exceptions.Timeout:
+        exception(f"Timeout")
+    except requests.exceptions.RequestException:
+        exception(f"Request Error")
 
 
 # Call API for every IP address and get charge controller data
@@ -86,14 +86,14 @@ def getSystem(server, key):
         info(f"{server} {key}: {systemInfo}")
 
         return systemInfo
-    except requests.exceptions.HTTPError as err:
-        error(f"An Http Error occurred: {repr(err)}")
+    except requests.exceptions.HTTPError:
+        exception(f"Http Error")
     except requests.exceptions.ConnectionError:
-        error(f"Timed out connecting to {server}")
-    except requests.exceptions.Timeout as errt:
-        error(f"A Timeout Error occurred: {repr(errt)}")
-    except requests.exceptions.RequestException as err:
-        error(f"An Unknown Error occurred {repr(err)}")
+        exception(f"Connection Error to {server}")
+    except requests.exceptions.Timeout:
+        exception(f"Timeout")
+    except requests.exceptions.RequestException:
+        exception(f"Request Error")
 
 
 # drawing the sunshine data (yellow)

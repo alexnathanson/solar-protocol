@@ -17,7 +17,7 @@ import requests
 import json
 from json.decoder import JSONDecodeError
 
-from logging import debug, info
+from logging import debug, exception, info
 
 w = 1500
 h = 1500
@@ -77,7 +77,7 @@ def getChargeControllerValues(server):
 
 # Call API for every IP address and get charge controller data
 def getSystem(server, key):
-    url = f"http://{server}/api/system"
+    url = f"https://{server}/api/system"
     params = {"key": key}
     try:
         systemInfo = requests.get(url=url, params=params, timeout=5)

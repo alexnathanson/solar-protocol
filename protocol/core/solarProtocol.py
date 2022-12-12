@@ -6,7 +6,8 @@ If the local device is producing the most power, it becomes the Point of Entry (
 Otherwise, the script changes nothing.
 """
 import datetime
-from logging import info
+import logging
+from logging import error, info
 import sys
 from solar_secrets import getSecret, SecretKey
 

@@ -1,6 +1,6 @@
 """
 Every server runs this script
-This collects the photovoltaic data from remote servers via the /charge api endpoint
+This collects the photovoltaic data from remote servers via the /charge-controller api endpoint
 The purpose of this is minimize the amount of on the fly API calls
 """
 

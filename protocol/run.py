@@ -117,7 +117,7 @@ def getFrequency():
     Set how frequent the script should run various functions
     """
 
-    url = "http://localhost/api/charge?key=battery-percentage"
+    url = "http://localhost/api/charge-controller?key=battery-percentage"
 
     try:
         [latest] = json.loads(SolarProtocol.getRequest(url))
@@ -139,7 +139,7 @@ def solarScaler():
     if 0w (i.e. no sun) the frequency slows down by 2
     """
 
-    url = "http://localhost/api/charge?key=scaled-wattage"
+    url = "http://localhost/api/charge-controller?key=scaled-wattage"
 
     try:
         [latest] = json.loads(SolarProtocol.getRequest(url))

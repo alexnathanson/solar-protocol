@@ -87,7 +87,6 @@ def handle_exit(sig, frame):
 
 
 signal.signal(signal.SIGINT, handle_exit)
-signal.signal(signal.SIGKILL, handle_exit)
 
 while True:
     writeOrAppend(read())

@@ -27,7 +27,7 @@ def run():
     macs = solarProtocol.getDeviceValues("mac")
 
     # get local server name
-    myMAC = solarProtocol.getMAC(solarProtocol.MACinterface).strip()
+    myMAC = solarProtocol.getMAC()
     myName = ""
 
     for index, mac in enumerate(macs):

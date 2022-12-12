@@ -11,17 +11,20 @@ import sys
 from solar_secrets import getSecret, SecretKey
 
 
-def determineServer(allValues, myValue, solarProtocol):
+def determineServer(allValues, myValue, myIP):
     """
     If this server has the highest value, update DNS to be point of entry
     """
     if myValue > max(allValues):
         info("Point of entry", datetime.datetime.now())
 
-        secretkey = SecretKey.dnsPassword
-        key = getSecret(secretkey)
-        result = solarProtocol.updateDNS(solarProtocol.myIP, key)
-        info(result)
+        dnsPassword = getSecret(SecretKey.dnsPassword)
+
+        # post to self for updating dns
+        params={"ip": myIP, "password": dnsPassword}
+        result = requests.post(url="http://api/ip", params=params)
+
+        info(result.text)
     else:
         info("Not point of entry")
 
@@ -47,12 +50,13 @@ def run():
     ips = solarProtocol.getDeviceValues("ip")
     macs = solarProtocol.getDeviceValues("macs")
     scaledWattages = getLatestScaledWattagesFor(ips, solarProtocol)
+    myIP = solarProtocol.myIP
 
     # If we are in the device list, check if we should update the point of entry
     myMAC = solarProtocol.getMAC(solarProtocol.MACinterface)
     if myMAC in macs:
         myScaledWattage = scaledWattages[macs.index(myMAC)]
-        determineServer(scaledWattages, myScaledWattage, solarProtocol)
+        determineServer(scaledWattages, myScaledWattage, myIP)
 
 
 if __name__ == "__main__":

@@ -30,8 +30,6 @@ class SolarProtocol:
         self.localConfigData = dict()
         self.loadLocalConfigFile()
         self.myIP = requests.get("http://api/api/myip").text
-        # dns.solarprotocol.net isn't redirecting properly so we're using the below url for the time being
-        self.dnsURL = "http://api/"
         self.MACinterface = "wlan0"  # this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 
     # load in data from config file
@@ -96,12 +94,6 @@ class SolarProtocol:
             error(err)
         except err:
             error(err)
-
-    # updates dns by posting to self
-    def updateDNS(self, ip, key):
-        return requests.post(
-            url=f"{self.dnsURL}/api", params={"ip": ip, "key": key}
-        ).text
 
     """
 	returns the specified value from the device list file

@@ -20,6 +20,9 @@ import json
 import subprocess
 import sys
 import os
+import fcntl
+import socket
+import struct
 from logging import debug, error, info
 
 

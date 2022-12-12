@@ -62,8 +62,9 @@ def getLocal(key):
             device = json.load(file)
             return device[key]
 
-    except:
+    except err:
         error(f"local config file exception with key {key}")
+        error(err)
 
 
 """

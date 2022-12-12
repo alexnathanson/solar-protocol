@@ -32,7 +32,7 @@ def run():
     runCount = 0
 
     run_now = len(sys.argv) > 1 and sys.argv[1] == "now"
-    delay_seconds = 0 if run_now else one_minute_in_seconds
+    seconds = 0 if run_now else one_minute_in_seconds
 
     info("Sleeping {seconds} seconds")
     sleep(seconds)

@@ -60,7 +60,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
     debug(_data)
     debug(_local_data)
 
-    templatePath = f"./templates"
+    templatePath = f"/protocol/build/templates"
     outputPath = f"/frontend"
 
     pages = [
@@ -111,8 +111,6 @@ def render_pages(_local_data, _data, _weather, _server_data):
     for page in pages:
         template_filename = f"{templatePath}/{page}"
         output_filename = f"{outputPath}/{page}"
-        debug(f"cwd = {os.getcwd()}")
-
 
         template_file = open(template_filename).read()
         info(f"rendering {template_filename}")

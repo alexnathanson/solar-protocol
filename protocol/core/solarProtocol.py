@@ -58,6 +58,7 @@ def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
         solarProtocol.getRequest(f"http://{ip}/charge?key='scaled wattage'")
         for ip in ips
     ]
+    info(scaled_wattages)
     return [latest.pop()["scaled wattage"] for latest in scaled_wattages]
 
 

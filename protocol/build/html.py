@@ -258,6 +258,8 @@ def get_pv_value(ip):
             timeout=5,
         )
         if response.status_code == 200:
+            info(response.json)
+            info(response.text)
             [latest] = response.json
             return latest.pop()["PV voltage"]
     except requests.exceptions.HTTPError:

@@ -30,6 +30,7 @@ def getmac(interface: str = "wlan0"):
     try:
         mac = open(f"/sys/class/net/{interface}/address").readline()
     except:
+        exception(f"could not find interface mac, falling back to 00::00")
         mac = "00:00:00:00:00:00"
 
     return mac
@@ -57,10 +58,17 @@ def getPoeLog():
 
 
 def getLocal(key):
+    defaults = {
+        interface: "wlan0",
+        httpPort: "80",
+    }
     try:
         with open(localConfig) as file:
             device = json.load(file)
-            return device[key]
+            if key in device:
+                return device[key]
+            if key in defaults:
+                return defaults[key]
 
     except:
         exception(f"local config file exception with key {key}")
@@ -131,16 +139,16 @@ def publishDevice(ips, device, log):
 
 
 def getApiKey():
-    return "this-will-fail"
-
     return getSecret(SecretKey.apiKey)
 
 
 def getDevice():
     # FIXME: should we remove server. to make fully p2p?
     ip = requests.get("https://server.solarpowerforartists.com/?myip").text
-    httpPort = getLocal("httpPort") or "80"
-    MAC = getmac("wlan0")  # change to eth0 if using an ethernet cable
+    httpPort = getLocal("httpPort")
+
+    interface = getLocal("interface")
+    MAC = getmac(interface)
 
     name = getLocal("name")
     # only allow alphanumeric, space, and _ characters
@@ -148,11 +156,6 @@ def getDevice():
 
     # get my timezone
     tz = os.environ["TZ"] if "TZ" in os.environ else "America/New_York"
-
-    device = {
-        "api_key": str(api_key),
-        "stamp": str(time.time()),
-    }
 
     return {
         "ip": ip,

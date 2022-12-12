@@ -16,6 +16,9 @@ import json
 import subprocess
 import os
 import sys
+import fcntl
+import socket
+import struct
 from logging import error, exception, info
 
 from solar_secrets import getSecret, SecretKey
@@ -24,16 +27,10 @@ poeLog = "/data/poe.log"
 localConfig = "/local/local.json"
 deviceList = "/data/devices.json"
 
-# this only works with linux
-# FIXME: there is a problem using 00:00 as a duplicate identifier
-def getmac(interface: str = "wlan0"):
-    try:
-        mac = open(f"/sys/class/net/{interface}/address").readline()
-    except:
-        exception(f"could not find interface mac, falling back to 00::00")
-        mac = "00:00:00:00:00:00"
-
-    return mac
+def getMAC(interface: str = "wlan0"):
+    temp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    info = fcntl.ioctl(temp_socket.fileno(), 0x8927,  struct.pack('256s', bytes(interface, 'utf-8')[:15]))
+    return ':'.join('%02x' % byte for byte in info[18:24])
 
 
 def getDevices(key: str):
@@ -148,7 +145,7 @@ def getDevice():
     httpPort = getLocal("httpPort")
 
     interface = getLocal("interface")
-    MAC = getmac(interface)
+    MAC = getMAC(interface)
 
     name = getLocal("name")
     # only allow alphanumeric, space, and _ characters
@@ -159,7 +156,7 @@ def getDevice():
 
     return {
         "ip": ip,
-        "httpPort": myHttpPort,
+        "httpPort": httpPort,
         "mac": mac,
         "name": name,
         "tz": tz,

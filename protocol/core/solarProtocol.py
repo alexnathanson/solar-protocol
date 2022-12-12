@@ -59,7 +59,8 @@ def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
         for ip in ips
     ]
     info(scaled_wattages)
-    return [latest.pop()["scaled wattage"] for latest in scaled_wattages]
+    info("tried to get latest")
+    return [latest["scaled wattage"] for latest in scaled_wattages]
 
 
 def run():

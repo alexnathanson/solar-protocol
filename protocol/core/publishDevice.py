@@ -59,8 +59,8 @@ def getPoeLog():
 
 def getLocal(key):
     defaults = {
-        interface: "wlan0",
-        httpPort: "80",
+        "interface": "wlan0",
+        "httpPort": "80",
     }
     try:
         with open(localConfig) as file:

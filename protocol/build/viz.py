@@ -429,10 +429,10 @@ def main():
     surface.get_npimage()  # returns a (width x height x 3) numpy array
     surface.write_to_png(f"{assetsPath}/clock.png")
 
-    background = Image.open("{assetsPath}/3day-diagram-with-key.png")
-    exhibitionbackground = Image.open("{assetsPath}/3day-diagram.png")
-    foreground = Image.open("{assetsPath}/clock.png")
-    mask = Image.open("{assetsPath}/mask.png").resize(background.size).convert("L")
+    background = Image.open("f{assetsPath}/3day-diagram-with-key.png")
+    exhibitionbackground = Image.open(f"{assetsPath}/3day-diagram.png")
+    foreground = Image.open(f"{assetsPath}/clock.png")
+    mask = Image.open(f"{assetsPath}/mask.png").resize(background.size).convert("L")
 
     # create the website clock
     background.paste(foreground, (0, 0), mask)

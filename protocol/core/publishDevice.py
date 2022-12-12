@@ -74,7 +74,7 @@ FIXME: lets discuss exactly how chatty this is
 
 def discoverIps():
     ips = getDevices("ip")
-    macs = getDevices("macs")
+    macs = getDevices("mac")
 
     all_devices = []
 

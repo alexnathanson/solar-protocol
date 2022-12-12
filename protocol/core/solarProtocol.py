@@ -70,7 +70,7 @@ def run():
 
     # get all ips, mac addresses, and apiValues for devices in the device list
     ips = solarProtocol.getDeviceValues("ip")
-    macs = solarProtocol.getDeviceValues("macs")
+    macs = solarProtocol.getDeviceValues("mac")
     scaledWattages = getLatestScaledWattagesFor(ips, solarProtocol)
 
     # If we are in the device list, check if we should update the point of entry

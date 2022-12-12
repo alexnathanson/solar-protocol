@@ -147,7 +147,7 @@ def getDevice():
     name = re.sub("[^A-Za-z0-9_ ]+", "", name)
 
     # get my timezone
-    tz = requests.get(f"http://localhost:{httpPort}/system", params={"key": "tz"}).text
+    tz = os.environ["TZ"] if "TZ" in os.environ else "America/New_York"
 
     device = {
         "api_key": str(api_key),

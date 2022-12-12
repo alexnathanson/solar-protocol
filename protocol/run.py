@@ -27,6 +27,7 @@ SolarProtocol = SolarProtocolClass()
 one_minute = 60
 MAX_FREQUENCY = one_minute
 
+
 def run():
     info("***** Solar Protocol Runner Started ******")
 

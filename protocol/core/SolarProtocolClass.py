@@ -22,6 +22,7 @@ import sys
 import os
 from logging import debug, error, info
 
+
 class SolarProtocol:
     def __init__(self):
         self.localConfigFile = "/local/local.json"

@@ -77,7 +77,7 @@ def getChargeControllerValues(server):
 
 # Call API for every IP address and get charge controller data
 def getSystem(server, key):
-    url = f"https://{server}/api/system"
+    url = f"http://{server}/api/system"
     params = {"key": key}
     try:
         systemInfo = requests.get(url=url, params=params, timeout=5)

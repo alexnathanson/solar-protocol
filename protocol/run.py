@@ -49,7 +49,7 @@ def run():
             loopFrequency = getFrequency()
             info(f"Loop frequency: {str(loopFrequency)} minutes")
             scaler = solarScaler()
-        sleep(one_minute_in_seconds)
+        sleep(one_minute)
 
 
 def runScripts(runCount):

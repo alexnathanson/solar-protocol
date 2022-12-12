@@ -154,6 +154,8 @@ def getDevice():
     # get my timezone
     tz = os.environ["TZ"] if "TZ" in os.environ else "America/New_York"
 
+    log = getPoeLog()
+
     return {
         "ip": ip,
         "httpPort": httpPort,

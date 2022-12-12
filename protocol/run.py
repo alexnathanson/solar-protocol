@@ -22,9 +22,10 @@ import datetime
 import sys
 from logging import info, debug, error
 
-MAX_FREQUENCY = 60
 SolarProtocol = SolarProtocolClass()
-one_minute_in_seconds = 60
+
+one_minute = 60
+MAX_FREQUENCY = one_minute
 
 def run():
     info("***** Solar Protocol Runner Started ******")
@@ -32,9 +33,9 @@ def run():
     runCount = 0
 
     run_now = len(sys.argv) > 1 and sys.argv[1] == "now"
-    seconds = 0 if run_now else one_minute_in_seconds
+    seconds = 0 if run_now else one_minute
 
-    info("Sleeping {seconds} seconds")
+    info(f"Sleeping {seconds} seconds")
     sleep(seconds)
 
     while True:

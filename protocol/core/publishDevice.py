@@ -166,9 +166,7 @@ def getDevice():
 
 
 def run():
-    info()
     info("***** Running PublishDevice script *****")
-    info()
 
     apiKey = getApiKey()
     device = getDevice()

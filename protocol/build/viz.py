@@ -358,9 +358,7 @@ def getEnergyFor(ip):
 
 # -------------- PROGRAM --------------------------------------------------------------------------------
 def main():
-    info()
     info("***** Running viz.py ******")
-    info()
 
     ips = getDeviceInfo("ip")
     logs = getDeviceInfo("log")

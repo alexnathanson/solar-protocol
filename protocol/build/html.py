@@ -392,10 +392,7 @@ def getLocalWeatherFor(lon, lat):
 
 
 def main():
-
-    info()
     info("***** Running html.py *****")
-    info()
 
     # 1. get IP list of addresses
     deviceList_data = get_ips()

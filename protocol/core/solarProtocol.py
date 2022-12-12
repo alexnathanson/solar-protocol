@@ -61,9 +61,7 @@ def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
 
 
 def run():
-    info()
     info("***** Running Solar Protocol script *****")
-    info()
 
     solarProtocol = SolarProtocolClass()
 

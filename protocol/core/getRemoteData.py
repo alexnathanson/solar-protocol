@@ -17,9 +17,7 @@ os.chdir(sys.path[0])  # if this script is called from a different directory
 
 
 def run():
-    info()
     info("***** Running GET Remote Data script *****")
-    info()
 
     # initialize SolarProtocolClass
     solarProtocol = SolarProtocolClass()

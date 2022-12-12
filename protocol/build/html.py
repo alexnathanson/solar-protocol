@@ -355,7 +355,7 @@ def makeLinkFor(name: str, status: str):
     return f"<a href='{serverURL}'>{serverURL}</a>"
 
 
-def getServerDataFor(ip: str, name: str):
+def getServerDataFor(name: str, ip: str):
     try:
         [system] = getSystem(ip)
         debug(system)
@@ -400,7 +400,9 @@ def main():
     debug(deviceList_data)
 
     # 2 Collect data from all the difference servers on the network
-    server_data = [getServerDataFor(name, ip) for name, ip in deviceList_data.items()]
+    server_data = [
+        getServerDataFor(name=name, ip=ip) for name, ip in deviceList_data.items()
+    ]
 
     # 3. get solar data and add it to server_data
     for itemNumber, item in enumerate(server_data):

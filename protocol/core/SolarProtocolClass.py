@@ -29,7 +29,6 @@ class SolarProtocol:
         # this script retrieves the environmental variables
         self.localConfigData = dict()
         self.loadLocalConfigFile()
-        self.myIP = requests.get("http://api/api/myip").text
         self.MACinterface = "wlan0"  # this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 
     # load in data from config file

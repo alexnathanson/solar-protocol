@@ -18,7 +18,6 @@ from solar_common import fieldnames
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
 serverNames = []
-myIP = " "
 days = 3
 
 
@@ -242,27 +241,11 @@ def getDeviceInfo(getKey):
 
 
 def get_ips():
-    # FIXME: should we remove the server. and be fully p2p?
-    myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
-
     ips = getDeviceInfo("ip")
     serverNames = getDeviceInfo("name")
 
     devices = dict(zip(serverNames, ips))
     return devices
-
-
-def active_servers(ip):
-    try:
-        x = requests.get(f"http://{ip}/local", timeout=5)
-    except requests.exceptions.HTTPError as err:
-        error(f"An Http Error occurred: {repr(err)}")
-    except requests.exceptions.ConnectionError as err:
-        error(f"An Error Connecting to the API occurred: {repr(err)}")
-    except requests.exceptions.Timeout as err:
-        error(f"A Timeout Error occurred: {repr(err)}")
-    except requests.exceptions.RequestException as err:
-        error(f"An Unknown Error occurred: {repr(err)}")
 
 
 # Call API for every IP address and get charge controller data
@@ -319,9 +302,6 @@ def check_images(server_data):
         filename = filename.replace(" ", "-")
         fullpath = "/frontend/images/servers/{filename}"
         filepath = "images/servers/{filename}"
-
-        myIP = requests.get("https://server.solarpowerforartists.com/?myip").text
-        debug("myIP", myIP)
 
         if "ip" in server:
             ip = server["ip"]

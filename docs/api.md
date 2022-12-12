@@ -43,13 +43,11 @@ Python Example
 
 ```python
 import requests
+api = "http://solarprotocol.net/api"
 
-headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-}
-
-myString = "api_key="+apiKey+"&stamp="+str(time.time())+"&ip="+myIP+"&mac="+myMAC+"&name="+myName
-x = requests.post('http://www.mywebsite.xyz/api/charge-controller', headers=headers,data = myString)
+params = { apiKey, mac: myMAC, name: myName }
+response = requests.post(f"{api}/charge-controller', params=params)
+print(response.text)
 ```
 
 ## charge-controller

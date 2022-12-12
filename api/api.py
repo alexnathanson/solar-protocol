@@ -235,38 +235,10 @@ def getDNSKey():
         return readline()
 
 
-@app.get("/api/allowlist")
-def allowlist():
-    with open("/data/allowlist.json") as allowlistfile:
-        return json.load(allowlistfile)
-
-
 @app.get("/api/blocklist")
 def blocklist():
     with open("/data/blocklist.json") as blocklistfile:
         return json.load(blocklistfile)
-
-
-@app.post("/api/ip")
-def updateDNS(password: str, ip: str, host: str = "beta", domain: str = "solarprotocol.net"):
-    name = verifyPasswordAndReturnName(key)
-
-    params = {host, domain, password, ip}
-
-    response = request.get(
-        "https://dynamicdns.park-your-domain.com/update", params=params
-    )
-    if response.status == 200:
-        updatePoeLog(name, ip)
-    return response
-
-
-def verifyPasswordAndReturnName(key: str):
-    for name, hash in allowList():
-        if key == hash:
-            return name
-
-    raise Exception("Incorrect password")
 
 
 def updatePoeLog(name: str, ip: str):

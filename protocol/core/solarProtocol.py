@@ -11,22 +11,45 @@ import sys
 from solar_secrets import getSecret, SecretKey
 
 
-def determineServer(allValues, myValue, myIP):
+def determineServer(allValues, myValue):
     """
     If this server has the highest value, update DNS to be point of entry
     """
     if myValue > max(allValues):
         info("Point of entry", datetime.datetime.now())
 
-        dnsPassword = getSecret(SecretKey.dnsPassword)
+        # TODO: allow overwriting host and domain in local.json
+        result = updateDNS()
 
-        # post to self for updating dns
-        params={"ip": myIP, "password": dnsPassword}
-        result = requests.post(url="http://api/ip", params=params)
-
-        info(result.text)
+        info(result)
     else:
         info("Not point of entry")
+
+
+# TODO: we should probably sanitize this name
+def getName():
+    filename = f"/local/local.json"
+
+    with open(filename, "r") as jsonfile:
+        localData = json.load(jsonfile)
+        return localData["name"]
+
+    error("Problem finding name")
+
+
+def updateDNS(host: str = "beta", domain: str = "solarprotocol.net"):
+    password = getSecret(SecretKey.dnsPassword)
+
+    params = {host, domain, password}
+    url = "https://dynamicdns.park-your-domain.com/update"
+
+    response = request.get(url=url, params=params)
+
+    if response.status == 200:
+        name = getName()
+        updatePoeLog(name, ip)
+
+    return response.text
 
 
 def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
@@ -50,13 +73,12 @@ def run():
     ips = solarProtocol.getDeviceValues("ip")
     macs = solarProtocol.getDeviceValues("macs")
     scaledWattages = getLatestScaledWattagesFor(ips, solarProtocol)
-    myIP = solarProtocol.myIP
 
     # If we are in the device list, check if we should update the point of entry
     myMAC = solarProtocol.getMAC(solarProtocol.MACinterface)
     if myMAC in macs:
         myScaledWattage = scaledWattages[macs.index(myMAC)]
-        determineServer(scaledWattages, myScaledWattage, myIP)
+        determineServer(scaledWattages, myScaledWattage)
 
 
 if __name__ == "__main__":

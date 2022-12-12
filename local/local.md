@@ -1,19 +1,23 @@
 # Local Directory
 
-This directory gets moved to home/pi/local
+This directory contains settings that are unique to each server
 
 ## local.json
 
-This store local variables. It can be updated as needed via the admin console.
+### httpPort [number]
 
-## .spenv
+if you need to change the port you are serving from
 
-This file stores network and DNS passwords
+### interface [wlan0 | eth0]
 
-## access.json
+How the server connects to the internet. Defaults to `wlan0` but change to `eth0` if you are wired in.
 
-This file holds the user names and hashes that can access the admin console for the particular server its running on
+## secrets.json
 
-## www
+### apiKey
 
-The steward's personal pages and media are located in this directory
+What key other servers should use to access your server's api
+
+### dnsPassword
+
+Needed for updating dns entries

@@ -226,8 +226,8 @@ def sortPOE(logs, timeZones, myTimeZone):
             percent = dfPOE["percent"].iloc[t]
             dfPOE.at[t, "angle"] = 360 - (percent * 360)
 
-    debug("head", dfPOE.head())
-    debug("tail", dfPOE.tail())
+    debug(f"head {dfPOE.head()}")
+    debug(f"tail {dfPOE.tail()}")
 
 
 def tzOffset(checkTZ, myTimeZone):

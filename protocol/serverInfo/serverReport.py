@@ -218,7 +218,7 @@ def parseServerStatus(autoStatus):
         else:
             statusDict["URL"] = line.replace("\n", "").strip()
 
-    debug("server status", statusDict.keys())
+    debug("server status {statusDict.keys()}")
 
     return statusDict
 

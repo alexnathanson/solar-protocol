@@ -57,8 +57,8 @@ def read_csv():
 
 
 def render_pages(_local_data, _data, _weather, _server_data):
-    debug(_data, "_data")
-    debug(_local_data, "_local_data")
+    debug(_data)
+    debug(_local_data)
 
     templatePath = f"./templates"
     outputPath = f"/frontend"
@@ -111,6 +111,9 @@ def render_pages(_local_data, _data, _weather, _server_data):
     for page in pages:
         template_filename = f"{templatePath}/{page}"
         output_filename = f"{outputPath}/{page}"
+        debug(f"cwd = {os.getcwd()}")
+
+
         template_file = open(template_filename).read()
         info(f"rendering {template_filename}")
 
@@ -320,8 +323,8 @@ def check_images(server_data):
                 image_path = f"http://{ip}/serverprofile.gif"
                 try:
                     download_file(image_path, fullpath)
-                    debug("image_path", image_path)
-                    debug("local_path", fullpath)
+                    debug(image_path)
+                    debug(local_path)
                 except Exception as e:
                     error(f"{name}: Offline. Can't get image")
             server["image_path"] = filepath
@@ -331,12 +334,12 @@ def getFormattedTimestampFor(itemNumber):
     try:
         timestamps = getDeviceInfo("timestamp")
         timestamp = timestamps[itemNumber]
-        debug(timestamp, "timestamp")
+        debug(timestamp)
 
         formattedTimestamp = datetime.datetime.fromtimestamp(timestamp).strftime(
             "%m/%d/%Y %H:%M:%S"
         )
-        debug(formattedTimestamp, "formattedTimestamp")
+        debug(formattedTimestamp)
         return formattedTimestamp
 
     except Exception:
@@ -396,7 +399,7 @@ def main():
 
     # 1. get IP list of addresses
     deviceList_data = get_ips()
-    debug(deviceList_data, "deviceList_data")
+    debug(deviceList_data)
 
     # 2 Collect data from all the difference servers on the network
     server_data = [getServerDataFor(name, ip) for name, ip in deviceList_data.items()]
@@ -409,12 +412,12 @@ def main():
         item["link"] = makeLinkFor(item["name"], item["status"])
 
     # 4. get images and render pages
-    debug(server_data, "server_data")
+    debug(server_data)
     local_data = get_local()
-    debug(local_data, "local_data")
+    debug(local_data)
     check_images(server_data)
     energy_data = read_csv()  # get pv data from local csv
-    debug(energy_data, "energy")
+    debug(energy_data)
     local_weather = getLocalWeatherFor(local_data["lon"], local_data["lat"])
 
     render_pages(local_data, energy_data, local_weather, server_data)

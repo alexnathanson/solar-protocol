@@ -80,19 +80,12 @@ class SolarProtocol:
     def getMAC(self):
         interface = self.localConfigData["interface"]
         temp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        info = fcntl.ioctl(temp_socket.fileno(), 0x8927,  struct.pack('256s', bytes(interface, 'utf-8')[:15]))
-        return ':'.join('%02x' % byte for byte in info[18:24])
-
-    def getRequest(self, url):
-        try:
-            response = requests.get(url, timeout=5)
-            return response.text
-        except requests.exceptions.HTTPError:
-            exception("HTTP Error")
-        except requests.exceptions.Timeout:
-            exception("Timeout")
-        except:
-            exception("Unknown Error")
+        info = fcntl.ioctl(
+            temp_socket.fileno(),
+            0x8927,
+            struct.pack("256s", bytes(interface, "utf-8")[:15]),
+        )
+        return ":".join("%02x" % byte for byte in info[18:24])
 
     """
 	returns the specified value from the device list file

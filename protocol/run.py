@@ -19,6 +19,7 @@ from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 from time import sleep
 from math import trunc
 import datetime
+import requests
 import sys
 from logging import info, debug, error, exception
 
@@ -117,10 +118,12 @@ def getFrequency():
     Set how frequent the script should run various functions
     """
 
-    url = "http://localhost/api/charge-controller?key=battery-percentage"
+    url = "http://localhost/api/charge-controller"
+    params = {"key": "battery percentage"}
 
     try:
-        [latest] = json.loads(SolarProtocol.getRequest(url))
+        response = requests.get(url=url, params=params)
+        [latest] = response.json()
         battery_percentage = latest.battery_percentage
         return 10 if battery_percentage > 0.9 else None
         return 15 if battery_percentage > 0.7 else None
@@ -139,10 +142,12 @@ def solarScaler():
     if 0w (i.e. no sun) the frequency slows down by 2
     """
 
-    url = "http://localhost/api/charge-controller?key=scaled-wattage"
+    url = "http://localhost/api/charge-controller"
+    params = {"key": "scaled wattage"}
 
     try:
-        [latest] = json.loads(SolarProtocol.getRequest(url))
+        response = requests.get(url=url, params=params)
+        [latest] = response.json()
         scaled_wattage = latest.scaled_wattage
         return 1 if scaled_wattage >= 6.0 else None
         return 1 + (1 - (scaled_wattage / 5.0)) if scaled_wattage >= 0.0 else None

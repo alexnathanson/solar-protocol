@@ -8,6 +8,7 @@ Otherwise, the script changes nothing.
 import datetime
 import logging
 from logging import error, info
+import requests
 import sys
 from solar_secrets import getSecret, SecretKey
 
@@ -54,12 +55,17 @@ def updateDNS(host: str = "beta", domain: str = "solarprotocol.net"):
 
 
 def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
-    scaled_wattages = [
-        solarProtocol.getRequest(f"http://{ip}/api/charge-controller?key='scaled wattage'")
-        for ip in ips
-    ]
+    params = {"key": "scaled wattage"}
+    scaled_wattages = []
+
+    for ip in ips:
+        url = f"http://{ip}/api/charge-controller"
+        response = requests.get(url=url, params=params)
+        [latest] = response.json()
+        scaled_wattages.push(latest["scaled wattage"])
+
     error(scaled_wattages)
-    return [latest.pop()["scaled wattage"] for latest in scaled_wattages]
+    return scaled_wattages
 
 
 def run():

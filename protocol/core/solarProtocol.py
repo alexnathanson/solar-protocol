@@ -55,9 +55,10 @@ def updateDNS(host: str = "beta", domain: str = "solarprotocol.net"):
 
 def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
     scaled_wattages = [
-        solarProtocol.getRequest(f"http://{ip}/charge-controller?key='scaled wattage'")
+        solarProtocol.getRequest(f"http://{ip}/api/charge-controller?key='scaled wattage'")
         for ip in ips
     ]
+    error(scaled_wattages)
     return [latest.pop()["scaled wattage"] for latest in scaled_wattages]
 
 

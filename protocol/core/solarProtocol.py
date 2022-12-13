@@ -62,7 +62,7 @@ def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
         url = f"http://{ip}/api/charge-controller"
         response = requests.get(url=url, params=params)
         [latest] = response.json()
-        scaled_wattages.push(latest["scaled wattage"])
+        scaled_wattages.append(latest["scaled wattage"])
 
     error(scaled_wattages)
     return scaled_wattages

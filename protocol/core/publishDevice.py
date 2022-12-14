@@ -147,7 +147,11 @@ def getApiKey():
 
 def getDevice():
     # FIXME: should we remove server. to make fully p2p?
-    ip = requests.get("https://server.solarpowerforartists.com/?myip").text
+    try:
+        ip = requests.get("http://server.solarprotocol.com/?myip").text
+    except:
+        ip = "127.0.0.1"
+
     httpPort = getLocal("httpPort")
 
     mac = getMAC()

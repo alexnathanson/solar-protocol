@@ -152,7 +152,7 @@ def devices(key: Union[DeviceKeys, None] = None):
         devices = json.load(jsonfile)
 
     if key == None:
-        return [{key: device[key] for key in DeviceKeys} for device in devices]
+        return [{key: device[key] or "" for key in DeviceKeys} for device in devices]
 
     return [{key: device[key]} for device in devices]
 

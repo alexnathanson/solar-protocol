@@ -4,6 +4,7 @@
     "ip": "api",
     "tz": "America/New_York",
     "httpPort": 80,
+    "mac": "12:34:56:78:90:AB",
     "timestamp": "1665683645.3203902",
     "name": "Local Dev Server",
     "log": [ 1667332471.899225 ]

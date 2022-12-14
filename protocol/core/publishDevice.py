@@ -91,7 +91,9 @@ def discoverIps():
 
     for ip in ips:
         devices = requests.get(f"http://{ip}/api/devices").json()
-        all_devices.append(devices)
+        all_devices.extend(devices)
+
+    info(all_devices)
 
     all_macs = {device["mac"] for device in all_devices}
     local_macs = {macs}

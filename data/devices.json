@@ -3,6 +3,7 @@
     "mac": "dc:a6:32:31:82:94",
     "ip": "api",
     "tz": "America/New_York",
+    "httpPort": 80,
     "timestamp": "1665683645.3203902",
     "name": "Local Dev Server",
     "log": [ 1667332471.899225 ]

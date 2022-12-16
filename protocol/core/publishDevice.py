@@ -110,8 +110,6 @@ def discoverIps():
 def postDevice(ip, data):
     url = f"http://{ip}/api/device"
 
-    error(data)
-
     try:
         response = requests.post(url=url, data=data, timeout=5)
         if response.ok:

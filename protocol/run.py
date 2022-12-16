@@ -26,11 +26,11 @@ SolarProtocol = SolarProtocolClass()
 def run():
     info("***** Solar Protocol Runner Started ******")
 
-    runCount = 0
-
     # Wait for the api to be ready
-    requests.get(f"http://api:11221/api/devices", timeout=None)
+    requests.get(f"http://api/api/devices", timeout=None)
+    info("api ready")
 
+    runCount = 0
     while True:
         if runCount == 0 or getElapsedTime(timeOfRun) % (loopFrequency * scaler) == 0:
             timeOfRun = datetime.datetime.now()

@@ -106,16 +106,16 @@ def discoverIps():
     return new_ips
 
 
-def postDevice(ip, params):
+def postDevice(ip, data):
     url = f"http://{ip}/api/device"
-    headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
     try:
-        response = requests.post(url=url, headers=headers, params=params, timeout=5)
+        response = requests.post(url=url, data=data, timeout=5)
         if response.ok:
             info(f"Post to {ip} successful")
         else:
-            error(f"Malformatted response from {ip}: {response.text}")
+            error(f"Malformed response from {ip}")
+            error(response.json())
     except json.decoder.JSONDecodeError:
         exception(f"JSON Decode Error")
     except requests.exceptions.HTTPError:
@@ -181,12 +181,13 @@ def getDevice():
 def run():
     info("***** Running PublishDevice script *****")
 
-    selfIps = ["localhost:11221"]
-    activeIps = ["solarprotocol.net"]
+    selfIps = ["api:11221"]
+    activeIps = ["beta.solarprotocol.net"]
     knownIps = getDevices("ip")
     discoveredIps = discoverIps()
 
-    publishDevice(selfIps + activeIps + knownIps + discoveredIps)
+    #publishDevice(selfIps + activeIps + knownIps + discoveredIps)
+    publishDevice(selfIps)
 
 def outputToConsole(message):
     if consoleOutput:

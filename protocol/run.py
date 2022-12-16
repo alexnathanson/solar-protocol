@@ -22,9 +22,12 @@ from logging import info, debug, error, exception
 
 SolarProtocol = SolarProtocolClass()
 
+one_minute = 60
+MAX_FREQUENCY = one_minute
 
 def run():
     info("***** Solar Protocol Runner Started ******")
+
 
     # Wait for the api to be ready
     requests.get(f"http://api/api/devices", timeout=None)
@@ -41,7 +44,7 @@ def run():
             loopFrequency = getFrequency()
             info(f"Loop frequency: {str(loopFrequency)} minutes")
             scaler = solarScaler()
-        sleep(60)
+        sleep(one_minute)
 
 
 def runScripts(runCount):
@@ -100,7 +103,7 @@ def getElapsedTime(oldTime):
     returns elapsed time since oldTime was set
     """
     elapsed = datetime.datetime.now() - oldTime
-    elapsedMin = trunc(elapsed.seconds / 60)
+    elapsedMin = trunc(elapsed.seconds / one_minute)
     return elapsedMin
 
 

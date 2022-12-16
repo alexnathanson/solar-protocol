@@ -67,11 +67,7 @@ def getLocal(key):
     }
     try:
         with open(localConfig) as file:
-            device = json.load(file)
-            if key in device:
-                return device[key]
-            if key in defaults:
-                return defaults[key]
+            return device.get(key) or defaults.get(key)
 
     except:
         exception(f"local config file exception with key {key}")
@@ -95,15 +91,15 @@ def discoverIps():
 
     info(all_devices)
 
-    all_macs = {device["mac"] for device in all_devices}
+    all_macs = {device.get("mac") for device in all_devices}
     local_macs = {macs}
 
     new_macs = all_macs - local_macs
-    new_devices = {all_devices.filter(lambda device: device["mac"] in new_macs)}
+    new_devices = {all_devices.filter(lambda device: device.get("mac") in new_macs)}
 
     outputToConsole(f"new ips: {[ device['ip'] for device in new_devices ]}")
 
-    discoveredIps = [device["ip"] for device in newDevices]
+    discoveredIps = [device.get("ip") for device in newDevices]
 
     return discoveredIps
 
@@ -163,7 +159,7 @@ def getDevice():
     name = re.sub("[^A-Za-z0-9_ ]+", "", name)
 
     # get my timezone
-    tz = os.environ["TZ"] if "TZ" in os.environ else "America/New_York"
+    tz = os.environ.get("TZ") or "America/New_York"
 
     log = getPoeLog()
 

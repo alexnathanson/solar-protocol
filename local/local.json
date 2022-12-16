@@ -2,6 +2,7 @@
   "name": "Server Name",
   "description" : "Say something about yourself.",
   "location": "A neighbourhood",
+  "interface": "eth0",
   "city": "A city",
   "country": "A country",
   "lat": "40.65 N",

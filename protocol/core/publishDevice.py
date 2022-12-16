@@ -53,8 +53,9 @@ This would happen if the current server was POE for the entire 72 hours
 def getPoeLog():
     try:
         with open(poeLog) as poeFile:
-          lines = poeFile.readlines()[:216]
-          return ",".join(lines)
+          lines = poeFile.readlines()
+          stripped =  [line.rstrip() for line in lines[:216]]
+          return ",".join(stripped)
     except:
         exception()
 

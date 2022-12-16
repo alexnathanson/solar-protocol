@@ -310,7 +310,7 @@ def check_images(server_data):
             name = server["name"]
             debug(f"server {name}: {ip}")
 
-            if ip == "localhost":  # if it is itself
+            if ip == "api":  # if it is itself
                 info("*** LOCAL HOST ***")
                 # TODO: make this work with irregular ports
                 image_path = imgDst

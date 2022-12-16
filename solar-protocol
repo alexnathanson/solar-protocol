@@ -282,7 +282,7 @@ case $command in
   hash) bcrypt "$1" ;;
   install-systemd) install-systemd ;;
   reset) reset ;;
-  keygen) pass=$(password); echo "password: $pass"; echo hash: "$(bcrypt $pass)" ;;
+  keygen) pass=$(password); echo "password: $pass"; echo hash: "$(bcrypt "$pass")" ;;
   install) install ;;
   *) help ;;
 esac

@@ -29,7 +29,7 @@ def run():
 
     # Wait for the api to be ready
     while True:
-        response = requests.get(f"api:11221/api/devices")
+        response = requests.get(f"http://api:11221/api/devices")
         if response.ok:
             info("API ready")
             break

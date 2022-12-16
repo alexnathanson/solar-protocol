@@ -23,7 +23,7 @@ services:
     image: localhost/solar-protocol/protocol
     build: protocol
     restart: unless-stopped
-    command: python run.py now
+    command: python run.py
     volumes:
       - data:/data
       - frontend:/frontend

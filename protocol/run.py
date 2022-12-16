@@ -6,9 +6,6 @@ This script controls when the other scripts run based on battery status and sola
 > 30% every 30 minutes
 <= 30% every 60 minutes
 
-pass the argument "now" to run everything immediately 
-- otherwise sleep for 60 seconds before starting
-
 If the photovoltaic wattage is below 6W, run half as often
 If battery percentage is below 30%, viz script doesn't run
 """
@@ -25,20 +22,19 @@ from logging import info, debug, error, exception
 
 SolarProtocol = SolarProtocolClass()
 
-one_minute = 60
-MAX_FREQUENCY = one_minute
-
-
 def run():
     info("***** Solar Protocol Runner Started ******")
 
     runCount = 0
 
-    run_now = len(sys.argv) > 1 and sys.argv[1] == "now"
-    seconds = 0 if run_now else one_minute
+    # Wait for the api to be ready
+    while True:
+        response = requests.get(f"api:11221/api/devices")
+        if response.ok:
+            info("API ready")
+            break
+        sleep(5)
 
-    info(f"Sleeping {seconds} seconds")
-    sleep(seconds)
 
     while True:
         if runCount == 0 or getElapsedTime(timeOfRun) % (loopFrequency * scaler) == 0:
@@ -50,7 +46,7 @@ def run():
             loopFrequency = getFrequency()
             info(f"Loop frequency: {str(loopFrequency)} minutes")
             scaler = solarScaler()
-        sleep(one_minute)
+        sleep(60)
 
 
 def runScripts(runCount):

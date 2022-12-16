@@ -139,6 +139,8 @@ def publishDevice(ips):
 
     params = device | log | metadata
 
+    info(params)
+
     for ip in ips:
         info(f"IP: {ip}")
         postDevice(ip, params)

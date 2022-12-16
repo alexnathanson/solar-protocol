@@ -22,6 +22,7 @@ from logging import info, debug, error, exception
 
 SolarProtocol = SolarProtocolClass()
 
+
 def run():
     info("***** Solar Protocol Runner Started ******")
 
@@ -34,7 +35,6 @@ def run():
             info("API ready")
             break
         sleep(5)
-
 
     while True:
         if runCount == 0 or getElapsedTime(timeOfRun) % (loopFrequency * scaler) == 0:

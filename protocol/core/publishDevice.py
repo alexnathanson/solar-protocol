@@ -68,7 +68,7 @@ def getLocal(key):
     try:
         with open(localConfig) as file:
             device = json.load(file)
-            return device.get(key, default) 
+            return device.get(key, default)
 
     except:
         exception(f"local config file exception with key {key}")
@@ -130,7 +130,7 @@ def postDevice(ip, data):
 
 def publishDevice(ips):
     device = getDevice()
-    log = { "log": getPoeLog() }
+    log = {"log": getPoeLog()}
 
     metadata = {
         "apiKey": getApiKey(),
@@ -149,6 +149,8 @@ def publishDevice(ips):
 """
 TODO: We should talk about what the apiKey is used for, and having different keys for each device
 """
+
+
 def getApiKey():
     return getSecret(SecretKey.apiKey)
 
@@ -188,8 +190,9 @@ def run():
     knownIps = getDevices("ip")
     discoveredIps = discoverIps()
 
-    #publishDevice(selfIps + activeIps + knownIps + discoveredIps)
+    # publishDevice(selfIps + activeIps + knownIps + discoveredIps)
     publishDevice(selfIps)
+
 
 def outputToConsole(message):
     if consoleOutput:

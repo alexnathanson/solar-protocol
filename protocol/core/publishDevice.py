@@ -42,8 +42,7 @@ def getMAC():
 def getDevices(key: str):
     with open(deviceList) as file:
         devices = json.load(file)
-
-    return [device[key] for device in devices]
+        return [device.get(key) for device in devices]
 
 
 def getPoeLog():
@@ -65,9 +64,11 @@ def getLocal(key):
         "interface": "wlan0",
         "httpPort": "80",
     }
+    default = defaults.get(key)
     try:
         with open(localConfig) as file:
-            return device.get(key) or defaults.get(key)
+            device = json.load(file)
+            return device.get(key, default) 
 
     except:
         exception(f"local config file exception with key {key}")
@@ -89,19 +90,18 @@ def discoverIps():
         devices = requests.get(f"http://{ip}/api/devices").json()
         all_devices.extend(devices)
 
-    info(all_devices)
+    info(macs)
 
     all_macs = {device.get("mac") for device in all_devices}
-    local_macs = {macs}
-
+    local_macs = set(macs)
     new_macs = all_macs - local_macs
-    new_devices = {all_devices.filter(lambda device: device.get("mac") in new_macs)}
 
-    outputToConsole(f"new ips: {[ device['ip'] for device in new_devices ]}")
+    new_devices = [device for device in all_devices if device.get("mac") in new_macs]
+    new_ips = {device.get("ip") for device in new_devices}
 
-    discoveredIps = [device.get("ip") for device in newDevices]
+    info(f"new ips: {new_ips}")
 
-    return discoveredIps
+    return new_ips
 
 
 def postDevice(ip, params):
@@ -159,7 +159,7 @@ def getDevice():
     name = re.sub("[^A-Za-z0-9_ ]+", "", name)
 
     # get my timezone
-    tz = os.environ.get("TZ") or "America/New_York"
+    tz = os.environ.get("TZ", "America/New_York")
 
     log = getPoeLog()
 

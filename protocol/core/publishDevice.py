@@ -129,7 +129,7 @@ def postDevice(ip, params):
 def publishDevice(ips, device, log):
     metadata = {
         "apiKey": getApiKey(),
-        "timestamp": time.now(),
+        "timestamp": time.time(),
     }
 
     params = device | log | metadata

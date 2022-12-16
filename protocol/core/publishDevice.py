@@ -57,7 +57,7 @@ def getPoeLog():
         return ",".join(lines)
 
     except:
-        return None
+        return ","
 
 
 def getLocal(key):

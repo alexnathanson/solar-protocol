@@ -58,8 +58,7 @@ def read_csv():
 
 
 def render_pages(_local_data, _data, _weather, _server_data):
-    debug(_data)
-    debug(_local_data)
+    error(_server_data)
 
     templatePath = f"/protocol/build/templates"
     outputPath = f"/frontend"
@@ -95,8 +94,8 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
         zone = zone.replace("/", " ")
         info(f"ZONE {zone}")
-    except Exception as e:
-        error("Timezone Exception - TZ n/a")
+    except Exception:
+        exception("Timezone Exception - TZ n/a")
         zone = "TZ n/a"
 
     # would be nice to swap this out if the via script fails
@@ -357,8 +356,8 @@ def getServerDataFor(name: str, ip: str):
         system["ip"] = ip
         return system
 
-    except Exception as exception:
-        error(exception)
+    except Exception:
+        exception("issue getting system info")
 
         # FIXME: reformat page so offline servers dont actually need this blank data
         return {
@@ -392,7 +391,6 @@ def main():
 
     # 1. get IP list of addresses
     deviceList_data = get_ips()
-    debug(deviceList_data)
 
     # 2 Collect data from all the difference servers on the network
     server_data = [
@@ -407,12 +405,9 @@ def main():
         item["link"] = makeLinkFor(item["name"], item["status"])
 
     # 4. get images and render pages
-    debug(server_data)
     local_data = get_local()
-    debug(local_data)
     update_images(server_data)
     energy_data = read_csv()  # get pv data from local csv
-    debug(energy_data)
     local_weather = getLocalWeatherFor(local_data["lon"], local_data["lat"])
 
     render_pages(local_data, energy_data, local_weather, server_data)

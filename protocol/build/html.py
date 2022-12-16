@@ -109,7 +109,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     # loop through all page templates and render them with new data
     for page in pages:
-        template_filename = f"{templatePath}/{page}"
+        template_filename = f"{templatePath}/{page}.jinja"
         output_filename = f"{outputPath}/{page}"
 
         template_file = open(template_filename).read()

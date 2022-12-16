@@ -29,12 +29,7 @@ def run():
     runCount = 0
 
     # Wait for the api to be ready
-    while True:
-        response = requests.get(f"http://api:11221/api/devices")
-        if response.ok:
-            info("API ready")
-            break
-        sleep(5)
+    requests.get(f"http://api:11221/api/devices", timeout=None)
 
     while True:
         if runCount == 0 or getElapsedTime(timeOfRun) % (loopFrequency * scaler) == 0:

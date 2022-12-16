@@ -5,7 +5,7 @@
   <title></title>
 </head>
 <body>
-	{% extends "base.html" %} {% block content %} {% if batteryPercentage >= 30 %} <img class="full-col" src="images/earth.gif"> {% else %} {% endif %}
+	{% extends "base.html.jinja" %} {% block content %} {% if batteryPercentage >= 30 %} <img class="full-col" src="images/earth.gif"> {% else %} {% endif %}
   <div class="onecol-text">
 	  {% if batteryPercentage >= 30 %}
     <div class="caption">

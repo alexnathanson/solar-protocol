@@ -5,7 +5,7 @@
   <title></title>
 </head>
 <body>
-	{% extends "base.html" %} {% block content %} {% if batteryPercentage >= 30 %} <img class="full-col" src="images/full-map.png"> {% else %} {% endif %}
+	{% extends "base.html.jinja" %} {% block content %} {% if batteryPercentage >= 30 %} <img class="full-col" src="images/full-map.png"> {% else %} {% endif %}
   <div class="onecol-text">
     <h3>Network</h3>
     <p>We are currently setting up servers in different locations around the world and are seeking more stewards in different time zones and continents. If you

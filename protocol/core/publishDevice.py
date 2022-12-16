@@ -179,22 +179,12 @@ def getDevice():
 def run():
     info("***** Running PublishDevice script *****")
 
-    # post to self
-    selfIp = "localhost:11221"
-    publishDevice([selfIp], device)
-
-    # post to solarprotocol.net
-    activeIp = "solarprotocol.net"
-    publishDevice([activeIp], device)
-
-    # post to known ips
+    selfIps = ["localhost:11221"]
+    activeIps = ["solarprotocol.net"]
     knownIps = getDevices("ip")
-    publishDevice(knownIps, device)
-
-    # post to discovered ips
     discoveredIps = discoverIps()
-    publishDevice(discoveredIps, device)
 
+    publishDevice(selfIps + activeIps + knownIps +discoveredIps)
 
 def outputToConsole(message):
     if consoleOutput:

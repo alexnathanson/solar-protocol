@@ -348,8 +348,7 @@ def makeLinkFor(name: str, status: str):
 
 def getServerDataFor(name: str, ip: str):
     try:
-        [system] = getSystem(ip)
-        debug(system)
+        system = getSystem(ip)
         system["ip"] = ip
         return system
 

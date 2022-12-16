@@ -55,6 +55,8 @@ def getPoeLog():
         file = open(poeLog)
         lines = poeFile.readlines()[:216]
         return ",".join(lines)
+    except:
+        exception()
 
     return ","
 

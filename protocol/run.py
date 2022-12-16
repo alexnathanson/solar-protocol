@@ -25,12 +25,18 @@ SolarProtocol = SolarProtocolClass()
 one_minute = 60
 MAX_FREQUENCY = one_minute
 
+
 def run():
     info("***** Solar Protocol Runner Started ******")
 
-
     # Wait for the api to be ready
-    requests.get(f"http://api/api/devices", timeout=None)
+    while True:
+        try:
+            requests.get(f"http://api/api/devices", timeout=None)
+            break
+        except requests.ConnectionError:
+            sleep(5)
+
     info("api ready")
 
     runCount = 0

@@ -57,7 +57,7 @@ app = FastAPI(title="solar-protocol", docs_url="/api/docs")
 
 
 def getTimezone():
-    return os.environ["TZ"] if "TZ" in os.environ else "America/New_York"
+    return os.environ.get("TZ", "America/New_York")
 
 
 def getWattageScale():
@@ -130,7 +130,7 @@ def updateDevice(
     with open(filename, "r") as devicesfile:
         devices = json.load(devicesfile)
 
-    device = devices.find(lambda device: device["mac"] == mac)
+    device = devices.find(lambda device: device.get("mac") == mac)
     if device is None:
         devices.append(postedDevice)
     else:
@@ -139,7 +139,7 @@ def updateDevice(
     with open(filename, "w") as devicesfile:
         json.dump(devices, devicesfile)
 
-    device = devices.find(lambda device: device["mac"] == mac)
+    device = devices.find(lambda device: device.get("mac") == mac)
 
     return device
 
@@ -152,9 +152,9 @@ def devices(key: Union[DeviceKeys, None] = None):
         devices = json.load(jsonfile)
 
     if key == None:
-        return [{key: device[key] for key in DeviceKeys} for device in devices]
+        return [{key: device.get(key) for key in DeviceKeys} for device in devices]
 
-    return [{key: device[key]} for device in devices]
+    return [{key: device.get(key)} for device in devices]
 
 
 @app.get("/api/system")
@@ -271,9 +271,10 @@ def getLocal(key: Union[SystemKeys, None]):
         return safe_data
 
     if key == "color":
-        return localData["bgColor"]
+        return localData.get("bgColor")
 
-    return localData[key]
+    # FIXME: SECURITY: Can ask for 'unsafe' keys here
+    return localData.get(key)
 
 
 @app.post("/api/local")

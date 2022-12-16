@@ -130,7 +130,8 @@ def updateDevice(
     with open(filename, "r") as devicesfile:
         devices = json.load(devicesfile)
 
-    device = devices.find(lambda device: device.get("mac") == mac)
+    device = next(device for device in devices if device.get("mac") == mac)
+
     if device is None:
         devices.append(postedDevice)
     else:
@@ -138,8 +139,6 @@ def updateDevice(
 
     with open(filename, "w") as devicesfile:
         json.dump(devices, devicesfile)
-
-    device = devices.find(lambda device: device.get("mac") == mac)
 
     return device
 

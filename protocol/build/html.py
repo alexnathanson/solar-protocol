@@ -8,6 +8,7 @@ import json
 import csv
 import os
 import re
+import shutil
 import sys
 
 from logging import info, debug, error, exception

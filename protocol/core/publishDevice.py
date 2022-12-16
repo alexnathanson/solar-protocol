@@ -130,7 +130,7 @@ def postDevice(ip, params):
 
 def publishDevice(ips):
     device = getDevice()
-    log = getPoeLog()
+    log = { "log": getPoeLog() }
 
     metadata = {
         "apiKey": getApiKey(),

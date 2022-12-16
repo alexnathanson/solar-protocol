@@ -126,7 +126,10 @@ def postDevice(ip, params):
         exception(f"Request Error")
 
 
-def publishDevice(ips, device, log):
+def publishDevice(ips):
+    device = getDevice()
+    log = getPoeLog()
+
     metadata = {
         "apiKey": getApiKey(),
         "timestamp": time.time(),
@@ -139,6 +142,9 @@ def publishDevice(ips, device, log):
         postDevice(ip, params)
 
 
+"""
+TODO: We should talk about what the apiKey is used for, and having different keys for each device
+"""
 def getApiKey():
     return getSecret(SecretKey.apiKey)
 
@@ -161,40 +167,33 @@ def getDevice():
     # get my timezone
     tz = os.environ.get("TZ", "America/New_York")
 
-    log = getPoeLog()
-
     return {
         "ip": ip,
         "httpPort": httpPort,
         "mac": mac,
         "name": name,
         "tz": tz,
-        "log": log,
     }
 
 
 def run():
     info("***** Running PublishDevice script *****")
 
-    apiKey = getApiKey()
-    device = getDevice()
-
-    knownIps = getDevices("ip")
-    selfIp = "localhost:11221"
-    activeIp = "solarprotocol.net"
-    discoveredIps = discoverIps()
-
     # post to self
-    publishDevice([selfIp], apiKey, device)
+    selfIp = "localhost:11221"
+    publishDevice([selfIp], device)
 
     # post to solarprotocol.net
-    publishDevice([activeIp], apiKey, device)
+    activeIp = "solarprotocol.net"
+    publishDevice([activeIp], device)
 
     # post to known ips
-    publishDevice(knownIps, apiKey, device)
+    knownIps = getDevices("ip")
+    publishDevice(knownIps, device)
 
     # post to discovered ips
-    publishDevice(discoveredIps, apiKey, device)
+    discoveredIps = discoverIps()
+    publishDevice(discoveredIps, device)
 
 
 def outputToConsole(message):

@@ -91,7 +91,6 @@ def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
         [latest] = response.json()
         scaled_wattages.append(latest["scaled wattage"])
 
-    error(scaled_wattages)
     return scaled_wattages
 
 
@@ -100,9 +99,7 @@ def run():
 
     solarProtocol = SolarProtocolClass()
 
-    logging.basicConfig(filename="/data/poe.log", level=logging.INFO)
-
-    # get all ips, mac addresses, and apiValues for devices in the device list
+    # get all ips, mac addresses, and scaled wattage for devices in the device list
     ips = solarProtocol.getDeviceValues("ip")
     macs = solarProtocol.getDeviceValues("mac")
     scaledWattages = getLatestScaledWattagesFor(ips, solarProtocol)

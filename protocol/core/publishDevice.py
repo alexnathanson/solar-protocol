@@ -45,18 +45,19 @@ def getDevices(key: str):
         return [device.get(key) for device in devices]
 
 
+"""
+Truncate the log to the first 216 lines
+If solarProtocol.py runs every 10 minutes, there can be max 432 entries
+This would happen if the current server was POE for the entire 72 hours
+"""
 def getPoeLog():
     try:
         file = open(poeLog)
-        # take the first 216 lines
         lines = poeFile.readlines()[:216]
-        # if solarProtocol.py runs every 10 minutes, there can be max 432 entries
-        # this would happen if the current server was POE for the entire 72 hours
-        poeLog = [line.removeprefix("INFO:root:") for line in lines]
-        return ",".join(poeLog)
+        return ",".join(lines)
 
     except:
-        return ""
+        return None
 
 
 def getLocal(key):
@@ -108,6 +109,8 @@ def discoverIps():
 
 def postDevice(ip, data):
     url = f"http://{ip}/api/device"
+
+    error(data)
 
     try:
         response = requests.post(url=url, data=data, timeout=5)

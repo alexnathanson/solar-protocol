@@ -23,8 +23,9 @@ def getSecrets():
 
 
 def getSecret(secretKey: SecretKey):
-    secrets = getSecrets() or defaultSecrets
-    return secrets[secretKey]
+    secrets = getSecrets()
+    default = defaultSecrets.get(secretKey)
+    return secrets.get(secretKey, default)
 
 
 def setSecret(secretKey: SecretKey, value: str = ""):

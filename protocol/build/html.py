@@ -309,7 +309,7 @@ def update_images(server_data):
             elif ip == "api":
                 info("Copying image for {name}")
                 localpath = "/local/serverprofile.gif"
-                shutil.cp(localpath, filepath)
+                shutil.copy(localpath, filepath)
             else:
                 info("Downloading image for {name}")
                 url = f"http://{ip}/serverprofile.gif"

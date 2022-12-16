@@ -18,7 +18,6 @@ def determineServer(allValues, myValue):
     If this server has the highest value, update DNS to be point of entry
     """
     if myValue > max(allValues):
-        info(f"Point of entry {datetime.datetime.now()}")
 
         # TODO: allow overwriting host and domain in local.json
         result = updateDNS()
@@ -39,6 +38,10 @@ def getName():
     error("Problem finding name")
 
 
+"""
+Fully peer-to-peer = each machine keeps the secret locally
+FIXME: We should discuss this
+"""
 def updateDNS(host: str = "beta", domain: str = "solarprotocol.net"):
     password = getSecret(SecretKey.dnsPassword)
 
@@ -48,11 +51,35 @@ def updateDNS(host: str = "beta", domain: str = "solarprotocol.net"):
     response = request.get(url=url, params=params)
 
     if response.status == 200:
-        name = getName()
-        updatePoeLog(name, ip)
+        timestamp = datetime.datetime.now()
+        #name = getName()
+        #updateDnsLog(name, ip, timestamp)
+        updatePoeLog(timestamp)
 
     return response.text
 
+"""
+The dns.log is meant to be for the 'gateway' server
+All requests used to update DNS go through the gateway
+Which gave us a nice centralized list of server names/ips/timestamps
+
+FIXME: have a discussion about this
+"""
+def updateDnsLog(name: str, ip: str, timestamp):
+    fileName = f"/data/dns.log"
+
+    with open(fileName, "a", newline="") as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=[name, ip, timestamp])
+        writer.writerow([name, ip, timestamp])
+
+"""
+The poe.log is a local log of all the timestamps our server updated its DNS
+"""
+def updatePoeLog(timestamp):
+    fileName = f"/data/poe.log"
+
+    with open(fileName, "a") as file:
+        file.writeLine(timestamp + "\n")
 
 def getLatestScaledWattagesFor(ips: list[str], solarProtocol):
     params = {"key": "scaled wattage"}

@@ -39,9 +39,6 @@ def run():
     for ip, name in zip(ips, names):
         info(f"{name}: {ip}")
 
-        if ip == "127.0.0.1:11221":
-            ip = "api"
-
         url = f"http://{ip}/api/charge-controller"
         params = {"days": 4}
 

@@ -76,7 +76,9 @@ def getLocal(key):
 
 """
 For every device in our local devices.json, ask for their device lists
-FIXME: lets discuss exactly how chatty this is
+For networks under 50 devices, its about 2500 requests roughly every 20 minutes
+
+TODO: Investigate using epidemic-broadcast-trees a la scuttlebutt
 """
 
 
@@ -97,7 +99,7 @@ def discoverIps():
     new_macs = all_macs - local_macs
 
     new_devices = [device for device in all_devices if device.get("mac") in new_macs]
-    new_ips = {device.get("ip") for device in new_devices}
+    new_ips = [device.get("ip") for device in new_devices]
 
     info(f"new ips: {new_ips}")
 
@@ -184,7 +186,7 @@ def run():
     knownIps = getDevices("ip")
     discoveredIps = discoverIps()
 
-    publishDevice(selfIps + activeIps + knownIps +discoveredIps)
+    publishDevice(selfIps + activeIps + knownIps + discoveredIps)
 
 def outputToConsole(message):
     if consoleOutput:

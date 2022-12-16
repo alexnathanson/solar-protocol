@@ -185,7 +185,7 @@ def getDevice():
 def run():
     info("***** Running PublishDevice script *****")
 
-    selfIps = ["api:11221"]
+    selfIps = ["api"]
     activeIps = ["beta.solarprotocol.net"]
     knownIps = getDevices("ip")
     discoveredIps = discoverIps()
@@ -194,12 +194,5 @@ def run():
     publishDevice(selfIps)
 
 
-def outputToConsole(message):
-    if consoleOutput:
-        info(message)
-
-
 if __name__ == "__main__":
     run()
-else:
-    consoleOutput = False

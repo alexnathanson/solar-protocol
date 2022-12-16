@@ -50,7 +50,7 @@ def updateDNS(host: str = "beta", domain: str = "solarprotocol.net"):
 
     response = request.get(url=url, params=params)
 
-    if response.status == 200:
+    if response.status_code == 200:
         timestamp = datetime.datetime.now()
         #name = getName()
         #updateDnsLog(name, ip, timestamp)

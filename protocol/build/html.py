@@ -83,7 +83,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         response = requests.get(url=url, params={"key": "tz"})
 
         # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
-        if response.status == 404:
+        if response.status_code == 404:
             error("TZ 404 error")
             zone = "TZ n/a"
         else:

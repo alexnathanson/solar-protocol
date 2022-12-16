@@ -287,46 +287,39 @@ def getSystem(ip):
 
 
 def download_file(url, local_filename=None):
-    # Downloads a file from a remote URL
-    if local_filename is None:
-        local_filename = url.split("/")[-1]
-    with requests.get(url, stream=True) as r:
-        r.raise_for_status()
-        with open(local_filename, "wb") as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                f.write(chunk)
     return local_filename
 
 
-def check_images(server_data):
+def update_images(server_data):
     for server in server_data:
         filename = server["name"] + ".gif"
         filename = filename.replace(" ", "-")
-        fullpath = "/frontend/images/servers/{filename}"
-        filepath = "images/servers/{filename}"
+
+        filepath = "/frontend/images/servers/{filename}"
+        server["image_path"] = "/images/servers/{filename}"
 
         if "ip" in server:
             ip = server["ip"]
             name = server["name"]
             debug(f"server {name}: {ip}")
 
-            if ip == "api":  # if it is itself
-                info("*** LOCAL HOST ***")
-                # TODO: make this work with irregular ports
-                image_path = imgDst
-                filepath = image_path
-            elif os.path.exists(fullpath):  # else if the image is in the folder
-                info(f"Got image for {name}")
+            if os.path.exists(filepath):
+                info(f"Found image for {name}")
+            elif ip == "api":
+                info("Copying image for {name}")
+                localpath = "/local/serverprofile.gif"
+                shutil.cp(localpath, filepath)
             else:
-                # else download image using api and save it to the folder: "../../frontend/images/servers/"
-                image_path = f"http://{ip}/serverprofile.gif"
+                info("Downloading image for {name}")
+                url = f"http://{ip}/serverprofile.gif"
                 try:
-                    download_file(image_path, fullpath)
-                    debug(image_path)
-                    debug(local_path)
-                except Exception as e:
+                    with requests.get(url, stream=True) as r:
+                        r.raise_for_status()
+                        with open(local_filename, "wb") as f:
+                            for chunk in r.iter_content(chunk_size=8192):
+                                f.write(chunk)
+                except Exception:
                     error(f"{name}: Offline. Can't get image")
-            server["image_path"] = filepath
 
 
 def getFormattedTimestampFor(itemNumber):
@@ -416,7 +409,7 @@ def main():
     debug(server_data)
     local_data = get_local()
     debug(local_data)
-    check_images(server_data)
+    update_images(server_data)
     energy_data = read_csv()  # get pv data from local csv
     debug(energy_data)
     local_weather = getLocalWeatherFor(local_data["lon"], local_data["lat"])

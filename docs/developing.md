@@ -10,6 +10,7 @@ If this is the first time you are using containers, we recommend installing [Pod
 
     ./solar-protocol install # asks to install podman, podman-compose, and necessary dependencies
     solar-protocol build     # builds the containers
+    export LOGLEVEL=DEBUG    # set the log level to show lots of info
     solar-protocol start     # starts the server
     solar-protocol generate  # generates static site
     solar-protocol open      # opens the local server

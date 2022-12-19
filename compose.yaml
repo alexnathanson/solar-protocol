@@ -24,6 +24,8 @@ services:
     build: protocol
     restart: unless-stopped
     command: python run.py
+    environment:
+      - LOGLEVEL=${LOGLEVEL}
     volumes:
       - data:/data
       - frontend:/frontend

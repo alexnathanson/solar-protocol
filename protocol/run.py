@@ -19,11 +19,16 @@ import datetime
 import requests
 import sys
 from logging import info, debug, error, exception
+import logging
+import os
 
 SolarProtocol = SolarProtocolClass()
 
 one_minute = 60
 MAX_FREQUENCY = one_minute
+
+LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
+logging.basicConfig(level=LOGLEVEL)
 
 
 def run():

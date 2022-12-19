@@ -365,7 +365,7 @@ def main():
 
     # in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
-    myTimeZone = os.environ["TZ"] if "TZ" in os.environ else "America/New_York"
+    myTimeZone = os.environ.get("TZ", "America/New_York")
     energyValues = []
 
     colors = []

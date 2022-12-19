@@ -292,8 +292,8 @@ def update_images(server_data):
         filename = server["name"] + ".gif"
         filename = filename.replace(" ", "-")
 
-        filepath = "/frontend/images/servers/{filename}"
-        server["image_path"] = "/images/servers/{filename}"
+        filepath = f"/frontend/images/servers/{filename}"
+        server["image_path"] = f"/images/servers/{filename}"
 
         if "ip" in server:
             ip = server["ip"]

@@ -4,10 +4,6 @@ This collects the photovoltaic data from remote servers via the /charge-controll
 The purpose of this is minimize the amount of on the fly API calls
 """
 
-# FIXME: I think this was broken - the server i called did not return 4 separate files
-# so i think the strip header, reverse and concat didn't do anything?
-# regardless, i think the server should just do that concatenation for us
-
 import json
 import os
 import requests
@@ -62,10 +58,10 @@ def run():
             file.close()
 
 
+# FIXME: explain why one imports with . prefix and the other does not
 if __name__ == "__main__":
     from SolarProtocolClass import SolarProtocol as SolarProtocolClass
 
     run()
 else:
-    consoleOutput = False
     from .SolarProtocolClass import SolarProtocol as SolarProtocolClass

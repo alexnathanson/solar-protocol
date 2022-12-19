@@ -55,9 +55,9 @@ def getDeviceInfo(key):
 
 
 # Call API for every IP address and get charge controller data
-def getChargeControllerValues(server):
-    info(f"GET {server} charge-controller {energyParam} {days}")
-    url = f"http://{server}/api/charge-controller"
+def getChargeControllerValues(host: str):
+    info(f"GET {host} charge-controller {energyParam} {days}")
+    url = f"http://{host}/api/charge-controller"
     params = {"key": energyParam, "days": days}
     try:
         cc = requests.get(url, params, timeout=5)
@@ -68,7 +68,7 @@ def getChargeControllerValues(server):
     except requests.exceptions.HTTPError:
         exception(f"Http Error")
     except requests.exceptions.ConnectionError:
-        exception(f"Connection Error to {server}")
+        exception(f"Connection Error to {host}")
     except requests.exceptions.Timeout:
         exception(f"Timeout")
     except requests.exceptions.RequestException:
@@ -347,8 +347,8 @@ def getTimezone(ip):
     return timezone
 
 
-def getEnergyFor(ip):
-    energyValues = getChargeControllerValues(ip)
+def getEnergyFor(host: str):
+    energyValues = getChargeControllerValues(host)
 
     if type(energyValues) == type(None):
         return []
@@ -369,6 +369,9 @@ def main():
     energyValues = []
 
     colors = []
+
+    debug("ips are:")
+    debug(ips)
 
     # iterate through each device
     for ip in ips:

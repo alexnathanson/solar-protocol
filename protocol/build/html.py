@@ -23,17 +23,17 @@ days = 3
 
 
 # Call API for every IP address and get charge controller data
-def getCC(server, key):
-    info(f"GET {server} {key}")
+def getCC(host: str, key: str):
+    info(f"GET {host} {key}")
     try:
-        url = f"http://{server}/api/charge-controller"
+        url = f"http://{host}/api/charge-controller"
         params = {"key": key, "days": days}
         response = requests.get(url=url, params=params, timeout=5)
         return json.loads(response.text)
     except requests.exceptions.HTTPError:
         exception(f"Http Error")
     except requests.exceptions.ConnectionError:
-        exception(f"ConnectionError to {server}")
+        exception(f"ConnectionError to {host}")
     except requests.exceptions.Timeout:
         exception(f"Timeout")
     except requests.exceptions.RequestException:
@@ -243,6 +243,7 @@ def get_ips():
     serverNames = getDeviceInfo("name")
 
     devices = dict(zip(serverNames, ips))
+    debug(devices)
     return devices
 
 
@@ -349,6 +350,7 @@ def makeLinkFor(name: str, status: str):
 def getServerDataFor(name: str, ip: str):
     try:
         system = getSystem(ip)
+        debug(system)
         system["ip"] = ip
         return system
 

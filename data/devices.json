@@ -1,12 +1,1 @@
-[
-  {
-    "mac": "dc:a6:32:31:82:94",
-    "ip": "api",
-    "tz": "America/New_York",
-    "httpPort": 80,
-    "mac": "12:34:56:78:90:AB",
-    "timestamp": "1665683645.3203902",
-    "name": "Local Dev Server",
-    "log": [ 1667332471.899225 ]
-  }
-]
+[{"tz": "America/New_York", "mac": "82:6e:50:8f:ac:76", "name": "Server Name", "log": "1671226565.682184", "ip": "api", "httpPort": "80", "timestamp": 1671480029.8490784}]

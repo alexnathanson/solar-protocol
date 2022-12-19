@@ -13,11 +13,11 @@ import sys
 from solar_secrets import getSecret, SecretKey
 
 
-def determineServer(allValues, myValue):
+def determineServer(allValues: list[int], myValue: int):
     """
     If this server has the highest value, update DNS to be point of entry
     """
-    if myValue > max(allValues):
+    if myValue >= max(allValues):
 
         # TODO: allow overwriting host and domain in local.json
         result = updateDNS()
@@ -115,6 +115,9 @@ def run():
 
     # If we are in the device list, check if we should update the point of entry
     myMAC = solarProtocol.getMAC()
+    debug(myMAC)
+    debug(macs)
+
     if myMAC in macs:
         myScaledWattage = scaledWattages[macs.index(myMAC)]
         determineServer(scaledWattages, myScaledWattage)

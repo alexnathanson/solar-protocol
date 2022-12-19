@@ -103,6 +103,8 @@ def discoverIps():
     local_macs = set(macs)
     new_macs = all_macs - local_macs
 
+    debug(f"new macs: {new_macs}")
+
     new_devices = [device for device in all_devices if device.get("mac") in new_macs]
     new_ips = [device.get("ip") for device in new_devices]
 
@@ -163,9 +165,9 @@ def getApiKey():
 def getDevice():
     # FIXME: should we remove server. to make fully p2p?
     try:
-        ip = requests.get("http://server.solarprotocol.com/?myip").text
+        ip = requests.get("http://server.solarprotocol.net/?myip").text
     except:
-        ip = "127.0.0.1"
+        ip = "api"
 
     httpPort = getLocal("httpPort")
 

@@ -12,7 +12,6 @@ If battery percentage is below 30%, viz script doesn't run
 
 from build import html, viz
 from core import publishDevice, solarProtocol, getRemoteData
-from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 from time import sleep
 from math import trunc
 import datetime
@@ -21,8 +20,6 @@ import sys
 from logging import info, debug, error, exception
 import logging
 import os
-
-SolarProtocol = SolarProtocolClass()
 
 one_minute = 60
 MAX_FREQUENCY = one_minute
@@ -73,7 +70,7 @@ def runScripts(runCount):
         exception("publishDevice exception")
         exceptions.append("publishDevice")
 
-    # QUESTION: Why do we run solarProtocol before getRemoteData?
+    # FIXME: Explain why do we run solarProtocol before getRemoteData?
     try:
         solarProtocol.run()
     except Exception:

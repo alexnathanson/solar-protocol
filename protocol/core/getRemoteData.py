@@ -29,7 +29,7 @@ def run():
 
     for index, mac in enumerate(macs):
         if myMAC == mac:
-            myName = nameList[index]
+            myName = names[index]
             break
 
     for ip, name in zip(ips, names):

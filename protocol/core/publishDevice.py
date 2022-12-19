@@ -50,12 +50,14 @@ Truncate the log to the first 216 lines
 If solarProtocol.py runs every 10 minutes, there can be max 432 entries
 This would happen if the current server was POE for the entire 72 hours
 """
+
+
 def getPoeLog():
     try:
         with open(poeLog) as poeFile:
-          lines = poeFile.readlines()
-          stripped =  [line.rstrip() for line in lines[:216]]
-          return ",".join(stripped)
+            lines = poeFile.readlines()
+            stripped = [line.rstrip() for line in lines[:216]]
+            return ",".join(stripped)
     except:
         exception()
 
@@ -109,15 +111,15 @@ def discoverIps():
     return new_ips
 
 
-def postDevice(ip, data):
-    url = f"http://{ip}/api/device"
+def postDevice(host, data):
+    url = f"http://{host}/api/device"
 
     try:
-        response = requests.post(url=url, data=data, timeout=5)
+        response = requests.post(url=url, data=data)
         if response.ok:
-            info(f"Post to {ip} successful")
+            info(f"Post to {host} successful")
         else:
-            error(f"Malformed response from {ip}")
+            error(f"Malformed response from {host}")
             error(response.json())
     except json.decoder.JSONDecodeError:
         exception(f"JSON Decode Error")
@@ -131,7 +133,7 @@ def postDevice(ip, data):
         exception(f"Request Error")
 
 
-def publishDevice(ips):
+def publishDevice(hosts: list[str]):
     device = getDevice()
     log = {"log": getPoeLog()}
 
@@ -144,9 +146,9 @@ def publishDevice(ips):
 
     info(params)
 
-    for ip in ips:
-        info(f"IP: {ip}")
-        postDevice(ip, params)
+    for host in hosts:
+        info(f"HOST: {host}")
+        postDevice(host, params)
 
 
 """

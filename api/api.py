@@ -130,17 +130,24 @@ def updateDevice(
     with open(filename, "r") as devicesfile:
         devices = json.load(devicesfile)
 
-    device = next(device for device in devices if device.get("mac") == mac)
+    # update the device if we already found its mac...
+    foundDevice = None
+    for device in devices:
+        if device.get("mac") == mac:
+            device.update(postedDevice)
+            foundDevice = device
 
-    if device is None:
+    # otherwise, add it to the list
+    if foundDevice is None:
         devices.append(postedDevice)
-    else:
-        device.update(postedDevice)
 
     with open(filename, "w") as devicesfile:
         json.dump(devices, devicesfile)
 
-    return device
+    with open(filename, "r") as devicesfile:
+        for device in json.load(devicesfile):
+            if device.get("mac") == mac:
+                return device
 
 
 @app.get("/api/devices")

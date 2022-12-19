@@ -76,20 +76,22 @@ def getChargeControllerValues(host: str):
 
 
 # Call API for every IP address and get charge controller data
-def getSystem(server, key):
-    url = f"http://{server}/api/system"
+def getSystem(host: str, key: str):
+    if len(host) >= 100:
+        debug("*** WRONG HOST ***")
+    url = f"http://{host}/api/system"
     params = {"key": key}
     try:
         systemInfo = requests.get(url=url, params=params, timeout=5)
         systemInfo = systemInfo.text
 
-        info(f"{server} {key}: {systemInfo}")
+        info(f"{host} {key}: {systemInfo}")
 
         return systemInfo
     except requests.exceptions.HTTPError:
         exception(f"Http Error")
     except requests.exceptions.ConnectionError:
-        exception(f"Connection Error to {server}")
+        exception(f"Connection Error to {host}")
     except requests.exceptions.Timeout:
         exception(f"Timeout")
     except requests.exceptions.RequestException:
@@ -320,10 +322,10 @@ def circles():
         r = r + ring_rad
 
 
-def getColor(ip):
+def getColor(host):
     DEFAULT_COLOR = (1, 1, 1)
     try:
-        color = getSystem(ip, "color")
+        color = getSystem(host, "color")
     except:
         return DEFAULT_COLOR
 
@@ -333,11 +335,11 @@ def getColor(ip):
     return color
 
 
-def getTimezone(ip):
+def getTimezone(host: str):
     # defaults to NYC time - default to UTC in the future
     DEFAULT_TIMEZONE = "America/New_York"
     try:
-        timezone = getSystem(ip, "tz")
+        timezone = getSystem(host, "tz")
     except:
         return DEFAULT_TIMEZONE
 
@@ -370,8 +372,7 @@ def main():
 
     colors = []
 
-    debug("ips are:")
-    debug(ips)
+    debug(f"ips are: {ips}")
 
     # iterate through each device
     for ip in ips:

@@ -53,7 +53,7 @@ def run():
         info(f"Response {response.text}")
 
         filename = name.replace(" ", "-").lower()
-        with open(f"/data/{filename}.json", "w", encoding="utf-8") as file:
+        with open(f"/data/devices/{filename}.json", "w", encoding="utf-8") as file:
             file.write(response.text)
             file.close()
 

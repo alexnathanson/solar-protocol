@@ -19,7 +19,7 @@ import sys
 import fcntl
 import socket
 import struct
-from logging import error, exception, info
+from logging import debug, error, exception, info
 
 from solar_secrets import getSecret, SecretKey
 
@@ -113,7 +113,7 @@ def discoverIps():
     return new_ips
 
 
-def postDevice(host, data):
+def postDevice(host: str, data):
     url = f"http://{host}/api/device"
 
     try:
@@ -165,7 +165,7 @@ def getApiKey():
 def getDevice():
     # FIXME: should we remove server. to make fully p2p?
     try:
-        ip = requests.get("http://server.solarprotocol.net/?myip").text
+        ip = requests.get("https://server.solarpowerforartists.com/?myip").text
     except:
         ip = "api"
 

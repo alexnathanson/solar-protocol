@@ -8,6 +8,9 @@ local/secrets.json
 # created by datalogger/csv_datalogger.py
 data/traces/*csv
 
+# local cache of device discovery
+data/devices/*json
+
 # created by protocol/core/getRemoteData.py
 data/*json
 data/poe.log
@@ -19,4 +22,5 @@ frontend/*html
 frontend/archive/*png
 frontend/images/archive/*png
 frontend/images/clock.png
+frontend/images/servers/*
 frontend/images/clock-exhibit.png

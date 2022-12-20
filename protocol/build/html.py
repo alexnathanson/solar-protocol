@@ -299,7 +299,7 @@ def update_images(server_data):
         if "ip" in server:
             ip = server["ip"]
             name = server["name"]
-            debug(f"server {name}: {ip}")
+            debug(f"name {name}: ip {ip}")
 
             if os.path.exists(filepath):
                 info(f"Found image for {name}")

@@ -348,24 +348,27 @@ def makeLinkFor(name: str, status: str):
 
 
 def getServerDataFor(name: str, ip: str):
+    # FIXME: reformat page so offline servers dont actually need this blank data
+    default = {
+        "ip": ip,
+        "name": name,
+        "description": "",
+        "city": "",
+        "location": "",
+        "country": "",
+    }
+
     try:
         system = getSystem(ip)
-        debug(system)
-        system["ip"] = ip
-        return system
+        if system == None:
+            return default
+        else:
+            system["ip"] = ip
+            return system
 
     except Exception:
         exception("issue getting system info")
-
-        # FIXME: reformat page so offline servers dont actually need this blank data
-        return {
-            "ip": ip,
-            "name": name,
-            "description": "",
-            "city": "",
-            "location": "",
-            "country": "",
-        }
+        return default
 
 
 def getLocalWeatherFor(lon, lat):

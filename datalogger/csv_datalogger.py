@@ -31,6 +31,7 @@ def writeOrAppend(row):
 
     info(f"csv writing: {datetime.datetime.now()}")
 
+
 def randomReadable(start: int, end: int):
     return round(random.uniform(start, end))
 

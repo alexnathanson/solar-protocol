@@ -7,7 +7,7 @@ Otherwise, the script changes nothing.
 """
 import datetime
 import logging
-from logging import error, info
+from logging import debug, error, info
 import requests
 import sys
 from solar_secrets import getSecret, SecretKey

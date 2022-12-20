@@ -1,19 +1,84 @@
-# Developing
+# Installation
 
-Instructions for developing the Solar Protocol
+First we install podman - which will run our containers, then we install podman-desktop, a gui to make it easier to explore those containers.
 
-Helpful scripts for developing are in the dev/ folder.
+Solar Protocol targets [debian linux](https://debian.org) because thats what runs on a Raspberry Pi. One reason we use podman is to allow development on macOS and windows.
 
-If this is the first time you are using containers, we recommend installing [Podman Desktop](https://podman-desktop.io) to see whats going on.
+## Quick Start (linux)
 
-## Quick Start
+    git clone --branch beta https://github.com/alexnathanson/solar-protocol && cd solar-protocol
 
-    ./solar-protocol install # asks to install podman, podman-compose, and necessary dependencies
-    solar-protocol build     # builds the containers
-    export LOGLEVEL=DEBUG    # set the log level to show lots of info
-    solar-protocol start     # starts the server
-    solar-protocol generate  # generates static site
-    solar-protocol open      # opens the local server
+    ./solar-protocol install  # asks to install podman, podman-compose, and necessary dependencies
+    solar-protocol up --build # starts the server
+    solar-protocol open       # opens the local server
+
+1. Setup podman and podman-compose
+
+Always check [the latest podman installation docs](https://podman.io/getting-started/installation).
+
+For windows, follow [the official windows install docs](https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md).
+
+For linux, install podman with your package manager:
+
+    sudo apt-get install --yes podman
+
+For macOS, install podman with [homebrew](https://brew.sh):
+
+    brew install podman
+
+For windows, linux, and macOS, install podman-compose 1.0.4 with pip:
+
+    pip3 install https://github.com/containers/podman-compose/archive/devel.tar.gz
+
+2. Setup solar-protocol
+
+All commands are kept in the `solar-protocol` so everyone can stay up-to-date with installing, debugging, and developing the protocol.
+
+Install git. For example, on linux:
+
+    sudo apt-get install --yes git
+
+Clone the latest `beta` branch
+
+    git clone --branch beta https://github.com/alexnathanson/solar-protocol.git
+    cd solar-protocol
+
+Add solar-protocol script to your commandline PATH
+
+    ./solar-protocol install
+
+Build the base images
+
+    solar-protocol build
+
+This will bring up the server
+
+    solar-protocol up
+
+Visit the blank site on http://127.0.0.1:11221
+
+    solar-protocol open
+
+Congrats! You should see the pizza rat server!
+
+## Troubleshooting
+
+To view backend protocol logs
+
+   solar-protocol logs protocol
+
+To view web server logs
+
+   solar-protocol logs web
+
+To view api logs
+
+   solar-protocol logs api
+
+Sharing these logs will make it easier for people to help
+
+
+# Development
 
 ## Services
 
@@ -27,13 +92,11 @@ There are 4 services that make up the entire protocol. `solar-protocol status` s
 
 ### 1. protocol service
 
-The solar protocol is supervised by `[protocol/run.py](/protocol/run.py)`. This runner runs a number of other scripts, depending on the current solar and battery conditions.
+The solar protocol is supervised by [protocol/run.py][]. This runner runs a number of other scripts, depending on the current solar and battery conditions.
 
-This includes two protocol scripts that manage the peer-to-peer network - `publishDevice.py`, and `solarProtocol.py`.
+This includes two scripts that manage the peer-to-peer network - [protocol/core/publishDevice.py][], and [protocol/solarProtocol.py].
 
-> Note: More work is needed to enable the protocol scripts to safely make test posts with dummy data without it breaking the client.
-
-There are three scripts that rebuild the static site based on the latest data - `core/getRemoteData.py`, `build/viz.py`, and `build/html.py`.
+ are three scripts that rebuild the static site based on the latest data - `core/getRemoteData.py`, `build/viz.py`, and `build/html.py`.
 
 1. publishDevice
 
@@ -66,65 +129,3 @@ This api allows other devices in the network to query the server for public info
 ### 4. web service
 
 This is an nginx proxy that serves up the static files made by the solar-protocol service, as well as delegating to the api service.
-
-## Development Environment Setup
-
-
-### Setup podman and podman-compose
-
-Always check [the latest podman installation docs](https://podman.io/getting-started/installation).
-
-We require podman-compose 1.0.4, which may not be packaged for your os. In that case, install the development version:
-
-    pip3 install https://github.com/containers/podman-compose/archive/devel.tar.gz
-
-#### Windows
-
-See [the official windows install docs](https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md)
-
-### Installing solar-protocol
-
-All commands are kept in the `solar-protocol` so everyone can stay up-to-date with installing, debugging, and developing the protocol.
-
-### Clone this code in your home directory
-
-Install git. For example, on linux:
-
-    sudo apt-get install --yes git
-
-    git clone --branch api-migration-huge-refactor https://github.com/jedahan/solar-protocol.git
-    cd solar-protocol
-
-Add solar-protocol script to your commandline PATH
-
-    ./solar-protocol install
-
-Build the base images
-
-    solar-protocol build
-
-This will bring up the server
-
-    solar-protocol dev
-
-Visit the blank site on http://127.0.0.1:11221
-
-    solar-protocol open
-
-Congrats! You should see the pizza rat server!
-
-## Troubleshooting
-
-To view backend protocol logs
-
-   solar-protocol logs protocol
-
-To view web server logs
-
-   solar-protocol logs web
-
-To view api logs
-
-   solar-protocol logs api
-
-Sharing these logs will make it easier for people to help

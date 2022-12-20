@@ -31,22 +31,25 @@ def writeOrAppend(row):
 
     info(f"csv writing: {datetime.datetime.now()}")
 
+def randomReadable(start: int, end: int):
+    return round(random.uniform(start, end))
+
 
 def readFromRandom():
     return {
         "timestamp": time.time(),
-        "PV voltage": random.uniform(9, 30),
-        "PV current": random.uniform(0, 2),
-        "PV power L": random.uniform(28, 34),
-        "PV power H": random.uniform(0, 1),
-        "battery voltage": random.uniform(11, 15),
-        "battery current": random.uniform(2, 3),
-        "battery power L": random.uniform(28, 32),
-        "battery power H": random.uniform(0, 1),
-        "load voltage": random.uniform(12, 16),
-        "load current": random.uniform(0, 1),
-        "load power": random.uniform(3, 5),
-        "battery percentage": random.uniform(0, 1),
+        "PV voltage": randomReadable(9, 30),
+        "PV current": randomReadable(0, 2),
+        "PV power L": randomReadable(28, 34),
+        "PV power H": randomReadable(0, 1),
+        "battery voltage": randomReadable(11, 15),
+        "battery current": randomReadable(2, 3),
+        "battery power L": randomReadable(28, 32),
+        "battery power H": randomReadable(0, 1),
+        "load voltage": randomReadable(12, 16),
+        "load current": randomReadable(0, 1),
+        "load power": randomReadable(3, 5),
+        "battery percentage": randomReadable(0, 1),
     }
 
 

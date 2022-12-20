@@ -15,29 +15,32 @@ This works with a [USB to RS485 converter](https://www.sparkfun.com/products/159
 
 ## Software
 
-### Security
+1. Prepare the SD card
 
-We use SSH to manage the Raspberry Pi.
+Download the official [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 
-### Prepare the SD card
+[!rpi imager screen](images/raspberry-pi-imager.png)
 
-We use the official [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
+Choose "Raspberry Pi OS (Other)"
 
-[!screenshot-imager]
+[!choosing pi os other](images/raspberry-pi-os-other.png)
 
-Make sure to choose Rapsberry Pi OS Lite (64-bit)
+Scroll down and choose "Rapsberry Pi OS Lite (64-bit)"
 
-Then click the gear icon and
+[!image of choosing OS](images/raspberry-pi-os-lite-64-bit.png)
+
+Click the gear icon (and on macOS, if it asks, choose Yes to prefill the wifi password)
+
 - [ ] Set Hostname
 - [ ] Enable SSH
-    - [ ] Allow public-key authentication only
-    - [ ] Run `solar-protocol copy-ssh-key` to generate and copy a new ssh key
 - [ ] Set username and password
 - [ ] Configure wireless LAN
     - [ ] **Wireless LAN Country**
 - [ ] Set locale settings
 
-[!screenshot-settings]
+[!image of needed options](images/raspberry-pi-advanced-options.png)
+
+Click save, then choose storage and pick your microSD card
 
 Click write, put it in the pi, and plug the pi in!
 
@@ -50,7 +53,7 @@ First, connect to the pi
 Download the git repository
 
     sudo apt-get install git --yes
-    git clone --branch beta http://www.github.com/alexnathanson/solar-protocol
+    git clone --branch beta http://www.github.com/alexnathanson/solar-protocol.git
     cd solar-protocol
 
 Install required dependencies - the pi will reboot once

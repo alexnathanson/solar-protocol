@@ -21,13 +21,13 @@ Download the official [Raspberry Pi Imager](https://www.raspberrypi.com/software
 
 ![rpi imager screen](images/raspberry-pi-imager.png)
 
+Download [the latest Raspberry Pi OS Bookworm](https://raspi.debian.net/tested/20220808_raspi_4_bookworm.img.xz)
+
 Choose "Raspberry Pi OS (Other)"
 
-![choosing pi os other](images/raspberry-pi-os-other.png)
+![choosing Use Custom](images/use-custom.png)
 
-Scroll down and choose "Rapsberry Pi OS Lite (64-bit)"
-
-![image of choosing OS](images/raspberry-pi-os-lite-64-bit.png)
+Choose the downloaded image
 
 Click the gear icon (and on macOS, if it asks, choose Yes to prefill the wifi password)
 

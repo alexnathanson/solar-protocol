@@ -86,32 +86,26 @@ update-dns() {
   echo "$TIME - $IP" >> $LOGFILE
 }
 
+install-podman-linux() {
+  exists podman || sudo apt-get install --yes podman
+  exists pip || sudo apt-get install --yes python3-pip
+  exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
+}
+
 install() {
   if [[ -f ~/.bashrc ]]; then
     if ! grep --quiet solar-protocol ~/.bashrc; then
-      prompt "Add solar-protocol to bash?" && echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
+      prompt "Add solar-protocol PATH to ~/.bashrc?" && echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
     fi
   fi
 
   if [[ -f ~/.zshrc ]]; then
-    if grep --quiet solar-protocol ~/.zshrc; then
-      echo "solar-protocol found in zsh, skipping install"
-    else
-      if prompt "Add solar-protocol to zsh?"; then
-        if grep --quiet compinit ~/.zshrc; then
-          tmpfile=$(mktemp)
-          awk "!found && /compinit/ { print \"fpath=($PWD\/dev \$fpath)\"; found=1 } 1" ~/.zshrc > "$tmpfile"
-          mv "$tmpfile" ~/.zshrc
-        else
-          echo "fpath=($PWD\/dev \$fpath)" >> ~/.zshrc
-          echo "autoload -Uz compinit && compinit" >> ~/.zshrc
-        fi
-        echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
-      fi
+    if ! grep --quiet solar-protocol ~/.zshrc; then
+      prompt "Add solar-protocol PATH to ~/.zshrc?" && echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
     fi
   fi
 
-  # macOS requires a vm
+  # macOS
   if [[ "$(uname -s)" == "Darwin" ]]; then
     exists podman podman-compose || brew install podman podman-compose
     brew upgrade podman podman-compose
@@ -124,76 +118,33 @@ install() {
     return
   fi
 
-  # raspberry pi - requires debian bookworm + opensuse kubic packages
+  # raspberry pi OS
   if exists raspi-config; then
     # upgrade to latest stable distribution
-    sudo apt dist-upgrade --yes
+    sudo apt-get update
+    sudo apt-get full-upgrade --yes
 
-    libcontainerslist=/etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list
-    if test ! -f $libcontainerslist; then
-      sudo mkdir -p /etc/apt/keyrings
-      base=https://download.opensuse.org/repositories
-      repo=devel:kubic:libcontainers:unstable/Debian_Testing/
-      keyring=/etc/apt/keyrings/devel_kubic_libcontainers_unstable.gpg
-      arch=$(dpkg --print-architecture)
-
-      curl --fail --silent --show-error --location "${base}/${repo}/Release.key" \
-        | gpg --dearmor \
-        | sudo tee $keyring > /dev/null
-
-      echo "deb [arch=$arch signed-by=$keyring] ${base}/${repo} /" | sudo tee $libcontainerslist >/dev/null
-    fi
-    
-    self="${BASH_SOURCE[0]}"
-
-    # upgrade bullseye to bookworm if we aren't already on it
-    codename=$(lsb_release -c -s)
-    if [[ $codename == 'bullseye' ]]; then
-      prompt "Upgrade Raspberry Pi OS to bookworm?" 
-      sudo sed --in-place --expression 's/bullseye/bookworm/g' /etc/apt/sources.list
-      sudo apt-get update
-      sudo apt-get full-upgrade --yes
-      # Fix a bug with dhcpcd5 in raspberry pi OS
-      waitfile="/etc/systemd/system/dhcpcd.service.d/wait.conf"
-      if ! grep --quiet --extended-regexp "^ExecStart=$(which dhcpcd) -q -w$" $waitfile; then
-        sudo sed --in-place --expression "s|ExecStart=.*w$|ExecStart=$(which dhcpcd) -q -w|" $waitfile
-      fi
-      
-      if ! grep --quiet 'solar-protocol' /etc/rc.local; then
-        sudo sed --in-place --expression "s|exit 0|${self} install\nexit 0|" /etc/rc.local
-      fi
-      prompt "OS upgrade finished, reboot now to complete installation?"
-      sudo reboot
-    fi
-
-    # install podman and podman-compose if needed
-    if ! exists podman podman-compose; then
-      sudo apt-get update
-      sudo apt-get install --yes podman podman-compose
-    fi
+    # install podman and podman-compose
+    install-podman-linux
 
     # install systemd
     install-systemd
 
-    # cleanup if we are on the 
-    if grep --quiet 'solar-protocol' /etc/rc.local; then
-      sudo sed --in-place --expression "|${self} install|d" /etc/rc.local
-    fi
-
     return
   fi
 
+  # debian
   if [[ "$(uname -s)" == "Linux" ]]; then
-    exists podman || sudo apt-get install --yes podman
-    exists pip || sudo apt-get install --yes python3-pip
-    exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
+    install-podman-linux
     return
   fi
 
+  # windows
   if grep -qi microsoft /proc/version; then
     echo See the official windows install docs to install podman and podman-compose
     echo
     echo https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md
+    return
   fi
 
   exists podman podman-compose
@@ -281,6 +232,7 @@ case $command in
   build-html) build-html "$@" ;;
   hash) bcrypt "$1" ;;
   install-systemd) install-systemd ;;
+  copy-ssh-key) ssh-keygen -ted25519 -f ~/.ssh/solar-protocol-pi | tee | pbcopy ;;
   reset) reset ;;
   keygen) pass=$(password); echo "password: $pass"; echo hash: "$(bcrypt "$pass")" ;;
   install) install ;;

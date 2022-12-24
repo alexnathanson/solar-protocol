@@ -1,0 +1,91 @@
+name: create solar protocol raspberry pi image
+
+on:
+  push:
+    tags:
+      - "v*"
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - id: get_version
+        uses: battila7/get-version-action@v2
+      steps:
+
+      # create 'solar-pi-stage' stage 
+      - run: |
+          mkdir -p solar-pi-stage/00-install-podman &&
+          {
+          cat > solar-pi-stage/00-install-podman/00-packages <<-EOF
+          python3
+          python3-pip
+          podman
+          EOF
+          } &&
+          {
+          cat > solar-pi-stage/00-install-podman/01-install-podman-compose.sh <<-EOF
+          #!/bin/bash
+          python -m pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
+          EOF
+          } &&
+          chmod +x solar-pi-stage/00-install-podman/01-install-podman-compose.sh &&
+          {
+          cat > solar-pi-stage/prerun.sh <<-EOF
+          #!/bin/bash -e
+          if [ ! -d "\${ROOTFS_DIR}" ]; then
+            copy_previous
+          fi
+          EOF
+          } &&
+          chmod +x solar-pi-stage/prerun.sh
+
+      - name: build image
+        uses: usimd/pi-gen-action@v1
+        id: build
+        with:
+          ## USER SETTINGS
+          enable-ssh: 1
+          hostname: solar-pi
+          username: solar
+          password: 'solar-power-for-artists'
+
+          keyboard-keymap: us
+          keyboard-layout: English (US)
+          locale: en_US.UTF-8
+          timezone: America/New_York
+
+          # FIXME: add as user input
+          wpa-country: 'US'
+          #wpa-essid: ''
+          #wpa-password: ''
+
+          ## BUILD + OUTPUT SETTINGS
+          compression: xz
+          enable-noobs: false
+          github-token: ${{ github.token }}
+          image-name: 'solar-pi'
+          pi-gen-version: arm64
+          use-qcow2: 1
+
+          release: bookworm
+          stage-list: stage0 stage1 stage2 ./solar-pi-stage
+
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pi-gen-image
+          path: ${{ steps.build.outputs.image-path }}
+
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          name: solar-pi image ${{ steps.get_version.outputs.version-without-v }}
+          files: ${{ steps.build.outputs.image-path }}
+

@@ -1,4 +1,4 @@
-name: create solar protocol raspberry pi image
+name: build solar pi image
 
 on: ['pull_request', 'workflow_dispatch']
 

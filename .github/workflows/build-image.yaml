@@ -68,7 +68,7 @@ jobs:
           pi-gen-version: arm64
           use-qcow2: 1
 
-          release: bookworm
+          release: testing
           stage-list: stage0 stage1 stage2 ./solar-pi-stage
 
 

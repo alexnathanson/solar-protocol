@@ -1,11 +1,6 @@
 name: create solar protocol raspberry pi image
 
-on:
-  push:
-    tags:
-      - "v*"
-  pull_request:
-  workflow_dispatch:
+on: ['pull_request', 'workflow_dispatch']
 
 jobs:
   build:

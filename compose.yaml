@@ -1,5 +1,3 @@
-name: solar-protocol
-
 services:
   common:
     image: localhost/solar-protocol/base:beta

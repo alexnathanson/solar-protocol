@@ -92,6 +92,20 @@ install-podman-linux() {
   exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
 }
 
+install-docker-linux() {
+  exists docker || sudo apt-get install --yes docker.io
+  exists docker-compose || sudo apt-get install --yes docker-compose
+}
+
+install-container-runtime() {
+  if grep --quiet bookworm /etc/os-release; then
+    install-podman-linux
+    install-systemd
+  else
+    install-docker-linux
+  fi
+}
+
 install() {
   if [[ -f ~/.bashrc ]]; then
     if ! grep --quiet solar-protocol ~/.bashrc; then
@@ -124,18 +138,14 @@ install() {
     sudo apt-get update
     sudo apt-get full-upgrade --yes
 
-    # install podman and podman-compose
-    install-podman-linux
-
-    # install systemd
-    install-systemd
-
+    # install docker or podman
+    install-container-runtime
     return
   fi
 
   # debian
   if [[ "$(uname -s)" == "Linux" ]]; then
-    install-podman-linux
+    install-container-runtime
     return
   fi
 
@@ -147,7 +157,7 @@ install() {
     return
   fi
 
-  exists podman podman-compose
+  exists docker || exists podman podman-compose
 }
 
 
@@ -159,18 +169,20 @@ prompt() {
   fi
 }
 
-compose() { machine; podman-compose --file compose.yaml "$@"; }
-
 password() { openssl rand -hex 8; }
 
 bcrypt() { htpasswd -bnBC 10 "" "$1" | tr -d ':\n'; }
 
 reset() {
   compose down
-  podman machine stop
-  podman machine rm podman-machine-default
+  if exists podman; then
+    podman machine stop
+    podman machine rm podman-machine-default
+  fi
   install
-  podman machine start
+  if exists podman; then
+    podman machine start
+  fi
 }
 
 # Since we have multiple collaborators, its useful to have all the tabs and spaces align
@@ -183,11 +195,23 @@ format() {
   tidy -i -m -w 160 -ashtml -utf8 -- **/**.html
 }
 
+compose() {
+  if exists docker; then
+    docker compose --file compose.yaml "$@"
+  else
+    machine; podman-compose --file compose.yaml "$@"
+  fi
+}
+
+container() {
+  if exists docker; then docker "$@"; else podman "$@"; fi
+}
+
 # Before we can run any of the services (web, api, protocol, datalogger), we
 # need to build a system 'image', which contains a snapshot of the current code
 # and dependencies.
 build() {
-  podman image exists localhost/solar-protocol/base:beta || compose build common
+  container image exists localhost/solar-protocol/base:beta || compose build common
   compose build "$@"
 }
 

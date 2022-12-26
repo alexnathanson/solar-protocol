@@ -98,6 +98,7 @@ install-docker-linux() {
   # Not sure why buildkit fails. FIXME: migrate to podman when bookworm is released for raspberry pi
   if ! test -f /etc/profile.d/disable-buildkit.sh; then
     echo "export DOCKER_BUILDKIT=0" | sudo tee /etc/profile.d/disable-buildkit.sh > /dev/null
+    . /etc/profile.d/disable-buildkit.sh
   fi
 
   if ! docker compose >/dev/null; then
@@ -165,6 +166,10 @@ install() {
 
     # install docker or podman
     install-container-runtime
+
+    echo "solar-protocol dependencies! try:"
+    echo "\tsolar-protocol build"
+    echo "\tsolar-protocol install"
     return
   fi
 

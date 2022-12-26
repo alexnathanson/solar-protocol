@@ -1,8 +1,6 @@
 import json
 from enum import StrEnum, auto
-
-secretsFilepath = f"/local/secrets.json"
-
+from logging import error
 
 class SecretKey(StrEnum):
     apiKey = auto()
@@ -17,9 +15,12 @@ defaultSecrets = {
 }
 
 
-def getSecrets():
-    with open(secretsFilepath, "r") as secretsFile:
-        return json.load(secretsFile)
+def getSecrets(filepath="/local/secrets.json"):
+    try:
+        with open(filepath, "r") as secretsFile:
+            return json.load(filepath)
+    except FileNotFoundError:
+        error(f"Missing {filepath}, please create one!")
 
 
 def getSecret(secretKey: SecretKey):

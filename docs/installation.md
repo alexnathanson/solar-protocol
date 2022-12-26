@@ -21,7 +21,7 @@ Download the official [Raspberry Pi Imager](https://www.raspberrypi.com/software
 
 ![rpi imager screen](images/raspberry-pi-imager.png)
 
-Download [the latest Raspberry Pi OS Bookworm](https://raspi.debian.net/tested/20220808_raspi_4_bookworm.img.xz)
+Download [the latest Solar Pi release](https://github.com/jedahan/solar-protocol/releases/download/1.0.0/image_2022-12-26-solar-pi.img.xz)
 
 Choose "Raspberry Pi OS (Other)"
 

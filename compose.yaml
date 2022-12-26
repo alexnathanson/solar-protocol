@@ -2,6 +2,7 @@ services:
   common:
     image: localhost/solar-protocol/base:beta
     build: common
+
   datalogger:
     image: localhost/solar-protocol/datalogger
     build: datalogger
@@ -17,6 +18,7 @@ services:
       - local:/local
     ports:
       - 11215:80
+
   protocol:
     image: localhost/solar-protocol/protocol
     build: protocol
@@ -28,6 +30,7 @@ services:
       - data:/data
       - frontend:/frontend
       - local:/local
+
   web:
     image: docker.io/library/nginx
     restart: unless-stopped

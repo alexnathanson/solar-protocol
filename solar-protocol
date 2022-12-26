@@ -203,7 +203,7 @@ format() {
 
 compose() {
   if exists docker; then
-    docker compose --file compose.yaml "$@"
+    docker-compose --file compose.yaml "$@"
   else
     machine; podman-compose --file compose.yaml "$@"
   fi

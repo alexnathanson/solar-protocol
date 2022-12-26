@@ -35,7 +35,7 @@ jobs:
           {
           cat > solar-pi-stage/prerun.sh <<-EOF
           #!/bin/bash -e
-          if [ ! -d "\${ROOTFS_DIR}" ]; then; copy_previous; fi
+          if [ ! -d "\${ROOTFS_DIR}" ]; then copy_previous; fi
           EOF
           } && chmod +x solar-pi-stage/prerun.sh
 

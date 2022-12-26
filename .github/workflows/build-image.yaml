@@ -41,6 +41,21 @@ jobs:
           EOF
           } && chmod +x solar-pi-stage/01-build-container-images/02-build-container-images.sh &&
           {
+          cat > solar-pi-stage/01-build-containers/00-packages <<-EOF
+          git
+          EOF
+          } &&
+          {
+          cat > solar-pi-stage/01-build-containers/01-clone-repository.sh <<-EOF
+          su -u solar -c "git clone https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol"
+          EOF
+          } &&
+          {
+          cat > solar-pi-stage/01-build-containers/02-build-containers.sh <<-EOF
+          su -u solar -c "/home/solar/solar-protocol/solar-protocol build"
+          EOF
+          } &&
+          {
           cat > solar-pi-stage/prerun.sh <<-EOF
           #!/bin/bash -e
           if [ ! -d "\${ROOTFS_DIR}" ]; then

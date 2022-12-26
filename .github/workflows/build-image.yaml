@@ -80,6 +80,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: solar-pi image ${{ steps.get_version.outputs.version-without-v }}
+          name: Solar Pi ${{ steps.get_version.outputs.version-without-v }}
           files: ${{ steps.build.outputs.image-path }}
+          draft: true
 

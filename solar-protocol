@@ -109,13 +109,19 @@ install-container-runtime() {
 install() {
   if [[ -f ~/.bashrc ]]; then
     if ! grep --quiet solar-protocol ~/.bashrc; then
-      prompt "Add solar-protocol PATH to ~/.bashrc?" && echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
+     if prompt "Add solar-protocol PATH to ~/.bashrc?"; then
+       echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
+       . ~/.bashrc
+     fi
     fi
   fi
 
   if [[ -f ~/.zshrc ]]; then
     if ! grep --quiet solar-protocol ~/.zshrc; then
-      prompt "Add solar-protocol PATH to ~/.zshrc?" && echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
+      if prompt "Add solar-protocol PATH to ~/.zshrc?"; then
+        echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
+        . ~/.zshrc
+      fi
     fi
   fi
 

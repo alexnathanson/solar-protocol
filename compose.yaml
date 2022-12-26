@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     volumes:
       - data:/data
+
   api:
     image: localhost/solar-protocol/api
     build: api

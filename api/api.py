@@ -187,8 +187,6 @@ def getCharge(days: Union[int, None] = None, key: Union[ChargeKeys, None] = None
 
 
 def charge(days: Union[list[str], None] = None, key: Union[ChargeKeys, None] = None):
-    filepath = "/data/traces"
-
     rows = []
     if days == None:
         dates = [datetime.date.today()]
@@ -197,7 +195,7 @@ def charge(days: Union[list[str], None] = None, key: Union[ChargeKeys, None] = N
 
     for date in dates:
         try:
-            with open(f"{filepath}/{date}.csv", "r") as csvfile:
+            with open(f"/data/charge-controller/{date}.csv", "r") as csvfile:
                 reader = csv.DictReader(
                     csvfile, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames
                 )

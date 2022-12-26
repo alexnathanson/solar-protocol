@@ -43,7 +43,7 @@ def getCC(host: str, key: str):
 # gets power data from charge controller
 def read_csv():
     today = str(datetime.date.today())
-    chargeControllerData = f"/data/traces/{today}.csv"
+    chargeControllerData = f"/data/charge-controller/{today}.csv"
     filename = chargeControllerData
 
     with open(filename, "r") as data:

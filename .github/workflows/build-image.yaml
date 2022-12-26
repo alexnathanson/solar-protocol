@@ -1,4 +1,4 @@
-name: create solar protocol raspberry pi image
+name: build solar pi image
 
 on: ['pull_request', 'workflow_dispatch']
 
@@ -15,21 +15,28 @@ jobs:
 
       # create 'solar-pi-stage' stage 
       - run: |
-          mkdir -p solar-pi-stage/00-install-podman &&
+          mkdir -p solar-pi-stage/00-install-containers &&
           {
-          cat > solar-pi-stage/00-install-podman/00-packages <<-EOF
-          python3
-          python3-pip
-          podman
+          cat > solar-pi-stage/00-install-containers/00-packages <<-EOF
+          docker.io
+          docker-compose
           EOF
           } &&
           {
-          cat > solar-pi-stage/00-install-podman/01-install-podman-compose.sh <<-EOF
-          #!/bin/bash
-          python -m pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
+          cat > solar-pi-stage/01-build-containers/00-packages <<-EOF
+          git
           EOF
           } &&
-          chmod +x solar-pi-stage/00-install-podman/01-install-podman-compose.sh &&
+          {
+          cat > solar-pi-stage/01-build-containers/01-clone-repository.sh <<-EOF
+          su -u solar -c "git clone https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol"
+          EOF
+          } &&
+          {
+          cat > solar-pi-stage/01-build-containers/02-build-containers.sh <<-EOF
+          su -u solar -c "/home/solar/solar-protocol/solar-protocol build"
+          EOF
+          } &&
           {
           cat > solar-pi-stage/prerun.sh <<-EOF
           #!/bin/bash -e
@@ -48,7 +55,7 @@ jobs:
           enable-ssh: 1
           hostname: solar-pi
           username: solar
-          password: 'solar-power-for-artists'
+          password: 'solarpowerforartists'
 
           keyboard-keymap: us
           keyboard-layout: English (US)
@@ -68,7 +75,7 @@ jobs:
           pi-gen-version: arm64
           use-qcow2: 1
 
-          release: bookworm
+          release: bullseye
           stage-list: stage0 stage1 stage2 ./solar-pi-stage
 
 

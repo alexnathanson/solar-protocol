@@ -95,6 +95,11 @@ install-podman-linux() {
 install-docker-linux() {
   exists docker || sudo apt-get install --yes docker.io
 
+  # Not sure why buildkit fails. FIXME: migrate to podman when bookworm is released for raspberry pi
+  if ! test -f /etc/profile.d/disable-buildkit.sh; then
+    echo "export DOCKER_BUILDKIT=0" | sudo tee /etc/profile.d/disable-buildkit.sh > /dev/null
+  fi
+
   if ! docker compose >/dev/null; then
     sudo apt-get install --yes ca-certificates curl gnupg lsb-release
     sudo mkdir -p /etc/apt/keyrings

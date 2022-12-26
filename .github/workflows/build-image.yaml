@@ -17,18 +17,18 @@ jobs:
       - run: |
           mkdir -p solar-pi-stage/00-install-container-runtime &&
           echo docker.io > solar-pi-stage/00-install-container-runtime/00-packages &&
-          echo on_chroot usermod --append --groups docker solar > solar-pi-stage/00-install-container-runtime/01-run.sh &&
-          chmod +x solar-pi-stage/00-install-container-runtime/01-run.sh &&
+          echo usermod --append --groups docker solar > solar-pi-stage/00-install-container-runtime/01-run-chroot.sh &&
+          chmod +x solar-pi-stage/00-install-container-runtime/01-run-chroot.sh &&
           mkdir -p solar-pi-stage/01-build-container-images &&
           echo git > solar-pi-stage/01-build-container-images/00-packages &&
           {
-          cat > solar-pi-stage/01-build-container-images/01-run.sh <<-EOF
+          cat > solar-pi-stage/01-build-container-images/01-run-chroot.sh <<-EOF
           #!/bin/bash -e
-          on_chroot su -u solar -c "git clone https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol"
-          on_chroot su -u solar -c "/home/solar/solar-protocol/solar-protocol install"
-          on_chroot su -u solar -c "/home/solar/solar-protocol/solar-protocol build"
+          su -u solar -c "git clone https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol"
+          su -u solar -c "/home/solar/solar-protocol/solar-protocol install"
+          su -u solar -c "/home/solar/solar-protocol/solar-protocol build"
           EOF
-          } && chmod +x solar-pi-stage/01-build-container-images/01-run.sh &&
+          } && chmod +x solar-pi-stage/01-build-container-images/01-run-chroot.sh &&
           {
           cat > solar-pi-stage/prerun.sh <<-EOF
           #!/bin/bash -e

@@ -15,28 +15,31 @@ jobs:
 
       # create 'solar-pi-stage' stage 
       - run: |
-          mkdir -p solar-pi-stage/00-install-containers &&
+          mkdir -p solar-pi-stage/00-install-container-runtime &&
           {
-          cat > solar-pi-stage/00-install-containers/00-packages <<-EOF
+          cat > solar-pi-stage/00-install-container-runtime/00-packages <<-EOF
           docker.io
           docker-compose
           EOF
           } &&
+          mkdir -p solar-pi-stage/01-build-container-images &&
           {
-          cat > solar-pi-stage/01-build-containers/00-packages <<-EOF
+          cat > solar-pi-stage/01-build-container-images/00-packages <<-EOF
           git
           EOF
           } &&
           {
-          cat > solar-pi-stage/01-build-containers/01-clone-repository.sh <<-EOF
+          cat > solar-pi-stage/01-build-container-images/01-clone-repository.sh <<-EOF
+          #!/bin/bash -e
           su -u solar -c "git clone https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol"
           EOF
-          } &&
+          } && chmod +x solar-pi-stage/01-build-container-images/01-clone-repository.sh &&
           {
-          cat > solar-pi-stage/01-build-containers/02-build-containers.sh <<-EOF
+          cat > solar-pi-stage/01-build-container-images/02-build-container-images.sh <<-EOF
+          #!/bin/bash -e
           su -u solar -c "/home/solar/solar-protocol/solar-protocol build"
           EOF
-          } &&
+          } && chmod +x solar-pi-stage/01-build-container-images/02-build-container-images.sh &&
           {
           cat > solar-pi-stage/prerun.sh <<-EOF
           #!/bin/bash -e
@@ -44,8 +47,7 @@ jobs:
             copy_previous
           fi
           EOF
-          } &&
-          chmod +x solar-pi-stage/prerun.sh
+          } && chmod +x solar-pi-stage/prerun.sh
 
       - name: build image
         uses: usimd/pi-gen-action@v1

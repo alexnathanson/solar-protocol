@@ -17,7 +17,6 @@ jobs:
       - run: |
           mkdir -p solar-pi-stage/00-install-container-runtime &&
           echo docker.io > solar-pi-stage/00-install-container-runtime/00-packages &&
-          echo docker-compose >> solar-pi-stage/00-install-container-runtime/00-packages &&
           echo on_chroot usermod --append --groups docker solar > solar-pi-stage/00-install-container-runtime/01-add-user-to-docker-group.sh &&
           chmod +x solar-pi-stage/00-install-container-runtime/01-add-user-to-docker-group.sh &&
           mkdir -p solar-pi-stage/01-build-container-images &&
@@ -31,6 +30,7 @@ jobs:
           {
           cat > solar-pi-stage/01-build-container-images/02-build-container-images.sh <<-EOF
           #!/bin/bash -e
+          on_chroot su -u solar -c "/home/solar/solar-protocol/solar-protocol install"
           on_chroot su -u solar -c "/home/solar/solar-protocol/solar-protocol build"
           EOF
           } && chmod +x solar-pi-stage/01-build-container-images/02-build-container-images.sh &&

@@ -217,7 +217,11 @@ container() {
 # need to build a system 'image', which contains a snapshot of the current code
 # and dependencies.
 build() {
-  container image exists localhost/solar-protocol/base:beta || compose build common
+  if exists docker; then
+    docker image inspect localhost/solar-protocol/base:beta || compose build common
+  else
+    podman image exists localhost/solar-protocol/base:beta || compose build common
+  fi
   compose build "$@"
 }
 

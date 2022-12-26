@@ -19,15 +19,15 @@ This works with a [USB to RS485 converter](https://www.sparkfun.com/products/159
 
 Download the official [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 
-![rpi imager screen](images/raspberry-pi-imager.png)
-
-Download [the latest Raspberry Pi OS Bookworm](https://raspi.debian.net/tested/20220808_raspi_4_bookworm.img.xz)
+[!rpi imager screen](docs/images/raspberry-pi-imager.png)
 
 Choose "Raspberry Pi OS (Other)"
 
-![choosing Use Custom](images/use-custom.png)
+[!choosing pi os other](docs/images/raspberry-pi-os-other.png)
 
-Choose the downloaded image
+Scroll down and choose "Rapsberry Pi OS Lite (64-bit)"
+
+[!image of choosing OS](docs/images/raspberry-pi-os-lite-64-bit.png)
 
 Click the gear icon (and on macOS, if it asks, choose Yes to prefill the wifi password)
 
@@ -38,7 +38,7 @@ Click the gear icon (and on macOS, if it asks, choose Yes to prefill the wifi pa
     - [ ] **Wireless LAN Country**
 - [ ] Set locale settings
 
-![image of needed options](images/raspberry-pi-advanced-options.png)
+[!image of needed options](docs/images/raspberry-pi-advanced-options.png)
 
 Click save, then choose storage and pick your microSD card
 

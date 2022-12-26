@@ -125,9 +125,9 @@ def updateDevice(
     }
     postedDevice = {key: value for (key, value) in formData.items() if value}
 
-    filename = f"/data/devices.json"
+    devicesFilename = f"/data/devices.json"
 
-    with open(filename, "r") as devicesfile:
+    with open(devicesFilename, "r") as devicesfile:
         devices = json.load(devicesfile)
 
     # update the device if we already found its mac...
@@ -141,10 +141,10 @@ def updateDevice(
     if foundDevice is None:
         devices.append(postedDevice)
 
-    with open(filename, "w") as devicesfile:
+    with open(devicesFilename, "w") as devicesfile:
         json.dump(devices, devicesfile)
 
-    with open(filename, "r") as devicesfile:
+    with open(devicesFilename, "r") as devicesfile:
         for device in json.load(devicesfile):
             if device.get("mac") == mac:
                 return device
@@ -152,9 +152,7 @@ def updateDevice(
 
 @app.get("/api/devices")
 def devices(key: Union[DeviceKeys, None] = None):
-    filename = f"/data/devices.json"
-
-    with open(filename, "r") as jsonfile:
+    with open("/data/devices.json", "r") as jsonfile:
         devices = json.load(jsonfile)
 
     if key == None:
@@ -234,40 +232,21 @@ def getChargeForDay(x_real_ip: str | None = Header(default=None)):
     return x_real_ip
 
 
-def getDNSKey():
-    filename = f"/data/dnskey.txt"
-
-    with open(filename, "r") as dnskeyfile:
-        return readline()
-
-
-@app.get("/api/blocklist")
-def blocklist():
-    with open("/data/blocklist.json") as blocklistfile:
-        return json.load(blocklistfile)
-
-
-def updatePoeLog(name: str, ip: str):
-    fileName = f"/data/dns.log"
-
-    with open(fileName, "a", newline="") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=[name, ip])
-        writer.writerow([name, ip])
+@app.get("/api/allowlist")
+def allowlist():
+    with open("/data/allowlist.json", "r") as allowlistfile:
+        return json.load(allowlistfile)
 
 
 @app.post("/api/profile")
 def updateProfileImage(profile: str):
-    fileName = f"/local/serverprofile.gif"
-
-    with open(fileName, "w") as profilefile:
+    with open("/local/serverprofile.gif", "w") as profilefile:
         write(profile, profilefile)
 
 
 @app.get("/api/local")
 def getLocal(key: Union[SystemKeys, None]):
-    filename = f"/local/local.json"
-
-    with open(filename, "r") as jsonfile:
+    with open("/local/local.json", "r") as jsonfile:
         localData = json.load(jsonfile)
 
     if key == None:

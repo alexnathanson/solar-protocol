@@ -29,13 +29,12 @@ def determineServer(allValues: list[int], myValue: int):
 
 # TODO: we should probably sanitize this name
 def getName():
-    filename = f"/local/local.json"
-
-    with open(filename, "r") as jsonfile:
-        localData = json.load(jsonfile)
-        return localData["name"]
-
-    error("Problem finding name")
+    try:
+        with open("/local/local.json", "r") as jsonfile:
+            localData = json.load(jsonfile)
+            return localData["name"]
+    except KeyError:
+        error(f"Problem finding name")
 
 
 """
@@ -71,9 +70,7 @@ FIXME: have a discussion about this
 
 
 def updateDnsLog(name: str, ip: str, timestamp):
-    fileName = f"/data/dns.log"
-
-    with open(fileName, "a", newline="") as csvfile:
+    with open("/data/dns.log", "a+", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=[name, ip, timestamp])
         writer.writerow([name, ip, timestamp])
 
@@ -84,9 +81,7 @@ The poe.log is a local log of all the timestamps our server updated its DNS
 
 
 def updatePoeLog(timestamp):
-    fileName = f"/data/poe.log"
-
-    with open(fileName, "a") as file:
+    with open("/data/poe.log", "a+") as file:
         file.writeLine(timestamp + "\n")
 
 

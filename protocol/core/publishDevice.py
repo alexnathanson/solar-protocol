@@ -23,10 +23,6 @@ from logging import debug, error, exception, info
 
 from solar_secrets import getSecret, SecretKey
 
-poeLog = "/data/poe.log"
-localConfig = "/local/local.json"
-deviceList = "/data/devices.json"
-
 
 def getMAC():
     interface = getLocal("interface")
@@ -40,7 +36,7 @@ def getMAC():
 
 
 def getDevices(key: str):
-    with open(deviceList) as file:
+    with open("/data/devices.json") as file:
         devices = json.load(file)
         return [device.get(key) for device in devices]
 
@@ -52,14 +48,14 @@ This would happen if the current server was POE for the entire 72 hours
 """
 
 
-def getPoeLog():
+def getPoeLog(filename="/data/poe.log"):
     try:
-        with open(poeLog) as poeFile:
+        with open(filename, "a+") as poeFile:
             lines = poeFile.readlines()
             stripped = [line.rstrip() for line in lines[:216]]
             return ",".join(stripped)
     except:
-        exception()
+        exception(f"Could not open {filename}")
 
     return ","
 
@@ -71,7 +67,7 @@ def getLocal(key):
     }
     default = defaults.get(key)
     try:
-        with open(localConfig) as file:
+        with open("/local/local.json") as file:
             device = json.load(file)
             return device.get(key, default)
 

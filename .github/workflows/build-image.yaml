@@ -24,7 +24,7 @@ jobs:
           {
           cat > solar-pi-stage/01-build-container-images/01-run-chroot.sh <<-EOF
           #!/bin/bash -e
-          su - solar --command "git clone https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol"
+          su - solar --command "git clone --quiet https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol"
           su - solar --command "/home/solar/solar-protocol/solar-protocol install"
           su - solar --command "/home/solar/solar-protocol/solar-protocol build"
           EOF

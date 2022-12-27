@@ -6,7 +6,7 @@ __pycache__
 local/secrets.json
 
 # created by datalogger/csv_datalogger.py
-data/traces/*csv
+data/charge-controller/*csv
 
 # local cache of device discovery
 data/devices/*json

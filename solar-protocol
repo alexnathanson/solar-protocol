@@ -163,6 +163,7 @@ install() {
     # upgrade to latest stable distribution
     sudo apt-get update
     sudo apt-get full-upgrade --yes
+    sudo apt-get install --yes apache2-utils
 
     # install docker or podman
     install-container-runtime
@@ -175,6 +176,7 @@ install() {
 
   # debian
   if [[ "$(uname -s)" == "Linux" ]]; then
+    sudo apt-get install --yes apache2-utils
     install-container-runtime
     return
   fi
@@ -199,7 +201,7 @@ prompt() {
   fi
 }
 
-password() { openssl rand -hex 8; }
+generate-key() { openssl rand -hex 16; }
 
 bcrypt() { htpasswd -bnBC 10 "" "$1" | tr -d ':\n'; }
 
@@ -270,6 +272,15 @@ install-systemd() {
   done
 }
 
+set-admin-password() {
+  user=$1
+  wanted_password=$2
+  password_hash=$(bcrypt $2)
+  grep -v "^${user}" local/admin.htpasswd > temp.htpasswd
+  echo "${user}:${password_hash}" >> temp.htpasswd
+  mv temp.htpasswd local/admin.htpasswd
+}
+
 case $command in
   up|start) compose up "$@" ;;
   down|stop) compose down "$@" ;;
@@ -283,7 +294,7 @@ case $command in
   exec) compose-exec "$@" ;;
   run) compose run "$@" ;;
   generate) generate "$@" ;;
-  password) password ;;
+  generate-key) generate-key ;;
   update-dns) update-dns "$@" ;;
   get-remote-data) get-remote-data "$@" ;;
   build-viz) build-viz "$@" ;;
@@ -291,8 +302,8 @@ case $command in
   hash) bcrypt "$1" ;;
   install-systemd) install-systemd ;;
   copy-ssh-key) ssh-keygen -ted25519 -f ~/.ssh/solar-protocol-pi | tee | pbcopy ;;
+  set-admin-password) set-admin-password "$@";
   reset) reset ;;
-  keygen) pass=$(password); echo "password: $pass"; echo hash: "$(bcrypt "$pass")" ;;
   install) install ;;
   *) help ;;
 esac

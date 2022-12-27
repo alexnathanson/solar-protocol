@@ -25,9 +25,9 @@ This is where mac, ip, timestamp, and device name info from devices on the netwo
 
 * name and timestamp aren't required, but may be helpful in the future for debugging
 
-### API Key
+### Network Key
 
-The apiKey should be added to the local.json file
+The network key should be added to the secrets.json file
 
 ### POST
 

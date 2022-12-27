@@ -99,6 +99,7 @@ def status():
     }
 
 
+# This is a list of announced devices. 
 @app.post("/api/device")
 def updateDevice(
     tz: Union[str, None] = Form(),
@@ -108,11 +109,11 @@ def updateDevice(
     ip: Union[str, None] = Form(),
     httpPort: Union[str, None] = Form(),
     timestamp: Union[float, None] = Form(),
-    apiKey: str = Form(),
+    networkKey: str = Form(),
 ):
 
-    if apiKey != getSecret(SecretKey.apiKey):
-        raise Error("Invalid apiKey for this server")
+    if networkKey != getSecret(SecretKey.networkKey):
+        raise Error("Invalid networkKey for this server")
 
     formData = {
         "tz": tz,
@@ -238,6 +239,8 @@ def allowlist():
 
 @app.post("/api/profile")
 def updateProfileImage(profile: str):
+    raise Error(f"Unimplemented")
+    # FIXME: Protect this route
     with open("/local/serverprofile.gif", "w") as profilefile:
         write(profile, profilefile)
 
@@ -273,6 +276,8 @@ def updateLocal(
     pvVolts: Union[str, None] = Form(),
     httpPort: Union[str, None] = Form(),
 ):
+    raise Error(f"Unimplemented")
+    # FIXME: Protect this route
     formData = {
         "name": name,
         "description": description,
@@ -303,6 +308,9 @@ def updateLocal(
 
 @app.post("/api/secret")
 def setEnv(key: SecretKey, value: str):
+    raise Error(f"Unimplemented")
+    # FIXME: Protect this route
+
     if not isHash(value):
         raise Error(f"Secret value for `{key}` not a valid hash")
 

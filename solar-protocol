@@ -302,7 +302,7 @@ case $command in
   hash) bcrypt "$1" ;;
   install-systemd) install-systemd ;;
   copy-ssh-key) ssh-keygen -ted25519 -f ~/.ssh/solar-protocol-pi | tee | pbcopy ;;
-  set-admin-password) set-admin-password "$@";
+  set-admin-password) set-admin-password "$@" ;;
   reset) reset ;;
   install) install ;;
   *) help ;;

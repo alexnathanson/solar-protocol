@@ -24,14 +24,13 @@ help() {
   ☀️ solar-protocol - commandline tool to help manage your server
 
     ${Blue}solar-protocol install${Clear}               install dependencies to build and run solar-protocol
-    ${Blue}solar-protocol up${Clear}                    start all the services in production mode
-    ${Blue}solar-protocol logs api${Clear}              show api logs
     ${Blue}solar-protocol start${Clear}                 start the protocol
+    ${Blue}solar-protocol logs api${Clear}              show api logs
     ${Blue}solar-protocol status${Clear}                check status of the containers
     ${Blue}solar-protocol restart datalogger${Clear}    restart the datalogger
     ${Blue}solar-protocol down${Clear}                  stop all services
     ${Blue}solar-protocol shell protocol${Clear}        open a shell in the protocol container
-    ${Blue}solar-protocol update-dns [password]${Clear} update the dns for solarprotocol.net
+    ${Blue}solar-protocol update-dns [password]${Clear} update the dns for beta.solarprotocol.net
 HELP
   )"
 }

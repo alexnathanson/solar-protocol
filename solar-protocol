@@ -137,8 +137,9 @@ install() {
 
   if [[ -f ~/.zshrc ]]; then
     if ! grep --quiet solar-protocol ~/.zshrc; then
-      if prompt "Add solar-protocol PATH to ~/.zshrc?"; then
+      if prompt "Add solar-protocol PATH and completions to ~/.zshrc?"; then
         echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
+        echo "fpath+=($PWD/dev); compinit" >> ~/.zshrc
         . ~/.zshrc
       fi
     fi

@@ -2,16 +2,19 @@ import json
 from enum import StrEnum, auto
 from logging import error
 
+
 class SecretKey(StrEnum):
     apiKey = auto()
     dnsPassword = auto()
     appid = auto()
+    dnsKey = auto()
 
 
 defaultSecrets = {
     SecretKey.apiKey: "",
     SecretKey.dnsPassword: "",
     SecretKey.appid: "",
+    SecretKey.dnsKey: "",
 }
 
 

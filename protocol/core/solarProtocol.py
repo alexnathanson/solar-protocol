@@ -27,52 +27,24 @@ def determineServer(allValues: list[int], myValue: int):
         info("Not point of entry")
 
 
-# TODO: we should probably sanitize this name
-def getName():
-    try:
-        with open("/local/local.json", "r") as jsonfile:
-            localData = json.load(jsonfile)
-            return localData["name"]
-    except KeyError:
-        error(f"Problem finding name")
-
-
 """
-Fully peer-to-peer = each machine keeps the secret locally
-FIXME: We should discuss this
+Ask the gateway to update our DNS
 """
 
 
-def updateDNS(host: str = "beta", domain: str = "solarprotocol.net"):
-    password = getSecret(SecretKey.dnsPassword)
+def updateDNS():
+    dnsKey = getSecret(SecretKey.dnsKey)
 
-    params = {host, domain, password}
-    url = "https://dynamicdns.park-your-domain.com/update"
+    params = {dnsKey}
+    url = "https://server.solarpowerforartists.com/update"
 
     response = request.get(url=url, params=params)
 
     if response.status_code == 200:
         timestamp = datetime.datetime.now()
-        # name = getName()
-        # updateDnsLog(name, ip, timestamp)
         updatePoeLog(timestamp)
 
     return response.text
-
-
-"""
-The dns.log is meant to be for the 'gateway' server
-All requests used to update DNS go through the gateway
-Which gave us a nice centralized list of server names/ips/timestamps
-
-FIXME: have a discussion about this
-"""
-
-
-def updateDnsLog(name: str, ip: str, timestamp):
-    with open("/data/dns.log", "a+", newline="") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=[name, ip, timestamp])
-        writer.writerow([name, ip, timestamp])
 
 
 """

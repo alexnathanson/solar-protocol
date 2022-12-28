@@ -8,9 +8,12 @@ from enum import Enum
 from typing import Union
 
 from fastapi import FastAPI, Header, Form
+from passlib.hash import bcrypt
 from solar_secrets import getSecret, setSecret, SecretKey
 from solar_common import fieldnames
 import requests
+
+from starlette_context import middleware, plugins
 
 # safelist of keys we can share from local.json
 safe_keys = [
@@ -54,6 +57,11 @@ class SystemKeys(str, Enum):
 
 
 app = FastAPI(title="solar-protocol", docs_url="/api/docs")
+
+app.add_middleware(
+    middleware.ContextMiddleware,
+    plugins=(plugins.ForwardedForPlugin(),),
+)
 
 
 def getTimezone():
@@ -99,7 +107,44 @@ def status():
     }
 
 
-# This is a list of announced devices. 
+def allowlist():
+    with open("/data/allowlist.json", "r") as allowlistfile:
+        return json.load(allowlistfile)
+
+
+def updateDnsLog(name: str, ip: str, timestamp):
+    with open("/data/dns.log", "a+", newline="") as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=[name, ip, timestamp])
+        writer.writerow([name, ip, timestamp])
+
+
+@app.post("/api/update")
+def updateDNS(dnsKey: str = Form()):
+    ip = context.data["X-Forwarded-For"]
+
+    for name, password_hash in allowlist().items():
+        if bcrypt.verify(dnsKey, password_hash):
+            host = "beta"
+            domain = "solarprotocol.net"
+            password = getSecret(SecretKey.dnsPassword)
+
+            params = {host, domain, ip, password}
+            url = "https://dynamicdns.park-your-domain.com/update"
+
+            response = request.get(url=url, params=params)
+
+            if response.status_code == 200:
+                timestamp = datetime.datetime.now()
+                updateDnsLog(name, ip, timestamp)
+                return f"beta.solarprotocol.net: ip"
+            else:
+                error(response.text)
+                raise Error("issue updating dns")
+
+    raise HTTPException(status_code=403)
+
+
+# This is a list of announced devices.
 @app.post("/api/device")
 def updateDevice(
     tz: Union[str, None] = Form(),
@@ -229,12 +274,6 @@ def charge(days: Union[list[str], None] = None, key: Union[ChargeKeys, None] = N
 @app.get("/api/myip")
 def getChargeForDay(x_real_ip: str | None = Header(default=None)):
     return x_real_ip
-
-
-@app.get("/api/allowlist")
-def allowlist():
-    with open("/data/allowlist.json", "r") as allowlistfile:
-        return json.load(allowlistfile)
 
 
 @app.post("/api/profile")

@@ -142,12 +142,12 @@ install() {
   fi
 
   # raspberry pi OS
-  if [[ "$PLATFORM" == "pi" -o "$PLATFORM" == "debian" ]]; then
+  if [[ "$PLATFORM" == "pi" ]] || [[ "$PLATFORM" == "debian" ]]; then
     install-docker-debian
 
-    echo "solar-protocol dependencies! try:"
+    echo "solar-protocol dependencies installed! try:"
     echo "\tsolar-protocol build"
-    echo "\tsolar-protocol install"
+    echo "\tsolar-protocol start"
     return
   fi
 

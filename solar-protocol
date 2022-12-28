@@ -10,10 +10,6 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 set -o errexit
 set -o nounset
 
-exists() {
-  command -v "$@" >/dev/null 2>&1
-}
-
 help() {
   Clear='\033[0m'
   Blue='\033[0;34m'
@@ -23,41 +19,43 @@ help() {
 
   ☀️ solar-protocol - commandline tool to help manage your server
 
-    ${Blue}solar-protocol install${Clear}               install dependencies to build and run solar-protocol
+    ${Blue}solar-protocol install${Clear}               install dependencies and completions
     ${Blue}solar-protocol start${Clear}                 start the protocol
     ${Blue}solar-protocol logs api${Clear}              show api logs
     ${Blue}solar-protocol status${Clear}                check status of the containers
     ${Blue}solar-protocol restart datalogger${Clear}    restart the datalogger
-    ${Blue}solar-protocol down${Clear}                  stop all services
+    ${Blue}solar-protocol stop${Clear}                  stop all services
     ${Blue}solar-protocol shell protocol${Clear}        open a shell in the protocol container
     ${Blue}solar-protocol update-dns [password]${Clear} update the dns for beta.solarprotocol.net
 HELP
   )"
 }
 
-build-viz() {
-  compose-exec python /protocol/build/viz.py "$@"
+exists() {
+  command -v "$@" >/dev/null 2>&1
 }
 
-build-html() {
-  compose-exec python /protocol/build/html.py "$@"
+platform() {
+  if exists raspi-config; then
+    echo "pi"
+  elif [[ "$(uname -s)" == "Darwin" ]]; then
+    echo "mac"
+  elif grep -qi microsoft /proc/version; then
+    echo "win"
+  elif [[ -f /etc/debian_version ]]; then
+    echo "debian"
+  elif [[ "$(uname -s)" == "Linux" ]]; then
+    echo "linux"
+  fi
 }
 
-get-remote-data() {
-  compose-exec python /protocol/core/getRemoteData.py "$@"
-}
+PLATFORM=$(platform)
 
-generate() {
-  get-remote-data "$@"
-  build-viz "$@"
-  build-html "$@"
-}
-
-machine() {
-  if [[ "$(uname -s)" == "Darwin" ]]; then
-    if [[ "$(podman machine inspect --format '{{.State}}')" != "running" ]]; then
-      podman machine start
-    fi
+prompt() {
+  if [[ "$unattended" != "yes" ]]; then
+    read -r -p "$* (y/N) " confirm && \
+      [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
+      || exit 1
   fi
 }
 
@@ -85,16 +83,13 @@ update-dns() {
   echo "$TIME - $IP" >> $LOGFILE
 }
 
-install-podman-linux() {
-  exists podman || sudo apt-get install --yes podman
-  exists pip || sudo apt-get install --yes python3-pip
-  exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
-}
-
-install-docker-linux() {
+# FIXME: migrate to podman when bookworm is released for raspberry pi
+install-docker-debian() {
+  sudo apt-get update
   exists docker || sudo apt-get install --yes docker.io
+  exists htpasswd || sudo apt-get install --yes apache2-utils
 
-  # Not sure why buildkit fails. FIXME: migrate to podman when bookworm is released for raspberry pi
+  # Not sure why buildkit fails
   if ! test -f /etc/profile.d/disable-buildkit.sh; then
     echo "export DOCKER_BUILDKIT=0" | sudo tee /etc/profile.d/disable-buildkit.sh > /dev/null
     . /etc/profile.d/disable-buildkit.sh
@@ -112,16 +107,7 @@ install-docker-linux() {
     fi
 
     sudo apt update
-    sudo apt-get install docker-compose-plugin
-  fi
-}
-
-install-container-runtime() {
-  if grep --quiet bookworm /etc/os-release; then
-    install-podman-linux
-    install-systemd
-  else
-    install-docker-linux
+    sudo apt-get install --yes docker-compose-plugin
   fi
 }
 
@@ -146,27 +132,18 @@ install() {
   fi
 
   # macOS
-  if [[ "$(uname -s)" == "Darwin" ]]; then
-    exists podman podman-compose || brew install podman podman-compose
-    brew upgrade podman podman-compose
+  if [[ "$PLATFORM" == "mac" ]]; then
+    exists podman && brew upgrade podman || brew install podman
+    exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
 
     podman machine inspect >/dev/null 2>&1 || podman machine init
-
-    if [[ "$(podman machine inspect --format '{{.State}}')" != "running" ]]; then
-      podman machine start
-    fi
+    [[ "$(podman machine inspect --format '{{.State}}')" == "running" ]] || podman machine start
     return
   fi
 
   # raspberry pi OS
-  if exists raspi-config; then
-    # upgrade to latest stable distribution
-    sudo apt-get update
-    sudo apt-get full-upgrade --yes
-    sudo apt-get install --yes apache2-utils
-
-    # install docker or podman
-    install-container-runtime
+  if [[ "$PLATFORM" == "pi" -o "$PLATFORM" == "debian" ]]; then
+    install-docker-debian
 
     echo "solar-protocol dependencies! try:"
     echo "\tsolar-protocol build"
@@ -174,15 +151,8 @@ install() {
     return
   fi
 
-  # debian
-  if [[ "$(uname -s)" == "Linux" ]]; then
-    sudo apt-get install --yes apache2-utils
-    install-container-runtime
-    return
-  fi
-
   # windows
-  if grep -qi microsoft /proc/version; then
+  if [[ "$PLATFORM" == "win" ]]; then
     echo See the official windows install docs to install podman and podman-compose
     echo
     echo https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md
@@ -190,15 +160,6 @@ install() {
   fi
 
   exists docker || exists podman podman-compose
-}
-
-
-prompt() {
-  if [[ "$unattended" != "yes" ]]; then
-    read -r -p "$* (y/N) " confirm && \
-      [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
-      || exit 1
-  fi
 }
 
 generate-key() { openssl rand -hex 16; }
@@ -224,33 +185,21 @@ format() {
   shopt -s globstar
   black -- **/**.py
   shellcheck solar-protocol
-  tidy -i -m -w 160 -ashtml -utf8 -- **/**.html
+  #tidy -i -m -w 160 -ashtml -utf8 -- **/**.html
 }
 
 compose() {
-  if exists docker; then
-    docker compose --file compose.yaml "$@"
+  if [[ "$PLATFORM" == "mac" ]]; then
+    machine
+    podman-compose --file compose.yaml "$@"
   else
-    machine; podman-compose --file compose.yaml "$@"
+    docker compose --file compose.yaml "$@"
   fi
-}
-
-container() {
-  if exists docker; then docker "$@"; else podman "$@"; fi
 }
 
 # Before we can run any of the services (web, api, protocol, datalogger), we
 # need to build a system 'image', which contains a snapshot of the current code
 # and dependencies.
-build() {
-  if exists docker; then
-    docker image inspect localhost/solar-protocol/base:beta || compose build common
-  else
-    podman image exists localhost/solar-protocol/base:beta || compose build common
-  fi
-  compose build "$@"
-}
-
 # SystemD is how linux systems run services
 # A service is just any software that you want to run every time the system is on
 # Raspberry Pis use linux, so this will make sure solar protocol is installed and running at boot
@@ -287,18 +236,13 @@ case $command in
   status) compose ps 2>/dev/null ;;
   restart) compose restart "${@:-api datalogger protocol web}" ;;
   logs) compose logs "${@:-protocol}" ;;
-  build) build "$@" ;;
+  build) compose build "$@" ;;
   shell) compose exec "${1:-protocol}" /bin/bash ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) format ;;
-  exec) compose-exec "$@" ;;
   run) compose run "$@" ;;
-  generate) generate "$@" ;;
   generate-key) generate-key ;;
   update-dns) update-dns "$@" ;;
-  get-remote-data) get-remote-data "$@" ;;
-  build-viz) build-viz "$@" ;;
-  build-html) build-html "$@" ;;
   hash) bcrypt "$1" ;;
   install-systemd) install-systemd ;;
   copy-ssh-key) ssh-keygen -ted25519 -f ~/.ssh/solar-protocol-pi | tee | pbcopy ;;

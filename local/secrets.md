@@ -14,15 +14,19 @@ Needed for getting local weather data from openweathermap.org. Ask an administra
 
 ### dns key
 
+NEVER SHARE THIS KEY 
+
 To become the active server, this key is sent to our DNS gateway. If the gateway has your key in the allowlist, it will update beta.solarprotocol.net to your current server's IP.
 
-NEVER SHARE THIS KEY - use `solar-protocol get-dns-hash` and share that with an admin instead
+Use `solar-protocol get-dns-hash` and share that with an admin instead
 
 ---
 
 ### dnspassword
 
 The `dnspassword` is used to update the DNS records for the solar protocol network. It should be left blank - only the DNS gateway uses this.
+
+---
 
 ## admin.htpasswd
 

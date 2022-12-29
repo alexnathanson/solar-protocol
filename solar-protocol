@@ -247,9 +247,9 @@ set-secret() {
   key=$1
   secret=$2
 
-  if [[ "$key" == appid ]] || [[ "$key" == "networkkey" ]] || [[ "$key" == "dnskey" ]]; then
+  if [[ "$key" == "appid" ]] || [[ "$key" == "networkkey" ]] || [[ "$key" == "dnskey" ]]; then
     tmp=$(mktemp)
-    jq --arg key "$key" --arg secret "$secret" '.[$key] = $secret' local/secrets.json > "$tmp" \
+    jq --arg key "$key" --arg secret "$secret" '.[$key] |= $secret' local/secrets.json > "$tmp" \
       && mv "$tmp" local/secrets.json
   fi
 }
@@ -258,14 +258,16 @@ get-dns-hash() {
   tmp=$(mktemp)
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
 
-  if [[ -z "$dnskey" ]]; then
+  if [[ "$dnskey" == "null" ]]; then
     dnskey=$(generate-key)
     set-secret dnskey "$dnskey"
   fi
 
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
-  bcrypt $dnskey
-  echo
+  if [[ "$dnskey" != "null" ]]; then
+    bcrypt $dnskey
+    echo
+  fi
 }
 
 case $command in

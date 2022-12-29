@@ -5,6 +5,8 @@ the only code in that file is a 'return KEY_IN_QUOTES'
 it must be located in the same directory as this script*/
 $dnskey = require('key.php');
 
+$serverHash = require('list.php');
+
 //this could be used to call the functions to retrieve the access lists if needed
 //require('list.php');
 
@@ -12,7 +14,7 @@ $dnskey = require('key.php');
 
 //in the future this should be either a database or a seperate json file
 //white list
-$serverHash = [
+/*$serverHash = [
   "Hells Gate" => "$2y$10$5/O1zeTvLmxBNIRpmqve5u6x9RmL8JBi./dzgD3mwfudHEBuABFQ6",
   "Chile" => "$2y$10$M3RtM5fYwzUXYQJRx1OGDe9oPSAmnApDPlCWpYCpHXcQixCPVaNge",
   "Low_Carbon_Methods" => "$2y$10$2vFdQ05rQyGFIbY6WjncE.nZgimUEfIoCQKoQmK1qNLSPfc3T2NXy",
@@ -20,7 +22,7 @@ $serverHash = [
   "Kenya" => "$2y$10$3EuwWV0KuoBhBBJd3Q7uX.2XHNIYZZkn0mpUjXSLHd6vGFlAXhyGe",
   "Fiber_Fest" => "$2y$10$42gKyu4kJeMnbOn79hJyQOBxE3aqV1OCXSwaWasg1Dvi0goII2fKK",
   "Swarthmore " => "$2y$10$43RlEFdYJqqc5Odvnr.ol.pbJ0A.p7td3rIzz4Z3V56KpQ0cLogJe"
-];
+];*/
 
 //this is the black list. there could potentailly be multiple burned keys from the same server, so another data format might be necessary
 $blackList = [

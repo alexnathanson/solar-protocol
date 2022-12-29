@@ -25,9 +25,9 @@ jobs:
           {
           cat > solar-pi-stage/01-build-container-images/01-run-chroot.sh <<-EOF
           #!/bin/bash
-          su - solar --command "git clone --depth 1 --quiet https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol > /dev/null"
+          su - solar --command "git clone --quiet https://github.com/alexnathanson/solar-protocol.git --branch beta /home/solar/solar-protocol > /dev/null"
           su - solar --command "CI=true /home/solar/solar-protocol/solar-protocol install"
-          su - solar --command "CI=true /home/solar/solar-protocol/solar-protocol build"
+          #su - solar --command "CI=true /home/solar/solar-protocol/solar-protocol build"
           EOF
           } && chmod +x solar-pi-stage/01-build-container-images/01-run-chroot.sh &&
           {
@@ -60,7 +60,6 @@ jobs:
           github-token: ${{ github.token }}
           image-name: 'solar-pi'
           pi-gen-version: arm64
-          use-qcow2: 1
 
           release: bullseye
           stage-list: stage0 stage1 stage2 ./solar-pi-stage

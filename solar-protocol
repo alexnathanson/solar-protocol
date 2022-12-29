@@ -255,7 +255,7 @@ get-dns-hash() {
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
 
   test -z "$dnskey" \
-    && jq --arg dnskey '.dnskey = $dnskey' local/secrets.json > "$tmp" \
+    && jq --arg dnskey $dnskey '.dnskey = $dnskey' local/secrets.json > "$tmp" \
     && mv "$tmp" local/secrets.json
 
   jq -r '.dnskey' < local/secrets.json | bcrypt -

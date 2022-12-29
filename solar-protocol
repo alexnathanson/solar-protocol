@@ -254,9 +254,11 @@ get-dns-hash() {
   tmp=$(mktemp)
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
 
-  test -z "$dnskey" \
-    && jq --arg dnskey "$dnskey" '.dnskey = $dnskey' local/secrets.json > "$tmp" \
-    && mv "$tmp" local/secrets.json
+  if [[ -z "$dnskey" ]]; then
+    dnskey=$(generate-key)
+    jq --arg dnskey "$dnskey" '.dnskey = $dnskey' local/secrets.json > "$tmp"
+    mv "$tmp" local/secrets.json
+  fi
 
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
   bcrypt $dnskey

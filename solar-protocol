@@ -111,6 +111,12 @@ install-docker-debian() {
     sudo apt update
     sudo apt-get install --yes docker-compose-plugin
   fi
+
+  # add user to docker group
+  if ! groups | grep --quiet docker >/dev/null; then
+    sudo usermod --append --groups docker $USER
+    newgrp docker
+  fi
 }
 
 install() {
@@ -197,6 +203,7 @@ compose() {
     machine
     podman-compose --file compose.yaml "$@"
   else
+    export DOCKER_BUILDKIT=0
     docker compose --file compose.yaml "$@"
   fi
 }

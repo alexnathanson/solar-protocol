@@ -92,8 +92,9 @@ install-docker-debian() {
   # Not sure why buildkit fails
   if ! test -f /etc/profile.d/disable-buildkit.sh; then
     echo "export DOCKER_BUILDKIT=0" | sudo tee /etc/profile.d/disable-buildkit.sh > /dev/null
-    # shellcheck disable=SC1091
-    . /etc/profile.d/disable-buildkit.sh
+
+    echo "please run: "
+    echo ". /etc/profile.d/disable-buildkit.sh"
   fi
 
   if ! docker compose >/dev/null; then
@@ -117,8 +118,8 @@ install() {
     if ! grep --quiet solar-protocol ~/.bashrc; then
      if prompt "Add solar-protocol PATH to ~/.bashrc?"; then
        echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
-       # shellcheck disable=SC1091
-       . "$HOME/.bashrc"
+       echo "please run:"
+       echo ". ~/.bashrc"
      fi
     fi
   fi
@@ -128,8 +129,8 @@ install() {
       if prompt "Add solar-protocol PATH and completions to ~/.zshrc?"; then
         echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
         echo "fpath+=($PWD/dev); compinit" >> ~/.zshrc
-        # shellcheck disable=SC1091
-        . "$HOME/.zshrc"
+        echo "please run:"
+        echo ". ~/.zshrc"
       fi
     fi
   fi

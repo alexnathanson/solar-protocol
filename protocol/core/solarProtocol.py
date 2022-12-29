@@ -1,8 +1,8 @@
 """
 Every server runs this script.
-This script retreives live PV power (watts) data from other servers.
+This script retrieves live PV power (watts) data from other servers.
 Compares data between devices and identifies the device producing the most power at the moment.
-If the local device is producing the most power, it becomes the Point of Entry (PoE) and updates the DNS system.
+If the local device is producing the most power, it becomes the Point of Entry (PoE) by updating the DNS entry.
 Otherwise, the script changes nothing.
 """
 import datetime
@@ -14,12 +14,8 @@ from solar_secrets import getSecret, SecretKey
 
 
 def determineServer(allValues: list[int], myValue: int):
-    """
-    If this server has the highest value, update DNS to be point of entry
-    """
+    """If this server has the highest value, update DNS to be point of entry"""
     if myValue >= max(allValues):
-
-        # TODO: allow overwriting host and domain in local.json
         result = updateDNS()
 
         info(result)
@@ -27,18 +23,13 @@ def determineServer(allValues: list[int], myValue: int):
         info("Not point of entry")
 
 
-"""
-Ask the gateway to update our DNS
-"""
-
-
 def updateDNS():
-    dnsKey = getSecret(SecretKey.dnsKey)
+    """Ask the gateway to update our DNS"""
 
-    params = {dnsKey}
-    url = "https://server.solarpowerforartists.com/update"
+    url = "https://beta.solarpowerforartists.com"
+    key = getSecret(SecretKey.dnsKey)
 
-    response = request.get(url=url, params=params)
+    response = request.post(url=url, data={key})
 
     if response.status_code == 200:
         timestamp = datetime.datetime.now()
@@ -47,12 +38,8 @@ def updateDNS():
     return response.text
 
 
-"""
-The poe.log is a local log of all the timestamps our server updated its DNS
-"""
-
-
 def updatePoeLog(timestamp):
+    """The poe.log is a local log of all the timestamps our server updated its DNS"""
     with open("/data/poe.log", "a+") as file:
         file.writeLine(timestamp + "\n")
 

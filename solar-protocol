@@ -52,6 +52,8 @@ platform() {
 PLATFORM=$(platform)
 
 prompt() {
+  if [[ "$CI" == "true" ]]; then return; fi
+
   if [[ "$unattended" != "yes" ]]; then
     read -r -p "$* (y/N) " confirm && \
       [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \

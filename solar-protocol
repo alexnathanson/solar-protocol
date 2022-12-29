@@ -10,6 +10,8 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 set -o errexit
 set -o nounset
 
+test -f local/secrets.json || touch local/secrets.json
+
 help() {
   Clear='\033[0m'
   Blue='\033[0;34m'
@@ -245,7 +247,7 @@ set-secret() {
   key=$1
   secret=$2
 
-  if [[ "$secret" == appid ]] || [[ "$secret" == "networkkey" ]] || [[ "$secret" == "dnskey" ]]; then
+  if [[ "$key" == appid ]] || [[ "$key" == "networkkey" ]] || [[ "$key" == "dnskey" ]]; then
     tmp=$(mktemp)
     jq --arg key "$key" --arg secret "$secret" '.[$key] = $secret' local/secrets.json > "$tmp" \
       && mv "$tmp" local/secrets.json

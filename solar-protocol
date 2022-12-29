@@ -2,7 +2,7 @@
 
 if [[ "${TRACE-0}" == "1" ]]; then set -o xtrace; fi
 
-unattended=$(echo "$@" | grep --quiet -- '--yes' && echo yes)
+CI=${CI-false}
 command="${1-help}"
 shift
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
@@ -52,9 +52,7 @@ platform() {
 PLATFORM=$(platform)
 
 prompt() {
-  if [[ "$CI" == "true" ]]; then return; fi
-
-  if [[ "$unattended" != "yes" ]]; then
+  if [[ "$CI" != "true" ]]; then 
     read -r -p "$* (y/N) " confirm && \
       [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
       || exit 1

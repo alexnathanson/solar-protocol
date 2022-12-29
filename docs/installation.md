@@ -56,15 +56,28 @@ Download the git repository
     git clone --branch beta http://www.github.com/alexnathanson/solar-protocol.git
     cd solar-protocol
 
-Install required dependencies - the pi will reboot once
+Install required dependencies
 
     ./solar-protocol install
 
 ### Join the network
 
+#### Fill out your secrets file
+
+To join the network, you first need to add some secrets
+
+* Get your unique dnskey with `solar-protocol get-dns-hash`
+* Email an administrator with your dnskey, and they will respond with the `networkkey` and `appid`
+* Set the network key with `solar-protocol set-network-key`
+* Set the app id with `solar-protocol set-app-id`
+
+Next, you will need to make sure other servers on the network can reach yours
+
 * Follow [the raspberry pi security guide](https://www.raspberrypi.com/documentation/computers/configuration.html#securing-your-raspberry-pi)
 * Point your router port 80 to raspberry pi ip port 11221
 * Point your router port 22 to raspberry pi ip port 22
+
+Soon your server will be sharing data with the network
 
 ### Reboot at midnight (TODO: automate)
 

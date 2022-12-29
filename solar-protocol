@@ -241,6 +241,19 @@ set-admin-password() {
   mv temp.htpasswd local/admin.htpasswd
 }
 
+set-secret() {
+  key=$1
+  secret=$2
+
+  tmp=$(mktemp)
+  jq --arg key "$key" --arg secret "$secret" '.[$key] = $secret' local/secrets.json > "$tmp" \
+    && mv "$tmp" local/secrets.json
+}
+
+get-dns-hash() {
+  jq -r '.dnskey' < local/secrets.json | bcrypt -
+}
+
 case $command in
   up|start) compose up "$@" ;;
   down|stop) compose down "$@" ;;
@@ -258,6 +271,9 @@ case $command in
   install-systemd) install-systemd ;;
   copy-ssh-key) ssh-keygen -ted25519 -f ~/.ssh/solar-protocol-pi | tee | pbcopy ;;
   set-admin-password) set-admin-password "$@" ;;
+  set-network-key) set-secret network-key "$1" ;;
+  set-app-id) set-secret app-id "$1" ;;
+  get-dns-hash) get-dns-hash ;;
   reset) reset ;;
   install) install ;;
   *) help ;;

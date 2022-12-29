@@ -5,6 +5,9 @@ the only code in that file is a 'return KEY_IN_QUOTES'
 it must be located in the same directory as this script*/
 $dnskey = require('key.php');
 
+//this could be used to call the functions to retrieve the access lists if needed
+//require('list.php');
+
 #header('Content-Type: application/json');
 
 //in the future this should be either a database or a seperate json file
@@ -12,7 +15,6 @@ $dnskey = require('key.php');
 $serverHash = [
   "Hells Gate" => "$2y$10$5/O1zeTvLmxBNIRpmqve5u6x9RmL8JBi./dzgD3mwfudHEBuABFQ6",
   "Chile" => "$2y$10$M3RtM5fYwzUXYQJRx1OGDe9oPSAmnApDPlCWpYCpHXcQixCPVaNge",
-  "Caddie" => "$2y$10$157Qs27b4.gUAHlF0o/i5ufIF/tclJ8GitcIQbgeA9t76XYF0S0Ve",
   "Low_Carbon_Methods" => "$2y$10$2vFdQ05rQyGFIbY6WjncE.nZgimUEfIoCQKoQmK1qNLSPfc3T2NXy",
   "Dominica" => "$2y$10$MLdkxh3qzwwU0yucGTBte.964aMIPxRHa4UiH3o0AH67jGk5P5nDu",
   "Kenya" => "$2y$10$3EuwWV0KuoBhBBJd3Q7uX.2XHNIYZZkn0mpUjXSLHd6vGFlAXhyGe",
@@ -23,6 +25,7 @@ $serverHash = [
 //this is the black list. there could potentailly be multiple burned keys from the same server, so another data format might be necessary
 $blackList = [
   /*
+    "Caddie" => "$2y$10$157Qs27b4.gUAHlF0o/i5ufIF/tclJ8GitcIQbgeA9t76XYF0S0Ve",
     "Tega" => "",
     "SPfA" => "$2y$10$8jr3efgV3/N2RosUY0cH1edYXYcYNE4Iwi6RHqYwyupnccYVX9f5.",
     "Beijing" => "$2y$10$0uZh7HjT27KTN5uszOCuxe6yhEWbWxzX/i/ZY1vIfZg1xqfNgshmS"
@@ -33,8 +36,9 @@ $blackList = [
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //echo "we got post!";
   //check if key is correct
-  if(array_key_exists("ip", $_POST) && array_key_exists("key", $_POST)){
-    verifyPW($_POST["key"],$_POST["ip"],$serverHash, $dnskey);
+  if(array_key_exists("key", $_POST)){
+    $ip = $_SERVER['REMOTE_ADDR'];
+    verifyPW($_POST["key"],$ip,$serverHash, $dnskey);
   }
 } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
   //echo "GETTING!";
@@ -56,6 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $ip = $_SERVER['REMOTE_ADDR'];
       #echo 'remote addr';
       echo $ip;
+  } elseif(array_key_exists("poe", $_GET)){
+    echo file_get_contents('poe.txt');
   } else {
     echo "no match";
   }
@@ -69,9 +75,11 @@ function verifyPW($key, $ip, $hashlist, $pw){
   foreach($hashlist as $name => $hash){
     //echo $hash . "<br>";
     if(password_verify($key, $hash)){
+
       //echo "updating ip...<br>";
       updateIP($ip, $pw);
-      //writeMostRecent($name);
+      //write a file with the most recent POE server listed
+      writeMostRecent($name);
       $verified = true;
     }
   }

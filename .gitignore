@@ -24,6 +24,7 @@ backend/visualization/clock.png
 /backend/visualization/archive/*
 
 dns-gateway/key.php
+dns-gateway/list.php
 
 /utilities/hostnames.sh
 

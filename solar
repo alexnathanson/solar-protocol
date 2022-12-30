@@ -10,7 +10,7 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 set -o errexit
 set -o nounset
 
-test -f local/secrets.json || touch local/secrets.json
+test -f local/secrets.json || echo '{}' > local/secrets.json
 
 help() {
   Clear='\033[0m'
@@ -145,7 +145,8 @@ install() {
 
   # macOS
   if [[ "$PLATFORM" == "mac" ]]; then
-    if exists podman; then brew upgrade podman; else brew install podman; fi
+    exists podman || brew install podman
+    exists jq || brew install jq
     exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
 
     podman machine inspect >/dev/null 2>&1 || podman machine init
@@ -155,6 +156,7 @@ install() {
 
   # raspberry pi OS
   if [[ "$PLATFORM" == "pi" ]] || [[ "$PLATFORM" == "debian" ]]; then
+    exists jq || sudo apt-get install --yes jq
     install-docker-debian
 
     echo "solar-protocol dependencies installed! try:"
@@ -174,9 +176,13 @@ install() {
   exists docker || exists podman podman-compose
 }
 
-generate-key() { openssl rand -hex 16; }
+generate-key() {
+  openssl rand -hex 16
+}
 
-bcrypt() { htpasswd -bnBC 10 "" "$1" | tr -d ':\n'; }
+bcrypt() {
+  htpasswd -bnBC 10 "" "$1" | tr -d ':\n'
+}
 
 reset() {
   compose down

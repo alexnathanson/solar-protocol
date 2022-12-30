@@ -1,6 +1,7 @@
 import json
 from enum import StrEnum, auto
 from logging import error, exception
+import requests
 
 filepath = "/local/secrets.json"
 

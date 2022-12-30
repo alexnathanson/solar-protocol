@@ -249,15 +249,12 @@ set-admin-password() {
   mv temp.htpasswd local/admin.htpasswd
 }
 
-set-secret() {
-  key=$1
-  secret=$2
+set-dnskey() {
+  secret=$1
 
-  if [[ "$key" == "appid" ]] || [[ "$key" == "networkkey" ]] || [[ "$key" == "dnskey" ]]; then
-    tmp=$(mktemp)
-    jq --arg key "$key" --arg secret "$secret" '.[$key] |= $secret' local/secrets.json > "$tmp" \
-      && mv "$tmp" local/secrets.json
-  fi
+  tmp=$(mktemp)
+  jq --arg secret "$secret" '.dnskey |= $secret' local/secrets.json > "$tmp" \
+    && mv "$tmp" local/secrets.json
 }
 
 get-dns-hash() {
@@ -266,7 +263,7 @@ get-dns-hash() {
 
   if [[ "$dnskey" == "null" ]]; then
     dnskey=$(generate-key)
-    set-secret dnskey "$dnskey"
+    set-dnskey "$dnskey"
   fi
 
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
@@ -293,8 +290,6 @@ case $command in
   install-systemd) install-systemd ;;
   copy-ssh-key) ssh-keygen -ted25519 -f ~/.ssh/solar-protocol-pi | tee | pbcopy ;;
   set-admin-password) set-admin-password "$@" ;;
-  set-network-key) set-secret networkkey "$1" ;;
-  set-app-id) set-secret appid "$1" ;;
   get-dns-hash) get-dns-hash ;;
   reset) reset ;;
   install) install ;;

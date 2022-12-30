@@ -67,9 +67,7 @@ Install required dependencies
 To join the network, you first need to add some secrets
 
 * Get your unique dnskey with `solar get-dns-hash`
-* Email an administrator with your dnskey, and they will respond with the `networkkey` and `appid`
-* Set the network key with `solar set-network-key`
-* Set the app id with `solar set-app-id`
+* Email an administrator with your dnskey
 
 Next, you will need to make sure other servers on the network can reach yours
 

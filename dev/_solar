@@ -21,6 +21,7 @@ _solar() {
       update-dns:"given the namecheap dns password, update dns to this machine"
       hash:"hash a string"
       set-admin-password:"<username> <password> set the admin settings password for a given user"
+      get-dns-hash:"return a hash for the dns key - send to an administrator"
       reset:"stop and remove all containers and images, and rebuild them"
       help:"show the help"
       install:"install dependencies for this script"

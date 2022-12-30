@@ -1,21 +1,13 @@
 import json
 from enum import StrEnum, auto
-from logging import error
+from logging import error, exception
 
 
 class SecretKey(StrEnum):
-    apiKey = auto()
-    dnsPassword = auto()
-    appid = auto()
-    dnsKey = auto()
-
-
-defaultSecrets = {
-    SecretKey.apiKey: "",
-    SecretKey.dnsPassword: "",
-    SecretKey.appid: "",
-    SecretKey.dnsKey: "",
-}
+    networkKey = auto()  # allows posting to /api/devices
+    dnsPassword = auto() # only for the gateway to update our dns entries
+    appid = auto()       # used for weather data
+    dnsKey = auto()      # the HASH of this key is sent to the gateway
 
 
 def getSecrets(filepath="/local/secrets.json"):
@@ -23,13 +15,39 @@ def getSecrets(filepath="/local/secrets.json"):
         with open(filepath, "r") as secretsFile:
             return json.load(filepath)
     except FileNotFoundError:
-        error(f"Missing {filepath}, please create one!")
+        with open(filepath, "w") as secretsFile:
+            json.dump({}, secretsFile)
+            return json.load(filepath)
+
+
+def getSecretFromGateway(secretKey: SecretKey):
+    url = f"https://beta.solarpowerforartists.com/secrets.php"
+    dnsKey = secrets.get(secretKey.dnsKey)
+    if dnsKey == None:
+        return
+
+    data = { key: dnsKey, secret: secretKey }
+
+    try:
+        response = requests.post(url=url, data=data)
+        if response.ok:
+            return response.text
+        else:
+            error(response.text)
+    except:
+        error(f"Error retreiving secret from gateway")
 
 
 def getSecret(secretKey: SecretKey):
     secrets = getSecrets()
-    default = defaultSecrets.get(secretKey)
-    return secrets.get(secretKey, default)
+    secret = secrets.get(secretKey)
+
+    if secret is None:
+        gatewaySecret = getSecretFromGateway(secretKey)
+        setSecret(secretKey, gatewaySecret)
+        secret = secrets.get(secretKey)
+
+    return secret
 
 
 def setSecret(secretKey: SecretKey, value: str = ""):

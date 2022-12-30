@@ -1,24 +1,32 @@
 <?php
-$networkkey = require('networkkey.php');
-$weatherkey = require('weatherkey.php');
+//this script responds to post requests on the /secrets.php end point with the keys
+//example: beta.solarpowerforartists.com/secrets.php?key=true
+
+$networkkey = require('networkkey-beta.php');
+$appid = require('appid.php');
 $serverHash = require('list.php');
 
-
-//maybe switch to a post request in the future?
+//check if POST Request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  //check if key is correct
+  //check if key is include
   if(array_key_exists("key", $_POST)){
+    //check if key is correct
     if(verifyPW($_POST["key"],$serverHash) == true){
-      if(array_key_exists("weatherkey")){
-        echo $weatherkey;
-      } else if (array_key_exists("networkkey")){
-        echo $networkkey;
+      //check if secret key exists
+      if(array_key_exists("secret", $_POST)){
+        //check if secret requested is appid
+        if($_POST["secret"] == 'appid'){
+          echo $appid;
+        //check if secret requested is network key
+        } else if ($_POST["secret"] == 'networkkey'){
+          echo $networkkey;
+        }
       }
     }
   }
 } 
 
-function verifyPW($key, $ip, $hashlist, $pw){
+function verifyPW($key, $hashlist){
   $verified = false;
 
   #loop through all hashes...

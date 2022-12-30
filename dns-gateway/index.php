@@ -7,23 +7,6 @@ $dnskey = require('key.php');
 
 $serverHash = require('list.php');
 
-//this could be used to call the functions to retrieve the access lists if needed
-//require('list.php');
-
-#header('Content-Type: application/json');
-
-//in the future this should be either a database or a seperate json file
-//white list
-/*$serverHash = [
-  "Hells Gate" => "$2y$10$5/O1zeTvLmxBNIRpmqve5u6x9RmL8JBi./dzgD3mwfudHEBuABFQ6",
-  "Chile" => "$2y$10$M3RtM5fYwzUXYQJRx1OGDe9oPSAmnApDPlCWpYCpHXcQixCPVaNge",
-  "Low_Carbon_Methods" => "$2y$10$2vFdQ05rQyGFIbY6WjncE.nZgimUEfIoCQKoQmK1qNLSPfc3T2NXy",
-  "Dominica" => "$2y$10$MLdkxh3qzwwU0yucGTBte.964aMIPxRHa4UiH3o0AH67jGk5P5nDu",
-  "Kenya" => "$2y$10$3EuwWV0KuoBhBBJd3Q7uX.2XHNIYZZkn0mpUjXSLHd6vGFlAXhyGe",
-  "Fiber_Fest" => "$2y$10$42gKyu4kJeMnbOn79hJyQOBxE3aqV1OCXSwaWasg1Dvi0goII2fKK",
-  "Swarthmore " => "$2y$10$43RlEFdYJqqc5Odvnr.ol.pbJ0A.p7td3rIzz4Z3V56KpQ0cLogJe"
-];*/
-
 //this is the black list. there could potentailly be multiple burned keys from the same server, so another data format might be necessary
 $blackList = [
   /*
@@ -47,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if(array_key_exists("list", $_GET)){
     //echo $_GET["list"];
     if($_GET["list"] == "true"){
-      echo json_encode($serverHash);
+      echo json_encode($serverHash,JSON_UNESCAPED_SLASHES);
     } elseif($_GET["list"] == "false"){
       echo json_encode($blackList);
     }

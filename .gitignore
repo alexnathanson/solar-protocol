@@ -25,7 +25,7 @@ backend/visualization/clock.png
 
 dns-gateway/key.php
 dns-gateway/list.php
-dns-gateway/weatherkey.php
+dns-gateway/appid.php
 dns-gateway/networkkey.php
 
 /utilities/hostnames.sh

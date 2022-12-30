@@ -27,7 +27,7 @@ def updateDNS():
     """Ask the gateway to update our DNS"""
 
     url = "https://beta.solarpowerforartists.com"
-    key = getSecret(SecretKey.dnsKey)
+    key = getSecret(SecretKey.dnskey)
 
     response = request.post(url=url, data={key})
 

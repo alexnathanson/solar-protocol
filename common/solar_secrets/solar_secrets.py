@@ -4,10 +4,10 @@ from logging import error, exception
 
 
 class SecretKey(StrEnum):
-    networkKey = auto()  # allows posting to /api/devices
-    dnsPassword = auto() # only for the gateway to update our dns entries
+    networkkey = auto()  # allows posting to /api/devices
+    dnspassword = auto() # only for the gateway to update our dns entries
     appid = auto()       # used for weather data
-    dnsKey = auto()      # the HASH of this key is sent to the gateway
+    dnskey = auto()      # the HASH of this key is sent to the gateway
 
 
 def getSecrets(filepath="/local/secrets.json"):
@@ -22,13 +22,13 @@ def getSecrets(filepath="/local/secrets.json"):
             return secrets
 
 
-def getSecretFromGateway(secretKey: SecretKey):
+def getSecretFromGateway(secretkey: SecretKey):
     url = f"https://beta.solarpowerforartists.com/secrets.php"
-    dnsKey = getSecrets(secretKey.dnsKey)
-    if dnsKey == None:
+    dnskey = getSecrets(SecretKey.dnskey)
+    if dnskey == None:
         return
 
-    data = { key: dnsKey, secret: secretKey }
+    data = { key: dnskey, secret: secretkey }
 
     try:
         response = requests.post(url=url, data=data)
@@ -40,20 +40,20 @@ def getSecretFromGateway(secretKey: SecretKey):
         error(f"Error retreiving secret from gateway")
 
 
-def getSecret(secretKey: SecretKey):
+def getSecret(key: SecretKey):
     secrets = getSecrets()
-    secret = secrets.get(secretKey)
+    secret = secrets.get(key)
 
     if secret is None:
-        gatewaySecret = getSecretFromGateway(secretKey)
-        setSecret(secretKey, gatewaySecret)
-        secret = secrets.get(secretKey)
+        gatewaySecret = getSecretFromGateway(key)
+        setSecret(key, gatewaySecret)
+        secret = secrets.get(key)
 
     return secret
 
 
-def setSecret(secretKey: SecretKey, value: str = ""):
-    secrets = getSecrets() or defaultSecrets | {secretKey: value}
+def setSecret(key: SecretKey, value: str = ""):
+    secrets = getSecrets() or defaultSecrets | {key: value}
 
     with open(secretsFilepath, "w") as secretsFile:
         json.dump(secrets, secretsFile)

@@ -126,7 +126,7 @@ def updateDNS(dnsKey: str = Form()):
         if bcrypt.verify(dnsKey, password_hash):
             host = "beta"
             domain = "solarprotocol.net"
-            password = getSecret(SecretKey.dnsPassword)
+            password = getSecret(SecretKey.dnspassword)
 
             params = {host, domain, ip, password}
             url = "https://dynamicdns.park-your-domain.com/update"
@@ -157,7 +157,7 @@ def updateDevice(
     networkKey: str = Form(),
 ):
 
-    if networkKey != getSecret(SecretKey.networkKey):
+    if networkkey != getSecret(SecretKey.networkkey):
         raise Error("Invalid networkKey for this server")
 
     formData = {
@@ -345,10 +345,10 @@ def updateLocal(
     return local
 
 
+# FIXME: Protect this route
 @app.post("/api/secret")
 def setEnv(key: SecretKey, value: str):
     raise Error(f"Unimplemented")
-    # FIXME: Protect this route
 
     if not isHash(value):
         raise Error(f"Secret value for `{key}` not a valid hash")

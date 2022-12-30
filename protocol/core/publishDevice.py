@@ -136,7 +136,7 @@ def publishDevice(hosts: list[str]):
     log = {"log": getPoeLog()}
 
     metadata = {
-        "apiKey": getApiKey(),
+        SecretKey.networkkey: getSecret(SecretKey.networkkey)
         "timestamp": time.time(),
     }
 
@@ -149,21 +149,11 @@ def publishDevice(hosts: list[str]):
         postDevice(host, params)
 
 
-"""
-TODO: We should talk about what the apiKey is used for, and having different keys for each device
-"""
-
-
-def getApiKey():
-    return getSecret(SecretKey.apiKey)
-
-
 def getDevice():
-    # FIXME: should we remove server. to make fully p2p?
     try:
         ip = requests.get("https://server.solarpowerforartists.com/?myip").text
     except:
-        ip = "api"
+        ip = requests.get("https://ifconfig.co").text
 
     httpPort = getLocal("httpPort")
 

@@ -225,19 +225,35 @@ compose() {
 install-systemd() {
   servicedir=$HOME/.config/systemd/user
   mkdir -p "$servicedir"
-  cd "$servicedir"
-  for service in datalogger api protocol web; do
-    servicename=solar-protocol_${service}_1
-    filename=container-$servicename.service
-    if ! test -f $filename; then
-      podman generate systemd --new --files --name $servicename
-    fi
-    systemctl --user daemon-reload
-    if ! systemctl --user is-active $filename; then
-      systemctl --user enable $filename
-      systemctl --user start $filename
-    fi
-  done
+
+  cat < "$servicedir"/solar-protocol.service <<-EOF
+  # /etc/systemd/user/solar-protocol.service
+
+  [Unit]
+  Description=Solar Protocol
+  Requires=docker.service
+  After=docker.service
+
+  [Service]
+  Type=oneshot
+  RemainAfterExit=yes
+  WorkingDirectory=$PWD
+  ExecStart=$PWD/solar start --build
+  ExecStop=$PWD/solar down
+  TimeoutStartSec=0
+
+  [Install]
+  WantedBy=multi-user.target
+  EOF
+
+  systemctl --user daemon-reload
+
+  if systemctl --user is-active solar-protocol; then
+    systemctl --user restart solar-protocol
+  else
+    systemctl --user enable solar-protocol
+    systemctl --user start solar-protocol
+  fi
 }
 
 set-admin-password() {

@@ -2,6 +2,7 @@ import json
 from enum import StrEnum, auto
 from logging import error, exception
 
+filepath = "/local/secrets.json"
 
 class SecretKey(StrEnum):
     networkkey = auto()  # allows posting to /api/devices
@@ -10,7 +11,7 @@ class SecretKey(StrEnum):
     dnskey = auto()  # the HASH of this key is sent to the gateway
 
 
-def getSecrets(filepath="/local/secrets.json"):
+def getSecrets():
     try:
         with open(filepath, "r") as secretsFile:
             secrets = json.load(secretsFile)
@@ -55,7 +56,7 @@ def getSecret(key: SecretKey):
 def setSecret(key: SecretKey, value: str = ""):
     secrets = getSecrets() or defaultSecrets | {key: value}
 
-    with open(secretsFilepath, "w") as secretsFile:
+    with open(filepath, "w") as secretsFile:
         json.dump(secrets, secretsFile)
 
     return getSecret(key)

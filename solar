@@ -228,24 +228,24 @@ install-systemd() {
   mkdir -p "$servicedir"
 
   cat < "$servicedir"/solar-protocol.service <<-EOF
-  # /etc/systemd/user/solar-protocol.service
+# $servicedir/solar-protocol.service
 
-  [Unit]
-  Description=Solar Protocol
-  Requires=docker.service
-  After=docker.service
+[Unit]
+Description=Solar Protocol
+Requires=docker.service
+After=docker.service
 
-  [Service]
-  Type=oneshot
-  RemainAfterExit=yes
-  WorkingDirectory=$PWD
-  ExecStart=$PWD/solar start --build
-  ExecStop=$PWD/solar down
-  TimeoutStartSec=0
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=$PWD
+ExecStart=$PWD/solar start --build
+ExecStop=$PWD/solar down
+TimeoutStartSec=0
 
-  [Install]
-  WantedBy=multi-user.target
-  EOF
+[Install]
+WantedBy=multi-user.target
+EOF
 
   systemctl --user daemon-reload
 

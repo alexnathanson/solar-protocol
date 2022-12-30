@@ -75,15 +75,14 @@ def getLocal(key):
         exception(f"local config file exception with key {key}")
 
 
-"""
-For every device in our local devices.json, ask for their device lists
-For networks under 50 devices, its about 2500 requests roughly every 20 minutes
-
-TODO: Investigate using epidemic-broadcast-trees a la scuttlebutt
-"""
-
-
 def discoverIps():
+    """
+    For every device in our local devices.json, ask for their device lists
+    For networks under 50 devices, its about 2500 requests roughly every 20 minutes
+
+    TODO: Investigate using epidemic-broadcast-trees a la scuttlebutt
+    """
+
     ips = getDevices("ip")
     macs = getDevices("mac")
 
@@ -178,13 +177,11 @@ def getDevice():
 def run():
     info("***** Running PublishDevice script *****")
 
-    selfIps = ["api"]
     activeIps = ["beta.solarprotocol.net"]
     knownIps = getDevices("ip")
     discoveredIps = discoverIps()
 
-    # publishDevice(selfIps + activeIps + knownIps + discoveredIps)
-    publishDevice(selfIps)
+    publishDevice(activeIps + knownIps + discoveredIps)
 
 
 if __name__ == "__main__":

@@ -13,11 +13,13 @@ class SecretKey(StrEnum):
 def getSecrets(filepath="/local/secrets.json"):
     try:
         with open(filepath, "r") as secretsFile:
-            return json.load(filepath)
+            secrets = json.load(secretsFile)
+            return secrets
     except FileNotFoundError:
         with open(filepath, "w") as secretsFile:
             json.dump({}, secretsFile)
-            return json.load(filepath)
+            secrets = json.load(secretsFile)
+            return secrets
 
 
 def getSecretFromGateway(secretKey: SecretKey):

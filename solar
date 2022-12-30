@@ -116,7 +116,7 @@ install-docker-debian() {
 
   # add user to docker group
   if ! groups | grep --quiet docker >/dev/null; then
-    sudo usermod --append --groups docker $USER
+    sudo usermod --append --groups docker "$USER"
     newgrp docker
   fi
 }
@@ -227,7 +227,7 @@ install-systemd() {
   servicedir=$HOME/.config/systemd/user
   mkdir -p "$servicedir"
 
-  cat < "$servicedir"/solar-protocol.service <<-EOF
+  cat > "$servicedir"/solar-protocol.service <<-EOF
 # $servicedir/solar-protocol.service
 
 [Unit]
@@ -285,7 +285,7 @@ get-dns-hash() {
 
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
   if [[ "$dnskey" != "null" ]]; then
-    bcrypt $dnskey
+    bcrypt "$dnskey"
     echo
   fi
 }

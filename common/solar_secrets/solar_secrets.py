@@ -5,9 +5,9 @@ from logging import error, exception
 
 class SecretKey(StrEnum):
     networkkey = auto()  # allows posting to /api/devices
-    dnspassword = auto() # only for the gateway to update our dns entries
-    appid = auto()       # used for weather data
-    dnskey = auto()      # the HASH of this key is sent to the gateway
+    dnspassword = auto()  # only for the gateway to update our dns entries
+    appid = auto()  # used for weather data
+    dnskey = auto()  # the HASH of this key is sent to the gateway
 
 
 def getSecrets(filepath="/local/secrets.json"):
@@ -28,7 +28,7 @@ def getSecretFromGateway(secretkey: SecretKey):
     if dnskey == None:
         return
 
-    data = { key: dnskey, secret: secretkey }
+    data = {"key": dnskey, "secret": secretkey}
 
     try:
         response = requests.post(url=url, data=data)

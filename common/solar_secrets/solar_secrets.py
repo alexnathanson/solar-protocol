@@ -24,7 +24,7 @@ def getSecrets(filepath="/local/secrets.json"):
 
 def getSecretFromGateway(secretKey: SecretKey):
     url = f"https://beta.solarpowerforartists.com/secrets.php"
-    dnsKey = secrets.get(secretKey.dnsKey)
+    dnsKey = getSecrets(secretKey.dnsKey)
     if dnsKey == None:
         return
 

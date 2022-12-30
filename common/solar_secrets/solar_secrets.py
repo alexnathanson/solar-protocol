@@ -25,7 +25,7 @@ def getSecrets():
 
 def getSecretFromGateway(secretkey: SecretKey):
     url = f"https://beta.solarpowerforartists.com/secrets.php"
-    dnskey = getSecrets(SecretKey.dnskey)
+    dnskey = getSecret(SecretKey.dnskey)
     if dnskey == None:
         return
 
@@ -54,7 +54,7 @@ def getSecret(key: SecretKey):
 
 
 def setSecret(key: SecretKey, value: str = ""):
-    secrets = getSecrets() or defaultSecrets | {key: value}
+    secrets = getSecrets() | {key: value}
 
     with open(filepath, "w") as secretsFile:
         json.dump(secrets, secretsFile)

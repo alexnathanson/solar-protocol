@@ -46,9 +46,10 @@ def getSecret(key: SecretKey):
     secret = secrets.get(key)
 
     if secret is None:
-        gatewaySecret = getSecretFromGateway(key)
-        setSecret(key, gatewaySecret)
-        secret = secrets.get(key)
+        if key in [ SecretKey.appid, SecretKey.networkkey ]:
+          gatewaySecret = getSecretFromGateway(key)
+          setSecret(key, gatewaySecret)
+          secret = secrets.get(key)
 
     return secret
 

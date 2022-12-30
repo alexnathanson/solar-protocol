@@ -1,14 +1,14 @@
-#compdef solar-protocol
+#compdef solar
 
-_solar-protocol() {
+_solar() {
     local current_context="$current_context" state line
     typeset -A opt_args
 
 
     local -a options
     options=(
-      start:"start running solar-protocol"
-      stop:"stop running solar-protocol"
+      start:"start running solar"
+      stop:"stop running solar"
       status:"show what services are running"
       restart:"restart solar-protcol"
       logs:"show logs for one of the services"
@@ -51,4 +51,4 @@ _solar-protocol() {
     esac
 }
 
-_solar-protocol "$*"
+_solar "$*"

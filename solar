@@ -19,16 +19,16 @@ help() {
   echo -e "$(
   cat << HELP
 
-  ☀️ solar-protocol - commandline tool to help manage your server
+  ☀️ solar - commandline tool to help manage your server
 
-    ${Blue}solar-protocol install${Clear}               install dependencies and completions
-    ${Blue}solar-protocol start${Clear}                 start the protocol
-    ${Blue}solar-protocol logs api${Clear}              show api logs
-    ${Blue}solar-protocol status${Clear}                check status of the containers
-    ${Blue}solar-protocol restart datalogger${Clear}    restart the datalogger
-    ${Blue}solar-protocol stop${Clear}                  stop all services
-    ${Blue}solar-protocol shell protocol${Clear}        open a shell in the protocol container
-    ${Blue}solar-protocol update-dns [password]${Clear} update the dns for beta.solarprotocol.net
+    ${Blue}solar install${Clear}               install dependencies and completions
+    ${Blue}solar start${Clear}                 start the protocol
+    ${Blue}solar logs api${Clear}              show api logs
+    ${Blue}solar status${Clear}                check status of the containers
+    ${Blue}solar restart datalogger${Clear}    restart the datalogger
+    ${Blue}solar stop${Clear}                  stop all services
+    ${Blue}solar shell protocol${Clear}        open a shell in the protocol container
+    ${Blue}solar update-dns [password]${Clear} update the dns for beta.solarprotocol.net
 HELP
   )"
 }
@@ -123,8 +123,8 @@ install-docker-debian() {
 
 install() {
   if [[ -f ~/.bashrc ]]; then
-    if ! grep --quiet solar-protocol ~/.bashrc; then
-     if prompt "Add solar-protocol PATH to ~/.bashrc?"; then
+    if ! grep --quiet solar ~/.bashrc; then
+     if prompt "Add solar PATH to ~/.bashrc?"; then
        echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
        echo "please run:"
        echo ". ~/.bashrc"
@@ -133,8 +133,8 @@ install() {
   fi
 
   if [[ -f ~/.zshrc ]]; then
-    if ! grep --quiet solar-protocol ~/.zshrc; then
-      if prompt "Add solar-protocol PATH and completions to ~/.zshrc?"; then
+    if ! grep --quiet solar ~/.zshrc; then
+      if prompt "Add solar PATH and completions to ~/.zshrc?"; then
         echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
         echo "fpath+=($PWD/dev); compinit" >> ~/.zshrc
         echo "please run:"
@@ -159,9 +159,9 @@ install() {
     exists jq || sudo apt-get install --yes jq
     install-docker-debian
 
-    echo "solar-protocol dependencies installed! try:"
-    echo "  solar-protocol build"
-    echo "  solar-protocol start"
+    echo "solar dependencies installed! try:"
+    echo "  solar build"
+    echo "  solar start"
     return
   fi
 
@@ -202,7 +202,7 @@ reset() {
 format() {
   shopt -s globstar
   black -- **/**.py
-  shellcheck solar-protocol
+  shellcheck solar
   #tidy -i -m -w 160 -ashtml -utf8 -- **/**.html
 }
 

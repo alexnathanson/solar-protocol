@@ -8,9 +8,9 @@ Solar Protocol targets [debian linux](https://debian.org) because thats what run
 
     git clone --branch beta https://github.com/alexnathanson/solar-protocol && cd solar-protocol
 
-    ./solar-protocol install  # asks to install podman, podman-compose, and necessary dependencies
-    solar-protocol up --build # starts the server
-    solar-protocol open       # opens the local server
+    ./solar install  # asks to install podman, podman-compose, and necessary dependencies
+    solar start      # starts the server
+    solar open       # opens the local server
 
 1. Setup podman and podman-compose
 
@@ -32,7 +32,7 @@ For windows, linux, and macOS, install podman-compose 1.0.4 with pip:
 
 2. Setup solar-protocol
 
-All commands are kept in the `solar-protocol` so everyone can stay up-to-date with installing, debugging, and developing the protocol.
+All commands are kept in the `solar` commandline script so everyone can stay up-to-date with installing, debugging, and developing the protocol.
 
 Install git. For example, on linux:
 
@@ -43,21 +43,21 @@ Clone the latest `beta` branch
     git clone --branch beta https://github.com/alexnathanson/solar-protocol.git
     cd solar-protocol
 
-Add solar-protocol script to your commandline PATH
+Add the solar script to your commandline PATH
 
-    ./solar-protocol install
+    ./solar install
 
 Build the base images
 
-    solar-protocol build
+    solar build
 
 This will bring up the server
 
-    solar-protocol up
+    solar start
 
 Visit the blank site on http://127.0.0.1:11221
 
-    solar-protocol open
+    solar open
 
 Congrats! You should see the pizza rat server!
 
@@ -65,15 +65,15 @@ Congrats! You should see the pizza rat server!
 
 To view backend protocol logs
 
-   solar-protocol logs protocol
+   solar logs protocol
 
 To view web server logs
 
-   solar-protocol logs web
+   solar logs web
 
 To view api logs
 
-   solar-protocol logs api
+   solar logs api
 
 Sharing these logs will make it easier for people to help
 
@@ -82,7 +82,7 @@ Sharing these logs will make it easier for people to help
 
 ## Services
 
-There are 4 services that make up the entire protocol. `solar-protocol status` should show something like this:
+There are 4 services that make up the entire protocol. `solar status` should show something like this:
 
     CONTAINER ID  IMAGE                                       COMMAND               CREATED        STATUS                             PORTS                  NAMES
     239ae01f12a5  localhost/solar-protocol/datalogger:beta  /bin/sh -c python...  5 minutes ago  Exited (1) Less than a second ago                         solar-protocol_datalogger_1

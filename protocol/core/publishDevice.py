@@ -136,7 +136,7 @@ def publishDevice(hosts: list[str]):
     log = {"log": getPoeLog()}
 
     metadata = {
-        SecretKey.networkkey: getSecret(SecretKey.networkkey)
+        SecretKey.networkkey: getSecret(SecretKey.networkkey),
         "timestamp": time.time(),
     }
 

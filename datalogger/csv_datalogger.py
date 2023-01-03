@@ -64,7 +64,7 @@ def readFromDevice():
     def toPercent(number):
         return float(number / 100.0)
 
-    registers = controller.registers.map(toPercent)
+    registers = controller.registers
 
     data = dict(zip(fieldnames, registers[0:10]))
     data["timestamp"] = time.time()

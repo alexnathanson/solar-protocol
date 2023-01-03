@@ -49,8 +49,8 @@ def getSecret(key: SecretKey):
     if secret is not None:
         return secret
 
-    if key not in [ SecretKey.appid, SecretKey.networkkey ]:
-     return secret
+    if key not in [SecretKey.appid, SecretKey.networkkey]:
+        return secret
 
     try:
         gatewaySecret = getSecretFromGateway(key)

@@ -121,7 +121,7 @@ def publishDevice(hosts: list[str]):
     log = {"log": getPoeLog()}
     networkkey = getSecret(SecretKey.networkkey)
 
-    if networkKey is None:
+    if networkkey is None:
         error("No network key found, skipping publishDevice")
         return
 

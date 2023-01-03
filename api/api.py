@@ -7,13 +7,17 @@ import sys
 from enum import Enum
 from typing import Union
 
-from fastapi import FastAPI, Header, Form
+from fastapi import FastAPI, Header, Form, Request
 from passlib.hash import bcrypt
 from solar_secrets import getSecret, setSecret, SecretKey
 from solar_common import fieldnames
 import requests
 
-from starlette_context import middleware, plugins
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+
+limiter = Limiter(key_func=get_remote_address)
 
 # safelist of keys we can share from local.json
 safe_keys = [
@@ -57,11 +61,8 @@ class SystemKeys(str, Enum):
 
 
 app = FastAPI(title="solar-protocol", docs_url="/api/docs")
-
-app.add_middleware(
-    middleware.ContextMiddleware,
-    plugins=(plugins.ForwardedForPlugin(),),
-)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 def getTimezone():
@@ -117,13 +118,23 @@ def updateDnsLog(name: str, ip: str, timestamp):
         writer = csv.DictWriter(csvfile, fieldnames=[name, ip, timestamp])
         writer.writerow([name, ip, timestamp])
 
+@app.post("/api/limit")
+@limiter.limit("5/minute")
+def limit(key: str = Form()):
+    ip = get_remote_address()
+    return f"{ip=} {key=}"
+
 
 @app.post("/api/update")
-def updateDNS(dnsKey: str = Form()):
-    ip = context.data["X-Forwarded-For"]
+@limiter.limit("5/minute")
+def updateDNS(key: str = Form()):
+    ip = get_remote_address()
+
+    if len(key) != 16:
+        raise HTTPException(status_code=403)
 
     for name, password_hash in allowlist().items():
-        if bcrypt.verify(dnsKey, password_hash):
+        if bcrypt.verify(key, password_hash):
             host = "beta"
             domain = "solarprotocol.net"
             password = getSecret(SecretKey.dnspassword)

@@ -4,5 +4,6 @@ passlib
 pydantic
 python-multipart
 requests
+slowapi
 starlette-context
 uvicorn

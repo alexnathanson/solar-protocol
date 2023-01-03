@@ -148,7 +148,7 @@ def updateDNS(request: Request, key: str = Form()):
             if response.status_code == 200:
                 timestamp = datetime.datetime.now()
                 updateDnsLog(name, ip, timestamp)
-                return f"beta.solarprotocol.net: ip"
+                return f"beta.solarprotocol.net: {ip=}"
             else:
                 error(response.text)
                 raise Error("issue updating dns")

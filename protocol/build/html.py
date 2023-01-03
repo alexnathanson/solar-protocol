@@ -290,38 +290,6 @@ def download_file(url, local_filename=None):
     return local_filename
 
 
-def update_images(server_data):
-    for server in server_data:
-        filename = server["name"] + ".gif"
-        filename = filename.replace(" ", "-")
-
-        filepath = f"/frontend/images/servers/{filename}"
-        server["image_path"] = f"/images/servers/{filename}"
-
-        if "ip" in server:
-            ip = server["ip"]
-            name = server["name"]
-            debug(f"name {name}: ip {ip}")
-
-            if os.path.exists(filepath):
-                info(f"Found image for {name}")
-            elif ip == "api":
-                info("Copying image for {name}")
-                localpath = "/local/serverprofile.gif"
-                shutil.copy(localpath, filepath)
-            else:
-                info("Downloading image for {name}")
-                url = f"http://{ip}/serverprofile.gif"
-                try:
-                    with requests.get(url, stream=True) as r:
-                        r.raise_for_status()
-                        with open(local_filename, "wb") as f:
-                            for chunk in r.iter_content(chunk_size=8192):
-                                f.write(chunk)
-                except Exception:
-                    error(f"{name}: Offline. Can't get image")
-
-
 def getFormattedTimestampFor(itemNumber):
     try:
         timestamps = getDeviceInfo("timestamp")
@@ -409,7 +377,6 @@ def main():
 
     # 4. get images and render pages
     local_data = get_local()
-    update_images(server_data)
     energy_data = read_csv()  # get pv data from local csv
     local_weather = getLocalWeatherFor(local_data["lon"], local_data["lat"])
 

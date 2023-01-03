@@ -29,6 +29,15 @@ help() {
     ${Blue}solar stop${Clear}                  stop all services
     ${Blue}solar shell protocol${Clear}        open a shell in the protocol container
     ${Blue}solar update-dns [password]${Clear} update the dns for beta.solarprotocol.net
+    ${Blue}solar get-dns-hash${Clear}          create a hash to share with administrators when joining
+
+    ${Blue}solar help${Clear}                  show this help
+    ${Blue}solar build${Clear}                 build new container images of all the services
+    ${Blue}solar format${Clear}                format all the source code
+    ${Blue}solar reinstall${Clear}             removes containers and dependencies and reinstalls
+    ${Blue}solar open${Clear}                  open the local solar protocol webpage
+
+    ${Blue}solar set-admin-password [password]${Clear} update the password for the admin settings pages
 HELP
   )"
 }
@@ -177,7 +186,7 @@ install() {
   exists docker || exists podman podman-compose
 }
 
-generate-key() {
+_generate-key() {
   openssl rand -hex 16
 }
 
@@ -185,7 +194,7 @@ bcrypt() {
   htpasswd -bnBC 10 "" "$1" | tr -d ':\n'
 }
 
-reset() {
+reinstall() {
   compose down
   if exists podman; then
     podman machine stop
@@ -266,7 +275,7 @@ set-admin-password() {
   mv temp.htpasswd local/admin.htpasswd
 }
 
-set-dnskey() {
+_set-dnskey() {
   secret=$1
 
   tmp=$(mktemp)
@@ -279,8 +288,8 @@ get-dns-hash() {
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
 
   if [[ "$dnskey" == "null" ]]; then
-    dnskey=$(generate-key)
-    set-dnskey "$dnskey"
+    dnskey=$(_generate-key)
+    _set-dnskey "$dnskey"
   fi
 
   dnskey=$(jq -r '.dnskey' < local/secrets.json)
@@ -300,14 +309,10 @@ case $command in
   shell) compose exec "${1:-protocol}" /bin/bash ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) format ;;
-  run) compose run "$@" ;;
-  generate-key) generate-key ;;
   update-dns) update-dns "$@" ;;
-  hash) bcrypt "$1" ;;
-  copy-ssh-key) ssh-keygen -ted25519 -f ~/.ssh/solar-protocol-pi | tee | pbcopy ;;
   set-admin-password) set-admin-password "$@" ;;
   get-dns-hash) get-dns-hash ;;
-  reset) reset ;;
+  reinstall) reinstall ;;
   install) install ;;
   *) help ;;
 esac

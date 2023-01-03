@@ -45,14 +45,18 @@ def getSecretFromGateway(secretkey: SecretKey):
 def getSecret(key: SecretKey):
     secrets = getSecrets()
     secret = secrets.get(key)
+    if secret is not None:
+        return secret
 
-    if secret is None:
-        if key in [ SecretKey.appid, SecretKey.networkkey ]:
-          gatewaySecret = getSecretFromGateway(key)
-          setSecret(key, gatewaySecret)
-          secret = secrets.get(key)
+    if key not in [ SecretKey.appid, SecretKey.networkkey ]:
+     return secret
 
-    return secret
+    try:
+        gatewaySecret = getSecretFromGateway(key)
+        if gatewaySecret is not None:
+            return setSecret(key, gatewaySecret)
+    except:
+        pass
 
 
 def setSecret(key: SecretKey, value: str = ""):

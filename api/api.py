@@ -157,6 +157,9 @@ def updateDevice(
     networkKey: str = Form(),
 ):
 
+    if networkkey is None:
+        raise Error("Invalid networkKey for this server")
+
     if networkkey != getSecret(SecretKey.networkkey):
         raise Error("Invalid networkKey for this server")
 

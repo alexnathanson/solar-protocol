@@ -187,11 +187,13 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
 
 # get weather data
-def get_weather(lon, lat, appid):
+def get_weather(lon, lat, appid: str):
     url = "http://api.openweathermap.org/data/2.5/weather"
     params = {"lon": lon, "lat": lat, "appid": appid}
 
     response = requests.get(url=url, params=params)
+    reponse.raise_for_status()
+
     data = response.json()
     current_temperature = data["main"]["temp"]
     current_humidity = data["main"]["humidity"]

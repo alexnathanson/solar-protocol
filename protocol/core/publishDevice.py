@@ -111,31 +111,22 @@ def discoverIps():
 def postDevice(host: str, data):
     url = f"http://{host}/api/device"
 
-    try:
-        response = requests.post(url=url, data=data)
-        if response.ok:
-            info(f"Post to {host} successful")
-        else:
-            error(f"Malformed response from {host}")
-            error(response.json())
-    except json.decoder.JSONDecodeError:
-        exception(f"JSON Decode Error")
-    except requests.exceptions.HTTPError:
-        exception(f"Http Error")
-    except requests.exceptions.ConnectionError:
-        exception(f"Connection Error")
-    except requests.exceptions.Timeout:
-        exception(f"Timeout")
-    except requests.exceptions.RequestException:
-        exception(f"Request Error")
+    response = requests.post(url=url, data=data)
+    response.raise_for_status()
 
+    info(f"Post to {host} successful")
 
 def publishDevice(hosts: list[str]):
     device = getDevice()
     log = {"log": getPoeLog()}
+    networkkey = getSecret(SecretKey.networkkey)
+
+    if networkKey is None:
+        error("No network key found, skipping publishDevice")
+        return
 
     metadata = {
-        SecretKey.networkkey: getSecret(SecretKey.networkkey),
+        SecretKey.networkkey: networkkey
         "timestamp": time.time(),
     }
 
@@ -143,9 +134,13 @@ def publishDevice(hosts: list[str]):
 
     info(params)
 
+    # Since the network is always in flux, exceptions should not stop publishing
     for host in hosts:
         info(f"HOST: {host}")
-        postDevice(host, params)
+        try:
+            postDevice(host, params)
+        except exception:
+            error(exception)
 
 
 def getDevice():

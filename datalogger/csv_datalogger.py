@@ -46,7 +46,7 @@ def readFromRandom():
         "load voltage": randomReadable(12, 16),
         "load current": randomReadable(0, 1),
         "load power": randomReadable(3, 5),
-        "battery percentage": randomReadable(0, 1),
+        "battery percentage": 0.42069,
     }
 
 

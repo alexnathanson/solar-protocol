@@ -4,24 +4,13 @@ import datetime
 import random
 import csv
 import os
-import io
 import signal
 import sys
 from logging import info
 from solar_common import fieldnames
 
-
-def isRaspberryPi():
-    try:
-        with io.open("/sys/firmware/devicetree/base/model", "r") as m:
-            if "raspberry pi" in m.read().lower():
-                return True
-    except Exception:
-        pass
-    return False
-
-
-RASPBERRY_PI = isRaspberryPi()
+PLATFORM = os.environ.get("PLATFORM", "unknown")
+RASPBERRY_PI = PLATFORM == "pi"
 
 if RASPBERRY_PI:
     from pymodbus.client import ModbusSerialClient

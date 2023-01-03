@@ -9,8 +9,8 @@ services:
     restart: unless-stopped
     volumes:
       - data:/data
-    devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
+    environment:
+      - PLATFORM
 
   api:
     image: localhost/solar-protocol/api

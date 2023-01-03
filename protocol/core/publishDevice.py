@@ -126,7 +126,7 @@ def publishDevice(hosts: list[str]):
         return
 
     metadata = {
-        SecretKey.networkkey: networkkey
+        SecretKey.networkkey: networkkey,
         "timestamp": time.time(),
     }
 

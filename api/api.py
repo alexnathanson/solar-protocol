@@ -120,14 +120,14 @@ def updateDnsLog(name: str, ip: str, timestamp):
 
 @app.post("/api/limit")
 @limiter.limit("5/minute")
-def limit(key: str = Form()):
+def limit(request: Request, key: str = Form()):
     ip = get_remote_address()
     return f"{ip=} {key=}"
 
 
 @app.post("/api/update")
 @limiter.limit("5/minute")
-def updateDNS(key: str = Form()):
+def updateDNS(request: Request, key: str = Form()):
     ip = get_remote_address()
 
     if len(key) != 16:

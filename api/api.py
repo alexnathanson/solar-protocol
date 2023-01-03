@@ -122,14 +122,14 @@ def updateDnsLog(name: str, ip: str, timestamp):
 @app.post("/api/limit")
 @limiter.limit("5/minute")
 def limit(request: Request, key: str = Form()):
-    ip = get_remote_address()
+    ip = get_remote_address(request)
     return f"{ip=} {key=}"
 
 
 @app.post("/api/update")
 @limiter.limit("5/minute")
 def updateDNS(request: Request, key: str = Form()):
-    ip = get_remote_address()
+    ip = get_remote_address(request)
 
     if len(key) != 16:
         raise HTTPException(status_code=403)

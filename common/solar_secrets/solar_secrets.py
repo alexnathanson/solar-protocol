@@ -5,6 +5,7 @@ import requests
 
 filepath = "/local/secrets.json"
 
+
 class SecretKey(StrEnum):
     networkkey = auto()  # allows posting to /api/devices
     dnspassword = auto()  # only for the gateway to update our dns entries

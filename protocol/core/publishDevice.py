@@ -116,6 +116,7 @@ def postDevice(host: str, data):
 
     info(f"Post to {host} successful")
 
+
 def publishDevice(hosts: list[str]):
     device = getDevice()
     log = {"log": getPoeLog()}

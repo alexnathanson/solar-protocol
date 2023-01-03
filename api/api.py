@@ -118,6 +118,7 @@ def updateDnsLog(name: str, ip: str, timestamp):
         writer = csv.DictWriter(csvfile, fieldnames=[name, ip, timestamp])
         writer.writerow([name, ip, timestamp])
 
+
 @app.post("/api/limit")
 @limiter.limit("5/minute")
 def limit(request: Request, key: str = Form()):

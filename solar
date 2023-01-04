@@ -233,8 +233,7 @@ compose() {
 # A service is just any software that you want to run every time the system is on
 # Raspberry Pis use linux, so this will make sure solar protocol is installed and running at boot
 install-systemd() {
-  servicedir=$HOME/.config/systemd/user
-  mkdir -p "$servicedir"
+  servicedir=/etc/systemd/system
 
   cat > "$servicedir"/solar-protocol.service <<-EOF
 # $servicedir/solar-protocol.service
@@ -257,13 +256,13 @@ TimeoutStartSec=0
 WantedBy=multi-user.target
 EOF
 
-  systemctl --user daemon-reload
+  systemctl daemon-reload
 
-  if systemctl --user is-active solar-protocol; then
-    systemctl --user restart solar-protocol
+  if systemctl is-active solar-protocol; then
+    systemctl restart solar-protocol
   else
-    systemctl --user enable solar-protocol
-    systemctl --user start solar-protocol
+    systemctl enable solar-protocol
+    systemctl start solar-protocol
   fi
 }
 

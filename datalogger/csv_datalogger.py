@@ -12,7 +12,11 @@ from solar_common import fieldnames
 PLATFORM = os.environ.get("PLATFORM", "unknown")
 RASPBERRY_PI = PLATFORM == "pi"
 
-if RASPBERRY_PI:
+FAKE_DATA = os.environ.get("FAKE_DATA", "False") == "True"
+
+CONNECT = FAKE_DATA or not RASPBERRY_PI
+
+if CONNECT:
     from pymodbus.client import ModbusSerialClient
 
 
@@ -72,20 +76,24 @@ def readFromDevice():
     return data
 
 
-if RASPBERRY_PI:
+if CONNECT:
     client = ModbusSerialClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
-    client.connect()
+    try:
+        client.connect()
+    except:
+        error(f"Could not connect to charge controller! Set FAKE_DATA=True to ignore this")
+        sys.exit(1)
 
 
 def handle_exit(sig, frame):
-    if RASPBERRY_PI:
+    if CONNECT:
         client.close()
     sys.exit(0)
 
 
 signal.signal(signal.SIGINT, handle_exit)
 
-read = readFromDevice if RASPBERRY_PI else readFromRandom
+read = readFromDevice if CONNECT else readFromRandom
 
 while True:
     writeOrAppend(read())

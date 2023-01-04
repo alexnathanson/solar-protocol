@@ -120,7 +120,7 @@ Regenerates the website with the latest data.
 
 ### 2. datalogger service
 
-The datalogger service periodically reads the charge controller and saves a log for the other scripts. If it is not running on a raspberry pi, it fakes data. 
+The datalogger service periodically reads the charge controller and saves a log for the other scripts. If it is not running on a raspberry pi, it fakes data. You can also force faking data by exporting `FAKE_DATA=True`
 
 ### 3. api service
 

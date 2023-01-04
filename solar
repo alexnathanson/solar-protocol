@@ -223,6 +223,7 @@ compose() {
   else
     export DOCKER_BUILDKIT=0
     export PLATFORM
+    export FAKE_DATA
     docker compose --file compose.yaml "$@"
   fi
 }

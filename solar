@@ -235,7 +235,7 @@ compose() {
 install-systemd() {
   servicedir=/etc/systemd/system
 
-  cat > "$servicedir"/solar-protocol.service <<-EOF
+  cat <<EOF | sudo tee "$servicedir"/solar-protocol.service >/dev/null
 # $servicedir/solar-protocol.service
 
 [Unit]

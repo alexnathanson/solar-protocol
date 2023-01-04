@@ -222,6 +222,7 @@ compose() {
     podman-compose --file compose.yaml "$@"
   else
     export DOCKER_BUILDKIT=0
+    export PLATFORM
     docker compose --file compose.yaml "$@"
   fi
 }

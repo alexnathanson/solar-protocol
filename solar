@@ -250,6 +250,7 @@ RemainAfterExit=yes
 WorkingDirectory=$PWD
 ExecStart=$PWD/solar start --build
 ExecStop=$PWD/solar down
+User=$USER
 TimeoutStartSec=0
 
 [Install]

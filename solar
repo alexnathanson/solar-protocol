@@ -236,7 +236,10 @@ compose() {
 # Raspberry Pis use linux, so this will make sure solar protocol is installed and running at boot
 install-systemd() {
   servicedir=/etc/systemd/system
+  configdir=$servicedir/solar-protocol.service.d
+  mkdir -p $configdir
 
+  if [[ ! -f $configdir/datalogger.conf ]]; then
   cat <<EOF | sudo tee "$servicedir"/solar-protocol.service.d/datalogger.conf >/dev/null
 # $servicedir/solar-protocol.service.d/datalogger.conf
 # Set FAKE_DATA=True if you want to generate random data from the datalogger
@@ -244,6 +247,7 @@ install-systemd() {
 [Service]
 Environment="FAKE_DATA=False"
 EOF
+  fi
 
   cat <<EOF | sudo tee "$servicedir"/solar-protocol.service >/dev/null
 # $servicedir/solar-protocol.service
@@ -266,14 +270,12 @@ TimeoutStartSec=0
 WantedBy=multi-user.target
 EOF
 
-  systemctl daemon-reload
+  sudo systemctl daemon-reload
+  active=$(systemctl is-active solar-protocol)
+  enabled=$(systemctl is-enabled solar-protocol)
 
-  if systemctl is-active solar-protocol; then
-    systemctl restart solar-protocol
-  else
-    systemctl enable solar-protocol
-    systemctl start solar-protocol
-  fi
+  [[ "$active" == "active" ]] && sudo systemctl stop solar-protocol || true
+  [[ "$enabled" != "enabled" ]] && sudo systemctl enable solar-protocol || true
 }
 
 set-admin-password() {

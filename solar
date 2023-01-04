@@ -237,6 +237,14 @@ compose() {
 install-systemd() {
   servicedir=/etc/systemd/system
 
+  cat <<EOF | sudo tee "$servicedir"/solar-protocol.service.d/datalogger.conf >/dev/null
+# $servicedir/solar-protocol.service.d/datalogger.conf
+# Set FAKE_DATA=True if you want to generate random data from the datalogger
+
+[Service]
+Environment="FAKE_DATA=False"
+EOF
+
   cat <<EOF | sudo tee "$servicedir"/solar-protocol.service >/dev/null
 # $servicedir/solar-protocol.service
 

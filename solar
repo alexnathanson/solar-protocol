@@ -15,29 +15,32 @@ test -f local/secrets.json || echo '{}' > local/secrets.json
 help() {
   Clear='\033[0m'
   Blue='\033[0;34m'
+  Cyan='\033[0;36m'
+  Color=$Cyan
 
   echo -e "$(
   cat << HELP
 
   ☀️ solar - commandline tool to help manage your server
 
-    ${Blue}solar install${Clear}               install dependencies and completions
-    ${Blue}solar start${Clear}                 start the protocol
-    ${Blue}solar logs api${Clear}              show api logs
-    ${Blue}solar status${Clear}                check status of the containers
-    ${Blue}solar restart datalogger${Clear}    restart the datalogger
-    ${Blue}solar stop${Clear}                  stop all services
-    ${Blue}solar shell protocol${Clear}        open a shell in the protocol container
-    ${Blue}solar update-dns [password]${Clear} update the dns for beta.solarprotocol.net
-    ${Blue}solar get-dns-hash${Clear}          create a hash to share with administrators when joining
+    ${Color}solar install${Clear}               install dependencies and completions
+    ${Color}solar start${Clear}                 start the protocol
+    ${Color}solar logs api${Clear}              show api logs
+    ${Color}solar status${Clear}                check status of the containers
+    ${Color}solar restart datalogger${Clear}    restart the datalogger
+    ${Color}solar stop${Clear}                  stop all services
+    ${Color}solar shell protocol${Clear}        open a shell in the protocol container
+    ${Color}solar get-dns-hash${Clear}          create a hash to share with administrators when joining
+    ${Color}solar make-active${Clear}           request to become the active server
 
-    ${Blue}solar help${Clear}                  show this help
-    ${Blue}solar build${Clear}                 build new container images of all the services
-    ${Blue}solar format${Clear}                format all the source code
-    ${Blue}solar reinstall${Clear}             removes containers and dependencies and reinstalls
-    ${Blue}solar open${Clear}                  open the local solar protocol webpage
+    ${Color}solar help${Clear}                  show this help
+    ${Color}solar build${Clear}                 build new container images of all the services
+    ${Color}solar format${Clear}                format all the source code
+    ${Color}solar reinstall${Clear}             removes containers and dependencies and reinstalls
+    ${Color}solar open${Clear}                  open the local solar protocol webpage
+    ${Color}solar update-dns [password]${Clear} update the dns for beta.solarprotocol.net
 
-    ${Blue}solar set-admin-password [password]${Clear} update the password for the admin settings pages
+    ${Color}solar set-admin-password [password]${Clear} update the password for the admin settings pages
 HELP
   )"
 }

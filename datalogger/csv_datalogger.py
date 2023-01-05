@@ -94,6 +94,7 @@ def handle_exit(sig, frame):
 
 
 signal.signal(signal.SIGINT, handle_exit)
+signal.signal(signal.SIGTERM, handle_exit)
 
 read = readFromDevice if CONNECT else readFromRandom
 

@@ -26,6 +26,7 @@ MAX_FREQUENCY = one_minute
 
 LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
 logging.basicConfig(level=LOGLEVEL)
+print(f"{LOGLEVEL=}")
 
 
 def run():

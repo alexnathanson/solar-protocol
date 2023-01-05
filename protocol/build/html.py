@@ -192,7 +192,7 @@ def get_weather(lon, lat, appid: str):
     params = {"lon": lon, "lat": lat, "appid": appid}
 
     response = requests.get(url=url, params=params)
-    reponse.raise_for_status()
+    response.raise_for_status()
 
     data = response.json()
     current_temperature = data["main"]["temp"]

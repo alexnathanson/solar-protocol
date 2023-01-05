@@ -139,6 +139,10 @@ install-docker-debian() {
 }
 
 install() {
+  if [[ ! -f local/local.json ]]; then
+    cp local/local.template.json local/local.json
+  fi
+
   if [[ -f ~/.bashrc ]]; then
     if ! grep --quiet solar ~/.bashrc; then
      if prompt "Add solar PATH to ~/.bashrc?"; then

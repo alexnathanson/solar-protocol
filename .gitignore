@@ -5,6 +5,9 @@ __pycache__
 # do not commit changes to secrets
 local/secrets.json
 
+# do not commit changes to local config
+local/local.json
+
 # created by datalogger/csv_datalogger.py
 data/charge-controller/*csv
 

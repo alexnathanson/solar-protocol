@@ -16,6 +16,7 @@ help() {
   Clear='\033[0m'
   Blue='\033[0;34m'
   Cyan='\033[0;36m'
+  Red='\033[0;31m'
   Color=$Cyan
 
   echo -e "$(
@@ -23,13 +24,15 @@ help() {
 
   ☀️ solar - commandline tool to help manage your server
 
+    ${Red}solar <command> [service]${Clear}   where service is one of api, datalogger, web, or protocol
+
     ${Color}solar install${Clear}               install dependencies and completions
     ${Color}solar start${Clear}                 start the protocol
-    ${Color}solar logs api${Clear}              show api logs
+    ${Color}solar logs <service>${Clear}        show logs for _service_
     ${Color}solar status${Clear}                check status of the containers
-    ${Color}solar restart datalogger${Clear}    restart the datalogger
+    ${Color}solar restart <service>${Clear}     restart _service_
     ${Color}solar stop${Clear}                  stop all services
-    ${Color}solar shell protocol${Clear}        open a shell in the protocol container
+    ${Color}solar shell <service>${Clear}       open a shell in the running _service_
     ${Color}solar get-dns-hash${Clear}          create a hash to share with administrators when joining
     ${Color}solar make-active${Clear}           request to become the active server
 

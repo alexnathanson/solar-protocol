@@ -60,6 +60,10 @@ def run():
 if __name__ == "__main__":
     from SolarProtocolClass import SolarProtocol as SolarProtocolClass
 
+    LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
+    logging.basicConfig(level=LOGLEVEL)
+    print(f"{LOGLEVEL=}")
+
     run()
 else:
     from .SolarProtocolClass import SolarProtocol as SolarProtocolClass

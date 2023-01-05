@@ -77,6 +77,9 @@ To view api logs
 
 Sharing these logs will make it easier for people to help
 
+### Running discrete scripts
+
+`solar exec protocol python /protocol/core/solarProtocol.py`
 
 # Development
 

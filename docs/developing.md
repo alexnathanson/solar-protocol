@@ -65,22 +65,23 @@ Congrats! You should see the pizza rat server!
 
 To view backend protocol logs
 
-   solar logs protocol
+    solar logs protocol
 
 To view web server logs
 
-   solar logs web
+    solar logs web
 
 To view api logs
 
-   solar logs api
+    solar logs api
 
 Sharing these logs will make it easier for people to help
 
 ### Running discrete scripts
 
+It can be helpful to run scripts manually
 
-`solar exec protocol python core/solarProtocol.py`
+    solar exec protocol python core/solarProtocol.py
 
 # Development
 

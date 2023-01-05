@@ -85,7 +85,7 @@ It can be helpful to run scripts manually
 
 To run manually with full logs
 
-    solar exec --env LOGLEVEL=debug python core/solarProtocol.py
+    solar exec --env LOGLEVEL=debug protocol python core/solarProtocol.py
 
 If running a script manually will introduce a race condition you will need to stop the script. This is especially likely with the datalogger script, because its sole purpose is to write data to a file.
 

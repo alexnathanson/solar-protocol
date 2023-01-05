@@ -9,6 +9,6 @@
   "lon": "73.94 W",
   "bgColor": "Olive",
   "font": "Monaco",
-  "pvWatts": "100",
+  "pvWatts": "50",
   "pvVolts": "12"
 }

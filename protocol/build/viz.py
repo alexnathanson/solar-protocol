@@ -183,6 +183,9 @@ def sortPOE(logs, timeZones, myTimeZone):
     global dfPOE
 
     for i, log in enumerate(logs):
+        debug(log)
+        if len(log) < 2:
+            continue
         tempDF = pd.DataFrame(log)  # convert individual POE lists to dataframe
         tempDF["datetime"] = tempDF[0]
 

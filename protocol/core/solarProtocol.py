@@ -16,8 +16,8 @@ from solar_secrets import getSecret, SecretKey
 def determineServer(allValues: list[int], myValue: int):
     """If this server has the highest value, update DNS to be point of entry"""
     if myValue >= max(allValues):
+        info("Point of entry")
         result = updateDNS()
-
         info(result)
     else:
         info("Not point of entry")

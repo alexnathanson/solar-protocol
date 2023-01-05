@@ -181,9 +181,10 @@ def run():
 
 
 if __name__ == "__main__":
+    import logging
 
     LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
     logging.basicConfig(level=LOGLEVEL)
     print(f"{LOGLEVEL=}")
-    
+
     run()

@@ -245,7 +245,7 @@ compose() {
 install-systemd() {
   servicedir=/etc/systemd/system
   configdir=$servicedir/solar-protocol.service.d
-  mkdir -p $configdir
+  sudo mkdir -p $configdir
 
   for config in dev/systemd/solar-protocol.service.d/*conf; do
     if [[ ! -f $configdir/$config ]]; then

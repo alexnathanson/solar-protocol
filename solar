@@ -27,11 +27,11 @@ help() {
     ${Red}solar <command> [service]${Clear}   where service is one of api, datalogger, web, or protocol
 
     ${Color}solar install${Clear}               install dependencies and completions
-    ${Color}solar start${Clear}                 start the protocol
+    ${Color}solar up${Clear}                    bring solar protocol up
+    ${Color}solar down${Clear}                  bring solar protocol down
     ${Color}solar logs <service>${Clear}        show logs for _service_
     ${Color}solar status${Clear}                check status of the containers
     ${Color}solar restart <service>${Clear}     restart _service_
-    ${Color}solar stop${Clear}                  stop all services
     ${Color}solar shell <service>${Clear}       open a shell in the running _service_
     ${Color}solar get-dns-hash${Clear}          create a hash to share with administrators when joining
     ${Color}solar make-active${Clear}           request to become the active server
@@ -41,6 +41,8 @@ help() {
     ${Color}solar format${Clear}                format all the source code
     ${Color}solar reinstall${Clear}             removes containers and dependencies and reinstalls
     ${Color}solar open${Clear}                  open the local solar protocol webpage
+    ${Color}solar start <service>${Clear}       start individual _service_
+    ${Color}solar stop <service>${Clear}        stop individual _service_
     ${Color}solar update-dns [password]${Clear} update the dns for beta.solarprotocol.net
     ${Color}solar exec <service> <cmd>${Clear}  run _cmd_ in the current _service_
 
@@ -315,8 +317,10 @@ get-dns-hash() {
 }
 
 case $command in
-  up|start) compose up "$@" ;;
-  down|stop) compose down "$@" ;;
+  start) compose start "$@" ;;
+  stop) compose stop "$@" ;;
+  up) compose up "$@" ;;
+  down) compose down "$@" ;;
   status) compose ps 2>/dev/null ;;
   restart) compose restart "${@:-api datalogger protocol web}" ;;
   logs) compose logs "${@:-protocol}" ;;

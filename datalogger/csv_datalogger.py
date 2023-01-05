@@ -81,7 +81,9 @@ if CONNECT:
     try:
         client.connect()
     except:
-        error(f"Could not connect to charge controller! Set FAKE_DATA=True to ignore this")
+        error(
+            f"Could not connect to charge controller! Set FAKE_DATA=True to ignore this"
+        )
         sys.exit(1)
 
 
@@ -92,9 +94,22 @@ def handle_exit(sig, frame):
 
 
 signal.signal(signal.SIGINT, handle_exit)
+signal.signal(signal.SIGTERM, handle_exit)
 
 read = readFromDevice if CONNECT else readFromRandom
 
-while True:
-    writeOrAppend(read())
-    time.sleep(60 * 2)
+
+def run():
+    while True:
+        writeOrAppend(read())
+        time.sleep(60 * 2)
+
+
+if __name__ == "__main__":
+    import logging
+
+    LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
+    logging.basicConfig(level=LOGLEVEL)
+    print(f"{LOGLEVEL=}")
+
+run()

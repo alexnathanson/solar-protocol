@@ -59,6 +59,7 @@ def run():
 # FIXME: explain why one imports with . prefix and the other does not
 if __name__ == "__main__":
     from SolarProtocolClass import SolarProtocol as SolarProtocolClass
+    import logging
 
     LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
     logging.basicConfig(level=LOGLEVEL)

@@ -246,15 +246,11 @@ install-systemd() {
   configdir=$servicedir/solar-protocol.service.d
   mkdir -p $configdir
 
-  if [[ ! -f $configdir/datalogger.conf ]]; then
-  cat <<EOF | sudo tee "$servicedir"/solar-protocol.service.d/datalogger.conf >/dev/null
-# $servicedir/solar-protocol.service.d/datalogger.conf
-# Set FAKE_DATA=True if you want to generate random data from the datalogger
-
-[Service]
-Environment="FAKE_DATA=False"
-EOF
-  fi
+  for config in dev/systemd/solar-protocol.service.d/*cof; do
+    if [[ ! -f $configdir/$config ]]; then
+      sudo cp $config $configdir/
+    fi
+  done
 
   cat <<EOF | sudo tee "$servicedir"/solar-protocol.service >/dev/null
 # $servicedir/solar-protocol.service

@@ -83,6 +83,12 @@ It can be helpful to run scripts manually
 
     solar exec protocol python core/solarProtocol.py
 
+If running a script manually will introduce a race condition you will need to stop the script. This is especially likely with the datalogger script, because its sole purpose is to write data to a file.
+
+    solar stop datalogger
+    solar exec datalogger python csv_datalogger.py
+    solar start datalogger
+
 # Development
 
 ## Services

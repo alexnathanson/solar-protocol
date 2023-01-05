@@ -315,8 +315,8 @@ get-dns-hash() {
 }
 
 case $command in
-  up|start) compose up "$@" ;;
-  down|stop) compose down "$@" ;;
+  start) compose up "$@" ;;
+  stop) compose down "$@" ;;
   status) compose ps 2>/dev/null ;;
   restart) compose restart "${@:-api datalogger protocol web}" ;;
   logs) compose logs "${@:-protocol}" ;;

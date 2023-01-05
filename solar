@@ -42,6 +42,7 @@ help() {
     ${Color}solar reinstall${Clear}             removes containers and dependencies and reinstalls
     ${Color}solar open${Clear}                  open the local solar protocol webpage
     ${Color}solar update-dns [password]${Clear} update the dns for beta.solarprotocol.net
+    ${Color}solar exec <service> <cmd>${Clear}  run _cmd_ in the current _service_
 
     ${Color}solar set-admin-password [password]${Clear} update the password for the admin settings pages
 HELP
@@ -332,6 +333,7 @@ case $command in
   get-dns-hash) get-dns-hash ;;
   reinstall) reinstall ;;
   install) install ;;
+  exec) compose exec "$@" ;;
   *) help ;;
 esac
 

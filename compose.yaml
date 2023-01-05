@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     volumes:
       - data:/data
+      - /etc/localtime:/etc/localtime
     environment:
       - FAKE_DATA
       - PLATFORM
@@ -20,6 +21,7 @@ services:
     volumes:
       - data:/data
       - local:/local
+      - /etc/localtime:/etc/localtime
     ports:
       - 11215:80
 
@@ -34,6 +36,7 @@ services:
       - data:/data
       - frontend:/frontend
       - local:/local
+      - /etc/localtime:/etc/localtime
 
   web:
     image: docker.io/library/nginx
@@ -43,6 +46,7 @@ services:
       - local:/local
       - frontend:/frontend
       - ./dev/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /etc/localtime:/etc/localtime
     ports:
       - 11221:80
 

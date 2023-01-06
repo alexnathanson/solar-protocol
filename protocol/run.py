@@ -35,9 +35,8 @@ def run():
 
     #check if device list exists and create one own info it doesn't
     try:
-        with open("/data/devices.json") as file:
-            devices = json.load(file)
-        return
+        if os.stat("/data/devices.json").st_size == 0:
+            raise Exception("Device list size is 0")
     except FileNotFoundError:
         info("Generating new devices.json file")
         myExtIp = requests.get("https://server.solarpowerforartists.com/?myip=true")

@@ -32,6 +32,23 @@ print(f"{LOGLEVEL=}")
 def run():
     info("***** Solar Protocol Runner Started ******")
 
+    #check if device list exists and create one own info it doesn't
+    try:
+        with open("/data/devices.json") as file:
+            devices = json.load(file)
+        return
+    except FileNotFoundError:
+        myExtIp = requests.get("https://server.solarpowerforartists.com/?myip=true")
+        with open("/data/devices.json", "w") as file:
+            json.dump([{"tz": "America/New_York",
+                "mac": publishDevice.getMAC(),
+                "name": publishDevice.getLocal('name'),
+                "log": ["1671226565.682184"],
+                "ip": myExtIp,
+                "httpPort": publishDevice.getLocal('httpPort'),
+                "timestamp": time.time()}], file)
+            return
+
     # Wait for the api to be ready
     while True:
         try:
@@ -105,7 +122,6 @@ def runScripts(runCount):
         error(f"Exceptions: {exceptionString}")
     else:
         info("Exceptions: 0, all good")
-
 
 def getElapsedTime(oldTime):
     """

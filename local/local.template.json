@@ -10,5 +10,7 @@
   "bgColor": "Olive",
   "font": "Monaco",
   "pvWatts": "50",
-  "pvVolts": "12"
+  "pvVolts": "12",
+  "httpPort": "80",
+  "httpsPort": ""
 }

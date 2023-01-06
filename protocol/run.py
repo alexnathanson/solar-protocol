@@ -48,7 +48,6 @@ def run():
                 "ip": myExtIp,
                 "httpPort": publishDevice.getLocal('httpPort'),
                 "timestamp": time.time()}], file)
-            return
 
     # Wait for the api to be ready
     while True:

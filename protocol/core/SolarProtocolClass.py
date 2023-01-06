@@ -87,15 +87,19 @@ class SolarProtocol:
         )
         return ":".join("%02x" % byte for byte in info[18:24])
 
-    """
-	returns the specified value from the device list file
-	value can be = "ip","mac","time stamp","name","log","tz"
-	"""
-
     def getDeviceValues(self, value):
-        with open(self.devices) as file:
-            devices = json.load(file)
+        """
+        returns the specified value from the device list file
+        value can be = "ip","mac","time stamp","name","log","tz"
+        """
+        try:
+            with open(self.devices) as file:
+                devices = json.load(file)
 
-        values = [device[value] for device in devices]
+            values = [device[value] for device in devices]
 
-        return values
+            return values
+        except FileNotFoundError:
+            with open(self.devices, "w") as file:
+                json.dumps([], file)
+                return []

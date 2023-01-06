@@ -69,8 +69,7 @@ def run():
 
     # If we are in the device list, check if we should update the point of entry
     myMAC = solarProtocol.getMAC()
-    debug(myMAC)
-    debug(macs)
+    debug(f"{myMAC=}")
 
     if myMAC in macs:
         myScaledWattage = scaledWattages[macs.index(myMAC)]

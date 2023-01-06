@@ -427,7 +427,7 @@ def main():
     clockPath = f"{imagePath}/clock.png"
     exhibitPath = f"{imagePath}/clock-exhibit.png"
     now = str(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
-    archivePath = f"{imagePath}/archive/clock-{now}.png"
+    archivePath = f"{imagePath}/clock-archive/clock-{now}.png"
 
     assetsPath = "/protocol/build/assets"
     # export the clock surface

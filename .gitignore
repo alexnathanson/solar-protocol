@@ -15,15 +15,13 @@ data/charge-controller/*csv
 data/devices/*json
 
 # created by protocol/core/getRemoteData.py
-data/*json
+data/devices.json
 data/poe.log
 
 # created by protocol/build/html.py
 frontend/*html
 
 # created by protocol/build/viz.py
-frontend/archive/*png
-frontend/images/archive/*png
 frontend/images/clock.png
-frontend/images/servers/*
 frontend/images/clock-exhibit.png
+frontend/images/clock-archive/*png

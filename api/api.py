@@ -188,8 +188,13 @@ def updateDevice(
 
     devicesFilename = f"/data/devices.json"
 
-    with open(devicesFilename, "r") as devicesfile:
-        devices = json.load(devicesfile)
+    try:
+        with open(devicesFilename, "r") as devicesfile:
+            devices = json.load(devicesfile)
+    except FileNotFoundError:
+        with open(filename, "w") as jsonfile:
+            json.dumps([], jsonfile)
+            devices = []
 
     # update the device if we already found its mac...
     foundDevice = None
@@ -213,13 +218,18 @@ def updateDevice(
 
 @app.get("/api/devices")
 def devices(key: Union[DeviceKeys, None] = None):
-    with open("/data/devices.json", "r") as jsonfile:
-        devices = json.load(jsonfile)
+    filename = "/data/devices.json"
+    try:
+        with open(filename, "r") as jsonfile:
+            devices = json.load(jsonfile)
+        if key == None:
+            return [{key: device.get(key) for key in DeviceKeys} for device in devices]
 
-    if key == None:
-        return [{key: device.get(key) for key in DeviceKeys} for device in devices]
-
-    return [{key: device.get(key)} for device in devices]
+        return [{key: device.get(key)} for device in devices]
+    except FileNotFoundError:
+        with open(filename, "w") as jsonfile:
+            json.dumps([], jsonfile)
+            return []
 
 
 @app.get("/api/system")

@@ -47,8 +47,13 @@ dfPOE = pd.DataFrame(columns=["device", "datetime"])
 
 # Get device information
 def getDeviceInfo(key):
-    with open(devices) as file:
-        data = json.load(file)
+    try:
+        with open(devices) as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        with open(devices, "w") as file:
+            json.dumps([], file)
+            data = []
 
     deviceInfo = [device[key] for device in data]
     return deviceInfo

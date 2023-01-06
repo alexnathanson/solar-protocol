@@ -89,7 +89,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         else:
             zone = response.text
 
-        zone = zone.replace("/", ", ").replace("_"," ")
+        zone = zone.replace("/", ", ").replace("_", " ")
         info(f"ZONE {zone}")
     except Exception:
         exception("Timezone Exception - TZ n/a")
@@ -232,8 +232,13 @@ def getDeviceInfo(getKey):
     ipList = []
     devices = f"/data/devices.json"
 
-    with open(devices) as f:
-        data = json.load(f)
+    try:
+        with open(devices) as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        with open(filename, "w") as jsonfile:
+            json.dumps([], jsonfile)
+            data = []
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])

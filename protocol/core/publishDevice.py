@@ -36,9 +36,15 @@ def getMAC():
 
 
 def getDevices(key: str):
-    with open("/data/devices.json") as file:
-        devices = json.load(file)
-        return [device.get(key) for device in devices]
+    filename = "/data/devices.json"
+    try:
+        with open(filename) as file:
+            devices = json.load(file)
+            return [device.get(key) for device in devices]
+    except FileNotFoundError:
+        with open(filename, "w") as file:
+            json.dumps([], file)
+            return []
 
 
 def getPoeLog(filename="/data/poe.log"):
@@ -52,8 +58,10 @@ def getPoeLog(filename="/data/poe.log"):
             lines = poeFile.readlines()
             stripped = [line.rstrip() for line in lines[:216]]
             return stripped
-    except:
-        exception(f"Could not open {filename}")
+    except FileNotFoundError:
+        with open(filename, "w") as poeFile:
+            poeFile.write("")
+            return []
 
     return []
 
@@ -68,7 +76,6 @@ def getLocal(key):
         with open("/local/local.json") as file:
             device = json.load(file)
             return device.get(key, default)
-
     except:
         exception(f"local config file exception with key {key}")
 
@@ -171,11 +178,16 @@ def getDevice():
 def run():
     info("***** Running PublishDevice script *****")
 
+    # On start, devices.json is empty
+    # So we publish to ourselves, to populate it
+    # Since we cannot know a priori a nodes information
+
+    selfIps = ["localhost:11221"]
     activeIps = ["beta.solarprotocol.net"]
     knownIps = getDevices("ip")
     discoveredIps = discoverIps()
 
-    publishDevice(activeIps + knownIps + discoveredIps)
+    publishDevice(selfIps + activeIps + knownIps + discoveredIps)
 
 
 if __name__ == "__main__":

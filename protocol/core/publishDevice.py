@@ -117,6 +117,9 @@ def postDevice(host: str, data):
     url = f"http://{host}/api/device"
 
     response = requests.post(url=url, data=data)
+    if not response.ok:
+        body = response.text
+        debug(f"{body=}")
     response.raise_for_status()
 
     info(f"Post to {host} successful")

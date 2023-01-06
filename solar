@@ -143,9 +143,10 @@ install() {
     cp local/local.template.json local/local.json
   fi
 
-  if [[ ! -f data/devices.json ]]; then
-    cp data/devices.template.json data/devices.json
-  fi
+  # Generating this file negates the device list file generated in run.py
+  # if [[ ! -f data/devices.json ]]; then
+  #   cp data/devices.template.json data/devices.json
+  # fi
 
   if [[ -f ~/.bashrc ]]; then
     if ! grep --quiet solar ~/.bashrc; then

@@ -39,6 +39,7 @@ def run():
             devices = json.load(file)
         return
     except FileNotFoundError:
+        info("Generating new devices.json file")
         myExtIp = requests.get("https://server.solarpowerforartists.com/?myip=true")
         with open("/data/devices.json", "w") as file:
             json.dump([{"tz": "America/New_York",

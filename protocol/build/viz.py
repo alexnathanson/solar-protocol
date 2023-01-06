@@ -403,7 +403,8 @@ def main():
         draw_ring(energyValue, i + 3, energyParam, timezone, myTimeZone)
 
     # Draw Active Server Rings
-    sortPOE(logs.split(","), timeZones, myTimeZone)
+    debug(f"{logs=}")
+    sortPOE(logs, timeZones, myTimeZone)
 
     lines(interval=2, stroke_width=1, opacity=0.2)
     lines(interval=12, stroke_width=1.5, opacity=1)

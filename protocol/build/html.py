@@ -237,7 +237,7 @@ def getDeviceInfo(getKey):
             data = json.load(f)
     except FileNotFoundError:
         with open(filename, "w") as jsonfile:
-            json.dumps([], jsonfile)
+            json.dump([], jsonfile)
             data = []
 
     for i in range(len(data)):

@@ -193,7 +193,7 @@ def updateDevice(
             devices = json.load(devicesfile)
     except FileNotFoundError:
         with open(filename, "w") as jsonfile:
-            json.dumps([], jsonfile)
+            json.dump([], jsonfile)
             devices = []
 
     # update the device if we already found its mac...
@@ -228,7 +228,7 @@ def devices(key: Union[DeviceKeys, None] = None):
         return [{key: device.get(key)} for device in devices]
     except FileNotFoundError:
         with open(filename, "w") as jsonfile:
-            json.dumps([], jsonfile)
+            json.dump([], jsonfile)
             return []
 
 

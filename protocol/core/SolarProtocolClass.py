@@ -101,5 +101,5 @@ class SolarProtocol:
             return values
         except FileNotFoundError:
             with open(self.devices, "w") as file:
-                json.dumps([], file)
+                json.dump([], file)
                 return []

@@ -43,7 +43,7 @@ def getDevices(key: str):
             return [device.get(key) for device in devices]
     except FileNotFoundError:
         with open(filename, "w") as file:
-            json.dumps([], file)
+            json.dump([], file)
             return []
 
 

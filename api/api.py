@@ -166,14 +166,14 @@ def updateDevice(
     ip: Union[str, None] = Form(),
     httpPort: Union[str, None] = Form(),
     timestamp: Union[float, None] = Form(),
-    networkKey: str = Form(),
+    networkkey: str = Form(),
 ):
 
     if networkkey is None:
-        raise Error("Invalid networkKey for this server")
+        raise Error("Invalid networkkey for this server")
 
     if networkkey != getSecret(SecretKey.networkkey):
-        raise Error("Invalid networkKey for this server")
+        raise Error("Invalid networkkey for this server")
 
     formData = {
         "tz": tz,

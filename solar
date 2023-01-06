@@ -143,6 +143,10 @@ install() {
     cp local/local.template.json local/local.json
   fi
 
+  if [[ ! -f data/devices.json ]]; then
+    cp data/devices.template.json data/devices.json
+  fi
+
   if [[ -f ~/.bashrc ]]; then
     if ! grep --quiet solar ~/.bashrc; then
      if prompt "Add solar PATH to ~/.bashrc?"; then

@@ -41,23 +41,21 @@ def getDevices(key: str):
         return [device.get(key) for device in devices]
 
 
-"""
-Truncate the log to the first 216 lines
-If solarProtocol.py runs every 10 minutes, there can be max 432 entries
-This would happen if the current server was POE for the entire 72 hours
-"""
-
-
 def getPoeLog(filename="/data/poe.log"):
+    """
+    Truncate the log to the first 216 lines
+    If solarProtocol.py runs every 10 minutes, there can be max 432 entries
+    This would happen if the current server was POE for the entire 72 hours
+    """
     try:
         with open(filename, "a+") as poeFile:
             lines = poeFile.readlines()
             stripped = [line.rstrip() for line in lines[:216]]
-            return ",".join(stripped)
+            return stripped
     except:
         exception(f"Could not open {filename}")
 
-    return ","
+    return []
 
 
 def getLocal(key):

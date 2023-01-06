@@ -179,13 +179,10 @@ def draw_server_arc(serverNumber, startAngle, stopAngle, color):
     circle.draw(surface)
 
 
-def sortPOE(logs: list[str], timeZones, myTimeZone):
+def sortPOE(logs: list[list[str]], timeZones, myTimeZone):
     global dfPOE
 
     for i, log in enumerate(logs):
-        debug(log)
-        if len(log) < 2:
-            continue
         tempDF = pd.DataFrame(log)  # convert individual POE lists to dataframe
         tempDF["datetime"] = tempDF[0]
 

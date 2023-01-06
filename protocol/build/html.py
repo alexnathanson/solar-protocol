@@ -89,7 +89,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         else:
             zone = response.text
 
-        zone = zone.replace("/", " ").replace("_"," ")
+        zone = zone.replace("/", ", ").replace("_"," ")
         info(f"ZONE {zone}")
     except Exception:
         exception("Timezone Exception - TZ n/a")

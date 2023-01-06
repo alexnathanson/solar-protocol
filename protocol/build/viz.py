@@ -179,7 +179,7 @@ def draw_server_arc(serverNumber, startAngle, stopAngle, color):
     circle.draw(surface)
 
 
-def sortPOE(logs, timeZones, myTimeZone):
+def sortPOE(logs: list[str], timeZones, myTimeZone):
     global dfPOE
 
     for i, log in enumerate(logs):
@@ -403,7 +403,7 @@ def main():
         draw_ring(energyValue, i + 3, energyParam, timezone, myTimeZone)
 
     # Draw Active Server Rings
-    sortPOE(logs, timeZones, myTimeZone)
+    sortPOE(logs.split(","), timeZones, myTimeZone)
 
     lines(interval=2, stroke_width=1, opacity=0.2)
     lines(interval=12, stroke_width=1.5, opacity=1)

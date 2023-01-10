@@ -34,20 +34,20 @@ def run():
     info("***** Solar Protocol Runner Started ******")
 
     #check if device list exists and create one own info it doesn't
-    try:
-        if os.stat("/data/devices.json").st_size == 0:
-            raise Exception("Device list size is 0")
-    except FileNotFoundError:
-        info("Generating new devices.json file")
-        myExtIp = requests.get("https://server.solarpowerforartists.com/?myip=true")
-        with open("/data/devices.json", "w") as file:
-            json.dump([{"tz": "America/New_York",
-                "mac": publishDevice.getMAC(),
-                "name": publishDevice.getLocal('name'),
-                "log": ["1671226565.682184"],
-                "ip": myExtIp,
-                "httpPort": publishDevice.getLocal('httpPort'),
-                "timestamp": time.time()}], file)
+    # try:
+    #     if os.stat("/data/devices.json").st_size == 0:
+    #         raise Exception("Device list size is 0")
+    # except FileNotFoundError:
+    #     info("Generating new devices.json file")
+    #     myExtIp = requests.get("https://server.solarpowerforartists.com/?myip=true")
+    #     with open("/data/devices.json", "w") as file:
+    #         json.dump([{"tz": "America/New_York",
+    #             "mac": publishDevice.getMAC(),
+    #             "name": publishDevice.getLocal('name'),
+    #             "log": ["1671226565.682184"],
+    #             "ip": myExtIp,
+    #             "httpPort": publishDevice.getLocal('httpPort'),
+    #             "timestamp": time.time()}], file)
 
     # Wait for the api to be ready
     while True:

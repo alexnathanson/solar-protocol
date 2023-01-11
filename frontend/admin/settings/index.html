@@ -7,8 +7,7 @@
 </head>
 <body>
   <h1><a href="/">Solar Protocol ()</a> - Admin Console</h1><span>Logged in as <a href="/admin/settings/user.html"></a> <a href="?logout">(Logout)</a></span>
-  <p><a href="/admin">Network Activity</a> | <a href="/admin/local.html">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href=
-  "/admin/settings/local.html">Local Content</a></p>
+  <p><a href="/admin">Network Activity</a> | <a href="/admin/local.html">Local Data</a> | <a href="/admin/settings">Settings</a>
   <h2>Local Settings</h2>
   <h3>Info</h3>
   <script>
@@ -22,21 +21,8 @@
   })
   })
   </script> 
+
   <script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message)
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
@@ -51,6 +37,7 @@
     return true
   }
   </script>
+
   <form method="post" id="updateLocalInfo" action="/api/local" name="updateLocalInfo">
     <p>Name <input type="text" name="name"></p>
     <p>Description (500 characters max)<br>

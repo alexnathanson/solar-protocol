@@ -162,7 +162,7 @@ def updateDevice(
     tz: Union[str, None] = Form(),
     mac: Union[str, None] = Form(),
     name: Union[str, None] = Form(),
-    log: Union[list[str], None] = Form(),
+    log: Union[list[str], None] | None = Form(),
     ip: Union[str, None] = Form(),
     httpPort: Union[str, None] = Form(),
     timestamp: Union[float, None] = Form(),

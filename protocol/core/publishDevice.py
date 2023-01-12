@@ -114,7 +114,7 @@ def postDevice(host: str, data):
     url = f"http://{host}/api/device"
     debug(f"{data=}")
 
-    response = requests.post(url=url, json=data)
+    response = requests.post(url=url, data=data)
     if not response.ok:
         body = response.text
         debug(f"{body=}")

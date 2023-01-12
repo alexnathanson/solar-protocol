@@ -6,10 +6,7 @@ Every server runs this script, which posts its own IP address + other data to:
 * solarprotocol.net
 """
 
-# these modules are only used by this module within this packages
-# all other modules are imported via __init__
 import re
-from threading import local
 import time
 import requests
 import json
@@ -117,7 +114,7 @@ def postDevice(host: str, data):
     url = f"http://{host}/api/device"
     debug(f"{data=}")
 
-    response = requests.post(url=url, data=data)
+    response = requests.post(url=url, json=data)
     if not response.ok:
         body = response.text
         debug(f"{body=}")

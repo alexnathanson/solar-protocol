@@ -5,7 +5,7 @@ import os
 import sys
 
 from enum import Enum
-from typing import Union
+from typing import Optional
 
 from fastapi import FastAPI, Header, Form, Request
 from passlib.hash import bcrypt
@@ -159,13 +159,13 @@ def updateDNS(request: Request, key: str = Form()):
 # This is a list of announced devices.
 @app.post("/api/device")
 def updateDevice(
-    tz: Union[str, None] = Form(),
-    mac: Union[str, None] = Form(),
-    name: Union[str, None] = Form(),
-    log: Union[list[str], None] | None = Form(),
-    ip: Union[str, None] = Form(),
-    httpPort: Union[str, None] = Form(),
-    timestamp: Union[float, None] = Form(),
+    tz: Optional[str] = Form(),
+    mac: Optional[str] = Form(),
+    name: Optional[str] = Form(),
+    log: Optional[list[Optional[str]]] = Form(),
+    ip: Optional[str] = Form(),
+    httpPort: Optional[str] = Form(),
+    timestamp: Optional[float] = Form(),
     networkkey: str = Form(),
 ):
 
@@ -217,7 +217,7 @@ def updateDevice(
 
 
 @app.get("/api/devices")
-def devices(key: Union[DeviceKeys, None] = None):
+def devices(key: Optional[DeviceKeys] = None):
     filename = "/data/devices.json"
     try:
         with open(filename, "r") as jsonfile:
@@ -233,7 +233,7 @@ def devices(key: Union[DeviceKeys, None] = None):
 
 
 @app.get("/api/system")
-def system(key: Union[SystemKeys, None] = None):
+def system(key: Optional[SystemKeys] = None):
     if key == SystemKeys.tz:
         return getTimezone()
 
@@ -241,12 +241,12 @@ def system(key: Union[SystemKeys, None] = None):
 
 
 @app.get("/api/charge-controller/{day}")
-def getChargeForDay(day: str, key: Union[ChargeKeys, None] = None):
+def getChargeForDay(day: str, key: Optional[ChargeKeys] = None):
     return charge(days=[day], key=key)
 
 
 @app.get("/api/charge-controller")
-def getCharge(days: Union[int, None] = None, key: Union[ChargeKeys, None] = None):
+def getCharge(days: Optional[int] = None, key: Optional[ChargeKeys] = None):
     today = datetime.date.today()
 
     if days == None:
@@ -257,7 +257,7 @@ def getCharge(days: Union[int, None] = None, key: Union[ChargeKeys, None] = None
     )
 
 
-def charge(days: Union[list[str], None] = None, key: Union[ChargeKeys, None] = None):
+def charge(days: Optional[list[str]] = None, key: Optional[ChargeKeys] = None):
     rows = []
     if days == None:
         dates = [datetime.date.today()]
@@ -310,7 +310,7 @@ def updateProfileImage(profile: str):
 
 
 @app.get("/api/local")
-def getLocal(key: Union[SystemKeys, None]):
+def getLocal(key: Optional[SystemKeys]):
     with open("/local/local.json", "r") as jsonfile:
         localData = json.load(jsonfile)
 
@@ -329,16 +329,16 @@ def getLocal(key: Union[SystemKeys, None]):
 
 @app.post("/api/local")
 def updateLocal(
-    name: Union[str, None] = Form(),
-    description: Union[str, None] = Form(),
-    location: Union[str, None] = Form(),
-    city: Union[str, None] = Form(),
-    country: Union[str, None] = Form(),
-    lat: Union[str, None] = Form(),
-    lon: Union[str, None] = Form(),
-    pvWatts: Union[str, None] = Form(),
-    pvVolts: Union[str, None] = Form(),
-    httpPort: Union[str, None] = Form(),
+    name: Optional[str] = Form(),
+    description: Optional[str] = Form(),
+    location: Optional[str] = Form(),
+    city: Optional[str] = Form(),
+    country: Optional[str] = Form(),
+    lat: Optional[str] = Form(),
+    lon: Optional[str] = Form(),
+    pvWatts: Optional[str] = Form(),
+    pvVolts: Optional[str] = Form(),
+    httpPort: Optional[str] = Form(),
 ):
     raise Error(f"Unimplemented")
     # FIXME: Protect this route

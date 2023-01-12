@@ -162,7 +162,7 @@ def updateDevice(
     tz: Optional[str] = Form(),
     mac: Optional[str] = Form(),
     name: Optional[str] = Form(),
-    log: Optional[list[Optional[str]]] = Form(),
+    log: Optional[list[Optional[str]]] = Form([]),
     ip: Optional[str] = Form(),
     httpPort: Optional[str] = Form(),
     timestamp: Optional[float] = Form(),

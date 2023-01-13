@@ -3,6 +3,8 @@ import math
 import os
 import sys
 
+from typing import Optional, Union
+
 import pandas as pd
 from datetime import datetime
 from dateutil.relativedelta import relativedelta

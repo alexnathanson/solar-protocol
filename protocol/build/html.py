@@ -11,6 +11,8 @@ import re
 import shutil
 import sys
 
+from typing import Optional, Union
+
 from logging import info, debug, error, exception
 
 from solar_secrets import getSecret, SecretKey

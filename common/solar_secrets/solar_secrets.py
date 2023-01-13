@@ -26,7 +26,7 @@ def getSecrets():
 
 
 def getSecretFromGateway(secretkey: SecretKey):
-    url = f"https://beta.solarpowerforartists.com/secrets.php"
+    url = f"http://beta.solarpowerforartists.com/secrets.php"
     dnskey = getSecret(SecretKey.dnskey)
     if dnskey == None:
         return

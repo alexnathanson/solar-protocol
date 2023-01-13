@@ -26,7 +26,7 @@ def determineServer(allValues: list[int], myValue: int):
 def updateDNS() -> str:
     """Ask the gateway to update our DNS"""
 
-    url = "https://beta.solarpowerforartists.com"
+    url = "http://beta.solarpowerforartists.com"
     key = getSecret(SecretKey.dnskey)
 
     response = requests.post(url=url, data={key})

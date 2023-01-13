@@ -32,6 +32,7 @@ services:
     command: python run.py
     environment:
       - LOGLEVEL
+      - MAC
     volumes:
       - data:/data
       - frontend:/frontend

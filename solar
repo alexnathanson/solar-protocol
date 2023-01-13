@@ -241,6 +241,7 @@ compose() {
     export DOCKER_BUILDKIT=0
     export PLATFORM
     export FAKE_DATA
+    export MAC=$(get-mac-address)
     docker compose --file compose.yaml "$@"
   fi
 }
@@ -321,6 +322,18 @@ get-dns-hash() {
   if [[ "$dnskey" != "null" ]]; then
     bcrypt "$dnskey"
     echo
+  fi
+}
+
+get-mac-address() {
+  if [[ "$platform" == "pi" ]]; then
+    cat /sys/class/net/wlan0/address
+  elif [[ "$platform" == "mac" ]]; then
+    ifconfig en0 | awk '/ether/{print $2}'
+  elif [[ "$platform" == "debian" ]]; then
+    ifconfig en0 | awk '/ether/{print $2}'
+  elif [[ "$platform" == "linux" ]]; then
+    ifconfig en0 | awk '/ether/{print $2}'
   fi
 }
 

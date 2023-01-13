@@ -21,17 +21,6 @@ from logging import debug, error, exception, info
 from solar_secrets import getSecret, SecretKey
 
 
-def getMAC():
-    interface = getLocal("interface")
-    temp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    info = fcntl.ioctl(
-        temp_socket.fileno(),
-        0x8927,
-        struct.pack("256s", bytes(interface, "utf-8")[:15]),
-    )
-    return ":".join("%02x" % byte for byte in info[18:24])
-
-
 def getDevices(key: str):
     filename = "/data/devices.json"
     try:
@@ -158,7 +147,7 @@ def getDevice():
 
     httpPort = getLocal("httpPort")
 
-    mac = getMAC()
+    mac = os.environ.get("MAC")
 
     name = getLocal("name")
     # only allow alphanumeric, space, and _ characters

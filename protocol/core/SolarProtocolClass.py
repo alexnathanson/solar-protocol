@@ -33,7 +33,6 @@ class SolarProtocol:
         # this script retrieves the environmental variables
         self.localConfigData = dict()
         self.loadLocalConfigFile()
-        self.MACinterface = "wlan0"  # this should be wlan0 even if using ethernet, because its used for identifying hardware regardless of how the connection is made...
 
     # load in data from config file
     def loadLocalConfigFile(self):
@@ -76,16 +75,6 @@ class SolarProtocol:
             return 50.0 / float(self.localConfigData["pvWatts"])
         except:
             return 1
-
-    def getMAC(self):
-        interface = self.localConfigData["interface"]
-        temp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        info = fcntl.ioctl(
-            temp_socket.fileno(),
-            0x8927,
-            struct.pack("256s", bytes(interface, "utf-8")[:15]),
-        )
-        return ":".join("%02x" % byte for byte in info[18:24])
 
     def getDeviceValues(self, value):
         """

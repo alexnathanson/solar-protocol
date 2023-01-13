@@ -68,11 +68,11 @@ def run():
     scaledWattages = getLatestScaledWattagesFor(ips, solarProtocol)
 
     # If we are in the device list, check if we should update the point of entry
-    myMAC = solarProtocol.getMAC()
-    debug(f"{myMAC=}")
+    MAC = os.environ.get("MAC")
+    debug(f"{MAC=}")
 
-    if myMAC in macs:
-        myScaledWattage = scaledWattages[macs.index(myMAC)]
+    if MAC in macs:
+        myScaledWattage = scaledWattages[macs.index(MAC)]
         determineServer(scaledWattages, myScaledWattage)
 
 

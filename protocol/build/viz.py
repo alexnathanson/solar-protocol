@@ -45,8 +45,6 @@ surface = gizeh.Surface(width=w, height=h)
 
 dfPOE = pd.DataFrame(columns=["device", "datetime"])
 
-# -------------- FUNCTIONS --------------------------------------------------------------------------------
-
 # Get device information
 def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
     try:

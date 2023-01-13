@@ -133,9 +133,11 @@ def draw_ring(ccDict, ring_number, energy_parameter, timeZ, myTimeZone):
         df_hours[energy_parameter] / df_hours[energy_parameter].max()
     )
 
-    # correlate sun data wtih colors
-    for i, current in enumerate(df_hours[energy_parameter].tolist()):
-        info(f"Current: {current}")
+    # correlate sun data with colors
+    energy_by_hour = df_hours[energy_parameter].tolist()
+    debug(f"{energy_by_hour=}")
+
+    for i, current in enumerate(energy_by_hour):
         draw_sun(ring_number, i, current)
 
     return df_hours

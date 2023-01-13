@@ -407,7 +407,7 @@ def main():
         draw_ring(energyValue, i + 3, energyParam, timezone, myTimeZone)
 
     # We may have empty logs
-    logs = map(lamba log: log if log is not None else [], logs)
+    logs = map(lambda log: log if log is not None else [], logs)
     debug(f"{logs=}")
     sortPOE(logs, timeZones, myTimeZone)
 

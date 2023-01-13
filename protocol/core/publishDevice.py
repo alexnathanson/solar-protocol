@@ -100,12 +100,12 @@ def discoverIps():
     local_macs = set(macs)
     new_macs = all_macs - local_macs
 
-    debug(f"new macs: {new_macs}")
+    debug(f"{new_macs=}")
 
     new_devices = [device for device in all_devices if device.get("mac") in new_macs]
     new_ips = [device.get("ip") for device in new_devices]
 
-    info(f"new ips: {new_ips}")
+    info(f"{new_ips=}")
 
     return new_ips
 

@@ -207,10 +207,6 @@ def get_weather(lon, lat, appid: str):
     sunrise = sunrise.strftime("%I:%M %p")
     sunset = sunset.strftime("%I:%M %p")
 
-    info(" Temperature (in kelvin unit) = {current_temperature}")
-    info(" humidity (in percentage) = {current_humidity}")
-    info(" description = {weather_description}")
-
     output = {
         "description": data["weather"][0]["description"],
         "temp": round(data["main"]["temp"] - 273.15, 1),
@@ -218,6 +214,8 @@ def get_weather(lon, lat, appid: str):
         "sunrise": sunrise,
         "sunset": sunset,
     }
+
+    debug(f"{output=}")
 
     return output
 
@@ -246,7 +244,7 @@ def get_ips():
     serverNames = getDeviceInfo("name")
 
     devices = dict(zip(serverNames, ips))
-    debug(devices)
+    debug(f"{devices=}")
     return devices
 
 
@@ -295,12 +293,12 @@ def getFormattedTimestampFor(itemNumber):
     try:
         timestamps = getDeviceInfo("timestamp")
         timestamp = timestamps[itemNumber]
-        debug(timestamp)
+        debug(f"{timestamp=}")
 
         formattedTimestamp = datetime.datetime.fromtimestamp(timestamp).strftime(
             "%m/%d/%Y %H:%M:%S"
         )
-        debug(formattedTimestamp)
+        debug(f"{formattedTimestamp=}")
         return formattedTimestamp
 
     except Exception:

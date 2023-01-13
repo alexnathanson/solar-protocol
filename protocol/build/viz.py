@@ -377,7 +377,7 @@ def main():
 
     colors = []
 
-    debug(f"ips are: {ips}")
+    debug(f"{ips=}")
 
     # iterate through each device
     for ip in ips:

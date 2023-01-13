@@ -17,13 +17,13 @@ def determineServer(allValues: list[int], myValue: int):
     """If this server has the highest value, update DNS to be point of entry"""
     if myValue >= max(allValues):
         info("Point of entry")
-        result = updateDNS()
-        info(result)
+        updateDNSResponse = updateDNS()
+        debug(f"{updateDNSResponse=}")
     else:
         info("Not point of entry")
 
 
-def updateDNS():
+def updateDNS() -> str:
     """Ask the gateway to update our DNS"""
 
     url = "https://beta.solarpowerforartists.com"

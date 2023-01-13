@@ -326,13 +326,13 @@ get-dns-hash() {
 }
 
 get-mac-address() {
-  if [[ "$platform" == "pi" ]]; then
+  if [[ "$PLATFORM" == "pi" ]]; then
     cat /sys/class/net/wlan0/address
-  elif [[ "$platform" == "mac" ]]; then
+  elif [[ "$PLATFORM" == "mac" ]]; then
     ifconfig en0 | awk '/ether/{print $2}'
-  elif [[ "$platform" == "debian" ]]; then
+  elif [[ "$PLATFORM" == "debian" ]]; then
     ifconfig en0 | awk '/ether/{print $2}'
-  elif [[ "$platform" == "linux" ]]; then
+  elif [[ "$PLATFORM" == "linux" ]]; then
     ifconfig en0 | awk '/ether/{print $2}'
   fi
 }

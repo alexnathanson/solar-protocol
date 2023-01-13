@@ -406,10 +406,12 @@ def main():
         # draw sun data for each server
         draw_ring(energyValue, i + 3, energyParam, timezone, myTimeZone)
 
-    # Draw Active Server Rings
+    # We may have empty logs
+    logs = map(lamba log: log if log is not None else [], logs)
     debug(f"{logs=}")
     sortPOE(logs, timeZones, myTimeZone)
 
+    # Draw Active Server Rings
     lines(interval=2, stroke_width=1, opacity=0.2)
     lines(interval=12, stroke_width=1.5, opacity=1)
     circles()

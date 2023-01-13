@@ -29,7 +29,7 @@ def updateDNS() -> str:
     url = "http://beta.solarpowerforartists.com"
     key = getSecret(SecretKey.dnskey)
 
-    response = requests.post(url=url, data={key})
+    response = requests.post(url=url, data={"key": key})
 
     if response.status_code == 200:
         timestamp = datetime.datetime.now()

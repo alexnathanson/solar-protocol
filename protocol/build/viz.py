@@ -57,8 +57,8 @@ def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
             json.dump([], file)
             data = []
 
-    deviceInfo = [device.get(key) for device in data]
-    return deviceInfo
+    default = [] if key == "log" else None
+    return [device.get(key) for device in data]
 
 
 # Call API for every IP address and get charge controller data
@@ -186,7 +186,7 @@ def draw_server_arc(serverNumber, startAngle, stopAngle, color):
     circle.draw(surface)
 
 
-def sortPOE(logs: list[list[str]], timeZones, myTimeZone):
+def sortPOE(logs: list[Optional[list[str]]], timeZones, myTimeZone):
     global dfPOE
 
     for i, log in enumerate(logs):

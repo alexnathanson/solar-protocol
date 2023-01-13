@@ -220,31 +220,24 @@ def get_weather(lon, lat, appid: str):
     return output
 
 
-# get local front end data
-def get_local():
+def getLocal():
     filename = f"/local/local.json"
     with open(filename) as localfile:
         return json.load(localfile)
 
 
-# Get list of IP addresses that the pi can see
-def getDeviceInfo(getKey):
-    ipList = []
+def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
     devices = f"/data/devices.json"
-
     try:
-        with open(devices) as f:
-            data = json.load(f)
+        with open(devices) as file:
+            data = json.load(file)
     except FileNotFoundError:
-        with open(filename, "w") as jsonfile:
-            json.dump([], jsonfile)
+        with open(devices, "w") as file:
+            json.dump([], file)
             data = []
 
-    for i in range(len(data)):
-        ipList.append(data[i][getKey])
-
-    return ipList
-
+    deviceInfo = [device.get(key) for device in data]
+    return deviceInfo
 
 def get_ips():
     ips = getDeviceInfo("ip")
@@ -382,7 +375,7 @@ def main():
         item["link"] = makeLinkFor(item["name"], item["status"])
 
     # 4. get images and render pages
-    local_data = get_local()
+    local_data = getLocal()
     energy_data = read_csv()  # get pv data from local csv
     local_weather = getLocalWeatherFor(local_data["lon"], local_data["lat"])
 

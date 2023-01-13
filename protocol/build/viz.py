@@ -46,7 +46,7 @@ dfPOE = pd.DataFrame(columns=["device", "datetime"])
 # -------------- FUNCTIONS --------------------------------------------------------------------------------
 
 # Get device information
-def getDeviceInfo(key):
+def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
     try:
         with open(devices) as file:
             data = json.load(file)
@@ -55,7 +55,7 @@ def getDeviceInfo(key):
             json.dump([], file)
             data = []
 
-    deviceInfo = [device[key] for device in data]
+    deviceInfo = [device.get(key) for device in data]
     return deviceInfo
 
 

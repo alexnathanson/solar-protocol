@@ -33,7 +33,7 @@ print(f"{LOGLEVEL=}")
 def run():
     info("***** Solar Protocol Runner Started ******")
 
-    #check if device list exists and create one own info it doesn't
+    # check if device list exists and create one own info it doesn't
     # try:
     #     if os.stat("/data/devices.json").st_size == 0:
     #         raise Exception("Device list size is 0")
@@ -122,6 +122,7 @@ def runScripts(runCount):
         error(f"Exceptions: {exceptionString}")
     else:
         info("Exceptions: 0, all good")
+
 
 def getElapsedTime(oldTime):
     """

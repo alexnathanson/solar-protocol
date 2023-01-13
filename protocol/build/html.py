@@ -239,6 +239,7 @@ def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
     default = [] if key == "log" else None
     return [device.get(key) for device in data]
 
+
 def get_ips():
     ips = getDeviceInfo("ip")
     serverNames = getDeviceInfo("name")

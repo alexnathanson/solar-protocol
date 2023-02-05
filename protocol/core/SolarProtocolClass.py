@@ -92,3 +92,5 @@ class SolarProtocol:
             with open(self.devices, "w") as file:
                 json.dump([], file)
                 return []
+        except KeyError as key:
+            raise Error(f"Missing {key=} from device entry")

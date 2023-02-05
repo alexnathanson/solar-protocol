@@ -63,14 +63,13 @@ class SolarProtocol:
                 # should this return 80 as a default?
                 return ""
 
-    """
-	Returns the scaling factor for the module based on a standard of 50 watts
-	(i.e. if a server is using a 100 watt module, it must be divided by 2,
-	and if it is using a 25 watt module it must by multiplied by 2)
-	In the future a more complex method that takes in to account I-V curves may need to be applied
-	"""
-
     def pvWattsScaler(self):
+        """
+        Returns the scaling factor for the module based on a standard of 50 watts
+        (i.e. if a server is using a 100 watt module, it must be divided by 2,
+        and if it is using a 25 watt module it must by multiplied by 2)
+        In the future a more complex method that takes in to account I-V curves may need to be applied
+        """
         try:
             return 50.0 / float(self.localConfigData["pvWatts"])
         except:

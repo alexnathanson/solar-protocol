@@ -143,7 +143,7 @@ def getDevice():
     try:
         ip = requests.get("https://server.solarpowerforartists.com/?myip").text
     except:
-        ip = requests.get("https://ifconfig.co").text
+        ip = requests.get("https://ifconfig.co/ip").text.strip()
 
     httpPort = getLocal("httpPort")
 

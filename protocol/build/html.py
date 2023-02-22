@@ -306,11 +306,11 @@ def getFormattedTimestampFor(itemNumber):
         return "N/A"
 
 
-def makeLinkFor(name: str, status: str):
+def makeLinkFor(name: str, status: str, ip: str):
     # make lower case, remove spaces, remove nonstandard characters
     lowercaseNospace = name.lower().replace(" ", "")
     sanitizedName = re.sub("[^A-Za-z0-9-_]+", "", lowercaseNospace)
-    serverURL = f"http://solarprotocol.net/network/{sanitizedName}"
+    serverURL = f"http://{ip}/network/{sanitizedName}"
     if status == "offline":
         return serverURL
 
@@ -373,7 +373,7 @@ def main():
         item["solar_voltage"] = get_pv_value(item["ip"])
         item["status"] = "offline" if item["solar_voltage"] == None else "online"
         item["timestamp"] = getFormattedTimestampFor(itemNumber)
-        item["link"] = makeLinkFor(item["name"], item["status"])
+        item["link"] = makeLinkFor(item["name"], item["status"], item["ip"])
 
     # 4. get images and render pages
     local_data = getLocal()

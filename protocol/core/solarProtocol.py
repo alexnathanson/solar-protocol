@@ -19,7 +19,6 @@ def determineServer(allValues: list[int], myValue: int):
     if myValue >= max(allValues):
         info("Point of entry")
         updateDNSResponse = updateDNS()
-        debug(f"{updateDNSResponse=}")
     else:
         info("Not point of entry")
 
@@ -27,7 +26,7 @@ def determineServer(allValues: list[int], myValue: int):
 def updateDNS() -> str:
     """Ask the gateway to update our DNS"""
 
-    url = "http://beta.solarpowerforartists.com"
+    url = f"http://beta.solarpowerforartists.com/api/update"
     key = getSecret(SecretKey.dnskey)
 
     response = requests.post(url=url, data={"key": key})
@@ -35,6 +34,8 @@ def updateDNS() -> str:
     if response.status_code == 200:
         timestamp = datetime.datetime.now()
         updatePoeLog(timestamp)
+    else:
+        error(f"{response=}")
 
     return response.text
 

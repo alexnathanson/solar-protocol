@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import csv
 import os
-
+import sys
 
 client = ModbusClient(method = 'rtu', port = '/dev/ttyUSB0', baudrate = 115200)
 
@@ -69,9 +69,7 @@ try:
         sleep(60*2)
 
 except:
-    print(
-        f"Could not connect to charge controller!"
-    )
+    print(f"Could not connect to charge controller!")
     sys.exit(1)
 
 client.close()

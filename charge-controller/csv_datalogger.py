@@ -69,7 +69,7 @@ try:
         sleep(60*2)
 
 except:
-    error(
+    print(
         f"Could not connect to charge controller!"
     )
     sys.exit(1)

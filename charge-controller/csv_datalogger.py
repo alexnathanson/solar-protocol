@@ -10,7 +10,14 @@ import os
 
 
 client = ModbusClient(method = 'rtu', port = '/dev/ttyUSB0', baudrate = 115200)
-client.connect()
+
+try:
+    client.connect()
+except:
+    error(
+        f"Could not connect to charge controller!"
+    )
+    sys.exit(1)
 
 while True:
     result = client.read_input_registers(0x3100,16,unit=1)

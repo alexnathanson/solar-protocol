@@ -6,7 +6,8 @@
 from collections import UserList
 from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
-from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+#from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+from pymodbus.client import ModbusSerialClient as ModbusClient
 from glob import glob
 import datetime
 import requests, json 

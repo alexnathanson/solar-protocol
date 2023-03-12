@@ -184,4 +184,5 @@ def solarScaler():
 	return sM
 
 if __name__ == '__main__':
+	print("running runner.py as __main__")
 	runSP()

@@ -30,7 +30,8 @@ Download repo into /home/pi
 
 ### Python 3 Packages  
 * Install pip `sudo apt-get install python3-pip`  
-* Install pymodbus `sudo pip3 install pymodbus`    
+* Install pymodbus `sudo pip3 install -U pymodbus==2.5.3`
+* Install pyserial `sudo pip3 install pyserial` (probably not needed anymore)
 * Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)   
 * Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)  
 * Install jinja `sudo pip3 install jinja2`     

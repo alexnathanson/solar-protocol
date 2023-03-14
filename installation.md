@@ -145,7 +145,7 @@ All the necessary file and directory permissions can set by running this script:
 
 * Confirm that "Wait for Network at Boot" option is enable. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
 * Confirm the python scripts are exectutable
-* If you can get the backend Python scripts to run from rc.local an alternative runner is provided. Change the rc.local line for the backend scripts to this:
+* If you can't get the backend Python scripts to run from rc.local an alternative runner is provided. Change the rc.local line for the backend scripts to this:
 	* open rc.local `sudo nano /etc/rc.local`  
 		* add this line above "exit 0" `sudo -H -u pi sh /home/pi/solar-protocol/backend/alt-runner.sh > /home/pi/solar-protocol/backend/runner.log 2>&1 &`  
 

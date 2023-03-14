@@ -104,9 +104,10 @@ Enable server status interface:
 * save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
 * once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
 
-Install PHP graphics library for dithering. Note that the version will need to match your php version.
+<!-- Install PHP graphics library for dithering. Note that the version will need to match your php version.
 * `sudo apt-get install php7.3-gd`
-* `sudo systemctl restart apache2`   
+* `sudo systemctl restart apache2`  -->
+  
 <!-- 
 Give Apache/PHP user 'www-data' necessary permissions:
 * Open visudo: `sudo visudo`

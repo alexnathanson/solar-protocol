@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+}
+
+/*
+#noise {
+  width: 400px;
+  height: 200px;
+  background: linear-gradient(to right, blue, transparent), url(https://grainy-gradients.vercel.app/noise.svg);
+  filter: contrast(125%) brightness(650%);
+
+} */
+
+#canvas {
+  background-color:black;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top:0px;
+  left:0px;
+}

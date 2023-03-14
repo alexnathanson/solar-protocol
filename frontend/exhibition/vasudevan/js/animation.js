@@ -19,14 +19,14 @@ let offText = 'This artwork is currently in its “off” state and will be full
 let bgText = [];
 
 function preload() {
-  smallStarImg = loadImage('/img/smallstar.png');
+  smallStarImg = loadImage('img/smallstar.png');
 
   for (var i = 0; i < 3; i++) {
-    starImgs[i] = loadImage('/img/star-' + i + '.png');
+    starImgs[i] = loadImage('img/star-' + i + '.png');
   }
 
   for (var i = 0; i < 2; i++) {
-    spiralImgs[i] = loadImage('/img/spiral-' + i + '.png');
+    spiralImgs[i] = loadImage('img/spiral-' + i + '.png');
   }
 
 

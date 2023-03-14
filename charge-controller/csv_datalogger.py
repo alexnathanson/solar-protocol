@@ -68,7 +68,8 @@ try:
         # runs every x-second
         sleep(60*2)
 
-except:
+except Exception as e:
+    print(e)
     print(f"Could not connect to charge controller!")
     sys.exit(1)
 

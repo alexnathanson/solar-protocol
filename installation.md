@@ -40,6 +40,7 @@ Download repo into /home/pi
 * Upgrade/install Pillow `python3 -m pip install --upgrade Pillow`  
 * Install cairo `sudo apt-get install libcairo2-dev`  
 * Install gizeh `sudo pip3 install gizeh`  
+* Install webcolors `pip install webcolors`
 
 #### Troubleshooting numpy
 uninstall numpy (these uninstall commands may need to be run multiple times to get rid of multiple versions):

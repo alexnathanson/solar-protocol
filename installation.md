@@ -30,7 +30,7 @@ Download repo into /home/pi
 
 ### Python 3 Packages  
 * Install pip `sudo apt-get install python3-pip`  
-* Install pymodbus `sudo pip3 install -U pymodbus==2.5.3 serial`
+* Install pymodbus `sudo pip3 install -U pymodbus==2.5.3`
 * Install pyserial `sudo pip3 install pyserial` (probably not needed anymore)
 * Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)   
 * Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)  
@@ -52,6 +52,13 @@ then install numpy and this missing library:
 
 #### Troubleshooting PIL
 * 'sudo apt install libtiff5'
+
+#### Troubleshoot pymodbus
+* If you get an error relating to serial try removing serial and pyserial from all users and then reinstall only pyserial
+	pip uninstall serial
+	sudo pip uninstall serial
+	pip uninstall pyserial
+	sudo pip install pyserial
 
 #### Further troubleshooting updates and dependencies
 * In some instances it may be necessary to manually change the mirror which determines where apt-get pulls from. Instructions for manually changing the mirror can be found at https://pimylifeup.com/raspbian-repository-mirror/

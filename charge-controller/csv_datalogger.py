@@ -1,6 +1,6 @@
 # pymodbus code based on the example from http://www.solarpoweredhome.co.uk/
 #from pymodbus.client.sync import ModbusSerialClient as ModbusClient
-from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+from pymodbus.client import ModbusSerialClient as ModbusClient
 from time import sleep
 import datetime
 import numpy as np
@@ -15,8 +15,8 @@ try:
     client.connect()
 
     while True:
-        result = client.read_input_registers(0x3100,16,unit=1)
-        result2 = client.read_input_registers(0x311A,2,unit=1)
+        result = client.read_input_registers(0x3100,16,1)
+        result2 = client.read_input_registers(0x311A,2,1)
 
         if not result.isError() and not result2.isError():
             pvVoltage = float(result.registers[0] / 100.0)

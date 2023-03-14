@@ -1,0 +1,168 @@
+/*
+var rooms = {
+	room1: {
+		name: "room1",
+		description: "this is room 1",
+		objects: [
+			{
+				name: "solar panel",
+				display: "solar panel",
+				description: "pretty aspirational, given the setting.",
+				verbs: [
+					{
+						verb: "inspect",
+						onVerb: {
+							text: "oh, it's been turned into a picnic table... you can see the rings from coffee cups.", 
+							alter: {
+								description: "bolted onto table legs. makes for a nice centerpiece.",
+								verbs: [],
+							},
+						},
+					},
+				],
+				positionX:20,
+				positionY:40,
+			},
+			{
+				name: "rv",
+				display: "rv",
+				description: "a skyline camper. string lights.",
+				verbs: [
+					{
+						verb: "enter",
+						onVerb: {
+							linksTo: "rv",
+							description: "entering the rv",
+							direction: "enter",
+						},
+					},
+					{
+						verb: "inspect",
+						onVerb: {
+							text: "in remarkably good shape.",
+						},
+					},
+				],
+				positionX:70,
+				positionY:30,
+			},
+			{
+				name: "north",
+				display: "↟",
+				linksTo: "room2",
+				description: "going to the lake",
+				positionX:50,
+				positionY:0,
+			},
+			{
+				name: "ms. borowski",
+				display: "ms. borowski",
+				description: "she is wearing a pale dress. or a nightgown? curlers, anyhow.",
+				verbs: [
+					{
+						verb: "talk to",
+						onVerb: {
+							dialog: ["oh, nice to see your smiling face around these parts.", "are you here to look at the television? i've been having trouble with it all day."],
+							replies: [
+								{
+									reply: "sure. i could take a look at it.",
+									onReply: {
+										verb: "enter",
+										onVerb: {
+												linksTo: "rv",
+												description: "oh, that's wonderful. let me show you inside.",
+												direction: "enter",
+											},
+										alter: {
+											verbs: []
+										}
+									},
+								},
+								{
+									reply: "i'm sorry... i'll have to come back later.",
+									onReply: {
+										verb: "close window",
+									}
+								},
+							],
+						},
+					},
+				],
+				positionX:50,
+				positionY:50,
+			},	
+		],
+	},
+	room2: {
+		name: "room2",		
+		description: "a lake, stretching out from the tunnels into the darkness of the mine",
+		objects: [
+			{
+				name: "lean-to",
+				display: "lean-to",
+				description: "mr. pond lives here",
+				positionX:60,
+				positionY:20,
+			},
+			{
+				name: "lake",
+				display: "lake",
+				description: "vast",
+				positionX:5,
+				positionY:50,
+			},
+			{
+				name: "south",
+				display: "↡",
+				linksTo: "room1",
+				description: "going to ms. borowski's",
+				positionX:50,
+				positionY:92,
+			},
+			{
+				name: "pond",
+				display: "mr. pond",
+				description: "the night fisherman",
+				room: "room2",
+				positionX:80,
+				positionY:30,
+				dialog: [
+					{
+						1: ["did you want to try fishing?"],
+						reply1 : "yeah, sure. let's do it.",
+						reply2: "no thank you.",
+					}
+				],
+			}
+		],
+	},
+	rv: {
+		name: "rv",		
+		description: "roomier on the inside",
+		objects: [
+			{
+				name: "television set",
+				display: "television set",
+				description: "showing static",
+				positionX:60,
+				positionY:20,
+			},
+			{
+				name: "dinette",
+				display: "dinette",
+				description: "set with fork and knife",
+				positionX:5,
+				positionY:50,
+			},
+			{
+				name: "door",
+				display: "door",
+				linksTo: "room1",
+				description: "exiting the rv",
+				positionX:50,
+				positionY:92,
+			},
+		],
+	},
+}
+*/

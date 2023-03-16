@@ -14,6 +14,8 @@ This works with a USB to RS485 converter (ch340T chip model).
 
 ## Software
 
+NOTE: The default admin user needs to be 'pi'
+
 ### OS
 * Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
 	* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations

@@ -1,0 +1,3 @@
+[console_scripts]
+drawbot = drawbot_skia.__main__:main
+

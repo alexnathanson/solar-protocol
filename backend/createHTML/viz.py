@@ -57,6 +57,7 @@ dfPOE = pd.DataFrame(columns = ['device', 'datetime'])
 
 #Array for server names
 serverNames = ["Server 1", "Server 2"]
+server_cities = [" ", " "]
 
 with open(path+'/createHTML/deadIPs.txt', 'r') as infile:
     deadIPs = infile.readlines()
@@ -368,7 +369,7 @@ def main():
     #Get IPs, logs and names from deviceList file, using keyword ip
     dstIP = getDeviceInfo('ip')
     log = getDeviceInfo('log')
-    serverNames = getDeviceInfo('name')
+    server_names = getDeviceInfo('name')
     print(dstIP)
     #replace own ip with local host
     for index, item in enumerate(dstIP):
@@ -380,7 +381,7 @@ def main():
 
     print("IP List:")
     print (dstIP)
-    print (serverNames)
+    print (server_names)
 
     # ring_rad=95-(6*len(dstIP))
 
@@ -393,6 +394,7 @@ def main():
     # print("My TZ: ", myTimeZone)
 
     sysC = []
+    sysCity = []
 
     # dstIP = dstIP[0:1]
 
@@ -422,21 +424,30 @@ def main():
             tempC = (1,1,1)
         sysC.append(tempC)
 
+        try:
+            tempCity = getSysInfo(i,'city')
+        except:
+            tempCity = " "
+        
+        if type(tempCity) == type(None) or tempCity == '':
+            tempCity =  " "
+        sysCity.append(tempCity)
+
     # print(timeZones)
 
     pd.set_option("display.max_rows", None, "display.max_columns", None)
 
-    #customize inside labels
-    server_names = getDeviceInfo('name')
     # print("server names", len(server_names))
-    
+
+    print("sysCity:")
+    print(sysCity)
     # go over ccData for each server
     for i, item in enumerate(ccData):
         
         #draw sun data for each server
         draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
         # print name of each server
-        text_curve(i+start_radius_data, "SERVER:"+server_names[i], 0, 18, 18, ring_rad)
+        text_curve(i+start_radius_data, "SERVER:"+server_names[i]+", "+sysCity[i], 0, 18, 18, ring_rad)
         
 
     

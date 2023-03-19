@@ -46,6 +46,10 @@ serverNames = []
 myIP = " "
 days = 3
 
+with open('deadIPs.txt', 'r') as infile:
+    deadIPs = infile.readlines()
+    deadIPs = [d.strip() for d in deadIPs]
+
 #Call API for every IP address and get charge controller data 
 def getCC(dst,ccValue):
     print("GET from " + dst)
@@ -292,6 +296,9 @@ def getDeviceInfo(getKey):
       data = json.load(f)
       #print("Device list data:")
       #print(data)
+    
+    # Remove objects based on the key matching items in the deadIP Array
+    data = [obj for obj in data if obj['ip'] not in deadIPs]
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])

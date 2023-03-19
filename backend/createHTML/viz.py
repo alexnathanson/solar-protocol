@@ -337,9 +337,10 @@ def drawPOEKey(sysC):
 
         draw_server_arc(1.5, start_angle, start_angle-Pi/8, col)
         start_angle = start_angle-Pi/8
-    text_curve(1.8,"DURATION AS ACTIVE SERVER:", start_angle, 12, 18, key_ring_rad)
 
-    text_curve(1.3,"SUNLIGHT AT EACH SERVER:", 0, 12, 18, key_ring_rad)
+    text_curve(1.8,"TIME AS ACTIVE SERVER:", start_angle, 13, 18, key_ring_rad)
+
+    text_curve(1.3,"SUNLIGHT AT EACH SERVER:", 0, 13, 18, key_ring_rad)
     al = 0.1
     for i in range(14):
         draw_sun(1.7, i, al, key_ring_rad)
@@ -447,7 +448,7 @@ def main():
         #draw sun data for each server
         draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
         # print name of each server
-        text_curve(i+start_radius_data, "SERVER:"+server_names[i]+", "+sysCity[i], 0, 18, 18, ring_rad)
+        text_curve(i+start_radius_data, "SERVER:"+server_names[i]+"-"+sysCity[i], 0, 18, 18, ring_rad)
         
 
     

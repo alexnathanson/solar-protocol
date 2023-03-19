@@ -337,11 +337,13 @@ def drawPOEKey(sysC):
         draw_server_arc(1.5, start_angle, start_angle-Pi/8, col)
         start_angle = start_angle-Pi/8
     text_curve(1.8,"DURATION AS ACTIVE SERVER:", start_angle, 12, 18, key_ring_rad)
+
+    text_curve(1.3,"SUNLIGHT AT EACH SERVER:", 0, 12, 18, key_ring_rad)
     al = 0.1
     for i in range(14):
         draw_sun(1.7, i, al, key_ring_rad)
         al = al + 0.1
-    text_curve(1.3,"SUNLIGHT AT EACH SERVER:", start_angle, 12, 18, key_ring_rad)
+
     text_curve(2.3,"------------------------------KEY-------------------------------KEY-------------------------------KEY", 0, 10, 18, ring_rad)
 
 

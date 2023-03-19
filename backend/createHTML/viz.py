@@ -58,7 +58,7 @@ dfPOE = pd.DataFrame(columns = ['device', 'datetime'])
 #Array for server names
 serverNames = ["Server 1", "Server 2"]
 
-with open('deadIPs.txt', 'r') as infile:
+with open(path+'/createHTML/' +'deadIPs.txt', 'r') as infile:
     deadIPs = infile.readlines()
     deadIPs = [d.strip() for d in deadIPs]
 

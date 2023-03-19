@@ -58,7 +58,7 @@ dfPOE = pd.DataFrame(columns = ['device', 'datetime'])
 #Array for server names
 serverNames = ["Server 1", "Server 2"]
 
-with open(path+'/createHTML/' +'deadIPs.txt', 'r') as infile:
+with open(path+'/createHTML/deadIPs.txt', 'r') as infile:
     deadIPs = infile.readlines()
     deadIPs = [d.strip() for d in deadIPs]
 
@@ -475,13 +475,13 @@ def main():
 
     # Now export the surface
     surface.get_npimage() # returns a (width x height x 3) numpy array
-    surface.write_to_png("viz-assets/clock.png")
+    surface.write_to_png(path+'/createHTML/viz-assets/clock.png')
 
-    background = Image.open("viz-assets/2023-clock.png")
-    exhibitionbackground = Image.open("viz-assets/2023-clock.png")
-    foreground = Image.open("viz-assets/clock.png")
+    background = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
+    exhibitionbackground = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
+    foreground = Image.open(path+'/createHTML/viz-assets/clock.png')
 
-    mask = Image.open('viz-assets/mask7.png').resize(background.size).convert('L')
+    mask = Image.open(path+'/createHTML/viz-assets/mask7.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
     #this image goes to the frontend/images directory
     background.save(imgDST + "/clock.png")

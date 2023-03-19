@@ -23,8 +23,12 @@ h = 1500
 Pi = 3.14159
 hours = 72
 ah = (2*Pi)/hours #angle of an hour
-ring_rad = 61 
-radius = 61*10
+
+ring_rad = 61
+radius = ring_rad*10
+
+key_ring_rad = 61  
+key_radius = key_ring_rad*10
 start_ring = 0
 start_radius_data = 4
 debug_mode =0
@@ -149,15 +153,15 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
         if (debug_mode):
             print("Current: ", current)
-        draw_sun(ring_number, i, current) 
+        draw_sun(ring_number, i, current, ring_rad) 
 
     return df_hours
 
 # draw_sun(ring number, x loc, y loc, stroke weight, _hour, _alpha)
-def draw_sun(server_no, hour, alpha):
+def draw_sun(server_no, hour, alpha, rad):
     a = -Pi/2 + (hour*ah)
-    sw = ring_rad
-    arc = g.arc(r = server_no*ring_rad-(ring_rad/2)+(ring_rad*start_ring), xy = [w/2, h/2], a1 = a, a2 = a+ah , stroke=(1, 0.84, 0, alpha), stroke_width= sw)
+    sw = rad
+    arc = g.arc(r = server_no*rad-(rad/2)+(rad*start_ring), xy = [w/2, h/2], a1 = a, a2 = a+ah , stroke=(1, 0.84, 0, alpha), stroke_width= sw)
     arc.draw(surface)
     #DEBUGGING TEXT ON GRAPH
     # text = g.text(str(alpha), fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy = [w/2+200, h/2])
@@ -265,8 +269,8 @@ def tzOffset(checkTZ, myTimeZone):
     return offsetDir*(abs((int(myOffset)/100) - (int(theirOffset)/100)))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
 
 
-def text_curve(server_no, message, angle, spacing, ts):
-    cr = server_no*ring_rad+(ring_rad/5)+(ring_rad*start_ring)
+def text_curve(server_no, message, angle, spacing, ts, rad):
+    cr = server_no*rad+(rad/5)+(rad*start_ring)
   # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
     # circle.draw(surface)
@@ -304,13 +308,16 @@ def text_curve(server_no, message, angle, spacing, ts):
 def lines(interval, sw, opacity):
         #for loop for lines 
     a = -(Pi/2)
+    s = 7
     interval = (interval/72)*2*Pi
     while a < (Pi*2-(Pi/2)):
+        if a>-(Pi/2):
+            s=sw
         xc = w/2 + ring_rad*4 * math.cos(a)
         yc = h/2 + ring_rad*4 * math.sin(a)
         x1 = w/2 + (radius-10) * math.cos(a)
         y1 = h/2 + (radius-10) * math.sin(a)
-        line = g.polyline(points=[(x1,y1), (xc,yc)], stroke_width=sw, stroke=(1,1,1,opacity))
+        line = g.polyline(points=[(x1,y1), (xc,yc)], stroke_width=s, stroke=(1,1,1,opacity))
         line.draw(surface)
         a = a + interval
     # print("finished drawing lines")
@@ -329,13 +336,13 @@ def drawPOEKey(sysC):
 
         draw_server_arc(1.5, start_angle, start_angle-Pi/8, col)
         start_angle = start_angle-Pi/8
-    text_curve(1.8,"DURATION AS ACTIVE SERVER:", start_angle, 12, 18)
+    text_curve(1.8,"DURATION AS ACTIVE SERVER:", start_angle, 12, 18, key_ring_rad)
     al = 0.1
     for i in range(14):
-        draw_sun(1.7, i, al)
+        draw_sun(1.7, i, al, key_ring_rad)
         al = al + 0.1
-    text_curve(1.3,"SUNLIGHT AT EACH SERVER:", start_angle, 12, 18)
-    text_curve(2.3,"------------------------------KEY-------------------------------KEY-------------------------------KEY", 0, 10, 18)
+    text_curve(1.3,"SUNLIGHT AT EACH SERVER:", start_angle, 12, 18, key_ring_rad)
+    text_curve(2.3,"------------------------------KEY-------------------------------KEY-------------------------------KEY", 0, 10, 18, ring_rad)
 
 
     
@@ -372,6 +379,11 @@ def main():
     print("IP List:")
     print (dstIP)
     print (serverNames)
+
+    # ring_rad=95-(6*len(dstIP))
+
+    print("ring radius:")
+    print(ring_rad)
 
     #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
@@ -422,7 +434,7 @@ def main():
         #draw sun data for each server
         draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
         # print name of each server
-        text_curve(i+start_radius_data, "SERVER:"+server_names[i], 0, 18, 18)
+        text_curve(i+start_radius_data, "SERVER:"+server_names[i], 0, 18, 18, ring_rad)
         
 
     
@@ -430,10 +442,7 @@ def main():
     sortPOE(log, timeZones, myTimeZone)
     # print("dfPOE.shape", dfPOE.shape)
     # print(dfPOE)
-    #lines(interval in house, stroke weight, opacity)
-    lines(2, 1, 0.2)
-    lines(12, 1.5, 1)
-    circles(1.5, 1)
+
     # draw_server_arc(0, 0, Pi, (1,0,0))
     drawPOEKey(sysC)
 
@@ -455,23 +464,12 @@ def main():
 
     print("sysC:")
     print(sysC)
-    # # initialize surface
-    # surface = g.Surface(width=w, height=h) # in pixels
-
-    # text = g.text("Hello World", fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy=(100,100), angle=Pi/12)
-    # text.draw(surface)
-
-
-
-
-    # draw_sun(4, w/2, h/2, 20, 0, 0.1) 
-    # draw_sun(4, w/2, h/2, 20, 1, 0.5) 
-    # draw_sun(4, w/2, h/2, 20, 2, 1) 
-
-    # #def text_curve(cr, message, angle, spacing, ts):
-    # text_curve(100, "Server 1", 0, 0, 40)
-
-    # draw_server_arc(2, 0, 3*Pi/2, (1,0,0))
+    
+    #lines(interval in house, stroke weight, opacity)
+    lines(2, 1, 0.2)
+    lines(12, 1.5, 1)
+    
+    circles(1.5, 1)
 
     # Now export the surface
     surface.get_npimage() # returns a (width x height x 3) numpy array

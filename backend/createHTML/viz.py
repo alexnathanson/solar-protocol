@@ -16,15 +16,21 @@ import pytz
 import requests
 from json.decoder import JSONDecodeError
 
+
 w = 1500
 h = 1500
 
 Pi = 3.14159
 hours = 72
 ah = (2*Pi)/hours #angle of an hour
-ring_rad = 61 
-radius = 61*10
+
+ring_rad = 61
+radius = ring_rad*10
+
+key_ring_rad = 61  
+key_radius = key_ring_rad*10
 start_ring = 0
+start_radius_data = 4
 debug_mode =0
 
 if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
@@ -32,6 +38,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
     rootPath = "../.."
     deviceList = rootPath + "/dev-data/deviceList.json"
     imgDST = rootPath + "/dev-data/temp"
+    print("Dev mode activated")
 else:
     rootPath = "/home/pi/solar-protocol"
     path = "/home/pi/solar-protocol/backend"
@@ -50,6 +57,12 @@ dfPOE = pd.DataFrame(columns = ['device', 'datetime'])
 
 #Array for server names
 serverNames = ["Server 1", "Server 2"]
+server_cities = [" ", " "]
+
+with open(path+'/createHTML/deadIPs.txt', 'r') as infile:
+    deadIPs = infile.readlines()
+    deadIPs = [d.strip() for d in deadIPs]
+
 
 # -------------- FUNCTIONS --------------------------------------------------------------------------------
 
@@ -59,8 +72,11 @@ def getDeviceInfo(getKey):
 
     with open(deviceList) as f:
       data = json.load(f)
-      print("Device List data:")
+    #   print("Device List data:")
     #   print(data)
+
+    # Remove objects based on the key matching items in the deadIP Array
+    data = [obj for obj in data if obj['ip'] not in deadIPs]
 
     for i in range(len(data)):
         ipList.append(data[i][getKey])
@@ -129,8 +145,9 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
     df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
-    df_hours = df_hours.tail(72) # last 72 hours
-    #print("DF Hours: ", df_hours)
+    # df_hours = df_hours.tail(72) # last 72 hours
+    df_hours = df_hours.tail(72)
+    print("DF Hours: ", df_hours)
 
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
@@ -138,15 +155,15 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
         if (debug_mode):
             print("Current: ", current)
-        draw_sun(ring_number, i, current) 
+        draw_sun(ring_number, i, current, ring_rad) 
 
     return df_hours
 
 # draw_sun(ring number, x loc, y loc, stroke weight, _hour, _alpha)
-def draw_sun(server_no, hour, alpha):
+def draw_sun(server_no, hour, alpha, rad):
     a = -Pi/2 + (hour*ah)
-    sw = ring_rad
-    arc = g.arc(r = server_no*ring_rad-(ring_rad/2)+(ring_rad*start_ring), xy = [w/2, h/2], a1 = a, a2 = a+ah , stroke=(1, 0.84, 0, alpha), stroke_width= sw)
+    sw = rad
+    arc = g.arc(r = server_no*rad-(rad/2)+(rad*start_ring), xy = [w/2, h/2], a1 = a, a2 = a+ah , stroke=(1, 0.84, 0, alpha), stroke_width= sw)
     arc.draw(surface)
     #DEBUGGING TEXT ON GRAPH
     # text = g.text(str(alpha), fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy = [w/2+200, h/2])
@@ -174,7 +191,7 @@ def draw_server_arc(server_no, start, stop, c):
         c=(red, green, blue)
         #print(c)
 
-
+    
 
     circle = g.arc(r=server_no*ring_rad+(0.5+start_ring)*ring_rad, xy = [w/2, h/2], a1 = stop-Pi/2, a2 = start-Pi/2, stroke=c, stroke_width= 15)
     circle.draw(surface)  
@@ -254,8 +271,8 @@ def tzOffset(checkTZ, myTimeZone):
     return offsetDir*(abs((int(myOffset)/100) - (int(theirOffset)/100)))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
 
 
-def text_curve(server_no, message, angle, spacing, ts):
-    cr = server_no*ring_rad+(ring_rad/5)+(ring_rad*start_ring)
+def text_curve(server_no, message, angle, spacing, ts, rad):
+    cr = server_no*rad+(rad/5)+(rad*start_ring)
   # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
     # circle.draw(surface)
@@ -293,25 +310,46 @@ def text_curve(server_no, message, angle, spacing, ts):
 def lines(interval, sw, opacity):
         #for loop for lines 
     a = -(Pi/2)
+    s = 7
     interval = (interval/72)*2*Pi
     while a < (Pi*2-(Pi/2)):
-        xc = w/2 + ring_rad*2 * math.cos(a)
-        yc = h/2 + ring_rad*2 * math.sin(a)
+        if a>-(Pi/2):
+            s=sw
+        xc = w/2 + ring_rad*4 * math.cos(a)
+        yc = h/2 + ring_rad*4 * math.sin(a)
         x1 = w/2 + (radius-10) * math.cos(a)
         y1 = h/2 + (radius-10) * math.sin(a)
-        line = g.polyline(points=[(x1,y1), (xc,yc)], stroke_width=sw, stroke=(1,1,1,opacity))
+        line = g.polyline(points=[(x1,y1), (xc,yc)], stroke_width=s, stroke=(1,1,1,opacity))
         line.draw(surface)
         a = a + interval
     # print("finished drawing lines")
 
 def circles(sw, opacity):
-    b = ring_rad*2
+    b = ring_rad*4
     while b < (radius):
         circ = g.circle(r=b, xy = [w/2, h/2], stroke=(1,1,1), stroke_width= 1.5)
         circ.draw(surface)
         b = b + ring_rad
 
- 
+def drawPOEKey(sysC):
+    start_angle = Pi/3+Pi/16
+        
+    for col in sysC:
+
+        draw_server_arc(1.5, start_angle, start_angle-Pi/8, col)
+        start_angle = start_angle-Pi/8
+
+    text_curve(1.8,"TIME AS ACTIVE SERVER:", start_angle, 13, 18, key_ring_rad)
+
+    text_curve(1.3,"SUNLIGHT AT EACH SERVER:", 0, 13, 18, key_ring_rad)
+    al = 0.1
+    for i in range(14):
+        draw_sun(1.7, i, al, key_ring_rad)
+        al = al + 0.1
+
+    text_curve(2.3,"------------------------------KEY-------------------------------KEY-------------------------------KEY", 0, 10, 18, ring_rad)
+
+
     
 # -------------- PROGRAM --------------------------------------------------------------------------------
 # -------------- PROGRAM --------------------------------------------------------------------------------
@@ -322,23 +360,35 @@ def main():
 
     # print("current sys path (viz): " + sys.path)
 
+    
+
+    print("deadIPs:")
+    print(deadIPs)
     #Get my ip
     myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
     # print("MY IP: ", type(myIP))
 
-    #Get IPs, using keyword ip
+    #Get IPs, logs and names from deviceList file, using keyword ip
     dstIP = getDeviceInfo('ip')
+    log = getDeviceInfo('log')
+    server_names = getDeviceInfo('name')
+    print(dstIP)
+    #replace own ip with local host
     for index, item in enumerate(dstIP):
-        # print(item)
+        print(item)
         if(item == myIP):
             # print("Replacing ip of self")
             dstIP[index]="localhost"
 
-    log = getDeviceInfo('log')
-    serverNames = getDeviceInfo('name')
 
+    print("IP List:")
     print (dstIP)
-    # print (serverNames)
+    print (server_names)
+
+    # ring_rad=95-(6*len(dstIP))
+
+    print("ring radius:")
+    print(ring_rad)
 
     #in the future - convert everything from charge controller and poe log to UTC and then convert based on local time...
     timeZones = []
@@ -346,14 +396,12 @@ def main():
     # print("My TZ: ", myTimeZone)
 
     sysC = []
+    sysCity = []
 
     # dstIP = dstIP[0:1]
 
     #iterate through each device
     for i in dstIP:
-        #print(i)
-        # if i not in activeIPs:
-        #     activeIPs.append(i)
         getResult = getCC(i, energyParam)
         if type(getResult) != type(None):
             ccData.append(getResult)
@@ -376,33 +424,42 @@ def main():
         
         if type(tempC) == type(None) or tempC == '':
             tempC = (1,1,1)
-        sysC.append(tempC) 
+        sysC.append(tempC)
+
+        try:
+            tempCity = getSysInfo(i,'city')
+        except:
+            tempCity = " "
+        
+        if type(tempCity) == type(None) or tempCity == '':
+            tempCity =  " "
+        sysCity.append(tempCity)
 
     # print(timeZones)
 
     pd.set_option("display.max_rows", None, "display.max_columns", None)
 
-    #customize inside labels
-    server_names = getDeviceInfo('name')
     # print("server names", len(server_names))
-    
+
+    print("sysCity:")
+    print(sysCity)
     # go over ccData for each server
     for i, item in enumerate(ccData):
-        # print name of each server
-        text_curve(i+2, server_names[i], 0, 18, 18)
+        print("SERVER:", server_names[i])
         #draw sun data for each server
-        draw_ring(item,i+3, energyParam,timeZones[i], myTimeZone)
+        draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
+        # print name of each server
+        text_curve(i+start_radius_data, "SERVER:"+server_names[i]+"-"+sysCity[i], 0, 18, 18, ring_rad)
+        
 
-
+    
     #Draw Active Server Rings
     sortPOE(log, timeZones, myTimeZone)
     # print("dfPOE.shape", dfPOE.shape)
     # print(dfPOE)
-    #lines(interval in house, stroke weight, opacity)
-    lines(2, 1, 0.2)
-    lines(12, 1.5, 1)
-    circles(1.5, 1)
+
     # draw_server_arc(0, 0, Pi, (1,0,0))
+    drawPOEKey(sysC)
 
     if dfPOE.shape[1] > 0:
         #for l, item in enumerate(dfPOE.shape[0]):
@@ -411,43 +468,33 @@ def main():
                 # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
                 # print( sysC[dfPOE['device'].iloc[l]])
                 # print("First Angle:", dfPOE['angle'].iloc[l])
-                draw_server_arc(dfPOE['device'].iloc[l]+2, 2*Pi, dfPOE['angle'].iloc[l]*(Pi/180), sysC[dfPOE['device'].iloc[l]])
+                draw_server_arc(dfPOE['device'].iloc[l]+start_radius_data+0.1, 2*Pi, dfPOE['angle'].iloc[l]*(Pi/180), sysC[dfPOE['device'].iloc[l]])
             else:
                 # print( sysC[dfPOE['device'].iloc[l]])
                 # print("Server:" ,sysC[dfPOE['device'].iloc[l]])
                 # print("ring:", dfPOE['device'].iloc[l])
                 # print("start arc:", dfPOE['angle'].iloc[l])
                 # print("stop arc:", dfPOE['angle'].iloc[l-1])
-                draw_server_arc(dfPOE['device'].iloc[l]+2, dfPOE['angle'].iloc[l-1]*Pi/180, dfPOE['angle'].iloc[l]*Pi/180, sysC[dfPOE['device'].iloc[l]])
+                draw_server_arc(dfPOE['device'].iloc[l]+start_radius_data+0.1, dfPOE['angle'].iloc[l-1]*Pi/180, dfPOE['angle'].iloc[l]*Pi/180, sysC[dfPOE['device'].iloc[l]])
 
-
-    # # initialize surface
-    # surface = g.Surface(width=w, height=h) # in pixels
-
-    # text = g.text("Hello World", fontfamily="Georgia",  fontsize=10, fill=(0,0,0), xy=(100,100), angle=Pi/12)
-    # text.draw(surface)
-
-
-
-
-    # draw_sun(4, w/2, h/2, 20, 0, 0.1) 
-    # draw_sun(4, w/2, h/2, 20, 1, 0.5) 
-    # draw_sun(4, w/2, h/2, 20, 2, 1) 
-
-    # #def text_curve(cr, message, angle, spacing, ts):
-    # text_curve(100, "Server 1", 0, 0, 40)
-
-    # draw_server_arc(2, 0, 3*Pi/2, (1,0,0))
+    print("sysC:")
+    print(sysC)
+    
+    #lines(interval in house, stroke weight, opacity)
+    lines(2, 1, 0.2)
+    lines(12, 1.5, 1)
+    
+    circles(1.5, 1)
 
     # Now export the surface
     surface.get_npimage() # returns a (width x height x 3) numpy array
-    surface.write_to_png("viz-assets/clock.png")
+    surface.write_to_png(path+'/createHTML/viz-assets/clock.png')
 
-    background = Image.open("viz-assets/3day-diagram-nolabels1.png")
-    exhibitionbackground = Image.open("viz-assets/3day-diagram-nolabels1-nokey.png")
-    foreground = Image.open("viz-assets/clock.png")
+    background = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
+    exhibitionbackground = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
+    foreground = Image.open(path+'/createHTML/viz-assets/clock.png')
 
-    mask = Image.open('viz-assets/mask5.png').resize(background.size).convert('L')
+    mask = Image.open(path+'/createHTML/viz-assets/mask7.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
     #this image goes to the frontend/images directory
     background.save(imgDST + "/clock.png")
@@ -456,11 +503,12 @@ def main():
     #this image goes to the frontend/images directory
     exhibitionbackground.save(imgDST+"/clock-exhibit.png")
 
+   
     # alphaBlended2 = Image.blend(foreground, background, alpha=.5)
     # alphaBlended2.save("clock1.png")
     #archive images
-    archiveImage = Image.open(imgDST+"/clock.png")
-    archiveImage.save('viz-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
+    # archiveImage = Image.open(imgDST+"/clock.png")
+    # archiveImage.save('viz-archive/clock-' + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +'.png') #archive plot
 
 
 if __name__ == "__main__":

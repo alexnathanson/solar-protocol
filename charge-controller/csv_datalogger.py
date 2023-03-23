@@ -1,6 +1,5 @@
 # pymodbus code based on the example from http://www.solarpoweredhome.co.uk/
-#from pymodbus.client.sync import ModbusSerialClient as ModbusClient
-from pymodbus.client import ModbusSerialClient as ModbusClient
+
 from time import sleep
 import datetime
 import numpy as np
@@ -8,6 +7,22 @@ import pandas as pd
 import csv
 import os
 import sys
+import platform
+
+#check which version of Python is running.
+#Python version >= 3.8 require pymodbus version 3.2.2 which has slightly different syntax
+if int(platform.python_version()[0] + platform.python_version()[2]) >= 38:
+    try:
+        from pymodbus.client import ModbusSerialClient as ModbusClient
+    except Exception as e:
+        print(e)
+        print(f"You are running a Python version >= 3.8 so you must be using pymodbus 3.2.2 or greater. Check your pymodbus version with this code: pip show pymodbus")
+else:
+    try:
+        from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+   except Exception as e:
+        print(e)
+        print(f"You are running a Python version < 3.8 so you must be using pymodbus 2.5.3. Check your pymodbus version with this code: pip show pymodbus")
 
 client = ModbusClient(method = 'rtu', port = '/dev/ttyUSB0', baudrate = 115200)
 

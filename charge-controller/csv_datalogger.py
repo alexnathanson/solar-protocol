@@ -1,6 +1,7 @@
 # pymodbus code based on the example from http://www.solarpoweredhome.co.uk/
-#from pymodbus.client.sync import ModbusSerialClient as ModbusClient
-from pymodbus.client import ModbusSerialClient as ModbusClient
+#this only works with pymodbus version 2.5.3 with Python versions 2.7.x - 3.7
+#if using python version >=3.8 pymodbus version 3 must be used. V3 has slightly different syntax and requires removing the '.sync' from the below line
+from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from time import sleep
 import datetime
 import numpy as np

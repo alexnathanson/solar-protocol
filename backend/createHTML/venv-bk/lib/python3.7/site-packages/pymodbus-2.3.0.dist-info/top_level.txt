@@ -1,0 +1,2 @@
+ez_setup
+pymodbus

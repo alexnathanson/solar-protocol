@@ -445,7 +445,7 @@ def main():
     print(sysCity)
     # go over ccData for each server
     for i, item in enumerate(ccData):
-        print("SERVER:", server_names[i])
+
         #draw sun data for each server
         draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
         # print name of each server

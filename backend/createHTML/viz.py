@@ -145,8 +145,9 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
     df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
-    df_hours = df_hours.tail(72) # last 72 hours
-    #print("DF Hours: ", df_hours)
+    # df_hours = df_hours.tail(72) # last 72 hours
+    df_hours = df_hours.tail(72)
+    print("DF Hours: ", df_hours)
 
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
@@ -444,7 +445,7 @@ def main():
     print(sysCity)
     # go over ccData for each server
     for i, item in enumerate(ccData):
-        
+        print("SERVER:", server_names[i])
         #draw sun data for each server
         draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
         # print name of each server
@@ -490,16 +491,19 @@ def main():
     surface.write_to_png(path+'/createHTML/viz-assets/clock.png')
 
     background = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
-    exhibitionbackground = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
     foreground = Image.open(path+'/createHTML/viz-assets/clock.png')
-
     mask = Image.open(path+'/createHTML/viz-assets/mask7.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
+    
     #this image goes to the frontend/images directory
     background.save(imgDST + "/clock.png")
 
-    exhibitionbackground.paste(foreground, (0, 0), mask)
+    exhibitionbackground = Image.open(path+'/createHTML/viz-assets/2023-clock-1.png')
+    exhibitionforeground = Image.open(path+'/createHTML/viz-assets/clock-e.png')
+    exhibitionbackground.paste(exhibitionforeground, (0, 0), mask)
     #this image goes to the frontend/images directory
+    # blackbg = Image.open(path+'/createHTML/viz-assets/bg.png').resize(background.size).convert('L')
+    # blackbg.paste(exhibitionbackground, (0, 0), mask)
     exhibitionbackground.save(imgDST+"/clock-exhibit.png")
 
    

@@ -20,7 +20,7 @@ if int(platform.python_version()[0] + platform.python_version()[2]) >= 38:
 else:
     try:
         from pymodbus.client.sync import ModbusSerialClient as ModbusClient
-   except Exception as e:
+    except Exception as e:
         print(e)
         print(f"You are running a Python version < 3.8 so you must be using pymodbus 2.5.3. Check your pymodbus version with this code: pip show pymodbus")
 

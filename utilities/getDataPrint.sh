@@ -13,7 +13,7 @@ echo "Running solarProtocol.py"
 python3 /home/pi/solar-protocol/backend/core/solarProtocol.py
 
 echo "createHTML.py"
-python3 /home/pi/solar-protocol/backend/createHTML/createHTML.py
+python3 /home/pi/solar-protocol/backend/createHTML/create-html.py
 
 echo "viz.py"
 python3 /home/pi/solar-protocol/backend/createHTML/viz.py

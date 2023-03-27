@@ -492,18 +492,19 @@ def main():
 
     background = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
     foreground = Image.open(path+'/createHTML/viz-assets/clock.png')
+    
     mask = Image.open(path+'/createHTML/viz-assets/mask7.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
-    
+
     #this image goes to the frontend/images directory
     background.save(imgDST + "/clock.png")
 
     exhibitionbackground = Image.open(path+'/createHTML/viz-assets/2023-clock-1.png')
     exhibitionforeground = Image.open(path+'/createHTML/viz-assets/clock-e.png')
-    exhibitionbackground.paste(exhibitionforeground, (0, 0), mask)
+    
     #this image goes to the frontend/images directory
-    # blackbg = Image.open(path+'/createHTML/viz-assets/bg.png').resize(background.size).convert('L')
-    # blackbg.paste(exhibitionbackground, (0, 0), mask)
+
+    exhibitionbackground.paste(exhibitionforeground, (0, 0), mask)
     exhibitionbackground.save(imgDST+"/clock-exhibit.png")
 
    

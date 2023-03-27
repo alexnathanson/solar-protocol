@@ -106,7 +106,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     pages = [
         ("index_template.html", "index.html"),
-        ("network_template.html", "network.html"),
+        ("network_template.html", "network.html"), ("exhibition_template.html", "exhibition.html"),
         ("call_template.html", "call.html"),
         ("documentation_template.html", "documentation.html"),
         ("solar-web_template.html", "solar-web.html"),

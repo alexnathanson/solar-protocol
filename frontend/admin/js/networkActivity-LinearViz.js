@@ -1,6 +1,6 @@
 //this script demonstrates how to work with time in JS
 
-let baseURL = './api/v2/opendata.php?';
+let baseURL = '/api/v2/opendata.php?';
 
 /*let getTZ = 'systemInfo=tz';*/
 let serverCall = 'server=all';

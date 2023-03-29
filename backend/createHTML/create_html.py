@@ -106,7 +106,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     pages = [
         ("index_template.html", "index.html"),
-        ("network_template.html", "network.html"),
+        ("network_template.html", "network.html"), ("program_template.html", "program.html"),
         ("call_template.html", "call.html"),
         ("documentation_template.html", "documentation.html"),
         ("solar-web_template.html", "solar-web.html"),
@@ -120,7 +120,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
            ("guide_creatingsite_template.html", "guide-creatingasite.html"),
            ("guide_howitworks_template.html", "guide-howitworks.html"),
            ("guide_portforward_template.html", "guide-portforward.html"),
-           ("guide_troubleshooting_template.html", "guide-troubleshooting.html"),
+           ("guide_troubleshooting_template.html", "guide-troubleshooting.html"), 
                ]
 
     #get the current time

@@ -8,6 +8,7 @@
 
 # pull new changes
 cd /home/pi/solar-protocol
+git stash
 git pull origin master
 
 # redo permissions

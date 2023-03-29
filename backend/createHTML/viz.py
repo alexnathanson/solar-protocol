@@ -445,7 +445,7 @@ def main():
     print(sysCity)
     # go over ccData for each server
     for i, item in enumerate(ccData):
-
+        print("SERVER:", server_names[i])
         #draw sun data for each server
         draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
         # print name of each server
@@ -491,16 +491,20 @@ def main():
     surface.write_to_png(path+'/createHTML/viz-assets/clock.png')
 
     background = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
-    exhibitionbackground = Image.open(path+'/createHTML/viz-assets/2023-clock.png')
     foreground = Image.open(path+'/createHTML/viz-assets/clock.png')
-
+    
     mask = Image.open(path+'/createHTML/viz-assets/mask7.png').resize(background.size).convert('L')
     background.paste(foreground, (0, 0), mask)
+
     #this image goes to the frontend/images directory
     background.save(imgDST + "/clock.png")
 
-    exhibitionbackground.paste(foreground, (0, 0), mask)
+    exhibitionbackground = Image.open(path+'/createHTML/viz-assets/2023-clock-1.png')
+    exhibitionforeground = Image.open(path+'/createHTML/viz-assets/clock-e.png')
+    
     #this image goes to the frontend/images directory
+
+    exhibitionbackground.paste(exhibitionforeground, (0, 0), mask)
     exhibitionbackground.save(imgDST+"/clock-exhibit.png")
 
    

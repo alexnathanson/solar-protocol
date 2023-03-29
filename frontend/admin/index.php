@@ -9,7 +9,7 @@
 <head>
 
 <title>Solar Server</title>
-
+<script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.js"></script>
 </head>
 
 <body>
@@ -61,6 +61,8 @@ function getFile($fileName){
 
 <div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
 <!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
+
+<script src="js/networkActivity-LinearViz.js"></script>
 
 <script>
   let ipList = [];

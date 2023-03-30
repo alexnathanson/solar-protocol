@@ -16,13 +16,17 @@ if int(platform.python_version()[0] + platform.python_version()[2]) >= 38:
         from pymodbus.client import ModbusSerialClient as ModbusClient
     except Exception as e:
         print(e)
-        print(f"You are running a Python version >= 3.8 so you must be using pymodbus 3.2.2 or greater.\nCheck your pymodbus version with this code: pip show pymodbus \n or try upgrading with this code: pip install --upgrade pymodbus")
+        print(f"You are running a Python version >= 3.8 so you must be using pymodbus 3.2.2 or greater.")
+        print(f"Check your pymodbus version with this code: pip show pymodbus")
+        print(f"or try upgrading with this code: pip install --upgrade pymodbus")
 else:
     try:
         from pymodbus.client.sync import ModbusSerialClient as ModbusClient
     except Exception as e:
         print(e)
-        print(f"You are running a Python version < 3.8 so you must be using pymodbus 2.5.3.\nCheck your pymodbus version with this code: pip show pymodbus \n or try installing the specific version of pymodbus with this code: pip install -U pymodbus==2.5.3")
+        print(f"You are running a Python version < 3.8 so you must be using pymodbus 2.5.3.")
+        print(f"Check your pymodbus version with this code: pip show pymodbus")
+        print(f"or try installing the specific version of pymodbus with this code: pip install -U pymodbus==2.5.3")
 
 client = ModbusClient(method = 'rtu', port = '/dev/ttyUSB0', baudrate = 115200)
 

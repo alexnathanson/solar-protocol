@@ -73,7 +73,7 @@ try:
             try:
                 with open(fileName) as csvfile:
                     df = pd.read_csv(fileName)
-                    df = df.concat(newDF, ignore_index = True)
+                    df = pd.concat([df,newDF], ignore_index = True)
                     df.to_csv(fileName, sep=',',index=False)
             except:
                 newDF.to_csv(fileName, sep=',',index=False)

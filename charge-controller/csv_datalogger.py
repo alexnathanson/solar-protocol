@@ -75,7 +75,7 @@ try:
                     df = pd.read_csv(fileName)
                     #append needs to be changed to concat
                     #something like: df = pd.concat([df,newDF], ignore_index = True)
-                    df = pd.append(newDF, ignore_index = True)
+                    df = df.append(newDF, ignore_index = True)
                     df.to_csv(fileName, sep=',',index=False)
             except:
                 newDF.to_csv(fileName, sep=',',index=False)

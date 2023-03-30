@@ -23,7 +23,7 @@ let amtServers;
 let datetimePos;
 
 function setup() {
-  createCanvas(windowWidth, min(windowHeight,600));
+  createCanvas(windowWidth, min(windowHeight,700));
 
   //set the width of each data point
   minuteWidth = max((width - (xMargin * 2))/durationMin,1);

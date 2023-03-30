@@ -53,7 +53,8 @@ def getData(dst, chosenApiValue):
 	try:
 		#returns a single value
 		response = requests.get('http://' + dst + '/api/v1/chargecontroller.php?value='+chosenApiValue, timeout = 5)
-		print('GET from ' + dst + " successful")		
+		print('GET from ' + dst + " successful")
+		print(response.text)		
 		#check if the response can be converted to a float
 		return float(response.text)
 	except requests.exceptions.HTTPError as err:

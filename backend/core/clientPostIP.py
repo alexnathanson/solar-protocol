@@ -138,7 +138,7 @@ def postIt(dstIP,dstData):
 		if x.ok:
 			try:
 				getNewDST(x.json())
-				print("Post to " + dstIP+ " successful")
+				print("POST to " + dstIP+ " successful")
 			except:
 				print("Malformatted response from " + dstIP + ":")
 				print(x.text)

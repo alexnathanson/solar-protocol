@@ -59,8 +59,8 @@ function getFile($fileName){
 
 <div id="pointOfEntryViz"><h3>Point of Entry History ASCII Viz:</h3></div>
 
-<div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
-<!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
+<!-- <div id="pointOfEntry"><h3>Point of Entry History:</h3></div>
+ --><!-- <div id="poe_chart" style="width: 1500px; height: 500px"></div> -->
 
 <script src="js/networkActivity-LinearViz.js"></script>
 
@@ -179,12 +179,12 @@ function getFile($fileName){
 
     //console.log(outputPoeLog);
 
-    displayPOE(outputPoeLog);
+    //displayPOE(outputPoeLog);
 
-    asciiPoeViz(outputPoeLog)
+    //asciiPoeViz(outputPoeLog)
   } 
 
-  function displayPOE(poeArray){
+  /*function displayPOE(poeArray){
     let poeID = document.getElementById('pointOfEntry');
 
     let para = document.createElement('p');
@@ -196,7 +196,7 @@ function getFile($fileName){
     }
 
     poeID.appendChild(para);
-  }
+  }*/
 
   function asciiPoeViz(poeArray){
     let poeID = document.getElementById('pointOfEntryViz');

@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 #this is only used if running the python script directly from rc.local doesn't work for some reason
 
 echo "alt runner"

@@ -8,6 +8,6 @@
   "long": "73.94 W",
   "bgColor" : "Olive",
   "font" : "Monaco",
-  "pvWatts":"",
-  "pvVolts":""
+  "pvWatts":"50",
+  "pvVolts":"12"
 }

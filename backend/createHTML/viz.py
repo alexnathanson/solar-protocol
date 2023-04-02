@@ -151,7 +151,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
 
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
-    # #correlate sun data wtih colors 
+    #correlate sun data with colors 
     for i, current in enumerate(df_hours[energy_parameter].tolist()):
         if (debug_mode):
             print("Current: ", current)
@@ -272,6 +272,7 @@ def tzOffset(checkTZ, myTimeZone):
 
 
 def text_curve(server_no, message, angle, spacing, ts, rad):
+    print('running text_curve')
     cr = server_no*rad+(rad/5)+(rad*start_ring)
   # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)

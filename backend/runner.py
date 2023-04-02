@@ -100,14 +100,13 @@ def scriptsToRun(sMode,rC):
 	#if sMode != '0':
 	try:
 		viz.main()
-	except IndexError as err: #this handler is needed so it keeps running after exception is thrown
-		printLoud("viz IndexError Exception", err)
-		runReport = runReport + "viz "
+	except IndexError: #as err: #this handler is needed so it keeps running after exception is thrown
+		#printLoud("viz IndexError Exception", err)
+		#runReport = runReport + "viz "
 		pass
 	except Exception as err:
 		printLoud("viz Exception", err)
 		runReport = runReport + "viz "
-		pass
 
 
 	try:

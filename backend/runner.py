@@ -98,8 +98,9 @@ def scriptsToRun(sMode,rC):
 
 
 	#if sMode != '0':
-	try:
-		viz.main()
+	#try:
+	viz.main()
+	'''
 	except IndexError: #as err: #this handler is needed so it keeps running after exception is thrown
 		#printLoud("viz IndexError Exception", err)
 		#runReport = runReport + "viz "
@@ -107,7 +108,7 @@ def scriptsToRun(sMode,rC):
 	except Exception as err:
 		printLoud("viz Exception", err)
 		runReport = runReport + "viz "
-
+	'''
 
 	try:
 		create_html.main()

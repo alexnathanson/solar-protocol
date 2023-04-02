@@ -147,7 +147,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
     # df_hours = df_hours.tail(72) # last 72 hours
     df_hours = df_hours.tail(72)
-    print("DF Hours: ", df_hours)
+    print("DF Hours: ", df_hours.shape)
 
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
@@ -451,7 +451,7 @@ def main():
         # print name of each server
         text_curve(i+start_radius_data, "SERVER:"+server_names[i]+"-"+sysCity[i], 0, 18, 18, ring_rad)
         
-
+    print('completed enumerate server data loop')
     
     #Draw Active Server Rings
     sortPOE(log, timeZones, myTimeZone)

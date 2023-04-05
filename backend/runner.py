@@ -97,12 +97,12 @@ def scriptsToRun(sMode,rC):
 		runReport = runReport + "getRemoteData "
 
 
-	#if sMode != '0':
-	try:
-		viz.main()
-	except Exception as err:
-		printLoud("viz Exception", err)
-		runReport = runReport + "viz "
+	# viz is now run as a cron job every 20 minutes
+	# try:
+	# 	viz.main()
+	# except Exception as err:
+	# 	printLoud("viz Exception", err)
+	# 	runReport = runReport + "viz "
 
 	try:
 		create_html.main()

@@ -281,9 +281,7 @@ def text_curve(server_no, message, angle, spacing, ts, rad):
     arclength = - 10
     # For every letter
     for i in reversed(range(len(message))):
-        print(i)
         currentChar = message[i]
-        print(currentChar)
         # print(message[i])
         # guessing the width of each char
 
@@ -461,7 +459,8 @@ def main():
             draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
             # print name of each server
             text_curve(i+start_radius_data, "SERVER:"+server_names[i]+"-"+sysCity[i], 0, 18, 18, ring_rad)
-        except IndexError:
+        except Exception as err:
+            print(err)
             print("Viz Exception: " + i)
 
     print('completed enumerate server data loop')

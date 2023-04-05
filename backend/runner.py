@@ -98,12 +98,8 @@ def scriptsToRun(sMode,rC):
 		runReport = runReport + "getRemoteData "
 
 
-	# viz is now run as a cron job every 20 minutes
-	# try:
-	# 	viz.main()
-	# except Exception as err:
-	# 	printLoud("viz Exception", err)
-	# 	runReport = runReport + "viz "
+	# when viz isn't run in subprocess it gets an index out of range error
+	# I believe happens in the enumerate(ccData) loop but I don't know why
 	try:
 		subprocess.run(["python3", "/home/pi/solar-protocol/backend/createHTML/viz.py"])
 	except Exception as err:

@@ -332,9 +332,9 @@ function drawLabels(){
   fill(0);
 
   //title
-  textSize(50);
+  /*textSize(50);
   textAlign(CENTER);
-  text("Solar Protocol Routing", width *.5, yMargin-50);
+  text("Solar Protocol Routing", width *.5, yMargin-50);*/
 
   //AXIS
   textSize(30);

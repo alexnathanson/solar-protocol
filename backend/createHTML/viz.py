@@ -272,7 +272,7 @@ def tzOffset(checkTZ, myTimeZone):
 
 
 def text_curve(server_no, message, angle, spacing, ts, rad):
-    print('running text_curve')
+    print('running text_curve: ' + message)
     cr = server_no*rad+(rad/5)+(rad*start_ring)
   # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
@@ -281,8 +281,9 @@ def text_curve(server_no, message, angle, spacing, ts, rad):
     arclength = - 10
     # For every letter
     for i in reversed(range(len(message))):
+        print(i)
         currentChar = message[i]
-
+        print(currentChar)
         # print(message[i])
         # guessing the width of each char
 

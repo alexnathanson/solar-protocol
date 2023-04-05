@@ -272,7 +272,7 @@ def tzOffset(checkTZ, myTimeZone):
 
 
 def text_curve(server_no, message, angle, spacing, ts, rad):
-    print('running text_curve: ' + message)
+    #print('running text_curve: ' + message)
     cr = server_no*rad+(rad/5)+(rad*start_ring)
   # Start in the center and draw the circle
     # circle = g.circle(r=cr-(ring_rad/2), xy = [w/2, h/2], stroke=(1,0,0), stroke_width= 1.5)
@@ -446,8 +446,7 @@ def main():
 
     #these are for trouble shooting - remove when finished
     print(server_names)
-    print(sysCity)
-    print(ccData)
+    print(len(ccData))
 
     # this try/ except was added so that when the indexerror occurs it handles it here and keeps running instead of ending the viz script at the runner level
     # the index error should be fixed permanently in the future
@@ -459,11 +458,13 @@ def main():
             draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
             # print name of each server
             text_curve(i+start_radius_data, "SERVER:"+server_names[i]+"-"+sysCity[i], 0, 18, 18, ring_rad)
-    except Exception as err:
+    except IndexError as err:
+        print('')
         print(err)
-        print("Viz Exception: " + str(i))
+        print("!!! Viz Exception: i = " + str(i))
+        print('')
 
-    print('completed enumerate server data loop')
+    #print('completed enumerate server data loop')
     
     #Draw Active Server Rings
     sortPOE(log, timeZones, myTimeZone)

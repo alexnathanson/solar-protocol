@@ -33,7 +33,7 @@ function setup() {
 
   loadJSON(baseURL + poeCall, gotPOEData);
 
-  background(210);
+  background(255);
   strokeWeight(0.5);
   textFont('Times');
   textSize(12);

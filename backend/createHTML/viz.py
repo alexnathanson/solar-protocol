@@ -445,6 +445,12 @@ def main():
 
     print("sysCity:")
     print(sysCity)
+
+    #these are for trouble shooting - remove when finished
+    print(server_names)
+    print(sysCity)
+    print(ccData)
+
     # go over ccData for each server
     for i, item in enumerate(ccData):
         print("SERVER:", server_names[i])

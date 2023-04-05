@@ -23,6 +23,7 @@ import time
 import sys
 import logging
 from math import trunc
+import subprocess
 
 SP = SolarProtocolClass()
 
@@ -103,6 +104,11 @@ def scriptsToRun(sMode,rC):
 	# except Exception as err:
 	# 	printLoud("viz Exception", err)
 	# 	runReport = runReport + "viz "
+	try:
+		subprocess.run(["python3", "/home/pi/solar-protocol/backend/createHTML/viz.py"])
+	except Exception as err:
+		printLoud("viz Exception", err)
+		runReport = runReport + "viz "	
 
 	try:
 		create_html.main()

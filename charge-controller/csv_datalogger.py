@@ -9,6 +9,9 @@ import os
 import sys
 import platform
 
+#the syntax for the unit arguments changes depending on which version of pymodbus is running
+unit = 1
+
 #check which version of Python is running.
 #Python version >= 3.8 require pymodbus version 3.2.2 which has slightly different syntax
 if int(platform.python_version()[0] + platform.python_version()[2]) >= 38:
@@ -22,6 +25,8 @@ if int(platform.python_version()[0] + platform.python_version()[2]) >= 38:
 else:
     try:
         from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+        #change the syntax for unit
+        unit = 'unit=' + str(unit)
     except Exception as e:
         print(e)
         print(f"You are running a Python version < 3.8 so you must be using pymodbus 2.5.3.")
@@ -34,8 +39,8 @@ try:
     client.connect()
 
     while True:
-        result = client.read_input_registers(0x3100,16,1)
-        result2 = client.read_input_registers(0x311A,2,1)
+        result = client.read_input_registers(0x3100,16,unit)
+        result2 = client.read_input_registers(0x311A,2,unit)
 
         if not result.isError() and not result2.isError():
             pvVoltage = float(result.registers[0] / 100.0)
@@ -91,7 +96,7 @@ try:
 
 except Exception as e:
     print(e)
-    print(f"Could not connect to charge controller!")
+    print(f"Could not connect to charge controller! Confirm pymodbus version matches Python version or check physical connection to charge controller")
     sys.exit(1)
 
 client.close()

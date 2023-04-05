@@ -449,19 +449,19 @@ def main():
     print(sysCity)
     print(ccData)
 
-    # go over ccData for each server
-    for i, item in enumerate(ccData):
-        print("SERVER:", server_names[i])
-        #this try/ except was added so that when the indexerror occurs it handles it here and keeps running instead of ending the viz script at the runner level
-        # the index error should be fixed permanently in the future
-        try:
+    #this try/ except was added so that when the indexerror occurs it handles it here and keeps running instead of ending the viz script at the runner level
+    try:
+        # go over ccData for each server
+        for i, item in enumerate(ccData):
+            print("SERVER:", server_names[i])
+            # the index error should be fixed permanently in the future
             #draw sun data for each server
             draw_ring(item,i+start_radius_data+1, energyParam,timeZones[i], myTimeZone)
             # print name of each server
             text_curve(i+start_radius_data, "SERVER:"+server_names[i]+"-"+sysCity[i], 0, 18, 18, ring_rad)
-        except Exception as err:
-            print(err)
-            print("Viz Exception: " + i)
+    except Exception as err:
+        print(err)
+        print("Viz Exception: " + i)
 
     print('completed enumerate server data loop')
     

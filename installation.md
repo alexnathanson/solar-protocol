@@ -132,6 +132,10 @@ Give Apache/PHP user 'www-data' necessary permissions:
 `sudo cp -r /home/pi/solar-protocol/local /home/pi/local`
 * Update the info with your information as needed  
 
+### Device List 
+* change the device list template file name<br>
+`sudo mv /home/pi/solar-protocol/backend/data/deviceListTemplate.json /home/pi/solar-protocol/backend/data/deviceList.json`
+
 ### Permissions
 
 All the necessary file and directory permissions can set by running this script: utilities/setAllPermissions.sh

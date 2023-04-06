@@ -10,11 +10,11 @@ import sys
 import platform
 
 #the syntax for the unit arguments changes depending on which version of pymodbus is running
-version = 38
+version = int(platform.python_version()[0] + platform.python_version()[2])
 
 #check which version of Python is running.
 #Python version >= 3.8 require pymodbus version 3.2.2 which has slightly different syntax
-if int(platform.python_version()[0] + platform.python_version()[2]) >= 38:
+if version >= 38:
     try:
         from pymodbus.client import ModbusSerialClient as ModbusClient
     except Exception as e:
@@ -26,7 +26,6 @@ else:
     try:
         from pymodbus.client.sync import ModbusSerialClient as ModbusClient
         #change the syntax for unit
-        version=37
     except Exception as e:
         print(e)
         print(f"You are running a Python version < 3.8 so you must be using pymodbus 2.5.3.")
@@ -39,7 +38,7 @@ try:
     client.connect()
 
     while True:
-        if version == 38:
+        if version >= 38:
             result = client.read_input_registers(0x3100,16,1)
             result2 = client.read_input_registers(0x311A,2,1)
         else:

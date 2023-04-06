@@ -23,6 +23,7 @@ import time
 import sys
 import logging
 from math import trunc
+import subprocess
 
 SP = SolarProtocolClass()
 
@@ -97,13 +98,13 @@ def scriptsToRun(sMode,rC):
 		runReport = runReport + "getRemoteData "
 
 
-	#if sMode != '0':
+	# when viz isn't run in subprocess it gets an index out of range error
+	# I believe happens in the enumerate(ccData) loop but I don't know why
 	try:
-		viz.main()
+		subprocess.run(["python3", "/home/pi/solar-protocol/backend/createHTML/viz.py"])
 	except Exception as err:
 		printLoud("viz Exception", err)
-		runReport = runReport + "viz "
-
+		runReport = runReport + "viz "	
 
 	try:
 		create_html.main()

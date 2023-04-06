@@ -1,0 +1,24 @@
+# there is still some redundancy here and it could probably be minimized further
+
+RewriteEngine on
+
+# REDIRECT TO LOCAL DIRECTORY (local is for a server serving content that is owns locally i.e. the stewards website)
+
+# for media (if the request URI includes ".jpg",".jpeg", etc.)
+RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|mp4|pdf)$
+RewriteRule ^local/(.*)$ /redirect/images.php?file=$1 [L]
+
+#for html and css files (if the request URI includes ".html" or ".css")
+#RewriteCond %{REQUEST_URI} \.(html|css)$
+#RewriteRule ^local/(.*)$ /redirect/www.php?file=$1 [L]
+
+# Adds trailing slash for directories network and local
+#RewriteCond %{REQUEST_URI} (^/network|^/local)  
+#RewriteCond %{REQUEST_URI} !(/$|\.) 
+#RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R,L]
+
+#for local www root with trailing slash
+#RewriteRule ^local/$ /redirect/www.php?file=index.html [L]
+
+#handles subdirectory roots with trailing slash
+#RewriteRule ^local/(.*)/$ /redirect/www.php?file=$1/index.html [L]

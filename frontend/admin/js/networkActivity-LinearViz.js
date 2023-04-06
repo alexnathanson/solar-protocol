@@ -23,7 +23,7 @@ let amtServers;
 let datetimePos;
 
 function setup() {
-  createCanvas(windowWidth, min(windowHeight,700));
+  createCanvas(windowWidth, min(windowHeight,800));
 
   //set the width of each data point
   minuteWidth = max((width - (xMargin * 2))/durationMin,1);
@@ -33,7 +33,7 @@ function setup() {
 
   loadJSON(baseURL + poeCall, gotPOEData);
 
-  background(210);
+  background(255);
   strokeWeight(0.5);
   textFont('Times');
   textSize(12);
@@ -332,9 +332,9 @@ function drawLabels(){
   fill(0);
 
   //title
-  textSize(50);
+  /*textSize(50);
   textAlign(CENTER);
-  text("Solar Protocol Routing", width *.5, yMargin-50);
+  text("Solar Protocol Routing", width *.5, yMargin-50);*/
 
   //AXIS
   textSize(30);

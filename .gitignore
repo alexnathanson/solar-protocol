@@ -1,11 +1,18 @@
 .DS_Store
 *.sublime-workspace
 *.sublime-project
+dev-data/temp/*
+
+# Environments
+.env
+env/
+.venv
+*/env/*
 venv/
 */venv/*
-env/
-*/env/*
-dev-data/temp/*
+ENV/
+env.bak/
+venv.bak/
 
 #this directory is needed, but we just don't want to overwrite it...
 charge-controller/data/

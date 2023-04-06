@@ -121,6 +121,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
            ("guide_howitworks_template.html", "guide-howitworks.html"),
            ("guide_portforward_template.html", "guide-portforward.html"),
            ("guide_troubleshooting_template.html", "guide-troubleshooting.html"), 
+            ("spring_commissions_template.html", "spring-commissions.html"), 
                ]
 
     #get the current time

@@ -133,7 +133,7 @@ Give Apache/PHP user 'www-data' necessary permissions:
 * Update the info with your information as needed  
 
 ### Device List 
-* change the device list template file name
+* change the device list template file name<br>
 `sudo mv /home/pi/solar-protocol/backend/data/deviceListTemplate.json /home/pi/solar-protocol/backend/data/deviceList.json`
 
 ### Permissions

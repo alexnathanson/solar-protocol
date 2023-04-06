@@ -10,7 +10,7 @@ import sys
 import platform
 
 #the syntax for the unit arguments changes depending on which version of pymodbus is running
-unit = 1
+version = 38
 
 #check which version of Python is running.
 #Python version >= 3.8 require pymodbus version 3.2.2 which has slightly different syntax
@@ -26,7 +26,7 @@ else:
     try:
         from pymodbus.client.sync import ModbusSerialClient as ModbusClient
         #change the syntax for unit
-        unit = 'unit=' + str(unit)
+        version=37
     except Exception as e:
         print(e)
         print(f"You are running a Python version < 3.8 so you must be using pymodbus 2.5.3.")
@@ -39,8 +39,12 @@ try:
     client.connect()
 
     while True:
-        result = client.read_input_registers(0x3100,16,unit)
-        result2 = client.read_input_registers(0x311A,2,unit)
+        if version == 38:
+            result = client.read_input_registers(0x3100,16,1)
+            result2 = client.read_input_registers(0x311A,2,1)
+        else:
+            result = client.read_input_registers(0x3100,16,unit=1)
+            result2 = client.read_input_registers(0x311A,2,unit=1)
 
         if not result.isError() and not result2.isError():
             pvVoltage = float(result.registers[0] / 100.0)

@@ -37,10 +37,10 @@
       setInterval(reload, 1000 * s);
       function reload() {
         const img = new Image();
-        const url = "images/clock-exhibit.png?i=" + i;
-        img.addEventListener('load', () => {
+        const url = "images/clock.png?i=" + i;
+        img.addEventListener("load", () => {
           setImage(url);
-        })
+        });
         img.src = url;
         i++;
       }

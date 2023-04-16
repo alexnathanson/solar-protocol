@@ -34,6 +34,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  // console.log(deviceOrientation);
   imageMode(CENTER);
   textAlign(CENTER);
   textFont("Times New Roman");
@@ -80,13 +81,25 @@ function setup() {
 }
 
 function draw() {
-  if (state == 'on') { //if Swarthmore server is active and power is above 50%
-    fullArtwork();
-  } else if (state == 'low') { //if Swarthmore server is active and power is below 50%
-    liteArtwork();
-  } else { //is Swarthmore server is inactive
-    artworkOff();
+  if (deviceOrientation === 'landscape') {
+    if (state == 'on') { //if Swarthmore server is active and power is above 50%
+      fullArtwork();
+    } else if (state == 'low') { //if Swarthmore server is active and power is below 50%
+      liteArtwork();
+    } else { //is Swarthmore server is inactive
+      artworkOff();
+    }
+  } else {
+    background(0);
+    rectMode(CENTER);
+    textAlign(CENTER);
+    textSize(100);
+    textWrap(WORD);
+    fill(255);
+    text("This project is not optimized for portrait mode. Please view in landscape mode on a device, or on desktop.", width/2, height/2-width/2, width-100);
+    // console.log('portrait');
   }
+
 
   // artworkOff();
   // liteArtwork();

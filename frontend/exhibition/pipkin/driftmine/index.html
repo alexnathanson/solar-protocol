@@ -25,7 +25,8 @@ html, body {
 	overflow: hidden;
 	left: 0%;
 	top: 0%;
-
+	font-family: courier new, courier;
+	font-size: 14px;
 }
 
 #gameWindow{
@@ -38,9 +39,9 @@ html, body {
 	top: 0%;
 	opacity: 0%;
 }
+
 .objects{
 	position: absolute;
-	cursor: pointer;
     left: 50%; 
     top: 50%; 
 	transform-origin: center;
@@ -56,6 +57,20 @@ html, body {
     writing-mode: vertical-rl;
     transform: translate(-50%, -50%) rotate(180deg);
 
+}
+
+.rotation {
+	animation: rotate 5s linear infinite;
+	transform-origin: 50% 50%;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) translate(200px)
+  }
+  100% {
+    transform: rotate(360deg) translate(200px)
+  }
 }
 
 #toolTip{
@@ -77,6 +92,12 @@ html, body {
 	position: absolute;
 	left: 0%;
 	top: 0%;
+}
+
+dialogLink{
+	position: absolute;
+	width: 200px;
+	text-align: end;
 }
 
 a{

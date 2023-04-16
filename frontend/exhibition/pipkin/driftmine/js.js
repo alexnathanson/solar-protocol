@@ -1,24 +1,55 @@
+//version 0.3
 
 var object_tableURL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vTud3SCx8T-h2oxqpAYcdoMSoydE1yOt6QNMgKNUTaqKw5A7ixcqxsEhhXbZd38Z7OmEuZAtqk7wtQf/pub?gid=0&single=true&output=csv"; // spreadsheet url (make sure it has been "published")
 
+//var object_tableURL ="objects.csv"; // spreadsheet url (make sure it has been "published")
+
+
 var object_table;
-var rooms = [];
+var rooms = {};
+
+var currentRoom;
+var previousRoom;
+
+
 
 //papaparse
 function init() {
+	if (localStorage.driftMineSavee == "found"){
+		loadSavedGame();		
+	}
+	else{
+		newGame();
+	}
+}
 
-            Papa.parse(object_tableURL, {
-	        download: true,
-	        header: true,
-	        complete: function(results) {
-	            object_table = results.data
-	            sortObjects(object_table);
-	           // if (localStorage.savedGame == "found"){
-				//	beginGame();		
-				//}
-				}
-   			})
+function loadSavedGame(){
+	currentRoom = JSON.parse(localStorage.currentRoomName)
+	object_table = JSON.parse(localStorage.object_table);
+	rooms = JSON.parse(localStorage.rooms);
+	loadRoom(rooms.save_found)
+}
+
+function newGame(){
+    Papa.parse(object_tableURL, {
+    download: true,
+    header: true,
+    complete: function(results) {
+        	object_table = results.data
+        	sortObjects(object_table);
+        	loadRoom(rooms.new_game)
+		}
+		})
+}
+
+function saveGame(){
+	if (currentRoom.name != "save_found" && currentRoom.name != "new_game" && currentRoom.name != "dream" ){
+		localStorage.setItem('driftMineSave', "found");
+		localStorage.setItem('currentRoomName', JSON.stringify(currentRoom.name));
+		localStorage.setItem('object_table', JSON.stringify(object_table));
+		localStorage.setItem('rooms', JSON.stringify(rooms));
+	}
 }
 
 function sortObjects(object_table){
@@ -33,7 +64,6 @@ function sortObjects(object_table){
     	object_table[x].onVerb_alter = object_table[x].onVerb_alter.split("|");
     	object_table[x].onVerb_dialog = object_table[x].onVerb_dialog.split("|");
     	object_table[x].onVerb_make = object_table[x].onVerb_make.split("|");
-    	object_table[x].onVerb_unmake = object_table[x].onVerb_unmake.split("|");
 
     	if (object_table[x].kind == "room"){
     		object_table[x].objects = [];
@@ -52,7 +82,7 @@ function sortObjects(object_table){
     	}
     	else if (object_table[d].kind == "menu"){
     		for (let name in rooms) {
-    			if (name != "you"){
+    			if (name != "you" && name != "new_game" && name != "save_found"){
     				rooms[name].objects.push(object_table[d])
     			}
 			}
@@ -92,8 +122,6 @@ document.body.addEventListener('mousedown', function (event) {
 
 });
 
-var currentRoom;
-var previousRoom;
 
 function toolTipOffscreen(){
 	toolTip.style.left = "-100%"
@@ -105,8 +133,13 @@ function loadRoom(room){
 		room = rooms[room.target.linksTo];
 	}
 
-	previousRoom = currentRoom;
+	if (previousRoom != currentRoom){
+		previousRoom = currentRoom;
+	}
+
 	currentRoom = room;
+
+	saveGame();
 
 	gameWindow.innerHTML = "";
 	gameWindow.style.left = "0%";
@@ -145,6 +178,12 @@ function makeRoomObject(dataObject){
 		var object = document.createElement("div");
 		object.name = dataObject.name;
 		object.classList = "objects"
+		if (dataObject.description != ""){
+			object.style.cursor = "pointer";
+		}
+		else {
+			object.style.cursor = "default";
+		}
 		object.innerHTML = dataObject.display;
 		object.style.left = dataObject.positionX + "%";
 		object.style.top = dataObject.positionY + "%";
@@ -160,7 +199,7 @@ function makeRoomObject(dataObject){
 		if (dataObject.linksTo != ""){
 			object.onclick = scrollRoom;	
 		}
-		gameWindow.appendChild(object)
+		gameWindow.appendChild(object);
 }
 
 function objectDescription(){
@@ -179,7 +218,9 @@ function objectDescription(){
 			if (i==0){
 				toolTip.innerHTML = toolTip.innerHTML + "<br><br>";
 			}
-			verbPopulate(object,object.verbs[i],i)
+			if (object.verbs[i] != "" && object.verbs[i] != undefined){
+				verbPopulate(object,object.verbs[i],i)
+			}
 		}
 	}
 
@@ -214,10 +255,10 @@ function verbPopulate(object,verb,place){
 	var link = document.createElement("a");
 	//console.log(object.verbs_display[place])
 	if (object.verbs_display[place] != "" && object.verbs_display[place] != undefined){
-		link.innerHTML = "<center>" + object.verbs_display[place] + " " + object.display + "</center>"; //might want to remove object word
+		link.innerHTML = "<center>" + object.verbs_display[place] + "</center>"; 
 	}
 	else{
-		link.innerHTML = "<center>" + verb + " " + object.display + "</center>";
+		link.innerHTML = "<center>" + verb + "</center>";
 	}
 	link.addEventListener("click", function(){doAction(object,verb,place)});
 	toolTip.appendChild(link);
@@ -225,7 +266,7 @@ function verbPopulate(object,verb,place){
 
 function doAction(object,verb,place,domObject){
 	
-	//console.log(object,verb,place);
+	console.log(object,verb,place);
 	var tool = "";
 	var toolFound = false;
 
@@ -256,122 +297,191 @@ function doAction(object,verb,place,domObject){
 			if (object.onVerb_description[place] != ""){
 				toolTip.innerHTML = object.onVerb_description[place];
 			}
-			else if (verb == "talk to"){
+			else if (verb == "talk"){
 				toolTip.innerHTML;
 			}
 			else {
 				toolTipOffscreen();
 			}
 
+		//starting rooms
+		if (verb == "new_game"){
+			newGame();
+		}
+		if (verb == "load_save"){
+			loadRoom(rooms[previousRoom])
+		}
 		//keep adding verbs as needed
-		if (verb == "talk to"){
+		if (verb == "talk"){
 			dialogPopulate(object,findObjectByName(object.onVerb_dialog[place]),0)
 		}
-		if (verb == "enter" || verb == "leave"){
+		if (verb == "enter"){
 			scrollRoom(domObject,object,place)
 		}
-		if (verb == "inspect" || verb == "touch"){
+		if (verb == "inspect"){
 			toolTip.innerHTML = object.onVerb_description[place];	
 		}
-
 		if (verb == "close"){
 			toolTipOffscreen();
 		}
-		//this works BUT it will get fiddly with objects "editing" themselves... beware
-		//CAN ONLY make / take something once. object stays with you forever. key item energy
+
+
+		if (verb == "rotate"){
+			rotateObject(object)
+		}
+
+		//CAN ONLY make / take / place something once.
 		if (verb == "take"){
 			changeObjectRoom(object,"you")
-			object.verbs.splice(object.verbs.indexOf("take"),1);
+			object.verbs[place]="";
 		}
-		if (verb == "make"){
-			object.verbs.splice(object.verbs.indexOf("make"),1);
-			var newObject = findObjectByName(object.onVerb_make[place]);
-			newObject.room = currentRoom.name;
-			currentRoom.objects.push(newObject)
-			makeRoomObject(newObject)
-		}
-		if (verb == "unmake"){
-			object.verbs.splice(object.verbs.indexOf("unmake"),1);
-			var deleteObject = returnObject(object.onVerb_unmake[place]);
-			changeObjectRoom(deleteObject,"")
+		if (verb == "make" && object.onVerb_make[place] != "" && object.onVerb_make[place] != undefined ){
+			object.verbs[place]="";
+			var newObjects = object.onVerb_make[place].split(",")
+			for (g=0;g<newObjects.length;g++){
+				var newObject = findObjectByName(newObjects[g]);
+				newObject.room = currentRoom.name;
+				currentRoom.objects.push(newObject)
+				makeRoomObject(newObject)
+			}
 		}
 		if (verb == "place"){
 			var newObject = findObjectByName(tool);			
 			changeObjectRoom(newObject,currentRoom.name)
-			object.verbs.splice(object.verbs.indexOf("place"),1);
+			object.verbs[place]="";
 		}
 
+		//if an action changes something else
 		var alter = object.onVerb_alter[place];
-		//edits object. note- changes mean that objects now need unique names!
-		/*
-		if (alter != "" && alter != [] && alter != undefined){
-			for (g=0; g<currentRoom.objects.length; g++){
-				if (currentRoom.objects[g].name == object.name){
-					alteredObject = findObjectByName(object.onVerb_alter[place]);
-					alteredObject.room = currentRoom;
-					domObject.name = alteredObject.name
-					currentRoom.objects[g] = alteredObject;
-				}
-			}
-		}
-	*/
 
 		if (alter != "" && alter != [] && alter != undefined){
-
-			alter = alter.split(",")
-			console.log(alter)
-
-			for (c=0;c<alter.length;c++){
-				alter[c] = alter[c].split(":");
-				console.log(alter[c])
-				if (alter[c].length > 1){
-					var objectToAlter = findObjectByName(alter[c][0]);
-					var newObject = findObjectByName(alter[c][1])
-				}
-				else{
-					var objectToAlter = object;
-					var newObject = findObjectByName(alter[c][0])
-				}
-				console.log(objectToAlter,newObject)
-
-				newObject.room = objectToAlter.room;
-				
-				for (g=0; g<rooms[objectToAlter.room].objects.length; g++){
-					if (rooms[objectToAlter.room].objects[g].name == objectToAlter.name){
-						rooms[objectToAlter.room].objects[g] = newObject;
-					}
-				}
-
-				if (objectToAlter.room == currentRoom.name){
-						getDOMElementByName(objectToAlter.name).name = newObject.name;
-				}	
-
-			}
-
+			alterObject(alter, object)
 		}
 	}
 
 	else {
 		toolTip.innerHTML = "you need " + toolDisplay + " to do this.";		
 	}
+
+	saveGame();
+}
+
+function rotateObject(object){
+
+	objectDom = getDOMElementByName(object.name)
+	objectDom.classList.add("rotation");
+
+	objectDom.style.left= "50%";
+	objectDom.style.right= "50%";
+
+
+
+/*
+	var differenceX = positionX - object.style.left.slice(0, -1); //30 - 50 = -20
+	var differenceY = positionY - object.style.top.slice(0, -1); //70 - 50 = 20
+
+object.positionX;
+object.positionY;
+
+	  var interval = setInterval(function() {
+	  	if (differenceX != 0 ){
+		  	if (differenceX > 0){
+		  		person.style.left = (Number(person.style.left.slice(0, -1)) + 1) + "%"; 
+		  		differenceX = differenceX - 1;
+		  	}
+		  	else if (differenceX < 0){
+				person.style.left = (Number(person.style.left.slice(0, -1)) - 1) + "%"; 
+				differenceX = differenceX + 1;
+		  	}
+		}
+		if (differenceY != 0){
+		  	if (differenceY > 0){
+		  		person.style.top = (Number(person.style.top.slice(0, -1)) + 1) + "%"; 
+		  		differenceY = differenceY - 1;
+		  	}
+		  	else if (differenceY < 0){
+				person.style.top = (Number(person.style.top.slice(0, -1)) - 1) + "%"; 
+				differenceY = differenceY + 1;
+		  	}
+		}
+		
+	     if (differenceX == 0 && differenceY == 0){
+	     	//console.log("clearing interval")
+	     	finishAlterObject(objectToAlter,newObject)
+	      	clearInterval(interval)
+	      }
+  		},
+      200);
+      */
+}
+
+function alterObject(alter,object){
+	alter = alter.split(",")
+
+	for (c=0;c<alter.length;c++){
+		alter[c] = alter[c].split(":");
+		if (alter[c].length > 1){
+			var objectToAlter = findObjectByName(alter[c][0]);
+			var newObject = findObjectByName(alter[c][1])
+		}
+		else{
+			var objectToAlter = object;
+			var newObject = findObjectByName(alter[c][0])
+		}
+
+		console.log(newObject,objectToAlter);
+
+		newObject.room = objectToAlter.room;
+
+		if (objectToAlter.positionX != newObject.positionX || objectToAlter.positionY != newObject.positionY){
+			objectToAlter.description = [];
+			objectToAlter.verbs = [];
+			movePerson(objectToAlter,newObject.positionX,newObject.positionY,newObject)
+		}
+		
+		else{
+			finishAlterObject(objectToAlter,newObject)
+		}
+	}
+}
+
+function finishAlterObject(objectToAlter,newObject){
+
+	for (g=0; g<rooms[objectToAlter.room].objects.length; g++){
+		if (rooms[objectToAlter.room].objects[g].name == objectToAlter.name){
+			rooms[objectToAlter.room].objects[g] = newObject;
+		}
+	}
+
+	if (objectToAlter.room == currentRoom.name){
+		getDOMElementByName(objectToAlter.name).name = newObject.name;
+	}	
+
+	if (newObject.moveTo != "" && newObject.moveTo != undefined && newObject.moveTo != []){
+		changeObjectRoom(newObject,newObject.moveTo)
+	}
+
+	saveGame();
+
 }
 
 function dialogPopulate(object,dialog,count){
 
-	toolTip.innerHTML = dialog.room + ": " + dialog.description[count];
+	toolTip.innerHTML = "<br>" + dialog.description[count];
 
 	var link = document.createElement("a");
-	link.style.float = "right";
 	link.innerHTML = "->";
 
 	if (dialog.description.length > count + 1){
 		link.addEventListener("click", function(){dialogPopulate(object,dialog,count+1)});
-		toolTip.appendChild(link);
+		toolTip.prepend(link);
 	}
 	else {
 		link.addEventListener("click", function(){replyPopulate(object,dialog)});
-		toolTip.appendChild(link);
+		toolTip.prepend(link);
 	}
+
+	toolTip.prepend(dialog.room + ":       ") 
 }
 
 function replyPopulate(object,dialog){
@@ -406,8 +516,11 @@ function scrollRoom(element,object,place){
 		if (object.linksTo != "previousRoom"){
 			newRoom = rooms[object.linksTo];
 		}
-		else {
+		else if (previousRoom != currentRoom) {
 			newRoom = previousRoom;
+		}
+		else {
+			newRoom = rooms["train_car"];			
 		}
 		direction = object.name; // currently uses name match 
 	}
@@ -456,7 +569,7 @@ function scrollRoom(element,object,place){
 	      	clearInterval(interval)
 	      }
   		},
-      	20);
+     20);
 }
 
 
@@ -469,16 +582,9 @@ function roomChangeDescription(description){
 	toolTip.style.opacity = 1;
 }
 
-//movePerson(this,30,70)
-function movePerson(person,positionX,positionY){
+function movePerson(objectToAlter,positionX,positionY,newObject){
 
-	for (x=0;x<people.length;x++){
-
-		if (person.name == people[x].name){
-			people[x].positionX = positionX;
-			people[x].positionY = positionY;
-		}
-	}
+	person = getDOMElementByName(objectToAlter.name)
 
 	var differenceX = positionX - person.style.left.slice(0, -1); //30 - 50 = -20
 	var differenceY = positionY - person.style.top.slice(0, -1); //70 - 50 = 20
@@ -506,13 +612,14 @@ function movePerson(person,positionX,positionY){
 		}
 	     if (differenceX == 0 && differenceY == 0){
 	     	//console.log("clearing interval")
+	     	finishAlterObject(objectToAlter,newObject)
 	      	clearInterval(interval)
 	      }
   		},
-      	200);
+      200);
 }
 
-//changes what object a room is in
+//changes what room an object is in
 function changeObjectRoom(object,roomToMoveTo){
 	var objectArray = rooms[object.room].objects;
 	object.room = roomToMoveTo;
@@ -547,28 +654,13 @@ function getDOMElementByName(name){
 
 //or - all objects from object table?
 function findObjectByName(name){
-
-/*
-var objectFound = false;
-
-    for (x=0; x<rooms.length; x++){
-    	for (f=0; f<rooms[x].objects; f++){
-    		if (rooms[x].objects[f].name == name){
-    			objectFound = true;
-				return rooms[x].objects[f];
-				break;
-			}
-    	}
-    }
-
-	if (objectFound == false){*/
 	    for (x=0;x<object_table.length;x++){
 	    	if (object_table[x].name == name){
 				return object_table[x];
 			}
 		}	
-	//}
 }
 
 
 window.addEventListener("DOMContentLoaded", init);
+

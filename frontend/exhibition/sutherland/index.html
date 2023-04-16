@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if IE]><![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta name="description" content="Solar Protocol Data Animator" />
+<meta name="author" content="Brian Sutherland, University of Toronto iSchool" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://solarprotocol.net/" /> <!-- change this when we know where it's living -->
+<meta property="og:title" content="Solar Protocol Data Animator" />
+<meta property="og:description" content="Data animator for the naturally intelligent network programmed by the sun" />
+<meta property="og:updated_time" content="2023-02-06T09:00:00-04:00" />
+<style>
+body{
+    font-family: helvetica; sans-serif;
+}
+.serveractive {
+    background-color: #d3d3d3;
+    font-size: 16px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: 2px solid #cccccc;
+}
+.serverinactive {
+    background-color: #ffffff;
+    color: #cccccc;
+    color: #cccccc;
+    font-size: 16px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: 2px solid #cccccc;
+}
+</style>
+<script src="https://cdn.plot.ly/plotly-2.17.1.min.js"></script>
+</head>
+<body onLoad="plotData_fnc([],[],'',[],[],'',[],[],'');">
+<audio id="bgAudio">
+  <source src="Kevin_MacLeod_-_Canon_in_D_Major.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<h1><center>Solar Protocol Data Animator</center></h1>
+    
+<p>Select an active server to load the log data into Javascript.  This only needs to be done once for each server and it may take a minute.  As you interact with the data at different time intervals imagine the sky overhead.  To compare servers for a given day, open two browser windows side by side.<br/><a href="#artiststatement">Artist statement</a> below, while you wait.</p>
+<p>
+ <!-- Interactive Elements -->
+<!-- <input class="serverinactive" type="button" value="Hell's Gate, NY, US"> -->
+<input class="serveractive" type="button" value="Swathmore Solar, PA, US" onclick="startLoad_fnc(3);"> 
+<input class="serveractive" type="button" value="Solar-Power for Hackers - Kiambu Rd, KE" onclick="startLoad_fnc(4);">
+<input class="serveractive" type="button" value="UTurne - Mparntwe Alice Springs, AU" onclick="startLoad_fnc(5);">
+<input class="serveractive" type="button" value="Low Carbon Research Methods - Peterborough, CA" onclick="startLoad_fnc(6);">
+<!-- <input class="serverinactive" type="button" value="Caddie In Control - Melbourne, AU"> -->
+</p>
+
+<div><span style="color:slategray;">Server: </span><span style="color:black;" id="servertitle">-</span></div>
+<div><span style="color:slategray;">Location: </span><span style="color:orangered;" id="serverlocation">-</span></div>
+<div><span style="color:slategray;">Status: </span><span style="color:firebrick; font-size: 18px;" id="serverstatus">-</span></div>
+<div><span style="color:gray;" id="browserstatus"></span></div>
+<h3>Controls</h3>
+
+<p>Stills: 
+<input type="button" value="Reverse" onclick="reversePlot_fnc();">&nbsp;
+<input type="button" value="Advance" onclick="advancePlot_fnc();">
+Date: <input id="framedate" type="text" value="" size="10">
+<input type="button" value="Select" onclick="gotoDate_fnc();">
+</p>
+<p>
+Animation: Speed <input id="animationSpeed_ms" type="text" value="300" size="5"> ms/frame
+
+<input type="button" value="Play" onclick="playPlot_fnc();">&nbsp;
+<input type="button" value="Pause" onclick="pausePlot_fnc();">&nbsp;
+<input type="button" value="Reset" onclick="resetPlot_fnc();">&nbsp;
+</p>
+
+<h3 id="plottitle"><center>Photovoltaic Voltage vs Hours of the Day</center></h3>
+<center><div id="solar-protocol" style="width:1024; height:800;"></div></center>
+
+<script>
+
+//  ---------------------- set up global variables and constants ---------------------- 
+var data_arr = new Array();
+var data_indx = 0;
+
+var servers_arr = new Array();
+servers_arr[0] = "";               // Test Server A
+servers_arr[1] = "";               // Test Server B
+servers_arr[2] = "72.229.231.127"; // Hells Gate, NY
+servers_arr[3] = "130.58.84.100";  // Swarthmore, PA
+servers_arr[4] = "197.248.41.65";  // Kiambu Rd, Kenya
+servers_arr[5] = "110.145.7.66/";  // Mparntwe, Australia
+servers_arr[6] = "76.69.133.249";  // Peterborough, CA
+
+var milliseconds = 300;  // animation speed changed in different places, also global
+var myAnimation;         // intervalID object needs to be global, o/w doesn't reset properly
+var animationRunning_bln = 0;
+
+// ---------------------- set up functions ---------------------- 
+// calls individual data-parse operations in sequence
+function startLoad_fnc(serverid){
+    //console.log("startLoad_fnc()");
+    loadServer_fnc(serverid);
+    loadLogList_fnc(serverid);
+
+    //console.log("data_arr[]"+data_arr);
+}
+
+// load server data based on user button selection
+async function loadServer_fnc(serverid) {
+
+    let url1 = 'http://'+servers_arr[serverid]+'/api/v2/opendata.php?systemInfo=dump';
+    console.log(url1);
+    let jsonData1 = await (await fetch(url1)).json();
+    document.getElementById("servertitle").innerHTML = jsonData1['dump']['name']+"";
+    //document.getElementById("serverdescription").innerHTML = jsonData1['dump']['description']+"";
+    document.getElementById("serverlocation").innerHTML = jsonData1['dump']['city']+", "+jsonData1['dump']['country'];
+    //console.log(jsonData1['dump']['name']);
+    //console.log(jsonData1['dump']['description']);
+    //console.log(jsonData1['dump']['city']);
+    //console.log(jsonData1['dump']['country']);
+}
+
+// load logfile list and interate into a local data array
+async function loadLogList_fnc(serverid) {
+
+    console.log("  loadLogList_fnc("+serverid+")");
+    let url2 = 'http://'+servers_arr[serverid]+'/api/v2/opendata.php?day=list';
+    let jsonData2 = await (await fetch(url2)).json();
+
+    // clear the data array;
+    data_arr =[];
+    // reset the pointer
+    data_indx = 0;
+
+    for(var x=0; x<jsonData2['list'].length; x++){ // may want to skip the test logs -->
+    // for(var x=5; x<16; x++){
+        var rawfilename = jsonData2['list'][x];
+        var logFileName = rawfilename.substring(0,rawfilename.length-4);
+        var arrayIndx = rawfilename.substring(10,rawfilename.length-4);
+        let url3 = 'http://'+servers_arr[serverid]+'/api/v2/opendata.php?day='+logFileName;
+        let jsonData3 = await (await fetch(url3)).json();
+        document.getElementById("serverstatus").innerHTML = "Just a minute, please... digesting the solar data: <span style=\'color:#990000;\'>"+logFileName+"</span>";
+        // console.log(jsonData3);
+        data_arr[arrayIndx]= jsonData3;
+    }
+
+    // model stage one finished, data's copied to browser namespace; render the first day and plot
+    selectData_fnc(0);
+}
+
+function selectData_fnc(dindx) {
+    console.log("selectData_fnc");
+
+    // the list of arrays keys is the list of dates
+    dates_arr = Object.keys(data_arr);
+
+    console.log("Rendering "+dates_arr[dindx]+" into view");
+
+    var cardinalNum = dindx+1;
+
+    document.getElementById("serverstatus").innerHTML = ""+dates_arr[dindx]+", day "+cardinalNum+" of "+dates_arr.length+" days data";
+    // reset the text field to the current date displayed 
+    document.getElementById("framedate").value = dates_arr[dindx];
+
+    // make two arrays to hold the x and y plot data for each day, we overwrite them with each cycle (have to compare cpu power req.)
+    var logDataX1_arr = new Array();
+    var logDataY1_arr = new Array();
+    var date1_str = new String();
+    date1_str = dates_arr[dindx];
+
+    // look ahead, for onion skinning effect
+    var logDataX2_arr = new Array();
+    var logDataY2_arr = new Array();
+    var date2_str = new String();
+    date2_str = dates_arr[dindx+1];
+
+    var logDataX3_arr = new Array();
+    var logDataY3_arr = new Array();
+    var date3_str = new String();
+    date3_str = dates_arr[dindx+2];
+
+    // for each of the rows of data in the log file of the day indicated by dindx (and we skip the header, so loop starts at 1 not, 0)
+    for(m=1; m<data_arr[dates_arr[dindx]].length; m++){
+        // display datetime of reading during parsing
+        // console.log(data_arr[dates_arr[d]][m][0]);
+        var t1 = new Date(data_arr[dates_arr[dindx]][m][0]);     // make a JS date object corresponding to the entry
+        logDataX1_arr[m-1] = t1.getHours() + t1.getMinutes()/60;   // hours for the day as decimal (easy to plot on x axis)
+        logDataY1_arr[m-1] = data_arr[dates_arr[dindx]][m][1];   // PV voltage
+    }
+    // for each of the rows of data in the log file of the day indicated by dindx (and we skip the header, so loop starts at 1 not, 0)
+    if ((dindx+2) < dates_arr.length){
+        for(m=1; m<data_arr[dates_arr[dindx+1]].length; m++){
+            // display datetime of reading during parsing
+            // console.log(data_arr[dates_arr[d]][m][0]);
+            var t2 = new Date(data_arr[dates_arr[dindx+1]][m][0]);     // make a JS date object corresponding to the entry
+            logDataX2_arr[m-1] = t2.getHours() + t2.getMinutes()/60;   // hours for the day as decimal (easy to plot on x axis)
+            logDataY2_arr[m-1] = data_arr[dates_arr[dindx+1]][m][1];   // PV voltage
+        }
+    }
+    // for each of the rows of data in the log file of the day indicated by dindx (and we skip the header, so loop starts at 1 not, 0)
+    if ((dindx+3)<dates_arr.length){
+        // for each of the rows of data in the log file of the day indicated by dindx (and we skip the header, so loop starts at 1 not, 0)
+        for(m=1; m<data_arr[dates_arr[dindx+2]].length; m++){
+            // display datetime of reading during parsing
+            // console.log(data_arr[dates_arr[d]][m][0]);
+            var t3 = new Date(data_arr[dates_arr[dindx+2]][m][0]);     // make a JS date object corresponding to the entry
+            logDataX3_arr[m-1] = t3.getHours() + t3.getMinutes()/60;   // hours for the day as decimal (easy to plot on x axis)
+            logDataY3_arr[m-1] = data_arr[dates_arr[dindx+2]][m][1];   // PV voltage
+        }
+    }
+    console.log("logDataX1_arr: ");
+    console.log(logDataX1_arr);
+    console.log("logDataY1_arr: ");
+    console.log(logDataY1_arr);
+
+    plotData_fnc(logDataX1_arr, logDataY1_arr, date1_str, logDataX2_arr, logDataY2_arr, date2_str, logDataX3_arr, logDataY3_arr, date3_str);
+
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+function plotData_fnc (x1_arr, y1_arr, d1, x2_arr, y2_arr, d2, x3_arr, y3_arr, d3){
+  console.log("plotData_fnc ");
+  // full data model, plot first slice
+  NY = document.getElementById('solar-protocol');
+
+    var trace1 = {
+  x: x1_arr,
+  y: y1_arr,
+  mode: 'lines',
+   line: {
+    color: '#66af0f',
+    width: 1
+    },
+  name: d1
+  };
+
+  var trace2 = {
+  x: x2_arr,
+  y: y2_arr,
+  mode: 'lines',
+   line: {
+    color: '#668ff5',
+    width: 1
+    },
+  name: d2
+  };
+
+  var trace3 = {
+  x: x3_arr,
+  y: y3_arr,
+  mode: 'lines',
+   line: {
+    color: '#993ff5',
+    width: 1
+    },
+  name: d3
+  };
+
+var data = [trace1, trace2, trace3];
+
+var layout = {
+        xaxis: {
+            title: 'Hours of the Day',
+            range: [0,24]
+        },
+        yaxis: {
+            title: 'Voltage',
+            range: [0,25]
+        },
+        margin: { t: 0 } 
+    };
+  
+Plotly.newPlot( NY, data, layout);
+};
+
+function reversePlot_fnc() {
+    console.log("reversePlot_fnc ");
+    // the list of arrays keys is the list of dates
+    dates_arr = Object.keys(data_arr);
+    if(data_indx > 0){
+        // in theory wipes the trace from the previous day
+        Plotly.deleteTraces(NY, 0);
+        // advance the day pointer of data (later we will do this with setInterval)
+        data_indx = data_indx - 1;
+        // render datamodel at new pointer position and plot
+        document.getElementById("plottitle").innerHTML = "<center>Photovoltaic Voltage vs Hours of the Day for "+dates_arr[data_indx]+"</center>";
+        selectData_fnc(data_indx);
+        document.getElementById("browserstatus").innerHTML = "";
+    }else{
+        document.getElementById("browserstatus").innerHTML = "<em>Beginning</em> of log data for this server";
+    }
+}
+
+function advancePlot_fnc() {
+    console.log("updatePlot_fnc ");
+    // the list of arrays keys is the list of dates
+    dates_arr = Object.keys(data_arr);
+    if(data_indx < (dates_arr.length-1)){
+        // in theory wipes the trace from the previous day
+        Plotly.deleteTraces(NY, 0);
+        // advance the day pointer of data (later we will do this with setInterval)
+        data_indx = data_indx + 1;
+        // render datamodel at new pointer position and plot
+        selectData_fnc(data_indx);
+        document.getElementById("browserstatus").innerHTML = "";
+    }else{
+        document.getElementById("browserstatus").innerHTML = "<em>End</em> of log data for this server";
+        animationRunning_bln = 0;
+        clearInterval(myAnimation); // has no effect for non-animated 
+        document.getElementById("bgAudio").currentTime = 1; 
+        backgroundAudio.pause();
+    }
+    document.getElementById("plottitle").innerHTML = "<center>Photovoltaic Voltage vs Hours of the Day for "+dates_arr[data_indx]+"</center>";
+}
+
+var backgroundAudio = document.getElementById("bgAudio");
+function playPlot_fnc() {
+    console.log("playPlot_fnc ");
+    console.log(myAnimation);
+    // check it's not already playing
+    if(animationRunning_bln === 0){ 
+        var userSpeed = document.getElementById("animationSpeed_ms").value;
+        console.log(userSpeed);
+        if(parseInt(userSpeed) > 9){
+            milliseconds = parseInt(userSpeed);
+        }else{
+            document.getElementById("animationSpeed_ms").value = 300;
+            milliseconds = 300;
+        }
+        myAnimation = setInterval(advancePlot_fnc, milliseconds);
+        backgroundAudio.play();
+        animationRunning_bln = 1;
+    }else{
+        console.log("already running!");
+    }
+}
+
+function pausePlot_fnc() {
+    console.log("pausePlot_fnc ");
+    animationRunning_bln = 0;
+    clearInterval(myAnimation);
+    backgroundAudio.pause();
+}
+
+function resetPlot_fnc() {
+    console.log("resetPlot_fnc ");
+    animationRunning_bln = 0;
+    clearInterval(myAnimation); // has no effect for non-animated 
+    data_indx = -1;  // advance operation adds one
+    advancePlot_fnc();
+    document.getElementById("bgAudio").currentTime = 1; 
+    backgroundAudio.pause();
+}
+
+function gotoDate_fnc() {
+    console.log("gotoDate_fnc ");
+    animationRunning_bln = 0;
+    backgroundAudio.pause();
+    clearInterval(myAnimation); // has no effect for non-animated 
+    var userDate = document.getElementById("framedate").value;
+    dates_arr = Object.keys(data_arr);
+    var foundDate_bln = 0; // assume haven't found the date
+    for(x=0; x<dates_arr.length; x++){
+        if(dates_arr[x] === userDate){
+            foundDate_bln = 1;
+            data_indx = x;  // we subtract one because advancePlot_fnc increments data_indx
+        }
+    }
+    // if we have data for the date
+    if(foundDate_bln === 1){
+        // go to the date frame that was a match as the data_indx now points to it
+        selectData_fnc(data_indx);
+    }else{ // otherwise, error condition, let the user know.
+        document.getElementById("browserstatus").innerHTML = "Sorry, no data match for the date entered.";
+    }
+    document.getElementById("plottitle").innerHTML = "<center>Photovoltaic Voltage vs Hours of the Day for "+dates_arr[data_indx]+"</center>";
+}
+
+</script>
+<h3><a name="artiststatement"></a>Artist Statement</h3>
+<p>
+     Data art often involves translating lived experience,  self-tracking or scientific data into a visually coded composition. The Solar Protocol Data Animator is an interactive viewer designed to draw the sensorial experience of being outdoors in daylight from the visitor in a co-construction of meaning, through exploration of the abstract recorded energy experience (EX) of solar panel installations across the Solar Protocol project, presently these servers listed.   Data makes the unseen seeable: it storifies a sky-view at a particular time and place in the past or the present, from rich energy narrative data.  How does the leading and trailing edge of the voltage vary?  What do the distinct voltage levels on the panels represent in terms of lived experience?   What is the area under the curve?
+</p>
+<p>
+    As the piece is designed for user exploration, it has buttons and fields for a visitor to enter what they want to see and control the view of the data -- to chart their own path through the data-history and experience it through their own interests and frames.  Animation of the days can occur at different speeds, up to 10 ms per frame.  
+</p>
+<p>
+    This work is by <a href="https://ischool.utoronto.ca/profile/brian-sutherland/">Brian Sutherland</a>, of Toronto, Canada. Brian teaches scientific communications including courses in data visualization, and is currently competing his thesis in Information Studies on Energy Harvesting Information Systems, which discusses the electronics industry swapping batteries for hybrid supercapacitors as a way to remediate the "critical mineral problem".
+</p>
+<p>
+Background Music: Canon in D Major Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+http://creativecommons.org/licenses/by/3.0/
+Music promoted by https://www.chosic.com/free-music/all/
+</p>
+</body>
+</html>

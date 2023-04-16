@@ -1,0 +1,92 @@
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+#caption {
+    font-family: monospace;
+    font-size: small;
+}
+
+a:link{
+    color:red;
+}
+
+a:visited{
+    color:red;
+}
+
+.col {
+    float: left;
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    color: white
+}
+
+p {
+    font-size: large;
+    font-family: monospace;
+    width: 100%;
+}
+
+h1 {
+    font-family: monospace;
+    font-size: 6em;
+    color: red;
+    position: relative;
+    top: -25px;
+    
+}
+
+h2{
+    font-family: monospace;
+}
+
+h3{
+    font-family: monospace;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+  }
+
+table, th, td {
+    border:2px solid;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+/* tr:hover {background-color: red;} */
+
+#decay {
+    color: red;
+    border-color: white;
+}
+
+.placeholder {
+    font-size: 24px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+@media screen and (max-width: 768px) {
+    .col {
+        width: 100%;
+    }
+}
+
+body {
+    background-image: url('Images/zvu_dark.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+}

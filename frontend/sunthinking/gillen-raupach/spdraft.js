@@ -11,7 +11,7 @@ locationMap = {
     Nairobi: { lat: '-1.292', lon: '36.817' },
     Santiago: { lat: '-33.448', lon: '-70.669' },
     'Kalinago Territory': { lat: '15.490', lon: '-61.253' },
-    'New York City': { lat: '40.712', lon: '-74.005' },
+    'New York': { lat: '40.712', lon: '-74.005' },
     Swarthmore: { lat: '39.952', lon: '-75.165' },
     Peterborough: { lat: '44.309', lon: '-78.319' },
   }
@@ -68,7 +68,7 @@ async function getLocation(){
 async function getSats(){
     const location = await getLocation();
     //temporarily added a CORS proxy in order to make the site entirely front end, will need to change for final install
-    const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.n2yo.com/rest/v1/satellite/above/${getLocation.lat}/${getLocation.lon}/0/65/52/&apiKey=3L6Y8W-2CEDLJ-CKC7EJ-4ZRU`);
+    const response = await fetch(`https://corsproxy.io/?https://api.n2yo.com/rest/v1/satellite/above/${getLocation.lat}/${getLocation.lon}/0/65/52/&apiKey=3L6Y8W-2CEDLJ-CKC7EJ-4ZRU`);
     const sats = await response.json();
     console.log(sats);
     return sats;

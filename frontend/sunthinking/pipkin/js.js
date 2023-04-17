@@ -1,9 +1,10 @@
-//version 0.3
+//version 0.4
 
-var object_tableURL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTud3SCx8T-h2oxqpAYcdoMSoydE1yOt6QNMgKNUTaqKw5A7ixcqxsEhhXbZd38Z7OmEuZAtqk7wtQf/pub?gid=0&single=true&output=csv"; // spreadsheet url (make sure it has been "published")
+// by everest pipkin --- everest-pipkin.com/ --- spring 2023
 
-//var object_tableURL ="objects.csv"; // spreadsheet url (make sure it has been "published")
+//var object_tableURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTud3SCx8T-h2oxqpAYcdoMSoydE1yOt6QNMgKNUTaqKw5A7ixcqxsEhhXbZd38Z7OmEuZAtqk7wtQf/pub?gid=0&single=true&output=csv"; // spreadsheet url (make sure it has been "published")
+
+var object_tableURL ="objects.csv"; 
 
 
 var object_table;
@@ -16,7 +17,7 @@ var previousRoom;
 
 //papaparse
 function init() {
-	if (localStorage.driftMineSavee == "found"){
+	if (localStorage.driftMineSave == "found"){
 		loadSavedGame();		
 	}
 	else{
@@ -39,6 +40,7 @@ function newGame(){
         	object_table = results.data
         	sortObjects(object_table);
         	loadRoom(rooms.new_game)
+        	starCast();
 		}
 		})
 }
@@ -55,7 +57,6 @@ function saveGame(){
 function sortObjects(object_table){
     //console.log(object_table)
 
-    //splitting into arrays... may rethink this in the future again
     for (x=0;x<object_table.length;x++){
     	object_table[x].verbs = object_table[x].verbs.split("|");
     	object_table[x].verbs_display = object_table[x].verbs_display.split("|");
@@ -82,7 +83,7 @@ function sortObjects(object_table){
     	}
     	else if (object_table[d].kind == "menu"){
     		for (let name in rooms) {
-    			if (name != "you" && name != "new_game" && name != "save_found"){
+    			if (name != "you" && name != "new_game" && name != "save_found" && name != "starry"){
     				rooms[name].objects.push(object_table[d])
     			}
 			}
@@ -97,21 +98,25 @@ var gameWindow = document.createElement("div");
 gameWindow.id = "gameWindow";
 document.body.appendChild(gameWindow);
 
+var toolTipHolder = document.createElement("div");
+toolTipHolder.id = "toolTipHolder";
+document.body.appendChild(toolTipHolder);
+
 var toolTip = document.createElement("div");
 toolTip.id = "toolTip";
-document.body.appendChild(toolTip);
+toolTipHolder.appendChild(toolTip);
 
 
 document.body.addEventListener('mousedown', function (event) {
 	//checks where tooltip is - could do a state instead if i want more control 
-	if (Number(toolTip.style.top.slice(0, -1)) > 0){
-	    if (toolTip.contains(event.target)) {
+	if (Number(toolTipHolder.style.top.slice(0, -1)) > 0){
+	    if (toolTipHolder.contains(event.target)) {
 	    } else {
 			toolTipOffscreen()
 	    }
 	}
 
-
+/*
     var xCord = event.clientX;
     var yCord = event.clientY;
 
@@ -119,13 +124,13 @@ document.body.addEventListener('mousedown', function (event) {
     var yPercent = ((yCord/window.innerHeight)*100).toString().slice(0,2);
 
 	console.log("x: " + xPercent+", y:" +yPercent);
-
+*/
 });
 
 
 function toolTipOffscreen(){
-	toolTip.style.left = "-100%"
-	toolTip.style.top = "-100%"
+	toolTipHolder.style.left = "-100%"
+	toolTipHolder.style.top = "-100%"
 }
 
 function loadRoom(room){
@@ -161,13 +166,13 @@ function loadRoom(room){
 
 	var interval2 = setInterval(function() {
 		counter = counter + 2;
-		if (toolTip.style.opacity>0){
-			toolTip.style.opacity = toolTip.style.opacity - (counter/100);
+		if (toolTipHolder.style.opacity>0){
+			toolTipHolder.style.opacity = toolTipHolder.style.opacity - (counter/100);
 		}
 		if (counter > 100){
 			//moves tooltip out of the way
-			toolTip.style.left = "-100%";
-			toolTip.style.top = "-100%";
+			toolTipHolder.style.left = "-100%";
+			toolTipHolder.style.top = "-100%";
 	      	clearInterval(interval2)
 	      }
   		},
@@ -204,10 +209,10 @@ function makeRoomObject(dataObject){
 
 function objectDescription(){
 
-	toolTip.classList = "normalTooltip"
-	toolTip.style.left = this.style.left;
-	toolTip.style.top = this.style.top;
-	toolTip.style.opacity = 1;
+	toolTipHolder.classList = "normalTooltip"
+	toolTipHolder.style.left = this.style.left;
+	toolTipHolder.style.top = this.style.top;
+	toolTipHolder.style.opacity = 1;
 
 	var object = returnObject(this.name)
 
@@ -224,7 +229,7 @@ function objectDescription(){
 		}
 	}
 
-	checkIfInViewport(toolTip)
+	checkIfInViewport(toolTipHolder)
 }
 
 
@@ -266,7 +271,7 @@ function verbPopulate(object,verb,place){
 
 function doAction(object,verb,place,domObject){
 	
-	console.log(object,verb,place);
+	//console.log(object,verb,place);
 	var tool = "";
 	var toolFound = false;
 
@@ -326,10 +331,16 @@ function doAction(object,verb,place,domObject){
 		}
 
 
+		//special cases 
 		if (verb == "rotate"){
 			rotateObject(object)
 		}
-
+		if (verb == "starry"){
+			starCast(object)
+		}
+		if (verb == "end_game"){
+			endGame();
+		}
 		//CAN ONLY make / take / place something once.
 		if (verb == "take"){
 			changeObjectRoom(object,"you")
@@ -373,46 +384,43 @@ function rotateObject(object){
 
 	objectDom.style.left= "50%";
 	objectDom.style.right= "50%";
+}
 
 
+function endGame(){
+	var music = new Audio('darkasadungeon.mp3');
+	music.play().catch((e)=>{console.log(e)})
+	music.addEventListener('ended', newGame);
+	for (d=0;d<currentRoom.objects.length;d++){
 
-/*
-	var differenceX = positionX - object.style.left.slice(0, -1); //30 - 50 = -20
-	var differenceY = positionY - object.style.top.slice(0, -1); //70 - 50 = 20
+	getDOMElementByName(currentRoom.objects[d].name).onclick = "";
 
-object.positionX;
-object.positionY;
-
-	  var interval = setInterval(function() {
-	  	if (differenceX != 0 ){
-		  	if (differenceX > 0){
-		  		person.style.left = (Number(person.style.left.slice(0, -1)) + 1) + "%"; 
-		  		differenceX = differenceX - 1;
-		  	}
-		  	else if (differenceX < 0){
-				person.style.left = (Number(person.style.left.slice(0, -1)) - 1) + "%"; 
-				differenceX = differenceX + 1;
-		  	}
+		if (currentRoom.objects[d].kind == "person"){
+			objectDom = getDOMElementByName(currentRoom.objects[d].name)
+			objectDom.style.animationDelay = (Math.random()*10000) + "ms";
+			var mod = Math.floor(Math.random()*2)+1
+			objectDom.classList.add("dance"+mod);
 		}
-		if (differenceY != 0){
-		  	if (differenceY > 0){
-		  		person.style.top = (Number(person.style.top.slice(0, -1)) + 1) + "%"; 
-		  		differenceY = differenceY - 1;
-		  	}
-		  	else if (differenceY < 0){
-				person.style.top = (Number(person.style.top.slice(0, -1)) - 1) + "%"; 
-				differenceY = differenceY + 1;
-		  	}
-		}
-		
-	     if (differenceX == 0 && differenceY == 0){
-	     	//console.log("clearing interval")
-	     	finishAlterObject(objectToAlter,newObject)
-	      	clearInterval(interval)
-	      }
-  		},
-      200);
-      */
+	}
+}
+
+function starCast(){
+	for (d=0;d<rooms.starry.objects.length;d++){
+		var dataObject = rooms.starry.objects[d];
+		var object = document.createElement("div");
+		object.name = dataObject.name;
+		object.innerHTML = dataObject.display;
+		object.classList = "objects fade"
+		object.style.left = dataObject.positionX + "%";
+		object.style.top = dataObject.positionY + "%";
+		object.style.animationDelay = Math.floor(Math.random()*10) + "s";
+		gameWindow.appendChild(object);
+	}
+}
+
+function fadeObject(object){
+	objectDom = getDOMElementByName(object.name)
+	objectDom.classList.add("fade");
 }
 
 function alterObject(alter,object){
@@ -445,26 +453,6 @@ function alterObject(alter,object){
 	}
 }
 
-function finishAlterObject(objectToAlter,newObject){
-
-	for (g=0; g<rooms[objectToAlter.room].objects.length; g++){
-		if (rooms[objectToAlter.room].objects[g].name == objectToAlter.name){
-			rooms[objectToAlter.room].objects[g] = newObject;
-		}
-	}
-
-	if (objectToAlter.room == currentRoom.name){
-		getDOMElementByName(objectToAlter.name).name = newObject.name;
-	}	
-
-	if (newObject.moveTo != "" && newObject.moveTo != undefined && newObject.moveTo != []){
-		changeObjectRoom(newObject,newObject.moveTo)
-	}
-
-	saveGame();
-
-}
-
 function dialogPopulate(object,dialog,count){
 
 	toolTip.innerHTML = "<br>" + dialog.description[count];
@@ -472,16 +460,21 @@ function dialogPopulate(object,dialog,count){
 	var link = document.createElement("a");
 	link.innerHTML = "->";
 
+	var name = document.createElement("text");
+	name.innerHTML = dialog.room + ":       ";
+	name.style.display = "inline-block";
+	name.style.width = "300px";
+
 	if (dialog.description.length > count + 1){
 		link.addEventListener("click", function(){dialogPopulate(object,dialog,count+1)});
-		toolTip.prepend(link);
+		name.appendChild(link);
 	}
 	else {
 		link.addEventListener("click", function(){replyPopulate(object,dialog)});
-		toolTip.prepend(link);
+		name.appendChild(link);
 	}
 
-	toolTip.prepend(dialog.room + ":       ") 
+	toolTip.prepend(name) 
 }
 
 function replyPopulate(object,dialog){
@@ -576,47 +569,82 @@ function scrollRoom(element,object,place){
 function roomChangeDescription(description){
 	toolTip.innerHTML = description;
 	//need to actually center these
-	toolTip.style.left = "50%";
-	toolTip.style.top = "50%";
-	toolTip.classList = "center"
-	toolTip.style.opacity = 1;
+	toolTipHolder.style.left = "50%";
+	toolTipHolder.style.top = "50%";
+	toolTipHolder.classList = "center"
+	toolTipHolder.style.opacity = 1;
 }
 
 function movePerson(objectToAlter,positionX,positionY,newObject){
 
 	person = getDOMElementByName(objectToAlter.name)
 
-	var differenceX = positionX - person.style.left.slice(0, -1); //30 - 50 = -20
-	var differenceY = positionY - person.style.top.slice(0, -1); //70 - 50 = 20
+	if (person != undefined){
+		var differenceX = positionX - person.style.left.slice(0, -1); //30 - 50 = -20
+		var differenceY = positionY - person.style.top.slice(0, -1); //70 - 50 = 20
+		var roomHolder = currentRoom;
+		  var interval = setInterval(function() {
+		  	if (differenceX != 0 ){
+			  	if (differenceX > 0){
+			  		person.style.left = (Number(person.style.left.slice(0, -1)) + 1) + "%"; 
+			  		differenceX = differenceX - 1;
+			  	}
+			  	else if (differenceX < 0){
+					person.style.left = (Number(person.style.left.slice(0, -1)) - 1) + "%"; 
+					differenceX = differenceX + 1;
+			  	}
+			}
+			if (differenceY != 0){
+			  	if (differenceY > 0){
+			  		person.style.top = (Number(person.style.top.slice(0, -1)) + 1) + "%"; 
+			  		differenceY = differenceY - 1;
+			  	}
+			  	else if (differenceY < 0){
+					person.style.top = (Number(person.style.top.slice(0, -1)) - 1) + "%"; 
+					differenceY = differenceY + 1;
+			  	}
+			}
+		     if (differenceX == 0 && differenceY == 0){
+		     	finishAlterObject(objectToAlter,newObject)
+		      	clearInterval(interval)
+		      }
+		     else if (previousRoom == roomHolder){
+		     	finishAlterObject(objectToAlter,newObject)
+		      	clearInterval(interval)
+		     }
+	  		},
+	      200);
+     }
+}
 
-	  var interval = setInterval(function() {
-	  	if (differenceX != 0 ){
-		  	if (differenceX > 0){
-		  		person.style.left = (Number(person.style.left.slice(0, -1)) + 1) + "%"; 
-		  		differenceX = differenceX - 1;
-		  	}
-		  	else if (differenceX < 0){
-				person.style.left = (Number(person.style.left.slice(0, -1)) - 1) + "%"; 
-				differenceX = differenceX + 1;
-		  	}
+function finishAlterObject(objectToAlter,newObject){
+
+	for (g=0; g<rooms[objectToAlter.room].objects.length; g++){
+		if (rooms[objectToAlter.room].objects[g].name == objectToAlter.name){
+			rooms[objectToAlter.room].objects[g] = newObject;
 		}
-		if (differenceY != 0){
-		  	if (differenceY > 0){
-		  		person.style.top = (Number(person.style.top.slice(0, -1)) + 1) + "%"; 
-		  		differenceY = differenceY - 1;
-		  	}
-		  	else if (differenceY < 0){
-				person.style.top = (Number(person.style.top.slice(0, -1)) - 1) + "%"; 
-				differenceY = differenceY + 1;
-		  	}
+	}
+
+	if (objectToAlter.room == currentRoom.name){
+		var domObject = getDOMElementByName(objectToAlter.name);
+		if (domObject != undefined){
+			domObject.name = newObject.name;
+			domObject.innerHTML = newObject.display;
 		}
-	     if (differenceX == 0 && differenceY == 0){
-	     	//console.log("clearing interval")
-	     	finishAlterObject(objectToAlter,newObject)
-	      	clearInterval(interval)
-	      }
-  		},
-      200);
+	}	
+
+	if (newObject.moveTo != "" && newObject.moveTo != undefined && newObject.moveTo != []){
+		if (newObject.moveToX != undefined && newObject.moveToX != ""){
+			newObject.positionX = newObject.moveToX;
+		}
+		if (newObject.moveToY != undefined && newObject.moveToY != ""){
+			newObject.positionY = newObject.moveToY;
+		}
+		changeObjectRoom(newObject,newObject.moveTo)
+	}
+
+	saveGame();
+
 }
 
 //changes what room an object is in

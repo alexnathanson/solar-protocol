@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Aan .. .">
+  <meta name="description" content="A maintenance text adventure game.">
 
 <meta property="og:title" content="Drift Mine Satellite">
-<meta property="og:description" content="An.. .">
-<meta name="og:image" content="https://everest-pipkin.com/barnacle-goose/assets/barnacle_goose.png">
-<meta property="og:url" content="everest-pipkin.com/barnacle-goose">
+<meta property="og:description" content="A maintenance text adventure game.">
+<meta name="og:image" content="driftmine.png">
+<meta property="og:url" content="http://solarprotocol.net/sunthinking/pipkin/">
 <meta name="twitter:card" content="summary_large_image">
 
   <title>Drift Mine Satellite</title>
@@ -73,12 +73,63 @@ html, body {
   }
 }
 
-#toolTip{
+.fade {
+    animation:fade 12s infinite;
+    color: white;
+}
+
+@keyframes fade {
+    0% {color:white;}
+    50% {color:black;}
+    100% {color:white;}
+}
+
+.dance1{
+	offset-path: path('m 104 21 c 7 2 15 8 16 16 c 0 11 -8 20 -7 31 c 0 11 3 23 14 28 c 7 2 16 2 22 -4 c 4 -7 -4 -15 -12 -15 c -10 -1 -17 8 -21 16 c -5 13 -10 26 -16 38 c -4 11 -14 19 -25 19 c -9 1 -19 -8 -14 -17 c 3 -9 15 -12 23 -9 c 10 1 17 11 15 21 c 1 9 -6 16 -10 23 c -5 8 -5 21 3 27 c 11 6 25 1 32 -9 c 8 -11 4 -25 -1 -36 c -6 -9 -4 -23 6 -29 c 8 -4 20 -6 27 1 c 3 9 -5 17 -14 19 c -12 -1 -24 -4 -32 -14 c -5 -8 -12 -16 -15 -25 c -2 -10 -9 -21 -20 -23 c -8 -1 -18 -2 -23 6 c -5 10 3 22 12 26 c 9 5 21 0 25 -10 C 91 93 92 82 87 73 C 78 64 78 49 82 37 C 83 27 94 21 104 21 Z');
+	animation: dance 40s linear infinite;
+ 	offset-rotate: 0deg;
+}
+
+.dance2{
+	offset-path: path('m 104 21 c -10 0 -21 6 -22 16 c -4 12 -4 27 5 36 c 5 8 4 19 1 28 c -4 9 -16 15 -25 10 c -10 -4 -17 -15 -12 -26 c 4 -8 15 -7 23 -6 c 11 3 18 13 20 23 c 4 9 10 17 15 25 c 8 9 20 12 32 14 c 8 -2 17 -10 14 -19 c -7 -7 -19 -5 -27 -1 c -9 6 -12 20 -6 29 c 5 11 9 25 1 36 c -7 10 -21 15 -32 9 c -8 -6 -8 -19 -3 -27 c 4 -7 10 -14 10 -23 c 2 -10 -5 -20 -15 -21 c -8 -3 -20 -1 -23 9 c -5 9 5 18 14 17 c 12 0 22 -8 25 -19 c 7 -12 11 -25 16 -38 c 4 -8 11 -17 21 -16 c 7 0 16 8 12 15 c -6 5 -15 6 -22 4 c -10 -5 -14 -17 -14 -28 c -1 -11 7 -20 7 -31 c -1 -8 -8 -14 -16 -16 z');
+	animation: dance 30s linear infinite;
+ 	offset-rotate: 0deg;
+
+}
+
+
+@keyframes dance {
+  0% {
+    offset-distance: 0%;
+ 	offset-rotate: 0deg;
+  }
+  50%{
+   	offset-rotate: 180deg;
+	
+  }
+  100% {
+    offset-distance: 100%;
+     	offset-rotate: 360deg;
+
+  }
+}
+
+
+#toolTipHolder{
 	max-width: 300px;
-	border: 1px solid;
+	width: 300px;
+	padding: 5px;
+	border: 1px solid black;
 	background-color: white;
 	opacity: 0;
-	padding: 5px;
+	  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#toolTip{
+	  text-align: justify;
+  text-justify: inter-word;
 }
 
 .center {

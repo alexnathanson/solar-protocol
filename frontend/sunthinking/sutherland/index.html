@@ -1,16 +1,17 @@
 <!DOCTYPE html>
+<html lang="en-CA">
 <head profile="http://www.w3.org/1999/xhtml/vocab">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--[if IE]><![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Cache-Control" content="no-cache" />
-<meta name="description" content="Solar Protocol Data Animator" />
+<meta name="description" content="Solar Protocol Data Explorer" />
 <meta name="author" content="Brian Sutherland, University of Toronto iSchool" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://solarprotocol.net/" /> <!-- change this when we know where it's living -->
-<meta property="og:title" content="Solar Protocol Data Animator" />
-<meta property="og:description" content="Data animator for the naturally intelligent network programmed by the sun" />
+<meta property="og:title" content="Solar Protocol Data Explorer" />
+<meta property="og:description" content="Data animation for users to explore the naturally intelligent network programmed by the sun" />
 <meta property="og:updated_time" content="2023-02-06T09:00:00-04:00" />
 <style>
 body{
@@ -33,40 +34,38 @@ body{
     border: 2px solid #cccccc;
 }
 </style>
-<script src="https://cdn.plot.ly/plotly-2.17.1.min.js"></script>
+<script src="plotly-2.17.1.min.js"></script>
+<title>Solar Protocol Data Explorer, V 1.0  by Brian Sutherland - University of Toronto</title>
 </head>
 <body onLoad="plotData_fnc([],[],'',[],[],'',[],[],'');">
-<audio id="bgAudio">
-  <source src="Kevin_MacLeod_-_Canon_in_D_Major.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-<h1><center>Solar Protocol Data Animator</center></h1>
+
+<h1><center>Solar Protocol Data Explorer</center></h1>
     
-<p>Select an active server to load the log data into Javascript.  This only needs to be done once for each server and it may take a minute.  As you interact with the data at different time intervals imagine the sky overhead.  To compare servers for a given day, open two browser windows side by side.<br/><a href="#artiststatement">Artist statement</a> below, while you wait.</p>
+<p>Welcome to the Solar Protocol Data Explorer.  Clicking one of the gray buttons will load one of the solar protocol server's active energy log data into Javascript, up to 365 days worth.  This only needs to be done once at the start and it may take a minute or so to send the data over broadboad, depending how much there is.  Once all the data is loaded, you can interact with the data at different time intervals, and imagine the sky overhead, viewing the last three days at one time.  Adjust the speed of the animation to view the plots faster or slower.  To compare servers for a given day, open two browser windows side by side.<br/><a href="#artiststatement">Artist statement</a> below, while you wait.</p>
 <p>
  <!-- Interactive Elements -->
 <!-- <input class="serverinactive" type="button" value="Hell's Gate, NY, US"> -->
-<input class="serveractive" type="button" value="Swathmore Solar, PA, US" onclick="startLoad_fnc(3);"> 
-<input class="serveractive" type="button" value="Solar-Power for Hackers - Kiambu Rd, KE" onclick="startLoad_fnc(4);">
-<input class="serveractive" type="button" value="UTurne - Mparntwe Alice Springs, AU" onclick="startLoad_fnc(5);">
-<input class="serveractive" type="button" value="Low Carbon Research Methods - Peterborough, CA" onclick="startLoad_fnc(6);">
+<input class="serveractive" label="US" type="button" value="Swathmore Solar, PA, US" onclick="startLoad_fnc(3);"> 
+<!-- <input class="serveractive" type="button" value="Solar-Power for Hackers - Kiambu Rd, KE" onclick="startLoad_fnc(4);"> -->
+<input class="serveractive" label="AU" type="button" value="UTurne - Mparntwe Alice Springs, AU" onclick="startLoad_fnc(5);">
+<input class="serveractive" label="CA" type="button" value="Low Carbon Research Methods - Peterborough, CA" onclick="startLoad_fnc(6);">
 <!-- <input class="serverinactive" type="button" value="Caddie In Control - Melbourne, AU"> -->
 </p>
 
-<div><span style="color:slategray;">Server: </span><span style="color:black;" id="servertitle">-</span></div>
-<div><span style="color:slategray;">Location: </span><span style="color:orangered;" id="serverlocation">-</span></div>
-<div><span style="color:slategray;">Status: </span><span style="color:firebrick; font-size: 18px;" id="serverstatus">-</span></div>
-<div><span style="color:gray;" id="browserstatus"></span></div>
-<h3>Controls</h3>
+<div><span style="color:darkslategray;">Server: </span><span style="color:black;" id="servertitle">-</span></div>
+<div><span style="color:darkslategray;">Location: </span><span style="color:darkred;" id="serverlocation">-</span></div>
+<div><span style="color:darkslategray;">Status: </span><span style="color:firebrick; font-size: 18px;" id="serverstatus">-</span></div>
+<div><span style="color:darkgray;" id="browserstatus"></span></div>
+<h2>Controls</h2>
 
 <p>Stills: 
 <input type="button" value="Reverse" onclick="reversePlot_fnc();">&nbsp;
 <input type="button" value="Advance" onclick="advancePlot_fnc();">
-Date: <input id="framedate" type="text" value="" size="10">
+<label for="framedate">Date:</label> <input id="framedate" type="text" value="" size="10">
 <input type="button" value="Select" onclick="gotoDate_fnc();">
 </p>
 <p>
-Animation: Speed <input id="animationSpeed_ms" type="text" value="300" size="5"> ms/frame
+<label for="animationSpeed_ms">Animation speed:</label><input id="animationSpeed_ms" type="text" value="300" size="5"> ms/frame
 
 <input type="button" value="Play" onclick="playPlot_fnc();">&nbsp;
 <input type="button" value="Pause" onclick="pausePlot_fnc();">&nbsp;
@@ -132,7 +131,14 @@ async function loadLogList_fnc(serverid) {
     // reset the pointer
     data_indx = 0;
 
-    for(var x=0; x<jsonData2['list'].length; x++){ // may want to skip the test logs -->
+    // --- log limiter; do not take more than the last 365 days
+    var start = 0;
+    var end = jsonData2['list'].length;
+
+    if (end > 365){
+            start = end - 365;
+    }
+    for(var x=start; x<jsonData2['list'].length; x++){ // may want to skip the test logs -->
     // for(var x=5; x<16; x++){
         var rawfilename = jsonData2['list'][x];
         var logFileName = rawfilename.substring(0,rawfilename.length-4);
@@ -231,15 +237,15 @@ function plotData_fnc (x1_arr, y1_arr, d1, x2_arr, y2_arr, d2, x3_arr, y3_arr, d
   // full data model, plot first slice
   NY = document.getElementById('solar-protocol');
 
-    var trace1 = {
-  x: x1_arr,
-  y: y1_arr,
-  mode: 'lines',
-   line: {
-    color: '#66af0f',
-    width: 1
-    },
-  name: d1
+  var trace1 = {
+    x: x1_arr,
+    y: y1_arr,
+    mode: 'lines',
+     line: {
+      color: '#0033ff',
+      width: 1
+     },
+    name: d1
   };
 
   var trace2 = {
@@ -247,7 +253,7 @@ function plotData_fnc (x1_arr, y1_arr, d1, x2_arr, y2_arr, d2, x3_arr, y3_arr, d
   y: y2_arr,
   mode: 'lines',
    line: {
-    color: '#668ff5',
+    color: '#6699ff',
     width: 1
     },
   name: d2
@@ -258,7 +264,7 @@ function plotData_fnc (x1_arr, y1_arr, d1, x2_arr, y2_arr, d2, x3_arr, y3_arr, d
   y: y3_arr,
   mode: 'lines',
    line: {
-    color: '#993ff5',
+    color: '#ccddff',
     width: 1
     },
   name: d3
@@ -315,13 +321,11 @@ function advancePlot_fnc() {
         document.getElementById("browserstatus").innerHTML = "<em>End</em> of log data for this server";
         animationRunning_bln = 0;
         clearInterval(myAnimation); // has no effect for non-animated 
-        document.getElementById("bgAudio").currentTime = 1; 
-        backgroundAudio.pause();
+
     }
     document.getElementById("plottitle").innerHTML = "<center>Photovoltaic Voltage vs Hours of the Day for "+dates_arr[data_indx]+"</center>";
 }
 
-var backgroundAudio = document.getElementById("bgAudio");
 function playPlot_fnc() {
     console.log("playPlot_fnc ");
     console.log(myAnimation);
@@ -336,7 +340,6 @@ function playPlot_fnc() {
             milliseconds = 300;
         }
         myAnimation = setInterval(advancePlot_fnc, milliseconds);
-        backgroundAudio.play();
         animationRunning_bln = 1;
     }else{
         console.log("already running!");
@@ -356,14 +359,11 @@ function resetPlot_fnc() {
     clearInterval(myAnimation); // has no effect for non-animated 
     data_indx = -1;  // advance operation adds one
     advancePlot_fnc();
-    document.getElementById("bgAudio").currentTime = 1; 
-    backgroundAudio.pause();
 }
 
 function gotoDate_fnc() {
     console.log("gotoDate_fnc ");
     animationRunning_bln = 0;
-    backgroundAudio.pause();
     clearInterval(myAnimation); // has no effect for non-animated 
     var userDate = document.getElementById("framedate").value;
     dates_arr = Object.keys(data_arr);
@@ -387,19 +387,13 @@ function gotoDate_fnc() {
 </script>
 <h3><a name="artiststatement"></a>Artist Statement</h3>
 <p>
-     Data art often involves translating lived experience,  self-tracking or scientific data into a visually coded composition. The Solar Protocol Data Animator is an interactive viewer designed to draw the sensorial experience of being outdoors in daylight from the visitor in a co-construction of meaning, through exploration of the abstract recorded energy experience (EX) of solar panel installations across the Solar Protocol project, presently these servers listed.   Data makes the unseen seeable: it storifies a sky-view at a particular time and place in the past or the present, from rich energy narrative data.  How does the leading and trailing edge of the voltage vary?  What do the distinct voltage levels on the panels represent in terms of lived experience?   What is the area under the curve?
+     Data art often involves translating lived experience, self-tracking or scientific data into a visually coded composition. The Solar Protocol Data Explorer is an interactive viewer designed to draw the sensorial experience of being outdoors in daylight from the visitor in a co-construction of meaning, through exploration of the abstract recorded energy experience (EX) of solar panel installations across the Solar Protocol project, presently these servers listed.   Data makes the unseen seeable: it storifies a sky-view at a particular time and place in the past or the present, from rich energy narrative data.  How does the leading and trailing edge of the voltage vary?  What do the distinct voltage levels on the panels represent in terms of the lived experience of weather?  The pleasure of experiencing data animation (and art generally) is in decoding the complexity of the representation.
 </p>
 <p>
     As the piece is designed for user exploration, it has buttons and fields for a visitor to enter what they want to see and control the view of the data -- to chart their own path through the data-history and experience it through their own interests and frames.  Animation of the days can occur at different speeds, up to 10 ms per frame.  
 </p>
 <p>
-    This work is by <a href="https://ischool.utoronto.ca/profile/brian-sutherland/">Brian Sutherland</a>, of Toronto, Canada. Brian teaches scientific communications including courses in data visualization, and is currently competing his thesis in Information Studies on Energy Harvesting Information Systems, which discusses the electronics industry swapping batteries for hybrid supercapacitors as a way to remediate the "critical mineral problem".
-</p>
-<p>
-Background Music: Canon in D Major Kevin MacLeod (incompetech.com)
-Licensed under Creative Commons: By Attribution 3.0 License
-http://creativecommons.org/licenses/by/3.0/
-Music promoted by https://www.chosic.com/free-music/all/
+    This work is by <a href="https://ischool.utoronto.ca/profile/brian-sutherland/">Brian Sutherland</a>, of Toronto, Canada. Brian teaches scientific communications including courses in data visualization, and is currently competing his thesis in Information Studies on Energy Harvesting Information Systems, which proposes the electronics industry swap batteries for hybrid supercapacitors as a way to remediate the "critical mineral problem".
 </p>
 </body>
 </html>

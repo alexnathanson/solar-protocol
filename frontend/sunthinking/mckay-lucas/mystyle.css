@@ -17,12 +17,14 @@ body {
 }
 
 #infoDiv1 {
-  background-color: rgba(183, 183, 183, 0.25);
+  /*background-color: rgba(183, 183, 183, 0.25);*/
+  background-color: rgba(183, 183, 183, 0);
   border-radius: 8px;
-  border-color: black;
+  margin-top: 600px;
+  /*border-color: black;
   border-width: 1pt;
   border-style: dotted;
-  padding: 20px;
+  padding: 20px;*/
 }
 
 a {

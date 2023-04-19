@@ -207,7 +207,7 @@ function setup() {
     let w = int(map(windowWidth, 1680, 320, 380, 250));
     let ws = w   + "px";   
     textDiv.style('width', ws);
-    textDiv.position(width/2 - w/2 - 20, 120);
+    textDiv.position(width/2 - w/2, 120);
 
 
     camera(-600, -400, height / 2 / tan(PI / 6), 100, -100, 200, 0, 1, 0);
@@ -299,7 +299,8 @@ function setup() {
 }
 
 function updateDiv() {
-    textDiv.html("<div class=\"center\">PECKISH (2023)</div> <br>Inspired by the resilience of urban birds who live thin on the ground and view their surroundings in technicolor, <i>Peckish</i> is a browser-based 3d animation that scrimps on energy expenditure with a ‘no media’ low kilobyte approach to web design. This rambling procedurally-generated story is powered by a solar server network, guided by bird intelligence and vision, aesthetically swayed by solar energy limits, and responsive to environmental intelligence and active server location. Commissioned by <a href=http://solarprotocol.net/ target=/blank>Solar Protocol</a>, <i>Peckish</i> is a collaborative project by artists Kristin Lucas and Joe McKay.<br><br><div class=\"center\"> → <a href = live.html>enter</a> </span>" , false);
+
+    textDiv.html("<div class=\"center\">→ <a href = live.html>enter</a></div>", false);
     flying = true;
     globalFlying = true;
     pigeonList.push(new pigeon(false, random(TWO_PI), -600, -68 - 400, -200));

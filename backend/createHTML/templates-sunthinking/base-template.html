@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="exhibit-style.css?v=1" />
+    <title>Solar Protocol</title>
+    <meta
+      name="author"
+      content=" Tega Brain, Alex Nathanson and Benedetta Piantella."
+    />
+
+    <!--Twitter -->
+    <!--sola this is what Facebook and other social websites will draw on -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Solar Protocol" />
+    <meta
+      name="twitter:description"
+      content="A naturally intelligent network programmed by the sun."
+    />
+    <meta name="twitter:image" content="images/full-images/logo.gif" />
+
+    <!-- Open Graph / Facebook -->
+    <!--sola this is what Facebook and other social websites will draw on -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://solarprotocol.net/" />
+    <meta property="og:title" content="Solar Protocol" />
+    <meta
+      property="og:description"
+      content="A naturally intelligent network programmed by the sun."
+    />
+    <meta property="og:image" content="images/full-images/logo.gif" />
+
+    <link rel="icon" href="images/favicon.png" />
+    <style>
+
+      a:hover { color: {{bgColor}};  text-decoration: none;}
+      .image {background: {{bgColor}};}
+      a .enter-button {background: {{bgColor}};}
+      .footer {background: {{bgColor}};}
+      .mobile-header {background: {{bgColor}};}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- LEFT NAV --------------------------------->
+
+      <header
+        style="
+          background-image: linear-gradient(
+            to top,
+            {{bgColor}},
+            {{bgColor}},
+            rgb(100, 100, 100),
+            grey,
+            black
+          ); "
+      >
+        <div class="mobile" style="background-color: black">
+          <span class="h1"><a href="index.html">Solar Protocol</a></span>
+        </div>
+        <div class="sub-heading">
+          <span class="h1"><a href="index.html">Solar Protocol &nbsp;|&nbsp;</a></span>
+          <span class="p" style="color:white;">SERVER: {{name}}, {{country}} </span>
+          <span class="h1" style="color:white;"><a href=""> &nbsp;|&nbsp;</a></span>
+          <span class="p" style="color:white;">Battery: {{batteryPercentage}} %</span>
+        </div>
+      </header>
+
+      <!-- RIGHT NAV --------------------------------->
+      <nav>
+        <ul class="no-bullets">
+          <li>
+            <a href="index.html">Home</a>
+            •
+          </li>
+          <li>
+            <a href="network.html">Network</a>
+            •
+          </li>
+          <li>
+            <a href="manifesto.html">Manifesto</a>
+            •
+          </li>
+          <li>
+            <a href="documentation.html">Tech</a>
+            •
+          </li>
+          <li><a href="library.html">Library</a></li>
+        </ul>
+      </nav>
+      {% block content %}{% endblock %}
+    </div>
+    <!-- end of container -->
+    <!-- footer -->
+  <section class="footer">
+    <div class="footer-image-container">
+      
+      <svg width="1359" height="913" viewBox="0 0 1359 913" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text transform="translate(286.578 8) rotate(46.3985)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Sun Thinking: A Solar Protocol Exhibition</tspan></text>
+        <text transform="translate(309.831 98) rotate(41.5029)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Server Stewards</tspan></text>
+        <text transform="translate(209.646 88) rotate(35.8554)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Curatorial Team</tspan></text>
+        <text transform="translate(269.832 201) rotate(29.1262)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Tega Brain</tspan></text>
+        <text transform="translate(166.418 230) rotate(21.5061)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Alex Nathanson</tspan></text>
+        <text transform="translate(199.314 323) rotate(12.8379)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Benedetta Piantella</tspan></text>
+        <text transform="translate(109.21 398.674) rotate(3.52439)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Kate Silzer</tspan></text>
+        <text transform="translate(80 496.291) rotate(-5.96519)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Advisor</tspan></text>
+        <text transform="translate(121 586.322) rotate(-15.3784)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Taeyoon Choi</tspan></text>
+        <text transform="translate(119 678.758) rotate(-23.8919)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Supported By </tspan></text>
+        <text transform="translate(104.569 781.146) rotate(-31.5373)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Mozilla Creative Media Award</tspan></text>
+        <text transform="translate(249 763.419) rotate(-38.1262)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Integrated Design and Media, NYU</tspan></text>
+        <text transform="translate(226 855.491) rotate(-43.7512)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Designer</tspan></text>
+        <text transform="translate(300 846.219) rotate(-48.426)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Sam Griffith</tspan></text>
+        <text transform="translate(982.073 89.6221) rotate(-47.4299)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="5.02312" y="21.7617">Contributors</tspan></text>
+        <text transform="translate(1052.93 77.5566) rotate(-42.7669)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="7.20519" y="21.7617">Hakeem Adam</tspan></text>
+        <text transform="translate(897.212 252.182) rotate(-38.4641)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="9.42761" y="21.7617">Mark Anthony Hernandez Motaghy</tspan></text>
+        <text transform="translate(1153.95 113.972) rotate(-33.4723)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="7.43786" y="21.7617">honor ash</tspan></text>
+        <text transform="translate(1080.75 217.871) rotate(-27.7979)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="9.75797" y="21.7617">Stephanie Dick</tspan></text>
+        <text transform="translate(981.63 312.491) rotate(-21.4896)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="9.06406" y="21.7617">Rory Gillen and Anna Madeline Raupach</tspan></text>
+        <text transform="translate(1071.49 331.599) rotate(-14.441)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="7.76906" y="21.7617">Feliz Lenz</tspan></text>
+        <text transform="translate(1197.84 369.9) rotate(-6.93622)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="6.43133" y="21.7617">Jen Liu</tspan></text>
+        <text transform="translate(1085.49 439.5) rotate(0.775982)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="13.3616" y="21.7617">Kristin Lucas and Joe McKay</tspan></text>
+        <text transform="translate(1017.81 484.189) rotate(8.53089)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="8.26802" y="21.7617">Allison Parrish</tspan></text>
+        <text transform="translate(1196.73 580.881) rotate(15.9651)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="8.51277" y="21.7617">Anne Pasek</tspan></text>
+        <text transform="translate(1059.25 592.743) rotate(23.007)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="8.78445" y="21.7617">Everest Pipkin</tspan></text>
+        <text transform="translate(1143.46 690.086) rotate(29.3245)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="8.26428" y="21.7617">Brian Sutherland</tspan></text>
+        <text transform="translate(1064 696.838) rotate(34.965)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="8.76538" y="21.7617">Marloes de Valk</tspan></text>
+        <text transform="translate(971.557 669.761) rotate(39.9495)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="6.24989" y="21.7617">Roopa Vasudevan</tspan></text>
+        <text transform="translate(1056.1 791.706) rotate(44.3911)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="9.16364" y="21.7617">Denzel Wamburu</tspan></text>
+        <text transform="translate(940.551 710.417) rotate(48.1539)" fill="black" xml:space="preserve" style="white-space: pre" font-family="Courier" font-size="16" letter-spacing="0em"><tspan x="18.0127" y="21.7617">Alice Yuan Zhang</tspan></text>
+        <path d="M266 27.5L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M1084.5 20.5L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M192.5 111L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M83 524L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M131 704.5L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M246.5 876.5L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        </svg>
+        
+        
+        
+    </div>
+  </section>
+</main>
+</div>
+<!-- end of container -->
+</body>
+</html>
+

@@ -26,7 +26,7 @@ if os.environ.get("ENV") == "DEV" or 'DEV' in sys.argv:
     chargeControllerDataPath = rootPath + 'dev-data/'
     chargecontrollerdata = "testtracerdata"
     templatePath = "templates-sunthinking/"
-    outputPath = rootPath + "frontend/"
+    outputPath = rootPath + "frontend/sunthinking/"
     deviceList = rootPath + "/dev-data/deviceList.json"
     imgDst = rootPath + "frontend/images/servers/serverprofile.png"
     localDataSrc = chargeControllerDataPath
@@ -36,7 +36,7 @@ else:
     chargeControllerDataPath = rootPath + "solar-protocol/charge-controller/data/"
     chargecontrollerdata = "tracerData"+str(datetime.date.today()) 
     templatePath = path + "/createHTML/templates-sunthinking/"
-    outputPath = rootPath + "solar-protocol/frontend/" 
+    outputPath = rootPath + "solar-protocol/frontend/sunthinking/" 
     deviceList = path + "/data/deviceList.json"
     imgDst = "/home/pi/local/www/serverprofile.gif"
     localDataSrc = rootPath + "local/"

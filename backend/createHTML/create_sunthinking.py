@@ -414,7 +414,7 @@ def check_images(server_data):
 def main():
     
     print()
-    print("***** Running create_html *****")
+    print("***** Running create_sunthinking *****")
     print()
     
     energy_data = read_csv() #get pv data from local csv 

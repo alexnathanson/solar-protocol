@@ -1,0 +1,100 @@
+{% extends "base-template.html" %} {% block content %}
+<main>
+  <section class="desktop-header">
+    <div class="info">
+      <a href="index.html#parrish" class="article-home-button"><< home</a>
+      <div class="article-type-container">
+                  __   __       
+ /\  |    |    | /__` /  \ |\ | 
+/~~\ |___ |___ | .__/ \__/ | \|                                    
+ __        __   __     __       
+|__)  /\  |__) |__) | /__` |__| 
+|    /~~\ |  \ |  \ | .__/ |  |                                       
+           </div>
+
+      <div class="col-text-body">
+        <h3 id="five-albas">Five albas</h3>
+<p>By now the criticisms of large language models are well-known, and we’ve all taken sides—across not entirely unfamiliar lines. The process of training a large language model <a href="https://arstechnica.com/gadgets/2023/04/generative-ai-is-cool-but-lets-not-forget-its-human-and-environmental-costs/">costs millions of dollars</a>, and <a href="https://aclanthology.org/P19-1355/">emits thousands upon thousands of metric tons of carbon into the atmosphere</a>. Their <a href="https://dl.acm.org/doi/10.1145/3442188.3445922">unfathomable datasets hew to hegemonic viewpoints, and conserve the status quo against language’s liberatory functions</a>. Control of these models is <a href="https://clivethompson.medium.com/the-dangers-of-highly-centralized-ai-96e988e84385">dangerously centralized in the hands of unaccountable corporations</a>, posing a risk of <a href="https://hannesbajohr.de/en/2023/04/08/whoever-controls-language-models-controls-politics/">democratic disaster as they become a surrogate public sphere</a>. Large language models, to borrow a phrase from <a href="https://www.dukeupress.edu/queer-phenomenology">Sara Ahmed</a>, cut language off from its own arrival: purveyors of these technologies insist that the model has produced its outputs as though <em>ex nihilo</em>. They claim therefore that <a href="https://petapixel.com/2023/02/07/getty-images-are-suing-stable-diffusion-for-a-staggering-1-8-trillion/">they owe nothing</a> to those whose data was statistically chewed and Bayesianly digested, <a href="https://www.reuters.com/technology/european-data-protection-board-discussing-ai-policy-thursday-meeting-2023-04-13/">without consent</a>, to make those outputs possible.</p>
+<p>All of this notwithstanding, there are artists and writers using large language models to make work that I admire, and I think there are reasonable arguments for the utility of these models, and many potentially fruitful paths forward for mitigating their harms. But as a poet (and particularly a poet who works with computation), I am interested in precisely aspects of language that large language models erase: its transtextuality and its materiality. I want my poems to be in conversation with other writers and other texts. I want the richness of the poems’ material forms, and the conditions of the poems’ production, to be manifest, and affect how the poems are understood.</p>
+<p>Toward this end, I’ve been working over the past couple of years on a project called “solar-powered dawn poems.” The system as it stands now consists of a radically small language model, trained on a low-power microcontroller (an Adafruit Feather RP2040), which operates only when drawing sufficient energy from a small solar panel. This language model (actually, a Markov chain) is trained on a corpus of albas, a poetry genre in which lovers lament the oncoming dawn, and it generates new examples of poems in this genre—again, using only solar power. I’ve been putting this corpus together from scratch. It is composed entirely of albas, aubades and tagelieds in the public domain (in the United States, at least), many of which have never before been transcribed into plain text. <a href="https://posts.decontextualize.com/solar-powered-dawn-poems-progress-report/">I’ve written more about the technical and conceptual aspects of the project elsewhere.</a></p>
+
+<img src="images/parrish/701782794b47283e8d06275a163adb2f.png" alt="The current prototype: RP2040 Feather, Jasper Sikken’s AEMSUCA board, two supercapacitors, and a small 2v solar panel">
+
+
+<figcaption aria-hidden="true">The current prototype: RP2040 Feather, Jasper Sikken’s AEMSUCA board, two supercapacitors, and a small 2v solar panel</figcaption>
+
+
+<p>I’ve been setting the device out in the window to catch the afternoon sun since the beginning of spring, and in that period, it has generated several hundred lines of poetry. My eventual goal is for the generated lines to stand alone, with only small amounts of editorial intervention needed on my part. But in the mean time, I’ve been making poems by taking the raw output and editing it—smoothing the transitions between lines, rewriting phrases to use more contemporary diction, and shifting pronouns a bit to make the poems conform more closely with my values of equity in gender and relationships. The poems below are representative of the output of this process.</p>
+<hr />
+<p>1.<br />
+</p>
+<p>Nothing suits the desires of us. We had<br />
+Already taken two in that hour.<br />
+They felt dolorous woes, as lovely<br />
+As the moon, as fair as you.<br />
+Drowsy Phoebus, come away,<br />
+My joy, my dear dear,<br />
+Why won’t you help me?<br />
+</p>
+<p><br> 2.<br />
+</p>
+<p>Ah, woe! There is no bright<br />
+Dream arriving. I did not cut<br />
+The tongue of Philomela.<br />
+Why, lovely swallow, Pandion’s child,<br />
+Do you yearn for soft embraces?<br />
+</p>
+<p>This fair maid rose, and she did not.<br />
+The little birds are waking. Sleep no more.<br />
+Don’t forget. They lay there talking awhile.<br />
+It was the light of the eyes.<br />
+</p>
+<p><br> 3.<br />
+</p>
+<p>Where sleep seals—<br />
+Its dew where sorrow left it—<br />
+When in love’s fire—<br />
+We melt without your heat.<br />
+</p>
+<p>Drawn within their arms,<br />
+They kissed again.<br />
+Now that will never be.<br />
+</p>
+<p>More from the setting sun!<br />
+How it changed, and said,<br />
+Or seemed to say, in scorn.<br />
+</p>
+<p><br> 4.<br />
+</p>
+<p>Stay! When flocks, and herds,<br />
+and concerns fail, this is it.<br />
+They wake into a light.<br />
+You will catch cold, and curse me.<br />
+When flocks, and herds, and concerns fail,<br />
+Let me embrace you.<br />
+You turned back in sight of Zeus—<br />
+Places of the moon.<br />
+</p>
+<p><br> 5.<br />
+</p>
+<p>Night is away—it’s morning. For her<br />
+The nightingales sing. Pale death<br />
+Still holds its power over me,<br />
+Forever. My own knight is straying,<br />
+And has scarcely appeared.<br />
+Delay your coming.<br />
+How swiftly fly the grasps of love.<br />
+Love has come for me.</p>
+
+      </div>
+    </div>
+
+    <!-- <div class="image">-->
+        <!-- <img src="images/test.png" /> -->
+        <!-- <div class="article-image-container"> -->
+
+    <!-- </div> --> 
+  </section>
+
+
+{% endblock %}

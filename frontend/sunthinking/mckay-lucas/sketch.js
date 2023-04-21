@@ -554,7 +554,7 @@ function makeNorthAmBird(_rz, _rx) {
       pigeonList.push(new pigeon(false, random(TWO_PI), rx, -68, rz));
       break;
     case 1:
-      ncardinalList.push(new ncardinal(false, random(TWO_PI), rx, -9, rz));
+      ncardinalList.push(new ncardinal(false, random(TWO_PI), rx, -96, rz));
       break;
     case 2:
       robinList.push(new robin(false, random(TWO_PI), rx, -94, rz));

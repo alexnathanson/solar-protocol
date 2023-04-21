@@ -1,0 +1,282 @@
+{% extends "base-template.html" %} {% block content %}
+<main>
+  <section class="desktop-header">
+    <div class="info">
+      <a href="index.html#ash" class="article-home-button"><< home</a>
+      <div class="body-type-container">
+      __        __   __     
+|__| /  \ |\ | /  \ |__)    
+|  | \__/ | \| \__/ |  \                                 
+      __                    
+ /\  /__` |__|              
+/~~\ .__/ |  |                                      
+           </div>
+
+      <div class="col-text-body">
+      
+        <h3 id="toc_0">Should Data Expire?</h3>
+
+<h4 id="toc_0">Entropy and permanence in digital landscapes</h4>
+
+<p>This essay was initially presented as a talk at <a href="https://summerschool.scholar.social/">Summer School 2022</a>, and AntiUniversity Now 2022, and has been rewritten and edited for Solar Protocol. </p>
+
+<hr>
+
+<p>When considering our personal data, we might first think of key facts about ourselves: our name, age, demographic information, and anything else collected by official forms. If we expand this definition, we can include the memory crumbs which trail behind us as we go about our daily lives. Our texts, emails, photos, videos, voice notes — these artefacts which are created both incidentally and on purpose end up telling the story of our lives. It&#39;s this expanded definition of personal data that I&#39;m going to use in this essay. I&#39;m also only talking about <em>personal</em> data specifically — I have intentionally excluded commercial uses of, and attitudes towards, data, its collection, storage, and use. </p>
+
+<p>In the pre-digital world, our personal data took up a lot of space. In fact, it took up exactly as much space as the thing that it was. If you wrote a letter, it would take up exactly one letter&#39;s worth of space on your desk, in your drawer, in a folder, or in your bin. If you wanted to create a copy of a document, that copy would again take up the same amount of space as the original. There was no abstraction in form between the data, what it represented, and the space it took up. Hard copy storage is grounded in the material. </p>
+
+<img src="images/ash/slide004.png" alt="paper letters">
+
+<p>
+Image sources (clockwise, starting top left) <sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>  <sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup>  <sup id="fnref3"><a href="#fn3" rel="footnote">3</a></sup>  <sup id="fnref4"><a href="#fn4" rel="footnote">4</a></sup> </p>
+
+<p>Digital technologies have undermined a 1:1 relationship between stored data and the scale and form of its storage medium. As magnetic tape, floppy disks, and eventually computer hard drives developed, the amount of data we could store in the same office, drawer, cabinet, or suitcase expanded exponentially. While storage has not yet been entirely divorced from physicality — there is still a relationship between digital file size and the amount of storage space it takes in the real world — we can afford to be a lot more liberal about what we choose to keep. As storage technology has continued to develop, it has become almost impossible for most people to perceive the relationship between physical size and storage capacity. </p>
+
+<img src="images/ash/slide5.png" alt="paper letters">
+<p>Image source <sup id="fnref5"><a href="#fn5" rel="footnote">5</a></sup> (annotations my own)</p>
+
+<p>The physicality of storage, by which I mean the space it materially takes up and the quality of said space, is directly related to how we might curate, organise, sort, and store the data it contains. Consider an expansive DVD collection — this data takes a very physical form, but is still much more compact than VHS tapes, and even smaller still than reels of film. For someone with a particularly large film collection, their DVDs might take up a wall of a room in their home. This method of storage means that they exist alongside their DVDs — they see them every day. They might choose to sort them in a way that&#39;s visually pleasing, or alphabetical, or chronological, so that they&#39;re satisfied at how organised their DVDs are every time they see them. They might be forced to forgo a purchase of a new DVD simply because they don&#39;t have space for any more. They might decide to sell some to make room for more DVDs (or something else entirely). The DVD collector in this scenario has a habitual and incidental relationship with the data they&#39;re storing. They revisit it regularly, and can easily understand how the size of their collection relates to the amount of data (films) they have stored, as well as the capacity they have for storing other things. </p>
+
+<p>Before digital storage, two main factors influenced the data, or artefacts, we created, and those that we kept: ease of creation (or reproduction) and physical storage space. Moving into early-digital, pre-cloud contexts, we were less influenced by how easy it was to make something (writing a letter is a lot faster using a word processor than writing by hand), but still quite heavily influenced by how much space it took to store something (if you fill up a USB stick, you need to either delete something, move something to more permanent, archival storage, or get another USB stick). In the contemporary context, it is both easy to create or reproduce an artefact and storage is no longer something with which we have an incidental, habitual, spatial relationship. There are no longer &#39;natural&#39; limiting factors on our capacity to create and store artefacts. </p>
+
+<p>As storage becomes less grounded in its physicality, it&#39;s harder to grasp what it means for a file to be &#39;large&#39;, or to keep track of just how many artefacts we&#39;re holding on to. Part of the attempt to address this disconnection is through the use of skeuomorphic design. For something to be skeuomorphic, its design must echo elements of that same object when made from another material, or used in a different context. In this case, we&#39;re referring to digital representations of things which are familiar for their non-digital function, like a note pad, or a bin. When desktop computers were entering the mainstream, their interfaces utilised a wide range of skeuomorphic objects in order to help new users bridge the gap between the paper office and the digital office. </p>
+
+<img src="images/ash/slide6.png" alt="paper letters"><p>
+Images source (same for both) <sup id="fnref6"><a href="#fn6" rel="footnote">6</a></sup> </p>
+
+<p>Skeuomorphic folders are designed to look just like the folders you&#39;d find in a filing cabinet. Deleting a file requires you to drag and drop it in the trash can sitting at the corner of your desktop. To save something, you invoke the power of the floppy disk. In the early days of widespread computer use, this proved a powerful tool for assisting the general population in adapting to new technologies. However, these skeuomorphs rapidly shed their utility. As time passes, new generations are born who possess no frame of reference for the physical counterparts of said skeuomorphs. </p>
+
+<h5 id="toc_1">They see it like one bucket, and everything&#39;s in the bucket <sup id="fnref7"><a href="#fn7" rel="footnote">7</a></sup></h5>
+
+<p>A 2021 Verge article<sup id="fnref8"><a href="#fn8" rel="footnote">8</a></sup> laid bare an apparent lack in the technical skill of Gen Z university students. The article claims that young adults are entering higher education with no innate understanding of how digital file systems work. It (and a similar article in The Byte from around the same time[^9]) asserts that many Gen Z and younger think of computer storage as an infinite, searchable bucket. And why should they think any differently? Those who have grown up with efficient, powerful search tools and expanding access to cloud storage, may have never had to develop an effective method of structuring their own data. They have no inherent understanding of the physicality of data, and how managing, curating, and organising that data has previously been absolutely necessary to accommodate storage limitations. </p>
+
+<img src="images/ash/slide10.png" alt="paper letters">
+<p>
+Image sources: Servers <sup id="fnref9"><a href="#fn9" rel="footnote">9</a></sup> Cloud graphic overlay <sup id="fnref10"><a href="#fn10" rel="footnote">10</a></sup></p>
+
+<p>One of the biggest shifts in how we store our personal data has been that we no longer keep it in our own homes. Cloud storage has been widely adopted, meaning we no longer have to face the reality of not physically having enough storage capacity of our own — we can always borrow more (for a price). The physical limitation of space on our storage habits has been replaced with a purely financial subscription model, a virtual asset with unlimited flex, rather than a material, spatial expansion. Digital storage has become perceived as an infinite resource. </p>
+
+<h5 id="toc_2">The cloud is a wispy, intangible, dream-like metaphor</h5>
+
+<p>The cloud is removed from our everyday environment, conjuring images of our photos, emails, and voice memos floating around in the sky above us. It takes a weight off our chests, and casts it to the heavens. The cloud is somewhere else, and any problems created by simply having too much stuff are now someone else&#39;s problems. When resources are virtual, infinite, and expandable via subscription, the consequences of overconsuming are indirect and out of sight. We are rarely confronted with the environmental reality of our reliance on datacentres. <sup id="fnref11"><a href="#fn11" rel="footnote">11</a></sup></p>
+
+<p>Largely, this trajectory was pushed by Google. Following the introduction of Gmail in 2004, which provided 500 times more storage than Hotmail (weighing in at a hefty 1GB per user at launch), our relationship with what&#39;s possible or practical to save changed forever. Initially, Gmail didn&#39;t even include a delete button <sup id="fnref12"><a href="#fn12" rel="footnote">12</a></sup>. Not only was it no longer necessary to delete emails regularly to make space in your inbox, but it was actually not even <em>possible</em>. This shift broke everyone&#39;s deletion habit — it ended the ritualistic appraisal of what should be kept, and ushered in a default in which literally everything should. </p>
+
+<img src="images/ash/Pasted-image-20230227144113.png" alt="paper letters">
+<p>
+Image source: <sup id="fnref13"><a href="#fn13" rel="footnote">13</a></sup></p>
+
+<p>Google was only able to afford to offer such expansive storage to everyone who wanted it, for free, because the company scraped and extracted value from everything we stored with them. The data they collected from everyday communications was used to sell relevant, highly targeted advertising space. Google ony stopped using emails in this way in 2017 [^14] —  13 years after its launch. </p>
+
+<h5 id="toc_3">97% of adults use cloud storage for some or all of their photos <sup id="fnref12"><a href="#fn12" rel="footnote">12</a></sup></h5>
+
+<p>In a study commissioned by Fujifilm in March 2022 [^12], 97% of all adults surveyed said that they use cloud storage for some or all of their photos. Only 12% of those surveyed spend money on additional storage, and 7 out of 10 admitted to transferring old photos onto new devices without filtering or organising them in any way. The survey also queried how often participants would go back and review their collections — the average rate was only once a month.</p>
+
+<p>The study was intended to determine whether younger adults feel more precarious about their memories in the context of COVID changing how we interact with technology. The study&#39;s conclusion was that they do, because they hold on to more photos than other demographics surveyed; with over a third of those surveyed citing concern over forgetting memories and events as the reason they don&#39;t delete their images. An additional third of those surveyed said looking at past memories helps to brighten their day, despite the low rate at which those memories are reviewed. This infrequent revisiting is the point I find most salient here. If these photos are truly a crutch to bolster our memory, and boost our mood, wouldn&#39;t we spend a bit more time, well, remembering? </p>
+
+<hr>
+
+<p>Entrusting our memories to the cloud, and with such large collections of personal data being quite commonplace, many people rely heavily on cloud storage providers to keep their memories safe. In an informal survey of friends, colleagues, and followers on federated networks (86 respondents), around half reported having photo collections on their phones of more than 5,000 images, with just over 70% reporting more than 1,000 images stored. Collection habits have vastly outgrown typical local storage capacities, so often it&#39;s not possible to have total control of data storage without significant investment in local, offline capacity. With this level of trust in cloud storage, it&#39;s easy to think it&#39;s unlikely for anything to go wrong, and that it will always be there. Unfortunately, that&#39;s simply not the case. </p>
+
+<p>In 2019, news broke that MySpace had lost 12 years of music during a server migration <sup id="fnref13"><a href="#fn13" rel="footnote">13</a></sup>. Many of these songs were never uploaded anywhere else — MySpace had been the permanent record of these artists&#39; musical output. It&#39;s estimated that up to 50 million tracks were lost in this incident alone. To put into perspective just how much data is stored by social media companies like MySpace, Meta (formerly known as Facebook) has continually expanded its first data centre, built in 2011, to a size of more than 3 million square feet as of 2018 <sup id="fnref14"><a href="#fn14" rel="footnote">14</a></sup>. According to their own maps <sup id="fnref15"><a href="#fn15" rel="footnote">15</a></sup>, they have 21 data centres currently in operation, across North America, Europe, and Asia. </p>
+
+<p>MySpace&#39;s servers, just like any other computer, are and were subject to the same entropy as anything which has a material form. Just because cloud storage isn&#39;t something we can immediately see and touch doesn&#39;t mean it lacks a physical presence somewhere on the planet. Cloud storage is still subject to fire, flood, earthquake, or simply decay over time — all of which can be mitigated to an extent but not entirely prevented <sup id="fnref16"><a href="#fn16" rel="footnote">16</a></sup>. Anything stored in the cloud could be lost, just as a letter given to you as a kid could fall down the side of your desk, or get burnt in a fire, or have a cup of water spilled onto it, or simply fade until the ink is no longer legible at all. </p>
+
+<hr>
+
+<p>I consider our collections of personal data to be a kind of informal archive <sup id="fnref17"><a href="#fn17" rel="footnote">17</a></sup><sup id="fnref18"><a href="#fn18" rel="footnote">18</a></sup>. By informal, I mean that in contrast to a traditional archive collection, it&#39;s not professionally looked after, sorted, or contextualised. Formal archives have someone whose job it is to know them. There is an archivist, or a team of archivists, who are aware of all of the parts and how they fit together. Informal archives (of the kind we&#39;re contributing to every time we send a text, email, or take a photo) are unsorted and largely left untouched. The information isn&#39;t studied, or stored in a way which is easy to access effectively. Our personal collections are buckets of information which have no logical relationships, no archivist, and no contextual anchors by which to understand them. </p>
+
+<h5 id="toc_4">Archives teach us about what came before</h5>
+
+<p>Archives hold key information which paints a picture of the humans of the past so we can better understand our histories today <sup id="fnref19"><a href="#fn19" rel="footnote">19</a></sup> <sup id="fnref20"><a href="#fn20" rel="footnote">20</a></sup>. When we create an archive of ourselves, we&#39;re contributing to a kind of historicisation of our very near past. It freezes in amber a version of ourselves we&#39;ve not yet had time to grow away from. Formal archives are subject to regulation and data protection laws, removing them temporally from the person or people who are documented within them. Our informal, personal collections are not subject to this same kind of removal — they can be used to inform decisions about relationships with ourselves and others almost in real time. </p>
+
+<p>One of the most common ways to access information in our personal collections is through algorithmic &#39;on this day&#39; features, now built in to most smartphones and mainstream social media platforms. This kind of tool was developed because we love to think about ourselves. We love to reminisce on good memories and (most importantly for the social platforms which developed this style of technology) we&#39;re likely to reshare particularly positive or impactful moments with our friends. Unfortunately, due to the totally removed aspect of human curation when it comes to working with our personal collections, it&#39;s just as likely that formative bad memories will be dug up and presented to us as good ones. This is an example of algorithmic cruelty. </p>
+
+<p>Both our formal and informal archives have a complex relationship with being publicly accessible. Formal archives are made public often through institutions, which may restrict access to certain parts in order to protect the subjects of those archives. It&#39;s common practice for archives to be sealed for 100 years when they refer to identifiable individuals in order to avoid impacting the everyday lives of those documented in the collections. Our informal archives, however, are often self-published. We become our own curators, choosing a highlight reel to present to the wider online public on our profile pages. We present an idealised, aestheticised version of ourselves, and then puppet that self as part of our social interactions in the online landscape. </p>
+
+<p>Sharing our informal collections through our own curated lens changes our image of self. We start to blur the edges between our whole, offline, flawed self, and our curated, online, idealised self. We&#39;re playing a roleplaying game we never realised we signed up for, and it&#39;s one that can bleed outwards into our offline lives too. We start to treat our curated, projected collection as if it is reflective of the whole, and see others in the same light. </p>
+
+<p>It used to be commonplace to have a &#39;screenname&#39; or &#39;username&#39;. Online, we would consensually enter the role of someone else, our online character, who would be distinct from our offline self. Our screen persona could embody characteristics about ourselves that we mediated offline, or be a channel for exploring things our offline selves would never do. It was protected in its distinction. With the dawn of Facebook, we started to see an increase in usage of our offline names (or &#39;real names&#39;) in online spaces. Mark Zuckerberg explicitly pursues a &#39;real name policy&#39; on Facebook, and it&#39;s common for those who change their name, or go by a different name, to have their account deactivated if Facebook detects any incongruence. <sup id="fnref21"><a href="#fn21" rel="footnote">21</a></sup></p>
+
+<p>This usage of &#39;real names&#39; in online spaces helped collapse the distinction between our online and offline selves. We started logging on to roleplay as a version of our self, not as a character with a totally different identity. Suddenly, the things we did online started bleeding out into our real life social sphere. Not only did Zuckerberg have a vision of an internet where everyone extends their offline self in a networked plane, but he asked people to bring their offline social connections into the online space. He was aiming to replicate communities which formed through lived experience, through proximity, or connections which were probably only supposed to be fleeting, in an online space. Online spaces, especially those which consider themselves &#39;platforms&#39;, introduce a collapse of distance, context, and a binary vision of whether someone is your &#39;friend&#39;. The process of replicating these offline connections expedited the &#39;leak&#39; of our offline lives into our online lives, and vice versa.</p>
+
+<p>However, most Gen Z don&#39;t remember a time before Facebook. For people with this experience, lines between &#39;offline self&#39; and &#39;online self&#39; have always been blurred, each informing the other. Online is no longer a separate space in which to escape or explore fantasy, but an extension of the physical neighbourhood, educational institution, or workplace you frequent every day. It could be argued that &#39;real name&#39; policies only impact the sites on which they are enforced, but like anything with mass adoption, the habits of users have shifted to reflect its impact on how we view our online profiles. There is now an expectation in many online spaces that users will present a version of their &#39;real&#39; or offline selves, rather than a pseudonymous alter. </p>
+
+<hr>
+
+<h5 id="toc_5">Taking a screenshot is a way of legitimising something</h5>
+
+<p>It&#39;s a flag in the sand that says &#39;I want to save this, and look at it later. This is important enough.&#39; For something to be screenshot-worthy, it&#39;s crossed the threshold that you not only want to keep it, but you want to know where it is. It reached something within you that makes the ongoing automated collection of our movements as we traverse the internet no longer sufficient for this kind of recollection, and you want to be able to step back inside this moment — either because it&#39;s important to other people or because it&#39;s important to you.</p>
+
+<p>Platforms like Snapchat enact a short-form expiry policy for messages shared through their service. This brings a sense of immediate loss, heightening the feeling that whatever you&#39;re looking at is slipping through your fingers. This sense of immediate loss encourages screenshot-based activation — we want to hold onto as much as we can when we&#39;re talking to someone we care about, or experiencing heightened emotions together. They encourage the natural curation-of-memory behaviour that&#39;s absent in so much of how we interact online — this is happening <em>now</em>, and then it&#39;s gone forever. </p>
+
+<img src="images/ash/slide15.png" alt="paper letters">
+<p>
+Image sources (left to right): <sup id="fnref22"><a href="#fn22" rel="footnote">22</a></sup> <sup id="fnref23"><a href="#fn23" rel="footnote">23</a></sup></p>
+
+<p>It can be uncomfortable to find that something you shared, which you thought would be fleeting, has been saved by someone else without your knowledge or consent, especially when engaging with text-based chat. Chat conversations move quickly and can be more unfiltered and candid than something you&#39;d publish purposefully. In pursuing a direct analogue to real-life fleeting conversation, Snapchat encourages the kind of spontaneous emotional traversal common to one-on-one, private conversations offline. Their service cultivates a sense of safety in the transience of the information transmitted between users. </p>
+
+<p>The sense of intimacy that fleeting conversation cultivates means that it can feel like a betrayal to find out that something you shared in confidence has been screenshotted and rebroadcast more widely, out of the context of the original conversation. To try and combat this sense of betrayal, Snapchat implemented notifications that informed the other person that you had screenshotted something. Yet as soon as this had been implemented, we came up with ways to circumvent these notifications.<sup id="fnref24"><a href="#fn24" rel="footnote">24</a></sup> In addition to what we capture in order to rebroadcast, screenshots take on another quality when they contribute to our collected archive of personal data. They contribute to our sense of self. </p>
+
+<p>The things we choose to keep hold of shape us. They remind us what we&#39;ve been through, where we&#39;ve travelled, who we&#39;ve met and what we&#39;ve done, in ways that when unaided, we tend to forget. <sup id="fnref25"><a href="#fn25" rel="footnote">25</a></sup> <sup id="fnref26"><a href="#fn26" rel="footnote">26</a></sup> A pebble from an important beach holds so much more within it than just the stone itself. When so many of our memories take place digitally, it&#39;s no wonder that we&#39;ve devised a method to take home souvenirs from our digital escapades. </p>
+
+<h5 id="toc_6">We only have so much capacity to remember</h5>
+
+<p>Many of the tools we&#39;ve built over time are explicitly to aid in supporting our memories. In theory, what we choose to preserve is kept safe, a kind of highlight reel — and maybe this was true when we had limited resources to create, store, and recover precious memories. In a time when taking these snapshots takes very little energy, time, or judgement, our ability to discover, recall, and properly sort our collected memories is impaired. </p>
+
+<p>When these memories are published, we contribute to a shared memory bank — a narrative of the world created by, for, and within, a kind of collective consciousness. Like the formal archive, we turn to this collective externalised memory to form our narrative about what it&#39;s like to live in the world, what it&#39;s been like in the past, and the decisions we make moving forwards. </p>
+
+<p>When our self image, and the images we form of others, are externalised, they&#39;re subject to the whims of that external environment. When that external environment is controlled, owned, or stewarded by a private company, we can no longer trust that our own externalised self isn&#39;t being used simply to manipulate us into furthering the commercial goals of said company. Thinking back to the emergence of &#39;on this day&#39; tools — these use our self-image in order to generate clicks and retain eyeballs on commercial platforms. It&#39;s our self being chewed up and fed back to us in order to sell advertising space. </p>
+
+<hr>
+
+<p>What would the world be like if all personal data had some kind of built in expiry date? We&#39;ve already touched on the impact that Snapchat&#39;s expiry feature has on how we feel about conversations made using its platform. Elsewhere, expiration is implemented through optional disappearing messages (an increasingly common feature across many chat platforms), iMessage audio files disappearing after two minutes unless you choose to keep them forever, and Instagram stories which vanish after 24 hours. Interestingly, in the case of Instagram stories, their transience is performed — the uploader can still access stories after their expiry in their &#39;stories archive&#39;. While Instagram stories appear <em>outwardly</em> to subscribe to the ethos of data expiry, in reality it just creates another mass, unsorted archive (by any metric other than chronologically). </p>
+
+<img src="images/ash/slide16.png" alt="paper letters">
+
+<p>
+Image sources (top to bottom, left to right): <sup id="fnref27"><a href="#fn27" rel="footnote">27</a></sup> <sup id="fnref28"><a href="#fn28" rel="footnote">28</a></sup></p>
+
+<p>Giving data a limited lifespan by default is an approach which is usually only applied to communications that are designed to feel more transient, such as digital analogues to spoken chatter, or services which encourage a momentary capture of your &#39;now&#39;. Digital artefacts like emails, photos, and videos (which aren&#39;t captured to share immediately) are seemingly never included in the conversation about expiration, perhaps because they are products of analogue processes which were designed specifically for the purpose of recording our lives. </p>
+
+<p>How could we go about applying an expiry protocol to these artefacts? First, I think their erasure must be complete. Nobody, anywhere should have a copy of what was written or captured once it has expired. I think this completeness is absolutely essential in order for the erasure to have a real impact on how we feel about the things we choose to keep. I also think the period between creation and deletion needs to be long enough that you&#39;re done with short-term processing before the data slips away. You should have had enough time to create it, think about it a little bit, come back to it, and evaluate whether or not it should be saved, but not enough time that you&#39;re a fundamentally different person by the time you stumble back across it <sup id="fnref29"><a href="#fn29" rel="footnote">29</a></sup>. </p>
+
+<p>In a world with expiration by default in place, what would change? On a practical level, we would get more mileage out of less computing power. We&#39;d be going from a disposable and greedy type of usage, a hoarding behaviour, to one which would recognise that if the box is full, you need to take something out of the box, instead of building infinite extensions until there&#39;s nothing left to build with.[^32] We would have a better understanding of what informs us as people because the external framework that we rely on to assist our memory would be by nature more goopy and imperfect and rounded. We would have reintroduced a more natural entropy into a digital context, and be empowered to move on from damaging patterns of behaviour — like diving into a sprawling, decades-old message log just to prove a point or to make a pain feel fresh. <sup id="fnref30"><a href="#fn30" rel="footnote">30</a></sup></p>
+
+<p>We&#39;d also have a more intuitive understanding of the relationship between our actual, lived, day-to-day experience and the collected data we both choose to keep, and that which we choose to publicly present in order to represent or illustrate our whole selves. Instead of a mass, unexamined, uncurated bulk of information about us languishing on the public internet for others to take at face value, we would have small collections of trinket, tokens and souvenirs that would imply a larger story than the item itself. If everyone was in the same boat, having our stories informed by the souvenirs we choose to save (rather than letting algorithms choose for us from a sea of everything we&#39;ve ever seen, thought, or done) would encourage us to afford that same grace to others — the grace of acknowledging that there&#39;s more behind the public presentation of curated trinkets, and that a flat profile should never be confused for the complex, expansive, whole. </p>
+
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>Your personal archiving project: Where do you start? _by Mark Ashenfelder, May 11th 2016, The Library of Congress blogs <a href="https://blogs.loc.gov/thesignal/2016/05/how-to-begin-a-personal-archiving-project/">Link</a>&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn2">
+<p>Things to do at home: Organize your personal archive, March 27th 2020, The Writers Guild Foundation <a href="https://www.wgfoundation.org/blog/2020/3/25/organizing-your-personal-archive">Link</a>&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn3">
+<p><em>State of Independence: A Global Forum on Alternative Practice</em>, July 2011, e-flux announcements <a href="https://www.e-flux.com/announcements/35364/state-of-independence-a-global-forum-on-alternative-practice/">Link</a>&nbsp;<a href="#fnref3" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn4">
+<p><em>Artist&#39; Studio Archives: Managing Personal Collections &amp; Creative Legacies</em>, by Heather GGendron, Eumie Imm Stroukoff, Joen E. Beaudoin and Neal Ambrose-Smith, 2016, Yale University Library Staff Publications <a href="https://elischolar.library.yale.edu/cgi/viewcontent.cgi?article=1002&amp;context=yul_staff">Link</a>&nbsp;<a href="#fnref4" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn5">
+<p><em>128gb flash drive in my right hand and 132mb worth of floppy disks in my left</em>, u/BeautifulBurd, January 31st 2017, r/mildlyinteresting <a href="https://www.reddit.com/r/mildlyinteresting/comments/5r57gp/128gb_flash_drive_in_my_right_hand_and_132mb/">Link</a>&nbsp;<a href="#fnref5" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn6">
+<p><em>A tale of three skeuomorphs</em>, July 7th 2020, Shift Happens issue #21 <a href="https://web.archive.org/web/20221128134911/https://www.getrevue.co/profile/shift-happens/issues/a-tale-of-three-skeuomorphs-242308">Link</a>&nbsp;<a href="#fnref6" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn7">
+<p><em>Gen Z kids apparently don&#39;t understand how file systems work</em>, by Dan Robitzski, September 24th 2021, The Byte <a href="https://futurism.com/the-byte/gen-z-kids-file-systems">Link</a>&nbsp;<a href="#fnref7" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn8">
+<p><em>File not found</em>, by Monica Chin, September 21st 2021, The Verge <a href="https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z">Link</a>&nbsp;<a href="#fnref8" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn9">
+<p><em>What is cloud hosting and how does it work?</em>, by Martin Austwick, 7th July 2019, Wirehive <a href="https://www.wirehive.com/thoughts/cloud-hosting-work/">Link</a>&nbsp;<a href="#fnref9" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn10">
+<p><em>cloud server free png image</em>, retrieved August 2022, Martrell Ltd <a href="https://martrel.co.uk/server-specialists/10-2-cloud-server-free-png-image/">Link</a>&nbsp;<a href="#fnref10" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn11">
+<p><em>Gauthier Roussilhe &#39;The hidden costs of data centers&#39;</em>, World Wide Waste with Gerry McGovern, July 21st 2022, Human-Centered Design Network <a href="https://www.thisishcd.com/episode/gauthier-roussilhe-the-hidden-costs-of-data-centers">Link</a>&nbsp;<a href="#fnref11" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn12">
+<p><em>April 1 2004: Gmail hits webmail g-spot</em>, by Michael Calore, April 1st 2011, Wired <a href="https://www.wired.com/2011/04/0401gmail-launches/">Link</a>
+[^12]: <em>How many photos do young people actually take?</em>, by Steve Richmond, 3rd March 2022, The Independent <a href="https://www.independent.co.uk/life-style/photographs-young-people-poll-b2027607.html">Link</a>
+[^14]: <em>Google to Stop Scanning Gmail Messages to Serve Up Ads</em>, by Tom Brant, 23rd June 2017, PC Mag <a href="https://www.pcmag.com/news/google-to-stop-scanning-gmail-messages-to-serve-up-ads">Link</a>&nbsp;<a href="#fnref12" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn13">
+<p><em>MySpace confirms 12 years of music lost in &quot;server migration&quot;</em>, by David Renshaw, March 18th 2019, Fader <a href="https://www.thefader.com/2019/03/18/myspace-server-migration-loss-music#:%7E:text=Myspace%20has%20admitted%20that%20some,videos%20have%20also%20been%20lost.">Link</a>&nbsp;<a href="#fnref13" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn14">
+<p><em>Data centers a book for rural Oregon</em>, by suzanne Roig, April 2nd 2020, The Other Oregon <a href="https://www.theotheroregon.com/making-a-living/data-centers-a-boon-for-rural-oregon/article_8d2848ba-7086-11ea-b20e-63ca5792c952.html">Link</a>&nbsp;<a href="#fnref14" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn15">
+<p><em>Data Centers</em>, accessed 27th February 2023, Meta <a href="https://datacenters.fb.com/">Link</a>&nbsp;<a href="#fnref15" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn16">
+<p><em>Data Center Disasters: How to Prepare for the Worst</em>, January 11t, 2020, Rack Solutions Blog <a href="https://www.racksolutions.com/news/blog/data-center-disasters-how-to-prepare-for-the-worst/">Link</a>&nbsp;<a href="#fnref16" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn17">
+<p><em>Curation through Use: Understanding the Personal Value of Social Media</em>, by Xuan Zhao and Siân E. Lindley, April 2014, CHI 2014, One of a CHInd, Toronto, ON, Canada <a href="https://www.researchgate.net/publication/266655669_Curation_through_Use_Understanding_the_Personal_Value_of_Social_Media">Link</a>&nbsp;<a href="#fnref17" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn18">
+<p><em>Your Memories. Their Cloud</em>, by Kashmir Hill, December 31st 2022, The New York Times <a href="https://www.nytimes.com/2022/12/31/technology/cloud-data-storage-google-apple-meta.html?smid=em-share">Link</a>&nbsp;<a href="#fnref18" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn19">
+<p><em>Memory, identity and the archival paradigm: introduction to the special issue</em>, by Caroline Brown, 19th April 2013 <a href="https://link.springer.com/article/10.1007/s10502-013-9203-z">Link</a>&nbsp;<a href="#fnref19" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn20">
+<p><em>Archives and memory</em>, by Randall C. Jimerson, 1st September 2003, OCLC Systems &amp; Services: International digital library perspectives <a href="https://www.emerald.com/insight/content/doi/10.1108/10650750310490289/full/html">Link</a>&nbsp;<a href="#fnref20" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn21">
+<p><em>How Facebook&#39;s real-name policy changed social media forever</em>, by Jeff Kosseff, 16th March 2022, Protocol <a href="https://www.protocol.com/policy/anonymity-real-names-jeff-kosseff">Link</a>&nbsp;<a href="#fnref21" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn22">
+<p><em>I didn&#39;t mean to take a screenshot of your snap!</em>, u/Mel<em>the</em>assassin, 27th September 2018, r/OopsDidntMeanTo <a href="https://www.reddit.com/r/OopsDidntMeanTo/comments/9jgmxa/i_didnt_mean_to_take_a_screenshot_of_your_snap/">Link</a>&nbsp;<a href="#fnref22" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn23">
+<p><em>How to Take a Screenshot on an iPhone</em>, January 25th 2023, Hello Tech How <a href="https://www.hellotech.com/guide/for/how-to-take-a-screenshot-on-an-iphone-x">Link</a>&nbsp;<a href="#fnref23" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn24">
+<p><em>How To Take A Screenshot of Snapchat With No Notification</em>, Jacsoccerdude3, December 13th 2012, YouTube <a href="https://www.youtube.com/watch?v=ornOvVYYCNU">Link</a>&nbsp;<a href="#fnref24" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn25">
+<p><em>Cued Recall</em>, by Margaret Moult, 2011, Springer Link <a href="https://link.springer.com/referenceworkentry/10.1007/978-0-387-79948-3_1116">Link</a>&nbsp;<a href="#fnref25" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn26">
+<p><em>Emotional Memories: When People and Events Remain With You</em>, by Mary C. Lamia, 6th March 2012, Psychology Today <a href="https://www.psychologytoday.com/us/blog/intense-emotions-and-strong-feelings/201203/emotional-memories-when-people-and-events-remain">Link</a>&nbsp;<a href="#fnref26" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn27">
+<p><em>More Control and Privacy on WhatsApp With Default Disappearing Messages and Multiple Durations</em>, December 6th 2021, Meta News Blog <a href="https://about.fb.com/news/2021/12/whatsapp-default-disappearing-messages-multiple-durations/">Link</a>&nbsp;<a href="#fnref27" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn28">
+<p><em>Instagram Stories: The complete guide for your brand</em>, by Jacqueline Zote, January 10th 2023, sproutsocial <a href="https://sproutsocial.com/insights/instagram-stories/">Link</a>&nbsp;<a href="#fnref28" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn29">
+<p><em>Hashtag-Forget: Using Social Media Ephemerality to Support Evolving Identities</em>, by Michal Luria and Nate Foulds, May 2021, CHI &#39;21: CHI Conference on Human Factors in Computing Systems <a href="https://www.researchgate.net/publication/351426444_Hashtag-Forget_Using_Social_Media_Ephemerality_to_Support_Evolving_Identities">Link</a>&nbsp;<a href="#fnref29" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn30">
+<p><em>Design for forgetting: Disposing of digital possessions after a breakup</em>, by Corina Sas and Steve Whittaker, April 2013, Proceedings of the SIGCHI Conference on Human Factors in Computing Systems <a href="https://www.researchgate.net/publication/262204635_Design_for_forgetting_Disposing_of_digital_possessions_after_a_breakup">Link</a>&nbsp;<a href="#fnref30" rev="footnote">&#8617;</a></p>
+</li>
+
+</ol>
+      </div>
+    </div>
+
+  </section>
+
+  {% endblock %}
+</main>

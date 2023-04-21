@@ -18,6 +18,7 @@ from core import getRemoteData
 from core.SolarProtocolClass import SolarProtocol as SolarProtocolClass
 from createHTML import create_html
 from createHTML import viz
+from createHTML import create_sunthinking
 import datetime
 import time
 import sys
@@ -111,6 +112,12 @@ def scriptsToRun(sMode,rC):
 	except Exception as err:
 		printLoud("create_html Exception", err)
 		runReport = runReport + "create_html "
+
+	try:
+		create_sunthinking.main()
+	except Exception as err:
+		printLoud("create_sunthinking Exception", err)
+		runReport = runReport + "create_sunthinking "
 
 
 	print()

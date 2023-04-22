@@ -62,11 +62,11 @@ header {
 }
 
 .sub-heading .p {
-  font-size: 3vh;
+  font-size: 2.5vh;
 }
 
 .sub-heading .h1 a {
-  font-size: 3.5vh;
+  font-size: 3vh;
 }
 
 .h1 a {
@@ -160,6 +160,7 @@ main {
   width: calc(100% - calc(var(--nav-width) * 2));
   font-family: Monospace;
   background-color: #e6e6e6;
+  /* overflow-x: hidden; */
 }
 
 section {
@@ -213,7 +214,7 @@ section {
 .body-type-container {
   font-family: Monospace;
   white-space: pre;
-  font-size: 0.8vw;
+  font-size: .8vw;
   padding-bottom: 25vh;
 }
 
@@ -279,7 +280,6 @@ section {
   width: 100%;
   height: 100vh;
   max-height: 100vh;
-  /* background: yellow; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -337,19 +337,27 @@ section {
   /* background-attachment: fixed; */
 }
 
-.footer-image-container svg {
+.mobile-footer-image-container{
+  display: none;
+}
+
+.footer-image-container svg, .mobile-footer-image-container svg  {
+  display: block;
   max-height: 100vh;
   max-width: 100%;
   /* height: 110vh;   */
 }
 
-.footer-image-container {
+.footer-image-container{
   height: 100vh;
   width: 100%;
   display: flex;
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
+  margin: 0 calc(var(--nav-width)) 0 calc(var(--nav-width));
+  box-sizing: border-box;
+  padding: 0 10px 0 10px;
 }
 
 .enter-link {
@@ -460,6 +468,10 @@ a {
   text-decoration: underline;
   border-bottom: black;
   color: black;
+}
+
+p a, li a {
+  word-wrap: break-word;
 }
 
 a:hover {
@@ -693,7 +705,7 @@ figcaption {
 
   .mobile {
     display: block;
-    padding: 2%;
+    /* padding: 2%; */
     width: 100%;
   }
 
@@ -703,13 +715,21 @@ figcaption {
     padding-top: 0px;
   }
 
+  .adam{
+    flex-direction: column;
+  }
+
   .info,
   .image {
     width: 100%;
   }
 
+  .info {
+    padding: 30px;
+  }
+
   .image {
-    height: 70vh;
+    height: 50vh;
     position: relative;
     min-height: auto;
   }
@@ -734,16 +754,40 @@ figcaption {
     font-size: 16px;
     font-weight: bold;
     background: olive;
+    
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center; */
+
+    background: transparent;
+    background-image: linear-gradient(
+              to bottom,
+              White,
+              Olive,
+              Olive
+    );
   }
 
   .desktop-header {
     display: none;
   }
 
-  .image .top-image-container svg {
-    padding: 0;
-    width: auto;
-    max-width: 100%;
+  .mobile-header .top-image-container svg {
+    /* padding: 0; */
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    font-weight: 400;
+  }
+
+  .article-header .image{
+    display: none;
+  }
+
+  .image-adams{
+    width: 100%;
   }
 
   .col-text-intro {
@@ -756,14 +800,15 @@ figcaption {
   }
 
   .enter-link {
-    z-index: 100;
+    /* z-index: 100;
     display: block;
     position: absolute;
     top: auto;
     bottom: 0%;
     left: 0%;
     transform: translate(0, 0);
-    width: 100%;
+    width: 100%; */
+    display: none;
   }
 
   a .enter-button {
@@ -784,18 +829,23 @@ figcaption {
   }
 
   .project-text {
-    display: none;
+    /* display: none; */
   }
 
   .body-type-container {
-    font-size: 1.5vw;
+    font-size: 1.75vw;
     padding-bottom: 5vh;
     font-weight: bold;
   }
 
+  .article-type-container {
+    margin:  20vh 0 5vh 0;
+    /* margin:0; */
+  }
+
   header {
     width: 100%;
-    font-size: 3em;
+    /* font-size: 3em; */
     writing-mode: lr;
     transform: rotate(0deg);
     position: absolute;
@@ -809,6 +859,19 @@ figcaption {
     writing-mode: lr;
     position: absolute;
     display: block;
+  }
+
+  .footer-image-container{
+    display: none;
+  }
+
+  .mobile-footer-image-container{
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      /* flex-direction: column; */
+      justify-content: center;
+      align-items: center;
   }
 
   ul.no-bullets {
@@ -838,6 +901,20 @@ figcaption {
   nav,
   header {
     position: static;
+  }
+
+
+  header .h1, nav {
+    padding: 0px 30px;
+  }
+
+  header {
+    padding-top: 30px;
+    background-image: none !important;
+  }
+  nav {
+    font-size: 16px;
+    padding-bottom: 30px;
   }
 
   main {

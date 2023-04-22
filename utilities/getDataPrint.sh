@@ -17,3 +17,6 @@ python3 /home/pi/solar-protocol/backend/createHTML/create_html.py
 
 echo "viz.py"
 python3 /home/pi/solar-protocol/backend/createHTML/viz.py
+
+echo "create_sunthinking.py"
+python3 /home/pi/solar-protocol/backend/createHTML/create_sunthinking.py

@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="exhibit-style.css?v=1" />
+    <title>Solar Protocol</title>
+    <meta
+      name="author"
+      content=" Tega Brain, Alex Nathanson and Benedetta Piantella."
+    />
+
+    <!--Twitter -->
+    <!--sola this is what Facebook and other social websites will draw on -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Solar Protocol" />
+    <meta
+      name="twitter:description"
+      content="A naturally intelligent network programmed by the sun."
+    />
+    <meta name="twitter:image" content="images/full-images/logo.gif" />
+
+    <!-- Open Graph / Facebook -->
+    <!--sola this is what Facebook and other social websites will draw on -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://solarprotocol.net/" />
+    <meta property="og:title" content="Solar Protocol" />
+    <meta
+      property="og:description"
+      content="A naturally intelligent network programmed by the sun."
+    />
+    <meta property="og:image" content="images/full-images/logo.gif" />
+
+    <link rel="icon" href="images/favicon.png" />
+    <style>
+
+      a:hover { color: Olive;  text-decoration: none;}
+      .image{background: Olive;}
+      
+      a .enter-button {background: Olive;}
+      .footer {background: Olive;}
+      .mobile-header {
+
+background-image: linear-gradient(
+      to top,
+      Olive,
+      Olive,
+      Olive,
+      white
+    );}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- LEFT NAV --------------------------------->
+
+      <header
+        style="
+          background-image: linear-gradient(
+            to top,
+            Olive,
+            Olive,
+            rgb(100, 100, 100),
+            grey,
+            black
+          ); "
+      >
+        <div class="mobile" style="background-color: black">
+          <span class="h1"><a href="index.html">Solar Protocol</a></span>
+        </div>
+        <div class="sub-heading">
+          <span class="h1"><a href="http://solarprotocol.net/">Solar Protocol &nbsp;|&nbsp;</a></span>
+          <span class="p" style="color:white;"><a href="http://solarprotocol.net/">SERVER: Pizza Rat, JFK Terminal 4 </span>
+          <span class="h1" style="color:white;"><a href=""> &nbsp;|&nbsp;</a></span>
+          <span class="p" style="color:white;">Battery: 49.0 %</a></span>
+        </div>
+      </header>
+
+      <!-- RIGHT NAV --------------------------------->
+      <nav>
+        <ul class="no-bullets">
+          <li>
+            <a href="http://solarprotocol.net">Home</a>
+            •
+          </li>
+          <li>
+            <a href="http://solarprotocol.net/network.html">Network</a>
+            •
+          </li>
+          <li>
+            <a href="http://solarprotocol.net/manifesto.html">Manifesto</a>
+            •
+          </li>
+          <li>
+            <a href="http://solarprotocol.net/documentation.html">Tech</a>
+            •
+          </li>
+          <li><a href="http://solarprotocol.net/library.html">Library</a>
+            •
+          <li>
+            <a href="index.html">Exhibition</a>
+          </li>
+        </ul>
+      </nav>
+      
+<main>
+  <section class="article-header">
+    <div class="info">
+      <a href="index.html#ash" class="article-home-button"><< home</a>
+      <div class="article-type-container">
+      __        __   __     
+|__| /  \ |\ | /  \ |__)    
+|  | \__/ | \| \__/ |  \                                 
+      __                    
+ /\  /__` |__|              
+/~~\ .__/ |  |                                      
+           </div>
+
+      <div class="col-text-body">
+      
+        <h3 id="entropy-and-permanence-in-digital-landscapes">
+        Entropy and permanence in digital landscapes
+      </h3>
+      <p>
+        This essay was initially presented as a talk at https://scholar.social
+        Summer School 2022, and AntiUniversity Now 2022, and has been rewritten
+        and edited for Solar Protocol.
+      </p>
+      <hr />
+      <p>
+        When considering our personal data, we might first think of key facts
+        about ourselves: our name, age, demographic information, and anything else
+        collected by official forms. If we expand this definition, we can include
+        the memory crumbs which trail behind us as we go about our daily lives.
+        Our texts, emails, photos, videos, voice notes — these artefacts which are
+        created both incidentally and on purpose end up telling the story of our
+        lives. It’s this expanded definition of personal data that I’m going to
+        use in this essay. I’m also only talking about
+        <em>personal</em>
+        data specifically — I have intentionally excluded commercial uses of, and
+        attitudes towards, data, its collection, storage, and use.
+      </p>
+      <p>
+        In the pre-digital world, our personal data took up a lot of space. In
+        fact, it took up exactly as much space as the thing that it was. If you
+        wrote a letter, it would take up exactly one letter’s worth of space on
+        your desk, in your drawer, in a folder, or in your bin. If you wanted to
+        create a copy of a document, that copy would again take up the same amount
+        of space as the original. There was no abstraction in form between the
+        data, what it represented, and the space it took up. Hard copy storage is
+        grounded in the material.
+      </p>
+      <p>
+        [[slide.004.png]] Image sources (clockwise, starting top left)
+        <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref">
+          <sup>1</sup>
+        </a>
+        <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref">
+          <sup>2</sup>
+        </a>
+        <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref">
+          <sup>3</sup>
+        </a>
+        <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref">
+          <sup>4</sup>
+        </a>
+      </p>
+      <p>
+        Digital technologies have undermined a 1:1 relationship between stored
+        data and the scale and form of its storage medium. As magnetic tape,
+        floppy disks, and eventually computer hard drives developed, the amount of
+        data we could store in the same office, drawer, cabinet, or suitcase
+        expanded exponentially. While storage has not yet been entirely divorced
+        from physicality — there is still a relationship between digital file size
+        and the amount of storage space it takes in the real world — we can afford
+        to be a lot more liberal about what we choose to keep. As storage
+        technology has continued to develop, it has become almost impossible for
+        most people to perceive the relationship between physical size and storage
+        capacity.
+      </p>
+      <p>
+        [[slide5.png]] Image source
+        <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref">
+          <sup>5</sup>
+        </a>
+        (annotations my own)
+      </p>
+      <p>
+        The physicality of storage, by which I mean the space it materially takes
+        up and the quality of said space, is directly related to how we might
+        curate, organise, sort, and store the data it contains. Consider an
+        expansive DVD collection — this data takes a very physical form, but is
+        still much more compact than VHS tapes, and even smaller still than reels
+        of film. For someone with a particularly large film collection, their DVDs
+        might take up a wall of a room in their home. This method of storage means
+        that they exist alongside their DVDs — they see them every day. They might
+        choose to sort them in a way that’s visually pleasing, or alphabetical, or
+        chronological, so that they’re satisfied at how organised their DVDs are
+        every time they see them. They might be forced to forgo a purchase of a
+        new DVD simply because they don’t have space for any more. They might
+        decide to sell some to make room for more DVDs (or something else
+        entirely). The DVD collector in this scenario has a habitual and
+        incidental relationship with the data they’re storing. They revisit it
+        regularly, and can easily understand how the size of their collection
+        relates to the amount of data (films) they have stored, as well as the
+        capacity they have for storing other things.
+      </p>
+      <p>
+        Before digital storage, two main factors influenced the data, or
+        artefacts, we created, and those that we kept: ease of creation (or
+        reproduction) and physical storage space. Moving into early-digital,
+        pre-cloud contexts, we were less influenced by how easy it was to make
+        something (writing a letter is a lot faster using a word processor than
+        writing by hand), but still quite heavily influenced by how much space it
+        took to store something (if you fill up a USB stick, you need to either
+        delete something, move something to more permanent, archival storage, or
+        get another USB stick). In the contemporary context, it is both easy to
+        create or reproduce an artefact and storage is no longer something with
+        which we have an incidental, habitual, spatial relationship. There are no
+        longer ‘natural’ limiting factors on our capacity to create and store
+        artefacts.
+      </p>
+      <p>
+        As storage becomes less grounded in its physicality, it’s harder to grasp
+        what it means for a file to be ‘large’, or to keep track of just how many
+        artefacts we’re holding on to. Part of the attempt to address this
+        disconnection is through the use of skeuomorphic design. For something to
+        be skeuomorphic, its design must echo elements of that same object when
+        made from another material, or used in a different context. In this case,
+        we’re referring to digital representations of things which are familiar
+        for their non-digital function, like a note pad, or a bin. When desktop
+        computers were entering the mainstream, their interfaces utilised a wide
+        range of skeuomorphic objects in order to help new users bridge the gap
+        between the paper office and the digital office.
+      </p>
+      <p>
+        [[slide6.png]] Images source (same for both)
+        <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref">
+          <sup>6</sup>
+        </a>
+      </p>
+      <p>
+        Skeuomorphic folders are designed to look just like the folders you’d find
+        in a filing cabinet. Deleting a file requires you to drag and drop it in
+        the trash can sitting at the corner of your desktop. To save something,
+        you invoke the power of the floppy disk. In the early days of widespread
+        computer use, this proved a powerful tool for assisting the general
+        population in adapting to new technologies. However, these skeuomorphs
+        rapidly shed their utility. As time passes, new generations are born who
+        possess no frame of reference for the physical counterparts of said
+        skeuomorphs.
+      </p>
+      <h3 id="they-see-it-like-one-bucket-and-everythings-in-the-bucket">
+        They see it like one bucket, and everything’s in the bucket
+      </h3>
+      <p>
+        A 2021 Verge article
+        <a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref">
+          <sup>7</sup>
+        </a>
+        laid bare an apparent lack in the technical skill of Gen Z university
+        students. The article claims that young adults are entering higher
+        education with no innate understanding of how digital file systems work.
+        It (and a similar article in The Byte from around the same time
+        <a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref">
+          <sup>8</sup>
+        </a>
+        ) asserts that many Gen Z and younger think of computer storage as an
+        infinite, searchable bucket. And why should they think any differently?
+        Those who have grown up with efficient, powerful search tools and
+        expanding access to cloud storage, may have never had to develop an
+        effective method of structuring their own data. They have no inherent
+        understanding of the physicality of data, and how managing, curating, and
+        organising that data has previously been absolutely necessary to
+        accommodate storage limitations.
+      </p>
+      <p>
+        [[slide10.png]] Image sources: Servers with Cloud graphic overlay
+        <a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref">
+          <sup>9</sup>
+        </a>
+      </p>
+      <p>
+        One of the biggest shifts in how we store our personal data has been that
+        we no longer keep it in our own homes. Cloud storage has been widely
+        adopted, meaning we no longer have to face the reality of not physically
+        having enough storage capacity of our own — we can always borrow more (for
+        a price). The physical limitation of space on our storage habits has been
+        replaced with a purely financial subscription model, a virtual asset with
+        unlimited flex, rather than a material, spatial expansion. Digital storage
+        has become perceived as an infinite resource.
+      </p>
+      <h3 id="the-cloud-is-a-wispy-intangible-dream-like-metaphor">
+        The cloud is a wispy, intangible, dream-like metaphor
+      </h3>
+      <p>
+        The cloud is removed from our everyday environment, conjuring images of
+        our photos, emails, and voice memos floating around in the sky above us.
+        It takes a weight off our chests, and casts it to the heavens. The cloud
+        is somewhere else, and any problems created by simply having too much
+        stuff are now someone else’s problems. When resources are virtual,
+        infinite, and expandable via subscription, the consequences of
+        overconsuming are indirect and out of sight. We are rarely confronted with
+        the environmental reality of our reliance on datacentres.
+        <a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref">
+          <sup>10</sup>
+        </a>
+      </p>
+      <p>
+        Largely, this trajectory was pushed by Google. Following the introduction
+        of Gmail in 2004, which provided 500 times more storage than Hotmail
+        (weighing in at a hefty 1GB per user at launch), our relationship with
+        what’s possible or practical to save changed forever. Initially, Gmail
+        didn’t even include a delete button
+        <a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref">
+          <sup>11</sup>
+        </a>
+        . Not only was it no longer necessary to delete emails regularly to make
+        space in your inbox, but it was actually not even
+        <em>possible</em>
+        . This shift broke everyone’s deletion habit — it ended the ritualistic
+        appraisal of what should be kept, and ushered in a default in which
+        literally everything should.
+      </p>
+      <p>[[Pasted image 20230227144113.png]] Early G</p>
+      <p>
+        Google was only able to afford to offer such expansive storage to everyone
+        who wanted it, for free, because the company scraped and extracted value
+        from everything we stored with them. The data they collected from everyday
+        communications was used to sell relevant, highly targeted advertising
+        space. Google ony stopped using emails in this way in 2017
+        <a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref">
+          <sup>12</sup>
+        </a>
+        — 13 years after its launch.
+      </p>
+      <h3 id="of-adults-use-cloud-storage-for-some-or-all-of-their-photos">
+        97% of adults use cloud storage for some or all of their photos
+      </h3>
+      <p>
+        In a study commissioned by Fujifilm in March 2022
+        <a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref">
+          <sup>13</sup>
+        </a>
+        , 97% of all adults surveyed said that they use cloud storage for some or
+        all of their photos. Only 12% of those surveyed spend money on additional
+        storage, and 7 out of 10 admitted to transferring old photos onto new
+        devices without filtering or organising them in any way. The survey also
+        queried how often participants would go back and review their collections
+        — the average rate was only once a month.
+      </p>
+      <p>
+        The study was intended to determine whether younger adults feel more
+        precarious about their memories in the context of COVID changing how we
+        interact with technology. The study’s conclusion was that they do, because
+        they hold on to more photos than other demographics surveyed; with over a
+        third of those surveyed citing concern over forgetting memories and events
+        as the reason they don’t delete their images. An additional third of those
+        surveyed said looking at past memories helps to brighten their day,
+        despite the low rate at which those memories are reviewed. This infrequent
+        revisiting is the point I find most salient here. If these photos are
+        truly a crutch to bolster our memory, and boost our mood, wouldn’t we
+        spend a bit more time, well, remembering?
+      </p>
+      <hr />
+      <p>
+        Entrusting our memories to the cloud, and with such large collections of
+        personal data being quite commonplace, many people rely heavily on cloud
+        storage providers to keep their memories safe. In an informal survey of
+        friends, colleagues, and followers on federated networks (86 respondents),
+        around half reported having photo collections on their phones of more than
+        5,000 images, with just over 70% reporting more than 1,000 images stored.
+        Collection habits have vastly outgrown typical local storage capacities,
+        so often it’s not possible to have total control of data storage without
+        significant investment in local, offline capacity. With this level of
+        trust in cloud storage, it’s easy to think it’s unlikely for anything to
+        go wrong, and that it will always be there. Unfortunately, that’s simply
+        not the case.
+      </p>
+      <p>
+        In 2019, news broke that MySpace had lost 12 years of music during a
+        server migration
+        <a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref">
+          <sup>14</sup>
+        </a>
+        . Many of these songs were never uploaded anywhere else — MySpace had been
+        the permanent record of these artists’ musical output. It’s estimated that
+        up to 50 million tracks were lost in this incident alone. To put into
+        perspective just how much data is stored by social media companies like
+        MySpace, Meta (formerly known as Facebook) has continually expanded its
+        first data centre, built in 2011, to a size of more than 3 million square
+        feet as of 2018
+        <a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref">
+          <sup>15</sup>
+        </a>
+        . According to their own maps
+        <a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref">
+          <sup>16</sup>
+        </a>
+        , they have 21 data centres currently in operation, across North America,
+        Europe, and Asia.
+      </p>
+      <p>
+        MySpace’s servers, just like any other computer, are and were subject to
+        the same entropy as anything which has a material form. Just because cloud
+        storage isn’t something we can immediately see and touch doesn’t mean it
+        lacks a physical presence somewhere on the planet. Cloud storage is still
+        subject to fire, flood, earthquake, or simply decay over time — all of
+        which can be mitigated to an extent but not entirely prevented
+        <a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref">
+          <sup>17</sup>
+        </a>
+        . Anything stored in the cloud could be lost, just as a letter given to
+        you as a kid could fall down the side of your desk, or get burnt in a
+        fire, or have a cup of water spilled onto it, or simply fade until the ink
+        is no longer legible at all.
+      </p>
+      <hr />
+      <p>
+        I consider our collections of personal data to be a kind of informal
+        archive
+        <a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref">
+          <sup>18</sup>
+        </a>
+        <a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref">
+          <sup>19</sup>
+        </a>
+        . By informal, I mean that in contrast to a traditional archive
+        collection, it’s not professionally looked after, sorted, or
+        contextualised. Formal archives have someone whose job it is to know them.
+        There is an archivist, or a team of archivists, who are aware of all of
+        the parts and how they fit together. Informal archives (of the kind we’re
+        contributing to every time we send a text, email, or take a photo) are
+        unsorted and largely left untouched. The information isn’t studied, or
+        stored in a way which is easy to access effectively. Our personal
+        collections are buckets of information which have no logical
+        relationships, no archivist, and no contextual anchors by which to
+        understand them.
+      </p>
+      <h3 id="archives-teach-us-about-what-came-before">
+        Archives teach us about what came before
+      </h3>
+      <p>
+        Archives hold key information which paints a picture of the humans of the
+        past so we can better understand our histories today
+        <a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref">
+          <sup>20</sup>
+        </a>
+        <a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref">
+          <sup>21</sup>
+        </a>
+        . When we create an archive of ourselves, we’re contributing to a kind of
+        historicisation of our very near past. It freezes in amber a version of
+        ourselves we’ve not yet had time to grow away from. Formal archives are
+        subject to regulation and data protection laws, removing them temporally
+        from the person or people who are documented within them. Our informal,
+        personal collections are not subject to this same kind of removal — they
+        can be used to inform decisions about relationships with ourselves and
+        others almost in real time.
+      </p>
+      <p>
+        One of the most common ways to access information in our personal
+        collections is through algorithmic ‘on this day’ features, now built in to
+        most smartphones and mainstream social media platforms. This kind of tool
+        was developed because we love to think about ourselves. We love to
+        reminisce on good memories and (most importantly for the social platforms
+        which developed this style of technology) we’re likely to reshare
+        particularly positive or impactful moments with our friends.
+        Unfortunately, due to the totally removed aspect of human curation when it
+        comes to working with our personal collections, it’s just as likely that
+        formative bad memories will be dug up and presented to us as good ones.
+        This is an example of algorithmic cruelty.
+      </p>
+      <p>
+        Both our formal and informal archives have a complex relationship with
+        being publicly accessible. Formal archives are made public often through
+        institutions, which may restrict access to certain parts in order to
+        protect the subjects of those archives. It’s common practice for archives
+        to be sealed for 100 years when they refer to identifiable individuals in
+        order to avoid impacting the everyday lives of those documented in the
+        collections. Our informal archives, however, are often self-published. We
+        become our own curators, choosing a highlight reel to present to the wider
+        online public on our profile pages. We present an idealised, aestheticised
+        version of ourselves, and then puppet that self as part of our social
+        interactions in the online landscape.
+      </p>
+      <p>
+        Sharing our informal collections through our own curated lens changes our
+        image of self. We start to blur the edges between our whole, offline,
+        flawed self, and our curated, online, idealised self. We’re playing a
+        roleplaying game we never realised we signed up for, and it’s one that can
+        bleed outwards into our offline lives too. We start to treat our curated,
+        projected collection as if it is reflective of the whole, and see others
+        in the same light.
+      </p>
+      <p>
+        It used to be commonplace to have a ‘screenname’ or ‘username’. Online, we
+        would consensually enter the role of someone else, our online character,
+        who would be distinct from our offline self. Our screen persona could
+        embody characteristics about ourselves that we mediated offline, or be a
+        channel for exploring things our offline selves would never do. It was
+        protected in its distinction. With the dawn of Facebook, we started to see
+        an increase in usage of our offline names (or ‘real names’) in online
+        spaces. Mark Zuckerberg explicitly pursues a ‘real name policy’ on
+        Facebook, and it’s common for those who change their name, or go by a
+        different name, to have their account deactivated if Facebook detects any
+        incongruence.
+        <a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref">
+          <sup>22</sup>
+        </a>
+      </p>
+      <p>
+        This usage of ‘real names’ in online spaces helped collapse the
+        distinction between our online and offline selves. We started logging on
+        to roleplay as a version of our self, not as a character with a totally
+        different identity. Suddenly, the things we did online started bleeding
+        out into our real life social sphere. Not only did Zuckerberg have a
+        vision of an internet where everyone extends their offline self in a
+        networked plane, but he asked people to bring their offline social
+        connections into the online space. He was aiming to replicate communities
+        which formed through lived experience, through proximity, or connections
+        which were probably only supposed to be fleeting, in an online space.
+        Online spaces, especially those which consider themselves ‘platforms’,
+        introduce a collapse of distance, context, and a binary vision of whether
+        someone is your ‘friend’. The process of replicating these offline
+        connections expedited the ‘leak’ of our offline lives into our online
+        lives, and vice versa.
+      </p>
+      <p>
+        However, most Gen Z don’t remember a time before Facebook. For people with
+        this experience, lines between ‘offline self’ and ‘online self’ have
+        always been blurred, each informing the other. Online is no longer a
+        separate space in which to escape or explore fantasy, but an extension of
+        the physical neighbourhood, educational institution, or workplace you
+        frequent every day. It could be argued that ‘real name’ policies only
+        impact the sites on which they are enforced, but like anything with mass
+        adoption, the habits of users have shifted to reflect its impact on how we
+        view our online profiles. There is now an expectation in many online
+        spaces that users will present a version of their ‘real’ or offline
+        selves, rather than a pseudonymous alter.
+      </p>
+      <hr />
+      <h3 id="taking-a-screenshot-is-a-way-of-legitimising-something">
+        Taking a screenshot is a way of legitimising something
+      </h3>
+      <p>
+        It’s a flag in the sand that says ‘I want to save this, and look at it
+        later. This is important enough.’ For something to be screenshot-worthy,
+        it’s crossed the threshold that you not only want to keep it, but you want
+        to know where it is. It reached something within you that makes the
+        ongoing automated collection of our movements as we traverse the internet
+        no longer sufficient for this kind of recollection, and you want to be
+        able to step back inside this moment — either because it’s important to
+        other people or because it’s important to you.
+      </p>
+      <p>
+        Platforms like Snapchat enact a short-form expiry policy for messages
+        shared through their service. This brings a sense of immediate loss,
+        heightening the feeling that whatever you’re looking at is slipping
+        through your fingers. This sense of immediate loss encourages
+        screenshot-based activation — we want to hold onto as much as we can when
+        we’re talking to someone we care about, or experiencing heightened
+        emotions together. They encourage the natural curation-of-memory behaviour
+        that’s absent in so much of how we interact online — this is happening
+        <em>now</em>
+        , and then it’s gone forever.
+      </p>
+      <p>
+        [[slide15.png]] Image sources (left to right):
+        <a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref">
+          <sup>23</sup>
+        </a>
+        <a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref">
+          <sup>24</sup>
+        </a>
+      </p>
+      <p>
+        It can be uncomfortable to find that something you shared, which you
+        thought would be fleeting, has been saved by someone else without your
+        knowledge or consent, especially when engaging with text-based chat. Chat
+        conversations move quickly and can be more unfiltered and candid than
+        something you’d publish purposefully. In pursuing a direct analogue to
+        real-life fleeting conversation, Snapchat encourages the kind of
+        spontaneous emotional traversal common to one-on-one, private
+        conversations offline. Their service cultivates a sense of safety in the
+        transience of the information transmitted between users.
+      </p>
+      <p>
+        The sense of intimacy that fleeting conversation cultivates means that it
+        can feel like a betrayal to find out that something you shared in
+        confidence has been screenshotted and rebroadcast more widely, out of the
+        context of the original conversation. To try and combat this sense of
+        betrayal, Snapchat implemented notifications that informed the other
+        person that you had screenshotted something. Yet as soon as this had been
+        implemented, we came up with ways to circumvent these notifications.
+        <a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref">
+          <sup>25</sup>
+        </a>
+        In addition to what we capture in order to rebroadcast, screenshots take
+        on another quality when they contribute to our collected archive of
+        personal data. They contribute to our sense of self.
+      </p>
+      <p>
+        The things we choose to keep hold of shape us. They remind us what we’ve
+        been through, where we’ve travelled, who we’ve met and what we’ve done, in
+        ways that when unaided, we tend to forget.
+        <a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref">
+          <sup>26</sup>
+        </a>
+        <a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref">
+          <sup>27</sup>
+        </a>
+        A pebble from an important beach holds so much more within it than just
+        the stone itself. When so many of our memories take place digitally, it’s
+        no wonder that we’ve devised a method to take home souvenirs from our
+        digital escapades.
+      </p>
+      <h3 id="we-only-have-so-much-capacity-to-remember">
+        We only have so much capacity to remember
+      </h3>
+      <p>
+        Many of the tools we’ve built over time are explicitly to aid in
+        supporting our memories. In theory, what we choose to preserve is kept
+        safe, a kind of highlight reel — and maybe this was true when we had
+        limited resources to create, store, and recover precious memories. In a
+        time when taking these snapshots takes very little energy, time, or
+        judgement, our ability to discover, recall, and properly sort our
+        collected memories is impaired.
+      </p>
+      <p>
+        When these memories are published, we contribute to a shared memory bank —
+        a narrative of the world created by, for, and within, a kind of collective
+        consciousness. Like the formal archive, we turn to this collective
+        externalised memory to form our narrative about what it’s like to live in
+        the world, what it’s been like in the past, and the decisions we make
+        moving forwards.
+      </p>
+      <p>
+        When our self image, and the images we form of others, are externalised,
+        they’re subject to the whims of that external environment. When that
+        external environment is controlled, owned, or stewarded by a private
+        company, we can no longer trust that our own externalised self isn’t being
+        used simply to manipulate us into furthering the commercial goals of said
+        company. Thinking back to the emergence of ‘on this day’ tools — these use
+        our self-image in order to generate clicks and retain eyeballs on
+        commercial platforms. It’s our self being chewed up and fed back to us in
+        order to sell advertising space.
+      </p>
+      <hr />
+      <p>
+        What would the world be like if all personal data had some kind of built
+        in expiry date? We’ve already touched on the impact that Snapchat’s expiry
+        feature has on how we feel about conversations made using its platform.
+        Elsewhere, expiration is implemented through optional disappearing
+        messages (an increasingly common feature across many chat platforms),
+        iMessage audio files disappearing after two minutes unless you choose to
+        keep them forever, and Instagram stories which vanish after 24 hours.
+        Interestingly, in the case of Instagram stories, their transience is
+        performed — the uploader can still access stories after their expiry in
+        their ‘stories archive’. While Instagram stories appear
+        <em>outwardly</em>
+        to subscribe to the ethos of data expiry, in reality it just creates
+        another mass, unsorted archive (by any metric other than chronologically).
+      </p>
+      <p>
+        [[slide16.png]] Image sources (top to bottom, left to right):
+        <a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref">
+          <sup>28</sup>
+        </a>
+        <a href="#fn29" class="footnote-ref" id="fnref29" role="doc-noteref">
+          <sup>29</sup>
+        </a>
+      </p>
+      <p>
+        Giving data a limited lifespan by default is an approach which is usually
+        only applied to communications that are designed to feel more transient,
+        such as digital analogues to spoken chatter, or services which encourage a
+        momentary capture of your ‘now’. Digital artefacts like emails, photos,
+        and videos (which aren’t captured to share immediately) are seemingly
+        never included in the conversation about expiration, perhaps because they
+        are products of analogue processes which were designed specifically for
+        the purpose of recording our lives.
+      </p>
+      <p>
+        How could we go about applying an expiry protocol to these artefacts?
+        First, I think their erasure must be complete. Nobody, anywhere should
+        have a copy of what was written or captured once it has expired. I think
+        this completeness is absolutely essential in order for the erasure to have
+        a real impact on how we feel about the things we choose to keep. I also
+        think the period between creation and deletion needs to be long enough
+        that you’re done with short-term processing before the data slips away.
+        You should have had enough time to create it, think about it a little bit,
+        come back to it, and evaluate whether or not it should be saved, but not
+        enough time that you’re a fundamentally different person by the time you
+        stumble back across it
+        <a href="#fn30" class="footnote-ref" id="fnref30" role="doc-noteref">
+          <sup>30</sup>
+        </a>
+        .
+      </p>
+      <p>
+        In a world with expiration by default in place, what would change? On a
+        practical level, we would get more mileage out of less computing power.
+        We’d be going from a disposable and greedy type of usage, a hoarding
+        behaviour, to one which would recognise that if the box is full, you need
+        to take something out of the box, instead of building infinite extensions
+        until there’s nothing left to build with.
+        <a href="#fn31" class="footnote-ref" id="fnref31" role="doc-noteref">
+          <sup>31</sup>
+        </a>
+        We would have a better understanding of what informs us as people because
+        the external framework that we rely on to assist our memory would be by
+        nature more goopy and imperfect and rounded. We would have reintroduced a
+        more natural entropy into a digital context, and be empowered to move on
+        from damaging patterns of behaviour — like diving into a sprawling,
+        decades-old message log just to prove a point or to make a pain feel
+        fresh.
+        <a href="#fn32" class="footnote-ref" id="fnref32" role="doc-noteref">
+          <sup>32</sup>
+        </a>
+      </p>
+      <p>
+        We’d also have a more intuitive understanding of the relationship between
+        our actual, lived, day-to-day experience and the collected data we both
+        choose to keep, and that which we choose to publicly present in order to
+        represent or illustrate our whole selves. Instead of a mass, unexamined,
+        uncurated bulk of information about us languishing on the public internet
+        for others to take at face value, we would have small collections of
+        trinket, tokens and souvenirs that would imply a larger story than the
+        item itself. If everyone was in the same boat, having our stories informed
+        by the souvenirs we choose to save (rather than letting algorithms choose
+        for us from a sea of everything we’ve ever seen, thought, or done) would
+        encourage us to afford that same grace to others — the grace of
+        acknowledging that there’s more behind the public presentation of curated
+        trinkets, and that a flat profile should never be confused for the
+        complex, expansive, whole.
+      </p>
+      <aside
+        id="footnotes"
+        class="footnotes footnotes-end-of-document"
+        role="doc-endnotes"
+      >
+        <hr />
+        <ol>
+          <li id="fn1">
+            <p>
+              <em>Your personal archiving project: Where do you start?</em>
+              by Mark Ashenfelder, May 11th 2016, The Library of Congress blogs
+              <a
+                href="https://blogs.loc.gov/thesignal/2016/05/how-to-begin-a-personal-archiving-project/"
+              >
+                Link
+              </a>
+              <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn2">
+            <p>
+              <em>Things to do at home: Organize your personal archive</em>
+              , March 27th 2020, The Writers Guild Foundation
+              <a
+                href="https://www.wgfoundation.org/blog/2020/3/25/organizing-your-personal-archive"
+              >
+                Link
+              </a>
+              <a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn3">
+            <p>
+              <em>
+                State of Independence: A Global Forum on Alternative Practice
+              </em>
+              , July 2011, e-flux announcements
+              <a
+                href="https://www.e-flux.com/announcements/35364/state-of-independence-a-global-forum-on-alternative-practice/"
+              >
+                Link
+              </a>
+              <a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn4">
+            <p>
+              <em>
+                Artist’ Studio Archives: Managing Personal Collections &amp;
+                Creative Legacies
+              </em>
+              , by Heather GGendron, Eumie Imm Stroukoff, Joen E. Beaudoin and
+              Neal Ambrose-Smith, 2016, Yale University Library Staff Publications
+              <a
+                href="https://elischolar.library.yale.edu/cgi/viewcontent.cgi?article=1002&amp;context=yul_staff"
+              >
+                Link
+              </a>
+              <a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn5">
+            <p>
+              <em>
+                128gb flash drive in my right hand and 132mb worth of floppy disks
+                in my left
+              </em>
+              , u/BeautifulBurd, January 31st 2017, r/mildlyinteresting
+              <a
+                href="https://www.reddit.com/r/mildlyinteresting/comments/5r57gp/128gb_flash_drive_in_my_right_hand_and_132mb/"
+              >
+                Link
+              </a>
+              <a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn6">
+            <p>
+              <em>A tale of three skeuomorphs</em>
+              , July 7th 2020, Shift Happens issue #21
+              <a
+                href="https://web.archive.org/web/20221128134911/https://www.getrevue.co/profile/shift-happens/issues/a-tale-of-three-skeuomorphs-242308"
+              >
+                Link
+              </a>
+              <a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn7">
+            <p>
+              <em>File not found</em>
+              , by Monica Chin, September 21st 2021, The Verge
+              <a
+                href="https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z"
+              >
+                Link
+              </a>
+              <a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn8">
+            <p>
+              <em>
+                Gen Z kids apparently don’t understand how file systems work
+              </em>
+              , by Dan Robitzski, September 24th 2021, The Byte
+              <a href="https://futurism.com/the-byte/gen-z-kids-file-systems">
+                Link
+              </a>
+              <a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn9">
+            <p>
+              <em>cloud server free png image</em>
+              , retrieved August 2022, Martrell Ltd
+              <a
+                href="https://martrel.co.uk/server-specialists/10-2-cloud-server-free-png-image/"
+              >
+                Link
+              </a>
+              <a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn10">
+            <p>
+              <em>What is cloud hosting and how does it work?</em>
+              , by Martin Austwick, 7th July 2019, Wirehive
+              <a href="https://www.wirehive.com/thoughts/cloud-hosting-work/">
+                Link
+              </a>
+              <a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn11">
+            <p>
+              <em>April 1 2004: Gmail hits webmail g-spot</em>
+              , by Michael Calore, April 1st 2011, Wired
+              <a href="https://www.wired.com/2011/04/0401gmail-launches/">Link</a>
+              <a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn12">
+            <p>
+              <em>Google to Stop Scanning Gmail Messages to Serve Up Ads</em>
+              , by Tom Brant, 23rd June 2017, PC Mag
+              <a
+                href="https://www.pcmag.com/news/google-to-stop-scanning-gmail-messages-to-serve-up-ads"
+              >
+                Link
+              </a>
+              <a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn13">
+            <p>
+              <em>How many photos do young people actually take?</em>
+              , by Steve Richmond, 3rd March 2022, The Independent
+              <a
+                href="https://www.independent.co.uk/life-style/photographs-young-people-poll-b2027607.html"
+              >
+                Link
+              </a>
+              <a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn14">
+            <p>
+              <em>
+                MySpace confirms 12 years of music lost in “server migration”
+              </em>
+              , by David Renshaw, March 18th 2019, Fader
+              <a
+                href="https://www.thefader.com/2019/03/18/myspace-server-migration-loss-music#:~:text=Myspace%20has%20admitted%20that%20some,videos%20have%20also%20been%20lost."
+              >
+                Link
+              </a>
+              <a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn15">
+            <p>
+              <em>Data centers a book for rural Oregon</em>
+              , by suzanne Roig, April 2nd 2020, The Other Oregon
+              <a
+                href="https://www.theotheroregon.com/making-a-living/data-centers-a-boon-for-rural-oregon/article_8d2848ba-7086-11ea-b20e-63ca5792c952.html"
+              >
+                Link
+              </a>
+              <a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn16">
+            <p>
+              <em>Data Centers</em>
+              , accessed 27th February 2023, Meta
+              <a href="https://datacenters.fb.com/">Link</a>
+              <a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn17">
+            <p>
+              <em>Data Center Disasters: How to Prepare for the Worst</em>
+              , January 11t, 2020, Rack Solutions Blog
+              <a
+                href="https://www.racksolutions.com/news/blog/data-center-disasters-how-to-prepare-for-the-worst/"
+              >
+                Link
+              </a>
+              <a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn18">
+            <p>
+              <em>
+                Curation through Use: Understanding the Personal Value of Social
+                Media
+              </em>
+              , by Xuan Zhao and Siân E. Lindley, April 2014, CHI 2014, One of a
+              CHInd, Toronto, ON, Canada
+              <a
+                href="https://www.researchgate.net/publication/266655669_Curation_through_Use_Understanding_the_Personal_Value_of_Social_Media"
+              >
+                Link
+              </a>
+              <a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn19">
+            <p>
+              <em>Your Memories. Their Cloud</em>
+              , by Kashmir Hill, December 31st 2022, The New York Times
+              <a
+                href="https://www.nytimes.com/2022/12/31/technology/cloud-data-storage-google-apple-meta.html?smid=em-share"
+              >
+                Link
+              </a>
+              <a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn20">
+            <p>
+              <em>
+                Memory, identity and the archival paradigm: introduction to the
+                special issue
+              </em>
+              , by Caroline Brown, 19th April 2013
+              <a
+                href="https://link.springer.com/article/10.1007/s10502-013-9203-z"
+              >
+                Link
+              </a>
+              <a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn21">
+            <p>
+              <em>Archives and memory</em>
+              , by Randall C. Jimerson, 1st September 2003, OCLC Systems &amp;
+              Services: International digital library perspectives
+              <a
+                href="https://www.emerald.com/insight/content/doi/10.1108/10650750310490289/full/html"
+              >
+                Link
+              </a>
+              <a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn22">
+            <p>
+              <em>
+                How Facebook’s real-name policy changed social media forever
+              </em>
+              , by Jeff Kosseff, 16th March 2022, Protocol
+              <a
+                href="https://www.protocol.com/policy/anonymity-real-names-jeff-kosseff"
+              >
+                Link
+              </a>
+              <a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn23">
+            <p>
+              <em>I didn’t mean to take a screenshot of your snap!</em>
+              , u/Mel_the_assassin, 27th September 2018, r/OopsDidntMeanTo
+              <a
+                href="https://www.reddit.com/r/OopsDidntMeanTo/comments/9jgmxa/i_didnt_mean_to_take_a_screenshot_of_your_snap/"
+              >
+                Link
+              </a>
+              <a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn24">
+            <p>
+              <em>How to Take a Screenshot on an iPhone</em>
+              , January 25th 2023, Hello Tech How
+              <a
+                href="https://www.hellotech.com/guide/for/how-to-take-a-screenshot-on-an-iphone-x"
+              >
+                Link
+              </a>
+              <a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn25">
+            <p>
+              <em>How To Take A Screenshot of Snapchat With No Notification</em>
+              , Jacsoccerdude3, December 13th 2012, YouTube
+              <a href="https://www.youtube.com/watch?v=ornOvVYYCNU">Link</a>
+              <a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn26">
+            <p>
+              <em>Cued Recall</em>
+              , by Margaret Moult, 2011, Springer Link
+              <a
+                href="https://link.springer.com/referenceworkentry/10.1007/978-0-387-79948-3_1116"
+              >
+                Link
+              </a>
+              <a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn27">
+            <p>
+              <em>Emotional Memories: When People and Events Remain With You</em>
+              , by Mary C. Lamia, 6th March 2012, Psychology Today
+              <a
+                href="https://www.psychologytoday.com/us/blog/intense-emotions-and-strong-feelings/201203/emotional-memories-when-people-and-events-remain"
+              >
+                Link
+              </a>
+              <a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn28">
+            <p>
+              <em>
+                More Control and Privacy on WhatsApp With Default Disappearing
+                Messages and Multiple Durations
+              </em>
+              , December 6th 2021, Meta News Blog
+              <a
+                href="https://about.fb.com/news/2021/12/whatsapp-default-disappearing-messages-multiple-durations/"
+              >
+                Link
+              </a>
+              <a href="#fnref28" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn29">
+            <p>
+              <em>Instagram Stories: The complete guide for your brand</em>
+              , by Jacqueline Zote, January 10th 2023, sproutsocial
+              <a href="https://sproutsocial.com/insights/instagram-stories/">
+                Link
+              </a>
+              <a href="#fnref29" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn30">
+            <p>
+              <em>
+                Hashtag-Forget: Using Social Media Ephemerality to Support
+                Evolving Identities
+              </em>
+              , by Michal Luria and Nate Foulds, May 2021, CHI ’21: CHI Conference
+              on Human Factors in Computing Systems
+              <a
+                href="https://www.researchgate.net/publication/351426444_Hashtag-Forget_Using_Social_Media_Ephemerality_to_Support_Evolving_Identities"
+              >
+                Link
+              </a>
+              <a href="#fnref30" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn31">
+            <p>
+              <em>
+                Design for forgetting: Disposing of digital possessions after a
+                breakup
+              </em>
+              , by Corina Sas and Steve Whittaker, April 2013, Proceedings of the
+              SIGCHI Conference on Human Factors in Computing Systems
+              <a
+                href="https://www.researchgate.net/publication/262204635_Design_for_forgetting_Disposing_of_digital_possessions_after_a_breakup"
+              >
+                Link
+              </a>
+              <a href="#fnref31" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+          <li id="fn32">
+            <p>
+              <em>Gauthier Roussilhe ‘The hidden costs of data centers’</em>
+              , World Wide Waste with Gerry McGovern, July 21st 2022,
+              Human-Centered Design Network
+              <a
+                href="https://www.thisishcd.com/episode/gauthier-roussilhe-the-hidden-costs-of-data-centers"
+              >
+                Link
+              </a>
+              <a href="#fnref32" class="footnote-back" role="doc-backlink">↩︎</a>
+            </p>
+          </li>
+        </ol>
+      </aside>
+      </div>
+    </div>
+
+  </section>
+
+  
+    </div>
+    <!-- end of container -->
+    <!-- footer -->
+  <section class="footer" id="credits">
+    <div class="mobile-footer-image-container" >
+
+      <svg width="450" height="866" viewBox="0 0 450 866" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text transform="translate(134.968 0.708984) rotate(38.1922)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617"><a href="sunthinking/index.html">Sun Thinking: A Solar Protocol Exhibition</a></tspan></text>
+        <text transform="translate(170.829 86.4688) rotate(33.2965)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617">Server Stewards</tspan></text>
+        <text transform="translate(70.2422 90.8701) rotate(27.6491)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617">Curatorial Team</tspan></text>
+        <text transform="translate(145.942 194.122) rotate(20.9198)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://tegabrain.com/" target="_blank">Tega Brain</a></tspan></text>
+        <text transform="translate(47.7266 237.587) rotate(13.2997)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://alexnathanson.com/" target="_blank">Alex Nathanson</a></tspan></text>
+        <text transform="translate(93.5596 324.938) rotate(4.63149)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://engineering.nyu.edu/faculty/benedetta-piantella" target="_blank">Benedetta Piantella</a></tspan></text>
+        <text transform="translate(15.1807 412.699) rotate(-4.68198)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://www.katesilzer.com/" target="_blank">Kate Silzer</a></tspan></text>
+        <text transform="translate(0.204102 513.486) rotate(-14.1716)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617">Advisor</tspan></text>
+        <text transform="translate(53.6348 596.743) rotate(-23.5848)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="http://taeyoonchoi.com/" target="_blank">Taeyoon Choi</a></tspan></text>
+        <text transform="translate(64.8496 688.518) rotate(-32.0982)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617">Supported By </tspan></text>
+        <text transform="translate(65.1807 791.917) rotate(-39.7436)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://foundation.mozilla.org/en/what-we-fund/awards/creative-media-awards/" target="_blank">Mozilla Creative Media Award</a></tspan></text>
+        <text transform="translate(205.603 753.756) rotate(-46.3326)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="http://idm.engineering.nyu.edu/" target="_blank">Integrated Design and Media, NYU</a></tspan></text>
+        <text transform="translate(195.98 848.169) rotate(-51.9576)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617">Designer</tspan></text>
+        <text transform="translate(267.899 828.428) rotate(-56.6324)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://samseurynck.online/" target="_blank">Samantha Griffith</a></tspan></text>
+        </svg>
+      
+    </div>
+    
+    <div class="footer-image-container">
+
+    
+      
+      <svg width="1359" height="913" viewBox="0 0 1359 913" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text transform="translate(286.578 8) rotate(46.3985)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617"><a href="sunthinking/index.html">Sun Thinking: A Solar Protocol Exhibition</a></tspan></text>
+        <text transform="translate(309.831 98) rotate(41.5029)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" ><tspan x="0" y="21.7617">Server Stewards</tspan></text>
+        <text transform="translate(209.646 88) rotate(35.8554)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617">Curatorial Team</tspan></text>
+        <text transform="translate(269.832 201) rotate(29.1262)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://tegabrain.com/" target="_blank">Tega Brain</a></tspan></text>
+        <text transform="translate(166.418 230) rotate(21.5061)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://alexnathanson.com/" target="_blank">Alex Nathanson</a></tspan></text>
+        <text transform="translate(199.314 323) rotate(12.8379)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://engineering.nyu.edu/faculty/benedetta-piantella" target="_blank">Benedetta Piantella</a></tspan></text>
+        <text transform="translate(109.21 398.674) rotate(3.52439)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://www.katesilzer.com/" target="_blank">Kate Silzer</a></tspan></text>
+        <text transform="translate(80 496.291) rotate(-5.96519)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617">Advisor</tspan></text>
+        <text transform="translate(121 586.322) rotate(-15.3784)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="http://taeyoonchoi.com/" target="_blank">Taeyoon Choi</a></tspan></text>
+        <text transform="translate(119 678.758) rotate(-23.8919)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617">Supported By </tspan></text>
+        <text transform="translate(104.569 781.146) rotate(-31.5373)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://foundation.mozilla.org/en/what-we-fund/awards/creative-media-awards/" target="_blank">Mozilla Creative Media Award</a></tspan></text>
+        <text transform="translate(249 763.419) rotate(-38.1262)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="http://idm.engineering.nyu.edu/" target="_blank">Integrated Design and Media, NYU</a></tspan></text>
+        <text transform="translate(226 855.491) rotate(-43.7512)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="0" y="21.7617">Designer</tspan></text>
+        <text transform="translate(300 846.219) rotate(-48.426)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="0" y="21.7617"><a href="https://samseurynck.online/" target="_blank">Samantha Griffith</a></tspan></text>
+        
+        <text transform="translate(982.073 89.6221) rotate(-47.4299)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em" font-weight="bold"><tspan x="5.02312" y="21.7617">Contributors</tspan></text>
+        <text transform="translate(1052.93 77.5566) rotate(-42.7669)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="7.20519" y="21.7617"><a href="#adam">Hakeem Adam</a></tspan></text>
+        <text transform="translate(897.212 252.182) rotate(-38.4641)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="9.42761" y="21.7617"><a href="#motaghy">Mark Anthony Hernandez Motaghy</a></tspan></text>
+        <text transform="translate(1153.95 113.972) rotate(-33.4723)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="7.43786" y="21.7617"><a href="#ash">honor ash</a></tspan></text>
+        <text transform="translate(1080.75 217.871) rotate(-27.7979)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="9.75797" y="21.7617"><a href="#dick">Stephanie Dick</a></tspan></text>
+        <text transform="translate(981.63 312.491) rotate(-21.4896)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="9.06406" y="21.7617"><a href="#gillen">Rory Gillen and Anna Madeline Raupach</a></tspan></text>
+        <text transform="translate(1071.49 331.599) rotate(-14.441)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="7.76906" y="21.7617"><a href="#lenz">Felix Lenz</a></tspan></text>
+        <text transform="translate(1197.84 369.9) rotate(-6.93622)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="6.43133" y="21.7617"><a href="#liu">Jen Liu</a></tspan></text>
+        <text transform="translate(1085.49 439.5) rotate(0.775982)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="13.3616" y="21.7617"><a href="#lucasmckay">Kristin Lucas and Joe McKay</a></tspan></text>
+        <text transform="translate(1017.81 484.189) rotate(8.53089)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="8.26802" y="21.7617"><a href="#parrish">Allison Parrish</a></tspan></text>
+        <text transform="translate(1196.73 580.881) rotate(15.9651)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="8.51277" y="21.7617"><a href="#pasek">Anne Pasek</a></tspan></text>
+        <text transform="translate(1059.25 592.743) rotate(23.007)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="8.78445" y="21.7617"><a href="#pipkin">Everest Pipkin</a></tspan></text>
+        <text transform="translate(1143.46 690.086) rotate(29.3245)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="8.26428" y="21.7617"><a href="#sutherland">Brian Sutherland</a></tspan></text>
+        <text transform="translate(1064 696.838) rotate(34.965)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="8.76538" y="21.7617"><a href="#devalk">Marloes de Valk</a></tspan></text>
+        <text transform="translate(971.557 669.761) rotate(39.9495)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="6.24989" y="21.7617"><a href="#vasudevan">Roopa Vasudevan</a></tspan></text>
+        <text transform="translate(1056.1 791.706) rotate(44.3911)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="9.16364" y="21.7617"><a href="#wamburu">Denzel Wamburu</a></tspan></text>
+        <text transform="translate(940.551 710.417) rotate(48.1539)" fill="black" xml:space="preserve" style="white-space: pre"  font-family="monospace"font-size="16" letter-spacing="0em"><tspan x="18.0127" y="21.7617"><a href="#zhang">Alice Yuan Zhang</a></tspan></text>
+        <path d="M266 27.5L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M1084.5 20.5L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M192.5 111L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M83 524L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M131 704.5L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        <path d="M246.5 876.5L679 461.5" stroke="white" stroke-dasharray="2 2"/>
+        </svg>
+        
+        
+        
+    </div>
+  </section>
+</main>
+</div>
+<!-- end of container -->
+</body>
+</html>

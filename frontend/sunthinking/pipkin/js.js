@@ -1,10 +1,10 @@
-//version 0.4
+//version 0.5
 
 // by everest pipkin --- everest-pipkin.com/ --- spring 2023
 
-//var object_tableURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTud3SCx8T-h2oxqpAYcdoMSoydE1yOt6QNMgKNUTaqKw5A7ixcqxsEhhXbZd38Z7OmEuZAtqk7wtQf/pub?gid=0&single=true&output=csv"; // spreadsheet url (make sure it has been "published")
+var object_tableURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTud3SCx8T-h2oxqpAYcdoMSoydE1yOt6QNMgKNUTaqKw5A7ixcqxsEhhXbZd38Z7OmEuZAtqk7wtQf/pub?gid=0&single=true&output=csv"; // spreadsheet url (make sure it has been "published")
 
-var object_tableURL ="objects.csv"; 
+//var object_tableURL ="objects.csv"; 
 
 
 var object_table;
@@ -391,6 +391,12 @@ function endGame(){
 	var music = new Audio('darkasadungeon.mp3');
 	music.play().catch((e)=>{console.log(e)})
 	music.addEventListener('ended', newGame);
+	//change room
+
+	if (currentRoom.name != "tunnel_e_6"){
+		loadRoom(rooms.tunnel_e_6);
+	}
+
 	for (d=0;d<currentRoom.objects.length;d++){
 
 	getDOMElementByName(currentRoom.objects[d].name).onclick = "";

@@ -2,9 +2,9 @@
 
 // by everest pipkin --- everest-pipkin.com/ --- spring 2023
 
-var object_tableURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTud3SCx8T-h2oxqpAYcdoMSoydE1yOt6QNMgKNUTaqKw5A7ixcqxsEhhXbZd38Z7OmEuZAtqk7wtQf/pub?gid=0&single=true&output=csv"; // spreadsheet url (make sure it has been "published")
+//var object_tableURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTud3SCx8T-h2oxqpAYcdoMSoydE1yOt6QNMgKNUTaqKw5A7ixcqxsEhhXbZd38Z7OmEuZAtqk7wtQf/pub?gid=0&single=true&output=csv"; // spreadsheet url (make sure it has been "published")
 
-//var object_tableURL ="objects.csv"; 
+var object_tableURL ="objects.csv"; 
 
 
 var object_table;

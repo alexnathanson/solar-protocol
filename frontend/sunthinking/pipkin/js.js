@@ -1,4 +1,4 @@
-//version 0.4
+//version 0.6
 
 // by everest pipkin --- everest-pipkin.com/ --- spring 2023
 
@@ -26,7 +26,7 @@ function init() {
 }
 
 function loadSavedGame(){
-	currentRoom = JSON.parse(localStorage.currentRoomName)
+	currentRoom = JSON.parse(localStorage.currentRoomName);
 	object_table = JSON.parse(localStorage.object_table);
 	rooms = JSON.parse(localStorage.rooms);
 	loadRoom(rooms.save_found)
@@ -46,7 +46,7 @@ function newGame(){
 }
 
 function saveGame(){
-	if (currentRoom.name != "save_found" && currentRoom.name != "new_game" && currentRoom.name != "dream" ){
+	if (currentRoom.name != "save_found" && currentRoom.name != "new_game" && currentRoom.name != "dream" && currentRoom.name != "you" ){
 		localStorage.setItem('driftMineSave', "found");
 		localStorage.setItem('currentRoomName', JSON.stringify(currentRoom.name));
 		localStorage.setItem('object_table', JSON.stringify(object_table));
@@ -116,15 +116,6 @@ document.body.addEventListener('mousedown', function (event) {
 	    }
 	}
 
-/*
-    var xCord = event.clientX;
-    var yCord = event.clientY;
-
-    var xPercent = ((xCord/window.innerWidth)*100).toString().slice(0,2);
-    var yPercent = ((yCord/window.innerHeight)*100).toString().slice(0,2);
-
-	console.log("x: " + xPercent+", y:" +yPercent);
-*/
 });
 
 
@@ -138,7 +129,7 @@ function loadRoom(room){
 		room = rooms[room.target.linksTo];
 	}
 
-	if (previousRoom != currentRoom){
+	if (previousRoom != currentRoom && currentRoom.name != "save_found"){
 		previousRoom = currentRoom;
 	}
 
@@ -156,20 +147,21 @@ function loadRoom(room){
 
 	var counter = 0;
 	var interval = setInterval(function() {
-		counter = counter + 2;
-		gameWindow.style.opacity = Number(gameWindow.style.opacity) + counter/100;
-		if (counter > 100){
+		counter = counter + 4;
+		gameWindow.style.opacity = (Number(gameWindow.style.opacity) + .04);
+		if (counter >= 100){
 	      	clearInterval(interval)
 	      }
   		},
      20);
 
+	var counter2 = 0;
 	var interval2 = setInterval(function() {
-		counter = counter + 2;
+		counter2 = counter2 + 4;
 		if (toolTipHolder.style.opacity>0){
-			toolTipHolder.style.opacity = toolTipHolder.style.opacity - (counter/100);
+			toolTipHolder.style.opacity = toolTipHolder.style.opacity - .04;
 		}
-		if (counter > 100){
+		if (counter2 >= 100){
 			//moves tooltip out of the way
 			toolTipHolder.style.left = "-100%";
 			toolTipHolder.style.top = "-100%";
@@ -258,7 +250,6 @@ function checkIfInViewport(elem){
 
 function verbPopulate(object,verb,place){
 	var link = document.createElement("a");
-	//console.log(object.verbs_display[place])
 	if (object.verbs_display[place] != "" && object.verbs_display[place] != undefined){
 		link.innerHTML = "<center>" + object.verbs_display[place] + "</center>"; 
 	}
@@ -271,7 +262,6 @@ function verbPopulate(object,verb,place){
 
 function doAction(object,verb,place,domObject){
 	
-	//console.log(object,verb,place);
 	var tool = "";
 	var toolFound = false;
 
@@ -391,6 +381,30 @@ function endGame(){
 	var music = new Audio('darkasadungeon.mp3');
 	music.play().catch((e)=>{console.log(e)})
 	music.addEventListener('ended', newGame);
+
+	//change room
+	if (currentRoom.name != "tunnel_e_6"){
+		loadRoom(rooms.tunnel_e_6);
+	}
+	
+	toolTipHolder.style.opacity = 0;
+
+	setTimeout(() => {
+	creditDescription("drift mine satellite");
+	}, "80000");
+
+	setTimeout(() => {
+		creditDescription("by <a href='https://everest-pipkin.com/' target='_blank'>everest pipkin</a>");
+	}, "95000");
+
+	setTimeout(() => {
+		creditDescription("for solar protocol, spring 2023");
+	}, "109000");
+
+	setTimeout(() => {
+	  toolTipOffscreen()
+	}, "122000");
+
 	for (d=0;d<currentRoom.objects.length;d++){
 
 	getDOMElementByName(currentRoom.objects[d].name).onclick = "";
@@ -402,6 +416,26 @@ function endGame(){
 			objectDom.classList.add("dance"+mod);
 		}
 	}
+}
+
+
+function creditDescription(description){
+
+	if (toolTipHolder.style.opacity == 0){
+		var counter3 = 0;
+		var interval3 = setInterval(function() {
+		counter3 = counter3 + 1;
+		toolTipHolder.style.opacity = counter3/100;
+		if (counter3 >= 100){
+	      	clearInterval(interval3)
+	      }
+  		}, 50)
+  	}
+
+	toolTip.innerHTML = description;
+	toolTipHolder.style.left = "50%";
+	toolTipHolder.style.top = "50%";
+	toolTipHolder.classList = "center"
 }
 
 function starCast(){
@@ -437,7 +471,7 @@ function alterObject(alter,object){
 			var newObject = findObjectByName(alter[c][0])
 		}
 
-		console.log(newObject,objectToAlter);
+		// /console.log(newObject,objectToAlter);
 
 		newObject.room = objectToAlter.room;
 

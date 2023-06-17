@@ -14,7 +14,7 @@ RASPBERRY_PI = PLATFORM == "pi"
 
 FAKE_DATA = os.environ.get("FAKE_DATA", "False") == "True"
 
-CONNECT = FAKE_DATA or not RASPBERRY_PI
+CONNECT = RASPBERRY_PI and not FAKE_DATA
 
 if CONNECT:
     from pymodbus.client import ModbusSerialClient

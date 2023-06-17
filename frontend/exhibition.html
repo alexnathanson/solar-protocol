@@ -23,7 +23,7 @@
       }
       div {
         background-color: rgba(0, 0, 0);
-        background-image: url("images/clock.png");
+        background-image: url("images/clock-exhibit1.png");
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
@@ -37,7 +37,7 @@
       setInterval(reload, 1000 * s);
       function reload() {
         const img = new Image();
-        const url = "images/clock.png?i=" + i;
+        const url = "images/clock-exhibit1.png?i=" + i;
         img.addEventListener("load", () => {
           setImage(url);
         });

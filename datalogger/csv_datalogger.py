@@ -80,10 +80,9 @@ if CONNECT:
     client = ModbusSerialClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
     try:
         client.connect()
-    except:
-        error(
-            f"Could not connect to charge controller! Set FAKE_DATA=True to ignore this"
-        )
+    except err:
+        error(f"Could not connect to charge controller! Set FAKE_DATA=True to ignore this")
+        error(err)
         sys.exit(1)
 
 

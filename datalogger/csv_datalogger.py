@@ -55,8 +55,8 @@ def readFromRandom():
 
 
 def readFromDevice():
-    controller = client.read_input_registers(0x3100, 16, unit=1)
-    battery = client.read_input_registers(0x311A, 2, unit=1)
+    controller = client.read_input_registers(0x3100, 16, 1)
+    battery = client.read_input_registers(0x311A, 2, 1)
 
     if controller.isError():
         error(controller)

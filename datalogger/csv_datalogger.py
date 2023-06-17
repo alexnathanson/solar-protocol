@@ -108,8 +108,9 @@ def run():
 if __name__ == "__main__":
     import logging
 
-    LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
+    LOGLEVEL = os.environ.get("LOGLEVEL", "INFO").upper()
     logging.basicConfig(level=LOGLEVEL)
     print(f"{LOGLEVEL=}")
+    print(f"{PLATFORM=} {RASPBERRY_PI=} {FAKE_DATA=} {CONNECT=}")
 
 run()

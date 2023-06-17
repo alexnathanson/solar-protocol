@@ -7,6 +7,8 @@ services:
     image: localhost/solar-protocol/datalogger
     build: datalogger
     restart: unless-stopped
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
       - data:/data
       - /etc/localtime:/etc/localtime

@@ -72,7 +72,7 @@ def readFromDevice():
 
     data = dict(zip(fieldnames, registers[0:10]))
     data["timestamp"] = time.time()
-    data["battery percentage"] = toPercent(battery)
+    data["battery percentage"] = toPercent(battery[0])
     return data
 
 

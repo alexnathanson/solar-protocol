@@ -7,7 +7,7 @@ import os
 import signal
 import sys
 from logging import info
-from solar_common import fieldnames
+from solar_common import fieldnames, Sample
 from typing import TypedDict
 
 PLATFORM = os.environ.get("PLATFORM", "unknown")
@@ -19,29 +19,6 @@ CONNECT = RASPBERRY_PI and not FAKE_DATA
 
 if CONNECT:
     from pymodbus.client import ModbusSerialClient
-
-
-class Sample(
-    TypedDict(
-        "Sample",
-        {
-            timestamp: float,
-            "PV voltage": float,
-            "PV current": float,
-            "PV power L": float,
-            "PV power H": float,
-            "battery voltage": float,
-            "battery current": float,
-            "battery power L": float,
-            "battery power H": float,
-            "load voltage": float,
-            "load current": float,
-            "load power": float,
-            "battery percentage": float,
-        },
-    )
-):
-    pass
 
 
 def writeOrAppend(sample: Sample):

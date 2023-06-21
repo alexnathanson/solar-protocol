@@ -10,12 +10,7 @@ import re
 import time
 import requests
 import json
-import subprocess
 import os
-import sys
-import fcntl
-import socket
-import struct
 from logging import debug, error, exception, info
 
 from solar_secrets import getSecret, SecretKey

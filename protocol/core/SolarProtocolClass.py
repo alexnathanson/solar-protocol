@@ -15,15 +15,8 @@ currently this class only handles some new functionality for solarProtocol.py.
 Refactoring and expansion is required to create additional methods and apply this to publishDevice.py too
 """
 
-import requests
 import json
-import subprocess
-import sys
-import os
-import fcntl
-import socket
-import struct
-from logging import debug, error, info
+from logging import error
 
 
 class SolarProtocol:

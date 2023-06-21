@@ -8,7 +8,6 @@ import signal
 import sys
 from logging import info
 from solar_common import fieldnames, Sample
-from typing import TypedDict
 
 PLATFORM = os.environ.get("PLATFORM", "unknown")
 RASPBERRY_PI = PLATFORM == "pi"
@@ -83,7 +82,7 @@ if CONNECT:
         client.connect()
     except err:
         error(
-            f"Could not connect to charge controller! Set FAKE_DATA=True to ignore this"
+            "Could not connect to charge controller! Set FAKE_DATA=True to ignore this"
         )
         error(err)
         sys.exit(1)

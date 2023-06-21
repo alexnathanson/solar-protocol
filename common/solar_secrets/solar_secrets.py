@@ -1,6 +1,6 @@
 import json
 from enum import StrEnum, auto
-from logging import error, exception
+from logging import error
 import requests
 
 filepath = "/local/secrets.json"
@@ -26,9 +26,9 @@ def getSecrets():
 
 
 def getSecretFromGateway(secretkey: SecretKey):
-    url = f"http://beta.solarpowerforartists.com/secrets.php"
+    url = "http://beta.solarpowerforartists.com/secrets.php"
     dnskey = getSecret(SecretKey.dnskey)
-    if dnskey == None:
+    if dnskey is None:
         return
 
     data = {"key": dnskey, "secret": secretkey}
@@ -40,7 +40,7 @@ def getSecretFromGateway(secretkey: SecretKey):
         else:
             error(response.text)
     except:
-        error(f"Error retreiving secret from gateway")
+        error("Error retreiving secret from gateway")
 
 
 def getSecret(key: SecretKey):

@@ -9,7 +9,6 @@ import datetime
 import logging
 from logging import debug, error, info
 import requests
-import sys
 import os
 from solar_secrets import getSecret, SecretKey
 

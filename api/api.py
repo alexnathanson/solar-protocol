@@ -2,7 +2,6 @@ import csv
 import datetime
 import json
 import os
-import sys
 
 from enum import Enum
 from typing import Optional
@@ -71,7 +70,7 @@ def getTimezone():
 
 def getWattageScale():
     pvWatts = getLocal("pvWatts")
-    if pvWatts != None and pvWatts != "":
+    if pvWatts is not None and pvWatts != "":
         return 50.0 / float(pvWatts)
 
     return 1
@@ -95,7 +94,7 @@ class DeviceKeys(str, Enum):
 def status():
     response = requests("/status")
     status = response.text.split("\n")
-    stats = status[2]
+    status[2]
     [accepts, handled, reqs] = status.split(" ")
 
     return {
@@ -185,7 +184,7 @@ def updateDevice(
     }
     postedDevice = {key: value for (key, value) in formData.items() if value}
 
-    devicesFilename = f"/data/devices.json"
+    devicesFilename = "/data/devices.json"
 
     try:
         with open(devicesFilename, "r") as devicesfile:
@@ -221,7 +220,7 @@ def devices(key: Optional[DeviceKeys] = None):
     try:
         with open(filename, "r") as jsonfile:
             devices = json.load(jsonfile)
-        if key == None:
+        if key is None:
             return [{key: device.get(key) for key in DeviceKeys} for device in devices]
 
         return [{key: device.get(key)} for device in devices]
@@ -248,7 +247,7 @@ def getChargeForDay(day: str, key: Optional[ChargeKeys] = None):
 def getCharge(days: Optional[int] = None, key: Optional[ChargeKeys] = None):
     today = datetime.date.today()
 
-    if days == None:
+    if days is None:
         return charge(days, key=key)
 
     return charge(
@@ -258,7 +257,7 @@ def getCharge(days: Optional[int] = None, key: Optional[ChargeKeys] = None):
 
 def charge(days: Optional[list[str]] = None, key: Optional[ChargeKeys] = None):
     rows = []
-    if days == None:
+    if days is None:
         dates = [datetime.date.today()]
     else:
         dates = days
@@ -275,7 +274,7 @@ def charge(days: Optional[list[str]] = None, key: Optional[ChargeKeys] = None):
             continue  # its okay if we are missing data
 
     # only show most recent chage if no days passed
-    if days == None:
+    if days is None:
         rows = [rows[-1]]
 
     # enrich with the scaled wattage
@@ -286,7 +285,7 @@ def charge(days: Optional[list[str]] = None, key: Optional[ChargeKeys] = None):
     ]
 
     # then filter on key
-    if key != None:
+    if key is not None:
         return [
             {key: row[key], "timestamp": row["timestamp"]} for row in dataWithWattage
         ]
@@ -302,7 +301,7 @@ def getChargeForDay(x_real_ip: str | None = Header(default=None)):
 
 @app.post("/api/profile")
 def updateProfileImage(profile: str):
-    raise Error(f"Unimplemented")
+    raise Error("Unimplemented")
     # FIXME: Protect this route
     with open("/local/serverprofile.gif", "w") as profilefile:
         write(profile, profilefile)
@@ -313,7 +312,7 @@ def getLocal(key: Optional[SystemKeys]):
     with open("/local/local.json", "r") as jsonfile:
         localData = json.load(jsonfile)
 
-    if key == None:
+    if key is None:
         safe_data = {key: getLocal(key) for key in safe_keys}
         safe_data["timezone"] = getTimezone()
         safe_data["wattage-scale"] = getWattageScale()
@@ -339,7 +338,7 @@ def updateLocal(
     pvVolts: Optional[str] = Form(),
     httpPort: Optional[str] = Form(),
 ):
-    raise Error(f"Unimplemented")
+    raise Error("Unimplemented")
     # FIXME: Protect this route
     formData = {
         "name": name,
@@ -357,7 +356,7 @@ def updateLocal(
     # filter out empty or none
     filtered = {key: value for (key, value) in formData.items() if value}
 
-    filename = f"/local/local.json"
+    filename = "/local/local.json"
     with open(filename, "r") as localfile:
         local = json.load(localfile)
 
@@ -372,7 +371,7 @@ def updateLocal(
 # FIXME: Protect this route
 @app.post("/api/secret")
 def setEnv(key: SecretKey, value: str):
-    raise Error(f"Unimplemented")
+    raise Error("Unimplemented")
 
     if not isHash(value):
         raise Error(f"Secret value for `{key}` not a valid hash")

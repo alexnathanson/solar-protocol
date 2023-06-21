@@ -4,7 +4,6 @@ This collects the photovoltaic data from remote servers via the /charge-controll
 The purpose of this is minimize the amount of on the fly API calls
 """
 
-import json
 import os
 import requests
 import sys
@@ -22,15 +21,6 @@ def run():
     ips = solarProtocol.getDeviceValues("ip")
     names = solarProtocol.getDeviceValues("name")
     macs = solarProtocol.getDeviceValues("mac")
-
-    # get local server name
-    myMAC = os.environ.get("MAC")
-    myName = ""
-
-    for index, mac in enumerate(macs):
-        if myMAC == mac:
-            myName = names[index]
-            break
 
     for ip, name in zip(ips, names):
         info(f"{name}: {ip}")

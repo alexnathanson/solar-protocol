@@ -231,7 +231,7 @@ format() {
     runtime=podman
   fi
 
-  $runtime run --rm --volume $(pwd):/src --workdir /src \
+  $runtime run --rm --volume "$(pwd)":/src --workdir /src \
     pyfound/black:latest_release \
     black .
 

@@ -19,14 +19,6 @@ CONNECT = RASPBERRY_PI and not FAKE_DATA
 if CONNECT:
     from pymodbus.client import ModbusSerialClient
 
-def handle_exit(sig, frame):
-    if CONNECT:
-        client.close()
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, handle_exit)
-signal.signal(signal.SIGTERM, handle_exit)
-
 
 def writeOrAppend(row):
     """
@@ -94,6 +86,23 @@ if CONNECT:
         sys.exit(1)
 
 
+def handle_exit(sig, frame):
+    if CONNECT:
+        client.close()
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, handle_exit)
+signal.signal(signal.SIGTERM, handle_exit)
+
+read = readFromDevice if CONNECT else readFromRandom
+
+
+def run():
+    while True:
+        writeOrAppend(read())
+        time.sleep(60 * 2)
+
 
 if __name__ == "__main__":
     import logging
@@ -103,9 +112,4 @@ if __name__ == "__main__":
     print(f"{LOGLEVEL=}")
     print(f"{PLATFORM=} {RASPBERRY_PI=} {FAKE_DATA=} {CONNECT=}")
 
-    read = readFromDevice if CONNECT else readFromRandom
-
-    while True:
-        sample = read()
-        writeOrAppend(row=sample)
-        time.sleep(secs=60 * 2)
+run()

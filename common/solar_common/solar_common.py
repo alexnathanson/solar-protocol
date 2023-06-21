@@ -17,24 +17,21 @@ fieldnames = [
 ]
 
 
-class Sample(
-    TypedDict(
-        "Sample",
-        {
-            timestamp: float,
-            "PV voltage": float,
-            "PV current": float,
-            "PV power L": float,
-            "PV power H": float,
-            "battery voltage": float,
-            "battery current": float,
-            "battery power L": float,
-            "battery power H": float,
-            "load voltage": float,
-            "load current": float,
-            "load power": float,
-            "battery percentage": float,
-        },
-    )
-):
-    pass
+Sample = TypedDict(
+    "Sample",
+    {
+        timestamp: float,
+        "PV voltage": float,
+        "PV current": float,
+        "PV power L": float,
+        "PV power H": float,
+        "battery voltage": float,
+        "battery current": float,
+        "battery power L": float,
+        "battery power H": float,
+        "load voltage": float,
+        "load current": float,
+        "load power": float,
+        "battery percentage": float,
+    },
+)

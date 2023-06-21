@@ -241,7 +241,8 @@ compose() {
     export DOCKER_BUILDKIT=0
     export PLATFORM
     export FAKE_DATA
-    export MAC=$(get-mac-address)
+    MAC=$(get-mac-address)
+    export MAC
     docker compose --file compose.yaml "$@"
   fi
 }

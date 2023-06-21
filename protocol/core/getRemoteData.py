@@ -20,7 +20,6 @@ def run():
 
     ips = solarProtocol.getDeviceValues("ip")
     names = solarProtocol.getDeviceValues("name")
-    macs = solarProtocol.getDeviceValues("mac")
 
     for ip, name in zip(ips, names):
         info(f"{name}: {ip}")

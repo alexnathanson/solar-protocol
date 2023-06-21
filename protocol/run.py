@@ -16,11 +16,9 @@ from time import sleep
 from math import trunc
 import datetime
 import requests
-import sys
 from logging import info, debug, error, exception
 import logging
 import os
-import json
 
 one_minute = 60
 MAX_FREQUENCY = one_minute
@@ -36,7 +34,7 @@ def run():
     # Wait for the api to be ready
     while True:
         try:
-            requests.get(f"http://api/api/devices", timeout=None)
+            requests.get("http://api/api/devices", timeout=None)
             break
         except requests.ConnectionError:
             sleep(5)
@@ -44,6 +42,8 @@ def run():
     info("api ready")
 
     runCount = 0
+    scaler = None
+    timeOfRun = None
     while True:
         if runCount == 0 or getElapsedTime(timeOfRun) % (loopFrequency * scaler) == 0:
             timeOfRun = datetime.datetime.now()
@@ -138,7 +138,7 @@ def getFrequency():
         return 20
 
 
-def solarScaler():
+def solarScaler() -> 1 | 2 | None:
     """
     solar power multiplier
     above 6 w it runs at the normal pace (the max power draw is about 5w)

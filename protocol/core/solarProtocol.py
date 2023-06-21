@@ -17,7 +17,7 @@ def determineServer(allValues: list[int], myValue: int):
     """If this server has the highest value, update DNS to be point of entry"""
     if myValue >= max(allValues):
         info("Point of entry")
-        updateDNSResponse = updateDNS()
+        updateDNS()
     else:
         info("Not point of entry")
 
@@ -25,7 +25,7 @@ def determineServer(allValues: list[int], myValue: int):
 def updateDNS() -> str:
     """Ask the gateway to update our DNS"""
 
-    url = f"http://beta.solarpowerforartists.com/api/update"
+    url = "http://beta.solarpowerforartists.com/api/update"
     key = getSecret(SecretKey.dnskey)
 
     response = requests.post(url=url, data={"key": key})

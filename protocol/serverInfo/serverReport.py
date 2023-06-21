@@ -17,7 +17,6 @@ Re from https://www.seehuhn.de/blog/52.html
 Apache Logging Basics: https://www.loggly.com/ultimate-guide/apache-logging-basics/
 """
 
-import csv
 import re
 import requests
 import json

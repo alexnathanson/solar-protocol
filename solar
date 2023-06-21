@@ -226,16 +226,23 @@ reinstall() {
 # Since we have multiple collaborators, its useful to have all the tabs and spaces align
 # Run format before making a pull request to help us all focus on the code changes
 format() {
-  runtime=docker
   if exists podman; then
-    runtime=podman
-  fi
-
-  $runtime run --rm --volume "$(pwd)":/src --workdir /src \
+    podman run --rm --volume "$(pwd)":/src --workdir /src \
     pyfound/black:latest_release \
     black .
+  elif exists docker; then
+    docker run --rm --volume "$(pwd)":/src --workdir /src \
+    pyfound/black:latest_release \
+    black .
+  fi
 
-  shellcheck solar
+  if exists ruff; then
+    ruff check --fix .
+  fi
+
+  if exists shellcheck; then
+    shellcheck solar
+  fi
 }
 
 compose() {

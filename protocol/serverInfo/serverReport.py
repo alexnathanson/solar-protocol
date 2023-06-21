@@ -1,10 +1,11 @@
 """
 This script is not currently in use, but may have some utility in the future.
-(For example, if we want server-status to be private this could package it up and pipe it out via the API in a more controlled way.)
 
 USAGE:
 
-This script reads and parses an apache log file. It combines it with the server-status info and generates a report with:
+This script reads and parses an apache log file.
+
+It combines it with the server-status info and generates a report with:
 
 * all the auto server status info
 * all time total amount of unique hosts

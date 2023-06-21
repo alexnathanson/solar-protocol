@@ -1,13 +1,13 @@
 """
 Every server runs this script
-This collects the photovoltaic data from remote servers via the /charge-controller api endpoint
+This collects the photovoltaic data from remote servers via api/charge-controller 
 The purpose of this is minimize the amount of on the fly API calls
 """
 
 import os
 import requests
 import sys
-from logging import info
+from logging import exception, info
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
@@ -33,7 +33,7 @@ def run():
             exception("HTTP Error")
         except requests.exceptions.Timeout:
             exception("Timeout")
-        except:
+        except Exception:
             exception("Unknown Error")
 
         if response.status_code == 200:

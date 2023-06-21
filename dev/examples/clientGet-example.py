@@ -5,7 +5,8 @@ Arguments
 clientGet-example.py ip key value
 """
 
-import requests, sys
+import requests
+import sys
 from logging import info
 
 [ip, key, value] = sys.argv

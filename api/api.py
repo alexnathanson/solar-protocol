@@ -6,10 +6,10 @@ import os
 from enum import Enum
 from typing import Optional
 
-from fastapi import FastAPI, Header, Form, Request
+from fastapi import FastAPI, Exception, HTTPException, Header, Form, Request
 from passlib.hash import bcrypt
 from solar_secrets import getSecret, setSecret, SecretKey
-from solar_common import fieldnames
+from solar_common import error, fieldnames
 import requests
 
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -150,7 +150,7 @@ def updateDNS(request: Request, key: str = Form()):
                 return f"beta.solarprotocol.net: {ip=}"
             else:
                 error(response.text)
-                raise Error("issue updating dns")
+                raise Exception("issue updating dns")
 
     raise HTTPException(status_code=403)
 
@@ -168,10 +168,10 @@ def updateDevice(
     networkkey: str = Form(),
 ):
     if networkkey is None:
-        raise Error("Invalid networkkey for this server")
+        raise Exception("Invalid networkkey for this server")
 
     if networkkey != getSecret(SecretKey.networkkey):
-        raise Error("Invalid networkkey for this server")
+        raise Exception("Invalid networkkey for this server")
 
     formData = {
         "tz": tz,
@@ -190,7 +190,7 @@ def updateDevice(
         with open(devicesFilename, "r") as devicesfile:
             devices = json.load(devicesfile)
     except FileNotFoundError:
-        with open(filename, "w") as jsonfile:
+        with open(devicesFilename, "w") as jsonfile:
             json.dump([], jsonfile)
             devices = []
 
@@ -295,16 +295,16 @@ def charge(days: Optional[list[str]] = None, key: Optional[ChargeKeys] = None):
 
 # X-Real-Ip is set in the nginx config
 @app.get("/api/myip")
-def getChargeForDay(x_real_ip: str | None = Header(default=None)):
+def getMyIp(x_real_ip: str | None = Header(default=None)):
     return x_real_ip
 
 
 @app.post("/api/profile")
 def updateProfileImage(profile: str):
-    raise Error("Unimplemented")
+    raise Exception("Unimplemented")
     # FIXME: Protect this route
     with open("/local/serverprofile.gif", "w") as profilefile:
-        write(profile, profilefile)
+        profilefile.write(profile)
 
 
 @app.get("/api/local")
@@ -338,7 +338,7 @@ def updateLocal(
     pvVolts: Optional[str] = Form(),
     httpPort: Optional[str] = Form(),
 ):
-    raise Error("Unimplemented")
+    raise Exception("Unimplemented")
     # FIXME: Protect this route
     formData = {
         "name": name,
@@ -371,16 +371,22 @@ def updateLocal(
 # FIXME: Protect this route
 @app.post("/api/secret")
 def setEnv(key: SecretKey, value: str):
-    raise Error("Unimplemented")
+    raise Exception("Unimplemented")
+
+    def isHash(value):
+        raise Exception("fix hash check")
+        return len(value) > 8
+
+    top_500_password_hashes = ["god", "money", "sex"]
 
     if not isHash(value):
-        raise Error(f"Secret value for `{key}` not a valid hash")
+        raise Exception(f"Secret value for `{key}` not a valid hash")
 
     if value == hash(""):
-        raise Error(f"Secret value for `{key}` is empty, will not continue")
+        raise Exception(f"Secret value for `{key}` is empty, will not continue")
 
     if value in top_500_password_hashes:
-        raise Error(
+        raise Exception(
             f"Secret value for `{key}` is in top 500 passwords, please choose another"
         )
 

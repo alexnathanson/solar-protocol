@@ -39,7 +39,7 @@ def getSecretFromGateway(secretkey: SecretKey):
             return response.text
         else:
             error(response.text)
-    except:
+    except Exception:
         error("Error retreiving secret from gateway")
 
 
@@ -56,7 +56,7 @@ def getSecret(key: SecretKey):
         gatewaySecret = getSecretFromGateway(key)
         if gatewaySecret is not None:
             return setSecret(key, gatewaySecret)
-    except:
+    except Exception:
         pass
 
 

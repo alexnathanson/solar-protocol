@@ -12,7 +12,9 @@ retrieving live and historic data from charge controller
 load and retrieve deviceList file
 
 currently this class only handles some new functionality for solarProtocol.py.
-Refactoring and expansion is required to create additional methods and apply this to publishDevice.py too
+
+Refactoring and expansion is required to create additional methods,
+and apply this to publishDevice.py too
 """
 
 import json
@@ -35,7 +37,7 @@ class SolarProtocol:
                 for key, value in locData.items():
                     # store data
                     self.localConfigData[key] = value
-        except:
+        except Exception:
             error("loadLocalConfigFile error")
 
     # return the config dictionary
@@ -47,7 +49,7 @@ class SolarProtocol:
         # try to get data from specified key
         try:
             return self.localConfigData[key]
-        except:
+        except Exception:
             error("getLocalConfig error")
 
             if key == "name":
@@ -61,11 +63,11 @@ class SolarProtocol:
         Returns the scaling factor for the module based on a standard of 50 watts
         (i.e. if a server is using a 100 watt module, it must be divided by 2,
         and if it is using a 25 watt module it must by multiplied by 2)
-        In the future a more complex method that takes in to account I-V curves may need to be applied
+        TODO: apply a more complex method that takes in to account I-V curves
         """
         try:
             return 50.0 / float(self.localConfigData["pvWatts"])
-        except:
+        except Exception:
             return 1
 
     def getDeviceValues(self, value):
@@ -85,4 +87,4 @@ class SolarProtocol:
                 json.dump([], file)
                 return []
         except KeyError as key:
-            raise Error(f"Missing {key=} from device entry")
+            raise Exception(f"Missing {key=} from device entry")

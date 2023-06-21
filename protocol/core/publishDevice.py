@@ -57,7 +57,7 @@ def getLocal(key):
         with open("/local/local.json") as file:
             device = json.load(file)
             return device.get(key, default)
-    except:
+    except Exception:
         exception(f"local config file exception with key {key}")
 
 
@@ -137,7 +137,7 @@ def publishDevice(hosts: list[str]):
 def getDevice():
     try:
         ip = requests.get("https://server.solarpowerforartists.com/?myip").text
-    except:
+    except Exception:
         ip = requests.get("https://ifconfig.co/ip").text.strip()
 
     httpPort = getLocal("httpPort")

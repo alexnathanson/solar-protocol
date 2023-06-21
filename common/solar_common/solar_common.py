@@ -1,4 +1,5 @@
 # csv header
+from Typing import TypedDict
 
 fieldnames = [
     "timestamp",
@@ -20,7 +21,7 @@ fieldnames = [
 Sample = TypedDict(
     "Sample",
     {
-        timestamp: float,
+        "timestamp": float,
         "PV voltage": float,
         "PV current": float,
         "PV power L": float,

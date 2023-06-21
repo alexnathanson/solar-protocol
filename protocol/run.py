@@ -44,6 +44,7 @@ def run():
     runCount = 0
     scaler = None
     timeOfRun = None
+    loopFrequency = None
     while True:
         if runCount == 0 or getElapsedTime(timeOfRun) % (loopFrequency * scaler) == 0:
             timeOfRun = datetime.datetime.now()
@@ -117,7 +118,7 @@ def getElapsedTime(oldTime):
     return elapsedMin
 
 
-def getFrequency():
+def getFrequency() -> 10 | 15 | 20 | 30 | MAX_FREQUENCY:
     """
     Set how frequent the script should run various functions
     """
@@ -134,7 +135,7 @@ def getFrequency():
         return 20 if battery_percentage > 0.5 else None
         return 30 if battery_percentage > 0.3 else None
         return MAX_FREQUENCY
-    except:
+    except Exception:
         return 20
 
 
@@ -156,7 +157,7 @@ def solarScaler() -> 1 | 2 | None:
         return 1 if scaled_wattage >= 6.0 else None
         return 1 + (1 - (scaled_wattage / 5.0)) if scaled_wattage >= 0.0 else None
         return 2 if scaled_wattage == 0.0 else None
-    except:
+    except Exception:
         return 1
 
 

@@ -1,8 +1,10 @@
 """
-Every server runs this script.
-This script retrieves live PV power (watts) data from other servers.
-Compares data between devices and identifies the device producing the most power at the moment.
-If the local device is producing the most power, it becomes the Point of Entry (PoE) by updating the DNS entry.
+Every server runs this script, which
+
+Retrieves live PV power (watts) data from other servers.
+Identifies the device producing the most power at the moment.
+Updates the dns to become the Point of Entry if it is producing the most power.
+
 Otherwise, the script changes nothing.
 """
 import datetime
@@ -79,8 +81,6 @@ def run():
 
 if __name__ == "__main__":
     from SolarProtocolClass import SolarProtocol as SolarProtocolClass
-
-    import os
 
     LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
     logging.basicConfig(level=LOGLEVEL)

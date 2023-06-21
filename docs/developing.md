@@ -144,3 +144,8 @@ This api allows other devices in the network to query the server for public info
 ### 4. web service
 
 This is an nginx proxy that serves up the static files made by the solar-protocol service, as well as delegating to the api service.
+
+
+## Contributing
+
+Please install `ruff` via `cargo install ruff` and run `solar format` before making pull requests.

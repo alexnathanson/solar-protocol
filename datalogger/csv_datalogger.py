@@ -81,7 +81,9 @@ if CONNECT:
     try:
         client.connect()
     except err:
-        error(f"Could not connect to charge controller! Set FAKE_DATA=True to ignore this")
+        error(
+            f"Could not connect to charge controller! Set FAKE_DATA=True to ignore this"
+        )
         error(err)
         sys.exit(1)
 
@@ -108,8 +110,8 @@ if __name__ == "__main__":
     import logging
 
     LOGLEVEL = os.environ.get("LOGLEVEL", "INFO").upper()
-    logging.basicConfig(level=LOGLEVEL)
     print(f"{LOGLEVEL=}")
+    logging.basicConfig(level=LOGLEVEL)
     print(f"{PLATFORM=} {RASPBERRY_PI=} {FAKE_DATA=} {CONNECT=}")
 
 run()

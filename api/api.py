@@ -168,7 +168,6 @@ def updateDevice(
     timestamp: Optional[float] = Form(),
     networkkey: str = Form(),
 ):
-
     if networkkey is None:
         raise Error("Invalid networkkey for this server")
 

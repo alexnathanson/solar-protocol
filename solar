@@ -224,13 +224,18 @@ reinstall() {
 }
 
 # Since we have multiple collaborators, its useful to have all the tabs and spaces align
-# Run format before making a pull request to help us all focus on the code changes, and
-# not the formatting
+# Run format before making a pull request to help us all focus on the code changes
 format() {
-  shopt -s globstar
-  black -- **/**.py
+  runtime=docker
+  if exists podman; then
+    runtime=podman
+  fi
+
+  $runtime run --rm --volume $(pwd):/src --workdir /src \
+    pyfound/black:latest_release \
+    black .
+
   shellcheck solar
-  #tidy -i -m -w 160 -ashtml -utf8 -- **/**.html
 }
 
 compose() {

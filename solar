@@ -116,7 +116,7 @@ install-docker-debian() {
     echo ". /etc/profile.d/disable-buildkit.sh"
   fi
 
-  if ! docker compose 2>/dev/null; then
+  if ! docker compose config >/dev/null 2>/dev/null; then
     sudo apt-get install --yes ca-certificates curl gnupg lsb-release
     sudo mkdir -p /etc/apt/keyrings
     sudo rm -f /etc/apt/keyrings/docker.gpg

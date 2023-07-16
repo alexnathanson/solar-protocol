@@ -26,9 +26,9 @@ For macOS, install podman with [homebrew](https://brew.sh):
 
     brew install podman
 
-For windows, linux, and macOS, install podman-compose 1.0.4 with pip:
+For windows, linux, and macOS, install podman-compose using pip:
 
-    pip3 install https://github.com/containers/podman-compose/archive/devel.tar.gz
+    pip3 install podman-compose
 
 2. Setup solar-protocol
 

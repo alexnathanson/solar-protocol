@@ -14,8 +14,10 @@ test -f local/secrets.json || echo '{}' > local/secrets.json
 
 help() {
   Clear='\033[0m'
+  Bold='\033[4m'
   Cyan='\033[0;36m'
   Red='\033[0;31m'
+  Green='\033[0;32m'
   Color=$Cyan
 
   echo -e "$(
@@ -23,29 +25,29 @@ help() {
 
   ☀️ solar - commandline tool to help manage your server
 
-    ${Red}solar <command> [service]${Clear}   where service is one of api, datalogger, web, or protocol
+    solar <${Color}command${Clear}> [${Green}service${Clear}]    where service is one of ${Green}api${Clear}, ${Green}datalogger${Clear}, ${Green}web${Clear}, or ${Green}protocol${Clear}
 
-    ${Color}solar install${Clear}               install dependencies and completions
-    ${Color}solar up${Clear}                    bring solar protocol up
-    ${Color}solar down${Clear}                  bring solar protocol down
-    ${Color}solar logs <service>${Clear}        show logs for _service_
-    ${Color}solar status${Clear}                check status of the containers
-    ${Color}solar restart <service>${Clear}     restart _service_
-    ${Color}solar shell <service>${Clear}       open a shell in the running _service_
-    ${Color}solar get-dns-hash${Clear}          create a hash to share with administrators when joining
-    ${Color}solar make-active${Clear}           request to become the active server
+    solar ${Color}install${Clear}                install dependencies and completions
+    solar ${Color}up${Clear}                     bring solar protocol up
+    solar ${Color}down${Clear}                   bring solar protocol down
+    solar ${Color}logs${Clear} <${Green}service${Clear}>         show logs for ${Green}service${Clear}
+    solar ${Color}status${Clear}                 check status of the containers
+    solar ${Color}restart${Clear} <${Green}service${Clear}>      restart ${Green}service${Clear}
+    solar ${Color}shell${Clear} <${Green}service${Clear}>        open a shell in the running ${Green}service${Clear}
+    solar ${Color}get-dns-hash${Clear}           create a hash to share with administrators when joining
+    solar ${Color}make-active${Clear}            request to become the active server
 
-    ${Color}solar help${Clear}                  show this help
-    ${Color}solar build${Clear}                 build new container images of all the services
-    ${Color}solar format${Clear}                format all the source code
-    ${Color}solar reinstall${Clear}             removes containers and dependencies and reinstalls
-    ${Color}solar open${Clear}                  open the local solar protocol webpage
-    ${Color}solar start <service>${Clear}       start individual _service_
-    ${Color}solar stop <service>${Clear}        stop individual _service_
-    ${Color}solar update-dns [password]${Clear} update the dns for beta.solarprotocol.net
-    ${Color}solar exec <service> <cmd>${Clear}  run _cmd_ in the current _service_
+    solar ${Color}help${Clear}                   show this help
+    solar ${Color}build${Clear}                  build new container images of all the services
+    solar ${Color}format${Clear}                 format all the source code
+    solar ${Color}reinstall${Clear}              removes containers and dependencies and reinstalls
+    solar ${Color}open${Clear}                   open the local solar protocol webpage
+    solar ${Color}start${Clear} <${Green}service${Clear}>        start individual ${Green}service${Clear}
+    solar ${Color}stop${Clear} <${Green}service${Clear}>         stop individual ${Green}service${Clear}
+    solar ${Color}update-dns${Clear} ${Red}password${Clear}    update the dns for beta.solarprotocol.net
+    solar ${Color}exec${Clear} <${Green}service${Clear}> ${Bold}command${Clear} run ${Bold}command${Clear} in the current ${Green}service${Clear}
 
-    ${Color}solar set-admin-password [password]${Clear} update the password for the admin settings pages
+    solar ${Color}set-admin-password${Clear} ${Red}password${Clear}  update the ${Red}password${Clear} for the admin settings pages
 HELP
   )"
 }

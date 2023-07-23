@@ -302,6 +302,30 @@ EOF
 
   if [[ "$active" == "active" ]]; then sudo systemctl stop solar-protocol; fi
   if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable solar-protocol; fi
+
+# tunnelto provides a public dns entry for servers who cannot be configured with public ips
+  cat <<EOF | sudo tee "$servicedir"/tunnelto.service >/dev/null
+# $servicedir/tunnelto.service
+
+[Unit]
+Description=TunnelTo
+After=network.target
+
+[Service]
+WorkingDirectory=/home/pi
+ExecStart=./cargo/bin/tunnelto --subdomain woodbine-solarprotocol --port 80
+User=$USER
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+  active=$(systemctl is-active tunnelto)
+  enabled=$(systemctl is-enabled tunnelto)
+
+  if [[ "$active" == "active" ]]; then sudo systemctl stop tunnelto; fi
+  if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable tunnelto; fi
 }
 
 set-admin-password() {

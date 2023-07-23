@@ -187,9 +187,7 @@ install() {
     install-docker-debian
     install-systemd
 
-    echo "solar dependencies installed! try:"
-    echo "  solar build"
-    echo "  solar start"
+    echo "solar protocol dependencies installed! try running 'solar up'"
     return
   fi
 
@@ -315,13 +313,19 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/pi
-ExecStart=./cargo/bin/tunnelto --subdomain woodbine-solarprotocol --port 80
+ExecStart=/home/pi/.cargo/bin/tunnelto --subdomain woodbine-solarprotocol --port 80
 User=$USER
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
+  sudo systemctl daemon-reload
+  active=$(systemctl is-active solar-protocol)
+  enabled=$(systemctl is-enabled solar-protocol)
+
+  if [[ "$active" == "active" ]]; then sudo systemctl stop solar-protocol; fi
+  if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable solar-protocol; fi
 
   active=$(systemctl is-active tunnelto)
   enabled=$(systemctl is-enabled tunnelto)
@@ -376,7 +380,7 @@ get-mac-address() {
 }
 
 case $command in
-  start) compose start "$@" ;;
+  start) compose start "${@:-api datalogger protocol web}" ;;
   stop) compose stop "$@" ;;
   up) compose up "$@" ;;
   down) compose down "$@" ;;
@@ -392,6 +396,7 @@ case $command in
   get-dns-hash) get-dns-hash ;;
   reinstall) reinstall ;;
   install) install ;;
+  install-systemd) install-systemd ;;
   exec) compose exec "$@" ;;
   *) help ;;
 esac

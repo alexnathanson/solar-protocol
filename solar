@@ -27,25 +27,29 @@ help() {
 
     solar <${Color}command${Clear}> [${Green}service${Clear}]    where service is one of ${Green}api${Clear}, ${Green}datalogger${Clear}, ${Green}web${Clear}, or ${Green}protocol${Clear}
 
-    solar ${Color}install${Clear}                install dependencies and completions
+    solar ${Color}help${Clear}                   show this help
+    solar ${Color}docs${Clear}                   browse the complete solar protocol documentation
+
+    solar ${Color}status${Clear}                 check status of the containers
+    solar ${Color}logs${Clear} <${Green}service${Clear}>         show logs for ${Green}service${Clear}
+
+    solar ${Color}open${Clear}                   open the local solar protocol webpage
     solar ${Color}up${Clear}                     bring solar protocol up
     solar ${Color}down${Clear}                   bring solar protocol down
-    solar ${Color}logs${Clear} <${Green}service${Clear}>         show logs for ${Green}service${Clear}
-    solar ${Color}status${Clear}                 check status of the containers
-    solar ${Color}restart${Clear} <${Green}service${Clear}>      restart ${Green}service${Clear}
-    solar ${Color}shell${Clear} <${Green}service${Clear}>        open a shell in the running ${Green}service${Clear}
-    solar ${Color}get-dns-hash${Clear}           create a hash to share with administrators when joining
-    solar ${Color}make-active${Clear}            request to become the active server
-
-    solar ${Color}help${Clear}                   show this help
-    solar ${Color}build${Clear}                  build new container images of all the services
-    solar ${Color}format${Clear}                 format all the source code
-    solar ${Color}reinstall${Clear}              removes containers and dependencies and reinstalls
-    solar ${Color}open${Clear}                   open the local solar protocol webpage
     solar ${Color}start${Clear} <${Green}service${Clear}>        start individual ${Green}service${Clear}
     solar ${Color}stop${Clear} <${Green}service${Clear}>         stop individual ${Green}service${Clear}
-    solar ${Color}update-dns${Clear} ${Red}password${Clear}    update the dns for beta.solarprotocol.net
+    solar ${Color}restart${Clear} <${Green}service${Clear}>      restart ${Green}service${Clear}
+    solar ${Color}shell${Clear} <${Green}service${Clear}>        open a shell in the running ${Green}service${Clear}
     solar ${Color}exec${Clear} <${Green}service${Clear}> ${Bold}command${Clear} run ${Bold}command${Clear} in the current ${Green}service${Clear}
+
+    solar ${Color}build${Clear}                  build new container images of all the services
+    solar ${Color}install${Clear}                install dependencies and completions
+    solar ${Color}reinstall${Clear}              removes containers and dependencies and reinstalls
+    solar ${Color}format${Clear}                 format all the source code
+
+    solar ${Color}update-dns${Clear} ${Red}password${Clear}    update the dns for beta.solarprotocol.net
+    solar ${Color}get-dns-hash${Clear}           create a hash to share with administrators when joining
+    solar ${Color}make-active${Clear}            request to become the active server
 
     solar ${Color}set-admin-password${Clear} ${Red}password${Clear}  update the ${Red}password${Clear} for the admin settings pages
 HELP
@@ -77,6 +81,18 @@ prompt() {
     read -r -p "$* (y/N) " confirm && \
       [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
       || exit 1
+  fi
+}
+
+docs() {
+  docs_url="https://github.com/alexnathanson/solar-protocol/tree/beta/docs#readme"
+
+  if [[ "$PLATFORM" == "mac" ]]; then
+    open "$docs_url"
+  elif [[ "$PLATFORM" == "windows" ]]; then
+    start "" "$docs_url"
+  else
+    xdg-open "$docs_url"
   fi
 }
 
@@ -391,6 +407,7 @@ case $command in
   install) install ;;
   install-systemd) install-systemd ;;
   exec) compose exec "$@" ;;
+  docs) docs ;;
   *) help ;;
 esac
 

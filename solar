@@ -296,13 +296,6 @@ TimeoutStartSec=0
 WantedBy=multi-user.target
 EOF
 
-  sudo systemctl daemon-reload
-  active=$(systemctl is-active solar-protocol)
-  enabled=$(systemctl is-enabled solar-protocol)
-
-  if [[ "$active" == "active" ]]; then sudo systemctl stop solar-protocol; fi
-  if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable solar-protocol; fi
-
 # tunnelto provides a public dns entry for servers who cannot be configured with public ips
   cat <<EOF | sudo tee "$servicedir"/tunnelto.service >/dev/null
 # $servicedir/tunnelto.service

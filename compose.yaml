@@ -1,10 +1,10 @@
 services:
   common:
-    image: localhost/solar-protocol/base:beta
+    image: jedahan/solar-protocol-base:beta
     build: common
 
   datalogger:
-    image: localhost/solar-protocol/datalogger
+    image: jedahan/solar-protocol-datalogger
     build: datalogger
     restart: unless-stopped
     devices:
@@ -19,7 +19,7 @@ services:
       driver: local
 
   api:
-    image: localhost/solar-protocol/api
+    image: jedahan/solar-protocol-api
     build: api
     restart: unless-stopped
     volumes:
@@ -32,7 +32,7 @@ services:
       driver: local
 
   protocol:
-    image: localhost/solar-protocol/protocol
+    image: jedahan/solar-protocol-protocol
     build: protocol
     restart: unless-stopped
     command: python run.py

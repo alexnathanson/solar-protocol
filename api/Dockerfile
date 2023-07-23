@@ -1,4 +1,4 @@
-FROM localhost/solar-protocol/base:beta AS builder
+FROM jedahan/solar-protocol-base:beta AS builder
 RUN apt-get --quiet update && apt-get --quiet upgrade --yes
 
 WORKDIR /api
@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN pip install --quiet --no-cache-dir --requirement requirements.txt
 RUN pip install --quiet --no-cache-dir /common
 
-FROM localhost/solar-protocol/base:beta
+FROM jedahan/solar-protocol-base:beta
 COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:$PATH"
 

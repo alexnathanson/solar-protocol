@@ -1,4 +1,4 @@
-FROM jedahan/solar-protocol-base:beta AS builder
+FROM solar-protocol/base AS builder
 RUN apt-get update --yes
 RUN apt-get --quiet install \
   build-essential \
@@ -9,7 +9,7 @@ RUN apt-get --quiet install \
 COPY requirements.txt .
 RUN pip install --user --quiet --no-cache-dir --requirement requirements.txt
 
-FROM jedahan/solar-protocol-base:beta
+FROM solar-protocol/base
 COPY . .
 COPY --from=builder /root/.local /root/.local
 

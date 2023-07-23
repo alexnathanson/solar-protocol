@@ -12,7 +12,7 @@ import logging
 from logging import debug, error, info
 import requests
 import os
-from solar_secrets import getSecret, SecretKey
+from solar_common.secrets import getSecret, SecretKey
 
 
 def determineServer(allValues: list[int], myValue: int):

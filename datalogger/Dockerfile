@@ -1,19 +1,10 @@
 FROM jedahan/solar-protocol-base:beta AS builder
-RUN apt-get --quiet update && apt-get --quiet upgrade --yes
 
-WORKDIR /datalogger
-RUN python -m venv /venv
-ENV PATH="/venv/bin:$PATH"
-
-COPY requirements.txt .
-RUN pip install --quiet --no-cache-dir --requirement requirements.txt
-RUN pip install --quiet --no-cache-dir /common
+COPY requirements.py .
+RUN pip install --user --quiet --no-cache-dir --requirement requirements.txt
 
 FROM jedahan/solar-protocol-base:beta
-COPY --from=builder /venv /venv
-ENV PATH="/venv/bin:$PATH"
-
-WORKDIR /datalogger
+COPY --from=builder /root/.local /root/.local
 COPY csv_datalogger.py .
 
 CMD python csv_datalogger.py

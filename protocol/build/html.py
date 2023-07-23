@@ -15,8 +15,8 @@ from typing import Optional, Union
 
 from logging import info, debug, error, exception
 
-from solar_secrets import getSecret, SecretKey
-from solar_common import fieldnames
+from solar_common.secrets import getSecret, SecretKey
+from solar_common.sample import fieldnames
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 

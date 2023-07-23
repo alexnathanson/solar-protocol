@@ -8,8 +8,9 @@ from typing import Optional
 
 from fastapi import FastAPI, Exception, HTTPException, Header, Form, Request
 from passlib.hash import bcrypt
-from solar_secrets import getSecret, setSecret, SecretKey
-from solar_common import error, fieldnames
+from solar_common.secrets import getSecret, setSecret, SecretKey
+from solar_common.sample import fieldnames
+from logging import error
 import requests
 
 from slowapi import Limiter, _rate_limit_exceeded_handler

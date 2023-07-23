@@ -13,7 +13,7 @@ import json
 import os
 from logging import debug, error, exception, info
 
-from solar_secrets import getSecret, SecretKey
+from solar_common.secrets import getSecret, SecretKey
 
 
 def getDevices(key: str):

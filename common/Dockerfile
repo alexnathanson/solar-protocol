@@ -1,17 +1,10 @@
 FROM docker.io/library/python:3.11-slim AS builder
-ENV TERM=screen-256color
+RUN apt-get --quiet update && apt-get --quiet upgrade --yes
 
-WORKDIR /common
-RUN python -m venv /venv
-ENV PATH="/venv/bin:$PATH"
-
-COPY requirements.txt .
-RUN pip install --quiet --no-cache-dir --requirement requirements.txt
+COPY . .
+RUN pip install --user --quiet --no-cache-dir --requirement requirements.txt
+RUN pip install --user .
 
 FROM docker.io/library/python:3.11-slim
-ENV TERM=screen-256color
-COPY --from=builder /venv /venv
-ENV PATH="/venv/bin:$PATH"
-
-WORKDIR /common
-COPY . .
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH

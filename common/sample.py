@@ -1,5 +1,5 @@
 # csv header
-from Typing import TypedDict
+from typing import TypedDict
 
 fieldnames = [
     "timestamp",

@@ -1,6 +1,6 @@
 FROM jedahan/solar-protocol-base:beta AS builder
 
-COPY requirements.py .
+COPY requirements.txt .
 RUN pip install --user --quiet --no-cache-dir --requirement requirements.txt
 
 FROM jedahan/solar-protocol-base:beta

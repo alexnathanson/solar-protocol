@@ -17,6 +17,7 @@ from math import trunc
 import datetime
 import requests
 from logging import info, debug, error, exception
+from typing import Union
 import logging
 import os
 
@@ -118,7 +119,7 @@ def getElapsedTime(oldTime):
     return elapsedMin
 
 
-def getFrequency() -> 10 | 15 | 20 | 30 | MAX_FREQUENCY:
+def getFrequency() -> Union[10, 15, 20, 30, MAX_FREQUENCY]:
     """
     Set how frequent the script should run various functions
     """
@@ -139,7 +140,7 @@ def getFrequency() -> 10 | 15 | 20 | 30 | MAX_FREQUENCY:
         return 20
 
 
-def solarScaler() -> 1 | 2 | None:
+def solarScaler() -> Union[1, 2, None]:
     """
     solar power multiplier
     above 6 w it runs at the normal pace (the max power draw is about 5w)

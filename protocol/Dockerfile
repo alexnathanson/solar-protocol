@@ -16,6 +16,6 @@ COPY . .
 COPY --from=builder /root/.local /root/.local
 
 RUN apt-get update --yes
-RUN apt-get --quiet install  libcairo2  --yes
+RUN apt-get --quiet install libcairo2 libcairo2-dev --yes
 
 CMD python -m uvicorn api:app --proxy-headers --host 0.0.0.0 --port 80 --reload

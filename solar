@@ -36,9 +36,12 @@ help() {
     solar ${Color}open${Clear}                   open the local solar protocol webpage
     solar ${Color}up${Clear}                     bring solar protocol up
     solar ${Color}down${Clear}                   bring solar protocol down
+
     solar ${Color}start${Clear} <${Green}service${Clear}>        start individual ${Green}service${Clear}
     solar ${Color}stop${Clear} <${Green}service${Clear}>         stop individual ${Green}service${Clear}
     solar ${Color}restart${Clear} <${Green}service${Clear}>      restart ${Green}service${Clear}
+
+    solar ${Color}dev${Clear}                  start solar protocol with fake datalogger
     solar ${Color}shell${Clear} <${Green}service${Clear}>        open a shell in the running ${Green}service${Clear}
     solar ${Color}exec${Clear} <${Green}service${Clear}> ${Bold}command${Clear} run ${Bold}command${Clear} in the current ${Green}service${Clear}
 
@@ -50,7 +53,6 @@ help() {
     solar ${Color}update-dns${Clear} ${Red}password${Clear}    update the dns for beta.solarprotocol.net
     solar ${Color}get-dns-hash${Clear}           create a hash to share with administrators when joining
     solar ${Color}make-active${Clear}            request to become the active server
-
     solar ${Color}set-admin-password${Clear} ${Red}password${Clear}  update the ${Red}password${Clear} for the admin settings pages
 HELP
   )"
@@ -391,6 +393,7 @@ get-mac-address() {
 case $command in
   start) compose start "${@:-api datalogger protocol web}" ;;
   stop) compose stop "$@" ;;
+  dev) FAKE_DATA=True FAKE_TTY=/dev/null compose up "$@" ;;
   up) compose up "$@" ;;
   down) compose down "$@" ;;
   status) compose ps 2>/dev/null ;;

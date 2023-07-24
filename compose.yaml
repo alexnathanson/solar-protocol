@@ -12,7 +12,7 @@ services:
     devices:
       - ${FAKE_TTY:-/dev/ttyUSB0:/dev/ttyUSB0}
     volumes:
-      - data:/data
+      - ./data:/data:rw
       - /etc/localtime:/etc/localtime
     environment:
       - FAKE_DATA
@@ -24,8 +24,8 @@ services:
     build: api
     restart: unless-stopped
     volumes:
-      - data:/data
-      - local:/local
+      - ./data:/data:ro
+      - ./local:/local:rw
       - /etc/localtime:/etc/localtime
     ports:
       - 11215:80
@@ -40,36 +40,19 @@ services:
       - LOGLEVEL
       - MAC
     volumes:
-      - data:/data
-      - frontend:/frontend:rw
-      - local:/local
+      - ./data:/data:rw
+      - ./frontend:/frontend:rw
+      - ./local:/local:rw
       - /etc/localtime:/etc/localtime
 
   web:
     image: nginxinc/nginx-unprivileged:stable-alpine
     restart: unless-stopped
     volumes:
-      - frontend:/frontend:ro
-      - data:/data
-      - local:/local
+      - ./frontend:/frontend:ro
+      - ./data:/data:ro
+      - ./local:/local:rw
       - /etc/localtime:/etc/localtime
       - ./dev/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
       - 11221:8080
-
-volumes:
-  data:
-    driver_opts:
-      o: bind
-      type: none
-      device: '${PWD}/data'
-  frontend:
-    driver_opts:
-      o: bind
-      type: none
-      device: '${PWD}/frontend'
-  local:
-    driver_opts:
-      o: bind
-      type: none
-      device: '${PWD}/local'

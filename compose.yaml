@@ -17,8 +17,6 @@ services:
     environment:
       - FAKE_DATA
       - PLATFORM
-    logging:
-      driver: local
 
   api:
     pull_policy: never
@@ -31,8 +29,6 @@ services:
       - /etc/localtime:/etc/localtime
     ports:
       - 11215:80
-    logging:
-      driver: local
 
   protocol:
     pull_policy: never
@@ -48,8 +44,6 @@ services:
       - frontend:/frontend
       - local:/local
       - /etc/localtime:/etc/localtime
-    logging:
-      driver: local
 
   web:
     image: docker.io/library/nginx
@@ -62,8 +56,6 @@ services:
       - /etc/localtime:/etc/localtime
     ports:
       - 11221:80
-    logging:
-      driver: local
 
 volumes:
   data:

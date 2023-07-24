@@ -13,5 +13,11 @@ RUN pip install --user --quiet --no-cache-dir --requirement requirements.txt
 FROM solar-protocol/base
 COPY . .
 COPY --from=builder /root/.local /root/.local
+RUN apt-get --quiet install \
+  build-essential \
+  libcairo2-dev \
+  libffi-dev \
+  libjpeg-dev \
+  zlib1g-dev --yes
 
 CMD python -m uvicorn api:app --proxy-headers --host 0.0.0.0 --port 80 --reload

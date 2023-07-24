@@ -60,7 +60,7 @@ def read_csv():
 
 
 def render_pages(_local_data, _data, _weather, _server_data):
-    templatePath = f"/protocol/build/templates"
+    templatePath = f"/build/templates"
     outputPath = f"/frontend"
 
     pages = [

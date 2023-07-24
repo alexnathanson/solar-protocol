@@ -49,8 +49,8 @@ services:
     image: docker.io/library/nginx
     restart: unless-stopped
     volumes:
+      - frontend:/frontend:ro
       - data:/data
-      - frontend:/frontend
       - local:/local
       - /etc/localtime:/etc/localtime
       - ./dev/nginx.conf:/etc/nginx/conf.d/default.conf

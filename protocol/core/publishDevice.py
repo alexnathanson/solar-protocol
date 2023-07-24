@@ -130,7 +130,7 @@ def publishDevice(hosts: list[str]):
         info(f"HOST: {host}")
         try:
             postDevice(host, params)
-        except exception:
+        except Exception as exception:
             error(exception)
 
 

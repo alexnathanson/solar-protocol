@@ -1,5 +1,6 @@
 FROM solar-protocol/base AS builder
 RUN apt-get update --yes
+# TODO: figure out what is build-time, and what is run-time
 RUN apt-get --quiet install \
   build-essential \
   libcairo2-dev \

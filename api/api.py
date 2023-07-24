@@ -6,7 +6,7 @@ import os
 from enum import Enum
 from typing import Optional
 
-from fastapi import FastAPI, Exception, HTTPException, Header, Form, Request
+from fastapi import FastAPI, HTTPException, Header, Form, Request
 from passlib.hash import bcrypt
 from solar_common.secrets import getSecret, setSecret, SecretKey
 from solar_common.sample import fieldnames
@@ -151,7 +151,7 @@ def updateDNS(request: Request, key: str = Form()):
                 return f"beta.solarprotocol.net: {ip=}"
             else:
                 error(response.text)
-                raise Exception("issue updating dns")
+                raise HTTPException("issue updating dns")
 
     raise HTTPException(status_code=403)
 

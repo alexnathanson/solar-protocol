@@ -2,6 +2,7 @@ FROM solar-protocol/base AS builder
 RUN apt-get update --yes
 RUN apt-get --quiet install \
   build-essential \
+  libcairo2-dev \
   libffi-dev \
   libjpeg-dev \
   zlib1g-dev --yes

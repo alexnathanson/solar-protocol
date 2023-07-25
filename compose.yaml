@@ -46,13 +46,15 @@ services:
       - /etc/localtime:/etc/localtime
 
   web:
-    image: nginxinc/nginx-unprivileged:stable-alpine
+    image: caddy
     restart: unless-stopped
     volumes:
       - ./frontend:/frontend:ro
-      - ./data:/data:ro
-      - ./local:/local:rw
+      - ./dev/Caddyfile:/etc/caddy/Caddyfile:ro
       - /etc/localtime:/etc/localtime
-      - ./dev/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - caddy_config:/config
     ports:
       - 11221:8080
+
+volumes:
+  caddy_config:

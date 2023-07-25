@@ -1,0 +1,24 @@
+solarprotocol.net:8080 {
+  reverse_proxy /openapi.json api:80
+  reverse_proxy /api/* api:80
+
+  handle /serverprofile.gif {
+    root /serverprofile.gif /local
+    file_server
+  }
+
+  basicauth /admin {
+    admin:$2y$10$r6EC.Fnt3K1zP3yPdwUQdOS3DIoZr135rYpz0/GLciVABktVKo826
+    alexnathanson:$2y$10$SyPFk6FOLVNS3BussVBO6.Sg7JQlBl80r69kydQE8.XBWYvPPHTVO
+    tegabrain:$2y$10$UjLrmDSRaeS3Lg8KDyDal.plUkUqIKo0XOvAZohrUvsuWJbuKIebe
+    benedettapiantella:$2y$10$Z9lTjfiRKNhTe/Vikgtn7.FX/CnGWNWTGmq/fW5afLbRobkgcmA46
+  }
+
+  root * /frontend
+  file_server
+}
+
+  location /serverprofile.gif {
+    root /local;
+  }
+

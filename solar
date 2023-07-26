@@ -236,7 +236,9 @@ reinstall() {
   fi
   install
   if exists podman; then
-    podman machine start
+    if [[ "$(podman machine inspect --format '{{.State}}')" == "running" ]]; then
+      podman machine start
+    fi
   fi
 }
 

@@ -264,7 +264,7 @@ format() {
 
 compose() {
   if [[ "$PLATFORM" == "mac" ]]; then
-    machine
+    podman machine start
     podman-compose --file compose.yaml "$@"
   else
     export DOCKER_BUILDKIT=0

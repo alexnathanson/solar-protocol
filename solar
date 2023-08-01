@@ -50,6 +50,7 @@ help() {
     solar ${Color}reinstall${Clear}              removes containers and dependencies and reinstalls
     solar ${Color}format${Clear}                 format all the source code
 
+    solar ${Color}battery${Clear}                show the current battery percentage
     solar ${Color}update-dns${Clear} ${Red}password${Clear}    update the dns for beta.solarprotocol.net
     solar ${Color}get-dns-hash${Clear}           create a hash to share with administrators when joining
     solar ${Color}make-active${Clear}            request to become the active server
@@ -188,6 +189,14 @@ install() {
     fi
   fi
 
+
+  if [[ ! -d $HOME/venv ]]; then
+    cd $HOME
+    python -m venv venv
+    . $HOME/venv/bin/activate
+    python -m pip install -u pymodbus pyserial
+  fi
+
   # macOS
   if [[ "$PLATFORM" == "mac" ]]; then
     exists podman || brew install podman
@@ -202,6 +211,7 @@ install() {
   # raspberry pi OS
   if [[ "$PLATFORM" == "pi" ]] || [[ "$PLATFORM" == "debian" ]]; then
     exists jq || sudo apt-get install --yes jq
+    exists figlet || sudo apt-get install --yes figlet
     install-docker-debian
     install-systemd
 
@@ -392,6 +402,17 @@ get-mac-address() {
   fi
 }
 
+battery() {
+  exists figlet || sudo apt-get install --yes figlet
+. $HOME/venv/bin/activate
+python -c 'from pymodbus.client import ModbusSerialClient
+client=ModbusSerialClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
+client.connect()
+battery=client.read_input_registers(0x311A, 2, 1)
+print(battery.registers[0])
+'
+}
+
 case $command in
   start) compose start "${@:-api datalogger protocol web}" ;;
   stop) compose stop "$@" ;;
@@ -413,6 +434,7 @@ case $command in
   install-systemd) install-systemd ;;
   exec) compose exec "$@" ;;
   docs) docs ;;
+  battery) battery ;;
   *) help ;;
 esac
 

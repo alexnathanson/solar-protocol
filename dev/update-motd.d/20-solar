@@ -1,0 +1,19 @@
+#!/bin/bash
+percent=$(. /home/micro/venv/bin/activate; python /home/micro/battery.py)
+big=$(toilet --filter gay --font ivrit --width 28 "${percent} %")
+
+read -r -d '' sun << EOM
+      ;   :   ;
+   .   \_,!,_/   ,
+    `.,'     `.,'
+     /         \
+~ -- :         : -- ~
+     \         /
+    ,'`._   _.'`.
+   '   / `!` \   `
+      ;   :   ;      
+EOM
+
+paste \
+  <(echo "$sun") \
+  <(echo; echo; echo "$big") 

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+install -d -m 700 ~/.ssh
+sudo mv ../utilities/authorized_keys /home/pi/.ssh/authorized_keys
+sudo chmod 644 /home/pi/.ssh/authorized_keys
+sudo chown pi:pi /home/pi/.ssh/authorized_keys

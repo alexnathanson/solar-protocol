@@ -1,0 +1,84 @@
+#!/bin/bash
+
+PLATFORM=${PLATFORM:-"$(./platform)"}
+
+if [[ "$PLATFORM" != "pi" ]] && [[ "$PLATFORM" != "debian" ]]; then
+  echo "Script only meant to be run on debian or Raspberry Pi OS"
+  echo "export PLATFORM=pi to override this check. Exiting."
+  exit -1
+fi
+
+
+apt-get update --yes
+
+apt-get --quiet install \
+  build-essential \
+  libcairo2 \
+  libcairo2-dev \
+  libffi-dev \
+  libjpeg-dev \
+  zlib1g-dev \
+  --yes
+
+apt-get --quiet install \
+  jq \
+  figlet \
+  --yes
+
+echo Installing system services
+
+servicedir=/etc/systemd/system
+configdir=$servicedir/solar-protocol.service.d
+sudo mkdir -p $configdir
+
+for config in ../dev/systemd/solar-protocol.service.d/*conf; do
+  if [[ ! -f $configdir/$config ]]; then
+    sudo cp "$config" $configdir/
+  fi
+done
+
+cat <<EOF | sudo tee "$servicedir"/solar-protocol.service >/dev/null
+# $servicedir/solar-protocol.service
+
+[Unit]
+Description=Solar Protocol
+
+[Service]
+Type=simple
+WorkingDirectory=$PWD
+ExecStart=$PWD/run
+User=$USER
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# tunnelto provides a public dns entry for servers who cannot be configured with public ips
+  cat <<EOF | sudo tee "$servicedir"/tunnelto.service >/dev/null
+# $servicedir/tunnelto.service
+
+[Unit]
+Description=TunnelTo
+After=network.target
+
+[Service]
+WorkingDirectory=/home/pi
+ExecStart=/home/pi/.cargo/bin/tunnelto --subdomain woodbine-solarprotocol --port 80
+User=$USER
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+active=$(systemctl is-active solar-protocol)
+enabled=$(systemctl is-enabled solar-protocol)
+
+if [[ "$active" == "active" ]]; then sudo systemctl stop solar-protocol; fi
+if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable solar-protocol; fi
+
+active=$(systemctl is-active tunnelto)
+enabled=$(systemctl is-enabled tunnelto)
+
+if [[ "$active" == "active" ]]; then sudo systemctl stop tunnelto; fi
+if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable tunnelto; fi

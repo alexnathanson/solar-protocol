@@ -15,8 +15,8 @@ from typing import Optional, Union
 
 from logging import info, debug, error, exception
 
-from solar_common.secrets import getSecret, SecretKey
-from solar_common.sample import fieldnames
+from ../../common.secrets import getSecret, SecretKey
+from ../../common.sample import fieldnames
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
@@ -45,7 +45,7 @@ def getCC(host: str, key: str):
 # gets power data from charge controller
 def read_csv():
     today = str(datetime.date.today())
-    chargeControllerData = f"/data/charge-controller/{today}.csv"
+    chargeControllerData = f"../../data/charge-controller/{today}.csv"
     filename = chargeControllerData
 
     with open(filename, "r") as data:
@@ -221,13 +221,13 @@ def get_weather(lon, lat, appid: str):
 
 
 def getLocal():
-    filename = f"/local/local.json"
+    filename = f"../../local/local.json"
     with open(filename) as localfile:
         return json.load(localfile)
 
 
 def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
-    devices = f"/data/devices.json"
+    devices = f"../../data/devices.json"
     try:
         with open(devices) as file:
             data = json.load(file)

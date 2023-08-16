@@ -3,7 +3,7 @@ from enum import StrEnum, auto
 from logging import error
 import requests
 
-filepath = "/local/secrets.json"
+filepath = "../../local/secrets.json"
 
 
 class SecretKey(StrEnum):

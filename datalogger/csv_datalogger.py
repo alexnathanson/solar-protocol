@@ -7,7 +7,7 @@ import os
 import signal
 import sys
 from logging import error, info
-from solar_common.sample import fieldnames, Sample
+from ../common.sample import fieldnames, Sample
 
 PLATFORM = os.environ.get("PLATFORM", "unknown")
 RASPBERRY_PI = PLATFORM == "pi"
@@ -24,7 +24,7 @@ def writeOrAppend(sample: Sample):
     """
     create a new file daily to save data or append if the file already exists
     """
-    fileName = f"/data/charge-controller/{datetime.date.today()}.csv"
+    fileName = f"../data/charge-controller/{datetime.date.today()}.csv"
     with open(fileName, "a", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames)
         writer.writerow(sample)

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Run with FAKE_DATA=True to fake the data
+FAKE_DATA=${FAKE_DATA:-False}
+
+# We detect 
+PLATFORM=${PLATFORM:-unknown}
+
+if [[ $PLATFORM == unknown ]]; then
+  PLATFORM=$(../scripts/platform)
+fi
+
+. ../venv/bin/activate
+python3 csv_datalogger.py

@@ -1,41 +1,6 @@
 services:
-  common:
-    pull_policy: never
-    image: solar-protocol/base
-    build: common
-
-  datalogger:
-    pull_policy: never
-    image: solar-protocol/datalogger
-    build: datalogger
-    restart: unless-stopped
-    devices:
-      - ${FAKE_TTY:-/dev/ttyUSB0:/dev/ttyUSB0}
-    volumes:
-      - ./data:/data:rw
-      - /etc/localtime:/etc/localtime
-    environment:
-      - FAKE_DATA
-      - PLATFORM
-
-  api:
-    pull_policy: never
-    image: solar-protocol/api
-    build: api
-    restart: unless-stopped
-    volumes:
-      - ./data:/data:ro
-      - ./local:/local:rw
-      - /etc/localtime:/etc/localtime
-    ports:
-      - 11215:80
 
   protocol:
-    pull_policy: never
-    image: solar-protocol/protocol
-    build: protocol
-    restart: unless-stopped
-    command: python run.py
     environment:
       - LOGLEVEL
       - MAC

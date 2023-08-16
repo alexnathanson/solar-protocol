@@ -12,7 +12,7 @@ import logging
 from logging import debug, error, info
 import requests
 import os
-from solar_common.secrets import getSecret, SecretKey
+from ../../common.secrets import getSecret, SecretKey
 
 
 def determineServer(allValues: list[int], myValue: int):
@@ -43,7 +43,7 @@ def updateDNS() -> str:
 
 def updatePoeLog(timestamp):
     """The poe.log is a local log of all the timestamps our server updated its DNS"""
-    with open("/data/poe.log", "a") as file:
+    with open("../../data/poe.log", "a") as file:
         file.write(f"{timestamp}\n")
 
 

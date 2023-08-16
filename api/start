@@ -1,0 +1,4 @@
+#!/bin/bash
+
+. ../venv/bin/activate
+python3 -m uvicorn .:app --proxy-headers --host 0.0.0.0 --port 7676 --reload

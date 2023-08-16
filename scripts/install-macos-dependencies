@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+PLATFORM=${PLATFORM:-"$(uname -s)"}
+
+if [[ "$PLATFORM" != "Darwin" ]]; then
+  echo "This script is only for macOS, refusing to continue"
+  echo "If this is wrong, try again after:"
+  echo "  export PLATFORM=Darwin"
+  exit -1
+fi
+
+exists() {
+  command -v "$@">/dev/null 2>&1 
+}
+
+for dependency in python3 jq cairo libffi libjpeg; do
+  exists $dependency || brew install $dependency
+done
+
+if [[ ! -d ../venv ]]; then
+  python3 -m pip install --upgrade venv
+  python3 -m venv ../venv
+  . ../venv/bin/activate
+  python3 -m pip install --upgrade pymodbus pyserial
+fi

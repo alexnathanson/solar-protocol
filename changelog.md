@@ -1,5 +1,9 @@
 # Software Update Log
 
+## 08/16/23
+
+Initial migration away from containers
+
 ## 10/20/22
 
 Migrated to v3 api built in python

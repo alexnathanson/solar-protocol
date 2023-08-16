@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PLATFORM=${PLATFORM:-$(./platform)}
+
+if [[ "$PLATFORM" == "pi" ]]; then
+  cat /sys/class/net/wlan0/address
+elif [[ "$PLATFORM" == "mac" ]]; then
+  ifconfig en0 | awk '/ether/{print $2}'
+elif [[ "$PLATFORM" == "debian" ]]; then
+  ifconfig en0 | awk '/ether/{print $2}'
+elif [[ "$PLATFORM" == "linux" ]]; then
+  ifconfig en0 | awk '/ether/{print $2}'
+fi

@@ -23,8 +23,8 @@ from logging import error
 
 class SolarProtocol:
     def __init__(self):
-        self.localConfigFile = "/local/local.json"
-        self.devices = "/data/devices.json"
+        self.localConfigFile = "../../local/local.json"
+        self.devices = "../../data/devices.json"
         # this script retrieves the environmental variables
         self.localConfigData = dict()
         self.loadLocalConfigFile()

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if exists raspi-config; then
+  echo "pi"
+elif [[ "$(uname -s)" == "Darwin" ]]; then
+  echo "mac"
+elif grep -qi microsoft /proc/version; then
+  echo "win"
+elif [[ -f /etc/debian_version ]]; then
+  echo "debian"
+elif [[ "$(uname -s)" == "Linux" ]]; then
+  echo "linux"
+fi

@@ -28,74 +28,30 @@ help() {
     solar <${Color}command${Clear}> [${Green}service${Clear}]    where service is one of ${Green}api${Clear}, ${Green}datalogger${Clear}, ${Green}web${Clear}, or ${Green}protocol${Clear}
 
     solar ${Color}help${Clear}                   show this help
+
+    solar ${Color}open${Clear}                   open the local running site
     solar ${Color}docs${Clear}                   browse the complete solar protocol documentation
 
-    solar ${Color}status${Clear}                 check status of the containers
-    solar ${Color}logs${Clear} <${Green}service${Clear}>         show logs for ${Green}service${Clear}
-
-    solar ${Color}open${Clear}                   open the local solar protocol webpage
-    solar ${Color}up${Clear}                     bring solar protocol up
-    solar ${Color}down${Clear}                   bring solar protocol down
-
-    solar ${Color}start${Clear} <${Green}service${Clear}>        start individual ${Green}service${Clear}
-    solar ${Color}stop${Clear} <${Green}service${Clear}>         stop individual ${Green}service${Clear}
-    solar ${Color}restart${Clear} <${Green}service${Clear}>      restart ${Green}service${Clear}
-
-    solar ${Color}dev${Clear}                  start solar protocol with fake datalogger
-    solar ${Color}shell${Clear} <${Green}service${Clear}>        open a shell in the running ${Green}service${Clear}
-    solar ${Color}exec${Clear} <${Green}service${Clear}> ${Bold}command${Clear} run ${Bold}command${Clear} in the current ${Green}service${Clear}
-
-    solar ${Color}build${Clear}                  build new container images of all the services
-    solar ${Color}install${Clear}                install dependencies and completions
-    solar ${Color}reinstall${Clear}              removes containers and dependencies and reinstalls
     solar ${Color}format${Clear}                 format all the source code
 
     solar ${Color}battery${Clear}                show the current battery percentage
     solar ${Color}update-dns${Clear} ${Red}password${Clear}    update the dns for beta.solarprotocol.net
     solar ${Color}get-dns-hash${Clear}           create a hash to share with administrators when joining
-    solar ${Color}make-active${Clear}            request to become the active server
     solar ${Color}set-admin-password${Clear} ${Red}password${Clear}  update the ${Red}password${Clear} for the admin settings pages
 HELP
   )"
 }
 
+
 exists() {
   command -v "$@" >/dev/null 2>&1
 }
-
-platform() {
-  if exists raspi-config; then
-    echo "pi"
-  elif [[ "$(uname -s)" == "Darwin" ]]; then
-    echo "mac"
-  elif grep -qi microsoft /proc/version; then
-    echo "win"
-  elif [[ -f /etc/debian_version ]]; then
-    echo "debian"
-  elif [[ "$(uname -s)" == "Linux" ]]; then
-    echo "linux"
-  fi
-}
-
-PLATFORM=$(platform)
 
 prompt() {
   if [[ "$CI" != "true" ]]; then 
     read -r -p "$* (y/N) " confirm && \
       [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
       || exit 1
-  fi
-}
-
-docs() {
-  docs_url="https://github.com/alexnathanson/solar-protocol/tree/beta/docs#readme"
-
-  if [[ "$PLATFORM" == "mac" ]]; then
-    open "$docs_url"
-  elif [[ "$PLATFORM" == "windows" ]]; then
-    start "" "$docs_url"
-  else
-    xdg-open "$docs_url"
   fi
 }
 
@@ -123,136 +79,12 @@ update-dns() {
   echo "$TIME - $IP" >> $LOGFILE
 }
 
-# FIXME: migrate to podman when bookworm is released for raspberry pi
-install-docker-debian() {
-  sudo apt-get update
-  exists docker || sudo apt-get install --yes docker.io
-  exists htpasswd || sudo apt-get install --yes apache2-utils
-
-  # Not sure why buildkit fails
-  if ! test -f /etc/profile.d/disable-buildkit.sh; then
-    echo "export DOCKER_BUILDKIT=0" | sudo tee /etc/profile.d/disable-buildkit.sh > /dev/null
-
-    echo "please run: "
-    echo ". /etc/profile.d/disable-buildkit.sh"
-  fi
-
-  if ! docker compose config >/dev/null 2>/dev/null; then
-    sudo apt-get install --yes ca-certificates curl gnupg lsb-release
-    sudo mkdir -p /etc/apt/keyrings
-    sudo rm -f /etc/apt/keyrings/docker.gpg
-    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor --output /etc/apt/keyrings/docker.gpg
-    if ! test -f /etc/apt/sources.list.d/docker.list; then
-      echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
-        | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    fi
-
-    sudo apt update
-    sudo apt-get install --yes docker-compose-plugin
-  fi
-
-  # add user to docker group
-  if ! groups | grep --quiet docker >/dev/null; then
-    sudo usermod --append --groups docker "$USER"
-    newgrp docker
-  fi
-}
-
-install() {
-  if [[ ! -f local/local.json ]]; then
-    cp local/local.template.json local/local.json
-  fi
-
-  # Generating this file negates the device list file generated in run.py
-  # if [[ ! -f data/devices.json ]]; then
-  #   cp data/devices.template.json data/devices.json
-  # fi
-
-  if [[ -f ~/.bashrc ]]; then
-    if ! grep --quiet solar ~/.bashrc; then
-     if prompt "Add solar PATH to ~/.bashrc?"; then
-       echo "export PATH=\$PATH:$PWD" >> ~/.bashrc
-       echo "please run:"
-       echo ". ~/.bashrc"
-     fi
-    fi
-  fi
-
-  if [[ -f ~/.zshrc ]]; then
-    if ! grep --quiet solar ~/.zshrc; then
-      if prompt "Add solar PATH and completions to ~/.zshrc?"; then
-        echo "export PATH=\$PATH:$PWD" >> ~/.zshrc
-        echo "fpath+=($PWD/dev); compinit" >> ~/.zshrc
-        echo "please run:"
-        echo ". ~/.zshrc"
-      fi
-    fi
-  fi
-
-
-  # macOS
-  if [[ "$PLATFORM" == "mac" ]]; then
-    exists python3 || brew install python3
-    exists podman || brew install podman
-    exists jq || brew install jq
-    exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
-
-    podman machine inspect >/dev/null 2>&1 || podman machine init
-    podman machine stop
-    [[ "$(podman machine inspect --format '{{.State}}')" == "running" ]] || podman machine start
-    return
-  fi
-
-  # raspberry pi OS
-  if [[ "$PLATFORM" == "pi" ]] || [[ "$PLATFORM" == "debian" ]]; then
-    exists jq || sudo apt-get install --yes jq
-    exists figlet || sudo apt-get install --yes figlet
-    install-docker-debian
-    install-systemd
-
-    echo "solar protocol dependencies installed! try running 'solar up'"
-    return
-  fi
-
-  # windows
-  if [[ "$PLATFORM" == "win" ]]; then
-    echo See the official windows install docs to install podman and podman-compose
-    echo
-    echo https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md
-    return
-  fi
-
-  if [[ ! -d $HOME/venv ]]; then
-    cd $HOME
-    python3 -m pip install venv
-    python3 -m venv venv
-    . $HOME/venv/bin/activate
-    python3 -m pip install -u pymodbus pyserial
-  fi
-
-  exists docker || exists podman podman-compose
-}
-
 _generate-key() {
   openssl rand -hex 16
 }
 
 bcrypt() {
   htpasswd -bnBC 10 "" "$1" | tr -d ':\n'
-}
-
-reinstall() {
-  compose down
-  if exists podman; then
-    podman machine stop
-    podman machine rm podman-machine-default
-  fi
-  install
-  if exists podman; then
-    if [[ "$(podman machine inspect --format '{{.State}}')" == "running" ]]; then
-      podman machine start
-    fi
-  fi
 }
 
 # Since we have multiple collaborators, its useful to have all the tabs and spaces align
@@ -275,88 +107,6 @@ format() {
   if exists shellcheck; then
     shellcheck solar
   fi
-}
-
-compose() {
-  if [[ "$PLATFORM" == "mac" ]]; then
-    podman-compose --file compose.yaml "$@"
-  else
-    export DOCKER_BUILDKIT=0
-    export PLATFORM
-    export FAKE_DATA
-    MAC=$(get-mac-address)
-    export MAC
-    docker compose --file compose.yaml "$@"
-  fi
-}
-
-# Before we can run any of the services (web, api, protocol, datalogger), we
-# need to build a system 'image', which contains a snapshot of the current code
-# and dependencies.
-# SystemD is how linux systems run services
-# A service is just any software that you want to run every time the system is on
-# Raspberry Pis use linux, so this will make sure solar protocol is installed and running at boot
-install-systemd() {
-  servicedir=/etc/systemd/system
-  configdir=$servicedir/solar-protocol.service.d
-  sudo mkdir -p $configdir
-
-  for config in dev/systemd/solar-protocol.service.d/*conf; do
-    if [[ ! -f $configdir/$config ]]; then
-      sudo cp "$config" $configdir/
-    fi
-  done
-
-  cat <<EOF | sudo tee "$servicedir"/solar-protocol.service >/dev/null
-# $servicedir/solar-protocol.service
-
-[Unit]
-Description=Solar Protocol
-Requires=docker.service
-After=docker.service
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-WorkingDirectory=$PWD
-ExecStart=$PWD/solar up --detach
-ExecStop=$PWD/solar down
-User=$USER
-TimeoutStartSec=0
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# tunnelto provides a public dns entry for servers who cannot be configured with public ips
-  cat <<EOF | sudo tee "$servicedir"/tunnelto.service >/dev/null
-# $servicedir/tunnelto.service
-
-[Unit]
-Description=TunnelTo
-After=network.target
-
-[Service]
-WorkingDirectory=/home/pi
-ExecStart=/home/pi/.cargo/bin/tunnelto --subdomain woodbine-solarprotocol --port 80
-User=$USER
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-  sudo systemctl daemon-reload
-  active=$(systemctl is-active solar-protocol)
-  enabled=$(systemctl is-enabled solar-protocol)
-
-  if [[ "$active" == "active" ]]; then sudo systemctl stop solar-protocol; fi
-  if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable solar-protocol; fi
-
-  active=$(systemctl is-active tunnelto)
-  enabled=$(systemctl is-enabled tunnelto)
-
-  if [[ "$active" == "active" ]]; then sudo systemctl stop tunnelto; fi
-  if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable tunnelto; fi
 }
 
 set-admin-password() {
@@ -392,18 +142,6 @@ get-dns-hash() {
   fi
 }
 
-get-mac-address() {
-  if [[ "$PLATFORM" == "pi" ]]; then
-    cat /sys/class/net/wlan0/address
-  elif [[ "$PLATFORM" == "mac" ]]; then
-    ifconfig en0 | awk '/ether/{print $2}'
-  elif [[ "$PLATFORM" == "debian" ]]; then
-    ifconfig en0 | awk '/ether/{print $2}'
-  elif [[ "$PLATFORM" == "linux" ]]; then
-    ifconfig en0 | awk '/ether/{print $2}'
-  fi
-}
-
 battery() {
   exists figlet || sudo apt-get install --yes figlet
 . $HOME/venv/bin/activate
@@ -416,26 +154,11 @@ print(battery.registers[0])
 }
 
 case $command in
-  start) compose start "${@:-api datalogger protocol web}" ;;
-  stop) compose stop "$@" ;;
-  dev) FAKE_DATA=True FAKE_TTY=/dev/null compose up "$@" ;;
-  up) compose up "$@" ;;
-  down) compose down "$@" ;;
-  status) compose ps 2>/dev/null ;;
-  restart) compose restart "${@:-api datalogger protocol web}" ;;
-  logs) compose logs "${@:-protocol}" ;;
-  build) compose build "$@" ;;
-  shell) compose exec "${1:-protocol}" /bin/bash ;;
   open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
   format) format ;;
   update-dns) update-dns "$@" ;;
   set-admin-password) set-admin-password "$@" ;;
   get-dns-hash) get-dns-hash ;;
-  reinstall) reinstall ;;
-  install) install ;;
-  install-systemd) install-systemd ;;
-  exec) compose exec "$@" ;;
-  docs) docs ;;
   battery) battery ;;
   *) help ;;
 esac

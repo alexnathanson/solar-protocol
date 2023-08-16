@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Override if our mac detection fails
+MAC=${MAC:-$(../scripts/get-mac-address)}
+
+. ../venv/bin/activate
+python3 run.py

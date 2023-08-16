@@ -1,0 +1,6 @@
+#!/bin/bash
+
+./api/start &
+./datalogger/start &
+./protocol/start &
+nginx -c ./nginx.conf &

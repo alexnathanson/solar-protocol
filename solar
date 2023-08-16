@@ -198,6 +198,7 @@ install() {
     exists podman-compose || pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
 
     podman machine inspect >/dev/null 2>&1 || podman machine init
+    podman machine stop
     [[ "$(podman machine inspect --format '{{.State}}')" == "running" ]] || podman machine start
     return
   fi

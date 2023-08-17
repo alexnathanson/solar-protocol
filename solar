@@ -14,10 +14,8 @@ test -f local/secrets.json || echo '{}' > local/secrets.json
 
 help() {
   Clear='\033[0m'
-  Bold='\033[4m'
   Cyan='\033[0;36m'
   Red='\033[0;31m'
-  Green='\033[0;32m'
   Color=$Cyan
 
   echo -e "$(
@@ -80,7 +78,9 @@ bcrypt() {
 format() {
   black .
   ruff check --fix .
-  shellcheck solar */run script/*
+  shellcheck solar \
+    api/run datalogger/run protocol/run \
+    ./scripts/*
 }
 
 set-admin-password() {
@@ -117,7 +117,8 @@ get-dns-hash() {
 }
 
 battery() {
-. $HOME/venv/bin/activate
+# shellcheck source=/dev/null
+. venv/bin/activate
 python -c 'from pymodbus.client import ModbusSerialClient
 client=ModbusSerialClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
 client.connect()

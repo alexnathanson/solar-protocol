@@ -15,5 +15,6 @@ if [[ $PLATFORM == unknown ]]; then
   PLATFORM=$(../scripts/platform)
 fi
 
+# shellcheck source=/dev/null
 . ../venv/bin/activate
 python3 csv_datalogger.py

@@ -10,7 +10,7 @@ PLATFORM=${PLATFORM:-"$(./platform)"}
 if [[ "$PLATFORM" != "pi" ]] && [[ "$PLATFORM" != "debian" ]]; then
   echo "Script only meant to be run on debian or Raspberry Pi OS"
   echo "export PLATFORM=pi to override this check. Exiting."
-  exit -1
+  exit 1
 fi
 
 

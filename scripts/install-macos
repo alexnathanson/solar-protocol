@@ -11,7 +11,7 @@ if [[ "$PLATFORM" != "mac" ]]; then
   echo "This script is only for macOS, refusing to continue"
   echo "If this is wrong, try again after:"
   echo "  export PLATFORM=mac"
-  exit -1
+  exit 1
 fi
 
 # python deps

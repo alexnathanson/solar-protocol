@@ -8,5 +8,6 @@ set -o nounset
 # Override if our mac detection fails
 MAC=${MAC:-$(../scripts/get-mac-address)}
 
+# shellcheck source=/dev/null
 . ../venv/bin/activate
 python3 run.py

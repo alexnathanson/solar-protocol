@@ -22,10 +22,12 @@ brew install \
   libffi \
   figlet \
   toilet \
-  libjpeg
+  libjpeg \
+  --quiet
 
 # dev stuff
 brew install \
   black \
   ruff \
-  shellcheck
+  shellcheck \
+  --quiet

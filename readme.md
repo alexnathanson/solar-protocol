@@ -72,21 +72,24 @@ readme.md              - you are reading this!
 changelog.md           - major updates are shared here
 project-description.md - what this whole thing is about
 
-          docs/    how to develop the software and network
-     community/    history and current status of community events and stewardship
-      hardware/    how to build your own node
-     tutorials/    additional support for installation and usage of the Solar Protocol network
-       website/    detailed project history and motivation
+              docs/    how to develop the software and network
+     docs/hardware/    how to build your own node
+    docs/tutorials/    additional support for installation and usage of the Solar Protocol network
+
+         community/    history and current status of community events and stewardship
+           website/    detailed project history and motivation
 
 #### service code
+           
+        src/common/    credentials management
+           src/api/    api
+      src/protocol/    distributed protocol for managing the network and building the site
+    src/datalogger/    reads the charge controller and logs it to the data/ directory
 
-           dev/    tools for development and running code
-           api/    api
-      protocol/    the code for having a server participate in the network 
-    datalogger/    logs charge controller information
+               dev/    tools and config for development and running code
 
 #### data directories - generated files go here
 
-          data/    folder where the point-of-entry log
+          data/    folder for the point-of-entry log, charge controller
       frontend/    static website
          local/    local configuration - server name, images, description

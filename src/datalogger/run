@@ -9,12 +9,8 @@ set -o nounset
 FAKE_DATA=${FAKE_DATA:-False}
 
 # We detect 
-PLATFORM=${PLATFORM:-unknown}
-
-if [[ $PLATFORM == unknown ]]; then
-  PLATFORM=$(../scripts/platform)
-fi
+PLATFORM=${PLATFORM:-$(../../dev/scripts/platform)}
 
 # shellcheck source=/dev/null
-. ../venv/bin/activate
+. ../../venv/bin/activate
 python3 csv_datalogger.py

@@ -109,12 +109,12 @@ def status():
 
 
 def allowlist():
-    with open("../data/allowlist.json", "r") as allowlistfile:
+    with open("data/allowlist.json", "r") as allowlistfile:
         return json.load(allowlistfile)
 
 
 def updateDnsLog(name: str, ip: str, timestamp):
-    with open("../data/dns.log", "a+", newline="") as csvfile:
+    with open("data/dns.log", "a+", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=[name, ip, timestamp])
         writer.writerow([name, ip, timestamp])
 
@@ -185,7 +185,7 @@ def updateDevice(
     }
     postedDevice = {key: value for (key, value) in formData.items() if value}
 
-    devicesFilename = "../data/devices.json"
+    devicesFilename = "data/devices.json"
 
     try:
         with open(devicesFilename, "r") as devicesfile:
@@ -217,7 +217,7 @@ def updateDevice(
 
 @app.get("/api/devices")
 def devices(key: Optional[DeviceKeys] = None):
-    filename = "../data/devices.json"
+    filename = "data/devices.json"
     try:
         with open(filename, "r") as jsonfile:
             devices = json.load(jsonfile)
@@ -265,7 +265,7 @@ def charge(days: Optional[list[str]] = None, key: Optional[ChargeKeys] = None):
 
     for date in dates:
         try:
-            with open(f"../data/charge-controller/{date}.csv", "r") as csvfile:
+            with open(f"data/charge-controller/{date}.csv", "r") as csvfile:
                 reader = csv.DictReader(
                     csvfile, quoting=csv.QUOTE_NONNUMERIC, fieldnames=fieldnames
                 )
@@ -304,13 +304,13 @@ def getMyIp(x_real_ip: str | None = Header(default=None)):
 def updateProfileImage(profile: str):
     raise Exception("Unimplemented")
     # FIXME: Protect this route
-    with open("../local/serverprofile.gif", "w") as profilefile:
+    with open("local/serverprofile.gif", "w") as profilefile:
         profilefile.write(profile)
 
 
 @app.get("/api/local")
 def getLocal(key: Optional[SystemKeys]):
-    with open("../local/local.json", "r") as jsonfile:
+    with open("local/local.json", "r") as jsonfile:
         localData = json.load(jsonfile)
 
     if key is None:
@@ -357,7 +357,7 @@ def updateLocal(
     # filter out empty or none
     filtered = {key: value for (key, value) in formData.items() if value}
 
-    filename = "../local/local.json"
+    filename = "local/local.json"
     with open(filename, "r") as localfile:
         local = json.load(localfile)
 

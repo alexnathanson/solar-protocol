@@ -17,7 +17,7 @@ from ...common.secrets import getSecret, SecretKey
 
 
 def getDevices(key: str):
-    filename = "../../data/devices.json"
+    filename = "data/devices.json"
     try:
         with open(filename) as file:
             devices = json.load(file)
@@ -28,7 +28,7 @@ def getDevices(key: str):
             return []
 
 
-def getPoeLog(filename="../../data/poe.log"):
+def getPoeLog(filename="data/poe.log"):
     """
     Truncate the log to the first 216 lines
     If solarProtocol.py runs every 10 minutes, there can be max 432 entries
@@ -54,7 +54,7 @@ def getLocal(key):
     }
     default = defaults.get(key)
     try:
-        with open("../../local/local.json") as file:
+        with open("local/local.json") as file:
             device = json.load(file)
             return device.get(key, default)
     except Exception:

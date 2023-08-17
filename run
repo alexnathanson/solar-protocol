@@ -5,7 +5,33 @@ cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
 set -o errexit
 set -o nounset
 
-./api/run &
-./datalogger/run &
-./protocol/run &
-nginx -c ./nginx.conf &
+# Run with FAKE_DATA=True to fake the data
+FAKE_DATA=${FAKE_DATA:-False}
+
+# Override if we detect the wrong PLATFORM
+PLATFORM=${PLATFORM:-$(./dev/scripts/platform)}
+
+# Override if our mac detection fails
+MAC=${MAC:-$(./dev/scripts/get-mac-address)}
+
+echo "starting the web server"; (
+  nginx -c "$PWD"/dev/nginx.conf &
+) &
+
+echo "starting the api"; (
+  # shellcheck source=/dev/null
+  . venv/bin/activate
+  python3 -m uvicorn ./src/api:app --proxy-headers --host 0.0.0.0 --port 7676 --reload
+) &
+
+echo "starting the data logger"; (
+  # shellcheck source=/dev/null
+  . venv/bin/activate
+  python3 -m src.datalogger.csv_datalogger
+) &
+
+echo "starting the data logger"; (
+  # shellcheck source=/dev/null
+  . venv/bin/activate
+  python3 -m src.protocol.run
+) &

@@ -25,7 +25,7 @@ import datetime
 from dateutil.parser import parse
 from logging import debug, error, info
 
-deviceList = "../../data/devices.json"
+deviceList = "data/devices.json"
 
 log_file_name = "/var/log/apache2/access.log"
 

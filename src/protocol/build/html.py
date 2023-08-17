@@ -45,7 +45,7 @@ def getCC(host: str, key: str):
 # gets power data from charge controller
 def read_csv():
     today = str(datetime.date.today())
-    chargeControllerData = f"../../data/charge-controller/{today}.csv"
+    chargeControllerData = f"data/charge-controller/{today}.csv"
     filename = chargeControllerData
 
     with open(filename, "r") as data:
@@ -60,8 +60,8 @@ def read_csv():
 
 
 def render_pages(_local_data, _data, _weather, _server_data):
-    templatePath = f"/build/templates"
-    outputPath = f"/frontend"
+    templatePath = f"build/templates"
+    outputPath = f"frontend"
 
     pages = [
         "index.html",
@@ -221,13 +221,13 @@ def get_weather(lon, lat, appid: str):
 
 
 def getLocal():
-    filename = f"../../local/local.json"
+    filename = f"local/local.json"
     with open(filename) as localfile:
         return json.load(localfile)
 
 
 def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
-    devices = f"../../data/devices.json"
+    devices = f"data/devices.json"
     try:
         with open(devices) as file:
             data = json.load(file)

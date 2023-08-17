@@ -79,8 +79,8 @@ format() {
   black .
   ruff check --fix .
   shellcheck solar \
-    api/run datalogger/run protocol/run \
-    ./scripts/*
+    src/api/run src/datalogger/run src/protocol/run \
+    dev/scripts/*
 }
 
 set-admin-password() {

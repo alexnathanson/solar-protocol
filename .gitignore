@@ -25,3 +25,4 @@ frontend/*html
 frontend/images/clock.png
 frontend/images/clock-exhibit.png
 frontend/images/clock-archive/*png
+venv

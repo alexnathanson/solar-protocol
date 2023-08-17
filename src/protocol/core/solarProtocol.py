@@ -43,7 +43,7 @@ def updateDNS() -> str:
 
 def updatePoeLog(timestamp):
     """The poe.log is a local log of all the timestamps our server updated its DNS"""
-    with open("../../data/poe.log", "a") as file:
+    with open("data/poe.log", "a+") as file:
         file.write(f"{timestamp}\n")
 
 

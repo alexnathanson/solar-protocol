@@ -1,19 +1,8 @@
 # Installation
 
-First we install python, some native dependencies, and python dependencies.
-
-    ./scripts/install-macos-dependencies
-    ./scripts/install-python-dependencies
-
-
-
-## Quick Start (macOS)
-
     git clone --branch beta https://github.com/alexnathanson/solar-protocol
     cd solar-protocol
-
-    ./scripts/install-macos-dependencies
-    ./scripts/install-python-dependencies
+    ./scripts/install
     ./run
 
 # Development
@@ -22,7 +11,24 @@ First we install python, some native dependencies, and python dependencies.
 
 There are 4 services that make up the entire protocol. 
 
-### 1. protocol service
+### 1. web service
+
+This is an nginx proxy that serves up the static files made by the solar-protocol service, as well as delegating to the api service.
+It is configured with `nginx.conf` and is started by the top-level `./run` script
+
+### 2. datalogger service
+
+The datalogger service periodically reads the charge controller and saves a log for the other scripts.
+If it is not running on a raspberry pi, it fakes data.
+You can also force faking data by exporting `FAKE_DATA=True`.
+
+If you are using systemd (as the Raspberry Pis are), you should edit `/etc/systemd/system/solar-protocol.service.d/datalogger.conf`.
+
+### 3. api service
+
+This api allows other devices in the network to query the server for public info. It is started with `./api/run`.
+
+### 4. protocol service
 
 The solar protocol is supervised by [protocol/run.py][]. This runner runs a number of other scripts, depending on the current solar and battery conditions.
 
@@ -50,19 +56,21 @@ Updates the clock visualizations. This only runs if the device has 30% or more b
 
 Regenerates the website with the latest data.
 
-### 2. datalogger service
 
-The datalogger service periodically reads the charge controller and saves a log for the other scripts. If it is not running on a raspberry pi, it fakes data. You can also force faking data by exporting `FAKE_DATA=True`. If you are using systemd (as the Raspberry Pis are), you should edit `/etc/systemd/system/solar-protocol.service.d/datalogger.conf`.
+## Troubleshooting and Customization
 
-### 3. api service
+If you want to create fake charge controller data
 
-This api allows other devices in the network to query the server for public info.
+    FAKE_DATA=True
 
-### 4. web service
+If you have difficulty getting the correct MAC address for the device list
 
-This is an nginx proxy that serves up the static files made by the solar-protocol service, as well as delegating to the api service.
+    MAC=aa:bb:cc:dd:ee:ff
 
+If our platform detectin is wrong
+
+    PLATFORM=mac
 
 ## Contributing
 
-Please install `ruff` via `cargo install ruff` and run `solar format` before making pull requests.
+Its a good idea to run `./solar format` before making pull requests.

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+shift
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+set -o errexit
+set -o nounset
+
+PLATFORM=${PLATFORM:-"$(./platform)"}
+
+if [[ "$PLATFORM" != "mac" ]]; then
+  echo "This script is only for macOS, refusing to continue"
+  echo "If this is wrong, try again after:"
+  echo "  export PLATFORM=mac"
+  exit -1
+fi
+
+# python deps
+brew install \
+  python3 \
+  jq \
+  cairo \
+  libffi \
+  figlet \
+  toilet \
+  libjpeg
+
+# dev stuff
+brew install \
+  black \
+  ruff \
+  shellcheck

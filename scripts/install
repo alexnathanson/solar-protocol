@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+shift
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+set -o errexit
+set -o nounset
+
+# override with `export PLATFORM="myplatform"`
+PLATFORM=${PLATFORM:-"$(./platform)"}
+
+if [[ "$PLATFORM" == "pi" ]] \
+  || [[ "$PLATFORM" == "debian" ]] \
+  || [[ "$PLATFORM" == "linux" ]]; then
+  ./install-linux
+elif [[ "$PLATFORM" == "mac" ]]; then
+  ./install-macos
+elif [[ "$PLATFORM" == "win" ]]; then
+  ./install-win
+else
+  echo >&2 "unsupported platform ${PLATFORM}"
+  exit 1
+fi
+
+./install-python

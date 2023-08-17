@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
+# export TRACE=1 to debug
 if [[ "${TRACE-0}" == "1" ]]; then set -o xtrace; fi
 
-CI=${CI-false}
 command="${1-help}"
+
 shift
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
-
 set -o errexit
 set -o nounset
 
@@ -25,34 +25,22 @@ help() {
 
   ☀️ solar - commandline tool to help manage your server
 
-    solar <${Color}command${Clear}> [${Green}service${Clear}]    where service is one of ${Green}api${Clear}, ${Green}datalogger${Clear}, ${Green}web${Clear}, or ${Green}protocol${Clear}
+    solar ${Color}help${Clear}                         show this help
 
-    solar ${Color}help${Clear}                   show this help
+    solar ${Color}open${Clear}                         open the local running site
+    solar ${Color}docs${Clear}                         browse the complete solar protocol documentation
 
-    solar ${Color}open${Clear}                   open the local running site
-    solar ${Color}docs${Clear}                   browse the complete solar protocol documentation
+    solar ${Color}install${Clear}                      install system dependencies
+    solar ${Color}run${Clear}                          run solar protocol
 
-    solar ${Color}format${Clear}                 format all the source code
+    solar ${Color}format${Clear}                       format all the source code
 
-    solar ${Color}battery${Clear}                show the current battery percentage
-    solar ${Color}update-dns${Clear} ${Red}password${Clear}    update the dns for beta.solarprotocol.net
-    solar ${Color}get-dns-hash${Clear}           create a hash to share with administrators when joining
+    solar ${Color}battery${Clear}                      show the current battery percentage
+    solar ${Color}update-dns${Clear} ${Red}password${Clear}          update the dns for beta.solarprotocol.net
+    solar ${Color}get-dns-hash${Clear}                 create a hash to share with administrators when joining
     solar ${Color}set-admin-password${Clear} ${Red}password${Clear}  update the ${Red}password${Clear} for the admin settings pages
 HELP
   )"
-}
-
-
-exists() {
-  command -v "$@" >/dev/null 2>&1
-}
-
-prompt() {
-  if [[ "$CI" != "true" ]]; then 
-    read -r -p "$* (y/N) " confirm && \
-      [[ $confirm == [yY] || $confirm == [yY][eE][sS ]] \
-      || exit 1
-  fi
 }
 
 update-dns() {
@@ -90,23 +78,9 @@ bcrypt() {
 # Since we have multiple collaborators, its useful to have all the tabs and spaces align
 # Run format before making a pull request to help us all focus on the code changes
 format() {
-  if exists podman; then
-    podman run --rm --volume "$(pwd)":/src --workdir /src \
-    pyfound/black:latest_release \
-    black .
-  elif exists docker; then
-    docker run --rm --volume "$(pwd)":/src --workdir /src \
-    pyfound/black:latest_release \
-    black .
-  fi
-
-  if exists ruff; then
-    ruff check --fix .
-  fi
-
-  if exists shellcheck; then
-    shellcheck solar
-  fi
+  black .
+  ruff check --fix .
+  shellcheck solar */run script/*
 }
 
 set-admin-password() {
@@ -143,7 +117,6 @@ get-dns-hash() {
 }
 
 battery() {
-  exists figlet || sudo apt-get install --yes figlet
 . $HOME/venv/bin/activate
 python -c 'from pymodbus.client import ModbusSerialClient
 client=ModbusSerialClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
@@ -160,6 +133,9 @@ case $command in
   set-admin-password) set-admin-password "$@" ;;
   get-dns-hash) get-dns-hash ;;
   battery) battery ;;
+  exists) exists "$@" ;;
+  install) ./scripts/install ;;
+  run) ./run ;;
   *) help ;;
 esac
 

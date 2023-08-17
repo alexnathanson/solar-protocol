@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-if exists raspi-config; then
-  echo "pi"
-elif [[ "$(uname -s)" == "Darwin" ]]; then
+shift
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+set -o errexit
+set -o nounset
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
   echo "mac"
 elif grep -qi microsoft /proc/version; then
   echo "win"
@@ -10,4 +13,6 @@ elif [[ -f /etc/debian_version ]]; then
   echo "debian"
 elif [[ "$(uname -s)" == "Linux" ]]; then
   echo "linux"
+elif command -v raspi-config; then
+  echo "pi"
 fi

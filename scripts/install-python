@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+shift
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+set -o errexit
+set -o nounset
+
+if [[ ! -d ../venv ]]; then
+  python3 -m venv ../venv
+fi
+
+. ../venv/bin/activate
+
+python3 -m pip install \
+  --requirement ../common/requirements.txt \
+  --requirement ../api/requirements.txt \
+  --requirement ../datalogger/requirements.txt \
+  --requirement ../protocol/requirements.txt \
+  --quiet

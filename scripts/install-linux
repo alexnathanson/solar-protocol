@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/bin/env bash
+
+shift
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+set -o errexit
+set -o nounset
 
 PLATFORM=${PLATFORM:-"$(./platform)"}
 
@@ -23,6 +28,7 @@ apt-get --quiet install \
 apt-get --quiet install \
   jq \
   figlet \
+  toilet \
   --yes
 
 echo Installing system services

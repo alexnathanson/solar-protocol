@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/bin/env bash
+
+shift
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+set -o errexit
+set -o nounset
 
 # Run with FAKE_DATA=True to fake the data
 FAKE_DATA=${FAKE_DATA:-False}

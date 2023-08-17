@@ -1,6 +1,11 @@
-#!/bin/bash
+#!/bin/env bash
 
-./api/start &
-./datalogger/start &
-./protocol/start &
+shift
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+set -o errexit
+set -o nounset
+
+./api/run &
+./datalogger/run &
+./protocol/run &
 nginx -c ./nginx.conf &

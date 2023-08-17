@@ -12,7 +12,7 @@ import logging
 from logging import debug, error, info
 import requests
 import os
-from ../../common.secrets import getSecret, SecretKey
+from ...common.secrets import getSecret, SecretKey
 
 
 def determineServer(allValues: list[int], myValue: int):

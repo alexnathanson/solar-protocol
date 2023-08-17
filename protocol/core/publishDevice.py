@@ -13,7 +13,7 @@ import json
 import os
 from logging import debug, error, exception, info
 
-from ../../common.secrets import getSecret, SecretKey
+from ...common.secrets import getSecret, SecretKey
 
 
 def getDevices(key: str):

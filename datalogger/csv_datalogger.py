@@ -7,7 +7,7 @@ import os
 import signal
 import sys
 from logging import error, info
-from ../common.sample import fieldnames, Sample
+from ..common.sample import fieldnames, Sample
 
 PLATFORM = os.environ.get("PLATFORM", "unknown")
 RASPBERRY_PI = PLATFORM == "pi"

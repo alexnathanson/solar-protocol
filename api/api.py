@@ -8,8 +8,8 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Header, Form, Request
 from passlib.hash import bcrypt
-from ../common.secrets import getSecret, setSecret, SecretKey
-from ../common.sample import fieldnames
+from ..common.secrets import getSecret, setSecret, SecretKey
+from ..common.sample import fieldnames
 from logging import error
 import requests
 

@@ -35,7 +35,7 @@ def run():
     # Wait for the api to be ready
     while True:
         try:
-            requests.get("http://api/api/devices", timeout=None)
+            requests.get("http://127.0.0.1:11215/api/devices", timeout=None)
             break
         except requests.ConnectionError:
             sleep(5)
@@ -124,7 +124,7 @@ def getFrequency() -> Union[10, 15, 20, 30, MAX_FREQUENCY]:
     Set how frequent the script should run various functions
     """
 
-    url = "http://localhost/api/charge-controller"
+    url = "http://localhost:11215/api/charge-controller"
     params = {"key": "battery percentage"}
 
     try:

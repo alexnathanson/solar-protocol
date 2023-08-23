@@ -16,6 +16,7 @@ fi
 
 # python deps
 brew install \
+  nginx \
   python3 \
   jq \
   cairo \

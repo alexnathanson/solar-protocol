@@ -2,7 +2,7 @@
 
     git clone --branch beta https://github.com/alexnathanson/solar-protocol
     cd solar-protocol
-    ./scripts/install
+    ./dev/scripts/install
     ./run
 
 # Development

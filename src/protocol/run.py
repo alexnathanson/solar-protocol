@@ -26,7 +26,7 @@ from typing import Union
 one_minute = 60
 MAX_FREQUENCY = one_minute
 
-LOGLEVEL = os.environ.get("LOGLEVEL", "WARNING").upper()
+LOGLEVEL = os.environ.get("LOGLEVEL", "DEBUG").upper()
 logging.basicConfig(level=LOGLEVEL)
 print(f"{LOGLEVEL=}")
 

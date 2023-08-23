@@ -15,8 +15,8 @@ from typing import Optional, Union
 
 from logging import info, debug, error, exception
 
-from ../../common.secrets import getSecret, SecretKey
-from ../../common.sample import fieldnames
+from ...common.secrets import getSecret, SecretKey
+from ...common.sample import fieldnames
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 

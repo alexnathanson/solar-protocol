@@ -11,15 +11,17 @@ If battery percentage is below 30%, viz script doesn't run
 """
 
 from .build import html, viz
-from core import publishDevice, solarProtocol, getRemoteData
-from time import sleep
-from math import trunc
+from .core import publishDevice, solarProtocol, getRemoteData
+
 import datetime
 import requests
-from logging import info, debug, error, exception
-from typing import Union
 import logging
 import os
+
+from time import sleep
+from math import trunc
+from logging import info, debug, error, exception
+from typing import Union
 
 one_minute = 60
 MAX_FREQUENCY = one_minute

@@ -10,7 +10,7 @@ If the photovoltaic wattage is below 6W, run half as often
 If battery percentage is below 30%, viz script doesn't run
 """
 
-from build import html, viz
+from .build import html, viz
 from core import publishDevice, solarProtocol, getRemoteData
 from time import sleep
 from math import trunc

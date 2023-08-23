@@ -34,8 +34,8 @@ start_ring = 0
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
-devices = "data/devices.json"
-imagePath = "frontend/images"
+devices = "../../../data/devices.json"
+imagePath = "../../../frontend/images"
 
 energyParam = "PV current"
 ccDicts = []
@@ -440,7 +440,7 @@ def main():
     now = str(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     archivePath = f"{imagePath}/clock-archive/clock-{now}.png"
 
-    assetsPath = "build/assets"
+    assetsPath = "./assets"
     # export the clock surface
     surface.get_npimage()  # returns a (width x height x 3) numpy array
     surface.write_to_png(f"{assetsPath}/clock.png")

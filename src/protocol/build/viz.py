@@ -440,7 +440,7 @@ def main():
     now = str(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     archivePath = f"{imagePath}/clock-archive/clock-{now}.png"
 
-    assetsPath = "./assets"
+    assetsPath = "src/protocol/build/assets"
     # export the clock surface
     surface.get_npimage()  # returns a (width x height x 3) numpy array
     surface.write_to_png(f"{assetsPath}/clock.png")

@@ -36,7 +36,6 @@ help() {
     solar ${Color}battery${Clear}                      show the current battery percentage
     solar ${Color}update-dns${Clear} ${Red}password${Clear}          update the dns for beta.solarprotocol.net
     solar ${Color}get-dns-hash${Clear}                 create a hash to share with administrators when joining
-    solar ${Color}set-admin-password${Clear} ${Red}password${Clear}  update the ${Red}password${Clear} for the admin settings pages
 HELP
   )"
 }
@@ -128,10 +127,9 @@ print(battery.registers[0])
 }
 
 case $command in
-  open) open http://127.0.0.1:11221 || xdg-open http://127.0.0.1:11221 ;;
+  open) open http://localhost:8080 || xdg-open http://localhost:8080
   format) format ;;
   update-dns) update-dns "$@" ;;
-  set-admin-password) set-admin-password "$@" ;;
   get-dns-hash) get-dns-hash ;;
   battery) battery ;;
   exists) exists "$@" ;;

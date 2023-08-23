@@ -37,7 +37,7 @@ def run():
     # Wait for the api to be ready
     while True:
         try:
-            requests.get("http://127.0.0.1:11215/api/devices", timeout=None)
+            requests.get("http://localhost:11215/api/devices", timeout=None)
             break
         except requests.ConnectionError:
             sleep(5)

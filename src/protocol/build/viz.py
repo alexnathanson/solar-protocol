@@ -34,8 +34,8 @@ start_ring = 0
 
 os.chdir(sys.path[0])  # if this script is called from a different directory
 
-devices = "../../../data/devices.json"
-imagePath = "../../../frontend/images"
+devices = "../../data/devices.json"
+imagePath = "../../frontend/images"
 
 energyParam = "PV current"
 ccDicts = []

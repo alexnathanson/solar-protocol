@@ -12,7 +12,7 @@ if [[ "$PLATFORM" == "pi" ]]; then
 elif [[ "$PLATFORM" == "mac" ]]; then
   ifconfig en0 | awk '/ether/{print $2}'
 elif [[ "$PLATFORM" == "debian" ]]; then
-  ifconfig en0 | awk '/ether/{print $2}'
+  ifconfig eth0 | awk '/ether/{print $2}'
 elif [[ "$PLATFORM" == "linux" ]]; then
-  ifconfig en0 | awk '/ether/{print $2}'
+  ifconfig eth0 | awk '/ether/{print $2}'
 fi

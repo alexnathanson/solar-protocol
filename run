@@ -18,6 +18,10 @@ echo "starting the web server"; (
   nginx -c "$PWD"/dev/nginx.conf &
 ) &
 
+if [[ ! test -d venv ]]; then
+  python -m venv venv
+fi
+
 echo "starting the api"; (
   # shellcheck source=/dev/null
   . venv/bin/activate

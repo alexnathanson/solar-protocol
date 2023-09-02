@@ -17,6 +17,7 @@ apt-get update --yes
 
 apt-get --quiet install \
   build-essential \
+  python3-venv \
   libcairo2 \
   libcairo2-dev \
   libffi-dev \

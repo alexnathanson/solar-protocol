@@ -9,7 +9,7 @@ $filepath= "";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	//NOTE: nothing can be output prior to the image for this to work
 
-	if(str_contains(@$_GET['file'], "../") === false){
+	if(strpos(@$_GET['file'], '../') === false){
 		// get the file name
 		$filepath= $locDir . @$_GET['file'];
 

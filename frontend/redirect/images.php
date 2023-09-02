@@ -6,9 +6,8 @@
 $locDir = "/home/pi/local/www/";
 $filepath= "";
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
+if ($_SERVER["REQUEST_METHOD"] == "GET" && str_contains(@$_GET['file'], "../") === false) {
 	//NOTE: nothing can be output prior to the image for this to work
-	//var_dump($_GET);
 
 	// get the file name
 	$filepath= $locDir . @$_GET['file'];

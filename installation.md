@@ -151,7 +151,7 @@ All the necessary file and directory permissions can set by running this script:
 	* verify it works `sudo reboot`  
 * run Python script runner on start up
 	* open rc.local `sudo nano /etc/rc.local`  
-		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/backend > /home/pi/solar-protocol/backend/runner.log 2>&1 &`  
+		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/breathingrock/breathingrock > /home/breathingrock/breathingrock/python.log 2>&1 &`  
 	* verify it works `sudo reboot`  	
 * open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
 	* reboot daily `@midnight sudo reboot`

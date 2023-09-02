@@ -6,34 +6,35 @@
 $locDir = "/home/pi/local/www/";
 $filepath= "";
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && str_contains(@$_GET['file'], "../") === false) {
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	//NOTE: nothing can be output prior to the image for this to work
 
-	// get the file name
-	$filepath= $locDir . @$_GET['file'];
+	if(str_contains(@$_GET['file'], "../") === false){
+		// get the file name
+		$filepath= $locDir . @$_GET['file'];
 
-	if (file_exists($filepath)){
-		if(strpos($filepath, ".jpg")){
-			header("Content-type: image/jpg");
-		} else if(strpos($filepath, ".jpeg")){
-			header("Content-type: image/jpeg");
-		}  else if(strpos($filepath, ".png")){
-			header("Content-type: image/png");
-		} else if(strpos($filepath, ".gif")){
-			header("Content-type: image/gif");
-		} else if(strpos($filepath, ".mp4")){
-			header("Content-type: video/mp4");
-		} else if(strpos($filepath, ".pdf")){
-			header("Content-type: application/pdf");
+		if (file_exists($filepath)){
+			if(strpos($filepath, ".jpg")){
+				header("Content-type: image/jpg");
+			} else if(strpos($filepath, ".jpeg")){
+				header("Content-type: image/jpeg");
+			}  else if(strpos($filepath, ".png")){
+				header("Content-type: image/png");
+			} else if(strpos($filepath, ".gif")){
+				header("Content-type: image/gif");
+			} else if(strpos($filepath, ".mp4")){
+				header("Content-type: video/mp4");
+			} else if(strpos($filepath, ".pdf")){
+				header("Content-type: application/pdf");
+			} else {
+				notFound();
+				return;
+			}
+			serveImg();
 		} else {
 			notFound();
-			return;
 		}
-		serveImg();
-	} else {
-		notFound();
-	}
-	
+	}	
 }
 
 function serveImg(){

@@ -133,7 +133,7 @@ case $command in
   get-dns-hash) get-dns-hash ;;
   battery) battery ;;
   exists) exists "$@" ;;
-  install) ./scripts/install ;;
+  install) ./dev/scripts/install ;;
   run) ./run ;;
   *) help ;;
 esac

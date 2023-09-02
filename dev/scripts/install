@@ -21,4 +21,5 @@ else
   exit 1
 fi
 
+test -f ../../local/local.json || cp ../../local/local.template.json ../../local/local.json
 ./install-python

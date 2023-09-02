@@ -26,3 +26,5 @@ frontend/images/clock.png
 frontend/images/clock-exhibit.png
 frontend/images/clock-archive/*png
 venv
+
+src/protocol/build/assets/clock.png

@@ -127,7 +127,7 @@ print(battery.registers[0])
 }
 
 case $command in
-  open) open http://localhost:6969 || xdg-open http://localhost:6969
+  open) open http://localhost:6969 || xdg-open http://localhost:6969 ;;
   format) format ;;
   update-dns) update-dns "$@" ;;
   get-dns-hash) get-dns-hash ;;

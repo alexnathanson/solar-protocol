@@ -15,7 +15,7 @@ PLATFORM=${PLATFORM:-$(./dev/scripts/platform)}
 MAC=${MAC:-$(./dev/scripts/get-mac-address)}
 
 echo "starting the web server"; (
-  nginx -c "$PWD"/dev/nginx.conf &
+  nginx -p . -c dev/nginx.conf &
 ) &
 
 if [[ ! -d venv ]]; then

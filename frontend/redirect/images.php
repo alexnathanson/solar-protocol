@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		} else {
 			notFound();
 		}
-	}	
+	}
 }
 
 function serveImg(){

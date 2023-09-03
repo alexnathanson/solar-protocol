@@ -1,4 +1,4 @@
-//version 0.6
+//version 0.7
 
 // by everest pipkin --- everest-pipkin.com/ --- spring 2023
 
@@ -12,7 +12,7 @@ var rooms = {};
 
 var currentRoom;
 var previousRoom;
-
+var lockedScroll;
 
 
 //papaparse
@@ -125,6 +125,7 @@ function toolTipOffscreen(){
 }
 
 function loadRoom(room){
+	clickable();
 	if (room.type == "click"){
 		room = rooms[room.target.linksTo];
 	}
@@ -402,14 +403,20 @@ function endGame(){
 	}, "109000");
 
 	setTimeout(() => {
+		creditDescription("'dark as a dungeon' recorded by maddox brothers and rose, 1950");
+	}, "121000");
+
+	setTimeout(() => {
 	  toolTipOffscreen()
-	}, "122000");
+	}, "133000");
+
+	unclickable();
 
 	for (d=0;d<currentRoom.objects.length;d++){
 
-	getDOMElementByName(currentRoom.objects[d].name).onclick = "";
+	//getDOMElementByName(currentRoom.objects[d].name).onclick = "";
 
-		if (currentRoom.objects[d].kind == "person"){
+		if (currentRoom.objects[d].kind == "person" || currentRoom.objects[d].name == "you"){
 			objectDom = getDOMElementByName(currentRoom.objects[d].name)
 			objectDom.style.animationDelay = (Math.random()*10000) + "ms";
 			var mod = Math.floor(Math.random()*2)+1
@@ -418,6 +425,17 @@ function endGame(){
 	}
 }
 
+function clickable(){
+	var unclickable = document.getElementById("unclickable");
+	lockedScroll = false;
+	unclickable.style.pointerEvents = "none";
+}
+
+function unclickable(){
+	var unclickable = document.getElementById("unclickable");
+	lockedScroll = true;
+	unclickable.style.pointerEvents = "auto";
+}
 
 function creditDescription(description){
 
@@ -470,8 +488,6 @@ function alterObject(alter,object){
 			var objectToAlter = object;
 			var newObject = findObjectByName(alter[c][0])
 		}
-
-		// /console.log(newObject,objectToAlter);
 
 		newObject.room = objectToAlter.room;
 
@@ -533,13 +549,49 @@ function replyPopulate(object,dialog){
 	}
 }
 
+document.addEventListener("keydown", (e) => {
+	if (lockedScroll != true){
+		if (e.keyCode == "38" && returnObject("north") != "not found"){
+			scrollRoom("keypress",returnObject("north"),0)
+			}
+		else if (e.keyCode == "40" && returnObject("south") != "not found"){
+			scrollRoom("keypress",returnObject("south"),0)
+			}
+		else if (e.keyCode == "37" && returnObject("west") != "not found"){
+			scrollRoom("keypress",returnObject("west"),0)
+			}
+		else if (e.keyCode == "39" && returnObject("east") != "not found"){
+			scrollRoom("keypress",returnObject("east"),0)
+			}
+		}
+	}
+)
+
 function scrollRoom(element,object,place){
+	unclickable();
+	//object elements in the world
+	if (element == "keypress"){
+		object = object
+		roomChangeDescription(object.description)
+		//element.style.opacity = 0;
+		if (object.linksTo != "previousRoom"){
+			newRoom = rooms[object.linksTo];
+		}
+		else if (previousRoom != currentRoom) {
+			newRoom = previousRoom;
+		}
+		else {
+			newRoom = rooms["train_car"];			
+		}
+		direction = object.name; // currently uses name match 
+	}
 
 	//object elements in the world
-	if (element.type == "click"){
+	else if (element.type == "click"){
 		object = returnObject(element.target.name)
 		roomChangeDescription(object.description)
 		element.target.style.opacity = 0;
+
 		if (object.linksTo != "previousRoom"){
 			newRoom = rooms[object.linksTo];
 		}
@@ -610,6 +662,7 @@ function roomChangeDescription(description){
 }
 
 function movePerson(objectToAlter,positionX,positionY,newObject){
+	unclickable();
 
 	person = getDOMElementByName(objectToAlter.name)
 
@@ -677,6 +730,7 @@ function finishAlterObject(objectToAlter,newObject){
 		changeObjectRoom(newObject,newObject.moveTo)
 	}
 
+	clickable();
 	saveGame();
 
 }
@@ -697,6 +751,8 @@ function changeObjectRoom(object,roomToMoveTo){
 
 //helper function returns object in objects list by name - current room only
 function returnObject(objectName){
+	object = "not found";
+
 	for (g=0; g<currentRoom.objects.length; g++){
 		if (currentRoom.objects[g].name == objectName){
 				object = currentRoom.objects[g];

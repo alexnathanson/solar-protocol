@@ -167,7 +167,7 @@ def run():
     # So we publish to ourselves, to populate it
     # Since we cannot know a priori a nodes information
 
-    selfIps = ["api"]
+    selfIps = ["127.0.0.1:6969"]
     activeIps = ["beta.solarprotocol.net"]
     knownIps = getDevices("ip")
     discoveredIps = discoverIps()

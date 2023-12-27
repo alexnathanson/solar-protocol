@@ -62,6 +62,7 @@ def read_csv():
 def render_pages(_local_data, _data, _weather, _server_data):
     templatePath = f"src/protocol/build/templates"
     outputPath = f"frontend"
+    host = "127.0.0.1:11215"
 
     pages = [
         "index.html",
@@ -81,7 +82,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
 
     # get the timezone
     try:
-        url = f"http://api/api/system"
+        url = f"http://{host}/api/system"
         response = requests.get(url=url, params={"key": "tz"})
 
         # for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added

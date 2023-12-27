@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+trap 'kill $(jobs -p)' SIGINT
+trap 'nginx -s stop' SIGINT
 
 shift
 cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
@@ -25,7 +27,7 @@ fi
 echo "starting the api"; (
   # shellcheck source=/dev/null
   . venv/bin/activate
-  python3 -m uvicorn src.api.api:app --proxy-headers --host 0.0.0.0 --port 7676 --reload
+  python3 -m src.api.api
 ) &
 
 echo "starting the data logger"; (
@@ -34,8 +36,8 @@ echo "starting the data logger"; (
   python3 -m src.datalogger.csv_datalogger
 ) &
 
-echo "starting the data logger"; (
+echo "starting the protocol"; (
   # shellcheck source=/dev/null
   . venv/bin/activate
   python3 -m src.protocol.run
-) &
+)

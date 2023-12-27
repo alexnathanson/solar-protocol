@@ -1,3 +1,4 @@
+import uvicorn
 import csv
 import datetime
 import json
@@ -392,3 +393,6 @@ def setEnv(key: SecretKey, value: str):
         )
 
     return setSecret(key, value)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=11215, proxy_headers=True)

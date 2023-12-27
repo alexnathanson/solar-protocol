@@ -1,7 +1,7 @@
 bcrypt
-fastapi==0.100.0
+fastapi==0.108.0
 passlib
-pydantic==2.0.3
+pydantic==2.5.2
 python-multipart
 requests
 slowapi

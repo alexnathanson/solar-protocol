@@ -77,7 +77,7 @@ Next, you will need to make sure other servers on the network can reach yours
 
 Soon your server will be sharing data with the network
 
-### Reboot at midnight (TODO: automate)
+### Reboot at midnight
 
 Open the root crontab
 
@@ -85,9 +85,9 @@ Open the root crontab
 
 Add this line to the bottom to restart the server at midnight
 
-    reboot daily `@midnight sudo reboot`
+    @daily /sbin/reboot
 
-#### Enable network wait (TODO: automate)
+#### Enable network wait
 
 This ensures that the necessary network requirements are in place before Solar Protocol runs.
 

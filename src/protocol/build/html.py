@@ -243,9 +243,11 @@ def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
 
 def get_ips():
     ips = getDeviceInfo("ip")
+    httpPorts = getDeviceInfo("httpPort")
+    hosts = [ str.join(':', (ip, httpPort)) for ip, httpPort in zip(ips, httpPorts) ]
     serverNames = getDeviceInfo("name")
 
-    devices = dict(zip(serverNames, ips))
+    devices = dict(zip(serverNames, hosts))
     debug(f"{devices=}")
     return devices
 

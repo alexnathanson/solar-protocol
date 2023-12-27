@@ -82,7 +82,7 @@ format() {
     dev/scripts/*
 }
 
-set-admin-password() {
+set-admin-credentials() {
   user=$1
   wanted_password=$2
   password_hash=$(bcrypt "$wanted_password")

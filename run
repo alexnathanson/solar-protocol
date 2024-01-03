@@ -16,6 +16,8 @@ PLATFORM=${PLATFORM:-$(./dev/scripts/platform)}
 # Override if our mac detection fails
 MAC=${MAC:-$(./dev/scripts/get-mac-address)}
 
+export FAKE_DATA PLATFORM MAC
+
 echo "starting the web server"; (
   nginx -p . -c dev/nginx.conf &
 ) &

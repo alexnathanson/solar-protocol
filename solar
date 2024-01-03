@@ -12,6 +12,17 @@ set -o nounset
 
 test -f local/secrets.json || echo '{}' > local/secrets.json
 
+Clear='\033[0m'
+Red='\033[0;31m'
+
+die() { printf >&2 "$@" ; echo ""; exit 1 ; }
+err() { die "${Red}ERROR${Clear} $@"; }
+
+runtests() {
+  test -f frontend/index.html || err "missing frontend/index.html"
+  echo tests complete
+}
+
 help() {
   Clear='\033[0m'
   Cyan='\033[0;36m'
@@ -135,6 +146,7 @@ case $command in
   exists) exists "$@" ;;
   install) ./dev/scripts/install ;;
   run) ./run ;;
+  test) runtests ;;
   *) help ;;
 esac
 

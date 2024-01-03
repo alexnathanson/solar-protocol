@@ -5,6 +5,11 @@
     ./dev/scripts/install
     ./run
 
+# Testing
+
+You can run the tests with `./solar test`. Tests are in the **tests/** folder.
+To add a test, make it executable, and put it in **tests/**.
+
 # Development
 
 ## Services

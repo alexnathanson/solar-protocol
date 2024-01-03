@@ -19,7 +19,10 @@ die() { printf >&2 "$@" ; echo ""; exit 1 ; }
 err() { die "${Red}ERROR${Clear} $@"; }
 
 runtests() {
-  test -f frontend/index.html || err "missing frontend/index.html"
+  for testfile in tests/*; do
+    ./"${testfile}"
+  done
+
   echo tests complete
 }
 

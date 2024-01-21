@@ -53,8 +53,8 @@ Description=Solar Protocol
 
 [Service]
 Type=simple
-WorkingDirectory=$PWD
-ExecStart=$PWD/run
+WorkingDirectory=${PWD/dev\/scripts/}
+ExecStart=${PWD/dev\/scripts/}/run
 User=$USER
 
 [Install]

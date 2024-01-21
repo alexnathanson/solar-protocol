@@ -83,7 +83,7 @@ _generate-key() {
 }
 
 bcrypt() {
-  htpasswd -bnBC 10 "" "$1" | tr -d ':\n'
+  printf "USER:$(openssl passwd -apr1 $1)\n"
 }
 
 # Since we have multiple collaborators, its useful to have all the tabs and spaces align

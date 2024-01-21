@@ -31,7 +31,6 @@ apt-get --quiet install \
   figlet \
   toilet \
   nginx \
-  apache2 \
   --yes
 
 echo Installing system services

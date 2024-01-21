@@ -237,8 +237,12 @@ def getDeviceInfo(key: str) -> list[Optional[Union[str, list[str]]]]:
             json.dump([], file)
             data = []
 
-    default = [] if key == "log" else None
-    return [device.get(key) for device in data]
+    defaults = {
+        "log": [],
+        "httpPort": "80"
+    }
+
+    return [{**defaults, **device}.get(key) for device in data]
 
 
 def get_ips():

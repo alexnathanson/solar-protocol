@@ -1,0 +1,28 @@
+# python -m venv venv
+# . venv/bin/activate
+# python -m pip install pymodbus[serial] minimalmodbus
+# python battery
+
+import minimalmodbus
+
+instrument = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
+instrument.serial.timeout = 1
+instrument.serial.baudrate = 115200
+
+solar = instrument.read_register(0x3100, 2, 4)
+print(solar, "V solar panel [minimalmodbus]")
+instrument.serial.close()
+
+from pymodbus.client import AsyncModbusSerialClient
+from time import sleep
+import asyncio
+
+async def main():
+    client = AsyncModbusSerialClient(method = 'rtu', port = '/dev/ttyUSB0', baudrate = 115200)
+    await client.connect()
+    solar = await client.read_input_registers(0x3100, 2, 1)
+    print(solar.registers[0] / 100.00, "V solar panel [pymodbus]")
+    client.close()
+
+asyncio.run(main())
+

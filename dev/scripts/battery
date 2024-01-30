@@ -3,34 +3,61 @@
 # python -m pip install pymodbus[serial] minimalmodbus epevermodbus
 # python battery
 
+ID = 1
+CONTROLLER_ADDRESS = 0x3100
+PORT = "/dev/ttyUSB0"
+
+from enum import IntEnum
+
+class FunctionCode(IntEnum):
+    ReadMultipleHoldingRegisters = 3
+    ReadInputRegisters = 4
+
 ### minimalmodbus
 
 import minimalmodbus
 
+
 def main_minimalmodbus():
-    instrument = minimalmodbus.Instrument('/dev/ttyUSB0', 1)
+    instrument = minimalmodbus.Instrument(PORT, ID)
     instrument.serial.timeout = 1
     instrument.serial.baudrate = 115200
 
-    solar_voltage = instrument.read_register(0x3100, 2, 4)
+    solar_voltage = instrument.read_register(
+        registeraddress=CONTROLLER_ADDRESS,
+        number_of_decimals = 2,
+        functioncode=FunctionCode.ReadInputRegisters,
+    )
     print(solar_voltage, "V solar panel [minimalmodbus]")
+    controller = instrument.read_registers(
+        registeraddress=CONTROLLER_ADDRESS,
+        number_of_registers=16,
+        functioncode=FunctionCode.ReadInputRegisters,
+    )
+    print(controller, "registers [minimalmodbus]")
     instrument.serial.close()
+
 
 main_minimalmodbus()
 
 ### pymodbus[serial]
 
 from pymodbus.client import AsyncModbusSerialClient
-from time import sleep
 import asyncio
 
+
 async def main_pymodbus():
-    client = AsyncModbusSerialClient(method = 'rtu', port = '/dev/ttyUSB0', baudrate = 115200)
+    client = AsyncModbusSerialClient(method="rtu", port=PORT, baudrate=115200)
     await client.connect()
-    solar = await client.read_input_registers(0x3100, 2, 1)
+    solar = await client.read_input_registers(address=CONTROLLER_ADDRESS, slave=ID)
     solar_voltage = solar.registers[0] / 100.00
     print(solar_voltage, "V solar panel [pymodbus]")
+    controller = await client.read_input_registers(
+        address=CONTROLLER_ADDRESS, count=16, slave=ID
+    )
+    print(controller.registers, "registers [pymodbus]")
     client.close()
+
 
 asyncio.run(main_pymodbus())
 
@@ -38,9 +65,17 @@ asyncio.run(main_pymodbus())
 
 from epevermodbus.driver import EpeverChargeController
 
+
 def main_epevermodbus():
-    controller = EpeverChargeController('/dev/ttyUSB0', 1)
+    controller = EpeverChargeController(portname="/dev/ttyUSB0", slaveaddress=ID)
     solar_voltage = controller.get_solar_voltage()
     print(solar_voltage, "V solar panel [epevermodbus]")
+    registers = controller.read_registers(
+        registeraddress=CONTROLLER_ADDRESS,
+        number_of_registers=16,
+        functioncode=FunctionCode.ReadInputRegisters,
+    )
+    print(registers, "registers [epevermodbus]")
+
 
 main_epevermodbus()

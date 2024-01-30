@@ -1,0 +1,3 @@
+pymodbus[serial]
+epevermodbus
+ruff

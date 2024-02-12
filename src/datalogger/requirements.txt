@@ -1,2 +1,4 @@
-pymodbus
+pymodbus @ git+https://github.com/pymodbus-dev/pymodbus@b34eb46b0fc5da8fc728c5938bbedced49b5d713
+# NOTE: this should be released shortly, update to stable after
+# We use this version to fix Async/Non-Async type hints
 pyserial

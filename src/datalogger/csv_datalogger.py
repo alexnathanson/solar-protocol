@@ -7,18 +7,11 @@ import os
 import signal
 import sys
 from logging import error, info
+
+from pymodbus.client.serial import ModbusSerialClient
 from ..common.sample import fieldnames, Sample
 
-PLATFORM = os.environ.get("PLATFORM", "unknown")
-RASPBERRY_PI = PLATFORM == "pi"
-
-FAKE_DATA = os.environ.get("FAKE_DATA", "False") == "True"
-
-CONNECT = RASPBERRY_PI and not FAKE_DATA
-
-if CONNECT:
-    from pymodbus.client import ModbusSerialClient
-
+from pydantic import TypeAdapter, ValidationError
 
 def writeOrAppend(sample: Sample):
     """
@@ -31,30 +24,27 @@ def writeOrAppend(sample: Sample):
 
     info(f"csv writing: {datetime.datetime.now()}")
 
-
-def randomReadable(start: int, end: int) -> int:
+def randomBetween(start: int, end: int) -> int:
     return round(random.uniform(start, end))
-
 
 def readFromRandom() -> Sample:
     return {
         "timestamp": time.time(),
-        "PV voltage": randomReadable(9, 30),
-        "PV current": randomReadable(0, 2),
-        "PV power L": randomReadable(28, 34),
-        "PV power H": randomReadable(0, 1),
-        "battery voltage": randomReadable(11, 15),
-        "battery current": randomReadable(2, 3),
-        "battery power L": randomReadable(28, 32),
-        "battery power H": randomReadable(0, 1),
-        "load voltage": randomReadable(12, 16),
-        "load current": randomReadable(0, 1),
-        "load power": randomReadable(3, 5),
+        "PV voltage": randomBetween(9, 30),
+        "PV current": randomBetween(0, 2),
+        "PV power L": randomBetween(28, 34),
+        "PV power H": randomBetween(0, 1),
+        "battery voltage": randomBetween(11, 15),
+        "battery current": randomBetween(2, 3),
+        "battery power L": randomBetween(28, 32),
+        "battery power H": randomBetween(0, 1),
+        "load voltage": randomBetween(12, 16),
+        "load current": randomBetween(0, 1),
+        "load power": randomBetween(3, 5),
         "battery percentage": 0.42069,
     }
 
-
-def readFromDevice() -> Sample:
+def readFromDevice(client: ModbusSerialClient) -> Sample | None:
     controller = client.read_input_registers(0x3100, 16, 1)
     battery = client.read_input_registers(0x311A, 2, 1)
 
@@ -63,48 +53,29 @@ def readFromDevice() -> Sample:
     if battery.isError():
         error(battery)
     if battery.isError() or controller.isError():
-        return
+        return None
 
     def toPercent(number):
         return float(number / 100.0)
 
-    registers = controller.registers
+    registers: list[float] = controller.registers
 
     data = dict(zip(fieldnames, registers[0:10]))
     data["timestamp"] = time.time()
     data["battery percentage"] = toPercent(battery.registers[0])
-    return data
 
+    sample_adapter = TypeAdapter(Sample)
 
-if CONNECT:
-    client = ModbusSerialClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200)
     try:
-        client.connect()
-    except Exception as err:
-        error(
-            "Could not connect to charge controller! Set FAKE_DATA=True to ignore this"
-        )
+        sample = sample_adapter.validate_python(data)
+        return sample
+    except ValidationError as err:
         error(err)
-        sys.exit(1)
 
-
-def handle_exit(sig, frame):
-    if CONNECT:
-        client.close()
-    sys.exit(0)
-
-
-signal.signal(signal.SIGINT, handle_exit)
-signal.signal(signal.SIGTERM, handle_exit)
-
-read = readFromDevice if CONNECT else readFromRandom
-
-
-def run():
-    while True:
-        writeOrAppend(read())
-        time.sleep(60 * 2)
-
+PLATFORM = os.environ.get("PLATFORM", "unknown")
+RASPBERRY_PI = PLATFORM == "pi"
+FAKE_DATA = os.environ.get("FAKE_DATA", "False") == "True"
+CONNECT = RASPBERRY_PI and not FAKE_DATA
 
 if __name__ == "__main__":
     import logging
@@ -114,4 +85,24 @@ if __name__ == "__main__":
     logging.basicConfig(level=LOGLEVEL)
     print(f"{PLATFORM=} {RASPBERRY_PI=} {FAKE_DATA=} {CONNECT=}")
 
-run()
+def run():
+    client = ModbusSerialClient(method="rtu", port="/dev/ttyUSB0", baudrate=115200) if CONNECT else None
+    if client:
+        try:
+            client.connect()
+        except Exception as err:
+            error("Error connecting to charge controller. Set FAKE_DATA=True to ignore")
+            error(err)
+            sys.exit(1)
+
+    def handle_exit(sig, frame):
+        if client: client.close()
+        sys.exit(0)
+    signal.signal(signal.SIGINT, handle_exit)
+    signal.signal(signal.SIGTERM, handle_exit)
+
+    while True:
+        sample = readFromDevice(client) if client else readFromRandom()
+        if sample:
+            writeOrAppend(sample)
+        time.sleep(60 * 2)

@@ -1,6 +1,8 @@
-# Installation
+# Installation instructions for RPi OS Bookworm
 
-These are the original installation instructions. The automated installer stuff is untested and should not be used yet.
+Major changes in this version 
+* Bookworm requires the use of a venv when using pip.
+* The 'wait for network at boot' option in raspi-config is no longer available.
 
 ## Hardware
 
@@ -19,7 +21,7 @@ NOTE: The default admin user needs to be 'pi'
 ### OS
 * Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
 	* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations
-	* Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs. (Note that this option is no longer available with the Raspberry Pi OS (64-bit) version.)
+	<!-- * Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs. (Note that this option is no longer available with the Raspberry Pi OS (64-bit) version.) -->
 	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot` 
 * `sudo apt-get update`  
 * `sudo apt full-upgrade` (note that `sudo apt-get upgrade`  is the "safer" version of this command that is probably better to use if an upgrade is necessary after Solar Protocol is installed and running in order to avoid problems with dependencies)
@@ -30,7 +32,22 @@ Download repo into /home/pi
 `git clone http://www.github.com/alexnathanson/solar-protocol`  
 * See below for updating server with local info and setting the appropriate security measures. 
 
-### Python 3 Packages  
+### Create VENV
+
+Navigate to the solar-protocol directory
+`python3 -m venv .venv`
+
+### Python 3 packages
+
+from the solar-protocol directory
+`source .venv/bin/activate`
+
+try: `pip install -r requirements`
+
+if that fails, manually install all packages with these commands:
+
+*************
+#### Manual installation of packages (skip this section if previous step succeeds) 
 * Install pip `sudo apt-get install python3-pip`  
 * Install pymodbus `sudo pip3 install pymodbus`
 * Install pyserial `sudo pip3 install pyserial` (probably not needed anymore)

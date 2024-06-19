@@ -110,16 +110,15 @@ Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/p
 #### Configure server
 Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
   
-<!-- * `cd /etc/apache2/sites-available`   -->
 * `sudo nano /etc/apache2/sites-available/000-default.conf`  
-	* change `DocumentRoot /var/www/` to `DocumentRoot /home/pi/solar-protocol/frontend`  
-	* Enable server status interface:
+	* change `DocumentRoot /var/www` to `DocumentRoot /home/pi/solar-protocol/frontend`  
+	* Enable server status interface (once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto )
 		* add these 4 lines to the file directly above `</VirtualHost>`<br>
 		`<Location /server-status>`<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
 		`</Location>`
-			* once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
+		* save and close the file. Then restart service with `sudo service apache2 restart`
 * `sudo nano /etc/apache2/apache2.conf`  
 	* add these lines to the file    
 	`<Directory /home/pi/solar-protocol/frontend/>`    
@@ -129,23 +128,8 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
-
- Enable URL rewrite module: `sudo a2enmod rewrite`
-* then restart `sudo systemctl restart apache2`   
-
-Enable server status interface:
-* edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
-* add these 4 lines to the file directly above `</VirtualHost>`<br>
-`<Location /server-status>`<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
-`</Location>`
-* save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
-* once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
-
-<!-- Install PHP graphics library for dithering. Note that the version will need to match your php version.
-* `sudo apt-get install php7.3-gd`
-* `sudo systemctl restart apache2`  -->
+* Enable URL rewrite module: `sudo a2enmod rewrite`
+* Restart service with `sudo systemctl restart apache2`   
   
 <!-- 
 Give Apache/PHP user 'www-data' necessary permissions:
@@ -153,16 +137,16 @@ Give Apache/PHP user 'www-data' necessary permissions:
 * Add this line to the bottom of the file: `www-data	ALL=NOPASSWD: ALL`
  -->
 
-### Local
-* Copy local directory outside of solar-protocol directory to pi directory  
+### Solar Protocol Configuration
+Copy local directory outside of solar-protocol directory to pi directory  
 `sudo cp -r /home/pi/solar-protocol/local /home/pi/local`
 * Update the info with your information as needed  
 
-### Device List 
+Device List 
 * change the device list template file name<br>
 `sudo mv /home/pi/solar-protocol/backend/data/deviceListTemplate.json /home/pi/solar-protocol/backend/data/deviceList.json`
 
-### Permissions
+#### Permissions
 
 All the necessary file and directory permissions can set by running this script: utilities/setAllPermissions.sh
 * `sh setAllPermissions.sh`

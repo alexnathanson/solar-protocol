@@ -6,4 +6,5 @@ echo "alt runner"
 
 sleep 60
 
-python3 /home/pi/solar-protocol/backend
+source /home/pi/solar-protocol/.venv/bin/activate
+python /home/pi/solar-protocol/backend

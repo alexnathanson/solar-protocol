@@ -42,24 +42,22 @@ Navigate to the solar-protocol directory
 from the solar-protocol directory
 `source .venv/bin/activate`
 
-try: `pip install -r requirements`
+try: `pip install -r requirements.txt`
 
 if that fails, manually install all packages with these commands:
 
 *************
 #### Manual installation of packages (skip this section if previous step succeeds) 
-* Install pip `sudo apt-get install python3-pip`  
-* Install pymodbus `sudo pip3 install pymodbus`
-* Install pyserial `sudo pip3 install pyserial` (probably not needed anymore)
-* Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)   
-* Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)  
-* Install jinja `sudo pip3 install jinja2`     
-
-#### Python 3 Packages for the visualization
-* Upgrade pip: `python3 -m pip install --upgrade pip`
-* Upgrade/install Pillow `python3 -m pip install --upgrade Pillow`  
+* Install pymodbus `pip install pymodbus`
+<!-- * Install pyserial `pip install pyserial` (probably not needed anymore) -->
+* Install pandas `pip install pandas` (this should be refactored to not used pandas)   
+* Install numpy 'pip install numpy'
+<!-- `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)   -->
+* Install jinja `pip install jinja2`     
+<!-- * Upgrade pip: `python3 -m pip install --upgrade pip` -->
+* Upgrade/install Pillow `pip install --upgrade Pillow`  
 * Install cairo `sudo apt-get install libcairo2-dev`  
-* Install gizeh `sudo pip3 install gizeh`  
+* Install gizeh `pip install gizeh`  
 * Install webcolors `pip install webcolors`
 
 #### Troubleshooting numpy
@@ -85,32 +83,43 @@ then install numpy and this missing library:
 * In some instances it may be necessary to manually change the mirror which determines where apt-get pulls from. Instructions for manually changing the mirror can be found at https://pimylifeup.com/raspbian-repository-mirror/
 
 ### Security
-Recommendations to set up your pi securely   
-* Choose a strong password  
-* Open ports 80 and 22 on your router    
-* Secure pi - here is a guide: https://www.raspberrypi.org/documentation/configuration/security.md  
-    * To use key-based authentication   
-    	* run `install -d -m 700 ~/.ssh`  
-    	(to be performed after downloading the solar-protocol repo) 
-	* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
-    	* set permissions. 
-    		* `sudo chmod 644 ~/.ssh/authorized_keys`  
-			* `sudo chown pi:pi ~/.ssh/authorized_keys`  
-		* test that passwordless key-based authentication works. 
-		* if it works, disable password login  
-			* `sudo nano /etc/ssh/sshd_config`  
-			* change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)  
+Enable key-based authentication   
+* run `install -d -m 700 ~/.ssh`  
+* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
+* set permissions. 
+	* `sudo chmod 644 ~/.ssh/authorized_keys`  
+	* `sudo chown pi:pi ~/.ssh/authorized_keys`  
+* Enable rsa
+	* `sudo nano /etc/ssh/sshd_config`
+	* add this line `PubkeyAcceptedAlgorithms +ssh-rsa`
+	* save the file and restart the service `sudo systemctl restart sshd`
+* Test that passwordless key-based authentication works. 
+* If it works, disable password login  
+	* `sudo nano /etc/ssh/sshd_config`  
+	* Change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)  
+	* save the file and restart the service `sudo systemctl restart sshd`
 
-### Server
+#### Firewall configuration
+
+### Network Configuration & Server Setup
+Open ports 80 and 22 on your router. It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
+
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)   
 Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)    
   
 #### Configure server
 Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
   
-* `cd /etc/apache2/sites-available`  
-* `sudo nano 000-default.conf`  
+<!-- * `cd /etc/apache2/sites-available`   -->
+* `sudo nano /etc/apache2/sites-available/000-default.conf`  
 	* change `DocumentRoot /var/www/` to `DocumentRoot /home/pi/solar-protocol/frontend`  
+	* Enable server status interface:
+		* add these 4 lines to the file directly above `</VirtualHost>`<br>
+		`<Location /server-status>`<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
+		`</Location>`
+			* once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
 * `sudo nano /etc/apache2/apache2.conf`  
 	* add these lines to the file    
 	`<Directory /home/pi/solar-protocol/frontend/>`    
@@ -121,7 +130,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
 
-Enable URL rewrite module: `sudo a2enmod rewrite`
+ Enable URL rewrite module: `sudo a2enmod rewrite`
 * then restart `sudo systemctl restart apache2`   
 
 Enable server status interface:

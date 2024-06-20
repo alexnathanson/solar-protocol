@@ -19,15 +19,14 @@ This works with a USB to RS485 converter (ch340T chip model).
 NOTE: The default admin user needs to be 'pi'
 
 ### OS
+* In the Raspberry Pi disk imager, set user to 'sp', password, enable ssh, wifi network, etc
 * Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
-	* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations
-	<!-- * Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs. (Note that this option is no longer available with the Raspberry Pi OS (64-bit) version.) -->
-	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot` 
+	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot`
 * `sudo apt-get update`  
-* `sudo apt full-upgrade` (note that `sudo apt-get upgrade`  is the "safer" version of this command that is probably better to use if an upgrade is necessary after Solar Protocol is installed and running in order to avoid problems with dependencies)
+* `sudo apt-get upgrade`
 
 ### Repository
-Download repo into /home/pi
+Download repo into /home/sp
 `sudo apt-get install git`  
 `git clone http://www.github.com/alexnathanson/solar-protocol`  
 * See below for updating server with local info and setting the appropriate security measures. 
@@ -42,7 +41,7 @@ Navigate to the solar-protocol directory
 from the solar-protocol directory
 `source .venv/bin/activate`
 
-try: `pip install -r requirements.txt`
+<!-- try: `pip install -r requirements.txt` -->
 
 if that fails, manually install all packages with these commands:
 
@@ -51,7 +50,7 @@ if that fails, manually install all packages with these commands:
 * Install pymodbus `pip install pymodbus`
 <!-- * Install pyserial `pip install pyserial` (probably not needed anymore) -->
 * Install pandas `pip install pandas` (this should be refactored to not used pandas)   
-* Install numpy 'pip install numpy'
+* Install numpy `pip install numpy`
 <!-- `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)   -->
 * Install jinja `pip install jinja2`     
 <!-- * Upgrade pip: `python3 -m pip install --upgrade pip` -->
@@ -88,7 +87,7 @@ Enable key-based authentication
 * move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
 * set permissions. 
 	* `sudo chmod 644 ~/.ssh/authorized_keys`  
-	* `sudo chown pi:pi ~/.ssh/authorized_keys`  
+	* `sudo chown sp:sp ~/.ssh/authorized_keys`  
 * Enable rsa
 	* `sudo nano /etc/ssh/sshd_config`
 	* add this line `PubkeyAcceptedAlgorithms +ssh-rsa`
@@ -105,13 +104,13 @@ Enable key-based authentication
 Open ports 80 and 22 on your router. It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
 
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)   
-Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)    
+Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)  
   
 #### Configure server
 Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
   
 * `sudo nano /etc/apache2/sites-available/000-default.conf`  
-	* change `DocumentRoot /var/www` to `DocumentRoot /home/pi/solar-protocol/frontend`  
+	* change `DocumentRoot /var/www/html` to `DocumentRoot /home/sp/solar-protocol/frontend`  
 	* Enable server status interface (once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto )
 		* add these 4 lines to the file directly above `</VirtualHost>`<br>
 		`<Location /server-status>`<br>
@@ -130,12 +129,17 @@ Change Apache default directory to the frontend directory (src: https://julienre
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
 * Enable URL rewrite module: `sudo a2enmod rewrite`
 * Restart service with `sudo systemctl restart apache2`   
-  
+
+Apache permissions
+<!-- * `sudo chmod 755 /home/sp/solar-protocol/frontend` -->
 <!-- 
 Give Apache/PHP user 'www-data' necessary permissions:
 * Open visudo: `sudo visudo`
 * Add this line to the bottom of the file: `www-data	ALL=NOPASSWD: ALL`
  -->
+ Create a www-sp user group
+* `sudo groupadd www-sp`
+
 
 ### Solar Protocol Configuration
 Copy local directory outside of solar-protocol directory to pi directory  
@@ -154,15 +158,9 @@ All the necessary file and directory permissions can set by running this script:
 * If the above command was successful, you do not need to set permissions individually. If it failed or can't be run for some reason you can manually enter the commands listed in the setAllPermissions script.
 
 ### Automate  
-
-* run charge controller data logger on start up (src: https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup)
-	* open rc.local `sudo nano /etc/rc.local`  
-		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/solar-protocol/charge-controller/csv_datalogger.py > /home/pi/solar-protocol/charge-controller/datalogger.log 2>&1 &`  
-	* verify it works `sudo reboot`  
-* run Python script runner on start up
-	* open rc.local `sudo nano /etc/rc.local`  
-		* add this line above "exit 0" `sudo -H -u pi /usr/bin/python3 /home/pi/breathingrock/breathingrock > /home/breathingrock/breathingrock/python.log 2>&1 &`  
-	* verify it works `sudo reboot`  	
+open rc.local `sudo nano /etc/rc.local`  
+* add this line above "exit 0" `sudo -H -u pi sh /home/pi/solar-protocol/start.sh > /home/pi/solar-protocol/start.log 2>&1 &`  
+	* verify it works `sudo reboot`
 * open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
 	* reboot daily `@midnight sudo reboot`
 

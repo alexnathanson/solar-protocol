@@ -9,6 +9,8 @@ import os
 import sys
 import platform
 
+print(f"Starting CSV datalogger at " + datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+
 #the syntax for the unit arguments changes depending on which version of pymodbus is running
 version = int(platform.python_version()[0] + platform.python_version()[2])
 
@@ -81,11 +83,11 @@ try:
             try:
                 with open(fileName) as csvfile:
                     df = pd.read_csv(fileName)
-                    #append needs to be changed to concat
-                    #something like: df = pd.concat([df,newDF], ignore_index = True)
-                    df = df.append(newDF, ignore_index = True)
+                    df = pd.concat([df,newDF], ignore_index = True)
+                    #df = df.append(newDF, ignore_index = True)
                     df.to_csv(fileName, sep=',',index=False)
-            except:
+            except Exception as e:
+                print(e)
                 newDF.to_csv(fileName, sep=',',index=False)
 
             #print(newDF)

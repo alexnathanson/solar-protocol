@@ -5,9 +5,13 @@ sudo chmod a+w /home/pi/local/local.json
 sudo chmod a+w /home/pi/local/access.json
 sudo chmod -R a+w /home/pi/local/www
 sudo chmod -R a+w /home/pi/local/data
+
 sudo chmod a+w /home/pi/solar-protocol/backend/data/deviceList.json
 sudo chmod a+w /home/pi/solar-protocol/backend/data/poe.log
+
 sudo chmod +x /home/pi/solar-protocol/charge-controller/csv_datalogger.py
+sudo chmod 777 /home/pi/solar-protocol/charge-controller/data
+
 sudo chmod +x /home/pi/solar-protocol/backend/alt-runner.sh
 sudo chmod -R +x /home/pi/solar-protocol/backend
 sudo chmod -R +x /home/pi/solar-protocol/backend/createHTML

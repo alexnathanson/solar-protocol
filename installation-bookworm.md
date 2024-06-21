@@ -47,6 +47,7 @@ if that fails, manually install all packages with these commands:
 
 *************
 #### Manual installation of packages (skip this section if previous step succeeds) 
+* Install requets `pip install requests`
 * Install pymodbus `pip install pymodbus`
 <!-- * Install pyserial `pip install pyserial` (probably not needed anymore) -->
 * Install pandas `pip install pandas` (this should be refactored to not used pandas)   

@@ -84,10 +84,10 @@ then install numpy and this missing library:
 ### Security
 Enable key-based authentication   
 * run `install -d -m 700 ~/.ssh`  
-* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
+* move the authorized_keys file into this new directory `sudo cp /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
 * set permissions. 
 	* `sudo chmod 644 ~/.ssh/authorized_keys`  
-	* `sudo chown sp:sp ~/.ssh/authorized_keys`  
+	* `sudo chown pi:pi ~/.ssh/authorized_keys`  
 * Enable rsa
 	* `sudo nano /etc/ssh/sshd_config`
 	* add this line `PubkeyAcceptedAlgorithms +ssh-rsa`
@@ -98,7 +98,7 @@ Enable key-based authentication
 	* Change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)  
 	* save the file and restart the service `sudo systemctl restart sshd`
 
-#### Firewall configuration
+#### Firewall configuration 	
 
 ### Network Configuration & Server Setup
 Open ports 80 and 22 on your router. It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
@@ -106,11 +106,12 @@ Open ports 80 and 22 on your router. It is strongly recommended to do this only 
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)   
 Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)  
   
-#### Configure server
+
+#### Configure Apache server
 Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
   
 * `sudo nano /etc/apache2/sites-available/000-default.conf`  
-	* change `DocumentRoot /var/www/html` to `DocumentRoot /home/sp/solar-protocol/frontend`  
+	* change `DocumentRoot /var/www/html` to `DocumentRoot /home/pi/solar-protocol/frontend`  
 	* Enable server status interface (once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto )
 		* add these 4 lines to the file directly above `</VirtualHost>`<br>
 		`<Location /server-status>`<br>
@@ -128,18 +129,13 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
 * Enable URL rewrite module: `sudo a2enmod rewrite`
+* Enable `sudo a2enmod userdir`
 * Restart service with `sudo systemctl restart apache2`   
 
 Apache permissions
-<!-- * `sudo chmod 755 /home/sp/solar-protocol/frontend` -->
-<!-- 
-Give Apache/PHP user 'www-data' necessary permissions:
-* Open visudo: `sudo visudo`
-* Add this line to the bottom of the file: `www-data	ALL=NOPASSWD: ALL`
- -->
- Create a www-sp user group
-* `sudo groupadd www-sp`
-
+* Add pi user to www-data group `sudo adduser pi www-data`
+* Assign ownership of frontend directory to www-data group `sudo chown www-data:www-data /home/pi/solar-protocol/frontend`
+* `sudo chmod 755 /home/pi/`
 
 ### Solar Protocol Configuration
 Copy local directory outside of solar-protocol directory to pi directory  

@@ -102,16 +102,16 @@ Enable key-based authentication
 #### Firewall configuration 	
 
 ### Network Configuration & Server Setup
-Open ports 80 and 22 on your router. It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
+Open ports 8080, 443, and 22 on your router. It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
 
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)   
 Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)  
   
-
 #### Configure Apache server
 Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
   
 * `sudo nano /etc/apache2/sites-available/000-default.conf`  
+	* change `<VirtualHost *:80>` to `<VirtualHost *:80 *:8080>`
 	* change `DocumentRoot /var/www/html` to `DocumentRoot /home/pi/solar-protocol/frontend`  
 	* Enable server status interface (once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto )
 		* add these 4 lines to the file directly above `</VirtualHost>`<br>
@@ -128,6 +128,9 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`  
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  
 	`</Directory>`  
+* Add port 8080 to ports.conf
+	* `sudo nano /etc/apache2/ports.conf`
+	* Add this line: `Listen 8080`
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
 * Enable URL rewrite module: `sudo a2enmod rewrite`
 * Enable `sudo a2enmod userdir`
@@ -146,6 +149,11 @@ Copy local directory outside of solar-protocol directory to pi directory
 Device List 
 * change the device list template file name<br>
 `sudo mv /home/pi/solar-protocol/backend/data/deviceListTemplate.json /home/pi/solar-protocol/backend/data/deviceList.json`
+
+#### Admin Console
+Log in to the admin console:
+* Set port to 8080
+* Enter API keys
 
 #### Permissions
 

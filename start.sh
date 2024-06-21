@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#run with:
+#sudo /bin/bash start.sh
+
 echo "Starting Solar Protocol!"
 
 #sleep 60

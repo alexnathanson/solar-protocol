@@ -17,6 +17,7 @@ sudo chmod -R +x /home/pi/solar-protocol/backend
 sudo chmod -R +x /home/pi/solar-protocol/backend/createHTML
 sudo chmod -R +x /home/pi/solar-protocol/backend/createHTML/viz-assets
 sudo chmod -R +x /home/pi/solar-protocol/backend/core
+sudo chmod 777 /home/pi/solar-protocol/backend/data
 
 sudo chmod a+w /home/pi/solar-protocol/frontend/index.html
 sudo chmod +x /home/pi/solar-protocol/utilities/update.sh

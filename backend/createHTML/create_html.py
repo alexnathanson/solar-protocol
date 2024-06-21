@@ -240,8 +240,10 @@ def render_pages(_local_data, _data, _weather, _server_data):
             )
 
         # print(rendered_html)
-        open(output_filename, "w").write(rendered_html)
-
+        try:
+            open(output_filename, "w").write(rendered_html)
+        except Exception as e:
+            print(e)
 #get weather data
 def get_weather(_local_data):
     api_key = "24df3e6ca023273cd426f67e7ac06ac9"

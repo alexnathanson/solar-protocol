@@ -102,7 +102,14 @@ Enable key-based authentication
 #### Firewall configuration 	
 
 ### Network Configuration & Server Setup
-Open ports 8080, 443, and 22 on your router. It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
+Open and forward these ports:
+80 -> 80 (This is to catch external traffic coming in on port 80. It could probably forward to the internal port 80 just fine too)
+8080 -> 80 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 80.)
+443 -> 443 (For HTTPS)
+8443 -> 443 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 443.)
+2222 -> 22 (For SSH)
+
+It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
 
 Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)   
 Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)  
@@ -111,7 +118,7 @@ Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/p
 Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
   
 * `sudo nano /etc/apache2/sites-available/000-default.conf`  
-	* change `<VirtualHost *:80>` to `<VirtualHost *:80 *:8080>`
+	* change `<VirtualHost *:80>` to `<VirtualHost *:80 *:8080>` 
 	* change `DocumentRoot /var/www/html` to `DocumentRoot /home/pi/solar-protocol/frontend`  
 	* Enable server status interface (once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto )
 		* add these 4 lines to the file directly above `</VirtualHost>`<br>
@@ -140,6 +147,13 @@ Apache permissions
 * Add pi user to www-data group `sudo adduser pi www-data`
 * Assign ownership of frontend directory to www-data group `sudo chown www-data:www-data /home/pi/solar-protocol/frontend`
 * `sudo chmod 755 /home/pi/`
+
+#### SSL Certificate Setup
+Port forwarding for 443-> 443 must be enabled for this to take effect (8443 -> 443 must also be enabled on some routers to minimize troubleshooting issues).
+
+1) `sudo apt install python3-certbot-apache`
+2) `sudo apt install certbot`
+3) Solar Protocol uses a single certificate distributed to all SP servers. The next steps must be done by a network admin.
 
 ### Solar Protocol Configuration
 Copy local directory outside of solar-protocol directory to pi directory  
@@ -171,14 +185,6 @@ All the necessary file and directory permissions can set by running this script:
 
 * open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
 	* reboot daily `@midnight sudo reboot`
-
-#### Automation Troubleshooting
-
-* Confirm that "Wait for Network at Boot" option is enable. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
-* Confirm the python scripts are exectutable
-* If you can't get the backend Python scripts to run from rc.local an alternative runner is provided. Change the rc.local line for the backend scripts to this:
-	* open rc.local `sudo nano /etc/rc.local`  
-		* add this line above "exit 0" `sudo -H -u pi sh /home/pi/solar-protocol/backend/alt-runner.sh > /home/pi/solar-protocol/backend/runner.log 2>&1 &`  
 
 ### General Troubleshooting  
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  

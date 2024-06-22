@@ -97,8 +97,6 @@ Enable key-based authentication
 	* Change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)  
 	* save the file and restart the service `sudo systemctl restart sshd`
 
-#### Firewall configuration 	
-
 ### Network Configuration & Server Setup
 Open and forward these ports:
 * 80 -> 80 (This is to catch external traffic coming in on port 80. It could probably forward to the internal port 80 just fine too)

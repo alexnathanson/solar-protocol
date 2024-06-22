@@ -1,8 +1,9 @@
-# Installation instructions for RPi OS Bookworm
+# Software Installation Instructions for Solar Protocol V1.1 for RPi OS Bookworm
+
+These are the installation instructions for the current version of Solar Protocol that runs on Bookworm.
 
 Major changes in this version 
-* Bookworm requires the use of a venv when using pip.
-* The 'wait for network at boot' option in raspi-config is no longer available.
+* All python scripts now run in a virtual environment.
 
 ## Hardware
 
@@ -19,7 +20,7 @@ This works with a USB to RS485 converter (ch340T chip model).
 NOTE: The default admin user needs to be 'pi'
 
 ### OS
-* In the Raspberry Pi disk imager, set user to 'sp', password, enable ssh, wifi network, etc
+* In the Raspberry Pi disk imager, set user to 'pi', password, enable ssh, wifi network, etc
 * Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
 	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot`
 * `sudo apt-get update`  
@@ -100,7 +101,7 @@ Enable key-based authentication
 ### Network Configuration & Server Setup
 Open and forward these ports:
 * 80 -> 80 (This is to catch external traffic coming in on port 80. It could probably forward to the internal port 80 just fine too)
-* 8080 -> 80 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 80.)
+* 8080 -> 8080 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 80.)
 * 443 -> 443 (For HTTPS)
 * 8443 -> 443 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 443.)
 * 2222 -> 22 (For SSH)
@@ -182,7 +183,7 @@ If the above command was successful, you do not need to set permissions individu
 ## Troubleshooting  
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  
 * Run `ps -aux` to list running processes  
-* Run `ps -ef | grep .py` to list running python processes
+* Run `ps -ef | grep .py` or `ps aux | grep .py` to list running python processes
 * All Python scripts use python3  
 * PHP error logging (best to only use these during development and revert back for production version)  
 	* `sudo /etc/php/7.3/apache2/php.ini` The exact path will differ depending on the version of PHP  

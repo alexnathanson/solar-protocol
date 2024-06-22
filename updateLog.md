@@ -1,5 +1,9 @@
 # Software Update Log
 
+## 6/22/24
+
+Obviously have not been keeping up with this... I just did a bigish update for our code to run on Bookworm.
+
 ## 9/1/21
 
 Cleaned up repository and added documentation

@@ -1,71 +1,25 @@
-# Software Installation
+# Software Installation Instructions for Solar Protocol V1.0 Bullseye
 
-This is an untested work in progress. Use the original instructions in the installation.md doc for now.
+These are the installation instructions for the version of Solar Protocol that ran on Bullseye. This version is depreciated and should only be used as a reference for older systems running the previous version.
 
-## Automated Installation (recommended)
+## Hardware
 
-1) Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
-	* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations
-	* Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
-	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot` 
+* Solar Charge Controller: We use EPever Tracer2210AN, but any Epever Tracer-AN Series would work.
+* Raspberry Pi 4 (or 3B+)
 
-2) run installer.sh `sudo sh installer.sh`
+### Wiring
+This works with a USB to RS485 converter (ch340T chip model).
+* RJ45 blue => b
+* RJ45 green => a
 
-3) configure server
+## Software
 
-Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
-  
-* `cd /etc/apache2/sites-available`  
-* `sudo nano 000-default.conf`  
-	* change `DocumentRoot /var/www/` to `DocumentRoot /home/pi/solar-protocol/frontend`  
-* `sudo nano /etc/apache2/apache2.conf`  
-	* add these lines to the file    
-	`<Directory /home/pi/solar-protocol/frontend/>`    
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Options Indexes FollowSymLinks`   
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`AllowOverride All`  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Header set Access-Control-Allow-Origin "*"`  
-	`</Directory>`  
-* To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
-
-To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
-* then restart `sudo systemctl restart apache2`   
-
-Enable server status interface:
-* edit the 000-default.conf file: `sudo nano /etc/apache2/sites-enabled/000-default.conf`
-* add these 4 lines to the file directly above `</VirtualHost>`<br>
-`<Location /server-status>`<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SetHandler server-status`<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Require all granted`<br>
-`</Location>`
-* save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
-* once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
-
-4) security settings
-
-### Security
-Recommendations to set up your pi securely   
-* Choose a strong password  
-* Open ports 80 and 22 on your router    
-* Secure pi - here is a guide: https://www.raspberrypi.org/documentation/configuration/security.md  
-    * To use key-based authentication   
-    	* run `install -d -m 700 ~/.ssh`  
-    	(to be performed after downloading the solar-protocol repo) 
-	* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`   
-    	* set permissions. 
-    		* `sudo chmod 644 ~/.ssh/authorized_keys`  
-			* `sudo chown pi:pi ~/.ssh/authorized_keys`  
-		* test that passwordless key-based authentication works. 
-		* if it works, disable password login  
-			* `sudo nano /etc/ssh/sshd_config`  
-			* change this line `#PasswordAuthentication yes` to `PasswordAuthentication no` (This will make it so you only can log in with the ssh key. Be careful to not lock yourself out!)  
-
-## Manual Installation 
+NOTE: The default admin user needs to be 'pi'
 
 ### OS
 * Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
 	* change password, hostname, connect to wifi, enable SSH, keyboard layout, set timezone, and any other necessry configurations
-	* Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
+	* Enable "Wait for Network at Boot" option. This ensures that the necessary network requirements are in place before Solar Protocol runs. (Note that this option is no longer available with the Raspberry Pi OS (64-bit) version.)
 	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot` 
 * `sudo apt-get update`  
 * `sudo apt full-upgrade` (note that `sudo apt-get upgrade`  is the "safer" version of this command that is probably better to use if an upgrade is necessary after Solar Protocol is installed and running in order to avoid problems with dependencies)
@@ -78,7 +32,8 @@ Download repo into /home/pi
 
 ### Python 3 Packages  
 * Install pip `sudo apt-get install python3-pip`  
-* Install pymodbus `sudo pip3 install pymodbus`    
+* Install pymodbus `sudo pip3 install pymodbus`
+* Install pyserial `sudo pip3 install pyserial` (probably not needed anymore)
 * Install pandas `sudo pip3 install pandas` (this should be refactored to not used pandas)   
 * Install numpy `sudo pip3 uninstall numpy` (might have already been installed) followed by `sudo apt-get install python3-numpy` (installing numpy with python3 can cause problems. see troubleshooting numpy below if this doesn't work)  
 * Install jinja `sudo pip3 install jinja2`     
@@ -88,6 +43,7 @@ Download repo into /home/pi
 * Upgrade/install Pillow `python3 -m pip install --upgrade Pillow`  
 * Install cairo `sudo apt-get install libcairo2-dev`  
 * Install gizeh `sudo pip3 install gizeh`  
+* Install webcolors `pip install webcolors`
 
 #### Troubleshooting numpy
 uninstall numpy (these uninstall commands may need to be run multiple times to get rid of multiple versions):
@@ -98,6 +54,15 @@ then install numpy and this missing library:
 
 #### Troubleshooting PIL
 * `sudo apt install libtiff5`
+* `sudo apt-get install libopenjp2-7` (not confirmed)
+* more PIL & Pillow troubleshooting at https://stackoverflow.com/questions/26505958/why-cant-python-import-image-from-pil
+
+#### Troubleshoot pymodbus
+* If you get an error relating to serial try removing serial and pyserial from all users and then reinstall only pyserial
+	pip uninstall serial
+	sudo pip uninstall serial
+	pip uninstall pyserial
+	sudo pip install pyserial
 
 #### Further troubleshooting updates and dependencies
 * In some instances it may be necessary to manually change the mirror which determines where apt-get pulls from. Instructions for manually changing the mirror can be found at https://pimylifeup.com/raspbian-repository-mirror/
@@ -139,7 +104,7 @@ Change Apache default directory to the frontend directory (src: https://julienre
 	`</Directory>`  
 * To allow CORS (needed for admin console) activate module for changing headers. This can be done from any directory. `sudo a2enmod headers`  
 
-To allow for htaccess redirect activate this module: `sudo a2enmod rewrite`
+Enable URL rewrite module: `sudo a2enmod rewrite`
 * then restart `sudo systemctl restart apache2`   
 
 Enable server status interface:
@@ -152,9 +117,10 @@ Enable server status interface:
 * save and close the file. Then restart with `sudo service apache2 restart` (if this restart command doesn't work, use the Apache resart command mention above)
 * once enabled, the server stats page for an individual server will appear at solarprotocol.net/server-status (substitute IP address for individual servers). A machine readable version can be found at solarprotocol.net/server-status?auto
 
-Install PHP graphics library for dithering. Note that the version will need to match your php version.
+<!-- Install PHP graphics library for dithering. Note that the version will need to match your php version.
 * `sudo apt-get install php7.3-gd`
-* `sudo systemctl restart apache2`   
+* `sudo systemctl restart apache2`  -->
+  
 <!-- 
 Give Apache/PHP user 'www-data' necessary permissions:
 * Open visudo: `sudo visudo`
@@ -165,6 +131,10 @@ Give Apache/PHP user 'www-data' necessary permissions:
 * Copy local directory outside of solar-protocol directory to pi directory  
 `sudo cp -r /home/pi/solar-protocol/local /home/pi/local`
 * Update the info with your information as needed  
+
+### Device List 
+* change the device list template file name<br>
+`sudo mv /home/pi/solar-protocol/backend/data/deviceListTemplate.json /home/pi/solar-protocol/backend/data/deviceList.json`
 
 ### Permissions
 
@@ -190,7 +160,7 @@ All the necessary file and directory permissions can set by running this script:
 
 * Confirm that "Wait for Network at Boot" option is enable. This ensures that the necessary network requirements are in place before Solar Protocol runs.  
 * Confirm the python scripts are exectutable
-* If you can get the backend Python scripts to run from rc.local an alternative runner is provided. Change the rc.local line for the backend scripts to this:
+* If you can't get the backend Python scripts to run from rc.local an alternative runner is provided. Change the rc.local line for the backend scripts to this:
 	* open rc.local `sudo nano /etc/rc.local`  
 		* add this line above "exit 0" `sudo -H -u pi sh /home/pi/solar-protocol/backend/alt-runner.sh > /home/pi/solar-protocol/backend/runner.log 2>&1 &`  
 

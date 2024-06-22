@@ -38,4 +38,6 @@ dns-gateway/networkkey.php
 
 /utilities/hostnames.sh
 
+*/letsencrypt/*
+
 #.spenv

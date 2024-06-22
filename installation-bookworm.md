@@ -26,10 +26,9 @@ NOTE: The default admin user needs to be 'pi'
 * `sudo apt-get upgrade`
 
 ### Repository
-Download repo into /home/sp
+Download repo into /home/pi
 `sudo apt-get install git`  
 `git clone http://www.github.com/alexnathanson/solar-protocol`  
-* See below for updating server with local info and setting the appropriate security measures. 
 
 ### Create VENV
 
@@ -38,14 +37,13 @@ Navigate to the solar-protocol directory
 
 ### Python 3 packages
 
-from the solar-protocol directory
+From the /home/pi/solar-protocol directory, activate the virtual environment
 `source .venv/bin/activate`
 
-<!-- try: `pip install -r requirements.txt` -->
+Try `pip install -r requirements.txt`
 
-if that fails, manually install all packages with these commands:
+If that fails, manually install all packages with these commands:
 
-*************
 #### Manual installation of packages (skip this section if previous step succeeds) 
 * Install requets `pip install requests`
 * Install pymodbus `pip install pymodbus`
@@ -103,20 +101,20 @@ Enable key-based authentication
 
 ### Network Configuration & Server Setup
 Open and forward these ports:
-80 -> 80 (This is to catch external traffic coming in on port 80. It could probably forward to the internal port 80 just fine too)
-8080 -> 80 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 80.)
-443 -> 443 (For HTTPS)
-8443 -> 443 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 443.)
-2222 -> 22 (For SSH)
+* 80 -> 80 (This is to catch external traffic coming in on port 80. It could probably forward to the internal port 80 just fine too)
+* 8080 -> 80 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 80.)
+* 443 -> 443 (For HTTPS)
+* 8443 -> 443 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 443.)
+* 2222 -> 22 (For SSH)
 
 It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
 
-Install Apache `sudo apt-get install apache2 -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/2)   
-Install PHP `sudo apt-get install php -y` (https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3)  
+Install Apache `sudo apt-get install apache2 -y`
+
+Install PHP `sudo apt-get install php -y`
   
 #### Configure Apache server
-Change Apache default directory to the frontend directory (src: https://julienrenaux.fr/2015/04/06/changing-apache2-document-root-in-ubuntu-14-x/)  
-  
+Change Apache default directory to the frontend directory and set permissions
 * `sudo nano /etc/apache2/sites-available/000-default.conf`  
 	* change `<VirtualHost *:80>` to `<VirtualHost *:80 *:8080>` 
 	* change `DocumentRoot /var/www/html` to `DocumentRoot /home/pi/solar-protocol/frontend`  
@@ -156,25 +154,23 @@ Port forwarding for 443-> 443 must be enabled for this to take effect (8443 -> 4
 3) Solar Protocol uses a single certificate distributed to all SP servers. The next steps must be done by a network admin.
 
 ### Solar Protocol Configuration
-Copy local directory outside of solar-protocol directory to pi directory  
-`sudo cp -r /home/pi/solar-protocol/local /home/pi/local`
-* Update the info with your information as needed  
+1) Copy local directory outside of solar-protocol directory to pi directory
 
-Device List 
-* change the device list template file name<br>
+`sudo cp -r /home/pi/solar-protocol/local /home/pi/local`
+
+2) Change the device list template file name
+
 `sudo mv /home/pi/solar-protocol/backend/data/deviceListTemplate.json /home/pi/solar-protocol/backend/data/deviceList.json`
 
-#### Admin Console
-Log in to the admin console:
-* Set port to 8080
-* Enter API keys
+3) Set permissions (this script needs to be run everytime you pull from the repository)
 
-#### Permissions
+`sh /home/pi/solar-protocol/utilities/setAllPermissions.sh`
 
-All the necessary file and directory permissions can set by running this script: utilities/setAllPermissions.sh
-* `sh setAllPermissions.sh`
-* You must move the local directory to its proper position before setting permissions.
-* If the above command was successful, you do not need to set permissions individually. If it failed or can't be run for some reason you can manually enter the commands listed in the setAllPermissions script.
+If the above command was successful, you do not need to set permissions individually. If it failed or can't be run for some reason you can manually enter the commands listed in the setAllPermissions script.
+
+4) Log in to the admin console via the browser (YOUR_IP/admin)
+* Enter your info on the settings page
+* Enter API keys and update the gateway list with appropriate credentials
 
 ### Automate  
 <!-- open rc.local `sudo nano /etc/rc.local`  
@@ -182,16 +178,14 @@ All the necessary file and directory permissions can set by running this script:
 	* verify it works `sudo reboot` -->
 * open rc.local `sudo nano /etc/rc.local`  
 		* add this line above "exit 0" `sudo -H -u pi /bin/bash /home/pi/solar-protocol/start.sh > /home/pi/solar-protocol/start.log 2>&1 &`  
+* open the root crontab `sudo crontab -e`
+	* add this line to the bottom to restart the server at midnight `@midnight sudo reboot`
 
-* open the root crontab `sudo crontab -e` and add this line to the bottom to restart the server at midnight:  
-	* reboot daily `@midnight sudo reboot`
-
-### General Troubleshooting  
+## Troubleshooting  
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  
 * Run `ps -aux` to list running processes  
 * Run `ps -ef | grep .py` to list running python processes
 * All Python scripts use python3  
-* if cron logging isn't working use `sudo crontab -e` instead of `crontab -e`  
 * PHP error logging (best to only use these during development and revert back for production version)  
 	* `sudo /etc/php/7.3/apache2/php.ini` The exact path will differ depending on the version of PHP  
 	* Set display_errors and error_reporting as follows:  
@@ -207,11 +201,10 @@ All the necessary file and directory permissions can set by running this script:
 
 ### Troubleshooting Opening Ports
 * Log into the router and set a static internal IP
-* Set up port forwarding for port 22 and 80 for the internal IP address
-* In some places, ISPs blocks ports. Call them to check these ports arent blocked.
-* Tool to check if ports are blocked: https://www.yougetsignal.com/tools/open-ports/
-* Check firewall is off
-* Try forwarding a port that is not port 80.
+* ISPs can blocks ports. Call your ISP to check that these ports arent blocked.
+* On many residential networks, internal loopbacks on ports 80 and 443 can be blocked. You can test this by using a different network (like cellular) to try to access the site.
+* There are tools to check if ports are open or closed. They aren't always accurate. Here's one: https://www.yougetsignal.com/tools/open-ports/
+* Try ports 8080 and 8443, instead of 80 and 443.
 
 ### Manually updating the software from the Repository  
 * cd into the solar protocol folder and git pull  
@@ -221,6 +214,3 @@ All the necessary file and directory permissions can set by running this script:
 * Update the permissions. cd into the utlitiles folder and run the setAllPermissions.sh script.   
 	* `cd /home/pi/solar-protocol/utilities`  
 	* `sh setAllPermissions.sh`  
-
-* Update the public keys file on your pi. This is in case there have been changes to the public keys file. This allows some of the Solar Protocol developers access to your pi as needed.   
-	* move the authorized_keys file into this new directory `sudo mv /home/pi/solar-protocol/utilities/authorized_keys ~/.ssh/authorized_keys`.    

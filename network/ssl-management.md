@@ -19,9 +19,23 @@ This is only required for the generating server and should NOT be done on all se
 * Enter this domain name when prompted: `www.solarprotocol.net`
 
 5) Distribute to the servers in the network
-* Copy the contents of  /etc/letsencrypt/ 
-* Copy the Apache SSl config file:
+
+5A) Retrieve files
+* Copy the /etc/letsencrypt directory
+	* `sudo chmod 755 /etc/letsencrypt` temporarily change the permissions of this directory (may need to do this recursively)
+	* `sudo cp /etc/letsencrypt /home/letsencrypt`
+	* `sudo chmod 700 /etc/letsencrypt` revert permissions 
+* Change owner of this new directory to pi `sudo chown -R pi:pi /home/letsencrypt`
+* From your machine, retrieve the directory with pscp
+	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 pi@DST_IP:/home/letsencrypt C:\path\of\source\directory\solar-protocol\network\letsencrypt` (letsencrypt directory is ignored in git) 
+* `sudo rm -r /home/letsencrypt ` delete the temporary copy on the server
+
+5B) Distribute files to all servers (untested!)
+* Copy the Apache SSL config file:
 `sudo cp /home/pi/solar-protocol/network/000-default-le-ssl.conf /etc/apache2/sites-available/000-default-le-ssl.conf`
+* Copy the contents of /etc/letsencrypt.
+	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 C:\path\of\source\directory pi@DST_IP:/etc/letsencrypt` (make sure the letsencrypt directory isnt nested within a directory of the same name at the destination)
+* Set permissions of the directory `sudo chmod 700 /etc/letsencrypt` (The owner and group for this directory should be root! might need to do this recursively)
 
 ## Renewal
 Renewal can only happen within 30 days of expiration.

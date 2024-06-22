@@ -1,7 +1,7 @@
 appdirs==1.4.3
 autopep8==1.5.4
 beautifulsoup4==4.9.1
-black==21.5b0
+black==24.3.0
 cairocffi==1.2.0
 certifi==2022.12.7
 cffi==1.14.5

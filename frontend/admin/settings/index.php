@@ -233,7 +233,7 @@ function setEnv($envKey,$envVal){
 
    <p>PV Module Voltage <input type="text" name="pvVolts" value="<?php if (isset($locVolts)){echo $locVolts;}?>"></p>
 
-   <p>Battery Type <input type="text" name="batType" value="<?php if (isset($locBat)){echo $locBat;}?>"></p>
+   <p>Battery Type (Options: SLA, LIFEPO4) <input type="text" name="batType" value="<?php if (isset($locBat)){echo $locBat;}?>"></p>
 
   <p></p>
   <button type="submit">Update</button>

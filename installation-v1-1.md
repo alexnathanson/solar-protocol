@@ -152,6 +152,13 @@ Port forwarding for 443-> 443 must be enabled for this to take effect (8443 -> 4
 2) `sudo apt install certbot`
 3) Solar Protocol uses a single certificate distributed to all SP servers. The next steps must be done by a network admin. (See network/ssl-management.md for more info.)
 
+#### PHP Settings (Note: adding this my be a sympton of other issues.)
+Set timezone (Change 8.2 to your version of PHP if needed)
+* `sudo nano /etc/php/8.2/apache/php.ini`
+* Change `;date.timezone` to `date.timezone = YOUR_TIMEZONE`
+	* You can find your timezone here: https://www.php.net/manual/en/timezones.america.php
+* `sudo systemctl restart apache2` for this change to take effect
+
 ### Solar Protocol Configuration
 1) Copy local directory outside of solar-protocol directory to pi directory
 

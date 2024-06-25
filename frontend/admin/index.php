@@ -54,6 +54,7 @@ function getFile($fileName){
 <p><a href="/admin">Network Status</a> | <a href="/admin/local.php">Local Data</a> | <a href="/admin/settings">Settings</a> | <a href="/admin/settings/local.php">Local Content</a></p>
 
 <h2>Network Status</h2>
+<?php echo date_default_timezone_get(); ?> 
 
 <div id="server list"><h3>Online Servers:</h3></div>
 

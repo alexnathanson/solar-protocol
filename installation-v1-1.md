@@ -150,7 +150,7 @@ Port forwarding for 443-> 443 must be enabled for this to take effect (8443 -> 4
 
 1) `sudo apt install python3-certbot-apache`
 2) `sudo apt install certbot`
-3) Solar Protocol uses a single certificate distributed to all SP servers. The next steps must be done by a network admin.
+3) Solar Protocol uses a single certificate distributed to all SP servers. The next steps must be done by a network admin. (See network/ssl-management.md for more info.)
 
 ### Solar Protocol Configuration
 1) Copy local directory outside of solar-protocol directory to pi directory

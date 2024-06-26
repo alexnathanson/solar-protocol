@@ -78,11 +78,16 @@ function updateIP($ip, $pw){
   #echo "updating IP for real!<br>";
 
   $host='@';
-  $domain='solarprotocol.net';
+  $domain1='solarprotocol.net';
+  $domain2='www.solarprotocol.net';
 
-  $response = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain . "&password=" . $pw . "&ip=" . $ip);
-  #header('Content-Type: application/json');
-  echo $response;
+  $response1 = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain1 . "&password=" . $pw . "&ip=" . $ip);
+
+  //it appears that this 2nd call isn't necessary, because it was returning an error but still working
+  // $response2 = file_get_contents("https://dynamicdns.park-your-domain.com/update?host=" . $host . "&domain=" . $domain2 . "&password=" . $pw . "&ip=" . $ip);
+
+  // $response = $domain1 . "\n" . $response1 . "\n" . "\n" . $domain2 . "\n" . $response2;
+  echo $response1;
   #exit();#not necessary...
 }
 

@@ -16,7 +16,7 @@ This is only required for the generating server and should NOT be done on all se
 3) `python utilities/updateDNS_UnitTest.py` Step 4 will only work if the server you are working on is the PoE at the moment. Navigate to the solar-protocol/backend/core directory and run this script to force PoE (Note that this may take a minute to take effect. Also another server may 'steal' it back before step 4 is run. An alternative method is to use a redirect, such as `rewrite ^/.well-known/acme-challenge/(.*)$ http://acme.example.com/$1 redirect;` but for the time being this isn't necessary.)
 4) `sudo certbot --apache`
 * Enter your email address when prompted
-* Enter this domain name when prompted: `www.solarprotocol.net`
+* Enter this domain name when prompted: `solarprotocol.net www.solarprotocol.net`
 
 5) Distribute to the servers in the network
 

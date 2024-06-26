@@ -143,6 +143,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
         print("ZONE", zone)
     except Exception as e:
         print("Timezone Exception - TZ n/a")
+        print(e)
         zone = "TZ n/a"
         #print("TZ na")
 

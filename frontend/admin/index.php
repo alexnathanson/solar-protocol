@@ -81,7 +81,7 @@ function getFile($fileName){
   let jsonPoe;
 
 //the day=deviceList end point should be moved to system info
-  if (window.location.protocol == 'http'){
+  if (window.location.protocol == 'http:'){
     lP = <?php echo $locPort; ?>
   } else {
     lP = <?php echo $locPortS; ?>

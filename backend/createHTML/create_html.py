@@ -133,8 +133,8 @@ def render_pages(_local_data, _data, _weather, _server_data):
         tz_url = "http://localhost/api/v1/chargecontroller.php?systemInfo=tz"
         z = requests.get(tz_url) 
         #for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
-        if z.status == 404:
-            print("TZ 404 error")
+        if z.status_code >= 400:
+            print("TZ error " + str(z.status_code))
             zone = "TZ n/a"
         else:
             zone = z.text

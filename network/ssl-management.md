@@ -41,6 +41,7 @@ Copy the ssl certificate, private key, and configuration files. Note that if the
 * Copy the Apache SSL config file:
 	* `sudo cp /home/pi/solar-protocol/network/000-default-le-ssl.conf /etc/apache2/sites-available/000-default-le-ssl.conf`
 	* restart apache `sudo systemctl restart apache2`
+* Copy the renewal/www.solarprotocol.net file to the /etc/letsencrypt/renewal/ directory
 
 Troubleshoot
 

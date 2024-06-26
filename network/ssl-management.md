@@ -31,11 +31,18 @@ This is only required for the generating server and should NOT be done on all se
 * `sudo rm -r /home/letsencrypt ` delete the temporary copy on the server
 
 5B) Distribute files to all servers (untested!)
+
+Copy the ssl certificate, private key, and configuration files. Note that if the server is already using th defaul ssl conf name, you may need to change the file names.
+
+* Copy the contents of /etc/letsencrypt/live/www.solarprotocol.net
+	* `sudo cp -R DIRECTORY_LOCATION/ /etc/letsencrypt/live`
+	* If you need to confirm this worked, change permissions of live directory `sudo chmod 755 /etc/letsencrypt`
+	* Once confirmed, revert the permissions changes back to "drwx------ 4 root root" with `sudo chmod 700 /etc/letsencrypt` (untested)
 * Copy the Apache SSL config file:
-`sudo cp /home/pi/solar-protocol/network/000-default-le-ssl.conf /etc/apache2/sites-available/000-default-le-ssl.conf`
-* Copy the contents of /etc/letsencrypt.
-	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 C:\path\of\source\directory pi@DST_IP:/etc/letsencrypt` (make sure the letsencrypt directory isnt nested within a directory of the same name at the destination)
-* Set permissions of the directory `sudo chmod 700 /etc/letsencrypt` (The owner and group for this directory should be root! might need to do this recursively)
+	* `sudo cp /home/pi/solar-protocol/network/000-default-le-ssl.conf /etc/apache2/sites-available/000-default-le-ssl.conf`
+	* restart apache `sudo systemctl restart apache2`
+
+Troubleshoot
 
 ## Renewal
 Renewal can only happen within 30 days of expiration.

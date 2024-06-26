@@ -34,6 +34,12 @@ if (isset($localInfo["httpPort"])){
   $locPort = "80";
 }
 
+if (isset($localInfo["httpsPort"])){
+  $locPortS = $localInfo["httpsPort"];
+} else {
+  $locPortS = "443";
+}
+
 function getFile($fileName){
   //echo $fileName;
   try{
@@ -75,7 +81,13 @@ function getFile($fileName){
   let jsonPoe;
 
 //the day=deviceList end point should be moved to system info
-  let devListURL = window.location.protocol + "//"+ window.location.hostname + ":"+ <?php echo $locPort; ?> + "/api/v1/chargecontroller.php?day=deviceList";
+  if (window.location.protocol == 'http'){
+    lP = <?php echo $locPort; ?>
+  } else {
+    lP = <?php echo $locPortS; ?>
+  }
+
+  let devListURL = window.location.protocol + "//"+ window.location.hostname + ":"+ lP + "/api/v1/chargecontroller.php?day=deviceList";
 
   console.log(devListURL);
 

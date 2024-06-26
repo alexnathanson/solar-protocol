@@ -56,6 +56,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
           $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
         }
+      } else if (isset($_POST['httpsPort'])){
+        if (! is_numeric($_POST['httpsPort']) || strpos($_POST['httpsPort'],'.')){
+          $httpsErr = "Port value is not an integer.";
+        } else {
+          $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+        }
       } else {
         $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
       }
@@ -121,6 +127,12 @@ if (isset($localInfo["httpPort"])){
   $httpPort = $localInfo["httpPort"];
 } else {
   $httpPort = "80"; //display default port if no custom port info is found
+}
+
+if (isset($localInfo["httpsPort"])){
+  $httpsPort = $localInfo["httpsPort"];
+} else {
+  $httpsPort = "443"; //display default port if no custom port info is found
 }
 
 //front end form for https needed
@@ -272,6 +284,13 @@ function setEnv($envKey,$envVal){
     <p>http port <input type="text" name="httpPort" value="<?php if (isset($httpPort)){echo $httpPort;}?>"><span class="error" style="color:red"> <?php echo $httpErr;?></span></p>
     <button type="submit">Update Http Port</button>
   </form>
+
+  <form method="POST" onsubmit="return confirm('Are you sure you want to change the https port?');">
+    <input type="hidden" name="key" value="form"/>
+    <p>https port <input type="text" name="httpsPort" value="<?php if (isset($httpsPort)){echo $httpsPort;}?>"><span class="error" style="color:red"> <?php echo $httpsErr;?></span></p>
+    <button type="submit">Update Https Port</button>
+  </form>
+
 </div>
 
 <div class="dangerBox">

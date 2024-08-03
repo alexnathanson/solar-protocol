@@ -159,6 +159,10 @@ Set timezone (Change 8.2 to your version of PHP if needed)
 	* You can find your timezone here: https://www.php.net/manual/en/timezones.america.php
 * `sudo systemctl restart apache2` for this change to take effect
 
+#### Install Fail2Ban
+Fail2ban provides added protection against bot attacks.
+* For the time being use these instructions: https://pimylifeup.com/raspberry-pi-fail2ban/ Solar Protocol specific instructions may be provided in the future.
+
 ### Solar Protocol Configuration
 1) Copy local directory outside of solar-protocol directory to pi directory
 

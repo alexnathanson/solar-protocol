@@ -58,6 +58,12 @@ Automated renewing is controlled by this file: /etc/cron.d/certbot. Do not copy 
 
 Autodistribution could also potentially be possible with rsync.
 
+To get auto renew working:
+* check if it is time to renew
+* enable PoE
+* run renewal
+* distribute keys
+
 ## Troubleshooting
 
 * Run `sudo certbot certificates` to view active certificates with expiration dates

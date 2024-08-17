@@ -1,4 +1,4 @@
-# Solar Protocol
+# Solar Protocol V0.1.1
 
 Solar Protocol is a system for load balancing and serving content based on photovoltaic logic.  
 

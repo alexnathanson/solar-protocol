@@ -1,8 +1,13 @@
-# Solar Protocol
+# Solar Protocol - Classic (V0.1.0)
 
 A system for load balancing and serving content based on photovoltaic logic.
 =======
-A repository in development for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.
+
+<strong>
+This branch is an archive of the version of Solar Protocol that ran from roughly 2021 - summer 2024. It is being kept for future reference and for servers that may be running the old version. It is being depreciated and should not be installed on new devices.
+</strong>
+
+A repository for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.
 
 Content at <a href="http://www.solarprotocol.net">solarprotocol.net</a> is served by whichever server in our network is in the most sunlight at a given time. (We are basing this off of the solar module wattage.)
 

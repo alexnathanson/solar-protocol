@@ -216,7 +216,7 @@ def sortPOE(log, timeZones, myTimeZone):
         #tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=tzOffset(timeZones[l])) #shift by TZ
         tempDF = tempDF.drop(columns=[0])
         tempDF['device'] = l
-        dfPOE = dfPOE.append(tempDF, ignore_index=True)
+        dfPOE = pd.concat([dfPOE,tempDF], ignore_index=True)
         dfPOE.shape
 
     #print(dfPOE.head())

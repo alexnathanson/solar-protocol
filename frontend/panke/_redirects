@@ -1,0 +1,6 @@
+
+# gatsby-adapter-netlify start
+/page-data/events/:series/page-data.json  /page-data/events/[series]/page-data.json  200
+/events/:series/  /events/[series]/index.html  200
+
+# gatsby-adapter-netlify end

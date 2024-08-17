@@ -132,17 +132,18 @@ def render_pages(_local_data, _data, _weather, _server_data):
     try:
         tz_url = "http://localhost/api/v1/chargecontroller.php?systemInfo=tz"
         z = requests.get(tz_url) 
-        #for whatever reason, 404 errors weren't causing exceptions on Windows devices so this was added
-        if z.status == 404:
-            print("TZ 404 error")
+        if z.status_code >= 400:
+            print("TZ error " + str(z.status_code))
             zone = "TZ n/a"
         else:
             zone = z.text
-        #print("ZONE", z.text)
-        zone = zone.replace('/', ' ')
+            zone = zone.split('/')[1]
+            zone = zone.replace('_', ' ')
+            zone = 'TZ ' + zone
         print("ZONE", zone)
     except Exception as e:
         print("Timezone Exception - TZ n/a")
+        print(e)
         zone = "TZ n/a"
         #print("TZ na")
 
@@ -240,8 +241,10 @@ def render_pages(_local_data, _data, _weather, _server_data):
             )
 
         # print(rendered_html)
-        open(output_filename, "w").write(rendered_html)
-
+        try:
+            open(output_filename, "w").write(rendered_html)
+        except Exception as e:
+            print(e)
 #get weather data
 def get_weather(_local_data):
     api_key = "24df3e6ca023273cd426f67e7ac06ac9"

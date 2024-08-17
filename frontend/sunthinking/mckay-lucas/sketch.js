@@ -123,16 +123,29 @@ function windowResized() {
 }
 
 function getData() {
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-percentage', gotBatPerData);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=location', gotLoc);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=city', gotLocCity);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=country', gotLocCountry);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=datetime', gotTime);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=load-power', gotPower);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=PV-power-L', gotSolarPower);
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=tz', gotTimeZone);
+  if (window.location.protocol == 'http:') { 
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-percentage', gotBatPerData);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=location', gotLoc);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=city', gotLocCity);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=country', gotLocCountry);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=datetime', gotTime);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=load-power', gotPower);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=PV-power-L', gotSolarPower);
+    loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=tz', gotTimeZone);
+  } else {
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?value=battery-percentage', gotBatPerData);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?systemInfo=location', gotLoc);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?systemInfo=city', gotLocCity);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?systemInfo=country', gotLocCountry);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?value=datetime', gotTime);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?value=load-power', gotPower);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?value=PV-power-L', gotSolarPower);
+    loadJSON('https://solarprotocol.net/api/v2/opendata.php?systemInfo=tz', gotTimeZone);
+  }
 }
 
 function setup() {

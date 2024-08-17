@@ -6,6 +6,8 @@ Troubleshooting the Solar Protocol network can be extremely difficult and confus
 
 ### Logs
 
+Start script logs are located in /home/pi/solar-protocol/start.log
+
 Backend core logs are located in the /home/pi/solar-protocol/backend/runner.log
 
 Charge controller data collection log is located at /home/pi/solar-protocol/chargecontroller/datalogger.log
@@ -39,7 +41,7 @@ You should see at least 4 lines. 2 lines from root user and 2 lines from pi.
 
 * SSH in to device
 * run `ps aux | grep .py`
-* you should see 2 lines ending in 'csv_datalogger.py' (1 from root user and 1 from pi)
+* you should see 1-2 lines ending in 'csv_datalogger.py' (1 from root user and 1 from pi)
 * check the log file at /home/pi/solar-protocol/chargecontroller/datalogger.log
 * confirm that the automated start up code is correct. Check the /etc/rc.local file to confirm there are no typos.
 

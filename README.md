@@ -12,9 +12,9 @@ A system for load balancing and serving content based on photovoltaic logic.
 	</p>
 </strong>
 
-`git checkout solarprotocol-classic`
+`git checkout solarprotocol-classic`<br>
 `git checkout main PATH_TO_FILE`
-======= 
+
 
 A repository for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.
 
@@ -30,11 +30,11 @@ Our work is inspired by the great work done previously by the folks at Low Tech 
 
 ## Installation
 
-https://github.com/alexnathanson/solar-protocol/blob/master/installation.md
+https://github.com/alexnathanson/solar-protocol/blob/solarprotocl-classic/installation.md
 
 ## API documentation
 
-https://github.com/alexnathanson/solar-protocol/blob/master/API.md
+https://github.com/alexnathanson/solar-protocol/blob/solarprotocl-classic/API.md
 
 ## Hardware install notes  
 
@@ -42,7 +42,7 @@ https://github.com/alexnathanson/solar-protocol/blob/master/API.md
 
 ## Hardware Troubleshooting & Maintenance
 
-https://github.com/alexnathanson/solar-protocol/blob/master/hardware-troubleshooting-and-maintenance.md
+https://github.com/alexnathanson/solar-protocol/blob/solarprotocl-classic/hardware-troubleshooting-and-maintenance.md
 
 <!-- ### FRONT END
 * Code for an energy responsive front end is in test-site folder
@@ -51,25 +51,4 @@ https://github.com/alexnathanson/solar-protocol/blob/master/hardware-troubleshoo
 
 ## Collaborate with us!
 
-This is a growing global collaborative project and there are many ways to contribute. Some tasks that a volunteer could take on are listed below. Please get in touch if you would like to contribute in some way.
-
-### Software development
-
-* Enable better network analytics
-* Refactor the admin console
-* Write a script to periodically run a software update automatically
-* Write a script to run the backend processes based on battery status, rather than just time
-
-### Design
-
-* Admin console redesign
-* Solar Protocol header for steward pages
-
-### Content
-
-* Do you have a great idea for something that could make use of this unique system? It could be an art project, research project, essay, etc.
-
-### Other
-
-* Can you conduct an LCA of the hardware we use?
-* Can you help identify an accurate way to quantify the energy consumed by transferring data across the internet?
+This is a growing global collaborative project and there are many ways to contribute. Please get in touch if you would like to contribute in some way.

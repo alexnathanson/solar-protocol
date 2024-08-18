@@ -144,7 +144,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
-    df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
+    df_hours = ccDataframe.groupby(pd.Grouper(freq='h')).mean() #take hourly average of multiple values
     # df_hours = df_hours.tail(72) # last 72 hours
     df_hours = df_hours.tail(72)
     print("DF Hours: ", df_hours.shape)
@@ -246,7 +246,8 @@ def sortPOE(log, timeZones, myTimeZone):
             #print("percent of the time:", minPast/(hours*60))
             dfPOE.at[t,'percent']= minPast/ (hours*60)
             #print("percent again:", dfPOE['percent'].iloc[t])
-            dfPOE.at[t,'angle'] = 360-((dfPOE['percent'].iloc[t])*360)
+            #cast to int added to address error message, but it might be more appropriate to round up instead...
+            dfPOE.at[t,'angle'] = 360-int((dfPOE['percent'].iloc[t])*360)
             #print("Angle:", dfPOE.at[t,'angle'])
 
     #print(dfPOE.head())

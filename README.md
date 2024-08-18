@@ -30,11 +30,11 @@ Our work is inspired by the great work done previously by the folks at Low Tech 
 
 ## Installation
 
-https://github.com/alexnathanson/solar-protocol/blob/solarprotocl-classic/installation.md
+https://github.com/alexnathanson/solar-protocol/blob/solarprotocol-classic/installation.md
 
 ## API documentation
 
-https://github.com/alexnathanson/solar-protocol/blob/solarprotocl-classic/API.md
+https://github.com/alexnathanson/solar-protocol/blob/solarprotocol-classic/API.md
 
 ## Hardware install notes  
 
@@ -42,7 +42,7 @@ https://github.com/alexnathanson/solar-protocol/blob/solarprotocl-classic/API.md
 
 ## Hardware Troubleshooting & Maintenance
 
-https://github.com/alexnathanson/solar-protocol/blob/solarprotocl-classic/hardware-troubleshooting-and-maintenance.md
+https://github.com/alexnathanson/solar-protocol/blob/solarprotocol-classic/hardware-troubleshooting-and-maintenance.md
 
 <!-- ### FRONT END
 * Code for an energy responsive front end is in test-site folder

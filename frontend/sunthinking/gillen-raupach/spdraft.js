@@ -20,16 +20,7 @@ locationMap = {
     Peterborough: { lat: '44.309', lon: '-78.319' },
   }
 
-function testSSL(){
-  if (window.location.protocol == 'http:'){
-    return false;
-  }
-  else if (window.location.protocol == 'https:'){
-    return true;
-  }
-}
-
-sslBool = testSSL();
+apiProt = window.location.protocol
 
 // Creates a table based on the number of satellites above the shepherd server at the moment the page is loaded
 function createTable(satellites) {
@@ -67,11 +58,7 @@ function createTable(satellites) {
 
 //uses the solar protocol api to get the location (city) of current active server and references the locationMap to get lat and lon.
 async function getLocation(){
-    if (sslBool) { 
-      const response = await fetch('https://solarprotocol.net/api/v2/opendata.php?systemInfo=city');
-    } else {
-      const response = await fetch('http://solarprotocol.net/api/v2/opendata.php?systemInfo=city');
-    }
+    const response = await fetch(apiProt + '//solarprotocol.net/api/v2/opendata.php?systemInfo=city');
     const place = await response.json();
     const city = place.city;
     const location = locationMap[city];

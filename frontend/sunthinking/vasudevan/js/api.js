@@ -1,20 +1,8 @@
-function testSSL(){
-  if (window.location.protocol == 'http:'){
-    return false;
-  }
-  else if (window.location.protocol == 'https:'){
-    return true;
-  }
-}
 
-if (testSSL()) { 
-  spProtocol = 'https';
-} else {
-  spProtocol = 'http';
-}
+spProtocol = window.location.protocol
 
-let result = JSON.parse(getAPI(spProtocol + '://solarprotocol.net/api/v2/opendata.php?systemInfo=name'));
-let battery = JSON.parse(getAPI(spProtocol + '://solarprotocol.net/api/v2/opendata.php?value=battery-percentage'));
+let result = JSON.parse(getAPI(spProtocol + '//solarprotocol.net/api/v2/opendata.php?systemInfo=name'));
+let battery = JSON.parse(getAPI(spProtocol + '//solarprotocol.net/api/v2/opendata.php?value=battery-percentage'));
 
 console.log(result);
 

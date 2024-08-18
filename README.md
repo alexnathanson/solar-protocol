@@ -4,13 +4,14 @@ A system for load balancing and serving content based on photovoltaic logic.
 =======
 
 <strong>
-This branch is an archive of the version of Solar Protocol that ran from roughly 2021 - summer 2024. It is being kept for future reference and for servers that may be running the old version. It is being depreciated and should not be installed on new devices.
-</strong>
-<strong>
-Updates to maintain compatability can be done manually or by pulling relevent files (typically only those with frontend changes) from the main branch with the code below<br>
-
-`git checkout solarprotocol-classic`
-`git checkout main PATH_TO_FILE`
+	<p>
+		This branch is an archive of the version of Solar Protocol that ran from roughly 2021 - summer 2024. It is being kept for future reference and for servers that may be running the old version. It is being depreciated and should not be installed on new devices.
+	</p>
+	<p>
+		Updates to maintain compatability can be done manually or by pulling relevent files (typically only those with frontend changes) from the main branch with the code below<br>
+		`git checkout solarprotocol-classic`<br>
+		`git checkout main PATH_TO_FILE`
+	</p>
 </strong>
 
 A repository for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.

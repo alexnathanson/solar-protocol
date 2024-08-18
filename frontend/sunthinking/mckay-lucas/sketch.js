@@ -114,16 +114,29 @@ let territory = [];
 let OVworld = false;
 let camJiggle = false;
 
+sslBool = false
+
 function preload() {
-    getData();
+  sslBool = testSSL()
+  //print('SSL = ' + sslBool)
+  getData();
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+function testSSL(){
+  if (window.location.protocol == 'http:'){
+    return false;
+  }
+  else if (window.location.protocol == 'https:'){
+    return true;
+  }
+}
+
 function getData() {
-  if (window.location.protocol == 'http:') { 
+  if (sslBool == false) { 
     loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-percentage', gotBatPerData);
     loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData);
     loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName);

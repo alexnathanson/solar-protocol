@@ -12,9 +12,15 @@ locationMap = {
     Santiago: { lat: '-33.448', lon: '-70.669' },
     'Kalinago Territory': { lat: '15.490', lon: '-61.253' },
     'New York': { lat: '40.712', lon: '-74.005' },
+    Brooklyn: { lat: '40.712', lon: '-74.005' },
+    Queens: { lat: '40.712', lon: '-74.005' },
+    Bronx: { lat: '40.712', lon: '-74.005' },
+    'Staten Island': { lat: '40.712', lon: '-74.005' },
     Swarthmore: { lat: '39.952', lon: '-75.165' },
     Peterborough: { lat: '44.309', lon: '-78.319' },
   }
+
+apiProt = window.location.protocol
 
 // Creates a table based on the number of satellites above the shepherd server at the moment the page is loaded
 function createTable(satellites) {
@@ -52,7 +58,7 @@ function createTable(satellites) {
 
 //uses the solar protocol api to get the location (city) of current active server and references the locationMap to get lat and lon.
 async function getLocation(){
-    const response = await fetch('http://solarprotocol.net/api/v2/opendata.php?systemInfo=city');
+    const response = await fetch(apiProt + '//solarprotocol.net/api/v2/opendata.php?systemInfo=city');
     const place = await response.json();
     const city = place.city;
     const location = locationMap[city];

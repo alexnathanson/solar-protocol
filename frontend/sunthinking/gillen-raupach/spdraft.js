@@ -60,9 +60,11 @@ function testSSL(){
   }
 }
 
+sslBool = testSSL();
+
 //uses the solar protocol api to get the location (city) of current active server and references the locationMap to get lat and lon.
 async function getLocation(){
-    if (testSSL) { 
+    if (sslBool) { 
       const response = await fetch('https://solarprotocol.net/api/v2/opendata.php?systemInfo=city');
     } else {
       const response = await fetch('http://solarprotocol.net/api/v2/opendata.php?systemInfo=city');

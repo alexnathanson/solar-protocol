@@ -50,9 +50,23 @@ function createTable(satellites) {
   return table;
 }
 
+
+function testSSL(){
+  if (window.location.protocol == 'http:'){
+    return false;
+  }
+  else if (window.location.protocol == 'https:'){
+    return true;
+  }
+}
+
 //uses the solar protocol api to get the location (city) of current active server and references the locationMap to get lat and lon.
 async function getLocation(){
-    const response = await fetch('http://solarprotocol.net/api/v2/opendata.php?systemInfo=city');
+    if (testSSL) { 
+      const response = await fetch('https://solarprotocol.net/api/v2/opendata.php?systemInfo=city');
+    } else {
+      const response = await fetch('http://solarprotocol.net/api/v2/opendata.php?systemInfo=city');
+    }
     const place = await response.json();
     const city = place.city;
     const location = locationMap[city];

@@ -118,7 +118,7 @@ sslBool = false
 
 function preload() {
   sslBool = testSSL()
-  print('SSL = ' + sslBool)
+  //print('SSL = ' + sslBool)
   getData();
 }
 

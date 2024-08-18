@@ -1,5 +1,20 @@
-let result = JSON.parse(getAPI('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name'));
-let battery = JSON.parse(getAPI('http://solarprotocol.net/api/v2/opendata.php?value=battery-percentage'));
+function testSSL(){
+  if (window.location.protocol == 'http:'){
+    return false;
+  }
+  else if (window.location.protocol == 'https:'){
+    return true;
+  }
+}
+
+if (testSSL) { 
+  spProtocol = 'https';
+} else {
+  spProtocol = 'http';
+}
+
+let result = JSON.parse(getAPI(spProtocol + '://solarprotocol.net/api/v2/opendata.php?systemInfo=name'));
+let battery = JSON.parse(getAPI(spProtocol + '://solarprotocol.net/api/v2/opendata.php?value=battery-percentage'));
 
 console.log(result);
 

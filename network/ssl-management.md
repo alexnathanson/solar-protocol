@@ -50,7 +50,7 @@ Troubleshoot
 Renewal can only happen within 30 days of expiration.
 
 To manually renew, run:
-1) `python utilities/updateDNS_UnitTest.py`
+1) navigate to the solar-protocol/back/core directory and run `python utilities/updateDNS_UnitTest.py`
 2) `sudo certbot renew --apache` 
 3) Distribute the new files
 

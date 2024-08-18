@@ -20,6 +20,17 @@ locationMap = {
     Peterborough: { lat: '44.309', lon: '-78.319' },
   }
 
+function testSSL(){
+  if (window.location.protocol == 'http:'){
+    return false;
+  }
+  else if (window.location.protocol == 'https:'){
+    return true;
+  }
+}
+
+sslBool = testSSL();
+
 // Creates a table based on the number of satellites above the shepherd server at the moment the page is loaded
 function createTable(satellites) {
   const table = document.createElement('table');
@@ -53,18 +64,6 @@ function createTable(satellites) {
   table.appendChild(tbody);
   return table;
 }
-
-
-function testSSL(){
-  if (window.location.protocol == 'http:'){
-    return false;
-  }
-  else if (window.location.protocol == 'https:'){
-    return true;
-  }
-}
-
-sslBool = testSSL();
 
 //uses the solar protocol api to get the location (city) of current active server and references the locationMap to get lat and lon.
 async function getLocation(){

@@ -7,7 +7,7 @@ function testSSL(){
   }
 }
 
-if (testSSL) { 
+if (testSSL()) { 
   spProtocol = 'https';
 } else {
   spProtocol = 'http';

@@ -9,11 +9,11 @@ A system for load balancing and serving content based on photovoltaic logic.
 	</p>
 	<p>
 		Updates to maintain compatability can be done manually or by pulling relevent files (typically only those with frontend changes) from the main branch with the code below<br>
-		`git checkout solarprotocol-classic`<br>
-		`git checkout main PATH_TO_FILE`
+
 	</p>
 </strong>
-
+		`git checkout solarprotocol-classic`<br>
+		`git checkout main PATH_TO_FILE`
 A repository for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.
 
 Content at <a href="http://www.solarprotocol.net">solarprotocol.net</a> is served by whichever server in our network is in the most sunlight at a given time. (We are basing this off of the solar module wattage.)

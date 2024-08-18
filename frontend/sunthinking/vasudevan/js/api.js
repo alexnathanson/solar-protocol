@@ -20,7 +20,7 @@ console.log(result);
 
 var state;
 
-if (result.name != "Swarthmore Solar") {
+if (result.name != "Solar Power for Artists") {
   state = "off";
 } else if (battery["battery-percentage"] <= 0.5){
   state = "low";

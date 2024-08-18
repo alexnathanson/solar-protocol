@@ -12,6 +12,8 @@ locationMap = {
     Santiago: { lat: '-33.448', lon: '-70.669' },
     'Kalinago Territory': { lat: '15.490', lon: '-61.253' },
     'New York': { lat: '40.712', lon: '-74.005' },
+    'Brooklyn': { lat: '40.712', lon: '-74.005' },
+    'Queens': { lat: '40.712', lon: '-74.005' },
     Swarthmore: { lat: '39.952', lon: '-75.165' },
     Peterborough: { lat: '44.309', lon: '-78.319' },
   }

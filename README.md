@@ -14,6 +14,7 @@ A system for load balancing and serving content based on photovoltaic logic.
 
 `git checkout solarprotocol-classic`
 `git checkout main PATH_TO_FILE`
+======= 
 
 A repository for a solar powered network of servers that host a distributed web platform. Project by Tega Brain, Alex Nathanson and Benedetta Piantella. Supported by Eyebeam Rapid Response for a Better Digital Future fellowship.
 

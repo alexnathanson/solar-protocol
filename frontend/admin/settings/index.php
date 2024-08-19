@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //echo json_encode($localInfo);
 
 
-$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $locWatts = $locVolts =  $locBat = $httpPort = $httpsPort = httpPortLocal = $httpsPortLocal = "";
+$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $locWatts = $locVolts =  $locBat = $httpPort = $httpsPort = $httpPortLocal = $httpsPortLocal = "";
 
 if (isset($localInfo["name"])){
   $locName = $localInfo["name"];

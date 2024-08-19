@@ -377,7 +377,7 @@ def main():
     #replace own ip with local host
     for index, item in enumerate(dstIP):
         print(item)
-        if(item == myIP.split(":")[0]):
+        if(item.split(":")[0] == myIP):
             # print("Replacing ip of self")
             dstIP[index]="localhost"
 

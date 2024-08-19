@@ -56,8 +56,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
           $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
         }
+      } else if (isset($_POST['httpPortLocal'])){
+        if (! is_numeric($_POST['httpPortLocal']) || strpos($_POST['httpPortLocal'],'.')){
+          $httpErr = "Port value is not an integer.";
+        } else {
+          $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+        }
       } else if (isset($_POST['httpsPort'])){
         if (! is_numeric($_POST['httpsPort']) || strpos($_POST['httpsPort'],'.')){
+          $httpsErr = "Port value is not an integer.";
+        } else {
+          $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
+        }
+      } else if (isset($_POST['httpsPortLocal'])){
+        if (! is_numeric($_POST['httpsPortLocal']) || strpos($_POST['httpsPortLocal'],'.')){
           $httpsErr = "Port value is not an integer.";
         } else {
           $localInfo[array_keys($_POST)[$k]]= test_input($_POST[array_keys($_POST)[$k]]);
@@ -81,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //echo json_encode($localInfo);
 
 
-$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $locWatts = $locVolts =  $locBat = $httpPort = $httpsPort = "";
+$locName = $locDescription = $locLocation = $locCity = $locCountry = $locLat = $locLong = $locWatts = $locVolts =  $locBat = $httpPort = $httpsPort = httpPortLocal = $httpsPortLocal = "";
 
 if (isset($localInfo["name"])){
   $locName = $localInfo["name"];
@@ -129,10 +141,22 @@ if (isset($localInfo["httpPort"])){
   $httpPort = "80"; //display default port if no custom port info is found
 }
 
+if (isset($localInfo["httpPortLocal"])){
+  $httpPortLocal = $localInfo["httpPortLocal"];
+} else {
+  $httpPortLocal = "80"; //display default port if no custom port info is found
+}
+
 if (isset($localInfo["httpsPort"])){
   $httpsPort = $localInfo["httpsPort"];
 } else {
   $httpsPort = "443"; //display default port if no custom port info is found
+}
+
+if (isset($localInfo["httpsPortLocal"])){
+  $httpsPortLocal = $localInfo["httpsPortLocal"];
+} else {
+  $httpsPortLocal = "443"; //display default port if no custom port info is found
 }
 
 //front end form for https needed
@@ -282,13 +306,25 @@ function setEnv($envKey,$envVal){
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the http port?');">
     <input type="hidden" name="key" value="form"/>
     <p>http port <input type="text" name="httpPort" value="<?php if (isset($httpPort)){echo $httpPort;}?>"><span class="error" style="color:red"> <?php echo $httpErr;?></span></p>
-    <button type="submit">Update Http Port</button>
+    <button type="submit">Update Http Public Port</button>
+  </form>
+
+  <form method="POST" onsubmit="return confirm('Are you sure you want to change the http local port?');">
+    <input type="hidden" name="key" value="form"/>
+    <p>http port local <input type="text" name="httpPortLocal" value="<?php if (isset($httpPortLocal)){echo $httpPortLocal;}?>"><span class="error" style="color:red"> <?php echo $httpErr;?></span></p>
+    <button type="submit">Update Http Local Port</button>
   </form>
 
   <form method="POST" onsubmit="return confirm('Are you sure you want to change the https port?');">
     <input type="hidden" name="key" value="form"/>
     <p>https port <input type="text" name="httpsPort" value="<?php if (isset($httpsPort)){echo $httpsPort;}?>"><span class="error" style="color:red"> <?php echo $httpsErr;?></span></p>
-    <button type="submit">Update Https Port</button>
+    <button type="submit">Update Https Public Port</button>
+  </form>
+
+  <form method="POST" onsubmit="return confirm('Are you sure you want to change the https local port?');">
+    <input type="hidden" name="key" value="form"/>
+    <p>https local port <input type="text" name="httpsPortLocal" value="<?php if (isset($httpsPortLocal)){echo $httpsPortLocal;}?>"><span class="error" style="color:red"> <?php echo $httpsErr;?></span></p>
+    <button type="submit">Update Https Local Port</button>
   </form>
 
 </div>

@@ -13,6 +13,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+__pycache__
 
 #this directory is needed, but we just don't want to overwrite it...
 charge-controller/data/
@@ -41,3 +42,4 @@ dns-gateway/networkkey.php
 */letsencrypt/*
 
 #.spenv
+

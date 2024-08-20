@@ -163,6 +163,24 @@ Set timezone (Change 8.2 to your version of PHP if needed)
 Fail2ban provides added protection against bot attacks.
 * For the time being use these instructions: https://pimylifeup.com/raspberry-pi-fail2ban/ Solar Protocol specific instructions may be provided in the future.
 
+* Install Fail2ban: `sudo apt install fail2ban`
+* Copy the config file: `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local`
+* Open it in an editor: `sudo nano /etc/fail2ban/jail.local`
+* Press control + w, type `sshd`, then press enter, to search for the SSH section. You want to locate the `[sshd]` section under the heading JAILS. (Every time you search it finds the next instance, so you may need to do it a couple of times.)
+* Under the `[sshd]` section add these lines. Uncomment [sshd] if its commented out.
+```
+[sshd]
+
+enabled = true
+port = ssh
+backend = systemd
+logpath = /var/log/auth.log
+maxretry = 5
+bantime = 3600
+```
+* Restart the service: `sudo systemctl restart fail2ban`
+* Check the status to ensure its active: `/etc/init.d/fail2ban status`
+
 ### Solar Protocol Configuration
 1) Copy local directory outside of solar-protocol directory to pi directory
 

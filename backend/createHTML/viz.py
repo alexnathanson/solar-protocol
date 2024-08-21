@@ -265,6 +265,10 @@ def tzOffset(checkTZ, myTimeZone):
     except: 
         theirOffset = 0
     offsetDir = 0
+
+    print('my offset: ' + str(myOffset))
+    print('their offset: ' + str(theirOffset))
+    
     if myOffset > theirOffset:
         offsetDir = 1
     else:
@@ -436,7 +440,7 @@ def main():
             tempCity =  " "
         sysCity.append(tempCity)
 
-    # print(timeZones)
+    print(timeZones)
 
     pd.set_option("display.max_rows", None, "display.max_columns", None)
 

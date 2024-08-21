@@ -18,7 +18,7 @@ function parse_json()
 }
 
 #get certificate with expiration date
-sudo certbot certificate > /home/pi/cert.log
+sudo certbot certificates > /home/pi/cert.log
 
 while read p; do
   echo "$p"

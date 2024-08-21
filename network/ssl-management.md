@@ -43,6 +43,7 @@ This is only required for the generating server and should NOT be done on all se
 	* `sudo cp /home/pi/solar-protocol/network/000-default-le-ssl.conf /etc/apache2/sites-available/000-default-le-ssl.conf`
 	* restart apache `sudo systemctl restart apache2`
 * Copy the renewal/www.solarprotocol.net file to the /etc/letsencrypt/renewal/ directory
+* create symlink: `sudo ln -s ../sites-available/000-default-le-ssl.conf`
 
 Troubleshoot
 

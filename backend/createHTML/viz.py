@@ -268,11 +268,14 @@ def tzOffset(checkTZ, myTimeZone):
 
     print('my offset: ' + str(myOffset))
     print('their offset: ' + str(theirOffset))
-    
+
     if myOffset > theirOffset:
         offsetDir = 1
     else:
         offsetDir = -1 
+
+    print('offset direction: ' + str(offsetDir))
+    
     return offsetDir*(abs((int(myOffset)/100) - (int(theirOffset)/100)))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
 
 

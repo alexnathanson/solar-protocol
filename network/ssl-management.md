@@ -4,23 +4,24 @@ Port forwarding for 80 -> 80 and 443 -> 443 must be enable. (8443 -> 443 must al
 
 The basic approach is that certbot generates and renews the certificates on only 1 device. The key certificate and private key is then distributed to all servers on the network.
 
-## Installation
+## 1) Installation
 This is required for all servers:
-1) `sudo apt install python3-certbot-apache`
-2) `sudo apt install certbot`
+1.1) `sudo apt install python3-certbot-apache`
+1.2) `sudo apt install certbot`
+1.3) `a2enmod ssl`
 
-## Generate Certificate
+## 2) Generate Certificate
 
-This is only required for the generating server and should NOT be done on all servers.
+Step 2 is only required for the generating server and should NOT be done on all servers.
 
-3) `python utilities/updateDNS_UnitTest.py` Step 4 will only work if the server you are working on is the PoE at the moment. Navigate to the solar-protocol/backend/core directory and run this script to force PoE (Note that this may take a minute to take effect. Also another server may 'steal' it back before step 4 is run. An alternative method is to use a redirect, such as `rewrite ^/.well-known/acme-challenge/(.*)$ http://acme.example.com/$1 redirect;` but for the time being this isn't necessary.)
-4) `sudo certbot --apache`
+2.1) `python utilities/updateDNS_UnitTest.py` The next step will only work if the server you are working on is the PoE at the moment. Navigate to the solar-protocol/backend/core directory and run this script to force PoE (Note that this may take a minute to take effect. Also another server may 'steal' it back before step 4 is run. An alternative method is to use a redirect, such as `rewrite ^/.well-known/acme-challenge/(.*)$ http://acme.example.com/$1 redirect;` but for the time being this isn't necessary.)
+2.2) `sudo certbot --apache`
 * Enter your email address when prompted
 * Enter this domain name when prompted: `solarprotocol.net www.solarprotocol.net`
 
-5) Distribute to the servers in the network
+## 3) Distribute to the servers in the network
 
-5A) Retrieve files
+3.1) Retrieve files
 * Copy the /etc/letsencrypt directory (this is necessary because the permissions don't let you directly scp the files we need.)
 	* `sudo chmod 755 /etc/letsencrypt` temporarily change the permissions of this directory (may need to do this recursively)
 	* `sudo cp -r /etc/letsencrypt /home/letsencrypt`
@@ -30,7 +31,7 @@ This is only required for the generating server and should NOT be done on all se
 	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 pi@DST_IP:/home/letsencrypt C:\path\of\source\directory\solar-protocol\network\letsencrypt` (letsencrypt directory is ignored in git) 
 * `sudo rm -r /home/letsencrypt ` delete the temporary copy on the server
 
-5B) Distribute files to all servers (untested!)
+3.2) Distribute files to all servers (untested!)
 * create a temp directory for these files on the destination server: `sudo mkdir /home/letsencrypt`
 * set permissions and ownship of directory: `sudo chown -R pi:pi /home/letsencrypt` (if errors still occur change permissions to chmod 755)
 * SCP the necessary files. These files are the ssl certificate, private key, and configuration files (but it may be easier to just copy the entire director for the moment). Note that if the server is already using th defaul ssl conf name, you may need to change the file names.
@@ -47,13 +48,13 @@ This is only required for the generating server and should NOT be done on all se
 
 Troubleshoot
 
-## Renewal
+## 4) Renewal
 Renewal can only happen within 30 days of expiration.
 
 To manually renew, run:
-1) navigate to the solar-protocol/back/core directory and run `python utilities/updateDNS_UnitTest.py`
-2) `sudo certbot renew --apache` 
-3) Distribute the new files
+4.1) navigate to the solar-protocol/back/core directory and run `python utilities/updateDNS_UnitTest.py`
+4.2) `sudo certbot renew --apache` 
+4.3) Distribute the new files
 
 Automated renewing is controlled by this file: /etc/cron.d/certbot. Do not copy this file to the other servers. It is expected that this will fail, because the server will not necessarily be the PoE at the moment its run. In the future changing this script to run the updateDNS script first will increase the likelihood of success.
 

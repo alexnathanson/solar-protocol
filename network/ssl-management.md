@@ -6,18 +6,25 @@ The basic approach is that certbot generates and renews the certificates on only
 
 ## 1) Installation
 This is required for all servers:
-### 1.1) `sudo apt install python3-certbot-apache`
-### 1.2) `sudo apt install certbot`
-### 1.3) `a2enmod ssl`
+1.1) `sudo apt install python3-certbot-apache`<br>
+1.2) `sudo apt install certbot`<br>
+1.3) `a2enmod ssl`
 
 ## 2) Generate Certificate
 
 Step 2 is only required for the generating server and should NOT be done on all servers.
 
-### 2.1) `python utilities/updateDNS_UnitTest.py` The next step will only work if the server you are working on is the PoE at the moment. Navigate to the solar-protocol/backend/core directory and run this script to force PoE (Note that this may take a minute to take effect. Also another server may 'steal' it back before step 4 is run. An alternative method is to use a redirect, such as `rewrite ^/.well-known/acme-challenge/(.*)$ http://acme.example.com/$1 redirect;` but for the time being this isn't necessary.)
-### 2.2) `sudo certbot --apache`
+2.1) Set PoE
+<p>
+	`python utilities/updateDNS_UnitTest.py` The next step will only work if the server you are working on is the PoE at the moment. Navigate to the solar-protocol/backend/core directory and run this script to force PoE (Note that this may take a minute to take effect. Also another server may 'steal' it back before step 4 is run. An alternative method is to use a redirect, such as `rewrite ^/.well-known/acme-challenge/(.*)$ http://acme.example.com/$1 redirect;` but for the time being this isn't necessary.)
+</p>
+
+2.2) Run Certbot
+<p>
+`sudo certbot --apache`
 * Enter your email address when prompted
 * Enter this domain name when prompted: `solarprotocol.net www.solarprotocol.net`
+</p>
 
 ## 3) Distribute to the servers in the network
 
@@ -52,9 +59,9 @@ Troubleshoot
 Renewal can only happen within 30 days of expiration.
 
 To manually renew, run:
-### 4.1) navigate to the solar-protocol/back/core directory and run `python utilities/updateDNS_UnitTest.py`
-### 4.2) `sudo certbot renew --apache` 
-### 4.3) Distribute the new files
+4.1) navigate to the solar-protocol/back/core directory and run `python utilities/updateDNS_UnitTest.py`</p>
+4.2) `sudo certbot renew --apache` <br>
+4.3) Distribute the new files
 
 Automated renewing is controlled by this file: /etc/cron.d/certbot. Do not copy this file to the other servers. It is expected that this will fail, because the server will not necessarily be the PoE at the moment its run. In the future changing this script to run the updateDNS script first will increase the likelihood of success.
 

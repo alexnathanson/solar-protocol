@@ -5,14 +5,14 @@ Port forwarding for 80 -> 80 and 443 -> 443 must be enable. (8443 -> 443 must al
 The basic approach is that certbot generates and renews the certificates on only 1 device. The key certificate and private key is then distributed to all servers on the network.
 
 ## 1) Installation
-This is required for all servers:
+This is required for all servers:<br>
 1.1) `sudo apt install python3-certbot-apache`<br>
 1.2) `sudo apt install certbot`<br>
 1.3) `a2enmod ssl`
 
 ## 2) Generate Certificate
 
-Step 2 is only required for the generating server and should NOT be done on all servers.
+Step 2 is only required for the generating server and should NOT be done on all servers.<br>
 
 2.1) Set PoE
 <p>
@@ -28,7 +28,7 @@ Step 2 is only required for the generating server and should NOT be done on all 
 
 ## 3) Distribute to the servers in the network
 
-### 3.1) Retrieve files
+3.1) Retrieve files<br>
 * Copy the /etc/letsencrypt directory (this is necessary because the permissions don't let you directly scp the files we need.)
 	* `sudo chmod 755 /etc/letsencrypt` temporarily change the permissions of this directory (may need to do this recursively)
 	* `sudo cp -r /etc/letsencrypt /home/letsencrypt`
@@ -38,7 +38,7 @@ Step 2 is only required for the generating server and should NOT be done on all 
 	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 pi@DST_IP:/home/letsencrypt C:\path\of\source\directory\solar-protocol\network\letsencrypt` (letsencrypt directory is ignored in git) 
 * `sudo rm -r /home/letsencrypt ` delete the temporary copy on the server
 
-### 3.2) Distribute files to all servers (untested!)
+3.2) Distribute files to all servers (untested!)<br>
 * create a temp directory for these files on the destination server: `sudo mkdir /home/letsencrypt`
 * set permissions and ownship of directory: `sudo chown -R pi:pi /home/letsencrypt` (if errors still occur change permissions to chmod 755)
 * SCP the necessary files. These files are the ssl certificate, private key, and configuration files (but it may be easier to just copy the entire director for the moment). Note that if the server is already using th defaul ssl conf name, you may need to change the file names.
@@ -58,16 +58,17 @@ Troubleshoot
 ## 4) Renewal
 Renewal can only happen within 30 days of expiration.
 
-To manually renew, run:
-4.1) navigate to the solar-protocol/back/core directory and run `python utilities/updateDNS_UnitTest.py`</p>
+To manually renew, run:<br>
+4.1) navigate to the solar-protocol/back/core directory and run `python utilities/updateDNS_UnitTest.py`<br>
 4.2) `sudo certbot renew --apache` <br>
 4.3) Distribute the new files
-
+<p>
 Automated renewing is controlled by this file: /etc/cron.d/certbot. Do not copy this file to the other servers. It is expected that this will fail, because the server will not necessarily be the PoE at the moment its run. In the future changing this script to run the updateDNS script first will increase the likelihood of success.
+</p>
 
 Autodistribution could also potentially be possible with rsync.
 
-To get auto renew working:
+To get auto renew working:<br>
 * check if it is time to renew
 * enable PoE
 * run renewal

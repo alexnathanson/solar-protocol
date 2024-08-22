@@ -21,7 +21,8 @@ NOTE: The default admin user needs to be 'pi'
 
 ### OS
 * In the Raspberry Pi disk imager, set user to 'pi', password, enable ssh, wifi network, etc
-* Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md  
+* Configure device `sudo raspi-config` https://www.raspberrypi.org/documentation/configuration/raspi-config.md
+	* Set locale to en_US.UTF-8 (The default of en_US may throw an error.)
 	* A reboot is generally required and happens automatically after exiting the raspi-config interface. If it isn't automatic, reboot with this command:`sudo reboot`
 * `sudo apt-get update`  
 * `sudo apt-get upgrade`
@@ -150,7 +151,8 @@ Port forwarding for 443-> 443 must be enabled for this to take effect (8443 -> 4
 
 1) `sudo apt install python3-certbot-apache`
 2) `sudo apt install certbot`
-3) Solar Protocol uses a single certificate distributed to all SP servers. The next steps must be done by a network admin. (See network/ssl-management.md for more info.)
+3) `a2enmod ssl`
+4) Solar Protocol uses a single certificate distributed to all SP servers. The next steps must be done by a network admin. (See network/ssl-management.md for more info.)
 
 #### PHP Settings (Note: adding this my be a sympton of other issues.)
 Set timezone (Change 8.2 to your version of PHP if needed)

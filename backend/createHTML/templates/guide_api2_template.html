@@ -70,20 +70,21 @@
 
   <h4>Note: Mixed Content Errors</h4>
   <p>
-    As of August 2024, solarprotocol.net works with both http and https protocols. If you are working in Javascript, you need to be aware mixed content errors. This occurs when you're site is https and you make a request to a resource with http. If you are creating content for the Solar Protocol website with Javascript, your work needs to be accessible to users accessing it with either protocol. You can use <code>window.location.protocol</code> to check which protocol you're using. Try running <code>window.location.protocol</code> in your browser console to see the result. The code below is a simple way to implement this in Javascript.
+    As of August 2024, solarprotocol.net works with both http and https protocols. If you are working in Javascript, you need to be aware mixed content errors. This occurs when your site is https and you make a request to a resource with http. If you are creating content for the Solar Protocol website with Javascript, your work needs to be accessible to users accessing it with either protocol. You can use <code>window.location.protocol</code> to check which protocol you're using. Try running <code>window.location.protocol</code> in your browser console to see the result. The code below is a simple way to implement this in Javascript.
   </p>
+  <pre>
   <code>
-    spProtocol = window.location.protocol //returns either "http:" or "https:"<br>
+    spProtocol = window.location.protocol //returns either "http:" or "https:"
     let result = JSON.parse(getAPI(spProtocol + '//solarprotocol.net/api/v2/opendata.php?systemInfo=name'));
-    <p>
+
     function getAPI(dstURL){<br>
-    var xmlHttp = new XMLHttpRequest();<br>
-    xmlHttp.open( "GET", dstURL, false );<br>
-    xmlHttp.send( null );<br>
-    return xmlHttp.responseText;<br>
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", dstURL, false );
+      xmlHttp.send( null );
+      return xmlHttp.responseText;
     }
-  </p>
   </code>
+  </pre>
 
   <h3>Example Project 1: Hello Solar Protocol API!</h3>
   <p>

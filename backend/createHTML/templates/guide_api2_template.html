@@ -81,7 +81,7 @@
     spProtocol = window.location.protocol //returns either "http:" or "https:"
     let result = JSON.parse(getAPI(spProtocol + '//solarprotocol.net/api/v2/opendata.php?systemInfo=name'));
 
-    function getAPI(dstURL){<br>
+    function getAPI(dstURL){
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open( "GET", dstURL, false );
       xmlHttp.send( null );

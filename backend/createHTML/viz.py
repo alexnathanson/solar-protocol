@@ -46,7 +46,7 @@ else:
     imgDST = rootPath + "/frontend/images"
 
 
-energyParam = "PV-current"
+energyParam = "scaled-wattage" #previously was PV-current
 ccData = []
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
 
@@ -149,13 +149,15 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     df_hours = df_hours.tail(72)
     print("DF Hours: ", df_hours.shape)
 
-    df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
+    #this determines the brightness
+    df_hours[energy_parameter] = df_hours[energy_parameter] / 50.0 #df_hours[energy_parameter].max() #formerly was the max of the paramater
 
     #correlate sun data with colors 
-    for i, current in enumerate(df_hours[energy_parameter].tolist()):
+    for i, sWattage in enumerate(df_hours[energy_parameter].tolist()):
         if (debug_mode):
-            print("Current: ", current)
-        draw_sun(ring_number, i, current, ring_rad) 
+            print("scaled-wattage: ", sWattage)
+            #print("Current: ", current)
+        draw_sun(ring_number, i, sWattage, ring_rad) 
 
     return df_hours
 

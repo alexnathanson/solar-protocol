@@ -17,6 +17,9 @@ $log = [];
 
 $ccDir = "/home/pi/solar-protocol/charge-controller/data/";
 
+//blacklist not implemented
+$blacklist = ['swarthmoresolar'];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $fileName = "/home/pi/solar-protocol/backend/data/deviceList.json";

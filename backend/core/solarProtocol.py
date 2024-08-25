@@ -168,7 +168,7 @@ def runSP():
 	#print("my mac: " + myMAC)
 
 	localPVData = float(localData(localDataFile, dataValue)) * SP.pvWattsScaler()
-	outputToConsole("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
+	print("My wattage scaled by " + str(SP.pvWattsScaler()) + ": " + str(localPVData))
 	remotePVData = remoteData(getIPList(deviceList, myMAC), apiValue)
 	print("Remote Data:")
 	print(remotePVData)

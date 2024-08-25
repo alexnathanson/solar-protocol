@@ -22,6 +22,8 @@ let valPos;
 let amtServers;
 let datetimePos;
 
+let blacklist = ['swathmoresolar'] //not implemented
+
 function setup() {
   createCanvas(windowWidth, min(windowHeight,800));
 

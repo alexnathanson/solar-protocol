@@ -8,15 +8,18 @@ let value = "Battery Voltage: ";
 let pvData = 0.0;
 let serverName = '';
 
+// use 80 for HTTP and 443 for HTTPS
+let port = 443;
+
 function setup() {
   //set the drawing canvas
   createCanvas(windowWidth, windowHeight);
 
   //make an asyncronous API call to get the battery voltage
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?value=battery-voltage', gotBatData); 
+  loadJSON('https://solarprotocol.net:' + port + '/api/v2/opendata.php?value=battery-voltage', gotBatData); 
 
   //make an asyncronous API call to get the name of the server
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?systemInfo=name', gotName); 
+  loadJSON('https://solarprotocol.net:' + port + '/api/v2/opendata.php?systemInfo=name', gotName); 
 
   //set the font family
   textFont('Times');

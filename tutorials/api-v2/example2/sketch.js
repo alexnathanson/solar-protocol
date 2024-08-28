@@ -16,13 +16,16 @@ let params = [];
 //these are the colors for our graph
 colors = ["aqua", "blue", "red", "green", "yellow", "pink", "orange", "purple", "brown", "orangered", "violet", "white"];
 
+// use 80 for HTTP and 443 for HTTPS
+let port = 443;
+
 function setup() {
   //this sets out canvas to the full dimensions of our browser window
   createCanvas(windowWidth, windowHeight);
 
   //this makes the GET request to the API
   //comment this out to use the offline data
-  loadJSON('http://solarprotocol.net/api/v2/opendata.php?day=3', gotData); 
+  loadJSON('https://solarprotocol.net:' + port + '/api/v2/opendata.php?day=3', gotData); 
 
   // Offline data - note that this path assumes your root directory is api-v2.
   //  comment this in to use

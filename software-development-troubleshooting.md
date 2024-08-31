@@ -43,7 +43,7 @@ You should see at least 4 lines. 2 lines from root user and 2 lines from pi.
 * run `ps aux | grep .py`
 * you should see 1-2 lines ending in 'csv_datalogger.py' (1 from root user and 1 from pi)
 * check the log file at /home/pi/solar-protocol/chargecontroller/datalogger.log
-* confirm that the automated start up code is correct. Check the /etc/rc.local file to confirm there are no typos.
+* confirm that the automated start up code is correct. Check with `systemctl status solar-protocol`, and look at the logs with `journalctl -u solar-protocol`
 
 ## Solar Protocol Network Troubleshooting.
 

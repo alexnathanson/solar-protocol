@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# this script will install solar protocol as a systemd service
+
+# set current working directory to the same as this file 
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+
+set -o errexit
+set -o nounset
+
+if ! systemd-notify --booted; then
+  echo "Script only meant to be run on a systemd managed system" >&2
+  exit 1
+fi 
+
+local project_directory=${PWD/dev\/scripts/}
+local unit_path=/etc/systemd/system
+local service_path="$unit_path"/solar-protocol.service
+
+echo "installing systemd service to $service_path"
+cat <<EOF | sudo tee "$service_path" >/dev/null
+# $service_path
+
+[Unit]
+Description=Solar Protocol
+
+[Service]
+Type=simple
+WorkingDirectory=${project_directory}
+ExecStart=${project_directory}/start.sh
+User=$USER
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+echo "(re)loading solar-protocol.service"
+sudo systemctl daemon-reload
+active=$(systemctl is-active solar-protocol)
+enabled=$(systemctl is-enabled solar-protocol)
+
+if [[ "$active" == "active" ]]; then sudo systemctl stop solar-protocol; fi
+if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable solar-protocol; fi
+
+echo 'printing status with `systemctl status solar-protocol`'
+systemctl status solar-protocol

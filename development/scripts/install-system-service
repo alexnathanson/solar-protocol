@@ -13,9 +13,9 @@ if ! systemd-notify --booted; then
   exit 1
 fi 
 
-local project_directory=${PWD/dev\/scripts/}
-local unit_path=/etc/systemd/system
-local service_path="$unit_path"/solar-protocol.service
+project_directory=${PWD/dev\/scripts/}
+unit_path=/etc/systemd/system
+service_path="$unit_path"/solar-protocol.service
 
 echo "installing systemd service to $service_path"
 cat <<EOF | sudo tee "$service_path" >/dev/null

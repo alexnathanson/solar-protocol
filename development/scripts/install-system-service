@@ -13,7 +13,7 @@ if ! systemd-notify --booted; then
   exit 1
 fi 
 
-project_directory=${PWD/dev\/scripts/}
+project_directory=$(realpath ${PWD}/../..)
 unit_path=/etc/systemd/system
 service_path="$unit_path"/solar-protocol.service
 
@@ -36,11 +36,21 @@ EOF
 
 echo "(re)loading solar-protocol.service"
 sudo systemctl daemon-reload
-active=$(systemctl is-active solar-protocol)
-enabled=$(systemctl is-enabled solar-protocol)
 
-if [[ "$active" == "active" ]]; then sudo systemctl stop solar-protocol; fi
-if [[ "$enabled" != "enabled" ]]; then sudo systemctl enable solar-protocol; fi
+echo "stopping if active"
+if systemctl is-active solar-protocol; then
+  sudo systemctl stop solar-protocol
+fi
+
+echo "enabling if disabled"
+if ! systemctl is-enabled solar-protocol; then
+  sudo systemctl enable solar-protocol
+fi
+
+echo "starting solar-protcool"
+if ! systemctl is-active solar-protocol; then
+  sudo systemctl start solar-protocol
+fi
 
 echo 'printing status with `systemctl status solar-protocol`'
 systemctl status solar-protocol

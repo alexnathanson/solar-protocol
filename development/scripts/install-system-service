@@ -20,7 +20,7 @@ echo "installing system services to $unit_path"
 export project_directory=$(realpath ${PWD}/../..)
 for template in solar-protocol*template; do
   echo "installing $template"
-  envsubst $template| sudo tee $unit_path/${template%%.template}
+  envsubst < $template | sudo tee $unit_path/${template%%.template}
 done
 
 echo "(re)loading solar-protocol service"
@@ -31,12 +31,12 @@ if systemctl is-active solar-protocol.target; then
   sudo systemctl stop solar-protocol.target
 fi
 
-if ! systemctl is-enabled solar-protocol; then
+if ! systemctl is-enabled solar-protocol.target; then
   echo "enabling system service"
   sudo systemctl enable solar-protocol.target
 fi
 
-if ! systemctl is-active solar-protocol; then
+if ! systemctl is-active solar-protocol.target; then
   echo "starting solar-protcool"
   sudo systemctl start solar-protocol.target
 fi

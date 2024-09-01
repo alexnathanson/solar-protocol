@@ -13,44 +13,35 @@ if ! systemd-notify --booted; then
   exit 1
 fi 
 
-project_directory=$(realpath ${PWD}/../..)
 unit_path=/etc/systemd/system
-service_path="$unit_path"/solar-protocol.service
 
-echo "installing systemd service to $service_path"
-cat <<EOF | sudo tee "$service_path" >/dev/null
-# $service_path
+echo "installing system services to $unit_path"
 
-[Unit]
-Description=Solar Protocol
+export project_directory=$(realpath ${PWD}/../..)
+for template in solar-protocol*template; do
+  echo "installing $template"
+  envsubst $template| sudo tee $unit_path/${template%%.template}
+done
 
-[Service]
-Type=simple
-WorkingDirectory=${project_directory}
-ExecStart=${project_directory}/start.sh
-User=$USER
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-echo "(re)loading solar-protocol.service"
+echo "(re)loading solar-protocol service"
 sudo systemctl daemon-reload
 
-echo "stopping if active"
-if systemctl is-active solar-protocol; then
-  sudo systemctl stop solar-protocol
+if systemctl is-active solar-protocol.target; then
+  echo "stopping solar-protocol"
+  sudo systemctl stop solar-protocol.target
 fi
 
-echo "enabling if disabled"
 if ! systemctl is-enabled solar-protocol; then
-  sudo systemctl enable solar-protocol
+  echo "enabling system service"
+  sudo systemctl enable solar-protocol.target
 fi
 
-echo "starting solar-protcool"
 if ! systemctl is-active solar-protocol; then
-  sudo systemctl start solar-protocol
+  echo "starting solar-protcool"
+  sudo systemctl start solar-protocol.target
 fi
 
-echo 'printing status with `systemctl status solar-protocol`'
-systemctl status solar-protocol
+echo 'printing status with `systemctl status solar-protocol.target`'
+systemctl status solar-protocol.target
+
+echo 'to view logs, run `journalctl -uf solar-protocol*`'

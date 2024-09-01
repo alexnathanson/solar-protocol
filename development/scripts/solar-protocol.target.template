@@ -1,0 +1,7 @@
+[Unit]
+Description = Solar Protocol
+Requires = multi-user.target
+After = multi-user.target network.target
+Requires = solar-protocol-datalogger
+Requires = solar-protocol-backend
+AllowIsolate = yes

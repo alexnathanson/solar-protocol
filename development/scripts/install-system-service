@@ -26,22 +26,15 @@ done
 echo "(re)loading solar-protocol service"
 sudo systemctl daemon-reload
 
-if systemctl is-active solar-protocol.target; then
-  echo "stopping solar-protocol"
-  sudo systemctl stop solar-protocol.target
-fi
-
-if ! systemctl is-enabled solar-protocol.target; then
-  echo "enabling system service"
-  sudo systemctl enable solar-protocol.target
-fi
-
-if ! systemctl is-active solar-protocol.target; then
-  echo "starting solar-protcool"
-  sudo systemctl start solar-protocol.target
-fi
+for target in solar-protocol.target solar-protocol-datalogger solar-protocol-backend; do
+  sudo systemctl disable $target || echo "$target disabled"
+  sudo systemctl stop $target || echo "$target stopped"
+  sudo systemctl enable $target || echo "$target enabled"
+  sudo systemctl start $target || echo "$target started"
+done
 
 echo 'printing status with `systemctl status solar-protocol.target`'
 systemctl status solar-protocol.target
 
-echo 'to view logs, run `journalctl -uf solar-protocol*`'
+echo 'to view logs, run `journalctl --follow --unit "solar-protocol*"`'
+journalctl --follow --unit "solar-protocol-*"

@@ -2,6 +2,6 @@
 Description = Solar Protocol
 Requires = multi-user.target
 After = multi-user.target network.target
-Requires = solar-protocol-datalogger
-Requires = solar-protocol-backend
+Requires = solar-protocol-datalogger.service
+Requires = solar-protocol-backend.service
 AllowIsolate = yes

@@ -23,7 +23,7 @@ for template in solar-protocol*template; do
   envsubst < $template | sudo tee $unit_path/${template%%.template}
 done
 
-echo "(re)loading solar-protocol service"
+echo " === (re)loading solar-protocol service"
 sudo systemctl daemon-reload
 
 for target in solar-protocol.target solar-protocol-datalogger solar-protocol-backend; do
@@ -33,8 +33,9 @@ for target in solar-protocol.target solar-protocol-datalogger solar-protocol-bac
   sudo systemctl start $target || echo "$target started"
 done
 
-echo 'printing status with `systemctl status solar-protocol.target`'
+echo '=== printing status with `systemctl status solar-protocol.target`'
 systemctl status solar-protocol.target
 
-echo 'to view logs, run `journalctl --follow --unit "solar-protocol*"`'
+echo '=== following logs with `journalctl --follow --unit "solar-protocol*"`'
+echo '=== press control+c to get back to the terminal'
 journalctl --follow --unit "solar-protocol-*"

@@ -17,7 +17,7 @@ unit_path=/etc/systemd/system
 prefix=☀
 
 function info {
-  printf "%s\t%s" "$prefix" "$*"
+  printf "%s\t%s\n" "$prefix" "$*"
 }
 
 info "installing system services to $unit_path"
@@ -35,7 +35,8 @@ info "(re)loading solar-protocol service"
 sudo systemctl daemon-reload
 
 for target in solar-protocol.target solar-protocol-datalogger solar-protocol-backend; do
-  sudo systemctl disable $target || echo "$target disabled"
+  info $target
+  if systemctl is-active --quiet $target; then sudo systemctl disable $target; fi
   sudo systemctl stop $target || echo "$target stopped"
   sudo systemctl enable $target || echo "$target enabled"
   sudo systemctl start $target || echo "$target started"

@@ -34,12 +34,12 @@ done
 info "(re)loading solar-protocol service"
 sudo systemctl daemon-reload
 
-for target in solar-protocol.target solar-protocol-datalogger solar-protocol-backend; do
-  info $target
-  if systemctl is-active --quiet $target; then sudo systemctl disable $target; fi
-  sudo systemctl stop $target || echo "$target stopped"
-  sudo systemctl enable $target || echo "$target enabled"
-  sudo systemctl start $target || echo "$target started"
+for target in solar-protocol{-backend.service,-datalogger.service,.target}; do
+  info "(re)starting "$target
+  if systemctl is-enabled --quiet $target; then sudo systemctl disable $target; fi
+  if systemctl is-active --quiet $target; then sudo systemctl stop $target; fi
+  sudo systemctl enable $target
+  sudo systemctl start $target
 done
 
 info 'printing status with `systemctl status solar-protocol.target`'

@@ -247,11 +247,11 @@ def render_pages(_local_data, _data, _weather, _server_data):
             print(e)
 #get weather data
 def get_weather(_local_data):
-    api_key = "24df3e6ca023273cd426f67e7ac06ac9"
+    api_key = _local_data["api_key"]
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     lat = _local_data["lat"]
     lon = _local_data["long"]
-    complete_url = base_url + "lon=" + lon+  "&lat=" +lat + "&appid=" + api_key 
+    complete_url = base_url + "lon=" + lon + "&lat=" + lat + "&appid=" + api_key
     print(complete_url)
 
     response = requests.get(complete_url)

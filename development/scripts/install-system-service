@@ -38,8 +38,8 @@ for target in solar-protocol{-backend.service,-datalogger.service,.target}; do
   info "(re)starting "$target
   if systemctl is-enabled --quiet $target; then sudo systemctl disable $target; fi
   if systemctl is-active --quiet $target; then sudo systemctl stop $target; fi
-  sudo systemctl enable $target
-  sudo systemctl start $target
+  sudo systemctl enable $target --quiet
+  sudo systemctl start $target --quiet
 done
 
 info 'printing status with `systemctl status solar-protocol.target`'

@@ -14,16 +14,24 @@ if ! systemd-notify --booted; then
 fi 
 
 unit_path=/etc/systemd/system
+prefix=☀
 
-echo "installing system services to $unit_path"
+function info {
+  printf "%s%s" "$prefix" "$*"
+}
 
+info "installing system services to $unit_path"
+
+# This takes each template file, and expands any variables
+# For example, $USER and $project_directory to allow any user and install path
 export project_directory=$(realpath ${PWD}/../..)
 for template in solar-protocol*template; do
-  echo "installing $template"
-  envsubst < $template | sudo tee $unit_path/${template%%.template}
+  destination=$unite_path/${template%%.template}
+  info "installing ${destination}"
+  envsubst < $template | sudo tee $destination 1>/dev/null
 done
 
-echo " === (re)loading solar-protocol service"
+info "(re)loading solar-protocol service"
 sudo systemctl daemon-reload
 
 for target in solar-protocol.target solar-protocol-datalogger solar-protocol-backend; do
@@ -33,9 +41,9 @@ for target in solar-protocol.target solar-protocol-datalogger solar-protocol-bac
   sudo systemctl start $target || echo "$target started"
 done
 
-echo '=== printing status with `systemctl status solar-protocol.target`'
+info 'printing status with `systemctl status solar-protocol.target`'
 systemctl status solar-protocol.target
 
-echo '=== following logs with `journalctl --follow --unit "solar-protocol*"`'
-echo '=== press control+c to get back to the terminal'
+info 'following logs with `journalctl --follow --unit "solar-protocol*"`'
+info 'press control+c to get back to the terminal'
 journalctl --follow --unit "solar-protocol-*"

@@ -217,8 +217,8 @@ Add this line to the bottom to restart the server at midnight
     @midnight sudo reboot
 
 ## Troubleshooting  
-* Check the service status with `systemctl status solar-protocol`
-* Look at the logs with `journalctl -u solar-protocol`
+* Check the service status with `systemctl status "solar-protocol*"`
+* Look at the logs with `journalctl -f -u "solar-protocol*"`
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  
 * Run `ps -aux` to list running processes  
 * Run `ps -ef | grep .py` or `ps aux | grep .py` to list running python processes

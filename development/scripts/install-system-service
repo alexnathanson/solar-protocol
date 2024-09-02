@@ -17,7 +17,7 @@ unit_path=/etc/systemd/system
 prefix=☀
 
 function info {
-  printf "%s%s" "$prefix" "$*"
+  printf "%s\t%s" "$prefix" "$*"
 }
 
 info "installing system services to $unit_path"

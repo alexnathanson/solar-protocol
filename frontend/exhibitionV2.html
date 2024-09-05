@@ -1,3 +1,4 @@
+=
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,6 +16,21 @@
         margin: 0;
         height: 100%;
       }
+      .container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+      .image-container {
+        flex: 1;
+        background-color: rgba(0, 0, 0);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+      }
+
       img {
         display: block;
         width: 100vh;
@@ -51,6 +67,9 @@
     </script>
   </head>
   <body>
-    <div id="graph"></div>
+    <div class="container">
+      <div id="graph" class="image-container"></div>
+      <img class="image-container" src="images/world-map2.png" />
+    </div>
   </body>
 </html>

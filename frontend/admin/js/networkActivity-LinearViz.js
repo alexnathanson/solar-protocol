@@ -17,10 +17,12 @@ let durationMS = 3 * 24 * 60 * 60 * 1000;
 let durationMin = durationMS / 1000 / 60;
 let minuteWidth;
 
-let val = "PV power L";
+let val = "scaled-wattage"; //"PV power L";
 let valPos;
 let amtServers;
 let datetimePos;
+
+let blacklist = ['swathmoresolar'] //not implemented
 
 function setup() {
   createCanvas(windowWidth, min(windowHeight,800));

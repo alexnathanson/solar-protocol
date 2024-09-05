@@ -46,7 +46,7 @@ else:
     imgDST = rootPath + "/frontend/images"
 
 
-energyParam = "PV-current"
+energyParam = "scaled-wattage" #previously was PV-current
 ccData = []
 days = 4 # get 4 days of csv files so we know we definitely get 72 hours of data
 
@@ -144,18 +144,20 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     ccDataframe[energy_parameter] = ccDataframe[energy_parameter].astype(float) #convert entire column to float
     ccDataframe.index=ccDataframe['datetime'] #replace index with entire "Dates" Column to work with groupby function
     ccDataframe = ccDataframe.drop(columns=['datetime'])
-    df_hours = ccDataframe.groupby(pd.Grouper(freq='H')).mean() #take hourly average of multiple values
+    df_hours = ccDataframe.groupby(pd.Grouper(freq='h')).mean() #take hourly average of multiple values
     # df_hours = df_hours.tail(72) # last 72 hours
     df_hours = df_hours.tail(72)
     print("DF Hours: ", df_hours.shape)
 
+    #this determines the brightness
     df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
 
     #correlate sun data with colors 
-    for i, current in enumerate(df_hours[energy_parameter].tolist()):
+    for i, sWattage in enumerate(df_hours[energy_parameter].tolist()):
         if (debug_mode):
-            print("Current: ", current)
-        draw_sun(ring_number, i, current, ring_rad) 
+            print("scaled-wattage: ", sWattage)
+            #print("Current: ", current)
+        draw_sun(ring_number, i, sWattage, ring_rad) 
 
     return df_hours
 
@@ -216,7 +218,7 @@ def sortPOE(log, timeZones, myTimeZone):
         #tempDF['datetime'] = tempDF['datetime'] + relativedelta(hours=tzOffset(timeZones[l])) #shift by TZ
         tempDF = tempDF.drop(columns=[0])
         tempDF['device'] = l
-        dfPOE = dfPOE.append(tempDF, ignore_index=True)
+        dfPOE = pd.concat([dfPOE,tempDF], ignore_index=True)
         dfPOE.shape
 
     #print(dfPOE.head())
@@ -246,7 +248,8 @@ def sortPOE(log, timeZones, myTimeZone):
             #print("percent of the time:", minPast/(hours*60))
             dfPOE.at[t,'percent']= minPast/ (hours*60)
             #print("percent again:", dfPOE['percent'].iloc[t])
-            dfPOE.at[t,'angle'] = 360-((dfPOE['percent'].iloc[t])*360)
+            #cast to int added to address error message, but it might be more appropriate to round up instead...
+            dfPOE.at[t,'angle'] = 360-int((dfPOE['percent'].iloc[t])*360)
             #print("Angle:", dfPOE.at[t,'angle'])
 
     #print(dfPOE.head())
@@ -264,10 +267,17 @@ def tzOffset(checkTZ, myTimeZone):
     except: 
         theirOffset = 0
     offsetDir = 0
+
+    #print('my offset: ' + str(myOffset))
+    #print('their offset: ' + str(theirOffset))
+
     if myOffset > theirOffset:
         offsetDir = 1
     else:
         offsetDir = -1 
+
+    #print('offset direction: ' + str(offsetDir))
+
     return offsetDir*(abs((int(myOffset)/100) - (int(theirOffset)/100)))#this only offsets to the hours... there are a few timezones in India and Nepal that are at 30 and 45 minutes
 
 
@@ -376,7 +386,7 @@ def main():
     #replace own ip with local host
     for index, item in enumerate(dstIP):
         print(item)
-        if(item == myIP):
+        if(item.split(":")[0] == myIP):
             # print("Replacing ip of self")
             dstIP[index]="localhost"
 
@@ -435,7 +445,7 @@ def main():
             tempCity =  " "
         sysCity.append(tempCity)
 
-    # print(timeZones)
+    print(timeZones)
 
     pd.set_option("display.max_rows", None, "display.max_columns", None)
 

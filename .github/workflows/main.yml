@@ -1,0 +1,99 @@
+name: Build Raspberry Pi Image
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Maximize Build Space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 10000 
+        swap-size-mb: 1024
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
+
+    - name: List Available Space
+      run: |
+        echo "Free space:"
+        df -h
+
+    - name: Checkout PiGen
+      uses: actions/checkout@v4
+      with:
+        repository: 'RPi-Distro/pi-gen'
+
+    - name: Checkout solar protocol
+      uses: actions/checkout@v4
+      with:
+        path: 'solar-protocol'
+
+    - name: Install Dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y qemu-user-static
+        sudo apt install -y < depends
+
+    - name: Create Config File
+      id: config
+      run: |
+        NOW=$(date +"%Y-%m-%d-%H%M")
+        IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
+        touch config
+        echo IMG_NAME=$IMAGE >> config
+        echo PI_GEN_RELEASE="solar protocol" >> config
+        echo TARGET_HOSTNAME="solar-protocol" >> config
+        echo KEYBOARD_KEYMAP="en-US.UTF-8" >> config
+        echo KEYBOARD_LAYOUT="English (US)" >> config
+        echo TIMEZONE_DEFAULT="America/New_York" >> config
+        echo FIRST_USER_NAME="solar" >> config
+        echo WPA_COUNTRY="US" >> config
+        echo ENABLE_SSH="1" >> config
+        echo PUBKEY_ONLY_SSH="1" >> config
+        echo PUBKEY_SSH_FIRST_USER="$(cat solar-protocol/utilities/authorized_keys)" >> config
+        echo STAGE_LIST="stage0 stage1 stage2 stageSolar"
+        echo "image=$IMAGE"  >> $GITHUB_OUTPUT
+
+    - name: Setup solar protocol stage
+      run: |
+        STAGE_DEPS=stageSolar/00-dependencies
+        mkdir -p $STAGE_DEPS && cd $STAGE_DEPS
+        echo "apache2" > 00-packages
+        echo "php" >> 00-packages
+        echo "python3-pip" >> 00-packages
+        cd $WORKDIR
+        STAGE_PYTHON=stageSolar/01-python
+        mkdir -p $STAGE_PYTHON && cd $STAGE_PYTHON
+        echo "cd solar-protocol" > 00-run-chroot.sh
+        echo "pip3 install -r requirements.txt" >> 00-run-chroot.sh
+        chmod +x 00-run-chroot.sh
+    
+    - name: Build Image
+      run: |
+        ./build-docker.sh
+
+    - name: Get Image Name
+      id: imagefile
+      run: |
+        cd deploy
+        ls
+        IMAGE_FILE=$(ls *.zip)
+        echo "imagefile=$IMAGE_FILE" >> $GITHUB_OUTPUT
+
+    # The image now exists in deploy/. 
+    # Make the artifact available from the action.
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.config.outputs.image }}
+        path: deploy/${{ steps.imagefile.outputs.imagefile }}

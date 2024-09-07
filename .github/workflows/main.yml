@@ -74,6 +74,7 @@ jobs:
     - name: Setup solar protocol stage
       run: |
         STAGE=stageSolar
+        mkdir -p $STAGE
         pushd $STAGE
         cat > prerun.sh <<EOF
         #!/bin/bash -e

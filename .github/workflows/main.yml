@@ -48,8 +48,8 @@ jobs:
     - name: Create Config File
       id: config
       run: |
-        echo "NOW=$(date +"%Y-%m-%d-%H%M")" >> "$GITHUB_ENV"
-        echo "IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW" >> "$GITHUB_ENV"
+        NOW=$(date +"%Y-%m-%d-%H%M")
+        IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
         echo NOW=$NOW >> $GITHUB_STEP_SUMMARY
         echo IMAGE=$IMAGE >> $GITHUB_STEP_SUMMARY
         #export AUTHORIZED_KEYS="$(cat /home/runner/work/solar-protocol/solar-protocol/solar-protocol/utilities/authorized_keys)"
@@ -65,7 +65,7 @@ jobs:
         ENABLE_SSH="1"
         PUBKEY_ONLY_SSH="1"
         STAGE_LIST="stage0 stage1 stage2 stageSolar"
-        IMG_NAME="${{ env.IMAGE }}"
+        IMG_NAME="$IMAGE"
         EOF
         echo "image=$IMAGE"  >> $GITHUB_OUTPUT
 

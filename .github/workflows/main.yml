@@ -50,7 +50,7 @@ jobs:
       run: |
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
-        AUTHORIZED_KEYS=$(cat solar-protocol/utilities/authorized_keys)"
+        AUTHORIZED_KEYS="$(cat solar-protocol/utilities/authorized_keys)"
         cat <<"EOF"> config
         PI_GEN_RELEASE="solar-protocol"
         TARGET_HOSTNAME="solar-protocol"

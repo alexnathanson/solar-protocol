@@ -54,7 +54,7 @@ jobs:
         echo IMAGE=$IMAGE >> $GITHUB_STEP_SUMMARY
         #export AUTHORIZED_KEYS="$(cat /home/runner/work/solar-protocol/solar-protocol/solar-protocol/utilities/authorized_keys)"
         #PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
-        cat <<"EOF"> config
+        cat > config <<EOF
         PI_GEN_RELEASE="solar-protocol"
         TARGET_HOSTNAME="solar-protocol"
         KEYBOARD_KEYMAP="en-US.UTF-8"

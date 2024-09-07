@@ -73,17 +73,36 @@ jobs:
 
     - name: Setup solar protocol stage
       run: |
-        STAGE_DEPS=stageSolar/00-dependencies
-        mkdir -p $STAGE_DEPS && cd $STAGE_DEPS
-        echo "apache2" > 00-packages
-        echo "php" >> 00-packages
-        echo "python3-pip" >> 00-packages
-        cd $WORKDIR
-        STAGE_PYTHON=stageSolar/01-python
-        mkdir -p $STAGE_PYTHON && cd $STAGE_PYTHON
-        echo "cd solar-protocol" > 00-run-chroot.sh
-        echo "pip3 install -r requirements.txt" >> 00-run-chroot.sh
+        STAGE=stageSolar
+        pushd $STAGE
+        cat > prerun.sh <<EOF
+        #!/bin/bash -e
+        if [ ! -d "${ROOTFS_DIR}" ]; then
+          copy_previous
+        fi
+        EOF
+        chmod +x prerun.sh
+        popd
+
+        STEP=00-install-dependencies
+        mkdir -p $STAGE/$STEP
+        pushd $STAGE/$STEP
+        cat > 00-packages <<EOF
+        apache2
+        php
+        python3-pip
+        EOF
+        popd
+
+        STEP=stageSolar/01-install-python
+        mkdir -p $STAGE/$STEP
+        pushd $STAGE/$STEP
+        cat > 00-run-chroot.sh <<EOF
+        cd solar-protocol
+        pip3 install -r requirements.txt
+        EOF
         chmod +x 00-run-chroot.sh
+        popd
     
     - name: Build Image
       run: |

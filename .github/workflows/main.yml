@@ -50,7 +50,21 @@ jobs:
       run: |
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
-        AUTHORIZED_KEYS="$(cat solar-protocol/utilities/authorized_keys)"
+        #AUTHORIZED_KEYS="$(cat solar-protocol/utilities/authorized_keys)"
+        {
+        echo 'FILEINFO<<EOF'
+        echo PWD
+        pwd
+        echo LS
+        ls
+        echo EOF
+        } >> "$GITHUB_ENV"
+        {
+        echo 'AUTHORIZED_KEYS<<EOF'
+        cat solar-protocol/utilities/authorized_keys
+        echo EOF
+        } >> "$GITHUB_ENV"
+        #PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
         cat <<"EOF"> config
         PI_GEN_RELEASE="solar-protocol"
         TARGET_HOSTNAME="solar-protocol"
@@ -61,7 +75,6 @@ jobs:
         WPA_COUNTRY="US"
         ENABLE_SSH="1"
         PUBKEY_ONLY_SSH="1"
-        PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
         STAGE_LIST="stage0 stage1 stage2 stageSolar"
         IMG_NAME="$IMAGE"
         EOF

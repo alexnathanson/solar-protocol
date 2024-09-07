@@ -50,13 +50,15 @@ jobs:
       run: |
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
-        AUTHORIZED_KEYS="$(cat /home/runner/work/solar-protocol/solar-protocol/solar-protocol/utilities/authorized_keys)"
-        echo NOW=$NOW >> $GITHUB_STEP_SUMMARY
-        echo IMAGE=$IMAGE >> $GITHUB_STEP_SUMMARY
+        echo building $IMAGE >> $GITHUB_STEP_SUMMARY
+        AUTHORIZED_KEYS_FILE=solar-protocol/utilities/authorized_keys
+        AUTHORIZED_KEYS="$(<$AUTHORIZED_KEYS_FILE)"
+        AUTHORIZED_USERS=$(echo "$AUTHORIZED_KEYS" | cut -d' ' -f3 | cut -d'@' -f1 | sort -u | tr '\n' ' ')
+        echo installing keys for $AUTHORIZED_USERS >> $GITHUB_STEP_SUMMARY
         cat > config <<EOF
         PI_GEN_RELEASE="solar-protocol"
         TARGET_HOSTNAME="solar-protocol"
-        KEYBOARD_KEYMAP="en-US.UTF-8"
+        KEYBOARD_KEYMAP="us"
         KEYBOARD_LAYOUT="English (US)"
         TIMEZONE_DEFAULT="America/New_York"
         FIRST_USER_NAME="solar"

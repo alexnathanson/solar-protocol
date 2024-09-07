@@ -50,19 +50,21 @@ jobs:
       run: |
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
-        touch config
-        echo IMG_NAME=$IMAGE >> config
-        echo PI_GEN_RELEASE="solar protocol" >> config
-        echo TARGET_HOSTNAME="solar-protocol" >> config
-        echo KEYBOARD_KEYMAP="en-US.UTF-8" >> config
-        echo KEYBOARD_LAYOUT="English (US)" >> config
-        echo TIMEZONE_DEFAULT="America/New_York" >> config
-        echo FIRST_USER_NAME="solar" >> config
-        echo WPA_COUNTRY="US" >> config
-        echo ENABLE_SSH="1" >> config
-        echo PUBKEY_ONLY_SSH="1" >> config
-        echo PUBKEY_SSH_FIRST_USER="$(cat solar-protocol/utilities/authorized_keys)" >> config
-        echo STAGE_LIST="stage0 stage1 stage2 stageSolar"
+        AUTHORIZED_KEYS=$(cat solar-protocol/utilities/authorized_keys)"
+        cat <<"EOF"> config
+        PI_GEN_RELEASE="solar-protocol"
+        TARGET_HOSTNAME="solar-protocol"
+        KEYBOARD_KEYMAP="en-US.UTF-8"
+        KEYBOARD_LAYOUT="English (US)"
+        TIMEZONE_DEFAULT="America/New_York"
+        FIRST_USER_NAME="solar"
+        WPA_COUNTRY="US"
+        ENABLE_SSH="1"
+        PUBKEY_ONLY_SSH="1"
+        PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
+        STAGE_LIST="stage0 stage1 stage2 stageSolar"
+        IMG_NAME="$IMAGE"
+        EOF
         echo "image=$IMAGE"  >> $GITHUB_OUTPUT
 
     - name: Setup solar protocol stage

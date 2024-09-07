@@ -103,7 +103,9 @@ jobs:
       name: upload build logs
       with:
         name: ${{ steps.config.outputs.image }}-build-logs
-        path: deploy/*.log deploy/*.info
+        path: |
+          deploy/*.log
+          deploy/*.info
 
     - uses: softprops/action-gh-release@v2
       with:

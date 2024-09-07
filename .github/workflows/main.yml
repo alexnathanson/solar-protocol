@@ -50,7 +50,8 @@ jobs:
       run: |
         export NOW=$(date +"%Y-%m-%d-%H%M")
         export IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
-        export AUTHORIZED_KEYS="$(cat solar-protocol/utilities/authorized_keys)"
+        #export AUTHORIZED_KEYS="$(cat /home/runner/work/solar-protocol/solar-protocol/solar-protocol/utilities/authorized_keys)"
+        #PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
         cat <<"EOF"> config
         PI_GEN_RELEASE="solar-protocol"
         TARGET_HOSTNAME="solar-protocol"
@@ -58,7 +59,6 @@ jobs:
         KEYBOARD_LAYOUT="English (US)"
         TIMEZONE_DEFAULT="America/New_York"
         FIRST_USER_NAME="solar"
-        PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
         WPA_COUNTRY="US"
         ENABLE_SSH="1"
         PUBKEY_ONLY_SSH="1"

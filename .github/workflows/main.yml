@@ -31,6 +31,7 @@ jobs:
 
     - name: Create Config File
       id: config
+      # we do not use compression here, since github upload will compress the image later when uploading
       run: |
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
@@ -48,6 +49,7 @@ jobs:
         FIRST_USER_NAME="solar"
         WPA_COUNTRY="US"
         ENABLE_SSH="1"
+        DEPLOY_COMPRESSION="none"
         PUBKEY_ONLY_SSH="1"
         PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
         STAGE_LIST="stage0 stage1 stage2 stageSolar"
@@ -98,12 +100,17 @@ jobs:
       run: |
         cd deploy
         ls
-        IMAGE_FILE=$(ls *.zip)
+        IMAGE_FILE=$(ls *.img)
         echo "imagefile=$IMAGE_FILE" >> $GITHUB_OUTPUT
 
-    # The image now exists in deploy/. 
-    # Make the artifact available from the action.
     - uses: actions/upload-artifact@v4
+      name: upload build logs
+      with:
+        name: ${{ steps.config.outputs.image }}-build-logs
+        path: deploy/*.{log,info}
+
+    - uses: softprops/action-gh-release@v2
       with:
         name: ${{ steps.config.outputs.image }}
-        path: deploy/${{ steps.imagefile.outputs.imagefile }}
+        files: deploy/${{ steps.imagefile.outputs.imagefile }}
+        generate_release_notes: true

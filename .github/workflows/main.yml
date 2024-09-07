@@ -2,34 +2,31 @@ name: Build Raspberry Pi Image
 
 on:
   workflow_dispatch:
-#  push:
-#    branches:
-#      - main
-#  pull_request:
-#    branches:
-#      - main
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout PiGen
+    - name: checkout pi-gen
       uses: actions/checkout@v4
       with:
         repository: 'RPi-Distro/pi-gen'
 
-    - name: Checkout solar protocol
+    - name: checkout solar protocol
       uses: actions/checkout@v4
       with:
         path: 'solar-protocol'
 
-    - name: Install Dependencies
+    - name: install build dependencies
       run: |
         sudo apt update
         sudo apt install -y qemu-user-static
         sudo apt install -y < depends
 
-    - name: Create Config File
+    - name: generate pi-gen config
       id: config
       # we do not use compression here, since github upload will compress the image later when uploading
       run: |
@@ -57,7 +54,7 @@ jobs:
         EOF
         echo "image=$IMAGE"  >> $GITHUB_OUTPUT
 
-    - name: Setup solar protocol stage
+    - name: add solar protocol pi-gen stage
       run: |
         STAGE=stageSolar
         mkdir -p $STAGE
@@ -91,26 +88,26 @@ jobs:
         chmod +x 00-run-chroot.sh
         popd
     
-    - name: Build Image
+    - name: build image
       run: |
         ./build-docker.sh
 
-    - name: Get Image Name
+    - name: get image name
       id: imagefile
       run: |
-        cd deploy
-        ls
-        IMAGE_FILE=$(ls *.img)
+        ls deploy
+        IMAGE_FILE=$(ls deploy/*.img)
         echo "imagefile=$IMAGE_FILE" >> $GITHUB_OUTPUT
 
     - uses: actions/upload-artifact@v4
       name: upload build logs
       with:
         name: ${{ steps.config.outputs.image }}-build-logs
-        path: deploy/*.{log,info}
+        path: deploy/*.log deploy/*.info
 
     - uses: softprops/action-gh-release@v2
       with:
         name: ${{ steps.config.outputs.image }}
-        files: deploy/${{ steps.imagefile.outputs.imagefile }}
+        tag_name: ${{ steps.config.outputs.image }}
+        files: ${{ steps.imagefile.outputs.imagefile }}
         generate_release_notes: true

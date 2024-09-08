@@ -30,9 +30,7 @@ jobs:
       id: config
       # we do not use compression here, since github upload will compress the image later when uploading
       run: |
-        NOW=$(date +"%Y-%m-%d-%H%M")
-        IMAGE=solar-protocol-${GITHUB_REF##*/}-$NOW
-        echo building $IMAGE >> $GITHUB_STEP_SUMMARY
+        IMAGE=solar-protocol-${GITHUB_REF##*/}
         AUTHORIZED_KEYS_FILE=solar-protocol/utilities/authorized_keys
         AUTHORIZED_KEYS="$(<$AUTHORIZED_KEYS_FILE)"
         AUTHORIZED_USERS=$(echo "$AUTHORIZED_KEYS" | cut -d' ' -f3 | cut -d'@' -f1 | sort -u | tr '\n' ' ')
@@ -46,13 +44,14 @@ jobs:
         FIRST_USER_NAME="solar"
         WPA_COUNTRY="US"
         ENABLE_SSH="1"
-        DEPLOY_COMPRESSION="none"
+        DEPLOY_COMPRESSION="xz"
+        COMPRESSION_LEVEL="9"
         PUBKEY_ONLY_SSH="1"
         PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
         STAGE_LIST="stage0 stage1 stage2 stageSolar"
         IMG_NAME="$IMAGE"
         EOF
-        echo "image=$IMAGE"  >> $GITHUB_OUTPUT
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
     - name: add solar protocol pi-gen stage
       run: |
@@ -89,27 +88,24 @@ jobs:
         popd
     
     - name: build image
+      id: build-image
       run: |
         ./build-docker.sh
-
-    - name: get image name
-      id: imagefile
-      run: |
-        ls deploy
-        IMAGE_FILE=$(ls deploy/*.img)
-        echo "imagefile=$IMAGE_FILE" >> $GITHUB_OUTPUT
+        echo "image=$(ls deploy/*.img.xz)" >> $GITHUB_OUTPUT
 
     - uses: actions/upload-artifact@v4
-      name: upload build logs
-      with:
-        name: ${{ steps.config.outputs.image }}-build-logs
-        path: |
-          deploy/*.log
-          deploy/*.info
-
-    - uses: softprops/action-gh-release@v2
+      id: upload-image
+      name: upload image
       with:
         name: ${{ steps.config.outputs.image }}
-        tag_name: ${{ steps.config.outputs.image }}
-        files: ${{ steps.imagefile.outputs.imagefile }}
-        generate_release_notes: true
+        path: |
+          ${{ steps.build-image.outputs.image }}
+          deploy/build.log
+        compression-level: 0 # already compressed
+
+    - uses: ncipollo/release-action@v1
+      with:
+          artifacts: ${{ steps.build-image.outputs.image }},deploy/build.log
+          name: ${{ steps.config.outputs.image }}
+          tag: ${{ github.ref_type == 'tag' && github.ref_name || steps.config.outputs.image }}
+          generateReleaseNotes: true

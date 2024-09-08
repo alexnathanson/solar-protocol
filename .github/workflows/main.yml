@@ -33,7 +33,7 @@ jobs:
         echo "github_sha_short=${GITHUB_SHA_SHORT}" >> $GITHUB_ENV
         IMG_DATE=$(date +%Y-%m-%d)
         IMG_NAME=solar-protocol-${GITHUB_SHA_SHORT}
-        ARCHIVE_FILENAME=${IMG_DATE}-${IMAGE_NAME}
+        ARCHIVE_FILENAME=${IMG_DATE}-${IMG_NAME}
         echo "archive_filename=$ARCHIVE_FILENAME" >> $GITHUB_ENV
         AUTHORIZED_KEYS_FILE=solar-protocol/utilities/authorized_keys
         AUTHORIZED_KEYS="$(<$AUTHORIZED_KEYS_FILE)"

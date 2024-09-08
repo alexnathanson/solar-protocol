@@ -48,7 +48,6 @@ jobs:
         WPA_COUNTRY="US"
         ENABLE_SSH="1"
         DEPLOY_COMPRESSION="xz"
-        COMPRESSION_LEVEL="9"
         PUBKEY_ONLY_SSH="1"
         PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
         STAGE_LIST="stage0 stage1 stage2 stageSolar"
@@ -67,7 +66,7 @@ jobs:
         if [ ! -d "${ROOTFS_DIR}" ]; then
           copy_previous
         fi
-        export IMAGE_SUFFIX=""
+        export IMG_SUFFIX=""
         EOF
         chmod +x prerun.sh
         popd
@@ -104,9 +103,11 @@ jobs:
           deploy/build.log
         compression-level: 0
 
-    - uses: ncipollo/release-action@v1
+    - name: create release
+      uses: softprops/action-gh-release@v2
       with:
-          name: ${{ steps.config.outputs.archive_filename }}
-          artifacts: ${{ steps.config.outputs.archive_filename }}.img.xz,deploy/build.log
-          tag: ${{ steps.config.outputs.archive_filename }}
-          generateReleaseNotes: true
+          tag_name: ${{ steps.config.outputs.archive_filename }}
+          files: |
+            ${{ steps.config.outputs.archive_filename }}.img.xz
+            deploy/build.log
+          generate_release_notes: true

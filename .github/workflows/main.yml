@@ -30,6 +30,7 @@ jobs:
       id: config
       run: |
         GITHUB_SHA_SHORT=$(git rev-parse --short ${GITHUB_SHA})
+        echo "github_sha_short=$GITHUB_SHA_SHORT" >> $GITHUB_OUTPUT
         IMG_DATE=$(date +%Y-%m-%d)
         IMG_NAME=solar-protocol-${GITHUB_SHA_SHORT}
         ARCHIVE_FILENAME=${IMG_DATE}-${IMAGE_NAME}
@@ -106,7 +107,7 @@ jobs:
     - name: create release
       uses: softprops/action-gh-release@v2
       with:
-          tag_name: ${{ steps.config.outputs.archive_filename }}
+          tag_name: v0.1.1-${{ steps.config.outputs.github_sha_short }}
           files: |
             ${{ steps.config.outputs.archive_filename }}.img.xz
             deploy/build.log

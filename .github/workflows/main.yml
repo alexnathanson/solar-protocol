@@ -29,12 +29,12 @@ jobs:
     - name: generate pi-gen config
       id: config
       run: |
-        GITHUB_SHA_SHORT=$(git rev-parse --short ${GITHUB_SHA})
-        echo "github_sha_short=$GITHUB_SHA_SHORT" >> $GITHUB_OUTPUT
+        GITHUB_SHA_SHORT=${GITHUB_SHA::6}
+        echo "github_sha_short=${GITHUB_SHA_SHORT}" >> $GITHUB_ENV
         IMG_DATE=$(date +%Y-%m-%d)
         IMG_NAME=solar-protocol-${GITHUB_SHA_SHORT}
         ARCHIVE_FILENAME=${IMG_DATE}-${IMAGE_NAME}
-        echo "archive_filename=$ARCHIVE_FILENAME" >> $GITHUB_OUTPUT
+        echo "archive_filename=$ARCHIVE_FILENAME" >> $GITHUB_ENV
         AUTHORIZED_KEYS_FILE=solar-protocol/utilities/authorized_keys
         AUTHORIZED_KEYS="$(<$AUTHORIZED_KEYS_FILE)"
         AUTHORIZED_USERS=$(echo "$AUTHORIZED_KEYS" | cut -d' ' -f3 | cut -d'@' -f1 | sort -u | tr '\n' ' ')

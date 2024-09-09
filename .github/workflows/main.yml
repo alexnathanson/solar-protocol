@@ -118,11 +118,11 @@ jobs:
           #  -e 's|;date.timezone.*|date.timezone = ${{ steps.config.outputs.timezone_default }}|' \
           #  ${ROOTFS_DIR}/etc/php/8.2/apache2/php.ini
 
-    	    echo 'PubkeyAcceptedAlgorithms +ssh-rsa' >> ${ROOTFS_DIR}/etc/ssh/sshd_config
+          echo 'PubkeyAcceptedAlgorithms +ssh-rsa' >> ${ROOTFS_DIR}/etc/ssh/sshd_config
 
-    	    sed -i \
-    	      -e 's|DocumentRoot /var/www/html|DocumentRoot /home/pi/solar-protocol/frontend|' \
-    	      -e 's|</VirtualHost>|\t<Location /server-status>\n\t\tSetHandler server-status\n\t\tRequire all granted\n\t</Location>\n</VirtualHost>|' \
+          sed -i \
+            -e 's|DocumentRoot /var/www/html|DocumentRoot /home/pi/solar-protocol/frontend|' \
+            -e 's|</VirtualHost>|\t<Location /server-status>\n\t\tSetHandler server-status\n\t\tRequire all granted\n\t</Location>\n</VirtualHost>|' \
             ${ROOTFS_DIR}/etc/apache2/sites-available/000-default.conf
 
           cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<FRONTEND
@@ -136,9 +136,6 @@ jobs:
         EOF
         chmod +x 01-run.sh
         popd
-
-        echo "todo: create service to ufw open http/https that depends on pi user has changed password userinfo service" >> $GITHUB_SUMMARY
-
         popd
     
     - name: build image

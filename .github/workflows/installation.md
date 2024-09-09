@@ -1,6 +1,7 @@
 # todo
 
 - [ ] open firewall (ufw allow http/https)
+  - [ ] maybe can set as service that depends on userinfo service
 - [ ] add 8080 and 8443 to apache
 - [ ] setup ssl
 - [ ] enter api keys

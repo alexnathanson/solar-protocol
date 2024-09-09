@@ -33,6 +33,8 @@ jobs:
         echo "github_sha_short=${GITHUB_SHA_SHORT}" >> $GITHUB_OUTPUT
         IMG_DATE=$(date +%Y-%m-%d)
         IMG_NAME=solar-protocol-${GITHUB_SHA_SHORT}
+        TIMEZONE_DEFAULT="America/New_York"
+        echo "timezone_default=$TIMEZEONE_DEFAULT" >> $GITHUB_OUTPUT
         ARCHIVE_FILENAME=${IMG_DATE}-${IMG_NAME}
         echo "archive_filename=$ARCHIVE_FILENAME" >> $GITHUB_OUTPUT
         AUTHORIZED_KEYS_FILE=solar-protocol/utilities/authorized_keys
@@ -44,8 +46,8 @@ jobs:
         TARGET_HOSTNAME="solar-protocol"
         KEYBOARD_KEYMAP="us"
         KEYBOARD_LAYOUT="English (US)"
-        TIMEZONE_DEFAULT="America/New_York"
-        FIRST_USER_NAME="solar"
+        TIMEZONE_DEFAULT="$TIMEZONE_DEFAULT"
+        FIRST_USER_NAME="pi"
         WPA_COUNTRY="US"
         ENABLE_SSH="1"
         DEPLOY_COMPRESSION="xz"
@@ -74,19 +76,68 @@ jobs:
         mkdir -p $STEP && pushd $STEP
         cat > 00-packages <<EOF
         apache2
+        cerbot
+        fail2ban
         php
         python3-pip
+        python3-certbot-apache
         EOF
         popd
 
-        STEP=01-install-python
+        STEP=01-install-solar-protocol
         mkdir -p $STEP && pushd $STEP
         cat > 00-run-chroot.sh <<EOF
-        cd solar-protocol
-        pip3 install -r requirements.txt
+        git clone https://github.com/alexnathanson/solar-protocol
+        pushd solar-protocol
+        python -m venv .venv
+        . .venv/bin/activate
+        python -m pip install -r requirements.txt
+        cp -r local ../
+        cp backend/data/deviceListTemplate.json backend/data/deviceList.json
         EOF
         chmod +x 00-run-chroot.sh
+
+        cat > 01-run.sh <<EOF
+          on_chroot <<APACHE
+          a2enmod headers
+          a2enmod rewrite
+          a2enmod userdir
+          a2enmod ssl
+          adduser ${FIRST_USER_NAME} www-data
+          chown -R www-data:www-data /home/${FIRST_USER_NAME}/solar-protocol/frontend
+          chmod 755 /home/${FIRST_USER_NAME}
+          echo "read network/ssl-management.md" >> ${GITHUB_SUMMARY}
+          APACHE
+
+          sed \
+            -e 's|\[sshd\]|\[sshd\]\n\nenabled = true\nfilter = sshd|' \
+            ${ROOTFS_DIR}/etc/fail2ban/jail.conf > ${ROOTFS_DIR}/etc/fail2ban/jail.local
+
+          # TODO: confirm this is safe to remove
+          #sed -i \
+          #  -e 's|;date.timezone.*|date.timezone = ${{ steps.config.outputs.timezone_default }}|' \
+          #  ${ROOTFS_DIR}/etc/php/8.2/apache2/php.ini
+
+    	    echo 'PubkeyAcceptedAlgorithms +ssh-rsa' >> ${ROOTFS_DIR}/etc/ssh/sshd_config
+
+    	    sed -i \
+    	      -e 's|DocumentRoot /var/www/html|DocumentRoot /home/pi/solar-protocol/frontend|' \
+    	      -e 's|</VirtualHost>|\t<Location /server-status>\n\t\tSetHandler server-status\n\t\tRequire all granted\n\t</Location>\n</VirtualHost>|' \
+            ${ROOTFS_DIR}/etc/apache2/sites-available/000-default.conf
+
+          cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<FRONTEND
+          <Directory /home/${FIRST_USER_NAME}/solar-protocol/frontend/>
+              Options Indexes FollowSymLinks
+              AllowOverride All
+              Require all granted
+              Header set Access-Control-Allow-Origin
+          </Directory>
+          FRONTEND
+        EOF
+        chmod +x 01-run.sh
         popd
+
+        echo "todo: create service to ufw open http/https that depends on pi user has changed password userinfo service" >> $GITHUB_SUMMARY
 
         popd
     

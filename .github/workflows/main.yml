@@ -76,7 +76,7 @@ jobs:
         mkdir -p $STEP && pushd $STEP
         cat > 00-packages <<EOF
         apache2
-        cerbot
+        certbot
         fail2ban
         php
         python3-pip

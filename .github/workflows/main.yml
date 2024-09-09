@@ -29,6 +29,7 @@ jobs:
     - name: generate pi-gen config
       id: config
       run: |
+        cp -r solar-protocol/utilities/pi-gen/stage-solar .
         GITHUB_SHA_SHORT=${GITHUB_SHA::6}
         echo "github_sha_short=${GITHUB_SHA_SHORT}" >> $GITHUB_OUTPUT
         IMG_DATE=$(date +%Y-%m-%d)
@@ -41,104 +42,10 @@ jobs:
         AUTHORIZED_KEYS="$(<$AUTHORIZED_KEYS_FILE)"
         AUTHORIZED_USERS=$(echo "$AUTHORIZED_KEYS" | cut -d' ' -f3 | cut -d'@' -f1 | sort -u | tr '\n' ' ')
         echo installing keys for $AUTHORIZED_USERS >> $GITHUB_STEP_SUMMARY
-        cat > config <<EOF
-        PI_GEN_RELEASE="solar-protocol"
-        TARGET_HOSTNAME="solar-protocol"
-        KEYBOARD_KEYMAP="us"
-        KEYBOARD_LAYOUT="English (US)"
-        TIMEZONE_DEFAULT="$TIMEZONE_DEFAULT"
-        FIRST_USER_NAME="pi"
-        WPA_COUNTRY="US"
-        ENABLE_SSH="1"
-        DEPLOY_COMPRESSION="xz"
-        PUBKEY_ONLY_SSH="1"
-        PUBKEY_SSH_FIRST_USER="$AUTHORIZED_KEYS"
-        STAGE_LIST="stage0 stage1 stage2 stageSolar"
-        IMG_DATE="$IMG_DATE"
-        IMG_NAME="$IMG_NAME"
-        ARCHIVE_FILENAME="$ARCHIVE_FILENAME"
-        EOF
+        FIRST_USER_PASS=$(openssl rand -hex 16)
+        echo "**set** `$FIRST_USER_PASS`" >> $GITHUB_STEP_SUMMARY
+        envsubst < solar-protocol/utilities/pi-gen/files/solar-stage/config.template > config
 
-    - name: add solar protocol pi-gen stage
-      run: |
-        STAGE=stageSolar
-        mkdir -p $STAGE && pushd $STAGE
-        cat > prerun.sh <<EOF
-        #!/bin/bash -e
-        if [ ! -d "${ROOTFS_DIR}" ]; then
-          copy_previous
-        fi
-        export IMG_SUFFIX=""
-        EOF
-        chmod +x prerun.sh
-
-        STEP=00-install-dependencies
-        mkdir -p $STEP && pushd $STEP
-        cat > 00-packages <<EOF
-        apache2
-        certbot
-        fail2ban
-        git
-        php
-        python3-pip
-        python3-certbot-apache
-        EOF
-        popd
-
-        STEP=01-install-solar-protocol
-        mkdir -p $STEP && pushd $STEP
-        cat > 00-run-chroot.sh <<EOF
-        git clone https://github.com/alexnathanson/solar-protocol
-        pushd solar-protocol
-        python -m venv .venv
-        . .venv/bin/activate
-        python -m pip install -r requirements.txt
-        cp -r local ../
-        cp backend/data/deviceListTemplate.json backend/data/deviceList.json
-        EOF
-        chmod +x 00-run-chroot.sh
-
-        cat > 01-run.sh <<EOF
-          on_chroot <<APACHE
-          a2enmod headers
-          a2enmod rewrite
-          a2enmod userdir
-          a2enmod ssl
-          adduser ${FIRST_USER_NAME} www-data
-          chown -R www-data:www-data /home/${FIRST_USER_NAME}/solar-protocol/frontend
-          chmod 755 /home/${FIRST_USER_NAME}
-          echo "read network/ssl-management.md" >> ${GITHUB_SUMMARY}
-          APACHE
-
-          sed \
-            -e 's|\[sshd\]|\[sshd\]\n\nenabled = true\nfilter = sshd|' \
-            ${ROOTFS_DIR}/etc/fail2ban/jail.conf > ${ROOTFS_DIR}/etc/fail2ban/jail.local
-
-          # TODO: confirm this is safe to remove
-          #sed -i \
-          #  -e 's|;date.timezone.*|date.timezone = ${{ steps.config.outputs.timezone_default }}|' \
-          #  ${ROOTFS_DIR}/etc/php/8.2/apache2/php.ini
-
-          echo 'PubkeyAcceptedAlgorithms +ssh-rsa' >> ${ROOTFS_DIR}/etc/ssh/sshd_config
-
-          sed -i \
-            -e 's|DocumentRoot /var/www/html|DocumentRoot /home/pi/solar-protocol/frontend|' \
-            -e 's|</VirtualHost>|\t<Location /server-status>\n\t\tSetHandler server-status\n\t\tRequire all granted\n\t</Location>\n</VirtualHost>|' \
-            ${ROOTFS_DIR}/etc/apache2/sites-available/000-default.conf
-
-          cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<FRONTEND
-          <Directory /home/${FIRST_USER_NAME}/solar-protocol/frontend/>
-              Options Indexes FollowSymLinks
-              AllowOverride All
-              Require all granted
-              Header set Access-Control-Allow-Origin
-          </Directory>
-          FRONTEND
-        EOF
-        chmod +x 01-run.sh
-        popd
-        popd
-    
     - name: build image
       run: ./build-docker.sh
 

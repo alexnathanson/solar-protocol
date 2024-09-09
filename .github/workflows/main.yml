@@ -78,6 +78,7 @@ jobs:
         apache2
         certbot
         fail2ban
+        git
         php
         python3-pip
         python3-certbot-apache

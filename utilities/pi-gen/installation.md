@@ -6,34 +6,19 @@ Update the password for the `pi` user
 
     passwd
 
-- [ ] add 8080 and 8443 to apache
-- [ ] setup ssl
-- [ ] enter api keys
-- [ ] edit admin settings
-
-## Configure Apache server
-
-Add port 8080 to the server config
-
-Change `<VirtualHost *:80>` to `<VirtualHost *:80 *:8080>` in **/etc/apache2/sites-available/000-default.conf**
-
-		sudo nano /etc/apache2/sites-available/000-default.conf
-
-Add `Listen 8080` to the end of **/etc/apache2/ports.conf**
-
-		sudo nano /etc/apache2/ports.conf`
-
 ## Forward ports from your router to the raspberry pi
 
 It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
 
 Open and forward these ports on your router
 
-* 80 -> 80 (This is to catch external traffic coming in on port 80. It could probably forward to the internal port 80 just fine too)
-* 443 -> 443 (For HTTPS)
+* 443 -> 443 (https)
+* 80 -> 80 (http)
 
-* 8080 -> 8080 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 80.)
-* 8443 -> 443 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 443.)
+If your home internet does not allow people to connect on ports 443 or 80, you can use these alternative ports
+
+* 8443 -> 443 (alt-https)
+* 8080 -> 80 (alt-http)
 * 2222 -> 22 (For SSH)
 
 ## Add SSL Certificates

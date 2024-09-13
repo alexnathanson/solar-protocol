@@ -25,7 +25,10 @@ echo 'PubkeyAcceptedAlgorithms +ssh-rsa' >> ${ROOTFS_DIR}/etc/ssh/sshd_config
 sed -i \
   -e 's|DocumentRoot /var/www/html|DocumentRoot /home/pi/solar-protocol/frontend|' \
   -e 's|</VirtualHost>|\t<Location /server-status>\n\t\tSetHandler server-status\n\t\tRequire all granted\n\t</Location>\n</VirtualHost>|' \
+  -e 's|*:80>|*:8080>|' \
   ${ROOTFS_DIR}/etc/apache2/sites-available/000-default.conf
+
+echo 'Listen 8080' >> ${ROOTFS_DIR}/etc/apache2/ports.conf
 
 cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<EOF
 

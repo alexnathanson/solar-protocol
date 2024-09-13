@@ -34,7 +34,7 @@ cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<EOF
 </Directory>
 EOF
 
-cp -r solar-protocol ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/solar-protocl
+cp -r solar-protocol ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/solar-protocol
 rm ${ROOTFS_DIR}/etc/motd
 rm ${ROOTFS_DIR}/etc/update-motd.d/10-uname
 envsubst < files/10-hello.template > ${ROOTFS_DIR}/etc/update-motd.d/10-hello

@@ -43,7 +43,7 @@ jobs:
         echo "github_sha_short=${GITHUB_SHA_SHORT}" >> $GITHUB_OUTPUT
         echo "timezone_default=$TIMEZEONE_DEFAULT" >> $GITHUB_OUTPUT
         echo "archive_filename=$ARCHIVE_FILENAME" >> $GITHUB_OUTPUT
-        AUTHORIZED_USERS=$(echo "$PUBKEY_SSH_FIRST_USER" | cut -d' ' -f3 | cut -d'@' -f1 | sort -u | tr '\n' ',')
+        AUTHORIZED_USERS=$(echo "$PUBKEY_SSH_FIRST_USER" | cut -d ' ' -f3 | cut -d '@' -f1 | sort -u | paste -s -d ',' -)
         echo installing keys for ${AUTHORIZED_USERS} >> $GITHUB_STEP_SUMMARY
 
     - name: build image

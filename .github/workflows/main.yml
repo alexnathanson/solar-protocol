@@ -23,8 +23,9 @@ jobs:
     - name: install build dependencies
       run: |
         sudo apt update
-        sudo apt install -y qemu-user-static
         sudo apt install -y < depends
+        sudo apt install -y qemu-user-static
+        sudo apt install -y openssl
 
     - name: generate pi-gen config
       id: config

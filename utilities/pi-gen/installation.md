@@ -1,21 +1,34 @@
-# todo
+# Installation
 
-- [ ] open firewall (ufw allow http/https)
-  - [ ] maybe can set as service that depends on userinfo service
+Here are some manual steps after booting the raspberry pi to finnish installaion
+
+Update the password for the `pi` user
+
+    passwd
+
 - [ ] add 8080 and 8443 to apache
 - [ ] setup ssl
 - [ ] enter api keys
 - [ ] edit admin settings
-- [ ] first boot DO NOT RENAME pi user but DO give a different password
 
-### Network Configuration & Server Setup
+## Configure Apache server
 
-    sudo ufw allow http
-    sudo ufw allow https
+Add port 8080 to the server config
+
+Change `<VirtualHost *:80>` to `<VirtualHost *:80 *:8080>` in **/etc/apache2/sites-available/000-default.conf**
+
+		sudo nano /etc/apache2/sites-available/000-default.conf
+
+Add `Listen 8080` to the end of **/etc/apache2/ports.conf**
+
+		sudo nano /etc/apache2/ports.conf`
+
+## Forward ports from your router to the raspberry pi
 
 It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.
 
-Open and forward these ports:
+Open and forward these ports on your router
+
 * 80 -> 80 (This is to catch external traffic coming in on port 80. It could probably forward to the internal port 80 just fine too)
 * 443 -> 443 (For HTTPS)
 
@@ -23,63 +36,26 @@ Open and forward these ports:
 * 8443 -> 443 (Alt-HTTP... Many residential networks have internal loopback prohibitions on port 443.)
 * 2222 -> 22 (For SSH)
 
-#### Configure Apache server
+## Add SSL Certificates
 
-Change Apache default directory to the frontend directory and set permissions
-* `sudo nano /etc/apache2/sites-available/000-default.conf`  
-	* change `<VirtualHost *:80>` to `<VirtualHost *:80 *:8080>` 
-* Add port 8080 to ports.conf
-	* `sudo nano /etc/apache2/ports.conf`
-	* Add this line: `Listen 8080`
+Reach out to a network admin, who will follow the instructions in [network/ssl-management.md]()
 
-#### SSL Certificate Setup
-Port forwarding for 443-> 443 must be enabled for this to take effect (8443 -> 443 must also be enabled on some routers to minimize troubleshooting issues).
+## Fix permissions
 
-Solar Protocol uses a single certificate distributed to all SP servers. The next steps must be done by a network admin. (See network/ssl-management.md for more info.)
-
-### Solar Protocol Configuration
-
-1. Set permissions (this script needs to be run everytime you pull from the repository)
+Set permissions for all files - this script must be run everytime you pull from the repository
 
     sh /home/pi/solar-protocol/utilities/setAllPermissions.sh
 
-If the above command was successful, you do not need to set permissions individually. If it failed or can't be run for some reason you can manually enter the commands listed in the setAllPermissions script.
+## Join the network
 
-2. Enter api keys to join the network 
+Enter api keys to join the network 
 
-Log in to the admin console via the browser (http://solar-protocol.local/admin)
-* Enter your info on the settings page
-* Enter API keys and update the gateway list with appropriate credentials
+Log in to the admin console via the browser [http://solar-protocol.local/admin]()
 
-### troubleshooting
+Enter API keys and update the gateway list with appropriate credentials
 
-#### troubleshooting python - manual install
+Enter your info on the settings page
 
-		pip install requests
-		pip install pymodbus
-		pip install pandas # (this should be refactored to not used pandas)  
-		pip install numpy
-		pip install jinja2
-		pip install --upgrade Pillow
-		sudo apt-get install libcairo2-dev
-		pip install gizeh
-		pip install webcolors
+## Congratulations
 
-#### troubleshooting numpy - reinstall
-
-		sudo pip3 uninstall numpy
-		sudo apt-get remove python3-numpy
-		sudo pip3 install numpy
-		sudo apt-get install libatlas-base-dev
-
-#### troubleshooting PIL
-
-		sudo apt install libtiff5
-		sudo apt-get install libopenjp2-7 # (unconfirmed)
-
-#### troubleshoot pymodbus - reinstall
-
-		pip uninstall serial
-		sudo pip uninstall serial
-		pip uninstall pyserial
-		sudo pip install pyserial
+Give yourself a big hug!

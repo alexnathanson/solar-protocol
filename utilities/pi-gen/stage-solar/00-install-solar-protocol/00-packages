@@ -5,3 +5,4 @@ git
 php
 python3-pip
 python3-certbot-apache
+ufw

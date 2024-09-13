@@ -52,3 +52,10 @@ on_chroot << EOF
   cp -r local ../
   cp backend/data/deviceListTemplate.json backend/data/deviceList.json
 EOF
+
+on_chroot << EOF
+  sudo ufw allow http comment "Solar Protocol"
+  sudo ufw allow http-alt comment "Solar Protocol (alt)"
+  sudo ufw allow https comment "Solar Protocol"
+  sudo ufw allow 8443 comment "Solar Protocol (alt)"
+EOF

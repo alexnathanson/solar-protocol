@@ -1,9 +1,12 @@
+cp -r ../../../../../.. ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/solar-protocol
+
 on_chroot <<EOF
 a2enmod headers
 a2enmod rewrite
 a2enmod userdir
 a2enmod ssl
 adduser pi www-data
+chown -R pi:pi /home/pi/solar-protocol
 chown -R www-data:www-data /home/pi/solar-protocol/frontend
 chmod 755 /home/pi
 EOF
@@ -12,7 +15,7 @@ sed \
   -e 's|\[sshd\]|\[sshd\]\n\nenabled = true\nfilter = sshd|' \
   ${ROOTFS_DIR}/etc/fail2ban/jail.conf > ${ROOTFS_DIR}/etc/fail2ban/jail.local
 
-# TODO: confirm this is safe to remove
+# TODO: confirm with Alex if this is safe to remove
 #sed -i \
 #  -e 's|;date.timezone.*|date.timezone = ${{ steps.config.outputs.timezone_default }}|' \
 #  ${ROOTFS_DIR}/etc/php/8.2/apache2/php.ini
@@ -34,7 +37,6 @@ cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<EOF
 </Directory>
 EOF
 
-cp -r solar-protocol ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/solar-protocol
 rm ${ROOTFS_DIR}/etc/motd
 rm ${ROOTFS_DIR}/etc/update-motd.d/10-uname
 envsubst < files/10-hello.template > ${ROOTFS_DIR}/etc/update-motd.d/10-hello

@@ -30,6 +30,7 @@ jobs:
     - name: generate pi-gen config
       id: config
       run: |
+        cp -r solar-protocol/utilities/pi-gen/stage-solar .
         GITHUB_SHA_SHORT=${GITHUB_SHA::6}
         VERSION=0.1.1-${GITHUB_SHA_SHORT}
         IMG_DATE=$(date +%Y-%m-%d)
@@ -40,7 +41,7 @@ jobs:
         PUBKEY_SSH_FIRST_USER="$(<$AUTHORIZED_KEYS_FILE)"
         FIRST_USER_PASS=$(openssl rand -hex 16)
         export TIMEZONE_DEFAULT FIRST_USER_PASS PUBKEY_SSH_FIRST_USER IMG_DATE IMG_NAME ARCHIVE_FILENAME
-        envsubst < solar-protocol/utilities/pi-gen/stage-solar/config.template > config
+        envsubst < stage-solar/config.template > config
         echo "archive_filename=$ARCHIVE_FILENAME" >> $GITHUB_OUTPUT
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         AUTHORIZED_USERS=$(echo "$PUBKEY_SSH_FIRST_USER" | cut -d ' ' -f3 | cut -d '@' -f1 | sort -u | paste -s -d ',' -)

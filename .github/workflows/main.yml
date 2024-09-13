@@ -45,7 +45,6 @@ jobs:
         echo "archive_filename=$ARCHIVE_FILENAME" >> $GITHUB_OUTPUT
         AUTHORIZED_USERS=$(echo "$PUBKEY_SSH_FIRST_USER" | cut -d' ' -f3 | cut -d'@' -f1 | sort -u | tr '\n' ',')
         echo installing keys for ${AUTHORIZED_USERS} >> $GITHUB_STEP_SUMMARY
-        cat config >> $GITHUB_STEP_SUMMARY
 
     - name: build image
       run: ./build-docker.sh

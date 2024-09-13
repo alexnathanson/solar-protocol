@@ -35,15 +35,12 @@ cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<EOF
 EOF
 
 cp -r solar-protocol ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/solar-protocl
-
-on_chroot << EOF
-rm /etc/motd
-rm /etc/update-motd.d/10-uname
+rm ${ROOTFS_DIR}/etc/motd
+rm ${ROOTFS_DIR}/etc/update-motd.d/10-uname
 envsubst < files/10-hello.template > ${ROOTFS_DIR}/etc/update-motd.d/10-hello
 chmod a+x ${ROOTFS_DIR}/etc/update-motd.d/10-hello
 envsubst < files/20-warning.template > ${ROOTFS_DIR}/etc/update-motd.d/20-warning
 chmod a+x ${ROOTFS_DIR}/etc/update-motd.d/20-warning
-EOF
 
 on_chroot << EOF
   pushd solar-protocol

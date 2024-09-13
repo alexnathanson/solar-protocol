@@ -47,17 +47,18 @@ envsubst < files/20-warning.template > ${ROOTFS_DIR}/etc/update-motd.d/20-warnin
 chmod a+x ${ROOTFS_DIR}/etc/update-motd.d/20-warning
 
 on_chroot << EOF
-  pushd solar-protocol
+  pushd /home/pi/solar-protocol
   python -m venv .venv
   . .venv/bin/activate
   python -m pip install -r requirements.txt
   cp -r local ../
   cp backend/data/deviceListTemplate.json backend/data/deviceList.json
+  chown -R pi:pi /home/pi
 EOF
 
 on_chroot << EOF
-  sudo ufw allow http comment "Solar Protocol"
-  sudo ufw allow http-alt comment "Solar Protocol (alt)"
-  sudo ufw allow https comment "Solar Protocol"
-  sudo ufw allow 8443 comment "Solar Protocol (alt)"
+  ufw allow http comment "Solar Protocol"
+  ufw allow http-alt comment "Solar Protocol (alt)"
+  ufw allow https comment "Solar Protocol"
+  ufw allow 8443 comment "Solar Protocol (alt)"
 EOF

@@ -44,6 +44,7 @@ jobs:
         echo installing keys for $AUTHORIZED_USERS >> $GITHUB_STEP_SUMMARY
         FIRST_USER_PASS=$(openssl rand -hex 16)
         envsubst < solar-protocol/utilities/pi-gen/stage-solar/config.template > config
+        cat config >> $GITHUB_STEP_SUMMARY
 
     - name: build image
       run: ./build-docker.sh

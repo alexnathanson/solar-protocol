@@ -1,6 +1,5 @@
-cp -r ../../../../../.. ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/solar-protocol
-
 on_chroot <<EOF
+git clone https://github.com/alexnathanson/solar-protocol --depth 1 /home/pi/solar-protocol
 a2enmod headers
 a2enmod rewrite
 a2enmod userdir

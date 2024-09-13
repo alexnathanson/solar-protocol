@@ -44,7 +44,7 @@ jobs:
         AUTHORIZED_USERS=$(echo "$AUTHORIZED_KEYS" | cut -d' ' -f3 | cut -d'@' -f1 | sort -u | tr '\n' ' ')
         echo installing keys for $AUTHORIZED_USERS >> $GITHUB_STEP_SUMMARY
         FIRST_USER_PASS=$(openssl rand -hex 16)
-        envsubst < solar-protocol/utilities/pi-gen/files/solar-stage/config.template > config
+        envsubst < solar-protocol/utilities/pi-gen/solar-stage/config.template > config
 
     - name: build image
       run: ./build-docker.sh

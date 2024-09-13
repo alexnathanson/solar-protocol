@@ -31,6 +31,7 @@ jobs:
       id: config
       run: |
         GITHUB_SHA_SHORT=${GITHUB_SHA::6}
+        VERSION=0.1.1-${GITHUB_SHA_SHORT}
         IMG_DATE=$(date +%Y-%m-%d)
         IMG_NAME=solar-protocol-${GITHUB_SHA_SHORT}
         TIMEZONE_DEFAULT="America/New_York"
@@ -40,9 +41,8 @@ jobs:
         FIRST_USER_PASS=$(openssl rand -hex 16)
         export TIMEZONE_DEFAULT FIRST_USER_PASS PUBKEY_SSH_FIRST_USER IMG_DATE IMG_NAME ARCHIVE_FILENAME
         envsubst < solar-protocol/utilities/pi-gen/stage-solar/config.template > config
-        echo "github_sha_short=${GITHUB_SHA_SHORT}" >> $GITHUB_OUTPUT
-        echo "timezone_default=$TIMEZEONE_DEFAULT" >> $GITHUB_OUTPUT
         echo "archive_filename=$ARCHIVE_FILENAME" >> $GITHUB_OUTPUT
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
         AUTHORIZED_USERS=$(echo "$PUBKEY_SSH_FIRST_USER" | cut -d ' ' -f3 | cut -d '@' -f1 | sort -u | paste -s -d ',' -)
         echo installing keys for ${AUTHORIZED_USERS} >> $GITHUB_STEP_SUMMARY
 
@@ -61,7 +61,7 @@ jobs:
     - name: create release
       uses: softprops/action-gh-release@v2
       with:
-          tag_name: v0.1.1-${{ steps.config.outputs.github_sha_short }}
+          tag_name: v${{ steps.config.outputs.version }}
           files: |
             ${{ steps.config.outputs.archive_filename }}.img.xz
             deploy/build.log

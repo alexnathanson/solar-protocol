@@ -22,7 +22,7 @@ jobs:
     - name: build image
       id: build
       run: |
-        cd utilities/pi-gen
+        cd utilities/build
         bash build-image.sh
         echo "version=1.1-${GITHUB_SHA::6}.img.xz" >> $GITHUB_OUTPUTS
 
@@ -47,5 +47,5 @@ jobs:
         tag_name: v${{ steps.build.outputs.version }}
         files: |
           utilities/build/pi-gen/deploy/*.img.xz
-          utiliries/build/pi-gen/deploy/*.img.xz.sha256sum
+          utilities/build/pi-gen/deploy/*.img.xz.sha256sum
         generate_release_notes: true

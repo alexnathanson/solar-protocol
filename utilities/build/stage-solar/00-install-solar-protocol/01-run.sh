@@ -58,6 +58,7 @@ on_chroot << EOF
   . .venv/bin/activate
   python -m pip install -r requirements.txt
   cp -r local ../
+  cp utilities/build/installation.md /home/pi/readme.md
   cp backend/data/deviceListTemplate.json backend/data/deviceList.json
   chown -R pi:pi /home/pi
 EOF

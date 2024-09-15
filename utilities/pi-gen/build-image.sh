@@ -12,17 +12,19 @@ echo "updating pi-gen"; {
   git -C pi-gen pull
 }
 
-echo "cleaning up existing build"; {
+if [[ "$CI" == "true" ]]; then
+  apt install -y < pi-gen/depends
+else
   rm -rf pi-gen/solar-stage pi-gen/config
   docker rm -v pigen_work
-}
+fi
 
 echo "updating config"; {
   export PUBKEY_SSH_FIRST_USER="$(<../authorized_keys)"
   export FIRST_USER_PASS=$(openssl rand -hex 16)
   GIT_REV=${GITHUB_SHA:-HEAD}
   export VERSION=1.1-$(git rev-parse --short $GIT_REV)
-  cp -r solar-stage pi-gen/solar-stage
+  cp -r stage-solar pi-gen/stage-solar
   rm -rf stage2/EXPORT_IMAGE
   envsubst < config.template > pi-gen/config
 }

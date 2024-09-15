@@ -25,7 +25,7 @@ echo "updating config"; {
   GIT_REV=${GITHUB_SHA:-HEAD}
   export VERSION=1.1-$(git rev-parse --short $GIT_REV)
   cp -r stage-solar pi-gen/stage-solar
-  rm -rf stage2/EXPORT_IMAGE
+  rm -rf pi-gen/stage2/EXPORT_IMAGE
   envsubst < config.template > pi-gen/config
 }
 

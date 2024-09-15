@@ -10,11 +10,13 @@ Update the password for the `pi` user
 
 This will make sure people can only access the website
 
-    sudo ufw enable
+    sudo ufw allow ssh
     sudo ufw allow http comment "Solar Protocol"
     sudo ufw allow http-alt comment "Solar Protocol (alt)"
     sudo ufw allow https comment "Solar Protocol"
     sudo ufw allow 8443 comment "Solar Protocol (alt)"
+    sudo ufw enable
+    sudo ufw status
 
 ## Forward ports from your router to the raspberry pi
 

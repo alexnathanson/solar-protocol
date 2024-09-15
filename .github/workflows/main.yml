@@ -53,17 +53,17 @@ jobs:
     - name: upload image
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ steps.config.outputs.archive_filename }}
+        name: ${{ steps.config.outputs.version }}
         path: |
-          deploy/${{ steps.config.outputs.archive_filename }}.img.xz
-          deploy/build.log
+          deploy/${{ steps.config.outputs.archive_filename }}-lite.img.xz
+          deploy/${{ steps.config.outputs.archive_filename }}-lite.info
         compression-level: 0
 
     - name: create release
       uses: softprops/action-gh-release@v2
       with:
-          tag_name: v${{ steps.config.outputs.version }}
-          files: |
-            ${{ steps.config.outputs.archive_filename }}.img.xz
-            deploy/build.log
-          generate_release_notes: true
+        tag_name: v${{ steps.config.outputs.version }}
+        files: |
+          deploy/${{ steps.config.outputs.archive_filename }}-lite.img.xz
+          deploy/${{ steps.config.outputs.archive_filename }}-lite.info
+        generate_release_notes: true

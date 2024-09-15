@@ -10,9 +10,15 @@ chown -R www-data:www-data /home/pi/solar-protocol/frontend
 chmod 755 /home/pi
 EOF
 
-sed \
-  -e 's|\[sshd\]|\[sshd\]\n\nenabled = true\nfilter = sshd|' \
-  ${ROOTFS_DIR}/etc/fail2ban/jail.conf > ${ROOTFS_DIR}/etc/fail2ban/jail.local
+cat > ${ROOTFS_DIR}/etc/fail2ban/jail.local <<EOF
+[sshd]
+enabled = true
+filter = sshd
+backend = systemd
+logpath = /var/log/auth.log
+maxretry = 5
+bantime = 3600
+EOF
 
 # TODO: confirm with Alex if this is safe to remove
 #sed -i \

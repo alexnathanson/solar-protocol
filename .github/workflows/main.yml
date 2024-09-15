@@ -28,7 +28,7 @@ jobs:
 
     - name: create checksum
       run: |
-        cd deploy
+        cd utilities/pi-gen/pi-gen/deploy
         export image_filename=$(ls *-img.xz)
         sha256sum ${image_filename} > ${image_filename}.sha256sum
 
@@ -37,8 +37,8 @@ jobs:
       with:
         name: ${{ steps.build.outputs.version }}
         path: |
-          deploy/*.img.xz
-          deploy/*.img.xz.sha256sum
+          utilities/pi-gen/pi-gen/deploy/*.img.xz
+          utilities/pi-gen/pi-gen/deploy/*.img.xz.sha256sum
         compression-level: 0
 
     - name: create release
@@ -46,6 +46,6 @@ jobs:
       with:
         tag_name: v${{ steps.build.outputs.version }}
         files: |
-          deploy/*.img.xz
-          deploy/*.img.xz.sha256sum
+          utilities/pi-gen/pi-gen/deploy/*.img.xz
+          utiliries/pi-gen/pi-gen/deploy/*.img.xz.sha256sum
         generate_release_notes: true

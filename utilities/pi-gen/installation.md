@@ -6,6 +6,16 @@ Update the password for the `pi` user
 
     passwd
 
+## Enable firewal
+
+This will make sure people can only access the website
+
+    sudo ufw enable
+    sudo ufw allow http comment "Solar Protocol"
+    sudo ufw allow http-alt comment "Solar Protocol (alt)"
+    sudo ufw allow https comment "Solar Protocol"
+    sudo ufw allow 8443 comment "Solar Protocol (alt)"
+
 ## Forward ports from your router to the raspberry pi
 
 It is strongly recommended to do this only after key-based authentication has been enabled and password authentication has be disabled.

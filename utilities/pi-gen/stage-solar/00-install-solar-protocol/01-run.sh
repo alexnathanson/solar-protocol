@@ -55,10 +55,3 @@ on_chroot << EOF
   cp backend/data/deviceListTemplate.json backend/data/deviceList.json
   chown -R pi:pi /home/pi
 EOF
-
-on_chroot << EOF
-  ufw allow http comment "Solar Protocol"
-  ufw allow http-alt comment "Solar Protocol (alt)"
-  ufw allow https comment "Solar Protocol"
-  ufw allow 8443 comment "Solar Protocol (alt)"
-EOF

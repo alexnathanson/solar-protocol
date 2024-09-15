@@ -10,15 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout pi-gen
-      uses: actions/checkout@v4
-      with:
-        repository: 'RPi-Distro/pi-gen'
-
     - name: checkout solar protocol
       uses: actions/checkout@v4
-      with:
-        path: 'solar-protocol'
 
     - name: install build dependencies
       run: |
@@ -27,44 +20,33 @@ jobs:
         sudo apt install -y qemu-user-static
         sudo apt install -y openssl
 
-    - name: generate pi-gen config
-      id: config
-      run: |
-        cp -r solar-protocol/utilities/pi-gen/stage-solar .
-        export \
-          VERSION=1.1-${GITHUB_SHA::6} \
-          PUBKEY_SSH_FIRST_USER="$(<solar-protocol/utilities/authorized_keys)" \
-          FIRST_USER_PASS=$(openssl rand -hex 16)
-
-        envsubst < stage-solar/config.template > config
-
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-        AUTHORIZED_USERS=$(echo "$PUBKEY_SSH_FIRST_USER" | cut -d ' ' -f3 | cut -d '@' -f1 | sort -u | paste -s -d ',' -)
-        echo installed keys for ${AUTHORIZED_USERS} >> $GITHUB_STEP_SUMMARY
-
     - name: build image
-      run: ./build-docker.sh
+      id: build
+      run: |
+        cd utilities/pi-gen
+        bash build-image.sh
+        echo "version=1.1-${GITHUB_SHA::6}.img.xz" >> $GITHUB_OUTPUTS
 
     - name: create checksum
       run: |
         cd deploy
-        export image_filename=$(ls *-${{ steps.config.outputs.version }}.img.xz)
+        export image_filename=$(ls *-img.xz)
         sha256sum ${image_filename} > ${image_filename}.sha256sum
 
     - name: upload image
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ steps.config.outputs.version }}
+        name: ${{ steps.build.outputs.version }}
         path: |
-          deploy/*-${{ steps.config.outputs.version }}.img.xz
-          deploy/*-${{ steps.config.outputs.version }}.img.xz.sha256sum
+          deploy/*.img.xz
+          deploy/*.img.xz.sha256sum
         compression-level: 0
 
     - name: create release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: v${{ steps.config.outputs.version }}
+        tag_name: v${{ steps.build.outputs.version }}
         files: |
-          deploy/${{ steps.config.outputs.version }}.img.xz
-          deploy/${{ steps.config.outputs.version }}.img.xz.sha256sum
+          deploy/*.img.xz
+          deploy/*.img.xz.sha256sum
         generate_release_notes: true

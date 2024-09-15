@@ -41,7 +41,7 @@ cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<EOF
     Options Indexes FollowSymLinks
     AllowOverride All
     Require all granted
-    Header set Access-Control-Allow-Origin
+    Header set Access-Control-Allow-Origin "*"
 </Directory>
 EOF
 

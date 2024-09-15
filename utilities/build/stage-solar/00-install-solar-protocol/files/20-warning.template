@@ -1,5 +1,6 @@
 #!/bin/bash
 
-echo "pass: ${FIRST_USER_PASS}"
+echo ""
 echo "!!! run 'passwd' to change the password before connecting to the network !!!"
 echo "you can silence this warning by removing /etc/update-motd.d/20-warning"
+echo ""

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo ${IMAGE_NAME}
+echo ☀️ solar protocol ${VERSION}

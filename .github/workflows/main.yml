@@ -24,7 +24,7 @@ jobs:
       run: |
         cd utilities/build
         bash build-image.sh
-        echo "version=1.1-${GITHUB_SHA::6}.img.xz" >> $GITHUB_OUTPUTS
+        echo "version=1.1-${GITHUB_SHA::6}.img.xz" >> "$GITHUB_OUTPUT"
 
     - name: create checksum
       run: |

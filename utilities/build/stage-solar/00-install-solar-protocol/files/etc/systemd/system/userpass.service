@@ -1,0 +1,15 @@
+[Unit]
+Description=User password dialog
+After=systemd-user-sessions.service
+Before=lightdm.service
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/userpass-pi/userpass-service
+StandardInput=tty
+Restart=on-failure
+TTYPath=/dev/tty8
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+[Install]
+WantedBy=multi-user.target

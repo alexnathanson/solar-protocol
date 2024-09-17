@@ -25,6 +25,9 @@ EOF
 #  -e 's|;date.timezone.*|date.timezone = ${{ steps.config.outputs.timezone_default }}|' \
 #  ${ROOTFS_DIR}/etc/php/8.2/apache2/php.ini
 
+# TODO: check if needed or install to @reboot cron
+# sh /home/pi/solar-protocol/utilities/setAllPermissions.sh
+
 echo 'PubkeyAcceptedAlgorithms +ssh-rsa' >> ${ROOTFS_DIR}/etc/ssh/sshd_config
 
 sed -i \
@@ -45,12 +48,26 @@ cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<EOF
 </Directory>
 EOF
 
+export VERSION
 rm ${ROOTFS_DIR}/etc/motd
 rm ${ROOTFS_DIR}/etc/update-motd.d/10-uname
-envsubst < files/10-hello.template > ${ROOTFS_DIR}/etc/update-motd.d/10-hello
+envsubst < files/etc/update-motd.d/10-hello.template > ${ROOTFS_DIR}/etc/update-motd.d/10-hello
 chmod a+x ${ROOTFS_DIR}/etc/update-motd.d/10-hello
-envsubst < files/20-warning.template > ${ROOTFS_DIR}/etc/update-motd.d/20-warning
-chmod a+x ${ROOTFS_DIR}/etc/update-motd.d/20-warning
+
+rm ${ROOTFS_DIR}/etc/issue
+envsubst < files/etc/issue.template > ${ROOTFS_DIR}/etc/issue
+
+cp files/etc/systemd/system/userpass.service ${ROOTFS_DIR}/etc/systemd/system/userpass.service
+mkdir -p ${ROOTFS_DIR}/usr/lib/userpass-pi
+cp files/usr/lib/userpass-pi/userpass-service ${ROOTFS_DIR}/usr/lib/userpass-pi/userpass-service
+
+on_chroot << EOF
+  systemctl disable userconfig.service
+  systemctl daemon-reload
+  systemctl enable userpass.service
+EOF
+
+cp files/home/pi/disable-ssh-password-auth ${ROOTFS_DIR}/home/pi/disable-ssh-password-auth
 
 on_chroot << EOF
   pushd /home/pi/solar-protocol

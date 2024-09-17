@@ -57,17 +57,17 @@ chmod a+x ${ROOTFS_DIR}/etc/update-motd.d/10-hello
 rm ${ROOTFS_DIR}/etc/issue
 envsubst < files/etc/issue.template > ${ROOTFS_DIR}/etc/issue
 
-cp files/etc/systemd/system/userpass.service ${ROOTFS_DIR}/etc/systemd/system/userpass.service
-mkdir -p ${ROOTFS_DIR}/usr/lib/userpass-pi
-cp files/usr/lib/userpass-pi/userpass-service ${ROOTFS_DIR}/usr/lib/userpass-pi/userpass-service
+install -d -m 644 files/etc/systemd/system/userpass.service "${ROOTFS_DIR}/etc/systemd/system/"
+install -d files/usr/lib/userpass-pi/userpass-service "${ROOTFS_DIR}/usr/lib/userpass-pi/"
 
 on_chroot << EOF
   systemctl disable userconfig.service
+  systemctl mask userconfig.service
   systemctl daemon-reload
   systemctl enable userpass.service
 EOF
 
-cp files/home/pi/disable-ssh-password-auth ${ROOTFS_DIR}/home/pi/disable-ssh-password-auth
+install -d files/home/pi/disable-ssh-password-auth "${ROOTFS_DIR}/home/pi/"
 
 on_chroot << EOF
   pushd /home/pi/solar-protocol

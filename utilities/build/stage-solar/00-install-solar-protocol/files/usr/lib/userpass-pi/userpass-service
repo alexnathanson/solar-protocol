@@ -7,8 +7,8 @@ validate_password() {
     fi
 }
 
-if [ ! "$(raspi-config nonint get_boot_cli)" -eq 0 ]; then
-    return
+if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
+    exit
 fi
 
 VT="$(tty | sed 's|/dev/tty||')"

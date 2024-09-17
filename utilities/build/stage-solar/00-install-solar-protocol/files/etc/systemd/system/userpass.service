@@ -1,7 +1,6 @@
 [Unit]
 Description=User password dialog
 After=systemd-user-sessions.service
-Before=lightdm.service
 [Service]
 Type=oneshot
 ExecStart=/usr/lib/userpass-pi/userpass-service

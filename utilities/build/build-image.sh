@@ -15,7 +15,7 @@ echo "updating pi-gen"; {
 if [[ "$CI" == "true" ]]; then
   apt install -y < pi-gen/depends
 else
-  rm -rf pi-gen/solar-stage pi-gen/config
+  rm -rf pi-gen/stage-solar pi-gen/config
   docker rm -v pigen_work
 fi
 
@@ -24,7 +24,7 @@ echo "updating config"; {
   export FIRST_USER_PASS=$(openssl rand -hex 16)
   GIT_REV=${GITHUB_SHA:-HEAD}
   export VERSION=1.1-$(git rev-parse --short $GIT_REV)
-  cp -r stage-solar pi-gen/stage-solar
+  cp -r stage-solar pi-gen/
   rm -rf pi-gen/stage2/EXPORT_IMAGE
   envsubst < config.template > pi-gen/config
 }

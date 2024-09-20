@@ -3,7 +3,6 @@ if ! command -v docker 2>/dev/null; then
   exit 1
 fi
 
-current_directory=$PWD
 cd "$(dirname -- "$0")"
 
 echo "updating pi-gen"; {
@@ -34,6 +33,4 @@ echo "updating config"; {
 
 echo "building"; {
   bash pi-gen/build-docker.sh
-  cp pi-gen/deploy/*.xz ${starting_directory}/
-  ls ${starting_directory}/*xz
 }

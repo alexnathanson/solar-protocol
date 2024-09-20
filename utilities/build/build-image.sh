@@ -3,8 +3,6 @@ if ! command -v docker 2>/dev/null; then
   exit 1
 fi
 
-pushd "$(dirname -- "$0")"
-
 echo "updating pi-gen"; {
   test -d pi-gen || git clone https://github.com/RPi-Distro/pi-gen
   if [[ "$(uname -m)" == "arm64" ]]
@@ -34,5 +32,3 @@ echo "updating config"; {
 echo "building"; {
   bash pi-gen/build-docker.sh
 }
-
-popd

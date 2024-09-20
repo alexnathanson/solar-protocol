@@ -30,5 +30,6 @@ echo "updating config"; {
 }
 
 echo "building"; {
-  bash pi-gen/build-docker.sh
+  cd pi-gen
+  ./build-docker.sh
 }

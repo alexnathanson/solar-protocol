@@ -63,8 +63,6 @@ install -d "${ROOTFS_DIR}/usr/lib/userpass-pi"
 install -m 755 files/usr/lib/userpass-pi/userpass-service "${ROOTFS_DIR}/usr/lib/userpass-pi/userpass-service"
 
 on_chroot << EOF
-  systemctl disable userconfig.service
-  systemctl mask userconfig.service
   systemctl enable userpass.service
 EOF
 

@@ -20,10 +20,10 @@ maxretry = 5
 bantime = 3600
 EOF
 
-# TODO: confirm with Alex if this is safe to remove
-#sed -i \
-#  -e 's|;date.timezone.*|date.timezone = ${{ steps.config.outputs.timezone_default }}|' \
-#  ${ROOTFS_DIR}/etc/php/8.2/apache2/php.ini
+# this is needed to make sure php has the correct timezone
+sed -i \
+  -e "s|;date.timezone.*|date.timezone = ${TIMEZONE_DEFAULT}|" \
+  ${ROOTFS_DIR}/etc/php/8.2/apache2/php.ini
 
 # TODO: check if needed or install to @reboot cron
 # sh /home/pi/solar-protocol/utilities/setAllPermissions.sh

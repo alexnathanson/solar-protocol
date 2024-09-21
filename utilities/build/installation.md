@@ -2,6 +2,19 @@
 
 Here are some manual steps after booting the raspberry pi to finnish installaion
 
+## Set the timezone
+
+Set timezone for the system
+
+     sudo raspi-config
+
+Set timezone for php
+
+* `sudo nano /etc/php/8.2/apache2/php.ini`
+* Change `;date.timezone` to `date.timezone = YOUR_TIMEZONE`
+	* You can find your timezone here: https://www.php.net/manual/en/timezones.america.php
+* `sudo systemctl restart apache2` for this change to take effect
+
 ## Create ssh key and connect to the pi
 
 On your computer, generate a new key, with a new password

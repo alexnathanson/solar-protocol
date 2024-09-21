@@ -26,7 +26,7 @@ Step 2 is only required for the generating server and should NOT be done on all 
 * Enter this domain name when prompted: `solarprotocol.net www.solarprotocol.net`
 </p>
 
-## 3) Distribute to the servers in the network
+## 3) Manually distribute to the servers in the network
 
 3.1) Retrieve files<br>
 * Copy the /etc/letsencrypt directory (this is necessary because the permissions don't let you directly scp the files we need.)
@@ -38,16 +38,16 @@ Step 2 is only required for the generating server and should NOT be done on all 
 	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 pi@DST_IP:/home/letsencrypt C:\path\of\source\directory\solar-protocol\network\letsencrypt` (letsencrypt directory is ignored in git) 
 * `sudo rm -r /home/letsencrypt ` delete the temporary copy on the server
 
-3.2) Distribute files to all servers (untested!)<br>
-* create a temp directory for these files on the destination server: `sudo mkdir /home/letsencrypt`
-* set permissions and ownship of directory: `sudo chown -R pi:pi /home/letsencrypt` (if errors still occur change permissions to chmod 755)
-* SCP the necessary files. These files are the ssl certificate, private key, and configuration files (but it may be easier to just copy the entire director for the moment). Note that if the server is already using th defaul ssl conf name, you may need to change the file names.
-	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 "C:\path\of\source\directory\solar-protocol\network\letsencrypt" pi@DST_IP:/home/letsencrypt`
-* Copy the contents of /etc/letsencrypt/live/www.solarprotocol.net (these are the private keys and certificates)
-	* `sudo cp -R DIRECTORY_LOCATION/ /etc/letsencrypt/live`
+3.2) Distribute files to all servers<br>
+* create a temp directory for these files on the destination server: `sudo mkdir /home/pi/temp-ssl`
+* set permissions and ownship of directory pi if not already: `sudo chown -R pi:pi /home/letsencrypt` (if errors still occur change permissions to chmod 755)
+* SCP the directory you copied from your machine to the target server. The only necessary files are the ssl certificate, private key, and configuration files (but it's usually easier to just copy the entire directory). Note that if the server is already using th defaul ssl conf name, you may need to change the file names.
+	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 "C:\path\of\source\directory\...\letsencrypt" pi@DST_IP:/home/pi/temp-ssl`
+* Copy the contents of /etc/letsencrypt/live/solarprotocol.net (these are the private keys and certificates)
+	* `sudo cp -R /home/pi/temp-ssl/letsencrypt/live/solarprotocol.net /etc/letsencrypt/live/solarprotocol.net`
 	* If you need to confirm this worked, change permissions of live directory `sudo chmod 755 /etc/letsencrypt`
 	* Once confirmed, revert the permissions changes back to "drwx------ 4 root root" with `sudo chmod 700 /etc/letsencrypt` (untested)
-* Copy the Apache SSL config file:
+* Copy the Apache SSL config file (This is only required the first time you distribute it, not for renewals.):
 	* `sudo cp /home/pi/solar-protocol/network/000-default-le-ssl.conf /etc/apache2/sites-available/000-default-le-ssl.conf`
 	* restart apache `sudo systemctl restart apache2`
 * Copy the renewal/www.solarprotocol.net file to the /etc/letsencrypt/renewal/ directory

@@ -51,22 +51,14 @@ function getFile($fileName){
 
 <?php
 
-$fileDate = date("Y-m-d");
-
-if(isset($_GET["date"])){
-  //get the query string
-  $date = htmlspecialchars($_GET["date"]);
-
-  if ($date == 'yesterday'){
-    $fileDate = date("Y-m-") . (date("d")-1);
-  }elseif( $date == 'before'){
-    $fileDate = date("Y-m-") . (date("d")-2);//make a conditional to account for single digit days!!!
-  }
+function csvName() {
+  $base = htmlspecialchars($_GET["date"] ?? 'today');
+  if ($base == 'before') $base = '-2 days';
+  $fileDate = date("Y-m-d", strtotime($base));
+  return "tracerData" . $fileDate . ".csv";
 }
 
-
-//variables
-$fileName = "/home/pi/solar-protocol/charge-controller/data/tracerData" . $fileDate . ".csv";
+$fileName = "/home/pi/solar-protocol/charge-controller/data/" . csvName();
 $rawDataArray = [];
 
 echo "<h2>Local PV Data</h2>";

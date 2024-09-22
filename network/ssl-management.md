@@ -49,11 +49,9 @@ Step 2 is only required for the generating server and should NOT be done on all 
 	* Once confirmed, revert the permissions changes back to "drwx------ 4 root root" with `sudo chmod 700 /etc/letsencrypt` (untested)
 * Copy the Apache SSL config file (This is only required the first time you distribute it, not for renewals.):
 	* `sudo cp /home/pi/solar-protocol/network/000-default-le-ssl.conf /etc/apache2/sites-available/000-default-le-ssl.conf`
-<!--* Copy the renewal/solarprotocol.net file to the /etc/letsencrypt/renewal/ directory-->
+* Copy the renewal/solarprotocol.net file to the /etc/letsencrypt/renewal/ directory (only required when first installing, not for renewals0
 * enable the sites with `sudo a2ensite 000-default-le-ssl.conf` or if that doesn't work you can create a new symlink with `sudo ln -s ../sites-available/000-default-le-ssl.conf` (this probably shouldn't be necessary for renewals, just when first installing)
 * restart apache `sudo systemctl restart apache2`
-
-Troubleshoot
 
 ## 4) Renewal
 Renewal can only happen within 30 days of expiration.

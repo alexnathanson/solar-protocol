@@ -40,7 +40,7 @@ Step 2 is only required for the generating server and should NOT be done on all 
 
 3.2) Distribute files to all servers<br>
 * create a temp directory for these files on the destination server: `sudo mkdir /home/pi/temp-ssl`
-* set permissions and ownship of directory pi if not already: `sudo chown -R pi:pi /home/letsencrypt` (if errors still occur change permissions to chmod 755)
+* set permissions and ownship of directory pi if not already: `sudo chown -R pi:pi /home/pi/temp-ssl` (if errors still occur change permissions to chmod 755)
 * SCP the directory you copied from your machine to the target server. The only necessary files are the ssl certificate, private key, and configuration files (but it's usually easier to just copy the entire directory). Note that if the server is already using th defaul ssl conf name, you may need to change the file names.
 	* `pscp -r -i "path\of\the\privatekey\letsencrypt" -P 22 "C:\path\of\source\directory\...\letsencrypt" pi@DST_IP:/home/pi/temp-ssl`
 * Copy the contents of /etc/letsencrypt/live/solarprotocol.net (these are the private keys and certificates)

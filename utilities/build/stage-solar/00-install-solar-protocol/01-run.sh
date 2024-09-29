@@ -23,7 +23,7 @@ cp backend/data/deviceListTemplate.json backend/data/deviceList.json
 cd
 EOF
 
-echo "::warning file={utilities/setAllPermissions.sh},title={skipping permissions fix}::{skipping running the permissions fixing script}"
+echo "::warning file=utilities/setAllPermissions.sh,title=skipping permissions fix::skipping running the permissions fixing script"
 endinfo
 
 info "setting up apache web server"

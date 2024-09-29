@@ -27,7 +27,7 @@ echo "::warning file=utilities/setAllPermissions.sh,title=skipping permissions f
 endinfo
 
 info "setting up apache web server"
-on_chroot <<EOF
+on_chroot << EOF
 a2enmod headers
 a2enmod rewrite
 a2enmod userdir
@@ -43,7 +43,7 @@ sed -i \
 
 echo 'Listen 8080' >> ${ROOTFS_DIR}/etc/apache2/ports.conf
 
-cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf <<EOF
+cat >> ${ROOTFS_DIR}/etc/apache2/apache2.conf << EOF
 
 <Directory /home/pi/solar-protocol/frontend/>
     Options Indexes FollowSymLinks
@@ -55,15 +55,7 @@ EOF
 endinfo
 
 info "setting up fail2ban to protect against bots"
-cat > ${ROOTFS_DIR}/etc/fail2ban/jail.local <<EOF
-[sshd]
-enabled = true
-filter = sshd
-backend = systemd
-logpath = /var/log/auth.log
-maxretry = 5
-bantime = 3600
-EOF
+cp files/etc/fail2ban/jail.local ${ROOTFS_DIR}/etc/fail2ban/jail.local
 endinfo
 
 info "fixing php timezone"
@@ -87,14 +79,9 @@ rm ${ROOTFS_DIR}/etc/issue
 envsubst < files/etc/issue.template > ${ROOTFS_DIR}/etc/issue
 endinfo
 
-info "add post-install password change tool"
-install -d "${ROOTFS_DIR}/etc/systemd/system"
-install -m 644 files/etc/systemd/system/userpass.service "${ROOTFS_DIR}/etc/systemd/system/userpass.service"
-install -d "${ROOTFS_DIR}/usr/lib/userpass-pi"
-install -m 755 files/usr/lib/userpass-pi/userpass-service "${ROOTFS_DIR}/usr/lib/userpass-pi/userpass-service"
-
+info "expire default password to force change on first login"
 on_chroot << EOF
-  systemctl enable userpass.service
+  chage --lastday 0 pi
 EOF
 
 install files/home/pi/disable-ssh-password-auth "${ROOTFS_DIR}/home/pi/"

@@ -2,7 +2,7 @@
 
 These scripts enable logging data from an Epever Tracer-AN Series charge controller connected to a Raspberry Pi via a USB to RS485 converter (ch340T chip model). Currently, we use CSV_datalogger.py
 
-* This is run at start up via rc.local (see <a href="https://github.com/alexnathanson/solar-protocol/blob/master/installation.md">installation.md</a> for complete instructions)
+* This is run at start up via systemd (see <a href="https://github.com/alexnathanson/solar-protocol/blob/master/installation.md">installation.md</a> for complete instructions)
 
 ## Wiring
 
@@ -10,7 +10,7 @@ These scripts enable logging data from an Epever Tracer-AN Series charge control
 * RJ45 green wire => a terminal on ch340T
 
 ## Installation
+
 Install pymodbus
-`sudo pip3 install pymodbus`
 
-
+    sudo pip3 install pymodbus

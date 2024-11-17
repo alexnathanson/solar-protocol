@@ -203,15 +203,22 @@ If the above command was successful, you do not need to set permissions individu
 * Enter API keys and update the gateway list with appropriate credentials
 
 ### Automate  
-<!-- open rc.local `sudo nano /etc/rc.local`  
-* add this line above "exit 0" `sudo -H -u pi sh /home/pi/solar-protocol/start.sh > /home/pi/solar-protocol/start.log 2>&1 &`  
-	* verify it works `sudo reboot` -->
-* open rc.local `sudo nano /etc/rc.local`  
-		* add this line above "exit 0" `sudo -H -u pi /bin/bash /home/pi/solar-protocol/start.sh > /home/pi/solar-protocol/start.log 2>&1 &`  
-* open the root crontab `sudo crontab -e`
-	* add this line to the bottom to restart the server at midnight `@midnight sudo reboot`
+
+Install system service so that solar-protocol runs every time the pi is powered on
+
+    bash development/scripts/install-system-service
+		
+Restart the system on midnight each day
+
+    sudo crontab -e
+
+Add this line to the bottom to restart the server at midnight
+
+    @midnight sudo reboot
 
 ## Troubleshooting  
+* Check the service status with `systemctl status "solar-protocol*"`
+* Look at the logs with `journalctl -f -u "solar-protocol*"`
 * Run `python3 /home/pi/solar-protocol/charge-controller/test.py` to test the connection between Pi and charge controller  
 * Run `ps -aux` to list running processes  
 * Run `ps -ef | grep .py` or `ps aux | grep .py` to list running python processes

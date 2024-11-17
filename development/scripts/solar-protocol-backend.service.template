@@ -1,0 +1,15 @@
+[Unit]
+Description = Solar Protocol Backend
+PartOf = solar-protocol.target
+
+[Service]
+Type = simple
+WorkingDirectory = $project_directory
+Environment = VIRTUAL_ENV=$project_directory/.venv
+Environment = PATH=$project_directory/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart = python $project_directory/backend
+User = $USER
+Restart = on-failure
+
+[Install]
+RequiredBy = solar-protocol.target

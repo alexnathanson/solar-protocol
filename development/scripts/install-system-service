@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# this script will install solar protocol as a systemd service
+
+# set current working directory to the same as this file 
+cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null
+
+set -o errexit
+set -o nounset
+
+if ! systemd-notify --booted; then
+  echo "Script only meant to be run on a systemd managed system" >&2
+  exit 1
+fi 
+
+unit_path=/etc/systemd/system
+prefix=☀
+
+function info {
+  printf "%s\t%s\n" "$prefix" "$*"
+}
+
+info "installing system services to $unit_path"
+
+# This takes each template file, and expands any variables
+# For example, $USER and $project_directory to allow any user and install path
+export project_directory=$(realpath ${PWD}/../..)
+for template in solar-protocol*template; do
+  destination=$unit_path/${template%%.template}
+  info "installing ${destination}"
+  envsubst < $template | sudo tee $destination 1>/dev/null
+done
+
+info "(re)loading solar-protocol service"
+sudo systemctl daemon-reload
+
+for target in solar-protocol{-backend.service,-datalogger.service,.target}; do
+  info "(re)starting "$target
+  if systemctl is-enabled --quiet $target; then sudo systemctl disable $target --quiet; fi
+  if systemctl is-active --quiet $target; then sudo systemctl stop $target --quiet; fi
+  sudo systemctl enable $target --quiet
+  sudo systemctl start $target --quiet
+done
+
+info 'printing status with `systemctl status solar-protocol.target`'
+systemctl status solar-protocol.target
+
+info 'following logs with `journalctl --follow --unit "solar-protocol*"`'
+info 'press control+c to get back to the terminal'
+journalctl --follow --unit "solar-protocol-*"

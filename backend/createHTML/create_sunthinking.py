@@ -236,11 +236,11 @@ def render_pages(_local_data, _data, _weather,):
 
 #get weather data
 def get_weather(_local_data):
-    api_key = _local_data["api_key"]
+    appid = _local_data["appid"]
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     lat = _local_data["lat"]
     lon = _local_data["long"]
-    complete_url = base_url + "lon=" + lon + "&lat=" + lat + "&appid=" + api_key
+    complete_url = base_url + "lon=" + lon + "&lat=" + lat + "&appid=" + appid
     print(complete_url)
 
     response = requests.get(complete_url)

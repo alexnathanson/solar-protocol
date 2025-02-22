@@ -81,7 +81,7 @@ function setup() {
 }
 
 function draw() {
-  if (deviceOrientation === 'landscape') {
+  if (windowWidth >= 1024) {
     if (state == 'on') { //if Swarthmore server is active and power is above 50%
       fullArtwork();
     } else if (state == 'low') { //if Swarthmore server is active and power is below 50%

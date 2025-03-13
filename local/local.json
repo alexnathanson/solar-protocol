@@ -1,13 +1,14 @@
 {
   "name": "Server Name",
-  "description" : "Say something about yourself.",
+  "description": "Say something about yourself.",
   "location": "A neighbourhood",
   "city": "A city",
   "country": "A country",
-  "lat": "40.65 N",
-  "long": "73.94 W",
-  "bgColor" : "Olive",
-  "font" : "Monaco",
-  "pvWatts":"50",
-  "pvVolts":"12"
+  "lat": "40.65",
+  "long": "-73.94",
+  "bgColor": "Olive",
+  "font": "Monaco",
+  "pvWatts": "50",
+  "pvVolts": "12",
+  "appid": ""
 }

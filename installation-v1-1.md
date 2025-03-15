@@ -203,11 +203,11 @@ If the above command was successful, you do not need to set permissions individu
 * Enter API keys and update the gateway list with appropriate credentials
 
 ### Automate  
-<!-- open rc.local `sudo nano /etc/rc.local`  
-* add this line above "exit 0" `sudo -H -u pi sh /home/pi/solar-protocol/start.sh > /home/pi/solar-protocol/start.log 2>&1 &`  
-	* verify it works `sudo reboot` -->
+As of November 2024, the rc.local script is not automatically included. It is depreciated but should still work. For now, copying the script included in the repo should work (not tested as of 3/15/2025) but in the future we should have this run automatically as a system service.
+<!-- 
 * open rc.local `sudo nano /etc/rc.local`  
-		* add this line above "exit 0" `sudo -H -u pi /bin/bash /home/pi/solar-protocol/start.sh > /home/pi/solar-protocol/start.log 2>&1 &`  
+		* add this line above "exit 0" `sudo -H -u pi /bin/bash /home/pi/solar-protocol/start.sh > /home/pi/solar-protocol/start.log 2>&1 &`  -->
+* copy file from repository local directory to /etc with `sudo cp /home/pi/solar-protocol/local/rclocal_copy.txt /etc/rc.local`
 * open the root crontab `sudo crontab -e`
 	* add this line to the bottom to restart the server at midnight `@midnight sudo reboot`
 

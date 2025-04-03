@@ -150,7 +150,7 @@ def draw_ring(ccDict, ring_number, energy_parameter,timeZ, myTimeZone):
     print("DF Hours: ", df_hours.shape)
 
     #this determines the brightness
-    df_hours[energy_parameter] = df_hours[energy_parameter] / df_hours[energy_parameter].max()
+    df_hours[energy_parameter] = df_hours[energy_parameter] / 50 #df_hours[energy_parameter].max()
 
     #correlate sun data with colors 
     for i, sWattage in enumerate(df_hours[energy_parameter].tolist()):

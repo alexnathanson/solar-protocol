@@ -57,7 +57,7 @@ Step 2 is only required for the generating server and should NOT be done on all 
 Renewal can only happen within 30 days of expiration.
 
 To manually renew, run:<br>
-4.1) navigate to the solar-protocol/back/core directory and run `python utilities/updateDNS_UnitTest.py`<br>
+4.1) navigate to the solar-protocol/backend/core directory and run `python utilities/updateDNS_UnitTest.py`<br>
 4.2) `sudo certbot renew --apache` <br>
 4.3) Distribute the new files
 <p>

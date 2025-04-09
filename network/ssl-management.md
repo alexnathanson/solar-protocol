@@ -16,7 +16,7 @@ Step 2 is only required for the generating server and should NOT be done on all 
 
 2.1) Set PoE
 
-`cd /home/pi/solar-protocol/backend/core`
+`cd /home/pi/solar-protocol/backend/core`<br>
 `python utilities/updateDNS_UnitTest.py`
 
 The next step will only work if the server you are working on is the PoE at the moment. Navigate to the solar-protocol/backend/core directory and run this script to force PoE (Note that this may take a minute to take effect. Also another server may 'steal' it back before step 4 is run. An alternative method is to use a redirect, such as `rewrite ^/.well-known/acme-challenge/(.*)$ http://acme.example.com/$1 redirect;` but for the time being this isn't necessary.)

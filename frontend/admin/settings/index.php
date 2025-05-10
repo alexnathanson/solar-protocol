@@ -50,6 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           setEnv('DNS_KEY',$_POST['dnsPW']);
           //echo('DNS key received');
         }
+      } else if (isset($_POST['appid'])){
+        if(empty($_POST['appid'])){
+          $appidErr = "No appid entered.";
+        } else {
+          $localInfo["appid"] = test_input($_POST['appid']);
+        }
       } else if (isset($_POST['httpPort'])){
         if (! is_numeric($_POST['httpPort']) || strpos($_POST['httpPort'],'.')){
           $httpErr = "Port value is not an integer.";
@@ -261,7 +267,7 @@ function setEnv($envKey,$envVal){
 
    <p>Country <input type="text" name="country" value="<?php if (isset($locCountry)){echo $locCountry;}?>"></p>
 
- 	<p>Latitude <input type="text" name="lat" value="<?php if (isset($locLat)){echo $locLat;}?>"></p>
+   <p>Latitude <input type="text" name="lat" value="<?php if (isset($locLat)){echo $locLat;}?>"></p>
 
    <p>Longitude <input type="text" name="long" value="<?php if (isset($locLong)){echo $locLong;}?>"></p>
 
@@ -341,6 +347,12 @@ function setEnv($envKey,$envVal){
     <input type="hidden" name="key" value="form"/>
     <p>DNS Gateway Password <input type="text" name="dnsPW" value=""><span class="error" style="color:red"> <?php echo $dnsErr;?></span></p>
     <button type="submit">Update DNS Gateway Password</button>
+  </form>
+
+  <form method="POST" onsubmit="return confirm('Are you sure you want to change the weather appid?');">
+    <input type="hidden" name="key" value="form"/>
+    <p>Weather appid <input type="text" name="appid" value=""><span class="error" style="color:red"> <?php echo $appidErr;?></span></p>
+    <button type="submit">Update weather appid</button>
   </form>
 </div>
 

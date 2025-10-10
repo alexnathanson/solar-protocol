@@ -8,7 +8,7 @@ This store local variables. It can be updated as needed via the admin console. T
 
 ## .spenv
 
-This file stores network and DNS passwords
+This file stores network and DNS passwords as well as the optional `STATIC_HOST_IP` variable.
 
 ## access.json
 

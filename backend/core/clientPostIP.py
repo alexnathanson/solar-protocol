@@ -211,7 +211,11 @@ def runClientPostIP():
 	print("*****Running ClientPostIP script*****")
 	print()
 	
-	myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
+	if host_ip := getEnv('STATIC_HOST_IP'):
+		myIP = host_ip
+	else:
+		myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
+
 	print("MY IP: " + myIP)
 
 	#wlan0 might need to be changed to eth0 if using an ethernet cable

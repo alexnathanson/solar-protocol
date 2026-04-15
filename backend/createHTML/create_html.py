@@ -46,7 +46,7 @@ serverNames = []
 myIP = " "
 days = 3
 
-with open('deadIPs.txt', 'r') as infile:
+with open(path+'/createHTML/deadIPs.txt', 'r') as infile:
     deadIPs = infile.readlines()
     deadIPs = [d.strip() for d in deadIPs]
 

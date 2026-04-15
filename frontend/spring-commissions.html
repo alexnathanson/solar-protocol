@@ -26,7 +26,7 @@
     <link rel="icon" href="images/favicon.png" />
     <style>
 
-          a:hover { color: {{bgColor}};  text-decoration: none;}
+          a:hover { color: #F54927;  text-decoration: none;}
 
  
 
@@ -45,29 +45,22 @@
             <li><a href="exhibitions.html">Exhibitions</a></li>
           </ul>
       </nav>
-  {% if batteryPercentage >= 30 %}
+  
     <header
       style="background-image: linear-gradient(
       to top,
-      {{bgColor}},
-      {{bgColor}},
+      #F54927,
+      #F54927,
       rgb(100, 100, 100),
       black,
       black
     );
     color: white;"
     >
-  {% else %}
+  
+  
 
-<header style="background-color: white;">
-  {% endif %}
-  {% if batteryPercentage >= 30 %}
-
-  {% else %}
-  <div class="lowres" style="background-color: {{bgColor}};">
-    SERVER BATTERY LEVEL LOW<br>YOU ARE VIEWING THIS SITE IN LOW RES MODE
-  </div>
-  {% endif %}
+  
 
 <!-- ------------------LEFT PANEL----------------- -->
 
@@ -78,8 +71,8 @@
             This website is hosted across a network of solar powered servers and is sent to you from whichever server is in the most sunshine.
           </p>
           <p>
-            Presently you are on a server called {{name}} that is located in {{location}},
-            {{city}}, {{country}}.
+            Presently you are on a server called Test Server that is located in Studio,
+            NYC, USA.
 
           </p>
 
@@ -88,7 +81,7 @@
                 <td>Server Battery:</td>
                 <td>
                   <div class="meter">
-                  <span style="width: {{batteryPercentage}}%">{{batteryPercentage}}%</span>
+                  <span style="width: 50%">50%</span>
                   </div>
                 </td>
               </tr>
@@ -98,16 +91,15 @@
          <div class="row">
           <h5>SERVER INFORMATION</h5>
           <div class="side-box">
-            <p><i>Name:</i> {{name}}</p>
-            <p><i>Location:</i> {{location}}, {{country}}.</p>
-            <p><i>Steward: </i>{{description}}</p>
-            {% if batteryPercentage >= 30 %}
+            <p><i>Name:</i> Test Server</p>
+            <p><i>Location:</i> Studio, USA.</p>
+            <p><i>Steward: </i>Local dev instance</p>
+            
             <div class="fill">
               <img src="local/serverprofile.gif" />
               <div class="clr"></div>
             </div>
-            {% else %}
-            {% endif %}
+            
             </div>
           </div> <!-- end of row -->
 
@@ -119,35 +111,35 @@
                     <table class="side">
                       <tr>
                         <td>City:</td>
-                        <td>{{city}}</td>         
+                        <td>NYC</td>         
                       </tr>
                       <tr>
                         <td>Country:</td>
-                        <td>{{country}}</td>           
+                        <td>USA</td>           
                       </tr>
                       <tr>
                         <td>Local time:</td>
-                        <td>{{time}}</td>          
+                        <td>11:22 PM</td>          
                       </tr>
                       <tr>
                         <td>Weather:</td>
-                        <td>{{weather}}</td>           
+                        <td>overcast clouds</td>           
                       </tr>
                       <tr>
                         <td>Temp:</td>
-                        <td>{{temp}} &#176; C</td>           
+                        <td>21.4 &#176; C</td>           
                       </tr>
                       <tr>
                         <td>Feels like:</td>
-                        <td>{{feelsLike}} &#176; C</td>           
+                        <td>21.2 &#176; C</td>           
                       </tr>
                       <tr>
                         <td>Sunrise:</td>
-                        <td>{{sunrise}}</td>       
+                        <td>06:18 AM</td>       
                       </tr>
                       <tr>
                         <td>Sunset:</td>
-                        <td>{{sunset}}</td>
+                        <td>07:33 PM</td>
                       </tr> 
                     </table>
  
@@ -158,55 +150,66 @@
                   <table class=side>
                     <tr>
                       <td>Last update:</td>
-                      <td>{{time}} in {{zone}}</td>    
+                      <td>11:22 PM in TZ n/a</td>    
                     </tr>
                     <tr>
                       <td>Battery Level:</td>
                       <td>   
-                        {{batteryPercentage}}%
+                        50%
                       </td>
                     
                     </tr>
                     <tr>
                       <td>Battery Voltage:</td>
                       
-                      <td>{{batteryVoltage}} volts</td>
+                      <td>n/a volts</td>
                     
                     </tr>
                     <tr>
                       <td>PV Power:</td>
-                      <td>{{solarPowerL}} watts</td>            
+                      <td>n/a watts</td>            
                     </tr>
                     <tr>
                       <td>PV Voltage:</td>
-                      <td>{{solarVoltage}} volts</td>           
+                      <td>n/a volts</td>           
                     </tr>
                     <tr>
                       <td>PV Current:</td>
-                      <td>{{solarCurrent}} amps</td>             
+                      <td>n/a amps</td>             
                     </tr>
                     <tr>
                       <td>Load Power:</td>
-                      <td>{{loadPower}} watts</td>           
+                      <td>n/a watts</td>           
                     </tr>
                     <tr>
                       <td>Load Voltage:</td>
-                      <td>{{loadVoltage}} volts</td>            
+                      <td>n/a volts</td>            
                     </tr>
                     <tr>
                       <td>Load Current:</td>
-                      <td>{{loadCurrent}} amps</td>
+                      <td>n/a amps</td>
                     </tr>
                 </table>
             </div> <!-- end of row -->
       </header>
     <!-- ------------------END LEFT PANEL --------------------------------- -->
-      {% if batteryPercentage >= 30 %}
+      
       <main>
-      {% else %}
-      <main style="padding-top: 20px;">
-        {% endif %}   
-        {% block content %}{% endblock %}
+         
+        
+<!-- <img class="full-col" src="images/VI-Celestial-Objects-black2.png" /> -->
+<img class="full-col" src="images/heads.png" />
+</marquee>
+<div class="onecol-text">
+  <h2>Spring 2023 New Work Commissions</h2>
+  <p><i>Feburary 2023</i></p>
+  
+  <p>After a huge response to our open call, we are pleased to announce the first Solar Protocol project commissions. Congratulations Hakeem Adam, Marloes de Valk, Rory Gillen and Anna Madeleine Raupach, Mark Anthony Hernández Motaghy, Jen Liu, Kristin Lucas and Joe McKay, Everest Pipkin, Brian Sutherland, Roopa Vasudevan and Denzel Wamburu. </p>
+    
+   <p> In the first months of 2023, this group will be developing new work exploring issues and questions relating to self-hosted networks, the materiality of computation, intermittency and the temporal qualities of solar power. We will be presenting what emerges in an <a href="/sunthinking/index.html">online exhibition</a> in late Spring.</p>
+  
+</br></br></br></br></br></br></br></br>
+
       </main>
     </div> <!-- end of container -->
   </body>

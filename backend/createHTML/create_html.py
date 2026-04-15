@@ -46,7 +46,7 @@ serverNames = []
 myIP = " "
 days = 3
 
-with open(path+'/createHTML/deadIPs.txt', 'r') as infile:
+with open('deadIPs.txt', 'r') as infile:
     deadIPs = infile.readlines()
     deadIPs = [d.strip() for d in deadIPs]
 
@@ -122,6 +122,7 @@ def render_pages(_local_data, _data, _weather, _server_data):
            ("guide_portforward_template.html", "guide-portforward.html"),
            ("guide_troubleshooting_template.html", "guide-troubleshooting.html"), 
             ("spring_commissions_template.html", "spring-commissions.html"), 
+            ("exhibitions_template.html", "exhibitions.html"),
                ]
 
     #get the current time
@@ -164,14 +165,15 @@ def render_pages(_local_data, _data, _weather, _server_data):
     for template_filename, output_filename in pages:
         template_filename = templatePath + template_filename #path + "/createHTML/templates/" + template_filename
         output_filename = outputPath + output_filename #rootPath + "solar-protocol/frontend/" + output_filename
-        template_file = open(template_filename).read()
+        # template_file = open(template_filename).read()
+        env = Environment(loader=FileSystemLoader(templatePath))
         print("rendering", template_filename)
         #print("battery", _data["battery percentage"]*100)
         #this line was changed last, it was: "/templates/"
-        template = Environment(loader=FileSystemLoader(path + "/createHTML/templates/")).from_string(
-            template_file
-        )
-        
+        # template = Environment(loader=FileSystemLoader(path + "/createHTML/templates/")).from_string(
+        #     template_file
+        # )
+        template = env.get_template(os.path.basename(template_filename))
         try:
             # template = Template(template_file)
             rendered_html = template.render(

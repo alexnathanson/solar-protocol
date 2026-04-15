@@ -1,0 +1,258 @@
+:root {
+  --header-width: 5%;
+  --nav-width: 4%;
+  --vertical-padding: 15px;
+  --horizontal-padding: 15px;
+  --top-width: 35px;
+  --horizontal-text-padding: 30px;
+  --vertical-margin: 5px;
+  --horizontal-margin: 5px;
+  --b: rgb(0, 21, 138);
+  --text-size: 1.125rem;
+  --line-height: 1.4;
+  --bgcolor: #000;
+  --textcolor: white;
+  /* --text-background: rgb(230, 230, 230); */
+  --serverDataLeft: 150px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: black;
+  font-size: calc(var(--text-size) * 1.2);
+}
+
+.container {
+  margin: 0px auto;
+  display: flex;
+}
+
+/* Left navigation  ----------------*/
+
+header {
+  border-right: 2px solid rgb(27, 27, 27);
+  width: var(--nav-width);
+  height: 100%;
+  padding: 10px 0px;
+  writing-mode: tb-rl;
+  transform: rotate(-180deg);
+  justify-content: space-between;
+  position: fixed;
+  align-items: center;
+  display: flex;
+}
+
+.mobile {
+  display: none;
+}
+
+.sub-heading {
+  height: 100%;
+  display: flex;
+  align-content: space-between;
+  text-align: right;
+  z-index: 999;
+  left: 0px;
+  /* font-size: calc(var(--text-size) * 1.2); */
+  align-items: center;
+}
+
+.sub-heading .p {
+  font-size: 2.5vh;
+}
+
+.sub-heading .h1 a {
+  font-size: 3vh;
+}
+
+.h1 a {
+  font-size: calc(var(--text-size) * 1.7);
+  color: var(--textcolor) !important;
+}
+
+.p {
+  font-size: calc(var(--text-size) * 1.2);
+  line-height: 1.3em;
+}
+
+.h5 {
+  font-size: calc(var(--text-size) * 1.2);
+  font-style: none;
+  padding: 20px 0px 0px 0px;
+}
+
+/* Right navigation  ----------------*/
+
+nav {
+  width: var(--nav-width);
+  top: 0;
+  color: var(--textcolor);
+  padding: 10px 0px;
+  display: flex;
+  align-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  writing-mode: vertical-lr;
+  position: fixed;
+  z-index: 999;
+  right: 0px;
+  background-color: black;
+  font-size: calc(var(--text-size) * 1.2);
+  height: 100vh;
+}
+
+nav h1 {
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  font-size: calc(var(--text-size));
+}
+
+nav p {
+  padding: 0px;
+  margin: 0px;
+}
+
+.no-bullets li {
+  display: inline;
+}
+
+ul.no-bullets {
+  list-style-type: none;
+  /* Remove bullets */
+  padding: 0;
+  /* Remove padding */
+  margin: 0;
+  /* Remove margins */
+  padding-left: 0.05em;
+  text-align: start;
+  flex: 1 0 40%;
+}
+
+nav a {
+  color: var(--textcolor);
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: none;
+}
+
+header a {
+  text-decoration: none;
+}
+header a:hover {
+  text-decoration: none;
+}
+
+/* MAIN BODY STYLING ------------------------------------------------*/
+main {
+  margin: 0;
+  margin-left: calc(var(--nav-width));
+  margin-right: calc(var(--nav-width));
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: var(--text-background);
+  width: calc(100% - calc(var(--nav-width) * 2));
+  font-family: Monospace;
+  background-color: #e6e6e6;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.exhibitions-head {
+  position: relative;
+  width: 100%;
+  height: 250px; /* adjust as needed */
+
+  background-image: url("images/VI-Celestial-Objects-black2.png");
+  background-size: cover; /* makes it fill full width */
+  background-position: center; /* keeps it centered */
+  background-repeat: no-repeat;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-start; /* 👈 move to top */
+  padding-top: 20px;
+}
+
+.exhibitions-head-title {
+  position: absolute;
+  top: 0px; /* distance from top */
+  left: 50%;
+  transform: translateX(-50%); /* center horizontally only */
+  font-weight: normal;
+  font-size: 11.5vw;
+  color: white;
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  padding: 10px;
+  text-transform: uppercase;
+  letter-spacing: 7%;
+}
+
+.exhibition-items {
+  display: grid;
+  gap: 1vw;
+
+  /* grid-template-columns: 50% 50%; */
+  grid-template-columns: 1fr 1fr;
+  background-color: black;
+}
+
+.exhibition-item {
+  padding: 20px;
+  /* border: 1px solid red; */
+  background-color: white;
+}
+
+.eyebrow {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.extitle {
+  font-size: 22px;
+}
+
+.enter {
+  text-align: right;
+  padding-top: 20px;
+}
+
+p {
+  font-size: 14px;
+  orphans: 3;
+  widows: 3;
+}
+
+a {
+  text-decoration: underline;
+  border-bottom: black;
+  color: black;
+}
+
+p a,
+li a {
+  word-wrap: break-word;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .exhibition-items {
+    grid-template-columns: 1fr;
+  }
+}

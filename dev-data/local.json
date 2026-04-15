@@ -1,0 +1,11 @@
+{
+  "name": "Test Server",
+  "description": "Local dev instance",
+  "location": "Studio",
+  "city": "NYC",
+  "country": "USA",
+  "lat": "40.7",
+  "long": "-74.0",
+  "bgColor": "#F54927",
+  "font": "Arial"
+}

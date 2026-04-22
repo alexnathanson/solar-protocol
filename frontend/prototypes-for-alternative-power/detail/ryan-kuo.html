@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototypes for Alternative Power</title>
+
+    
+    <link rel="stylesheet" href="https://use.typekit.net/vjm3isi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+
+    
+<link rel="stylesheet" href="https://solarprotocol.net/prototypes-for-alternative-power/css/header.css">
+<link rel="stylesheet" href="https://solarprotocol.net/prototypes-for-alternative-power/css/artwork-detail.css">
+
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7THCN4LG2F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7THCN4LG2F');
+    </script>
+</head>
+<body class="detail-page detail-ryan-kuo">
+    
+
+
+<a href="https://solarprotocol.net/prototypes-for-alternative-power/" class="home_button">☼</a>
+
+
+<header class="sm_popup">
+    <img src="https://solarprotocol.net/prototypes-for-alternative-power/basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close header">
+    <div class="col1 col">
+        <div class="sm_popup_title">File</div>
+        <div class="sm_popup_artist">Ryan Kuo</div>
+        <div class="sm_popup_year">2016-ongoing</div>
+        <div class="sm_popup_medium">Website</div>
+        
+        <div class="sm_popup_button sm_popup_button_1" role="button" tabindex="0" aria-label="About this artwork" >About</div>
+    </div>
+    <div class="col2 col">
+        
+        <a href="https://solarprotocol.net/prototypes-for-alternative-power/" class="sm_popup_button sm_popup_button_3">☼</a>
+        <div class="popup_detail"></div>
+    </div>
+</header>
+
+
+
+  
+
+
+<div class="popup popup_about">
+    <img src="https://solarprotocol.net/prototypes-for-alternative-power/basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close about popup">
+    <div class="popup_artist">Ryan Kuo</div>
+    <div class="popup_title">File</div>
+    <div class="popup_year">2016-ongoing</div>
+    <div class="popup_medium">Website</div>
+    
+    <br>
+    <div class="popup_des"><br><em>File</em> uses hypertext links to construct an essay that provides technical documentation of Kuo's artistic process, along with a collaborative wiki for problem-solving. The user manoeuvres through the ever-expanding wiki by performing actions within <em>File</em>, navigating its structure, and completing tasks. Drawing on Kuo's experience as a technical writer in a big tech company, <em>File</em> is written and designed in an objective style intended to immerse the user in its logic. The periodic updates and growing complexity make <em>File</em> difficult to archive and also suggest a strategy of resistance to systems that rely on the logic of fixed categorization.</div>
+</div>
+
+
+<div class="rk-media-container media-iframe">
+  <iframe
+    src="https://taroface.github.io/file/"
+    
+    
+    frameborder="0"
+    allowfullscreen
+    >
+  </iframe>
+</div>
+
+
+    <footer>
+    
+    </footer>
+
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.sm_popup > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+                document.body.classList.add('header-hidden');
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.popup_about > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.sm_popup_button_1').forEach(function(el){
+            el.addEventListener('click', function(){
+                var popup = document.querySelector('.popup_about');
+                if (popup) popup.style.display = 'block';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototypes for Alternative Power</title>
+
+    
+    <link rel="stylesheet" href="https://use.typekit.net/vjm3isi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+
+    
+
+<link rel="stylesheet" href="https://solarprotocol.net/prototypes-for-alternative-power/css/header.css">
+<link rel="stylesheet" href="https://solarprotocol.net/prototypes-for-alternative-power/css/artwork-detail.css">
+
+<style>
+  #artwork-container {
+        background: black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        #lecture {
+            position: fixed;
+            z-index: 10;
+            width: 300px;
+            height: 300px;
+            right: 15px;
+            bottom: 25px;
+            cursor: grab;
+            user-select: none;
+            filter: drop-shadow(0 0 50px rgba(100, 100, 100, 0.75));
+            opacity: 0;
+
+            &.dragging {
+                cursor: grabbing;
+            }
+
+            video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+                mask-image: radial-gradient(circle, black 55%, transparent 70%);
+                -webkit-mask-image: radial-gradient(circle, black 55%, transparent 70%);
+            }
+        }
+    }
+</style>
+
+
+    
+<script src="https://solarprotocol.net/prototypes-for-alternative-power/js/hls.min.js"></script>
+<script src="https://solarprotocol.net/prototypes-for-alternative-power/js/hls-init.js"></script>
+<script src="https://solarprotocol.net/prototypes-for-alternative-power/js/two-channel.js" defer></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7THCN4LG2F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7THCN4LG2F');
+    </script>
+</head>
+<body class="detail-page detail-ho-rui-an">
+    
+
+
+<a href="https://solarprotocol.net/prototypes-for-alternative-power/" class="home_button">☼</a>
+
+
+<header class="sm_popup">
+    <img src="https://solarprotocol.net/prototypes-for-alternative-power/basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close header">
+    <div class="col1 col">
+        <div class="sm_popup_title">DASH</div>
+        <div class="sm_popup_artist">Ho Rui An</div>
+        <div class="sm_popup_year">2016-18</div>
+        <div class="sm_popup_medium">Two-channel video (colour, sound)</div>
+        <div class="sm_popup_duration">55 min</div>
+        <div class="sm_popup_button sm_popup_button_1" role="button" tabindex="0" aria-label="About this artwork" >About</div>
+    </div>
+    <div class="col2 col">
+        
+        <a href="https://solarprotocol.net/prototypes-for-alternative-power/" class="sm_popup_button sm_popup_button_3">☼</a>
+        <div class="popup_detail"></div>
+    </div>
+</header>
+
+
+
+  
+
+
+<div class="popup popup_about">
+    <img src="https://solarprotocol.net/prototypes-for-alternative-power/basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close about popup">
+    <div class="popup_artist">Ho Rui An</div>
+    <div class="popup_title">DASH</div>
+    <div class="popup_year">2016-18</div>
+    <div class="popup_medium">Two-channel video (colour, sound)</div>
+    <div class="popup_duration">55 min</div>
+    <br>
+    <div class="popup_des"><br><em>DASH</em> begins with viral dashcam footage of the collision between a taxi and a Ferrari on the streets of Singapore. In an accompanying lecture, Ho treats the contemporary phenomenon of rewatching crash footage online as an entry point for understanding the broader logic of foresight. Repurposing film clips from <em>Star Trek</em>, an oil documentary by Shell, and others, Ho narrates the development of Singapore's Risk Assessment and Horizon Scanning Programme Office (RAHS). Situating Singapore as a critical node in global financial circuits and regional labour routes, Ho shifts attention from technosolutionist approaches to modelling crises toward the politics of anticipatory frameworks.</div>
+</div>
+
+
+<main id="artwork-container">
+    <video id="artwork-video" autoplay loop playsinline controls muted>
+      <source src="https://media.altpower.sg/ho-rui-an/DASH_Projection_2026-web-hls/playlist.m3u8" type="application/x-mpegURL">
+    </video>
+    <aside id="lecture">
+      <video id="lecture-video" autoplay loop playsinline>
+        <source src="https://media.altpower.sg/ho-rui-an/DASH_Performance_2026-web-hls/playlist.m3u8" type="application/x-mpegURL">
+      </video>
+    </aside>
+</main>
+
+<script>
+    initHls(document.getElementById('artwork-video'));
+    initHls(document.getElementById('lecture-video'));
+</script>
+
+<script>
+(function() {
+    const lecture = document.getElementById('lecture');
+    const lectureVideo = document.getElementById('lecture-video');
+    let isDragging = false;
+
+    // Fade timing constants (in seconds)
+    const FADE_IN_START = 66;      // 01:06
+    const FADE_IN_DURATION = 3;
+    const FADE_OUT_START = 3423;   // 57:03
+    const FADE_OUT_DURATION = 6;
+
+    // Handle lecture video fade in/out with smooth animation
+    function updateFade() {
+        const time = lectureVideo.currentTime;
+        let opacity = 0;
+
+        if (time < FADE_IN_START) {
+            opacity = 0;
+        } else if (time < FADE_IN_START + FADE_IN_DURATION) {
+            opacity = (time - FADE_IN_START) / FADE_IN_DURATION;
+        } else if (time < FADE_OUT_START) {
+            opacity = 1;
+        } else if (time < FADE_OUT_START + FADE_OUT_DURATION) {
+            opacity = 1 - (time - FADE_OUT_START) / FADE_OUT_DURATION;
+        }
+
+        lecture.style.opacity = opacity;
+        requestAnimationFrame(updateFade);
+    }
+    requestAnimationFrame(updateFade);
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+
+    // Set random initial position on load
+    function setRandomPosition() {
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const lectureWidth = lecture.offsetWidth;
+        const lectureHeight = lecture.offsetHeight;
+
+        // Calculate random position ensuring the element stays within viewport
+        const maxX = windowWidth - lectureWidth - 30;
+        const maxY = windowHeight - lectureHeight - 30;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        // Convert from absolute position to offset from default (right: 15px, bottom: 25px)
+        const defaultX = windowWidth - lectureWidth - 15;
+        const defaultY = windowHeight - lectureHeight - 25;
+
+        xOffset = randomX - defaultX;
+        yOffset = randomY - defaultY;
+        currentX = xOffset;
+        currentY = yOffset;
+
+        setTranslate(xOffset, yOffset, lecture);
+    }
+
+    setRandomPosition();
+
+    // Mouse events
+    lecture.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+
+    // Touch events
+    lecture.addEventListener('touchstart', dragStart, { passive: false });
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', dragEnd);
+
+    function getEventPosition(e) {
+        if (e.touches && e.touches.length > 0) {
+            return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+        return { x: e.clientX, y: e.clientY };
+    }
+
+    function dragStart(e) {
+        const pos = getEventPosition(e);
+        initialX = pos.x - xOffset;
+        initialY = pos.y - yOffset;
+
+        if (e.target === lecture || lecture.contains(e.target)) {
+            isDragging = true;
+            lecture.classList.add('dragging');
+        }
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+
+            const pos = getEventPosition(e);
+            currentX = pos.x - initialX;
+            currentY = pos.y - initialY;
+
+            xOffset = currentX;
+            yOffset = currentY;
+
+            setTranslate(currentX, currentY, lecture);
+        }
+    }
+
+    function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+        lecture.classList.remove('dragging');
+    }
+
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    }
+})();
+</script>
+
+
+    <footer>
+    
+    </footer>
+
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.sm_popup > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+                document.body.classList.add('header-hidden');
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.popup_about > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.sm_popup_button_1').forEach(function(el){
+            el.addEventListener('click', function(){
+                var popup = document.querySelector('.popup_about');
+                if (popup) popup.style.display = 'block';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

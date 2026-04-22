@@ -1,0 +1,635 @@
+:root {
+  /* Fonts */
+  --font-display: "dazzle-unicase", sans-serif;
+  --font-body: "Roboto", sans-serif;
+  --font-prose: "elza-text", sans-serif;
+
+  /* Z-index scale */
+  --z-base: 1;
+  --z-bar: 10;
+  --z-header: 100;
+  --z-arrow: 200;
+  --z-cursor: 300;
+  --z-sun: 400;
+  --z-moon: 500;
+  --z-sidetop: 600;
+  --z-info: 650;
+  --z-popup: 700;
+}
+body { touch-action: pan-y; }
+body,html{
+background-color: black;
+position: absolute;
+width: 100%;
+height: 100%;
+overflow: hidden;
+}
+/*Dazzle Unicase Light
+font-family: "dazzle-unicase", sans-serif;
+font-weight: 300;
+font-style: normal;
+Dazzle Unicase Bold*/
+*{
+margin: 0;
+box-sizing: border-box;
+font-family: var(--font-body);
+font-weight: 700;
+font-optical-sizing: auto;
+font-variation-settings: "wdth" 100;
+font-size: 2vh;
+}
+.wrap{
+position: absolute;
+top: 0;
+height: 100%;
+left: 50%;
+transform:translateX(-50%);
+}
+.wrap img{
+height: 100%;
+position: relative;
+left: 0;
+top: 0;
+/*opacity: 0.5*/
+}
+.side,.sideextra{
+position: absolute;
+left: 50%;
+top: 0;
+/* background: #ff00005e; */
+height: 21.6%;
+width: 12.5%;
+transform-origin: left top;
+overflow: hidden;
+background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/basic_img/plus.png);
+background-size: 10%;
+background-position: 50% 50%;
+background-repeat: no-repeat;
+}
+.sideextra_1{
+left: -12.25%;
+top: 10%;
+background-color: white;
+background-position: left center;
+/* z-index: 10000000000000; */
+transform: skewY(40deg);
+transform-origin: right}
+.sideextra_2{
+left: 99%;
+top: 10%;
+background-color: white;
+background-position: left center;
+/* z-index: 10000000000000; */
+transform: skewY(-40deg);
+transform-origin: left;}
+.sidebottom{    position: absolute;
+perspective: 100vh;
+left: 50%;
+top: 0;
+background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/basic_img/plus.png);
+background-size: 10%;
+background-position: 50% 35%;
+background-repeat: no-repeat;
+height: 21.6%;
+width: 12.5%;
+transform-origin: left top;
+overflow: visible;
+}
+.sidetop {
+position: absolute;
+left: 50%;
+top: 0;
+width: 12.5%;
+transform-origin: left top;
+height: 6vh;
+background-color: white;
+margin-top: -8vh;
+overflow: hidden;
+}
+.sidetop_hovered{
+z-index: var(--z-sidetop);
+box-shadow: 0vh 0vh 0vh 1vh red;
+}
+.sidebottom.side_1 .background_image_wrap{
+display: none;
+}
+.sidebottom.side_2 .background_image_wrap{
+display: none;
+}
+.sidebottom.side_3 .background_image_wrap{
+display: none;
+}
+.sidebottom.side_9 .background_image_wrap{
+display: none;
+}
+.sidebottom.side_10 .background_image_wrap{
+display: none;
+}
+.sidebottom.side_11 .background_image_wrap{
+display: none;
+}
+.side_1{
+left: 0.2%;
+top: 12%;
+transform: scaleX(0.17) skewY(35deg);
+}
+.side_2{
+left: 2.3%;
+top: 26.1%;
+transform: scaleX(0.46) skewY(33deg)
+}
+.side_3{
+left: 8.05%;
+top: 39.3%;
+transform: scaleX(0.735) skewY(28.6deg)
+}
+.side_4{
+left: 17.2%;
+top: 50.3%;
+transform: scaleX(0.95) skewY(21.2deg);
+}
+.side_5{
+left: 29.1%;
+top: 58.2%;
+transform: scaleX(1.08) skewY(11.8deg);
+}
+.side_6{
+left: 42.6%;
+top: 62.4%;
+transform: scaleX(1.125) skewY(0deg);
+}
+.side_7{
+left: 56.66%;
+top: 62.4%;
+transform: scaleX(1.08) skewY(-11.8deg)
+}
+.side_8{
+left: 70.18%;
+top: 58.2%;
+transform: scaleX(0.95) skewY(-21.2deg)
+}
+.side_9{
+left: 82.05%;
+top: 50.3%;
+transform: scaleX(0.735) skewY(-28.6deg)
+}
+.side_10{
+left: 91.25%;
+top: 39.2%;
+transform: scaleX(0.46) skewY(-33deg);
+}
+.side_11{
+left: 97%;
+top: 26%;
+transform: scaleX(0.17) skewY(-35deg);
+}
+.sidebottom.side_1{transform: scaleX(0.17) skewY(35deg) translateY(100%)}
+.sidebottom.side_2{transform: scaleX(0.46) skewY(33deg) translateY(100%)}
+.sidebottom.side_3{transform: scaleX(0.735) skewY(28.6deg) translateY(100%)}
+.sidebottom.side_4{transform: scaleX(0.95) skewY(21.2deg) translateY(100%)}
+.sidebottom.side_5{transform: scaleX(1.08) skewY(11.8deg) translateY(100%)}
+.sidebottom.side_6{transform: scaleX(1.125) skewY(0deg) translateY(100%)}
+.sidebottom.side_7{transform: scaleX(1.08) skewY(-11.8deg) translateY(100%)}
+.sidebottom.side_8{transform: scaleX(0.95) skewY(-21.2deg) translateY(100%)}
+.sidebottom.side_9{transform: scaleX(0.735) skewY(-28.6deg) translateY(100%)}
+.sidebottom.side_10{transform: scaleX(0.46) skewY(-33deg) translateY(100%)}
+.sidebottom.side_11{transform: scaleX(0.17) skewY(-35deg) translateY(100%)}
+.side_1 .artistname_wrap,
+.side_2 .artistname_wrap,
+.side_3 .artistname_wrap,
+.side_4 .artistname_wrap,
+.side_5 .artistname_wrap{
+box-shadow: black -100vw 0vh 0vh 100vw;
+}
+.side_7 .artistname_wrap,
+.side_8 .artistname_wrap,
+.side_9 .artistname_wrap,
+.side_10 .artistname_wrap,
+.side_11 .artistname_wrap{
+box-shadow: black 100vw 0vh 0vh 100vw;
+}
+.side_1 .artistname_wrap { margin-left: 0%; }
+.side_2 .artistname_wrap { margin-left: -100%; }
+.side_3 .artistname_wrap { margin-left: -200%; }
+.side_4 .artistname_wrap { margin-left: -300%; }
+.side_5 .artistname_wrap { margin-left: -400%; }
+.side_6 .artistname_wrap { margin-left: -500%; }
+.side_7 .artistname_wrap { margin-left: -600%; }
+.side_8 .artistname_wrap { margin-left: -700%; }
+.side_9 .artistname_wrap { margin-left: -800%; }
+.side_10 .artistname_wrap { margin-left: -900%; }
+.side_11 .artistname_wrap { margin-left: -1000%; }
+
+.side_1 .background_image_wrap { margin-left: 0%; }
+.side_2 .background_image_wrap { margin-left: -100%; }
+.side_3 .background_image_wrap { margin-left: -200%; }
+.side_4 .background_image_wrap { margin-left: -300%; }
+.side_5 .background_image_wrap { margin-left: -400%; }
+.side_6 .background_image_wrap { margin-left: -500%; }
+.side_7 .background_image_wrap { margin-left: -600%; }
+.side_8 .background_image_wrap { margin-left: -700%; }
+.side_9 .background_image_wrap { margin-left: -800%; }
+.side_10 .background_image_wrap { margin-left: -900%; }
+.side_11 .background_image_wrap { margin-left: -1000%; }
+
+.background_image{
+width: 100%;
+height: 100%;
+position: absolute;
+left: 0;
+top: 0;
+background-size: cover;
+background-position: center;
+}
+
+.background_image_wrap_1{ left: 0%}
+.background_image_wrap_2{ left: 100%}
+.background_image_wrap_3{ left: 200%}
+.background_image_wrap_4{ left: 300%}
+.background_image_wrap_5{ left: 400%}
+.background_image_wrap_6{ left: 500%}
+.background_image_wrap_7{ left: 600%}
+.background_image_wrap_8{ left: 700%}
+.background_image_wrap_9{ left: 800%}
+.background_image_wrap_10{ left: 900%}
+.background_image_wrap_11{ left: 1000%}
+.background_image_wrap_12{ left: 1100%}
+.background_image_wrap_13{ left: 1200%}
+.background_image_wrap_14{ left: 1300%}
+
+
+
+.background_image_rimbawan-gerilya{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/gerilya_rimbawan.jpg);}
+
+.background_image_american-artist{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/artist_american.jpg);}
+
+.background_image_ryan-kuo{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/kuo_ryan.jpg);}
+
+.background_image_or-zubalsky{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/zubalsky_or.jpg);}
+
+.background_image_ryan-clarke{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/clarke_ryan.jpg);}
+
+.background_image_morakana{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/morakana.jpg);}
+
+.background_image_jen-liu{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/liu_jen.jpg);}
+
+.background_image_alice-yuan-zhang{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/zhang_alice-yuan.jpg);}
+
+.background_image_herdimas-anggara{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/anggara_herdimas.jpg);}
+
+.background_image_chia-amisola{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/amisola_chia.jpg);}
+
+.background_image_ho-rui-an{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/ho_rui-an.jpg);}
+
+.background_image_bani-haykal{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/haykal_bani.jpg);}
+
+.background_image_samson-young{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/young_samson.jpg);}
+
+.background_image_solar-protocol{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/earth.gif);}
+
+
+.bar{
+background: transparent;
+width : 5%;
+height: 100%;
+display : inline-block;
+float:left;
+position: relative;
+z-index: 10;
+bottom: 0;
+top: auto;
+transition: opacity 0.5s;
+/*opacity: 0*/
+}
+.bar_wrap{
+pointer-events: none;
+}
+.sidebottom .bar_wrap{
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+}
+.side .background_image_wrap{
+/*padding-right: 850%;*/
+position: relative;
+}
+.side .background_image_wrap,
+.sidebottom .background_image_wrap{
+opacity: 0.3;
+}
+.turnOn .side .background_image_wrap,
+.turnOn .sidebottom .background_image_wrap{
+transition: opacity 1s transform 0.5s;
+opacity: 1;
+}
+.turnOn .side_1 .background_image_wrap{opacity: 0.2}
+.turnOn .side_2 .background_image_wrap{opacity: 0.4}
+.turnOn .side_3 .background_image_wrap{opacity: 0.6}
+.turnOn .side_4 .background_image_wrap{opacity: 0.8}
+.turnOn .side_8 .background_image_wrap{opacity: 0.8}
+.turnOn .side_9 .background_image_wrap{opacity: 0.6}
+.turnOn .side_10 .background_image_wrap{opacity: 0.4}
+.turnOn .side_11 .background_image_wrap{opacity: 0.2}
+.turnOn .sidebottom.side_4 .background_image_wrap{opacity: 0.3}
+.turnOn .sidebottom.side_5 .background_image_wrap{opacity: 0.6}
+.turnOn .sidebottom.side_7 .background_image_wrap{opacity: 0.6}
+.turnOn .sidebottom.side_8 .background_image_wrap{opacity: 0.3}
+.bar_init{
+height: 100%;
+width: 7.1428%;
+}
+.artistname_wrap,.background_image_wrap{
+transition: transform 0.5s;
+width: 1400%;
+height: 100%;
+position: relative;
+}
+.artistname{
+float: left;
+width: 7.1428%;
+height: 100%;
+text-align: center;
+line-height: 1;
+background-color: white;
+cursor: pointer;
+}
+.title{
+font-size: 7vw;
+line-height: 1;
+width: 100%;
+text-align: center;
+color: white;
+position: absolute;
+left: 0;
+top:0;
+z-index: 1;
+text-transform: uppercase;
+font-family: var(--font-display);
+font-weight: 700;
+font-style: italic;
+}
+.info_bar{
+position: absolute;
+z-index: var(--z-info);
+left: 49.5%;
+transform: translateX(-50%);
+background-color: white;
+/* height: 54%; */
+/* padding-top: 15vw; */
+text-align: center;
+font-size: 1.5vh;
+/* mix-blend-mode: difference; */
+width: 52.7vh;
+margin-top: 16.5vw;
+}
+.oval_following{
+left: 100%;
+top: 100%;
+position: absolute;
+background-color: white;
+mix-blend-mode: difference;
+width: 30vh;
+opacity: 0;
+transition: opacity 250ms;
+}
+
+.oval_following, .oval_following *{
+font-size: 1.5vh;
+line-height: 1.2;
+}
+
+.turnOn .oval_following{
+opacity: 0;
+}
+.ovalDiv_img.sp-loaded:hover .oval_following{
+opacity: 1;
+}
+.oval_following *{
+font-size: 1.5vh;}
+.info_bar *{
+font-size: 1.5vh !important;
+}
+.popup{
+z-index: var(--z-popup);
+position: absolute;
+background: white;
+width: 100vh;
+max-width: 95vw;
+left: 50%;
+transform: translateX(-50%);
+top: 2.5vh;
+padding: 1vh;
+height: 95vh;
+overflow-y: scroll;
+border: 1px solid black;
+display: none;
+font-family: var(--font-prose);
+font-weight: 400;
+font-style: normal;
+font-size: 2.5vh;
+letter-spacing: -0.025vh;
+}
+.popup .close{
+filter: invert(0);
+}
+.popup .popup_des{
+font-weight: 400;
+font-style: normal;
+font-size: 2.5vh;
+letter-spacing: -0.025vh;
+line-height: 1.25;
+
+h1 {
+  font-size: 2.75vh
+  }
+}
+.arrow{
+position: absolute;
+z-index: var(--z-arrow);
+height: 10vh;
+top: 20vh;
+filter: invert(1);}
+.arrow:hover{
+filter: invert(0);
+}
+.artistname:hover{
+filter: invert(1);
+}
+.background_image_wrap:hover{
+filter: invert(1);
+}
+.arrow_r{
+right: 0;}
+.arrow_l{
+    transform: scaleX(-1);
+left: 0;
+
+}
+.close{
+position: absolute;
+right: 0;
+top: 0;
+left: auto;
+width: 5vh;
+top: 1vh;
+right: 1vh;
+cursor: pointer;
+}
+.close:hover{
+filter: invert(1);
+}
+.popup_title{
+font-size: 5vh;
+text-align: center;
+line-height: 1.2;
+width: 100%;}
+.popup_artist{
+    text-align: center;
+}
+.popup_img{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+}
+.work_link{
+padding: 1vh;
+border: 1px solid black;
+border-radius: 10px;
+left: 50%;
+position: relative;
+/* width: 5vh; */
+display: inline-block;
+transform: translateX(-50%);
+background-color: white;
+margin: 1vh;}
+.popup_des{
+  font-family: var(--font-prose);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2.5vh;
+  letter-spacing: -0.025vh;
+
+  p {
+    margin: revert;
+  }
+  h2,h4 {
+    font-weight: revert;
+  }
+}
+
+.ovalDiv {
+    background-color: white;
+    pointer-events: none;
+mix-blend-mode: exclusion;
+  box-shadow:0vh 0vh 7.5vh white;
+    transition: 1s box-shadow;
+    box-shadow: 0vh 0vh 15vh 15vh white, 0vh 0vh 0vh 100vw #3d3d3d00;
+}
+.ovalDiv_img,.ovalDiv {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: var(--z-cursor);
+  opacity: 0;
+  transition: opacity 250ms;
+  }
+.ovalDiv_img.sp-loaded,.ovalDiv.sp-loaded {
+  opacity: 1;
+  }
+.ovalDiv_img{
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+ .ovalDiv.shadow{
+transition: 0s box-shadow;
+box-shadow: 0vh 0vh 15vh 15vh white, 0vh 0vh 0vh 100vw #3d3d3d;
+transition: opacity 1s;
+filter: invert(1);
+}
+.turnOn .ovalDiv.shadow{
+opacity: 0;
+}
+.ovalDiv_sun_img{
+z-index: var(--z-sun);
+  background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/basic_img/sun.png);
+}
+.ovalDiv_moon_img{
+z-index: var(--z-moon);
+  background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/basic_img/moon.png);
+}
+.perspective_wrap{
+width: 100%;
+height: 100%;
+left: 0;
+position: absolute;
+top: 0;
+transform-origin: left top;
+overflow: hidden;}
+.sidebottom.side_9 .perspective_wrap{
+transform-origin: left top;
+/*background: #339981;*/
+transform: rotateX(-30deg) skewX(-24.5deg) scaleY(0.76);
+}
+.sidebottom.side_8 .perspective_wrap{
+transform: rotateX(-36deg) skewX(-12deg) scaleY(0.92);
+}
+.sidebottom.side_7 .perspective_wrap{
+transform: rotateX(-29deg) skewX(-5deg) scaleY(0.88);
+}
+.sidebottom.side_6 .perspective_wrap{
+transform-origin: center top;
+/*background: #339981;*/
+transform: rotateX(-20deg) scaleY(0.81);
+}
+.sidebottom.side_5 .perspective_wrap{
+transform: rotateX(-29deg) skewX(5deg) scaleY(0.88);
+transform-origin: right top;
+}
+.sidebottom.side_4 .perspective_wrap{
+transform: rotateX(-36deg) skewX(12deg) scaleY(0.92);
+transform-origin: right top;
+}
+
+#ovalRoute{
+position: absolute;
+transform: translate(-50%, -50%);
+border: 1px solid white;
+z-index: 1;
+border-radius: 50% 50%;
+pointer-events: none;
+}
+.bar_wrap{
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;}
+.mobile #ovalRoute,
+.mobile .oval_following{
+display: none;
+}
+.mobile.turnOn .side .background_image_wrap,
+.mobile.turnOn .sidebottom .background_image_wrap{
+transition: opacity 0s transform 0s !important;
+opacity: 1;
+}
+.mobile.turnOn .ovalDiv.shadow{
+display: none;
+}
+
+.mobile .arrow {
+height: 6vh;
+}
+@media (max-aspect-ratio: 1/1) {
+.wrap,.wrap img {
+    width: 130%;
+    transform: translateX(-50%);
+    left: 50%;
+}
+}

@@ -63,7 +63,7 @@
             const otherTimeDisplay = otherFigure.querySelector('.time-display');
             if (otherButton) {
               const otherImg = otherButton.querySelector('img');
-              otherImg.src = '../basic_img/play.svg';
+              otherImg.src = 'https://solarprotocol.net/prototypes-for-alternative-power/basic_img/play.svg';
               otherImg.alt = 'Play';
             }
             if (otherTimeDisplay) {
@@ -75,17 +75,17 @@
 
         audio.play().catch(function(e) { console.warn('Audio play failed:', e); });
         playedFiles.add(audio); // Mark this audio as played
-        img.src = '../basic_img/pause.svg';
+        img.src = 'https://solarprotocol.net/prototypes-for-alternative-power/basic_img/pause.svg';
         img.alt = 'Pause';
 
         audio.addEventListener('ended', () => {
-          img.src = '../basic_img/play.svg';
+          img.src = 'https://solarprotocol.net/prototypes-for-alternative-power/basic_img/play.svg';
           img.alt = 'Play';
           updateTimeDisplay(audio, timeDisplay, true);
         }, { once: true });
       } else {
         audio.pause();
-        img.src = '../basic_img/play.svg';
+        img.src = 'https://solarprotocol.net/prototypes-for-alternative-power/basic_img/play.svg';
         img.alt = 'Play';
         // Keep elapsed time visible since file has been played
         updateTimeDisplay(audio, timeDisplay, true);

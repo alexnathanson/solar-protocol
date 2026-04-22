@@ -61,7 +61,7 @@ height: 21.6%;
 width: 12.5%;
 transform-origin: left top;
 overflow: hidden;
-background-image: url(../basic_img/plus.png);
+background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/basic_img/plus.png);
 background-size: 10%;
 background-position: 50% 50%;
 background-repeat: no-repeat;
@@ -86,7 +86,7 @@ transform-origin: left;}
 perspective: 100vh;
 left: 50%;
 top: 0;
-background-image: url(../basic_img/plus.png);
+background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/basic_img/plus.png);
 background-size: 10%;
 background-position: 50% 35%;
 background-repeat: no-repeat;
@@ -259,33 +259,33 @@ background-position: center;
 
 
 
-.background_image_rimbawan-gerilya{ background-image: url(../artwork_img/gerilya_rimbawan.jpg);}
+.background_image_rimbawan-gerilya{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/gerilya_rimbawan.jpg);}
 
-.background_image_american-artist{ background-image: url(../artwork_img/artist_american.jpg);}
+.background_image_american-artist{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/artist_american.jpg);}
 
-.background_image_ryan-kuo{ background-image: url(../artwork_img/kuo_ryan.jpg);}
+.background_image_ryan-kuo{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/kuo_ryan.jpg);}
 
-.background_image_or-zubalsky{ background-image: url(../artwork_img/zubalsky_or.jpg);}
+.background_image_or-zubalsky{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/zubalsky_or.jpg);}
 
-.background_image_ryan-clarke{ background-image: url(../artwork_img/clarke_ryan.jpg);}
+.background_image_ryan-clarke{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/clarke_ryan.jpg);}
 
-.background_image_morakana{ background-image: url(../artwork_img/morakana.jpg);}
+.background_image_morakana{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/morakana.jpg);}
 
-.background_image_jen-liu{ background-image: url(../artwork_img/liu_jen.jpg);}
+.background_image_jen-liu{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/liu_jen.jpg);}
 
-.background_image_alice-yuan-zhang{ background-image: url(../artwork_img/zhang_alice-yuan.jpg);}
+.background_image_alice-yuan-zhang{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/zhang_alice-yuan.jpg);}
 
-.background_image_herdimas-anggara{ background-image: url(../artwork_img/anggara_herdimas.jpg);}
+.background_image_herdimas-anggara{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/anggara_herdimas.jpg);}
 
-.background_image_chia-amisola{ background-image: url(../artwork_img/amisola_chia.jpg);}
+.background_image_chia-amisola{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/amisola_chia.jpg);}
 
-.background_image_ho-rui-an{ background-image: url(../artwork_img/ho_rui-an.jpg);}
+.background_image_ho-rui-an{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/ho_rui-an.jpg);}
 
-.background_image_bani-haykal{ background-image: url(../artwork_img/haykal_bani.jpg);}
+.background_image_bani-haykal{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/haykal_bani.jpg);}
 
-.background_image_samson-young{ background-image: url(../artwork_img/young_samson.jpg);}
+.background_image_samson-young{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/young_samson.jpg);}
 
-.background_image_solar-protocol{ background-image: url(../artwork_img/earth.gif);}
+.background_image_solar-protocol{ background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/artwork_img/earth.gif);}
 
 
 .bar{
@@ -440,6 +440,10 @@ font-style: normal;
 font-size: 2.5vh;
 letter-spacing: -0.025vh;
 line-height: 1.25;
+
+h1 {
+  font-size: 2.75vh
+  }
 }
 .arrow{
 position: absolute;
@@ -553,11 +557,11 @@ opacity: 0;
 }
 .ovalDiv_sun_img{
 z-index: var(--z-sun);
-  background-image: url(../basic_img/sun.png);
+  background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/basic_img/sun.png);
 }
 .ovalDiv_moon_img{
 z-index: var(--z-moon);
-  background-image: url(../basic_img/moon.png);
+  background-image: url(https://solarprotocol.net/prototypes-for-alternative-power/basic_img/moon.png);
 }
 .perspective_wrap{
 width: 100%;

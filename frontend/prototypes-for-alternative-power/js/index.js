@@ -428,133 +428,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+var artworkSlugs = ['rimbawan-gerilya','american-artist','ryan-kuo','or-zubalsky','ryan-clarke','morakana','jen-liu','alice-yuan-zhang','herdimas-anggara','chia-amisola','ho-rui-an','bani-haykal','samson-young','solar-protocol'];
 
-  (function(){
-    var els = document.querySelectorAll('.side_1 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Rimbawan Gerilya');
-      el.addEventListener('click', function() { window.location.href = 'detail/rimbawan-gerilya.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_2 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'American Artist');
-      el.addEventListener('click', function() { window.location.href = 'detail/american-artist.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_3 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Ryan Kuo');
-      el.addEventListener('click', function() { window.location.href = 'detail/ryan-kuo.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_4 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Or Zubalsky');
-      el.addEventListener('click', function() { window.location.href = 'detail/or-zubalsky.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_5 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Ryan Clarke');
-      el.addEventListener('click', function() { window.location.href = 'detail/ryan-clarke.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_6 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'MORAKANA');
-      el.addEventListener('click', function() { window.location.href = 'detail/morakana.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_7 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Jen Liu');
-      el.addEventListener('click', function() { window.location.href = 'detail/jen-liu.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_8 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Alice Yuan Zhang');
-      el.addEventListener('click', function() { window.location.href = 'detail/alice-yuan-zhang.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_9 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Herdimas Anggara');
-      el.addEventListener('click', function() { window.location.href = 'detail/herdimas-anggara.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_10 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Chia Amisola');
-      el.addEventListener('click', function() { window.location.href = 'detail/chia-amisola.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_11 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Ho Rui An');
-      el.addEventListener('click', function() { window.location.href = 'detail/ho-rui-an.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_12 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Bani Haykal');
-      el.addEventListener('click', function() { window.location.href = 'detail/bani-haykal.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_13 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Samson Young');
-      el.addEventListener('click', function() { window.location.href = 'detail/samson-young.html'; });
-    });
-  })();
-
-  (function(){
-    var els = document.querySelectorAll('.side_14 .background_image_wrap');
-    els.forEach(function(el){
-      el.setAttribute('role', 'link');
-      el.setAttribute('aria-label', 'Solar Protocol');
-      el.addEventListener('click', function() { window.location.href = 'detail/solar-protocol.html'; });
-    });
-  })();
-
+  for (var _si = 1; _si <= 11; _si++) {
+    (function(si) {
+      var els = document.querySelectorAll('.side_' + si + ' .background_image_wrap');
+      els.forEach(function(el) {
+        el.setAttribute('role', 'link');
+        el.addEventListener('click', function() {
+          var idx = si - scroll_counter - 1;
+          if (idx >= 0 && idx < artworkSlugs.length) {
+            window.location.href = 'detail/' + artworkSlugs[idx] + '.html';
+          }
+        });
+      });
+    })(_si);
+  }
 
 
   (function(){

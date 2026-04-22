@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototypes for Alternative Power</title>
+
+    
+    <link rel="stylesheet" href="https://use.typekit.net/vjm3isi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+
+    
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/artwork-detail.css">
+
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7THCN4LG2F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7THCN4LG2F');
+    </script>
+</head>
+<body class="detail-page detail-rimbawan-gerilya">
+    
+
+<a href="../" class="home_button">☼</a>
+
+
+<header class="sm_popup">
+    <img src="../basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close header">
+    <div class="col1 col">
+        <div class="sm_popup_title">What Little Control Remains Has Been Taken Away</div>
+        <div class="sm_popup_artist">Rimbawan Gerilya</div>
+        <div class="sm_popup_year">2025</div>
+        <div class="sm_popup_medium">Single-channel video (colour, sound)</div>
+        <div class="sm_popup_duration">3:37 min</div>
+        <div class="sm_popup_button sm_popup_button_1" role="button" tabindex="0" aria-label="About this artwork" >About</div>
+    </div>
+    <div class="col2 col">
+        
+        <a href="../" class="sm_popup_button sm_popup_button_3">☼</a>
+        <div class="popup_detail"></div>
+    </div>
+</header>
+
+
+
+  
+    
+<!--<script src="/js/controls.js" defer></script>-->
+
+<script src="../js/hls.min.js"></script>
+<script src="../js/hls-init.js"></script>
+
+
+
+<div id="artwork-container" class="media-container media-video">
+  <video id="artwork-video" controls autoplay playsinline>
+    
+    <source src="https://media.altpower.sg/rimbawan-gerilya/rimbawan-gerilya_What-Little-Control-hls/playlist.m3u8" type="application/x-mpegURL">
+    
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+
+<script>
+  initHls(document.getElementById('artwork-video'));
+</script>
+
+
+  
+
+
+<div class="popup popup_about">
+    <img src="../basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close about popup">
+    <div class="popup_artist">Rimbawan Gerilya</div>
+    <div class="popup_title">What Little Control Remains Has Been Taken Away</div>
+    <div class="popup_year">2025</div>
+    <div class="popup_medium">Single-channel video (colour, sound)</div>
+    <div class="popup_duration">3:37 min</div>
+    <br>
+    <div class="popup_des"><br>This video poem is a portrait of Bakat, a participant in Jakarta's DIY drone racing community. Shot from a first-person view (FPV) drone, the video footage is intentionally shaky with glitched images and frequent collisions, reflecting the precarious conditions of working-class life in Jakarta and other Southeast Asian cities. Chaotic shots of Bakat's home, neighbourhood, and the park where the community organised drone races are interrupted by static shots of Bakat draped in red fabric, like a contemplative monk, and enjoying personal hobbies such as singing live on TikTok. These fleeting moments of self-agency and controlled flight provide glimpses of freedom in the face of an oppressive prevailing social order.</div>
+</div>
+
+
+    <footer>
+    
+    </footer>
+
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.sm_popup > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+                document.body.classList.add('header-hidden');
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.popup_about > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.sm_popup_button_1').forEach(function(el){
+            el.addEventListener('click', function(){
+                var popup = document.querySelector('.popup_about');
+                if (popup) popup.style.display = 'block';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

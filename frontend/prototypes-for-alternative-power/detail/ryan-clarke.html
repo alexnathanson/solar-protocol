@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototypes for Alternative Power</title>
+
+    
+    <link rel="stylesheet" href="https://use.typekit.net/vjm3isi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+
+    
+
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/artwork-detail.css">
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #artwork-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    overflow: hidden;
+  }
+
+  #artwork-container video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  footer {
+    position: relative;
+    height: 150px;
+    background: black;
+  }
+
+  #x-fader {
+    position: absolute;
+    bottom: 50px;
+    left: 12%;
+    right: 12%;
+    z-index: 1000;
+  }
+
+  #x-fader .container {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    column-gap: 15px;
+    align-items: center;
+  }
+
+  #x-fader input {
+    width: 100%;
+  }
+
+  #x-fader img {
+    width: 25px;
+  }
+
+  #x-fader #markers {
+    position: absolute;
+    width: calc(100% - 80px);
+    margin-left: 40px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  #x-fader #markers .marker {
+    position: relative;
+    height: 100%;
+    width: 1px;
+    opacity: .8;
+  }
+
+  #x-fader #markers .marker:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 28px;
+    background-color: white;
+  }
+
+  #x-fader #markers .marker:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 28px;
+    background-color: white;
+  }
+
+  #x-fader #markers .marker:first-child,
+  #x-fader #markers .marker:last-child {
+    width: 0;
+  }
+
+  #x-fader #markers .marker:nth-child(11n) {
+    width: 2px;
+    opacity: 1;
+  }
+</style>
+
+
+    
+<script src="../js/hls.min.js"></script>
+<script src="../js/hls-init.js"></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7THCN4LG2F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7THCN4LG2F');
+    </script>
+</head>
+<body class="detail-page detail-ryan-clarke">
+    
+
+
+<a href="../" class="home_button">☼</a>
+
+
+<header class="sm_popup">
+    <img src="../basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close header">
+    <div class="col1 col">
+        <div class="sm_popup_title">Shirley Sound</div>
+        <div class="sm_popup_artist">Ryan Clarke</div>
+        <div class="sm_popup_year">2021</div>
+        <div class="sm_popup_medium">Single-channel video, two-channel audio, custom interface</div>
+        
+        <div class="sm_popup_button sm_popup_button_1" role="button" tabindex="0" aria-label="About this artwork" >About</div>
+    </div>
+    <div class="col2 col">
+        
+        <a href="../" class="sm_popup_button sm_popup_button_3">☼</a>
+        <div class="popup_detail"></div>
+    </div>
+</header>
+
+
+
+  
+
+
+<div class="popup popup_about">
+    <img src="../basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close about popup">
+    <div class="popup_artist">Ryan Clarke</div>
+    <div class="popup_title">Shirley Sound</div>
+    <div class="popup_year">2021</div>
+    <div class="popup_medium">Single-channel video, two-channel audio, custom interface</div>
+    
+    <br>
+    <div class="popup_des"><br>Kodak’s Shirley card used a portrait of a white woman to calibrate colour film printing from the 1940s to the 1990s. This supposedly neutral benchmark introduced a non-neutral standardisation bias, resulting in poor exposure for darker skin tones. The MPEG-1 Audio Layer III (MP3) codec, developed by German audio engineers using a Swedish state radio archive as its primary source, compresses sound according to a similarly biased standard.<br><br><em>Shirley Sound</em> is Clarke’s reflection on what is lost in Black sound during digital compression. The video features prolific Black musicians such as Alice Coltrane and Milford Graves, collaged with viral videos and other materials personally significant to the artist. Using a simple crossfader, a common tool in music production, listeners hear two audio channels. The first features uncompressed sound, while the second highlights the part of the audio that is lost when the sound is compressed using the MP3 codec. Produced using the acoustic methodology of the late Ryan Patrick McGuire, Ph.D., the latter channel allows the listener to hear what the MP3 erases.</div>
+</div>
+
+
+<div id="artwork-container" class="media-container media-video">
+  <video id="artwork-video" controls loop playsinline muted>
+    <source src="https://media.altpower.sg/ryan-clarke/ryan-clarke_mp3-compressed-final-web-hls/playlist.m3u8" type="application/x-mpegURL">
+  </video>
+  <audio id="uncompressed-audio" loop crossorigin="anonymous"></audio>
+  <audio id="compressed-audio" loop crossorigin="anonymous"></audio>
+</div>
+
+
+    <footer>
+    
+<div id="x-fader">
+  <div class="container">
+    <img src="../basic_img/fader-A.svg" alt="Channel A">
+    <input type="range" id="x-fader-range" min="0" max="100" value="0">
+    <div id="markers"></div>
+    <img src="../basic_img/fader-B.svg" alt="Channel B">
+  </div>
+</div>
+
+    </footer>
+
+    
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.sm_popup > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+                document.body.classList.add('header-hidden');
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.popup_about > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.sm_popup_button_1').forEach(function(el){
+            el.addEventListener('click', function(){
+                var popup = document.querySelector('.popup_about');
+                if (popup) popup.style.display = 'block';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+    });
+</script>
+
+<script>
+(function() {
+  var video = document.getElementById('artwork-video');
+  var uncomp = document.getElementById('uncompressed-audio');
+  var comp = document.getElementById('compressed-audio');
+
+  if (!video || !uncomp || !comp) return;
+
+  var R2 = 'https://media.altpower.sg/ryan-clarke/';
+  var source = video.querySelector('source');
+  if (!source) return;
+  var videoSrc = source.src;
+
+  // Video always uses the same source
+  initHls(videoSrc, video);
+
+  // Try FLAC first, fall back to AAC
+  var flacUncomp = `${R2}mp3-uncompressed-audio-hls/playlist.m3u8`;
+  var flacComp = `${R2}mp3-compressed-audio-hls/playlist.m3u8`;
+  var aacUncomp = `${R2}mp3-uncompressed-audio-hls-aac/playlist.m3u8`;
+  var aacComp = `${R2}mp3-compressed-audio-hls-aac/playlist.m3u8`;
+
+  Promise.all([
+    initHls(flacUncomp, uncomp),
+    initHls(flacComp, comp)
+  ]).then(function() {
+    console.debug('Audio: using FLAC (lossless)');
+  }).catch(function() {
+    console.debug('Audio: FLAC failed, falling back to AAC');
+    initHls(aacUncomp, uncomp);
+    initHls(aacComp, comp);
+  });
+})();
+</script>
+
+<script>
+(function() {
+  // Create markers for the x-fader
+  const markers = document.getElementById('markers');
+  for (let i = 0; i <= 100; i += 5) {
+    const marker = document.createElement('div');
+    marker.className = 'marker';
+    markers.appendChild(marker);
+  }
+
+  // X-Fader functionality
+  const uncomp = document.querySelector('#uncompressed-audio');
+  const comp = document.querySelector('#compressed-audio');
+  const xFader = document.querySelector('#x-fader-range');
+  const video = document.querySelector('#artwork-video');
+
+  // Use Web Audio API GainNodes for volume control
+  // iOS ignores HTMLAudioElement.volume — only hardware buttons work
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const uncompSource = audioCtx.createMediaElementSource(uncomp);
+  const compSource = audioCtx.createMediaElementSource(comp);
+  const uncompGain = audioCtx.createGain();
+  const compGain = audioCtx.createGain();
+  uncompSource.connect(uncompGain).connect(audioCtx.destination);
+  compSource.connect(compGain).connect(audioCtx.destination);
+
+  // Resume AudioContext on first user interaction (required by browsers)
+  function resumeAudioCtx() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+  }
+  document.addEventListener('click', resumeAudioCtx, { once: true });
+  xFader.addEventListener('input', resumeAudioCtx, { once: true });
+
+  function updateFader() {
+    const value = xFader.value / 100;
+    uncompGain.gain.value = 1 - value;
+    compGain.gain.value = value;
+  }
+
+  xFader.addEventListener('input', updateFader);
+  xFader.addEventListener('change', updateFader);
+
+  // Sync audio with video playback
+  // On seek: pause all, set times, wait for all three to be ready, then resume
+  let wasPlaying = false;
+
+  video.addEventListener('seeking', () => {
+    wasPlaying = !video.paused;
+    if (wasPlaying) video.pause();
+    uncomp.pause();
+    comp.pause();
+    uncomp.currentTime = video.currentTime;
+    comp.currentTime = video.currentTime;
+  });
+
+  video.addEventListener('seeked', () => {
+    if (!wasPlaying) return;
+
+    let videoReady = video.readyState >= 3;
+    let uncompReady = uncomp.readyState >= 3;
+    let compReady = comp.readyState >= 3;
+
+    function tryResume() {
+      if (videoReady && uncompReady && compReady) {
+        video.play().catch(e => console.error('Video play error:', e));
+        uncomp.play().catch(e => console.error('Uncomp play error:', e));
+        comp.play().catch(e => console.error('Comp play error:', e));
+      }
+    }
+
+    function onCanPlay(el, flag) {
+      if (flag) return;
+      el.addEventListener('canplay', () => {
+        if (el === video) videoReady = true;
+        else if (el === uncomp) uncompReady = true;
+        else compReady = true;
+        tryResume();
+      }, { once: true });
+    }
+
+    onCanPlay(video, videoReady);
+    onCanPlay(uncomp, uncompReady);
+    onCanPlay(comp, compReady);
+    tryResume();
+  });
+
+  video.addEventListener('play', () => {
+    uncomp.currentTime = video.currentTime;
+    comp.currentTime = video.currentTime;
+    uncomp.play().catch(e => console.error('Uncomp play error:', e));
+    comp.play().catch(e => console.error('Comp play error:', e));
+  });
+
+  video.addEventListener('pause', () => {
+    uncomp.pause();
+    comp.pause();
+  });
+
+  // Drift correction during playback
+  let lastSync = 0;
+  const DRIFT_THRESHOLD = 0.25;
+
+  video.addEventListener('timeupdate', () => {
+    const now = Date.now();
+    if (now - lastSync < 300) return;
+    if (Math.abs(uncomp.currentTime - video.currentTime) > DRIFT_THRESHOLD) {
+      uncomp.currentTime = video.currentTime;
+      lastSync = now;
+    }
+    if (Math.abs(comp.currentTime - video.currentTime) > DRIFT_THRESHOLD) {
+      comp.currentTime = video.currentTime;
+      lastSync = now;
+    }
+  });
+
+  // Set initial volume based on fader position
+  updateFader();
+})();
+</script>
+
+</body>
+</html>

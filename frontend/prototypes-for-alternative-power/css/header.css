@@ -1,0 +1,71 @@
+.sm_popup{
+    z-index: 100;
+    position: relative;
+    background: black;
+    width: 100%;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid black;
+}
+.col {
+  display: flex;
+  justify-content: space-around;
+  gap: 50px;
+}
+
+
+.col1 *{
+color: white;
+}
+.col1 {
+    width: 250%;
+}
+.col2{
+    width: 75%;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+	background-color: white;
+}
+.sm_popup_button_1{
+	color: white;
+	margin-right: 20px;
+}
+.sm_popup_button_1:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+.sm_popup_button_3{
+    font-size: max(2.6vh, 12px);
+    line-height: 0.8;
+    position: absolute;
+    right: 5vh;
+}
+.popup_button{
+    /* float: left; */
+    border: 1px solid #00000038;
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: wheat;
+}
+.popup_button:hover{
+    filter: invert(1);
+}
+.popup_button_wrap{
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+/* When the screen (or container) becomes too narrow */
+@media (max-width: 600px) {
+  .col {
+    display: block;
+  }
+  .sm_popup div{
+    float: none;
+  }
+}

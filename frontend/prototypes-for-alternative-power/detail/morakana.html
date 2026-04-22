@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototypes for Alternative Power</title>
+
+    
+    <link rel="stylesheet" href="https://use.typekit.net/vjm3isi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+
+    
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/artwork-detail.css">
+
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7THCN4LG2F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7THCN4LG2F');
+    </script>
+</head>
+<body class="detail-page detail-morakana">
+    
+
+<a href="../" class="home_button">☼</a>
+
+
+<header class="sm_popup">
+    <img src="../basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close header">
+    <div class="col1 col">
+        <div class="sm_popup_title">Cumulus</div>
+        <div class="sm_popup_artist">MORAKANA</div>
+        <div class="sm_popup_year">2025</div>
+        <div class="sm_popup_medium">Website</div>
+        
+        <div class="sm_popup_button sm_popup_button_1" role="button" tabindex="0" aria-label="About this artwork" >About</div>
+    </div>
+    <div class="col2 col">
+        
+        <a href="../" class="sm_popup_button sm_popup_button_3">☼</a>
+        <div class="popup_detail"></div>
+    </div>
+</header>
+
+
+
+  
+    <div class="media-container media-iframe">
+  <iframe
+    src="https://cumulus.morakana.com/"
+    
+    
+    frameborder="0"
+    allowfullscreen
+    >
+  </iframe>
+</div>
+
+  
+
+
+<div class="popup popup_about">
+    <img src="../basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close about popup">
+    <div class="popup_artist">MORAKANA</div>
+    <div class="popup_title">Cumulus</div>
+    <div class="popup_year">2025</div>
+    <div class="popup_medium">Website</div>
+    
+    <br>
+    <div class="popup_des"><br><em>Cumulus</em> employs a custom computer-vision program to scan satellite imagery from the U.S. government's National Oceanic and Atmospheric Administration (NOAA), monitoring the Mexico–US border for clouds rather than people. These atmospheric bodies drift freely across rivers, deserts, walls, and coastlines, indifferent to the geopolitical boundary below. The migratory clouds identified by the program are displayed from a planetary perspective, invoking the Overview Effect—the transformative cognitive shift astronauts experience when viewing Earth from space, realising its fragility and the interconnectedness of humanity. By repurposing satellite technology that is also used for border surveillance, <em>Cumulus</em> reorients this infrastructure away from policing human movement and toward observing atmospheric drift, positioning the viewer at a vantage point where the border appears both arbitrary and invisible.</div>
+</div>
+
+
+    <footer>
+    
+    </footer>
+
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.sm_popup > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+                document.body.classList.add('header-hidden');
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.popup_about > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+        document.querySelectorAll('.sm_popup_button_1').forEach(function(el){
+            el.addEventListener('click', function(){
+                var popup = document.querySelector('.popup_about');
+                if (popup) popup.style.display = 'block';
+            });
+            el.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

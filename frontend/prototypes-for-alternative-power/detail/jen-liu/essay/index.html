@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototypes for Alternative Power</title>
+
+    
+    <link rel="stylesheet" href="https://use.typekit.net/vjm3isi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+
+    
+<link rel="stylesheet" href="../../../css/header.css">
+<link rel="stylesheet" href="../../../css/artwork-detail.css">
+
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7THCN4LG2F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7THCN4LG2F');
+    </script>
+</head>
+<body class="essay-page essay-jen-liu">
+    
+
+
+<header class="sm_popup">
+    <img src="../../../basic_img/x.png" class="close" alt="Close" role="button" tabindex="0" aria-label="Close header">
+    <div class="col1 col">
+        <div class="sm_popup_title"></div>
+        <div class="sm_popup_artist">Jen Liu</div>
+        <div class="sm_popup_year"></div>
+        <div class="sm_popup_medium"></div>
+        
+        <div class="sm_popup_button sm_popup_button_1" role="button" tabindex="0" aria-label="About this artwork" style="visibility: hidden;">About</div>
+    </div>
+    <div class="col2 col">
+        
+        <a href="../../../detail/jen-liu" class="sm_popup_button sm_popup_button_2">Pink Slime Caesar Shift: Gold Loop</a>
+        
+        <a href="../../../" class="sm_popup_button sm_popup_button_3">☼</a>
+        <div class="popup_detail"></div>
+    </div>
+</header>
+
+
+
+
+<div class="popup popup_about">
+    <img src="../../../basic_img/x.png" class="close">
+    <div class="popup_artist">Jen Liu</div>
+    <div class="popup_title"></div>
+    <div class="popup_year"></div>
+    <div class="popup_medium"></div>
+    
+    <br>
+    <div class="popup_des"><br></div>
+</div>
+
+
+    <footer>
+    
+    </footer>
+
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.sm_popup > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+                document.body.classList.add('header-hidden');
+            });
+        });
+        document.querySelectorAll('.popup_about > .close').forEach(function(el){
+            el.addEventListener('click', function(){
+                this.parentElement.style.display = 'none';
+            });
+        });
+        document.querySelectorAll('.sm_popup_button_1').forEach(function(el){
+            el.addEventListener('click', function(){
+                var popup = document.querySelector('.popup_about');
+                if (popup) popup.style.display = 'block';
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RASUK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --trailColor: #000;
+        --leftColor: #fff;
+        --actionBg: #fff;
+        --actionColor: #000;
+        --portalText: #000;
+        --portalG0: rgba(255, 255, 255, 0.92);
+        --portalG1: rgba(255, 255, 255, 0.65);
+        --portalG2: rgba(255, 255, 255, 0);
+        --portalReveal: 0;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background: white;
+      }
+
+      #pauseBtn {
+        position: fixed;
+        left: 16px;
+        bottom: 16px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid black;
+        background: white;
+        z-index: 9999;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      #pauseBtn::before,
+      #pauseBtn::after {
+        content: "";
+        display: block;
+        background: black;
+        transition: all linear;
+      }
+
+      #pauseBtn::before,
+      #pauseBtn::after {
+        width: 4px;
+        height: 16px;
+      }
+
+      #pauseBtn::before {
+        margin-right: 4px;
+      }
+
+      #pauseBtn.paused::before {
+        width: 0;
+        height: 0;
+        margin-right: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 12px solid black;
+        background: transparent;
+      }
+
+      #pauseBtn.paused::after {
+        display: none;
+      }
+      #pauseBtn:hover {
+        background: #ccc;
+      }
+      #pauseBtn:active {
+        background: #aaa;
+      }
+
+      #countdowns {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        pointer-events: none;
+      }
+
+      .countdownBox {
+        border: 1px solid black;
+        background: white;
+        height: 40px;
+        padding: 0 14px;
+        box-sizing: border-box;
+        font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        font-size: 14px;
+        line-height: 40px;
+        letter-spacing: 0.45em;
+        color: black;
+        user-select: none;
+        text-align: center;
+        white-space: nowrap;
+        pointer-events: none;
+        min-width: 280px;
+        transition: background 120ms linear;
+      }
+
+      /* When a gate is open, that countdown becomes a clickable button */
+      .countdownBox.gateOpen {
+        pointer-events: auto;
+        cursor: pointer;
+      }
+      .countdownBox.gateOpen:hover {
+        background: #ccc;
+      }
+      .countdownBox.gateOpen:active {
+        background: #aaa;
+      }
+
+      #aboutHit {
+        position: fixed;
+        left: -9999px;
+        top: -9999px;
+        width: 0;
+        height: 0;
+        z-index: 10000;
+        cursor: pointer;
+        background: transparent;
+      }
+
+      #aboutPanel {
+        position: fixed;
+        z-index: 20000;
+        width: 320px;
+        max-width: calc(100vw - 32px);
+        background: white;
+        border: 1px solid black;
+        padding: 12px;
+        box-sizing: border-box;
+        display: none;
+        font-size: 12px;
+        line-height: 1.35;
+        color: black;
+      }
+
+      .aboutHover.action {
+        background: #ccc;
+      }
+
+      #portal {
+        position: fixed;
+        z-index: 10002;
+        pointer-events: none;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+      }
+
+      #portalFill {
+        position: absolute;
+        inset: 0;
+
+        opacity: var(--portalReveal);
+        transition: opacity 220ms linear;
+
+        clip-path: ellipse(50% 50% at 50% 50%);
+
+        background: radial-gradient(
+          ellipse at 50% 50%,
+          var(--portalG0) 0%,
+          var(--portalG1) 46%,
+          var(--portalG2) 72%
+        );
+      }
+
+      #trail {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .trail-layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      .trail-row {
+        position: absolute;
+        left: 0;
+        height: 40px;
+        width: 0px;
+      }
+
+      .corner-patch {
+        position: absolute;
+      }
+
+      #snake {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .char {
+        position: absolute;
+        width: 14px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: pre;
+        user-select: none;
+        will-change: transform;
+        transform-origin: center;
+        font-size: 14px;
+        line-height: 1;
+        color: var(--leftColor);
+        background: transparent;
+        text-rendering: geometricPrecision;
+      }
+
+      .action {
+        background: var(--actionBg);
+        color: var(--actionColor);
+      }
+
+      @media (max-width: 600px) {
+        #pauseBtn {
+          width: 28px;
+          height: 28px;
+          left: 10px;
+          bottom: 10px;
+        }
+
+        #pauseBtn::before,
+        #pauseBtn::after {
+          width: 3px;
+          height: 10px;
+        }
+
+        #pauseBtn::before {
+          margin-right: 3px;
+        }
+
+        #pauseBtn.paused::before {
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-left: 8px solid black;
+        }
+
+        #countdowns {
+          right: 10px;
+          bottom: 10px;
+          gap: 6px;
+        }
+
+        .countdownBox {
+          height: 28px;
+          line-height: 28px;
+          font-size: 10px;
+          letter-spacing: 0.35em;
+          padding: 0 10px;
+          min-width: 200px;
+        }
+      }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7THCN4LG2F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7THCN4LG2F');
+    </script>
+  </head>
+
+  <body>
+    <div id="trail"></div>
+    <div id="snake"></div>
+
+    <div id="pauseBtn" title="pause / resume"></div>
+
+    <div id="countdowns" aria-hidden="true">
+      <div id="countdown1" class="countdownBox" role="button" tabindex="-1">--:--:--</div>
+      <div id="countdown2" class="countdownBox" role="button" tabindex="-1" style="display:none;">--:--:--</div>
+    </div>
+
+    <div id="aboutHit" title="About"></div>
+
+    <div id="aboutPanel">
+      <div>
+        RASUK, the Indonesian word for &ldquo;possess,&rdquo; is Anggara&rsquo;s ongoing framework for inhabiting interfaces, treating familiar platforms as vessels for spiritual occupation. Possession can be a form of resistance, as described in Aihwa Ong&rsquo;s essay, &ldquo;The Production of Possession,&rdquo; which examines how spirit possession among Malay factory women emerges in response to the disciplinary regimes of multinational capitalism. Ong argues that episodes of possession are not remnants of premodern belief, but culturally mediated, embodied forms of protest against the gendered, racialised, and authoritarian conditions of factory labour imposed by global corporations. Anggara relates this to his personal experience in middle school in Indonesia, where mass collective possession of distressed students would occur before national exams, effectively halting the exams. In RASUK, Anggara disrupts the exhibition website through two performances. During these real-time interventions, this webpage becomes a portal to a virtual performance on Zoom which Anggara will possess, or temporarily reorient, everyday software platforms.
+      </div>
+    </div>
+
+    <div id="portal">
+      <div id="portalFill"></div>
+    </div>
+
+    <script>
+      const LEFT_TEXT = "RASUK   Herdimas Anggara   2025   Performance, Zoom, website        ";
+      const ACTION_TEXT = "        About   ☼";
+      const TEXT = LEFT_TEXT + ACTION_TEXT;
+
+      const HOME_URL = "/";
+
+      const FONT_PX = 14;
+      const CELL_W = 14;
+      const ROW_H = 40;
+      const SPEED = 200;
+
+      /* ═══════════════════════════════════════════════
+         GATE CONFIGURATION
+         All times given in SGT (UTC+8).
+         SGT = EDT + 12 hours.
+         ═══════════════════════════════════════════════ */
+
+      /* ── Gate 1: April 23, 9:15–11:00 PM EDT
+            → April 24, 9:15–11:00 AM SGT ── */
+      const GATE_1_START = new Date("2026-04-24T09:15:00+08:00").getTime();
+      const GATE_1_END   = new Date("2026-04-24T11:00:00+08:00").getTime();
+      const GATE_1_URL   = "https://vcu.zoom.us/j/5865449907";
+
+      /* Gate 2 appears in the countdown stack 24 h after Gate 1 closes */
+      const GATE_1_SHUT_DURATION = 24 * 60 * 60 * 1000;
+      const GATE_2_APPEARS_AT    = GATE_1_END + GATE_1_SHUT_DURATION;
+
+      /* ── Gate 2: April 26, 6:45–8:00 AM EDT
+            → April 26, 6:45–8:00 PM SGT ── */
+      const GATE_2_TBD   = false;
+      const GATE_2_START = new Date("2026-04-26T18:45:00+08:00").getTime();
+      const GATE_2_END   = new Date("2026-04-26T20:00:00+08:00").getTime();
+      const GATE_2_URL   = "https://vcu.zoom.us/j/5865449907";
+
+      /* ═══════════════════════════════════════════════ */
+
+      /* BUILD CHARS */
+      const snakeRoot = document.getElementById("snake");
+      const trailHost = document.getElementById("trail");
+
+      const chars = [];
+      const actionStart = LEFT_TEXT.length;
+
+      for (let i = 0; i < TEXT.length; i++) {
+        const el = document.createElement("div");
+        el.className = "char" + (i >= actionStart ? " action" : "");
+        el.textContent = TEXT[i] === " " ? "\u00A0" : TEXT[i];
+        el.style.fontSize = FONT_PX + "px";
+        el.style.width = CELL_W + "px";
+        el.style.height = ROW_H + "px";
+        snakeRoot.appendChild(el);
+        chars.push(el);
+      }
+
+      const ABOUT_WORD = "About";
+      const aboutStart = TEXT.indexOf(ABOUT_WORD);
+      const aboutLen = ABOUT_WORD.length;
+
+      const aboutHit = document.getElementById("aboutHit");
+      const aboutPanel = document.getElementById("aboutPanel");
+      let aboutOpen = false;
+
+      const HOME_CHAR = "☼";
+      const homeIndex = TEXT.indexOf(HOME_CHAR);
+
+      const homeHit = document.createElement("div");
+      homeHit.style.position = "fixed";
+      homeHit.style.left = "-9999px";
+      homeHit.style.top = "-9999px";
+      homeHit.style.width = "0";
+      homeHit.style.height = "0";
+      homeHit.style.zIndex = "10000";
+      homeHit.style.cursor = "pointer";
+      homeHit.style.background = "transparent";
+      homeHit.title = "Home";
+      document.body.appendChild(homeHit);
+
+      homeHit.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.location.href = HOME_URL;
+      });
+
+      /* PORTAL (visual only — no longer clickable) */
+      const portal = document.getElementById("portal");
+
+      let portalX = 0;
+      let portalY = 0;
+      let portalW = 0;
+      let portalH = 0;
+
+      let portalCellSet = new Set();
+      let portalCovered = new Set();
+      let portalReveal = 0;
+
+      function portalKey(col, row) {
+        return row + ":" + col;
+      }
+
+      function setPortalThemeOppositeOfTrail() {
+        const isBlackTrail = cycleIndex % 2 === 0;
+
+        document.documentElement.style.setProperty(
+          "--portalText",
+          isBlackTrail ? "#fff" : "#000"
+        );
+
+        if (isBlackTrail) {
+          document.documentElement.style.setProperty(
+            "--portalG0",
+            "rgba(255,255,255,0.92)"
+          );
+          document.documentElement.style.setProperty(
+            "--portalG1",
+            "rgba(255,255,255,0.65)"
+          );
+          document.documentElement.style.setProperty(
+            "--portalG2",
+            "rgba(255,255,255,0.00)"
+          );
+        } else {
+          document.documentElement.style.setProperty(
+            "--portalG0",
+            "rgba(0,0,0,0.88)"
+          );
+          document.documentElement.style.setProperty(
+            "--portalG1",
+            "rgba(0,0,0,0.55)"
+          );
+          document.documentElement.style.setProperty(
+            "--portalG2",
+            "rgba(0,0,0,0.00)"
+          );
+        }
+      }
+
+      function snapCols(px) {
+        return Math.max(9, Math.round(px / CELL_W));
+      }
+      function snapRows(px) {
+        return Math.max(7, Math.round(px / ROW_H));
+      }
+      function snapToGridX(x) {
+        return Math.floor(x / CELL_W) * CELL_W;
+      }
+      function snapToGridY(y) {
+        return Math.floor(y / ROW_H) * ROW_H;
+      }
+
+      function positionPortal() {
+        const targetW = window.innerWidth * 0.87;
+        const targetH = window.innerHeight * 0.87;
+
+        let cols = snapCols(targetW);
+        let rows = snapRows(targetH);
+
+        if (cols % 2 === 0) cols += 1;
+        if (rows % 2 === 0) rows += 1;
+
+        cols = Math.min(
+          cols,
+          Math.max(9, Math.floor(window.innerWidth / CELL_W) - 2)
+        );
+        rows = Math.min(
+          rows,
+          Math.max(7, Math.floor(window.innerHeight / ROW_H) - 2)
+        );
+
+        portalW = cols * CELL_W;
+        portalH = rows * ROW_H;
+
+        const cx = window.innerWidth / 2 - portalW / 2;
+        const cy = window.innerHeight / 2 - portalH / 2;
+
+        portalX = snapToGridX(cx);
+        portalY = snapToGridY(cy);
+
+        portal.style.left = portalX + "px";
+        portal.style.top = portalY + "px";
+        portal.style.width = portalW + "px";
+        portal.style.height = portalH + "px";
+
+        buildPortalCellSet(cols, rows);
+      }
+
+      function buildPortalCellSet(cols, rows) {
+        portalCellSet.clear();
+
+        portalCovered.clear();
+        portalReveal = 0;
+        document.documentElement.style.setProperty("--portalReveal", "0");
+
+        const col0 = Math.floor(portalX / CELL_W);
+        const row0 = Math.floor(portalY / ROW_H);
+
+        const rx = (cols - 1) / 2;
+        const ry = (rows - 1) / 2;
+        const cx = rx;
+        const cy = ry;
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const dx = (c - cx) / rx;
+            const dy = (r - cy) / ry;
+            if (dx * dx + dy * dy <= 1) {
+              portalCellSet.add(portalKey(col0 + c, row0 + r));
+            }
+          }
+        }
+      }
+
+      function smoothstep(edge0, edge1, x) {
+        const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+        return t * t * (3 - 2 * t);
+      }
+
+      function updatePortalRevealFromCoverage() {
+        const total = portalCellSet.size;
+        if (total <= 0) return;
+
+        const covered = portalCovered.size;
+
+        let coverage = covered / total;
+        coverage = Math.max(0, Math.min(1, coverage));
+
+        const easedCoverage = Math.pow(coverage, 0.65);
+
+        const headY = (visualRow + 0.5) * ROW_H;
+
+        const y0 = window.innerHeight * 0.5;
+        const y1 = window.innerHeight;
+
+        const fade = smoothstep(y0, y1, headY);
+
+        const mx = maxX();
+        const along = mx > 0 ? (dir === 1 ? headX / mx : (mx - headX) / mx) : 1;
+        const rowEntryEase = smoothstep(0.0, 0.18, along);
+
+        portalReveal = easedCoverage * (1 - fade) * rowEntryEase;
+
+        document.documentElement.style.setProperty(
+          "--portalReveal",
+          String(portalReveal)
+        );
+      }
+
+      /* COUNTDOWNS */
+      const countdown1 = document.getElementById("countdown1");
+      const countdown2 = document.getElementById("countdown2");
+
+      const OPEN_TEXT  = "The Gate Is Open";
+      const SHUT_TEXT  = "The Gate Is Shut";
+      const LIMBO_TEXT = "The Gate Is in Limbo";
+
+      function pad2(n) {
+        return String(n).padStart(2, "0");
+      }
+      function formatHMS(ms) {
+        const sTotal = Math.max(0, Math.floor(ms / 1000));
+        const h = Math.floor(sTotal / 3600);
+        const m = Math.floor((sTotal % 3600) / 60);
+        const s = sTotal % 60;
+        return `${pad2(h)}:${pad2(m)}:${pad2(s)}`;
+      }
+
+      /* Which gate, if any, is currently open?
+         Returns { openGate: 0 | 1 | 2, url: string | null } */
+      function computeState(nowMs) {
+        if (nowMs >= GATE_1_START && nowMs < GATE_1_END) {
+          return { openGate: 1, url: GATE_1_URL };
+        }
+        if (
+          !GATE_2_TBD &&
+          GATE_2_START != null &&
+          GATE_2_END != null &&
+          nowMs >= GATE_2_START &&
+          nowMs < GATE_2_END
+        ) {
+          return { openGate: 2, url: GATE_2_URL };
+        }
+        return { openGate: 0, url: null };
+      }
+
+      function updateCountdowns() {
+        const now = Date.now();
+
+        /* ────────────────────────────────────
+           PHASE 1 — before Gate 1
+           Only Gate 1 countdown visible
+           ──────────────────────────────────── */
+        if (now < GATE_1_START) {
+          countdown1.textContent = formatHMS(GATE_1_START - now);
+          countdown1.style.display = "";
+          countdown2.style.display = "none";
+          return;
+        }
+
+        /* ────────────────────────────────────
+           PHASE 2 — Gate 1 is live
+           ──────────────────────────────────── */
+        if (now >= GATE_1_START && now < GATE_1_END) {
+          countdown1.textContent = OPEN_TEXT;
+          countdown1.style.display = "";
+          countdown2.style.display = "none";
+          return;
+        }
+
+        /* ────────────────────────────────────
+           PHASE 3 — Gate 1 closed, 24 h grace
+           "The Gate Is Shut" alone
+           ──────────────────────────────────── */
+        if (now >= GATE_1_END && now < GATE_2_APPEARS_AT) {
+          countdown1.textContent = SHUT_TEXT;
+          countdown1.style.display = "";
+          countdown2.style.display = "none";
+          return;
+        }
+
+        /* ────────────────────────────────────
+           PHASE 4 — Gate 2 block is now visible
+           Gate 1 stays "Shut"; Gate 2 countdown / open / shut
+           ──────────────────────────────────── */
+        countdown1.textContent = SHUT_TEXT;
+        countdown1.style.display = "";
+
+        countdown2.style.display = "";
+
+        if (GATE_2_TBD || GATE_2_START == null || GATE_2_END == null) {
+          countdown2.textContent = LIMBO_TEXT;
+        } else {
+          if (now < GATE_2_START) {
+            countdown2.textContent = formatHMS(GATE_2_START - now);
+          } else if (now >= GATE_2_START && now < GATE_2_END) {
+            countdown2.textContent = OPEN_TEXT;
+          } else {
+            /* Gate 2 is over → shut forever */
+            countdown2.textContent = SHUT_TEXT;
+          }
+        }
+      }
+
+      function updateCountdownAndGate() {
+        updateCountdowns();
+
+        const st = computeState(Date.now());
+
+        /* Toggle clickable state on whichever countdown represents the
+           currently-open gate. The countdown box itself is the portal. */
+        countdown1.classList.toggle("gateOpen", st.openGate === 1);
+        countdown2.classList.toggle("gateOpen", st.openGate === 2);
+      }
+
+      function openGateLink(url) {
+        if (url) window.open(url, "_blank", "noopener");
+      }
+
+      countdown1.addEventListener("click", () => {
+        const st = computeState(Date.now());
+        if (st.openGate === 1) openGateLink(st.url);
+      });
+      countdown2.addEventListener("click", () => {
+        const st = computeState(Date.now());
+        if (st.openGate === 2) openGateLink(st.url);
+      });
+
+      /* TRAIL */
+      let cycleIndex = 0;
+      let currentLayer = null;
+      let trailRows = [];
+
+      /* Timestamp of the most recent cycle wrap. Old-cycle characters
+         (chars whose path entry was recorded before the current cycle)
+         fade from fully visible to transparent over FADE_DURATION_MS
+         starting from this moment. This lets the tail at the bottom
+         dissolve in place after the head wraps to the top, instead of
+         either (a) teleporting away abruptly or (b) hanging disconnected
+         for the ~6 seconds it would otherwise take the path buffer to
+         naturally roll those entries out of the rendered window. */
+      let wrapTime = -Infinity;
+      const FADE_DURATION_MS = 550;
+
+      function applyCycleTheme() {
+        const isBlack = cycleIndex % 2 === 0;
+        document.documentElement.style.setProperty(
+          "--trailColor",
+          isBlack ? "#000" : "#fff"
+        );
+        document.documentElement.style.setProperty(
+          "--leftColor",
+          isBlack ? "#fff" : "#000"
+        );
+        document.documentElement.style.setProperty(
+          "--actionBg",
+          isBlack ? "#fff" : "#000"
+        );
+        document.documentElement.style.setProperty(
+          "--actionColor",
+          isBlack ? "#000" : "#fff"
+        );
+        setPortalThemeOppositeOfTrail();
+      }
+
+      function neededRows() {
+        return Math.ceil(window.innerHeight / ROW_H) + 2;
+      }
+
+      function createTrailLayer() {
+        applyCycleTheme();
+
+        const layer = document.createElement("div");
+        layer.className = "trail-layer";
+        trailHost.appendChild(layer);
+
+        const color = getComputedStyle(document.documentElement)
+          .getPropertyValue("--trailColor")
+          .trim();
+
+        trailRows = [];
+        for (let i = 0; i < neededRows(); i++) {
+          const tr = document.createElement("div");
+          tr.className = "trail-row";
+          tr.style.top = i * ROW_H + "px";
+          tr.style.height = ROW_H + "px";
+          tr.style.background = color;
+          layer.appendChild(tr);
+          trailRows.push(tr);
+        }
+
+        currentLayer = layer;
+      }
+
+      function stampCornerPatch(edgeX, rowLeaving) {
+        const color = getComputedStyle(document.documentElement)
+          .getPropertyValue("--trailColor")
+          .trim();
+
+        const p = document.createElement("div");
+        p.className = "corner-patch";
+        p.style.left = edgeX + "px";
+        p.style.top = rowLeaving * ROW_H + "px";
+        p.style.width = CELL_W + "px";
+        p.style.height = ROW_H * 2 + "px";
+        p.style.background = color;
+        currentLayer.appendChild(p);
+      }
+
+      function startNextCycleLayer() {
+        cycleIndex++;
+        wrapTime = performance.now();
+        createTrailLayer();
+        setPortalThemeOppositeOfTrail();
+      }
+
+      /* PATH STATE */
+      let path = [];
+      let headX = 0;
+      let headRow = 0;
+      let dir = 1;
+      let carry = 0;
+
+      /* SMOOTH ROW TRANSITION STATE */
+      let visualRow = 0;
+      let prevRowForVisual = 0;
+      let rowLerp = 1;
+
+      function maxX() {
+        return Math.max(0, window.innerWidth - CELL_W);
+      }
+
+      function lastVisibleRow() {
+        return Math.floor((window.innerHeight - 1) / ROW_H);
+      }
+
+      /* STEPPING */
+      function portalGridCoordFromHead() {
+        const col = Math.round(headX / CELL_W);
+        const row = headRow;
+        return { col, row };
+      }
+
+      function stepHeadOneCell() {
+        const mx = maxX();
+        const nextX = headX + dir * CELL_W;
+
+        if (nextX > mx || nextX < 0) {
+          const leavingRow = headRow;
+          const edgeX = dir === 1 ? mx : 0;
+
+          stampCornerPatch(edgeX, leavingRow);
+
+          const oldRow = headRow;
+
+          let nextRow = headRow + 1;
+          dir *= -1;
+
+          if (nextRow > lastVisibleRow()) {
+            startNextCycleLayer();
+            nextRow = 0;
+          }
+
+          headRow = nextRow;
+          headX = dir === 1 ? 0 : mx;
+
+          prevRowForVisual = oldRow;
+          rowLerp = 0;
+        } else {
+          headX = nextX;
+        }
+
+        path.push({ x: headX, row: headRow, cycle: cycleIndex });
+
+        const maxLen = chars.length + 800;
+        if (path.length > maxLen) path.splice(0, path.length - maxLen);
+
+        const g = portalGridCoordFromHead();
+        const k = portalKey(g.col, g.row);
+        if (portalCellSet.has(k)) portalCovered.add(k);
+
+        updatePortalRevealFromCoverage();
+      }
+
+      /* PAINT TRAIL */
+      function paintTrail() {
+        const tr = trailRows[headRow];
+        if (!tr) return;
+
+        const w = window.innerWidth;
+
+        if (dir === 1) {
+          tr.style.left = "0px";
+          tr.style.width = Math.min(headX + CELL_W, w) + "px";
+        } else {
+          const left = Math.max(0, headX);
+          tr.style.left = left + "px";
+          tr.style.width = w - left + "px";
+        }
+      }
+
+      /* PANEL POSITION */
+      function hideAboutHit() {
+        aboutHit.style.left = "-9999px";
+        aboutHit.style.top = "-9999px";
+        aboutHit.style.width = "0px";
+        aboutHit.style.height = "0px";
+      }
+
+      function positionAboutPanel() {
+        if (!aboutOpen) return;
+
+        const rect = aboutHit.getBoundingClientRect();
+        const pad = 12;
+
+        if (rect.width === 0 || rect.height === 0 || rect.left < -1000) {
+          aboutPanel.style.display = "none";
+          return;
+        }
+
+        aboutPanel.style.display = "block";
+        const panelRect = aboutPanel.getBoundingClientRect();
+
+        let left = rect.left;
+        left = Math.max(
+          16,
+          Math.min(left, window.innerWidth - panelRect.width - 16)
+        );
+
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+
+        let top;
+        if (spaceBelow >= panelRect.height + pad) {
+          top = rect.bottom + pad;
+        } else if (spaceAbove >= panelRect.height + pad) {
+          top = rect.top - panelRect.height - pad;
+        } else {
+          top = Math.max(
+            16,
+            Math.min(
+              rect.bottom + pad,
+              window.innerHeight - panelRect.height - 16
+            )
+          );
+        }
+
+        aboutPanel.style.left = left + "px";
+        aboutPanel.style.top = top + "px";
+      }
+
+      function updateAboutHitAndHoverTarget(posByCharIndex) {
+        if (aboutStart < 0) {
+          hideAboutHit();
+        } else {
+          let minX = Infinity,
+            minY = Infinity,
+            maxXb = -Infinity,
+            maxYb = -Infinity;
+          let any = false;
+
+          for (let k = 0; k < aboutLen; k++) {
+            const idx = aboutStart + k;
+            const pos = posByCharIndex[idx];
+            if (!pos) continue;
+
+            any = true;
+            minX = Math.min(minX, pos.x);
+            minY = Math.min(minY, pos.y);
+            maxXb = Math.max(maxXb, pos.x + CELL_W);
+            maxYb = Math.max(maxYb, pos.y + ROW_H);
+          }
+
+          if (!any) {
+            hideAboutHit();
+            if (aboutOpen) positionAboutPanel();
+          } else {
+            aboutHit.style.left = minX + "px";
+            aboutHit.style.top = minY + "px";
+            aboutHit.style.width = Math.max(0, maxXb - minX) + "px";
+            aboutHit.style.height = Math.max(0, maxYb - minY) + "px";
+            if (aboutOpen) positionAboutPanel();
+          }
+        }
+
+        /* HOME (☼) */
+        if (homeIndex >= 0) {
+          const pos = posByCharIndex[homeIndex];
+          if (pos) {
+            homeHit.style.left = pos.x + "px";
+            homeHit.style.top = pos.y + "px";
+            homeHit.style.width = CELL_W + "px";
+            homeHit.style.height = ROW_H + "px";
+          } else {
+            homeHit.style.left = "-9999px";
+            homeHit.style.top = "-9999px";
+            homeHit.style.width = "0";
+            homeHit.style.height = "0";
+          }
+        } else {
+          homeHit.style.left = "-9999px";
+          homeHit.style.top = "-9999px";
+          homeHit.style.width = "0";
+          homeHit.style.height = "0";
+        }
+      }
+
+      /* LAYOUT LETTERS */
+      function layoutLetters() {
+        const n = chars.length;
+        const m = path.length;
+        const start = Math.max(0, m - n);
+
+        const posByCharIndex = new Array(n);
+
+        /* Compute the in-place fade opacity for tail characters from the
+           previous cycle. Characters placed before the last wrap stay at
+           their recorded positions (the tail stays at the bottom where
+           it physically was) and simply fade from 1 to 0 over
+           FADE_DURATION_MS. Current-cycle characters always render at
+           full opacity. */
+        const now = performance.now();
+        const elapsed = now - wrapTime;
+        const fadeOpacity = Math.max(0, 1 - elapsed / FADE_DURATION_MS);
+
+        for (let i = 0; i < n; i++) {
+          const p = path[start + i];
+          const el = chars[i];
+
+          if (!p) {
+            el.style.transform = "translate(-9999px,-9999px)";
+            el.style.opacity = "1";
+            posByCharIndex[i] = null;
+            continue;
+          }
+
+          const flip = p.row % 2 === 0 ? 1 : -1;
+          const x = p.x;
+          const y = p.row * ROW_H;
+          const opacity = p.cycle < cycleIndex ? fadeOpacity : 1;
+
+          el.style.transform = `translate(${x}px, ${y}px) scale(${flip},${flip})`;
+          el.style.opacity = String(opacity);
+
+          /* Once a tail character has nearly faded out, drop it from
+             hit-testing so the About/Home targets don't keep a clickable
+             footprint sitting invisibly at the bottom of the page. */
+          if (opacity > 0.5) {
+            posByCharIndex[i] = { x, y, row: p.row };
+          } else {
+            posByCharIndex[i] = null;
+          }
+        }
+
+        updateAboutHitAndHoverTarget(posByCharIndex);
+      }
+
+      /* ANIMATION */
+      let last = null;
+      let paused = false;
+
+      function tick(t) {
+        if (paused) {
+          last = t;
+          requestAnimationFrame(tick);
+          return;
+        }
+
+        if (last == null) last = t;
+        const dt = (t - last) / 1000;
+        last = t;
+
+        if (rowLerp < 1) {
+          rowLerp = Math.min(1, rowLerp + dt * 10);
+        }
+        visualRow =
+          prevRowForVisual +
+          (headRow - prevRowForVisual) * smoothstep(0, 1, rowLerp);
+
+        carry += SPEED * dt;
+
+        const steps = Math.floor(carry / CELL_W);
+        if (steps > 0) carry -= steps * CELL_W;
+
+        for (let i = 0; i < steps; i++) stepHeadOneCell();
+
+        if (path.length) paintTrail();
+        layoutLetters();
+
+        requestAnimationFrame(tick);
+      }
+
+      /* RESET */
+      function resetAll() {
+        trailHost.innerHTML = "";
+        cycleIndex = 0;
+        createTrailLayer();
+
+        headX = 0;
+        headRow = 0;
+        dir = 1;
+        carry = 0;
+        path = [];
+
+        visualRow = 0;
+        prevRowForVisual = 0;
+        rowLerp = 1;
+
+        hideAboutHit();
+        aboutPanel.style.display = "none";
+        aboutOpen = false;
+
+        homeHit.style.left = "-9999px";
+        homeHit.style.top = "-9999px";
+        homeHit.style.width = "0";
+        homeHit.style.height = "0";
+
+        positionPortal();
+        setPortalThemeOppositeOfTrail();
+
+        updateCountdownAndGate();
+        updatePortalRevealFromCoverage();
+        layoutLetters();
+      }
+
+      /* PAUSE */
+      const pauseBtn = document.getElementById("pauseBtn");
+      pauseBtn.addEventListener("click", () => {
+        paused = !paused;
+        pauseBtn.classList.toggle("paused", paused);
+      });
+
+      function setAboutHover(isHover) {
+        if (aboutStart < 0) return;
+        for (let k = 0; k < aboutLen; k++) {
+          const el = chars[aboutStart + k];
+          if (!el) continue;
+          el.classList.toggle("aboutHover", isHover);
+        }
+      }
+
+      function setHomeHover(isHover) {
+        if (homeIndex < 0) return;
+        const el = chars[homeIndex];
+        if (!el) return;
+        el.classList.toggle("aboutHover", isHover);
+      }
+
+      aboutHit.addEventListener("mouseenter", () => setAboutHover(true));
+      aboutHit.addEventListener("mouseleave", () => setAboutHover(false));
+
+      aboutHit.addEventListener("click", (e) => {
+        e.stopPropagation();
+        aboutOpen = !aboutOpen;
+        if (aboutOpen) positionAboutPanel();
+        else aboutPanel.style.display = "none";
+      });
+
+      homeHit.addEventListener("mouseenter", () => setHomeHover(true));
+      homeHit.addEventListener("mouseleave", () => setHomeHover(false));
+
+      document.addEventListener("click", (e) => {
+        if (!aboutOpen) return;
+        const hit = aboutHit.contains(e.target);
+        const pan = aboutPanel.contains(e.target);
+        if (!hit && !pan) {
+          aboutOpen = false;
+          aboutPanel.style.display = "none";
+        }
+      });
+
+      resetAll();
+      requestAnimationFrame(tick);
+
+      setInterval(updateCountdownAndGate, 200);
+
+      window.addEventListener("resize", () => {
+        last = null;
+        resetAll();
+      });
+    </script>
+  </body>
+</html>

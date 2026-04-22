@@ -1,0 +1,31 @@
+<svg
+   width="50"
+   height="57.142857"
+   viewBox="-0.5 0 0.5 0.57142857"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <title
+     id="title1">play icon</title>
+  <g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     transform="matrix(0.07142857,0,0,0.07142857,-0.5,0)">
+    <g
+       id="Dribbble-Light-Preview"
+       transform="translate(-427,-3765)"
+       fill="#FFF">
+      <g
+         id="icons"
+         transform="translate(56,160)">
+        <polygon
+           id="play-[#1001]"
+           points="371,3605 371,3613 378,3609 " />
+      </g>
+    </g>
+  </g>
+</svg>

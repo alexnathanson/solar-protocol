@@ -329,7 +329,7 @@ def get_ips():
     dstIP = getDeviceInfo('ip')
     for index, item in enumerate(dstIP):
         print(item)
-        if(item == myIP):
+        if(item.split(":")[0] == myIP):
             print("Replacing ip of self")
             dstIP[index]="localhost"
 

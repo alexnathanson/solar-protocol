@@ -130,17 +130,25 @@ def getNewDST(responseList):
 				runningDSTList.append(r['ip'])
 
 def postIt(dstIP,dstData):
+	url = 'http://'+dstIP+'/api/v1/api.php'
 	try:
-		x = requests.post('http://'+dstIP+'/api/v1/api.php', headers=headers,data = dstData, timeout=5)
+		x = requests.post(url, headers=headers,data = dstData, timeout=5, allow_redirects=False)
+
+		#requests downgrades a redirected POST to a bodyless GET, so a host that
+		#upgrades to HTTPS silently discards the registration. Re-POST to the target.
+		if x.is_redirect:
+			url = requests.compat.urljoin(url, x.headers['Location'])
+			outputToConsole("following redirect to " + url)
+			x = requests.post(url, headers=headers,data = dstData, timeout=5)
 		#print("request response!!!")
 		#print(x.text)
 		#print(x.json())
 		if x.ok:
 			try:
 				getNewDST(x.json())
-				print("POST to " + dstIP+ " successful")
+				print("POST to " + url + " successful")
 			except:
-				print("Malformatted response from " + dstIP + ":")
+				print("Malformatted response from " + url + ":")
 				print(x.text)
 		#requests.raise_for_status()
 	except json.decoder.JSONDecodeError as e:

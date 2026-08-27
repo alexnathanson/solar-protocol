@@ -2,6 +2,7 @@ import gizeh as g
 import math
 import os
 import sys
+import subprocess
 
 import pandas as pd
 import json
@@ -62,6 +63,24 @@ server_cities = [" ", " "]
 with open(path+'/createHTML/deadIPs.txt', 'r') as infile:
     deadIPs = infile.readlines()
     deadIPs = [d.strip() for d in deadIPs]
+
+
+#this script retrieves the environmental variables
+getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh"
+
+def getStaticHostIP():
+    '''
+    Returns the STATIC_HOST_IP environmental variable if one is set in
+    /home/pi/local/.spenv, otherwise an empty string.
+    Hosts that reach the internet from a different address than the one peers
+    connect back on (NAT, CGNAT, a reverse tunnel) need this, because the ?myip
+    lookup reports the outbound address rather than the reachable one.
+    '''
+    try:
+        proc = subprocess.Popen(['bash', getEnvScriptPath, 'STATIC_HOST_IP'], stdout=subprocess.PIPE)
+        return proc.stdout.read().decode("utf-8").replace("\n", "").strip()
+    except Exception:
+        return ""
 
 
 # -------------- FUNCTIONS --------------------------------------------------------------------------------
@@ -375,7 +394,7 @@ def main():
     print("deadIPs:")
     print(deadIPs)
     #Get my ip
-    myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
+    myIP = getStaticHostIP() or requests.get('https://server.solarpowerforartists.com/?myip').text
     # print("MY IP: ", type(myIP))
 
     #Get IPs, logs and names from deviceList file, using keyword ip

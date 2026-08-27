@@ -16,6 +16,7 @@ import csv
 import os
 import re
 import sys
+import subprocess
 
 #jinja reference: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
@@ -299,18 +300,36 @@ def getDeviceInfo(getKey):
     return ipList
 
 
+#this script retrieves the environmental variables
+getEnvScriptPath = "/home/pi/solar-protocol/backend/get_env.sh"
+
+def getStaticHostIP():
+    '''
+    Returns the STATIC_HOST_IP environmental variable if one is set in
+    /home/pi/local/.spenv, otherwise an empty string.
+    Hosts that reach the internet from a different address than the one peers
+    connect back on (NAT, CGNAT, a reverse tunnel) need this, because the ?myip
+    lookup reports the outbound address rather than the reachable one.
+    '''
+    try:
+        proc = subprocess.Popen(['bash', getEnvScriptPath, 'STATIC_HOST_IP'], stdout=subprocess.PIPE)
+        return proc.stdout.read().decode("utf-8").replace("\n", "").strip()
+    except Exception:
+        return ""
+
+
 def get_ips():
     # deviceInfoFile = "/home/pi/solar-protocol/backend/data/deviceList.json"
     # deviceInfo = json.dumps(deviceInfoFile)
     #Get my ip
-    myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
+    myIP = getStaticHostIP() or requests.get('https://server.solarpowerforartists.com/?myip').text
     #print("MY IP: ", type(myIP))
 
     #Get IPs, using keyword ip
     dstIP = getDeviceInfo('ip')
     for index, item in enumerate(dstIP):
         print(item)
-        if(item == myIP):
+        if(item.split(":")[0] == myIP):
             print("Replacing ip of self")
             dstIP[index]="localhost"
 
@@ -388,7 +407,7 @@ def check_images(server_data):
         filepath = "images/servers/" + filename
         #print("server:", server)
         if "ip" in server:
-            myIP = 	requests.get('https://server.solarpowerforartists.com/?myip').text
+            myIP = getStaticHostIP() or requests.get('https://server.solarpowerforartists.com/?myip').text
             print("Server IP:", server["ip"])
             print("myIP", myIP)
             if server["ip"] == "localhost": #if it is itself

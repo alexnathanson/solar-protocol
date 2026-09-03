@@ -2,18 +2,16 @@
 
 Port forwarding for 80 -> 80 and 443 -> 443 must be enable. (8443 -> 443 must also be enabled on some residential routers to minimize troubleshooting issues).
 
-The basic approach is that certbot generates and renews the certificates on only 1 device. The key certificate and private key is then distributed to all servers on the network.
+The key certificate and private key is then distributed to all servers on the network.
+
+Note: In the past we used 1 certificate, shared by all devices. We are no longer doing that. Each device has its own certificate and it renews itself.
 
 ## 1) Installation
-This is required for all servers:<br>
 1.1) `sudo apt install python3-certbot-apache`<br>
 1.2) `sudo apt install certbot`<br>
 1.3) `a2enmod ssl`
 
 ## 2) Generate Certificate
-
-Step 2 is only required for the generating server and should NOT be done on all servers.<br>
-
 2.1) Set PoE
 
 `cd /home/pi/solar-protocol/backend/core`<br>
@@ -27,7 +25,8 @@ The next step will only work if the server you are working on is the PoE at the 
 * Enter your email address when prompted
 * Enter this domain name when prompted: `solarprotocol.net www.solarprotocol.net`
 
-## 3) Manually distribute to the servers in the network
+## Additional processes for maintenance, troubleshooting, etc. NOT NEEDED FOR INSTALLATION
+### Manually distribute to the servers in the network
 
 3.1) Retrieve files<br>
 * Copy the /etc/letsencrypt directory (this is necessary because the permissions don't let you directly scp the files we need.)
@@ -54,7 +53,7 @@ The next step will only work if the server you are working on is the PoE at the 
 * enable the sites with `sudo a2ensite 000-default-le-ssl.conf` or if that doesn't work you can create a new symlink with `sudo ln -s ../sites-available/000-default-le-ssl.conf` (this probably shouldn't be necessary for renewals, just when first installing)
 * restart apache `sudo systemctl restart apache2`
 
-## 4) Renewal
+### Manual Renewal
 Renewal can only happen within 30 days of expiration.
 
 To manually renew, run:<br>

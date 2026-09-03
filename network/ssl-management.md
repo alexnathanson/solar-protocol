@@ -1,8 +1,6 @@
 # SSL Certificates for the Solar Protocol Network
 
-Port forwarding for 80 -> 80 and 443 -> 443 must be enable. (8443 -> 443 must also be enabled on some residential routers to minimize troubleshooting issues).
-
-The key certificate and private key is then distributed to all servers on the network.
+Port forwarding for 80 -> 80 and 443 -> 443 must be enabled. (8443 -> 443 and 8080 ->80 must also be enabled on some residential routers to minimize troubleshooting issues).
 
 Note: In the past we used 1 certificate, shared by all devices. We are no longer doing that. Each device has its own certificate and it renews itself.
 
@@ -12,12 +10,12 @@ Note: In the past we used 1 certificate, shared by all devices. We are no longer
 1.3) `a2enmod ssl`
 
 ## 2) Generate Certificate
+This step will only work if the server you are working on is the PoE at the moment. Navigate to the solar-protocol/backend/core directory and run this script to force PoE (Note that this may take a minute to take effect. Also another server may 'steal' it back before step 4 is run.
+
 2.1) Set PoE
 
 `cd /home/pi/solar-protocol/backend/core`<br>
 `python utilities/updateDNS_UnitTest.py`
-
-The next step will only work if the server you are working on is the PoE at the moment. Navigate to the solar-protocol/backend/core directory and run this script to force PoE (Note that this may take a minute to take effect. Also another server may 'steal' it back before step 4 is run. An alternative method is to use a redirect, such as `rewrite ^/.well-known/acme-challenge/(.*)$ http://acme.example.com/$1 redirect;` but for the time being this isn't necessary.)
 
 2.2) Run Certbot
 

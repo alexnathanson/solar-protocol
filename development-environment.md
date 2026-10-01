@@ -27,7 +27,7 @@ You should create a virtual environment called 'env'. This will create a directo
 ### Create the virtual environment
 
 * Navigate to the solar-protocol root directory
-*  run `python3 -m venv env` note the python3 may change depending on your OS and environment paths
+* run `python3 -m venv env` note the python3 may change depending on your OS and environment paths
 
 ### Activate it
 
